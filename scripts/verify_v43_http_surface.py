@@ -10,6 +10,7 @@ def main():
     try:
         with socketserver.TCPServer(('127.0.0.1',0),Q) as srv:
             port=srv.server_address[1];th=threading.Thread(target=srv.serve_forever,daemon=True);th.start();time.sleep(.05)
+            profile=json.loads((ROOT/'data/release-profile.json').read_text(encoding='utf-8'))
             checks={
                 '/':['AI systems,','site.webmanifest','Skip to main content'],
                 '/about/':['We build systems that can be explored','og:description'],
@@ -22,7 +23,7 @@ def main():
                 '/assets/favicon.svg':['<svg','linearGradient'],
                 '/llms.txt':['Trust policy','Evidence page'],
                 '/sitemap.xml':['<lastmod>2026-08-29</lastmod>'],
-                '/robots.txt':['Sitemap: https://annapurnaagenticsolutions.github.io/annapurna-portal/sitemap.xml'],
+                '/robots.txt':['Sitemap: '+profile['canonicalBaseUrl']+'sitemap.xml'],
             }
             for route,markers in checks.items():
                 with urllib.request.urlopen(f'http://127.0.0.1:{port}{route}',timeout=3) as r:

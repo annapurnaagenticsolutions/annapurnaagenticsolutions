@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-WORLD_IDS={"ai","wonder","idea","axon","web","software"}
+WORLD_IDS={"ai","wonder","idea","axon","web","software","pramana"}
 def main()->int:
     data=json.loads((ROOT/"data/interaction-model.json").read_text())
     if data.get("schemaVersion")!=2: raise AssertionError("interaction model must be schema v2")

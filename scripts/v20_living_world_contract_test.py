@@ -24,7 +24,7 @@ def main()->int:
     if cfg['release']!='2.0': raise AssertionError('v2 living-world contract release mismatch')
     if p.sections!=3: raise AssertionError(f'Home must contain exactly three public acts, found {p.sections}')
     if p.stage_detail_inside: raise AssertionError('selected-world detail must stay outside the spatial field')
-    if len(re.findall(r'class="world-node[^"]*"',home))!=6: raise AssertionError('six spatial world controls required')
+    if len(re.findall(r'class="world-node[^"]*"',home))!=7: raise AssertionError('seven spatial world controls required')
     for banned in ['proof-strip','focus-card','activity-card','public-pulse']:
         if banned in home: raise AssertionError(f'dashboard-style Home element leaked back: {banned}')
     for marker in ['v2-stage','v2-journey','v2-route-track','route-curve','Trace its connections','Explore through']:

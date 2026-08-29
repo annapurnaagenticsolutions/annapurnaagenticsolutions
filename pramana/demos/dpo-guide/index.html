@@ -1,0 +1,1119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRAMANA (प्रमाण) · DPDP Act 2023 Executive Guide & DPO Legal Consultation</title>
+  <meta name="description" content="Master the What, Why, and How of India's Digital Personal Data Protection Act 2023 with an Interactive AI Cyber Lawyer & Virtual DPO Consultation Simulator." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f8fafc;
+      --surface3:     #f1f5f9;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #2563eb;
+      --gold-mid:     #1d4ed8;
+      --gold-dim:     #eff6ff;
+      --gold-border:  #bfdbfe;
+      --green:        #16a34a;
+      --green-bright: #15803d;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --amber:        #d97706;
+      --amber-dim:    #fef3c7;
+      --blue:         #2563eb;
+      --blue-dim:     #eff6ff;
+      --blue-border:  #bfdbfe;
+      --purple:       #6366f1;
+      --purple-dim:   #eef2ff;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Plus Jakarta Sans', 'Inter', sans-serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04);
+      --shadow:       0 4px 20px -2px rgba(15,23,42,0.06);
+      --shadow-md:    0 8px 24px -4px rgba(15,23,42,0.08);
+      --shadow-lg:    0 14px 34px -4px rgba(15,23,42,0.10);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14.5px;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 20px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-border);
+      letter-spacing: 0.08em;
+    }
+
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .nav-btn {
+      color: var(--gold-mid);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--gold-border);
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: var(--gold-dim);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #fde68a;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 50%, #f0fdf4 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 36px 32px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--gold-mid);
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+
+    .hero h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3.2vw, 34px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.3;
+    }
+
+    .hero h2 .highlight { color: var(--gold-mid); }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 780px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* ── WHAT, WHY & HOW CARDS ── */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .card:hover {
+      border-color: var(--gold-mid);
+      box-shadow: var(--shadow);
+      transform: translateY(-2px);
+    }
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-icon {
+      font-size: 24px;
+      padding: 10px;
+      border-radius: 10px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      font-family: var(--serif);
+    }
+
+    .card p {
+      font-size: 13.5px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+    }
+
+    .tag-badge {
+      font-size: 11px;
+      font-family: var(--mono);
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--surface2);
+      border: 1px solid var(--border2);
+      color: var(--gold-mid);
+    }
+
+    /* ── LIVE INTERACTIVE CONSULTATION THEATER ── */
+    .consultation-theater {
+      background: var(--surface);
+      border: 2px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .theater-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 16px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .theater-title h3 {
+      font-size: 18px;
+      font-weight: 800;
+      font-family: var(--serif);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .theater-title p {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .lawyer-badge {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      background: var(--green-dim);
+      border: 1px solid var(--green-border);
+      font-family: var(--mono);
+      font-size: 11.5px;
+      color: var(--green);
+      font-weight: 700;
+    }
+
+    .lawyer-badge .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green-bright);
+      box-shadow: 0 0 8px var(--green-bright);
+    }
+
+    /* ── LIVE BUSINESS RISK SIMULATOR SLIDERS ── */
+    .sim-controls-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      background: var(--surface2);
+      padding: 18px;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--border);
+    }
+
+    .ctrl-box {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .ctrl-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--text-dim);
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--mono);
+    }
+
+    .toggle-btn-group {
+      display: flex;
+      gap: 4px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2px;
+    }
+
+    .t-btn {
+      flex: 1;
+      padding: 6px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      font-family: var(--mono);
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.2s;
+    }
+
+    .t-btn.active {
+      background: var(--gold-mid);
+      color: #ffffff;
+    }
+    .t-btn.active.red {
+      background: var(--red);
+      color: #ffffff;
+    }
+
+    /* ── LIVE RISK METER & PENALTY DIAL ── */
+    .risk-meter-bar {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 14px;
+      background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+      color: white;
+      padding: 18px 24px;
+      border-radius: var(--radius-lg);
+      align-items: center;
+      font-family: var(--mono);
+    }
+
+    .meter-val {
+      font-size: 26px;
+      font-weight: 800;
+      line-height: 1;
+      margin-top: 4px;
+    }
+
+    .meter-val.green { color: var(--green-border); }
+    .meter-val.red { color: #fca5a5; }
+    .meter-val.gold { color: var(--gold-border); }
+
+    /* ── DUAL AVATAR CONSULTATION STAGE ── */
+    .dialog-stage {
+      background: var(--surface2);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 280px;
+      font-family: var(--mono);
+    }
+
+    .bubble {
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      max-width: 88%;
+      font-size: 13px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .bubble.client {
+      align-self: flex-start;
+      background: var(--blue-dim);
+      border: 1.5px solid var(--blue-border);
+      color: #0369a1;
+    }
+
+    .bubble.lawyer {
+      align-self: flex-end;
+      background: #ffffff;
+      border: 1.5px solid var(--gold-mid);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    .bubble-meta {
+      font-size: 10.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding-bottom: 4px;
+    }
+
+    .lawyer-breakdown {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 8px;
+      font-size: 12px;
+    }
+
+    .breakdown-box {
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+    }
+
+    .breakdown-box strong {
+      color: var(--gold-mid);
+      font-size: 11px;
+      text-transform: uppercase;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .breakdown-box.red {
+      background: var(--red-dim);
+      border-color: var(--red-border);
+    }
+    .breakdown-box.red strong { color: var(--red); }
+
+    .breakdown-box.green {
+      background: var(--green-dim);
+      border-color: var(--green-border);
+    }
+    .breakdown-box.green strong { color: var(--green); }
+
+    /* Preset Question Buttons */
+    .preset-questions {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 8px;
+    }
+
+    .q-btn {
+      padding: 10px 14px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--border);
+      background: var(--surface);
+      color: var(--text-dim);
+      font-size: 12.5px;
+      font-weight: 600;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .q-btn:hover {
+      border-color: var(--gold-mid);
+      color: var(--text);
+      background: var(--gold-dim);
+    }
+
+    .q-btn.active {
+      border-color: var(--gold-mid);
+      background: var(--gold-dim);
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    /* Custom Query Box */
+    .custom-query-box {
+      display: flex;
+      gap: 8px;
+    }
+
+    .custom-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 13.5px;
+    }
+
+    .custom-input:focus {
+      outline: none;
+      border-color: var(--gold-mid);
+    }
+
+    .btn-ask {
+      padding: 12px 24px;
+      border-radius: var(--radius);
+      border: none;
+      background: var(--gold-mid);
+      color: #ffffff;
+      font-weight: 800;
+      font-family: var(--mono);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-ask:hover {
+      background: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .btn-download {
+      padding: 12px 20px;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--green);
+      background: var(--green-dim);
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      align-self: flex-end;
+      transition: all 0.2s;
+    }
+
+    .btn-download:hover {
+      background: #86efac;
+      color: #0f172a;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+<!-- Annapurna Unified Frosted Navigation Bar -->
+<header class="annapurna-site-header" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e2e8f0;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99999;font-family:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 4px 20px -2px rgba(15,23,42,0.04);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="../../../" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;font-weight:800;font-size:14px;">
+      <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#38bdf8,#6366f1);box-shadow:0 0 10px rgba(56,189,248,0.4);"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <a href="../../" style="color:#64748b;text-decoration:none;font-weight:600;font-size:13px;">Pramana (प्रमाण)</a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <span style="color:#2563eb;font-weight:700;font-size:13px;">DPDP Act Executive Guide</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s ease;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      <span>📥</span> Print / Save PDF
+    </button>
+    <a href="../../demos/" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      All Showcases
+    </a>
+    <a href="../../../contact/" style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#ffffff;padding:7px 16px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.25);">
+      Request Demo →
+    </a>
+  </div>
+</header>
+
+
+
+
+
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand-left">
+        <div class="logo-badge">प्रमाण · PRAMANA</div>
+        <div class="brand-title">
+          <h1>DPDP ACT 2023 ADVISORY MATRIX <span>🇮🇳</span></h1>
+          <p>The "What, Why & How" & Interactive DPO Legal Consultation Simulator</p>
+        </div>
+      </div>
+      <div>
+        <a href="dpdp_citadel_simulation.html" class="nav-btn">
+          ⚡ Open Live Simulation Arena ➔
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">Executive Guide & Simulated Legal Counsel</div>
+      <h2>The <span class="highlight">What, Why & How</span> of India's DPDP Law</h2>
+      <p>
+        India's Digital Personal Data Protection Act 2023 mandates statutory penalties <strong>up to ₹250 Crore</strong> for data security breaches and <strong>up to ₹200 Crore</strong> for minor tracking violations. Explore statutory definitions, adjust your business variables, and simulate live legal counsel with a Virtual Chief DPO.
+      </p>
+    </section>
+
+    <!-- WHAT, WHY, HOW CARDS -->
+    <div class="grid-3">
+      <!-- WHAT -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">📜</div>
+          <div>
+            <h3>WHAT is the DPDP Act?</h3>
+            <div style="font-size: 11px; color: var(--gold-mid); font-family: var(--mono);">Statutory Framework</div>
+          </div>
+        </div>
+        <p>
+          Passed by Parliament in August 2023, the Act creates rights for <strong>Data Principals (citizens)</strong> and legally binding duties for <strong>Data Fiduciaries (enterprises, clinics, schools, fintechs)</strong> processing digital personal data.
+        </p>
+        <div class="card-tags">
+          <span class="tag-badge">Data Principal</span>
+          <span class="tag-badge">Data Fiduciary</span>
+          <span class="tag-badge">Consent Manager</span>
+          <span class="tag-badge">DPBI Board</span>
+        </div>
+      </div>
+
+      <!-- WHY -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">⚠️</div>
+          <div>
+            <h3>WHY is Compliance Urgent?</h3>
+            <div style="font-size: 11px; color: var(--red); font-family: var(--mono);">Statutory Penalty Matrix</div>
+          </div>
+        </div>
+        <p>
+          Section 33 mandates statutory penalties <strong>up to ₹250 Crore per incident</strong> for security failures and <strong>up to ₹200 Crore</strong> for minor tracking breaches. Personal director liability and operating license risks apply.
+        </p>
+        <div class="card-tags">
+          <span class="tag-badge" style="color: var(--red);">Up to ₹250 Cr (Sec 8)</span>
+          <span class="tag-badge" style="color: var(--red);">Up to ₹200 Cr (Sec 9)</span>
+          <span class="tag-badge" style="color: var(--red);">Up to ₹200 Cr (Sec 8.6)</span>
+        </div>
+      </div>
+
+      <!-- HOW -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-icon">⚡</div>
+          <div>
+            <h3>HOW Pramana Solves It?</h3>
+            <div style="font-size: 11px; color: var(--green); font-family: var(--mono);">Autonomous AI Swarm</div>
+          </div>
+        </div>
+        <p>
+          Pramana acts as an autonomous compliance proxy. It inspects network traffic via eBPF probes, verifies multilingual consent in 22 Schedule VIII languages, tokenizes PII, and signs cryptographic audit proofs.
+        </p>
+        <div class="card-tags">
+          <span class="tag-badge" style="color: var(--green);">eBPF Probes</span>
+          <span class="tag-badge" style="color: var(--green);">22 Languages</span>
+          <span class="tag-badge" style="color: var(--green);">SHA-256 Tokens</span>
+          <span class="tag-badge" style="color: var(--green);">Ed25519 Certs</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- INTERACTIVE CONSULTATION THEATER -->
+    <div class="consultation-theater">
+      <div class="theater-header">
+        <div class="theater-title">
+          <h3><span>⚖️</span> <span>Interactive Client ⟷ DPO Lawyer Consultation Simulator</span></h3>
+          <p>Adjust your business risk variables or select real-world scenario questions below to receive instant statutory legal counsel.</p>
+        </div>
+        <div class="lawyer-badge">
+          <span class="dot"></span>
+          <span>Advocate & Virtual DPO Aegis Presiding</span>
+        </div>
+      </div>
+
+      <!-- LIVE BUSINESS RISK SIMULATOR SLIDERS -->
+      <div class="sim-controls-grid">
+        <div class="ctrl-box">
+          <div class="ctrl-label">
+            <span>Doctor WhatsApp Sharing?</span>
+            <span id="lbl-whatsapp" style="color: var(--red);">YES (RISK ⚠️)</span>
+          </div>
+          <div class="toggle-btn-group">
+            <button class="t-btn active red" onclick="setToggle('whatsapp', true)">YES (Unencrypted)</button>
+            <button class="t-btn" onclick="setToggle('whatsapp', false)">NO (Encrypted DPA)</button>
+          </div>
+        </div>
+
+        <div class="ctrl-box">
+          <div class="ctrl-label">
+            <span>Processing Children Data (&lt;18)?</span>
+            <span id="lbl-minors" style="color: var(--red);">YES (SEC 9 🚨)</span>
+          </div>
+          <div class="toggle-btn-group">
+            <button class="t-btn active red" onclick="setToggle('minors', true)">YES (Students/Minors)</button>
+            <button class="t-btn" onclick="setToggle('minors', false)">NO (Adults Only)</button>
+          </div>
+        </div>
+
+        <div class="ctrl-box">
+          <div class="ctrl-label">
+            <span>72h Right-to-Erasure Automated?</span>
+            <span id="lbl-erasure" style="color: var(--gold-mid);">MANUAL (DELAY RISK)</span>
+          </div>
+          <div class="toggle-btn-group">
+            <button class="t-btn" onclick="setToggle('erasure', true)">YES (Automated Shards)</button>
+            <button class="t-btn active" onclick="setToggle('erasure', false)">MANUAL (Email/Ticketing)</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIVE RISK METER & PENALTY DIAL -->
+      <div class="risk-meter-bar">
+        <div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8;">Statutory Risk Meter</div>
+          <div class="meter-val red" id="risk-score">88% CRITICAL</div>
+          <div style="font-size: 10px; color: #cbd5e1;">Statutory Safeguards Incomplete</div>
+        </div>
+
+        <div style="border-left: 1px solid rgba(255,255,255,0.1); border-right: 1px solid rgba(255,255,255,0.1); padding: 0 16px;">
+          <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8;">Maximum Penalty Liability</div>
+          <div class="meter-val gold" id="risk-penalty">Up to ₹250 Cr</div>
+          <div style="font-size: 10px; color: #cbd5e1;">Section 33 Statutory Range</div>
+        </div>
+
+        <div>
+          <div style="font-size: 11px; text-transform: uppercase; color: #94a3b8;">DPO Legal Stance</div>
+          <div class="meter-val green" style="font-size: 16px; margin-top: 8px;">IMMEDIATE REMEDIATION</div>
+          <div style="font-size: 10px; color: #cbd5e1;">DPBI Board Audit Deficit</div>
+        </div>
+      </div>
+
+      <!-- Preset Question Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 8px;">
+        <div style="font-size: 11.5px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+          Select a Real-World Scenario Question:
+        </div>
+        <div class="preset-questions">
+          <button class="q-btn active" onclick="loadQuestion('q_applicability')">
+            <span>🏢</span>
+            <span>Does DPDP apply to our 15-person clinic/startup?</span>
+          </button>
+          <button class="q-btn" onclick="loadQuestion('q_whatsapp')">
+            <span>💬</span>
+            <span>Can doctors share lab reports on WhatsApp groups?</span>
+          </button>
+          <button class="q-btn" onclick="loadQuestion('q_minors')">
+            <span>🎒</span>
+            <span>What are the strict rules for student/minor data?</span>
+          </button>
+          <button class="q-btn" onclick="loadQuestion('q_erasure')">
+            <span>⏳</span>
+            <span>How must we fulfill the 72-hour Right to Erasure?</span>
+          </button>
+          <button class="q-btn" onclick="loadQuestion('q_aadhaar')">
+            <span>💳</span>
+            <span>Are unmasked Aadhaar numbers in DB a violation?</span>
+          </button>
+          <button class="q-btn" onclick="loadQuestion('q_crossborder')">
+            <span>☁️</span>
+            <span>Can we use AWS / GCP servers in US/EU regions?</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dialog Stage -->
+      <div class="dialog-stage" id="dialog-stage">
+        <!-- Injected via JavaScript -->
+      </div>
+
+      <!-- Custom Write-In Box -->
+      <div class="custom-query-box">
+        <input type="text" id="custom-query" class="custom-input" placeholder="Type your custom DPDP compliance question (e.g., 'Do we need a full-time DPO?')..." onkeydown="if(event.key==='Enter') askCustom()" />
+        <button class="btn-ask" onclick="askCustom()">⚡ ASK DPO COUNSEL</button>
+      </div>
+
+      <button class="btn-download" onclick="downloadLegalBrief()">
+        <span>📥</span>
+        <span>Download Executive Legal Advisory Brief (PDF/Text)</span>
+      </button>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2026 Pramana (प्रमाण) · Annapurna Agentic Governance Suite. All Rights Reserved.</div>
+      <div>100% Client-Side Simulation · Legal Advisory Matrix for DPDP Act 2023</div>
+    </footer>
+  </div>
+
+  <!-- SCRIPT -->
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playSound() {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(659.25, audioCtx.currentTime); // E5
+        osc.frequency.exponentialRampToValueAtTime(880, audioCtx.currentTime + 0.15); // A5
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.2);
+      } catch (e) {}
+    }
+
+    let simState = {
+      whatsapp: true,
+      minors: true,
+      erasure: false,
+    };
+
+    function setToggle(key, val) {
+      simState[key] = val;
+      const target = event.currentTarget;
+      const group = target.parentElement;
+      group.querySelectorAll('.t-btn').forEach(b => b.classList.remove('active', 'red'));
+      target.classList.add('active');
+      if (val === true && (key === 'whatsapp' || key === 'minors')) {
+        target.classList.add('red');
+      }
+
+      updateRiskMeters();
+      playSound();
+    }
+
+    function updateRiskMeters() {
+      let risk = 20;
+      let penalty = 'Up to ₹50 Cr';
+
+      if (simState.whatsapp) {
+        risk += 35;
+        penalty = 'Up to ₹250 Cr';
+        document.getElementById('lbl-whatsapp').innerText = 'YES (RISK ⚠️)';
+        document.getElementById('lbl-whatsapp').style.color = '#dc2626';
+      } else {
+        document.getElementById('lbl-whatsapp').innerText = 'NO (SAFE ✅)';
+        document.getElementById('lbl-whatsapp').style.color = '#16a34a';
+      }
+
+      if (simState.minors) {
+        risk += 35;
+        penalty = 'Up to ₹250 Cr';
+        document.getElementById('lbl-minors').innerText = 'YES (SEC 9 🚨)';
+        document.getElementById('lbl-minors').style.color = '#dc2626';
+      } else {
+        document.getElementById('lbl-minors').innerText = 'NO (ADULTS)';
+        document.getElementById('lbl-minors').style.color = '#16a34a';
+      }
+
+      if (!simState.erasure) {
+        risk += 10;
+        document.getElementById('lbl-erasure').innerText = 'MANUAL (DELAY RISK)';
+        document.getElementById('lbl-erasure').style.color = '#b45309';
+      } else {
+        document.getElementById('lbl-erasure').innerText = 'AUTOMATED (SAFE ✅)';
+        document.getElementById('lbl-erasure').style.color = '#16a34a';
+      }
+
+      risk = Math.min(100, risk);
+      const scoreEl = document.getElementById('risk-score');
+      scoreEl.innerText = `${risk}% ${risk >= 70 ? 'CRITICAL' : risk >= 40 ? 'MODERATE' : 'LOW'}`;
+      scoreEl.className = `meter-val ${risk >= 70 ? 'red' : risk >= 40 ? 'gold' : 'green'}`;
+      document.getElementById('risk-penalty').innerText = penalty;
+    }
+
+    const CONSULTATION_DATA = {
+      q_applicability: {
+        clientRole: 'Startup Founder / Clinic Director',
+        clientText: 'Does the DPDP Act 2023 apply to my 15-person diagnostic clinic / startup, or is it only for big tech giants like Google and Reliance?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 3 & Section 2(i) of DPDP Act 2023',
+        plainEnglish: 'Yes, absolutely. The DPDP Act does NOT contain a minimum employee or revenue exemption. Any entity in India that collects, records, stores, or processes digital personal data of Indian citizens is legally classified as a "Data Fiduciary" and is bound by all notice, consent, and security obligations.',
+        technicalRemediation: 'Pramana auto-provisions an automated compliance proxy for small clinics and SMBs, handling itemized notices, consent receipts, and masking with zero headcount overhead.',
+        penaltyExposure: 'Up to ₹250 Crore under Section 8(5) if personal data is breached, regardless of company size.',
+      },
+      q_whatsapp: {
+        clientRole: 'Hospital Chief Medical Officer (CMO)',
+        clientText: 'Our doctors routinely share patient blood test reports, X-rays, and prescriptions on internal WhatsApp groups to get quick second opinions. Is this allowed under DPDP?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 8(5) (Security Safeguards) & Section 6 (Purpose Limitation)',
+        plainEnglish: 'Strictly NON-COMPLIANT unless specific safeguards are met. Sharing unencrypted patient health records on commercial consumer messaging apps violates Section 8 reasonable security safeguards, and lacks itemized consent for third-party cloud synchronization.',
+        technicalRemediation: 'Deploy Pramana eBPF Proxy to dynamically redact and tokenize patient names and 12-digit Aadhaar numbers before any medical diagnostic data leaves hospital premises.',
+        penaltyExposure: 'Up to ₹250 Crore for failure to implement reasonable security safeguards leading to sensitive health data exposure.',
+      },
+      q_minors: {
+        clientRole: 'School Principal & EdTech CTO',
+        clientText: 'We run a digital learning app for K-12 students. What are the specific statutory restrictions regarding children under 18 years of age?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 9 of DPDP Act 2023 (Processing of Personal Data of Children)',
+        plainEnglish: 'The law imposes three absolute statutory rules: (1) Mandatory verifiable consent of the parent/guardian before collecting minor data; (2) Strict prohibition on tracking or behavioral monitoring of children; (3) Absolute ban on targeted advertising directed at children.',
+        technicalRemediation: 'Pramana auto-integrates parental OTP/DigiLocker verification gates and hard-blocks all analytical/advertising tracking SDKs on minor user sessions.',
+        penaltyExposure: 'Up to ₹200 Crore statutory fine under the Schedule of Section 33 for breach of children\'s data obligations.',
+      },
+      q_erasure: {
+        clientRole: 'Fintech VP of Engineering',
+        clientText: 'Under Section 11, a citizen requested complete deletion of their account data. How do we fulfill the 72-hour Right to Erasure across distributed databases and S3 backups?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 11(3) & Section 8(7) (Erasure & Storage Limitation)',
+        plainEnglish: 'Upon citizen consent withdrawal or deletion request, the Data Fiduciary must delete all personal data unless retention is mandatory under another Indian law (e.g. RBI/PMLA 5-year KYC retention). For all other non-statutory data, erasure must be completed across all live tables and cache shards.',
+        technicalRemediation: 'Pramana Tokenization & Purge Engine orchestrates automated multi-shard database pruning, purges session keys, and generates an immutable Cryptographic Erasure Certificate.',
+        penaltyExposure: 'Up to ₹50 Crore for failing to respect Data Principal statutory rights.',
+      },
+      q_aadhaar: {
+        clientRole: 'NBFC Chief Risk Officer',
+        clientText: 'Our loan approval database currently stores unmasked 12-digit Aadhaar numbers and PAN cards in plaintext SQL tables. Is this a violation?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 8(5) of DPDP Act 2023 & UIDAI Aadhaar Act Regulations',
+        plainEnglish: 'Severe double violation. Under UIDAI regulations and DPDP Section 8, storing unmasked 12-digit Aadhaar numbers in plaintext databases is strictly prohibited. Only the last 4 digits (XXXX-XXXX-1234) may be displayed, and full numbers must be replaced with vaulted tokens.',
+        technicalRemediation: 'Pramana Ingress Scanner catches unmasked Aadhaar numbers at entry and the Tokenizer converts them into salted SHA-256 hashes.',
+        penaltyExposure: 'Up to ₹250 Crore DPDP maximum penalty plus criminal prosecution under Aadhaar Act Section 29.',
+      },
+      q_crossborder: {
+        clientRole: 'Cloud Enterprise Architect',
+        clientText: 'Can our company host customer data on AWS us-east-1 (N. Virginia) or GCP Frankfurt regions, or does all data have to stay inside India?',
+        lawyerTitle: 'Advocate & Virtual DPO Aegis',
+        statute: 'Section 16 of DPDP Act 2023 (Transfer of Personal Data Outside India)',
+        plainEnglish: 'Under the "Blacklist Approach" of Section 16, cross-border data transfer is generally permitted to any foreign country UNLESS that country is specifically placed on the Central Government negative blacklist. However, sectoral regulators (e.g. RBI payment data localization) still apply.',
+        technicalRemediation: 'Pramana Contract Verification Engine verifies that your cloud hosting provider has signed statutory Data Processing Agreements (DPA) incorporating DPDP standard contractual clauses.',
+        penaltyExposure: 'Up to ₹50 Crore for transferring personal data in violation of statutory terms.',
+      }
+    };
+
+    let currentQ = 'q_applicability';
+
+    function loadQuestion(qKey) {
+      currentQ = qKey;
+      document.querySelectorAll('.q-btn').forEach(b => b.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      renderDialog();
+      playSound();
+    }
+
+    function renderDialog() {
+      const stage = document.getElementById('dialog-stage');
+      const data = CONSULTATION_DATA[currentQ];
+
+      stage.innerHTML = `
+        <!-- Client Query Bubble -->
+        <div class="bubble client">
+          <div class="bubble-meta">
+            <span>👤 ${data.clientRole} (Client Inquiry)</span>
+            <span>DPDP INQUIRY</span>
+          </div>
+          <div>"${data.clientText}"</div>
+        </div>
+
+        <!-- Lawyer Counsel Bubble -->
+        <div class="bubble lawyer">
+          <div class="bubble-meta">
+            <span style="color: var(--gold-mid); font-weight: 800;">⚖️ ${data.lawyerTitle} (Statutory Advisory)</span>
+            <span style="color: var(--green); font-weight: 800;">● LEGAL OPINION</span>
+          </div>
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--text); margin-bottom: 2px;">
+            Statutory Finding: ${data.statute}
+          </div>
+          
+          <div class="lawyer-breakdown">
+            <div class="breakdown-box">
+              <strong>💡 Plain English Legal Interpretation</strong>
+              <div style="color: var(--text-dim);">${data.plainEnglish}</div>
+            </div>
+
+            <div class="breakdown-box green">
+              <strong>⚙️ Practical Technical Remediation (Pramana Swarm)</strong>
+              <div style="color: var(--green);">${data.technicalRemediation}</div>
+            </div>
+
+            <div class="breakdown-box red">
+              <strong>⚠️ Statutory Penalty & Liability Exposure</strong>
+              <div style="color: var(--red); font-weight: 800;">${data.penaltyExposure}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function askCustom() {
+      const input = document.getElementById('custom-query');
+      const qText = input.value.trim();
+      if (!qText) return;
+
+      playSound();
+      const stage = document.getElementById('dialog-stage');
+
+      stage.innerHTML = `
+        <!-- Client Query Bubble -->
+        <div class="bubble client">
+          <div class="bubble-meta">
+            <span>👤 Enterprise Executive (Custom Query)</span>
+            <span>DPDP AD-HOC INQUIRY</span>
+          </div>
+          <div>"${qText}"</div>
+        </div>
+
+        <!-- Lawyer Counsel Bubble -->
+        <div class="bubble lawyer">
+          <div class="bubble-meta">
+            <span style="color: var(--gold-mid); font-weight: 800;">⚖️ Advocate & Virtual DPO Aegis (Statutory Advisory)</span>
+            <span style="color: var(--green); font-weight: 800;">● CUSTOM LEGAL OPINION</span>
+          </div>
+          <div style="font-size: 13.5px; font-weight: 800; color: var(--text); margin-bottom: 2px;">
+            Statutory Assessment under DPDP Act 2023
+          </div>
+          
+          <div class="lawyer-breakdown">
+            <div class="breakdown-box">
+              <strong>💡 Legal Analysis & Regulatory Context</strong>
+              <div style="color: var(--text-dim);">In accordance with the Digital Personal Data Protection Act 2023, every processing activity involving digital personal data must be anchored to either valid unbundled consent (Section 6) or statutory legitimate uses (Section 7). Reasonable security safeguards must be maintained under Section 8.</div>
+            </div>
+
+            <div class="breakdown-box green">
+              <strong>⚙️ Recommended Compliance Protocol</strong>
+              <div style="color: var(--green);">1. Conduct an automated PII & Aadhaar inventory across all database endpoints.<br/>2. Issue Schedule VIII multilingual consent notices in the user's native Indian language.<br/>3. Execute automated tokenization at the network ingress level.</div>
+            </div>
+
+            <div class="breakdown-box red">
+              <strong>⚠️ Potential Penalty Exposure</strong>
+              <div style="color: var(--red); font-weight: 800;">Up to ₹250 Crore under Section 8(5) for failure to implement reasonable security safeguards.</div>
+            </div>
+          </div>
+        </div>
+      `;
+
+      input.value = '';
+    }
+
+    function downloadLegalBrief() {
+      const data = CONSULTATION_DATA[currentQ];
+      const text = `=====================================================
+PRAMANA (प्रमाण) · DPDP ACT 2023 EXECUTIVE LEGAL BRIEF
+=====================================================
+Advisory Counsel: Advocate & Virtual DPO Aegis
+Adjudication Body: Data Protection Board of India (DPBI)
+Timestamp: ${new Date().toISOString()}
+
+1. CLIENT INQUIRY (${data.clientRole}):
+"${data.clientText}"
+
+2. STATUTORY CITATION:
+${data.statute}
+
+3. EXECUTIVE LEGAL INTERPRETATION:
+${data.plainEnglish}
+
+4. TECHNICAL REMEDIATION STEPS:
+${data.technicalRemediation}
+
+5. STATUTORY PENALTY EXPOSURE:
+${data.penaltyExposure}
+
+Generated by Pramana Autonomous AI Governance Suite.
+100% Client-Side Verified · No Data Left Your Device.
+=====================================================`;
+
+      const blob = new Blob([text], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `DPDP_Legal_Brief_${currentQ}_${Date.now()}.txt`;
+      a.click();
+    }
+
+    // Initialize default dialog
+    renderDialog();
+  </script>
+</body>
+</html>

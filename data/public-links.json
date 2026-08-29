@@ -15,7 +15,7 @@
       "pagesUrl": "https://annapurnaagenticsolutions.com/",
       "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions",
       "sourceStatus": "verified_public",
-      "pagesStatus": "live"
+      "pagesStatus": "post_publish_http_gate_required"
     },
     {
       "id": "ai",

@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRAMANA (प्रमाण) · Real-Time Ingress & Tokenization Simulator</title>
+  <meta name="description" content="Interactive real-time scenario simulation for India's DPDP Act 2023. Watch live eBPF interception, 22-language consent validation, dynamic character-by-character tokenization, and cryptographic audit proofs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f8fafc;
+      --surface3:     #f1f5f9;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #2563eb;
+      --gold-mid:     #1d4ed8;
+      --gold-dim:     #eff6ff;
+      --gold-border:  #bfdbfe;
+      --green:        #16a34a;
+      --green-bright: #15803d;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --amber:        #d97706;
+      --amber-dim:    #fef3c7;
+      --blue:         #2563eb;
+      --blue-dim:     #eff6ff;
+      --blue-border:  #bfdbfe;
+      --purple:       #6366f1;
+      --purple-dim:   #eef2ff;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Plus Jakarta Sans', 'Inter', sans-serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04);
+      --shadow:       0 4px 20px -2px rgba(15,23,42,0.06);
+      --shadow-md:    0 8px 24px -4px rgba(15,23,42,0.08);
+      --shadow-lg:    0 14px 34px -4px rgba(15,23,42,0.10);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14.5px;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1180px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-border);
+      letter-spacing: 0.08em;
+    }
+
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .nav-btn {
+      color: var(--gold-mid);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--gold-border);
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: var(--gold-dim);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #fde68a;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, #f0fdf4 0%, #fffbeb 50%, #eff6ff 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--blue);
+      background: var(--blue-dim);
+      border: 1px solid var(--blue-border);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+
+    .hero h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    /* ── REAL-TIME SCENARIO SELECTOR ── */
+    .scenario-select-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+    }
+
+    .scen-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .scen-card:hover {
+      border-color: var(--gold-mid);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .scen-card.active {
+      border-color: var(--gold-mid);
+      background: var(--gold-dim);
+      box-shadow: 0 0 16px var(--gold-dim);
+    }
+
+    .scen-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 800;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    .scen-desc {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    /* ── LIVE INTERACTIVE SCENARIO SIMULATOR SANDBOX ── */
+    .sandbox-card {
+      background: var(--surface);
+      border: 2px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .sandbox-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .sandbox-title h3 {
+      font-size: 17px;
+      font-weight: 800;
+      font-family: var(--serif);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Conveyor Visual Track */
+    .conveyor-track {
+      background: var(--surface2);
+      border: 1.5px dashed var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .track-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 2;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .node-circle {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: all 0.3s;
+    }
+
+    .node-circle.active {
+      border-color: var(--green);
+      background: var(--green-dim);
+      box-shadow: 0 0 18px var(--green-border);
+      transform: scale(1.15);
+    }
+
+    /* Live Payload Inspector Split */
+    .payload-split-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .payload-box {
+      background: var(--surface2);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .payload-box-header {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border2);
+      padding-bottom: 6px;
+    }
+
+    .json-code {
+      line-height: 1.6;
+      color: var(--text-dim);
+    }
+
+    /* Live Simulation Control Buttons */
+    .sim-ctrl-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-run-realtime {
+      padding: 14px 28px;
+      border-radius: var(--radius-lg);
+      border: none;
+      background: var(--gold-mid);
+      color: #ffffff;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-run-realtime:hover {
+      background: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    .btn-step {
+      padding: 12px 20px;
+      border-radius: var(--radius-lg);
+      border: 1.5px solid var(--border2);
+      background: var(--surface);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .btn-step:hover {
+      border-color: var(--gold-mid);
+      color: var(--text);
+    }
+
+    /* Live Log Feed */
+    .live-sim-log {
+      background: var(--surface);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 14px 18px;
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--text-dim);
+      line-height: 1.6;
+      max-height: 140px;
+      overflow-y: auto;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+<!-- Annapurna Unified Frosted Navigation Bar -->
+<header class="annapurna-site-header" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e2e8f0;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99999;font-family:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 4px 20px -2px rgba(15,23,42,0.04);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="../../../" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;font-weight:800;font-size:14px;">
+      <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#38bdf8,#6366f1);box-shadow:0 0 10px rgba(56,189,248,0.4);"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <a href="../../" style="color:#64748b;text-decoration:none;font-weight:600;font-size:13px;">Pramana (प्रमाण)</a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <span style="color:#2563eb;font-weight:700;font-size:13px;">Real-Time Ingress & Tokenizer</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s ease;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      <span>📥</span> Print / Save PDF
+    </button>
+    <a href="../../demos/" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      All Showcases
+    </a>
+    <a href="../../../contact/" style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#ffffff;padding:7px 16px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.25);">
+      Request Demo →
+    </a>
+  </div>
+</header>
+
+
+
+
+
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand-left">
+        <div class="logo-badge">प्रमाण · PRAMANA</div>
+        <div class="brand-title">
+          <h1>PRAMANA REAL-TIME SCENARIO SANDBOX <span>🇮🇳</span></h1>
+          <p>eBPF Ingress Interception, Multilingual Vault & Cryptographic Proof Ledger</p>
+        </div>
+      </div>
+      <div>
+        <a href="../office-simulation/" class="nav-btn">
+          ⚡ Open Live Simulation Arena ➔
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">Zero-Touch Network-Level Compliance Pipeline</div>
+      <h2>Real-Time <span style="color: var(--gold-mid);">DPDP Compliance Scenario</span> Simulator</h2>
+      <p>
+        Experience how Pramana intercepts live payloads, validates citizen consent in 22 Schedule VIII languages, actively scrambles sensitive PII into irreversible SHA-256 tokens, and mints signed audit receipts for the DPBI Board.
+      </p>
+    </section>
+
+    <!-- REAL-TIME SCENARIO SELECTOR -->
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+      Select an Actual Business Scenario to Simulate:
+    </div>
+    <div class="scenario-select-grid">
+      <div class="scen-card active" onclick="setScenario('ehr')">
+        <div class="scen-header">
+          <span>🏥</span>
+          <span>1. Hospital Patient EHR & Lab Intake</span>
+        </div>
+        <div class="scen-desc">Aadhaar KYC + WhatsApp Prescription Shielding</div>
+      </div>
+
+      <div class="scen-card" onclick="setScenario('minor')">
+        <div class="scen-header">
+          <span>🎒</span>
+          <span>2. Minor Student EdTech Registration</span>
+        </div>
+        <div class="scen-desc">Section 9 Parental Consent + Ad-Tracking Block</div>
+      </div>
+
+      <div class="scen-card" onclick="setScenario('kyc')">
+        <div class="scen-header">
+          <span>💳</span>
+          <span>3. Fintech NBFC Instant Loan KYC</span>
+        </div>
+        <div class="scen-desc">PAN Card Tokenization + Credit Bureau DPA</div>
+      </div>
+
+      <div class="scen-card" onclick="setScenario('erasure')">
+        <div class="scen-header">
+          <span>⏳</span>
+          <span>4. Citizen 72-Hour Erasure Request</span>
+        </div>
+        <div class="scen-desc">Section 11 Multi-Shard DB & Redis Key Scrubbing</div>
+      </div>
+    </div>
+
+    <!-- LIVE INTERACTIVE SCENARIO SIMULATOR SANDBOX -->
+    <div class="sandbox-card">
+      <div class="sandbox-header">
+        <div class="sandbox-title">
+          <h3><span>⚡</span> <span id="active-scen-title">Live Ingress Pipeline: Hospital Patient EHR & Lab Intake</span></h3>
+          <p>Watch live data packets move through the 4-stage pipeline with real-time character tokenization.</p>
+        </div>
+      </div>
+
+      <!-- Conveyor Visual Track -->
+      <div class="conveyor-track">
+        <div class="track-node">
+          <div class="node-circle" id="node-1">🔍</div>
+          <span>1. eBPF Port 443</span>
+        </div>
+        <div style="flex: 1; height: 2px; background: var(--border2); margin: 0 10px;"></div>
+        <div class="track-node">
+          <div class="node-circle" id="node-2">🌐</div>
+          <span>2. Consent Vault</span>
+        </div>
+        <div style="flex: 1; height: 2px; background: var(--border2); margin: 0 10px;"></div>
+        <div class="track-node">
+          <div class="node-circle" id="node-3">⚡</div>
+          <span>3. SHA Tokenizer</span>
+        </div>
+        <div style="flex: 1; height: 2px; background: var(--border2); margin: 0 10px;"></div>
+        <div class="track-node">
+          <div class="node-circle" id="node-4">📜</div>
+          <span>4. DPBI Ledger</span>
+        </div>
+      </div>
+
+      <!-- Control Bar -->
+      <div class="sim-ctrl-bar">
+        <button class="btn-run-realtime" onclick="runLiveScenario()">
+          <span>▶</span>
+          <span>RUN LIVE REAL-TIME SCENARIO</span>
+        </button>
+        <button class="btn-step" onclick="stepScenario()">
+          <span>⏭️ Step-by-Step Next</span>
+        </button>
+        <div style="font-family: var(--mono); font-size: 12px; color: var(--gold-mid); font-weight: 700;" id="sim-status-badge">
+          STATUS: READY TO SIMULATE
+        </div>
+      </div>
+
+      <!-- Live Payload Inspector Split -->
+      <div class="payload-split-grid">
+        <!-- Raw Ingress -->
+        <div class="payload-box">
+          <div class="payload-box-header">
+            <span style="color: var(--red);">RAW INGRESS PACKET (PORT 443)</span>
+            <span style="color: var(--text-muted);">UNMASKED PLAINTEXT</span>
+          </div>
+          <div class="json-code" id="raw-json">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+
+        <!-- Sanitized Output -->
+        <div class="payload-box">
+          <div class="payload-box-header">
+            <span style="color: var(--green);">SANITIZED TOKENIZED OUTPUT (DB WRITE)</span>
+            <span style="color: var(--green);">● SEC 8 COMPLIANT</span>
+          </div>
+          <div class="json-code" id="sanitized-json">
+            <!-- Injected via JS -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Log Feed -->
+      <div class="live-sim-log" id="sim-log">
+        ▶ [SYSTEM_READY] Select a scenario above and click 'RUN LIVE REAL-TIME SCENARIO' to watch live eBPF packet processing.
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2026 Pramana (प्रमाण) · Annapurna Agentic Governance Suite. All Rights Reserved.</div>
+      <div>100% Client-Side Simulation · Zero External Network Transmission</div>
+    </footer>
+  </div>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playBeep(freq = 600) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.15);
+      } catch (e) {}
+    }
+
+    const SCENARIOS = {
+      ehr: {
+        title: 'Live Ingress Pipeline: Hospital Patient EHR & Lab Intake',
+        raw: `{<br/>
+  &nbsp;&nbsp;"patient_name": "Ramesh Kumar",<br/>
+  &nbsp;&nbsp;"aadhaar_uidai": "<span style="color: var(--red); font-weight: 800;">9182-4819-2041</span>",<br/>
+  &nbsp;&nbsp;"phone": "+91 98201-48192",<br/>
+  &nbsp;&nbsp;"blood_vital": "Glucose 142 mg/dL (HbA1c: 6.8)",<br/>
+  &nbsp;&nbsp;"doctor_whatsapp_share": true<br/>
+}`,
+        sanitized: `{<br/>
+  &nbsp;&nbsp;"patient_token": "ANON_USER_9842",<br/>
+  &nbsp;&nbsp;"aadhaar_masked": "XXXX-XXXX-2041",<br/>
+  &nbsp;&nbsp;"aadhaar_vault_hash": "<span style="color: var(--green); font-weight: 800;">SHA256-4f81c9e8d7...</span>",<br/>
+  &nbsp;&nbsp;"consent_receipt": "#CR-89201-HI [VALID]",<br/>
+  &nbsp;&nbsp;"dpbi_attestation": "Ed25519-9f81a7b8"<br/>
+}`,
+        logs: [
+          '▶ [T-00ms] eBPF socket hooked on eth0:443 (SSL Decrypted Inbound Packet)',
+          '▶ [T-14ms] PII Scanner detected 12-digit Aadhaar UIDAI: 9182-4819-2041 [INTERCEPTED]',
+          '▶ [T-28ms] Consent Validator verified Schedule VIII Consent in Hindi (हिन्दी) [APPROVED ✅]',
+          '▶ [T-42ms] Data Tokenizer tokenized UIDAI to SHA256-4f81c9e8d7... Memory buffers scrubbed [SANITIZED ✅]',
+          '▶ [T-58ms] Evidence Ledger sealed Cryptographic Block #481920 with Ed25519 signature for DPBI Board (Penalty Avoided: Up to ₹250 Cr) [COMPLETE ✅]'
+        ]
+      },
+      minor: {
+        title: 'Live Ingress Pipeline: Minor Student EdTech Registration',
+        raw: `{<br/>
+  &nbsp;&nbsp;"student_name": "Aarav Sharma",<br/>
+  &nbsp;&nbsp;"age": 11,<br/>
+  &nbsp;&nbsp;"guardian_aadhaar": "<span style="color: var(--red); font-weight: 800;">7712-4891-3012</span>",<br/>
+  &nbsp;&nbsp;"ad_tracking_sdk": true,<br/>
+  &nbsp;&nbsp;"behavioral_profiling": true<br/>
+}`,
+        sanitized: `{<br/>
+  &nbsp;&nbsp;"minor_token": "STUDENT_VAULT_7712",<br/>
+  &nbsp;&nbsp;"guardian_consent": "OTP_VERIFIED_DIGILOCKER",<br/>
+  &nbsp;&nbsp;"ad_tracking_blocked": "<span style="color: var(--green); font-weight: 800;">SEC_9_BLOCKED_TRUE</span>",<br/>
+  &nbsp;&nbsp;"profiling_disabled": "HARD_GATED",<br/>
+  &nbsp;&nbsp;"dpbi_minor_cert": "Ed25519-minor-4819"<br/>
+}`,
+        logs: [
+          '▶ [T-00ms] Ingress detected payload containing user under 18 years (Age: 11)',
+          '▶ [T-14ms] Section 9 Minor Protocol triggered: Gating tracking and behavioral profiling SDKs',
+          '▶ [T-28ms] Consent Validator validated DigiLocker Parental OTP Consent Receipt #PAR-9921',
+          '▶ [T-42ms] Ad-tracking SDKs blocked. Behavioral profiling stripped from memory buffer',
+          '▶ [T-58ms] Evidence Ledger minted Section 9 Compliance Proof. Penalty Avoided: Up to ₹200 Cr [COMPLETE ✅]'
+        ]
+      },
+      kyc: {
+        title: 'Live Ingress Pipeline: Fintech NBFC Instant Loan KYC',
+        raw: `{<br/>
+  &nbsp;&nbsp;"applicant_name": "Priya Patel",<br/>
+  &nbsp;&nbsp;"pan_card": "<span style="color: var(--red); font-weight: 800;">ABCDE1234F</span>",<br/>
+  &nbsp;&nbsp;"annual_income": 1200000,<br/>
+  &nbsp;&nbsp;"telecaller_marketing_share": true<br/>
+}`,
+        sanitized: `{<br/>
+  &nbsp;&nbsp;"applicant_token": "KYC_TOKEN_5819",<br/>
+  &nbsp;&nbsp;"pan_masked": "ABCDE****F",<br/>
+  &nbsp;&nbsp;"telecaller_share": "<span style="color: var(--red); font-weight: 800;">BLOCKED (NO UNBUNDLED OPT-IN)</span>",<br/>
+  &nbsp;&nbsp;"bureau_dpa": "EXPERIAN_DPA_ACTIVE",<br/>
+  &nbsp;&nbsp;"dpbi_kyc_cert": "Ed25519-kyc-8821"<br/>
+}`,
+        logs: [
+          '▶ [T-00ms] NBFC Loan API packet intercepted on port 443',
+          '▶ [T-14ms] PII Scanner detected plaintext PAN: ABCDE1234F',
+          '▶ [T-28ms] Consent Validator detected bundled consent attempt for telecaller marketing (BLOCKED under Section 6)',
+          '▶ [T-42ms] Data Tokenizer masked PAN and encrypted full identity in HSM Vault',
+          '▶ [T-58ms] DPA Verifier verified Experian DPA agreement. Penalty Avoided: Up to ₹250 Cr [COMPLETE ✅]'
+        ]
+      },
+      erasure: {
+        title: 'Live Pipeline: Citizen 72-Hour Section 11 Erasure Request',
+        raw: `{<br/>
+  &nbsp;&nbsp;"erasure_request_id": "#REQ-89241",<br/>
+  &nbsp;&nbsp;"citizen_token": "PR-USER-94819",<br/>
+  &nbsp;&nbsp;"db_table_1": "patients_ehr (Row #14028)",<br/>
+  &nbsp;&nbsp;"db_table_2": "kyc_vault (Token #c7a8b3f2)",<br/>
+  &nbsp;&nbsp;"cache_key": "redis_session_9824"<br/>
+}`,
+        sanitized: `{<br/>
+  &nbsp;&nbsp;"erasure_status": "<span style="color: var(--green); font-weight: 800;">ERASED_100%_COMPLETE</span>",<br/>
+  &nbsp;&nbsp;"patients_ehr": "PURGED_ZERO_BYTES",<br/>
+  &nbsp;&nbsp;"kyc_vault": "PURGED_ZERO_BYTES",<br/>
+  &nbsp;&nbsp;"redis_cache": "PURGED_KEY_DEL",<br/>
+  &nbsp;&nbsp;"statutory_resolution": "12.4 MINS / 72h SLA"<br/>
+}`,
+        logs: [
+          '▶ [T-00ms] Section 11 Citizen Right-to-Erasure request #REQ-89241 initiated',
+          '▶ [T-14ms] Querying active data shards across PostgreSQL, MongoDB, and Redis',
+          '▶ [T-28ms] Non-statutory data identified: Purging patient lab history and session cache',
+          '▶ [T-42ms] Zeroed bytes confirmed across all distributed replicas',
+          '▶ [T-58ms] Evidence Ledger issued Immutable Cryptographic Erasure Certificate #ER-99182 [COMPLETE ✅]'
+        ]
+      }
+    };
+
+    let currentScenKey = 'ehr';
+    let currentStep = 0;
+
+    function setScenario(key) {
+      currentScenKey = key;
+      currentStep = 0;
+      document.querySelectorAll('.scen-card').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const data = SCENARIOS[key];
+      document.getElementById('active-scen-title').innerText = data.title;
+      document.getElementById('raw-json').innerHTML = data.raw;
+      document.getElementById('sanitized-json').innerHTML = data.sanitized;
+      document.getElementById('sim-log').innerHTML = `▶ [SCENARIO_LOADED] Switched to: ${data.title}. Click 'RUN LIVE REAL-TIME SCENARIO' to begin.`;
+      document.getElementById('sim-status-badge').innerText = 'STATUS: READY TO SIMULATE';
+
+      document.querySelectorAll('.node-circle').forEach(n => n.classList.remove('active'));
+      playBeep(600);
+    }
+
+    function runLiveScenario() {
+      const data = SCENARIOS[currentScenKey];
+      const log = document.getElementById('sim-log');
+      const badge = document.getElementById('sim-status-badge');
+      badge.innerText = 'STATUS: SIMULATING...';
+      log.innerHTML = '';
+
+      // Step 1
+      document.querySelectorAll('.node-circle').forEach(n => n.classList.remove('active'));
+      document.getElementById('node-1').classList.add('active');
+      log.innerHTML += `${data.logs[0]}<br/>`;
+      playBeep(520);
+
+      // Step 2
+      setTimeout(() => {
+        document.getElementById('node-2').classList.add('active');
+        log.innerHTML += `${data.logs[1]}<br/>`;
+        log.innerHTML += `${data.logs[2]}<br/>`;
+        log.scrollTop = log.scrollHeight;
+        playBeep(650);
+      }, 700);
+
+      // Step 3
+      setTimeout(() => {
+        document.getElementById('node-3').classList.add('active');
+        log.innerHTML += `${data.logs[3]}<br/>`;
+        log.scrollTop = log.scrollHeight;
+        playBeep(780);
+      }, 1400);
+
+      // Step 4
+      setTimeout(() => {
+        document.getElementById('node-4').classList.add('active');
+        log.innerHTML += `${data.logs[4]}<br/>`;
+        log.scrollTop = log.scrollHeight;
+        badge.innerText = 'STATUS: 100% COMPLIANT ✅';
+        playBeep(980);
+      }, 2100);
+    }
+
+    function stepScenario() {
+      const data = SCENARIOS[currentScenKey];
+      const log = document.getElementById('sim-log');
+      const badge = document.getElementById('sim-status-badge');
+
+      currentStep = (currentStep % 4) + 1;
+      document.querySelectorAll('.node-circle').forEach(n => n.classList.remove('active'));
+      document.getElementById(`node-${currentStep}`).classList.add('active');
+
+      if (currentStep === 1) {
+        log.innerHTML = `${data.logs[0]}<br/>`;
+        badge.innerText = 'STATUS: STEP 1 (eBPF Interception)';
+        playBeep(520);
+      } else if (currentStep === 2) {
+        log.innerHTML += `${data.logs[1]}<br/>${data.logs[2]}<br/>`;
+        badge.innerText = 'STATUS: STEP 2 (Consent Vault)';
+        playBeep(650);
+      } else if (currentStep === 3) {
+        log.innerHTML += `${data.logs[3]}<br/>`;
+        badge.innerText = 'STATUS: STEP 3 (Dynamic Tokenizer)';
+        playBeep(780);
+      } else if (currentStep === 4) {
+        log.innerHTML += `${data.logs[4]}<br/>`;
+        badge.innerText = 'STATUS: STEP 4 (DPBI Block Sealed ✅)';
+        playBeep(980);
+      }
+      log.scrollTop = log.scrollHeight;
+    }
+
+    // Initialize default scenario
+    setScenario('ehr');
+  </script>
+</body>
+</html>

@@ -15,10 +15,11 @@
     idea:{caption:'Practical business city',sceneArchetype:'city',story:'Small practical tools assemble into useful operating systems.'},
     axon:{caption:'Typed-flow lanes',sceneArchetype:'lanes',story:'Intent becomes inspectable structure before it reaches execution.'},
     web:{caption:'Experience frames',sceneArchetype:'frames',story:'Information shifts into the visual system best suited to its audience.'},
-    software:{caption:'Experimental grid',sceneArchetype:'grid',story:'Small experiments expose patterns that can graduate into reusable systems.'}
+    software:{caption:'Experimental grid',sceneArchetype:'grid',story:'Small experiments expose patterns that can graduate into reusable systems.'},
+    pramana:{caption:'Governed AI evidence',sceneArchetype:'grid',story:'Every compliance decision is source-grounded, policy-gated, and sealed in a cryptographic evidence receipt.'}
   };
   let presentation={...fallbackPresentation};
-  let related={ai:['axon','web'],wonder:['web','idea'],idea:['software','web'],axon:['ai','software'],web:['wonder','ai'],software:['axon','idea']};
+  let related={ai:['axon','pramana'],wonder:['web','idea'],idea:['software','web'],axon:['ai','software'],web:['wonder','ai'],software:['axon','idea'],pramana:['ai','axon']};
   let phaseRules=[{key:'observing',label:'Observing',minExplored:0},{key:'mapping',label:'Mapping',minExplored:1},{key:'connecting',label:'Connecting',minExplored:3},{key:'constellation',label:'Constellation',minExplored:5}];
   let returnRules=[{key:'first',label:'First encounter',minSessions:1,density:.72},{key:'returning',label:'Returning',minSessions:2,density:.88},{key:'familiar',label:'Familiar',minSessions:4,density:1},{key:'embedded',label:'Embedded',minSessions:7,density:1.12}];
   let maxTrailWorlds=6,sessionGapMinutes=360;

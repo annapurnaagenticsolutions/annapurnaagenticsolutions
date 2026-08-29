@@ -290,6 +290,22 @@
               "software"
             ]
           }
+        },
+        "pramana": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
         }
       },
       "additionalProperties": false

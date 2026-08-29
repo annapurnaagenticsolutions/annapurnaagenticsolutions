@@ -37,7 +37,7 @@ def main()->int:
         if jargon.lower() in all_text.lower():errors.append(f'engineering/methodology language leaked onto home: {jargon}')
     for cue in ['select a world','trace its connections','swipe','connected journey']:
         if cue not in all_text.lower():errors.append(f'interaction/immersion cue missing: {cue}')
-    if len(re.findall(r'class="world-node[^\"]*"',home))!=6:errors.append('home must present six world controls')
+    if len(re.findall(r'class="world-node[^\"]*"',home))!=7:errors.append('home must present seven world controls')
     explore=(ROOT/'explore.html').read_text(encoding='utf-8')
     if len(re.findall(r'data-world="(?:ai|wonder|idea|axon|web|software)"',explore))<6:errors.append('explore needs all six world states')
     if 'relationship-copy' not in explore or 'behavior-viz' not in explore:errors.append('explore needs behavior + relationship surface')

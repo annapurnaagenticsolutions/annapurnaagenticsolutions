@@ -36,7 +36,7 @@ def main():
         if marker not in home: errors+=fail(f'living hero missing {marker}')
     if '<button class="core" id="ecosystem-core"' not in home: errors+=fail('Annapurna core must be an explicit interactive control')
     if 'visit-count' in home or 'Your visits to this living surface' in home: errors+=fail('page-load visit inflation copy must be removed')
-    if len(re.findall(r'class="world-node[^"]*"[^>]+aria-pressed=',home))!=6: errors+=fail('home must expose six accessible interactive world nodes')
+    if len(re.findall(r'class="world-node[^"]*"[^>]+aria-pressed=',home))!=7: errors+=fail('home must expose seven accessible interactive world nodes')
     explore=(ROOT/'explore.html').read_text(encoding='utf-8')
     for marker in ['related-worlds','Connected worlds','behavior-viz','relationship-copy']:
         if marker not in explore: errors+=fail(f'explore page missing interaction marker {marker}')

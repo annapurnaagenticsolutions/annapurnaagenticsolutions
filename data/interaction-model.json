@@ -55,6 +55,10 @@
     "software": [
       "axon",
       "idea"
+    ],
+    "pramana": [
+      "ai",
+      "axon"
     ]
   },
   "sessionPolicy": {

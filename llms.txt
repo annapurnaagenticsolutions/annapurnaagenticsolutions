@@ -4,6 +4,8 @@ Annapurna Agentic Solutions presents governed AI systems, learning products, pra
 
 ## Primary public pages
 - Home: https://annapurnaagenticsolutions.com/
+- Pramana (DPDP AI Governance): https://annapurnaagenticsolutions.com/pramana/
+- Pramana Showcases: https://annapurnaagenticsolutions.com/pramana/demos/
 - Explore: https://annapurnaagenticsolutions.com/explore.html
 - Interactive Lab: https://annapurnaagenticsolutions.com/lab.html
 - Evidence: https://annapurnaagenticsolutions.com/evidence.html

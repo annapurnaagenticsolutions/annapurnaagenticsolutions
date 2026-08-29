@@ -69,6 +69,16 @@
         "target": "idea",
         "effect": "result-aware"
       }
+    ],
+    "pramana": [
+      {
+        "target": "ai",
+        "effect": "Governance workflows connect to broader AI solutions portfolio, sharing evidence patterns."
+      },
+      {
+        "target": "axon",
+        "effect": "Compliance decisions generate typed structured outputs compatible with the AXON system."
+      }
     ]
   },
   "visibleConsequences": [

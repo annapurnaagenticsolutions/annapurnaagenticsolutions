@@ -12,8 +12,8 @@ def main()->int:
     if cfg.get('requiredLayers')!=['adaptive-structure','organic-motion','page-agent']:errors.append('three living layers must remain explicit in internal contract')
     for marker in ['stage-atmosphere','living-canvas','ecosystem-core','route-track','route-signal','follow-connection','trace-journey','scene-word']:
         if marker not in home:errors.append(f'home immersive surface missing {marker}')
-    if len(re.findall(r'class="world-node[^\"]*"',home))!=6:errors.append('hero must expose six product-world controls')
-    for scene in ['ai','wonder','idea','axon','web','software']:
+    if len(re.findall(r'class="world-node[^\"]*"',home))!=7:errors.append('hero must expose seven product-world controls')
+    for scene in ['ai','wonder','idea','axon','web','software','pramana']:
         if f'.living-stage[data-world="{scene}"]' not in css:errors.append(f'world-specific visual physics missing: {scene}')
     for marker in ['mountHeroChoreography','--atmo-x','renderFeaturedRoute','activateRouteStep','traceJourney','mountContinuityField','PerformanceObserver']:
         if marker not in js:errors.append(f'immersive runtime missing {marker}')

@@ -106,7 +106,7 @@
             "idea",
             "axon",
             "web",
-            "software"
+            "software","pramana"
           ]
         },
         "depth": {
@@ -159,7 +159,7 @@
         "worldOrder": {
           "type": "array",
           "minItems": 6,
-          "maxItems": 6,
+          "maxItems": 7,
           "uniqueItems": true,
           "items": {
             "enum": [
@@ -168,7 +168,7 @@
               "idea",
               "axon",
               "web",
-              "software"
+              "software","pramana"
             ]
           }
         },

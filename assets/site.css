@@ -1645,5 +1645,12 @@ html{scroll-padding-top:calc(var(--header-h) + 18px)!important}
 /* Independent audit follow-through: visible world/stage labels must not rely on low-contrast gray. */
 .stage-detail small,.v2-journey-note span,.core small,.v2-stage .world-node span,.v3-stage .world-node span,.v3-atlas-core small,.v3-atlas .atlas-node .index{color:#667085!important}
 .v2-world-caption small{color:#667085!important}
-/* Responsive hardening: decorative/pseudo layers must never create horizontal page panning. */
 html,body{overflow-x:clip}
+.v3-pramana-banner{border-top:1px solid var(--line);background:linear-gradient(180deg,rgba(37,99,235,.04),transparent);padding:38px 0}
+.v3-pramana-banner .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.v3-pramana-banner h2{font-size:24px;font-weight:800;color:#0f172a;margin:6px 0}
+.v3-pramana-banner p{color:#475569;font-size:14px;max-width:640px;line-height:1.6}
+.v3-pramana-banner .eyebrow{color:#2563eb;font-weight:700}
+/* Pramana — 7th world visual physics */
+.living-stage[data-world="pramana"]{background:radial-gradient(circle at 48% 44%,rgba(14,116,144,.07),transparent 34%),linear-gradient(155deg,#f8fdff,#f0fafd)}
+.node-pramana{--world-color:#0e7490}

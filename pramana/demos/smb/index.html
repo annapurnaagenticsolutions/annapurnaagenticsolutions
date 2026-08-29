@@ -1,0 +1,1558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRAMANA &middot; Is Your Business DPDP Ready?</title>
+  <meta name="description" content="PRAMANA &mdash; DPDP compliance demonstration for Indian SMBs: Clinics, Schools, Fintech, HR, and EdTech." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f8fafc;
+      --surface3:     #f1f5f9;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #2563eb;
+      --gold-mid:     #1d4ed8;
+      --gold-dim:     #eff6ff;
+      --gold-border:  #bfdbfe;
+      --green:        #16a34a;
+      --green-bright: #15803d;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --amber:        #d97706;
+      --amber-dim:    #fef3c7;
+      --blue:         #2563eb;
+      --blue-dim:     #eff6ff;
+      --blue-border:  #bfdbfe;
+      --purple:       #6366f1;
+      --purple-dim:   #eef2ff;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Plus Jakarta Sans', 'Inter', sans-serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04);
+      --shadow:       0 4px 20px -2px rgba(15,23,42,0.06);
+      --shadow-md:    0 8px 24px -4px rgba(15,23,42,0.08);
+      --shadow-lg:    0 14px 34px -4px rgba(15,23,42,0.10);
+    }
+
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 15px; line-height: 1.7; min-height: 100vh; padding-bottom: 50px; }
+
+    /* HEADER */
+    header {
+      display: flex; align-items: center; gap: 16px;
+      padding: 22px 48px; background: var(--surface);
+      border-bottom: 1px solid var(--border); box-shadow: var(--shadow);
+    }
+    .logo-badge {
+      font-family: var(--serif); font-size: 15px; font-weight: 700;
+      color: var(--gold); background: var(--gold-dim);
+      padding: 9px 16px; border-radius: 8px; border: 1px solid var(--gold-border);
+      letter-spacing: 0.05em;
+    }
+    .logo-text h1 { font-size: 19px; font-weight: 800; color: var(--text); }
+    .logo-text p { font-size: 13px; color: var(--text-muted); }
+
+    /* MAIN TABS */
+    .main-tabs {
+      display: flex; gap: 0; max-width: 920px;
+      margin: 0 auto; padding: 0 48px; border-bottom: 2px solid var(--border);
+    }
+    .main-tab {
+      padding: 16px 32px; font-size: 15px; font-weight: 600;
+      font-family: var(--sans); color: var(--text-muted);
+      background: none; border: none; border-bottom: 3px solid transparent;
+      cursor: pointer; transition: all 0.2s ease; margin-bottom: -2px;
+    }
+    .main-tab:hover { color: var(--text); }
+    .main-tab.active { color: var(--gold-mid); border-bottom-color: var(--gold-mid); }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* HERO BANNER (now in tab 2) */
+    .hero-banner {
+      background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+      border-bottom: 1px solid var(--gold-border); padding: 40px 48px;
+    }
+    .hero-banner-tag {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em;
+      color: var(--gold-mid); font-weight: 700; margin-bottom: 10px;
+    }
+    .hero-banner h2 { font-family: var(--serif); font-size: 26px; color: var(--text); margin-bottom: 10px; line-height: 1.4; }
+    .hero-banner p { font-size: 15px; color: var(--text-dim); max-width: 720px; line-height: 1.8; }
+
+    /* DOMAIN TABS */
+    .domain-tab-bar {
+      display: flex; gap: 10px; padding: 28px 48px;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .domain-tab {
+      padding: 12px 22px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      font-family: var(--sans); cursor: pointer; border: 1px solid var(--border2);
+      background: var(--surface); color: var(--text-dim); transition: all 0.15s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .domain-tab:hover { background: var(--surface2); border-color: var(--gold-mid); }
+    .domain-tab.active { background: var(--gold-mid); color: #fff; border-color: var(--gold-mid); }
+    .domain-icon { font-size: 17px; }
+
+    /* STAGE STEPPER */
+    .stage-stepper {
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; padding: 20px 48px; flex-wrap: wrap;
+    }
+    .step-item { display: flex; align-items: center; gap: 12px; }
+    .step-circle {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--surface2); border: 2px solid var(--border2);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 14px; color: var(--text-muted); transition: all 0.3s;
+    }
+    .step-item.active .step-circle { background: var(--gold-mid); border-color: var(--gold-mid); color: #fff; }
+    .step-item.done .step-circle { background: var(--green); border-color: var(--green); color: #fff; }
+    .step-text .step-num-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); }
+    .step-text .step-name { font-size: 14px; font-weight: 600; color: var(--text); }
+    .step-connector { width: 48px; height: 2px; background: var(--border2); margin: 0 10px; transition: background 0.3s; }
+    .step-connector.done { background: var(--green); }
+
+    /* STAGE AREA */
+    .stage-area { max-width: 920px; margin: 0 auto; padding: 28px 48px; }
+
+    .stage-card {
+      background: var(--surface); border-radius: 12px; box-shadow: var(--shadow-md);
+      overflow: hidden; margin-bottom: 24px;
+    }
+    .stage-card-header {
+      display: flex; align-items: center; gap: 16px; padding: 20px 28px; border-bottom: 1px solid var(--border);
+    }
+    .stage-num-badge {
+      width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 17px; color: #fff; flex-shrink: 0;
+    }
+    .badge-prep { background: var(--blue); }
+    .badge-risk { background: var(--red); }
+    .badge-prot { background: var(--green); }
+    .stage-card-header-title { font-size: 17px; font-weight: 700; color: var(--text); }
+    .stage-subtitle { font-size: 13px; color: var(--text-muted); }
+    .stage-card-body { padding: 28px; }
+
+    .story-scene-label {
+      font-size: 12px; text-transform: uppercase; letter-spacing: 0.09em;
+      color: var(--text-muted); font-weight: 600; margin-bottom: 12px;
+    }
+    .stage-title { font-size: 19px; font-weight: 700; color: var(--text); margin-bottom: 16px; line-height: 1.4; }
+    .story-text { font-size: 15px; color: var(--text-dim); line-height: 1.9; margin-bottom: 18px; }
+    .story-callout {
+      padding: 16px 20px; background: var(--amber-dim); border: 1px solid var(--amber-border);
+      border-radius: 8px; font-size: 14px; color: #78350f; line-height: 1.7; font-style: italic;
+    }
+
+    /* RISK GRID */
+    .risk-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; margin-bottom: 24px; }
+    .penalty-card {
+      padding: 20px; background: var(--red-dim); border: 1px solid var(--red-border);
+      border-radius: 10px; text-align: center;
+    }
+    .penalty-amount-big { font-size: 30px; font-weight: 800; color: var(--red-bright); display: block; }
+    .penalty-label { font-size: 13px; color: var(--text-dim); margin-top: 6px; }
+    .penalty-basis { font-size: 12px; color: var(--text-muted); margin-top: 6px; font-family: var(--mono); }
+
+    .consequence-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .consequence-item {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+    }
+    .consequence-icon { font-size: 22px; flex-shrink: 0; margin-top: 1px; }
+    .consequence-text { font-size: 15px; color: var(--text-dim); line-height: 1.7; }
+    .consequence-text strong { color: var(--text); }
+
+    .risk-question {
+      margin-top: 24px; padding: 20px 22px; background: #fefce8;
+      border: 1px solid #fef08a; border-radius: 10px;
+    }
+    .risk-question p { font-size: 16px; font-style: italic; color: #713f12; line-height: 1.8; }
+    .risk-question cite { display: block; margin-top: 10px; font-size: 13px; color: var(--text-muted); font-style: normal; }
+
+    /* PRAMANA DEMO BOX */
+    .pramana-demo-box {
+      background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; margin-bottom: 24px;
+    }
+    .demo-terminal-header {
+      padding: 12px 18px; background: var(--text); display: flex; align-items: center; gap: 8px;
+    }
+    .dot-r { width: 11px; height: 11px; border-radius: 50%; background: #ef4444; }
+    .dot-y { width: 11px; height: 11px; border-radius: 50%; background: #f59e0b; }
+    .dot-g { width: 11px; height: 11px; border-radius: 50%; background: #22c55e; }
+    .terminal-label { font-size: 12px; color: #94a3b8; margin-left: auto; font-family: var(--mono); }
+    .demo-terminal-body { padding: 20px; }
+    .demo-query-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 0.09em;
+      color: var(--text-muted); margin-bottom: 10px; font-weight: 600;
+    }
+    .demo-query {
+      font-size: 14px; color: var(--text); background: var(--surface);
+      border: 1px solid var(--border); border-left: 3px solid var(--blue);
+      border-radius: 6px; padding: 14px 18px; line-height: 1.7; margin-bottom: 18px;
+    }
+    .pramana-eval-row {
+      display: flex; align-items: center; gap: 12px; margin-bottom: 16px;
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .pramana-eval-row.show { opacity: 1; }
+    .pramana-spinner {
+      width: 18px; height: 18px; border: 2px solid var(--border2);
+      border-top-color: var(--gold); border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .pramana-eval-text { font-family: var(--mono); font-size: 13px; color: var(--gold); font-weight: 600; }
+
+    .pramana-verdict-box {
+      padding: 20px 22px; border-radius: 10px; margin-bottom: 18px;
+      opacity: 0; transform: translateY(8px); transition: all 0.45s ease;
+    }
+    .pramana-verdict-box.show { opacity: 1; transform: translateY(0); }
+    .pramana-verdict-box.blocked-box { background: var(--red-dim); border: 2px solid var(--red-border); }
+    .pramana-verdict { font-size: 17px; font-weight: 800; margin-bottom: 10px; display: flex; align-items: center; gap: 12px; }
+    .pramana-verdict-box.blocked-box .pramana-verdict { color: #991b1b; }
+    .pramana-verdict-detail { font-size: 14px; line-height: 1.8; }
+    .pramana-verdict-box.blocked-box .pramana-verdict-detail { color: #7f1d1d; }
+    .tech-detail { font-family: var(--mono); font-size: 12px; color: var(--text-muted); margin-top: 12px; line-height: 1.7; }
+
+    .receipt-seal {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 6px; opacity: 0; transition: opacity 0.4s;
+    }
+    .receipt-seal.show { opacity: 1; }
+    .seal-hash { font-family: var(--mono); font-size: 12px; color: var(--text-muted); }
+    .seal-status { font-family: var(--mono); font-size: 12px; color: var(--green); font-weight: 700; }
+
+    /* OUTCOME SUMMARY */
+    .outcome-summary { display: flex; gap: 14px; flex-wrap: wrap; }
+    .outcome-card {
+      flex: 1; min-width: 180px; padding: 18px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow);
+    }
+    .outcome-icon { font-size: 26px; margin-bottom: 10px; }
+    .outcome-title { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .outcome-text { font-size: 13px; color: var(--text-dim); line-height: 1.6; }
+    .outcome-card.good { border-color: var(--green-border); background: var(--green-dim); }
+    .outcome-card.good .outcome-text { color: #166534; }
+
+    /* NAVIGATION */
+    .stage-nav {
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 48px 28px; flex-wrap: wrap; max-width: 920px; margin: 0 auto;
+    }
+    .btn {
+      padding: 12px 26px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      font-family: var(--sans); cursor: pointer; border: 1px solid var(--border2);
+      transition: all 0.15s ease; display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary { background: var(--gold-mid); color: #fff; border-color: var(--gold-mid); font-size: 15px; }
+    .btn-primary:hover { background: var(--gold); }
+    .btn-ghost { background: var(--surface); color: var(--text-dim); }
+    .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+    .btn-print { background: var(--surface2); color: var(--text-dim); margin-left: auto; }
+    .btn-print:hover { background: var(--surface); color: var(--text); }
+
+    /* ADDITIONAL ISSUES */
+    .additional-issues-section { max-width: 920px; margin: 0 auto; padding: 28px 48px; }
+    .additional-issues-title { font-family: var(--serif); font-size: 20px; color: var(--text); margin-bottom: 8px; }
+    .additional-issues-subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 22px; font-style: italic; }
+    .issue-card {
+      padding: 20px 22px; background: var(--surface2); border: 1px solid var(--border);
+      border-left: 4px solid var(--red-border); border-radius: 8px; margin-bottom: 16px;
+      transition: all 0.2s ease;
+    }
+    .issue-card:hover { background: var(--surface); border-left-color: var(--red); box-shadow: var(--shadow); }
+    .issue-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; margin-bottom: 10px; }
+    .issue-card-title { font-size: 15px; font-weight: 700; color: var(--text); flex: 1; }
+    .issue-card-penalty { font-size: 14px; font-weight: 700; color: var(--red); white-space: nowrap; font-family: var(--mono); }
+    .issue-card-section { font-size: 12px; color: var(--text-muted); font-family: var(--mono); margin-bottom: 12px; }
+    .issue-card-emotion { font-size: 14px; color: var(--text-dim); line-height: 1.8; margin-bottom: 12px; }
+    .issue-card-urgency {
+      font-size: 13px; color: #92400e; line-height: 1.7;
+      padding: 12px 16px; background: var(--amber-dim); border-radius: 6px; border-left: 3px solid var(--gold-mid);
+    }
+    .issue-card-urgency::before { content: "\26A0  Why this needs attention now: "; font-weight: 700; }
+
+    /* VOICE NARRATION BAR */
+    .narration-bar {
+      display: flex; align-items: center; gap: 14px;
+      padding: 12px 18px; background: var(--surface2); border: 1px solid var(--border);
+      border-radius: 8px; margin-bottom: 20px; max-width: 920px; margin-left: auto; margin-right: auto;
+    }
+    .narration-btn {
+      padding: 9px 20px; border-radius: 8px; font-size: 14px; font-weight: 600;
+      font-family: var(--sans); cursor: pointer; border: 1px solid var(--gold-mid);
+      background: var(--gold-dim); color: var(--gold); transition: all 0.15s ease;
+      display: inline-flex; align-items: center; gap: 7px;
+    }
+    .narration-btn:hover { background: var(--gold-border); }
+    .narration-btn.playing { background: var(--red-dim); border-color: var(--red); color: var(--red); }
+    .narration-status { font-size: 13px; color: var(--text-muted); font-family: var(--mono); }
+
+    /* HOW IT WORKS */
+    .how-it-works { max-width: 920px; margin: 48px auto 0; padding: 36px 48px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; box-shadow: var(--shadow-md); }
+    .how-it-works h2, .integration-section h2, .trust-section h2 { font-family: var(--serif); font-size: 24px; color: var(--text); text-align: center; margin-bottom: 8px; }
+    .how-it-works .subtitle, .integration-section .subtitle { text-align: center; font-size: 15px; color: var(--text-muted); margin-bottom: 32px; }
+    .steps-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; }
+    .step-card { padding: 22px 18px; background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; text-align: center; }
+    .step-card .step-num { width: 36px; height: 36px; background: var(--gold-mid); color: #fff; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 15px; margin: 0 auto 14px; }
+    .step-card .step-icon { font-size: 30px; margin-bottom: 12px; }
+    .step-card .step-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .step-card .step-desc { font-size: 13px; color: var(--text-dim); line-height: 1.65; }
+    .step-card .step-time { font-size: 12px; color: var(--green); font-weight: 600; margin-top: 10px; font-family: var(--mono); }
+
+    /* INTEGRATION SECTION */
+    .integration-section { max-width: 920px; margin: 28px auto 0; padding: 36px 48px; background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 1px solid #bae6fd; border-radius: 14px; }
+    .integration-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .integration-card { padding: 22px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+    .integration-card .int-icon { font-size: 26px; margin-bottom: 12px; }
+    .integration-card .int-title { font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 8px; }
+    .integration-card .int-desc { font-size: 13px; color: var(--text-dim); line-height: 1.7; }
+
+    /* TRUST / WHAT WE DO SECTION */
+    .trust-section { max-width: 920px; margin: 28px auto 0; padding: 32px 48px; background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
+    .trust-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 22px; }
+
+    /* CTA SECTION */
+    .cta-section { max-width: 920px; margin: 28px auto 48px; padding: 40px 48px; background: linear-gradient(135deg, var(--gold-mid), var(--gold)); border-radius: 14px; text-align: center; box-shadow: var(--shadow-lg); }
+    .cta-section h2 { font-family: var(--serif); font-size: 26px; color: #fff; margin-bottom: 10px; }
+    .cta-section .cta-sub { font-size: 16px; color: #fef3c7; margin-bottom: 28px; }
+    .cta-buttons { display: flex; gap: 18px; justify-content: center; flex-wrap: wrap; }
+    .cta-btn { padding: 15px 36px; border-radius: 10px; font-size: 16px; font-weight: 700; font-family: var(--sans); text-decoration: none; display: inline-flex; align-items: center; gap: 9px; transition: all 0.15s ease; border: 2px solid transparent; }
+    .cta-btn-primary { background: #fff; color: var(--gold); border-color: #fff; }
+    .cta-btn-primary:hover { background: #fef3c7; }
+    .cta-btn-secondary { background: transparent; color: #fff; border-color: rgba(255,255,255,0.6); }
+    .cta-btn-secondary:hover { background: rgba(255,255,255,0.15); border-color: #fff; }
+    .cta-note { font-size: 13px; color: #fef3c7; margin-top: 18px; opacity: 0.85; line-height: 1.7; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      header, .hero-banner, .domain-tab-bar, .stage-stepper, .stage-area, .stage-nav, .additional-issues-section { padding-left: 20px; padding-right: 20px; }
+      .stage-area { padding: 24px 20px; }
+      .domain-tab-bar { gap: 8px; }
+      .domain-tab { padding: 10px 14px; font-size: 13px; }
+      .stage-stepper { padding: 16px 20px; }
+      .step-connector { width: 24px; }
+      .steps-grid { grid-template-columns: repeat(2, 1fr); }
+      .integration-grid { grid-template-columns: 1fr; }
+      .trust-grid { grid-template-columns: 1fr; }
+      .how-it-works, .integration-section, .trust-section, .cta-section { padding: 28px 22px; margin-left: 16px; margin-right: 16px; }
+      .main-tabs { padding: 0 20px; }
+      .main-tab { padding: 14px 18px; font-size: 14px; }
+    }
+
+    @media print {
+      header, .domain-tab-bar, .stage-stepper, .stage-nav, .main-tabs, .narration-bar { display: none !important; }
+      body { background: white; font-size: 12pt; padding-bottom: 0; }
+      .stage-area { padding: 0; max-width: 100%; }
+      .stage-card { box-shadow: none; break-inside: avoid; border: 1pt solid #ccc; }
+      .hero-banner { background: white; border: none; padding: 20pt 0; }
+      .penalty-amount-big { font-size: 42pt !important; }
+      .pramana-eval-row { display: none !important; }
+      .outcome-card.good { background: #dcfce7 !important; print-color-adjust: exact; }
+    }
+  </style>
+</head>
+<body>
+<!-- Annapurna Unified Frosted Navigation Bar -->
+<header class="annapurna-site-header" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e2e8f0;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99999;font-family:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 4px 20px -2px rgba(15,23,42,0.04);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="../../../" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;font-weight:800;font-size:14px;">
+      <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#38bdf8,#6366f1);box-shadow:0 0 10px rgba(56,189,248,0.4);"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <a href="../../" style="color:#64748b;text-decoration:none;font-weight:600;font-size:13px;">Pramana (प्रमाण)</a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <span style="color:#2563eb;font-weight:700;font-size:13px;">SMB Interactive Experience</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s ease;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      <span>📥</span> Print / Save PDF
+    </button>
+    <a href="../../demos/" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      All Showcases
+    </a>
+    <a href="../../../contact/" style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#ffffff;padding:7px 16px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.25);">
+      Request Demo →
+    </a>
+  </div>
+</header>
+
+
+
+
+
+
+<!-- HEADER -->
+<header>
+  <div class="logo-badge">PRAMANA</div>
+  <div class="logo-text">
+    <h1>DPDP Compliance for Indian Businesses</h1>
+    <p>Understand your obligations. Find your gaps. Get a plan.</p>
+  </div>
+</header>
+
+<!-- MAIN TABS -->
+<div class="main-tabs">
+  <button class="main-tab active" id="mtab-demo" onclick="switchTab('demo')">Explore Scenarios</button>
+  <button class="main-tab" id="mtab-intro" onclick="switchTab('intro')">How PRAMANA Helps</button>
+</div>
+
+<!-- TAB 1: DEMO -->
+<div id="tab-demo" class="tab-content active">
+
+  <!-- Domain Tabs -->
+  <div class="domain-tab-bar" id="domain-tab-bar">
+    <button class="domain-tab active" id="dtab-clinic"  onclick="selectDomain('clinic')"><span class="domain-icon">Clinic &amp; Hospital</span></button>
+    <button class="domain-tab"        id="dtab-school"  onclick="selectDomain('school')"><span class="domain-icon">School &amp; College</span></button>
+    <button class="domain-tab"        id="dtab-fintech" onclick="selectDomain('fintech')"><span class="domain-icon">Fintech &amp; NBFC</span></button>
+    <button class="domain-tab"        id="dtab-hr"      onclick="selectDomain('hr')"><span class="domain-icon">Business &amp; HR</span></button>
+    <button class="domain-tab"        id="dtab-edtech"  onclick="selectDomain('edtech')"><span class="domain-icon">EdTech &amp; Subscriptions</span></button>
+  </div>
+
+  <!-- Stage Stepper -->
+  <div class="stage-stepper" id="stage-stepper">
+    <div class="step-item active" id="step-item-1">
+      <div class="step-circle">1</div>
+      <div class="step-text">
+        <div class="step-num-label">Stage 1</div>
+        <div class="step-name">The Situation</div>
+      </div>
+    </div>
+    <div class="step-connector" id="step-conn-1"></div>
+    <div class="step-item" id="step-item-2">
+      <div class="step-circle">2</div>
+      <div class="step-text">
+        <div class="step-num-label">Stage 2</div>
+        <div class="step-name">What the Law Says</div>
+      </div>
+    </div>
+    <div class="step-connector" id="step-conn-2"></div>
+    <div class="step-item" id="step-item-3">
+      <div class="step-circle">3</div>
+      <div class="step-text">
+        <div class="step-num-label">Stage 3</div>
+        <div class="step-name">How PRAMANA Helps</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage content area -->
+  <div class="stage-area" id="stage-area"></div>
+
+  <!-- Navigation -->
+  <div class="stage-nav" id="stage-nav">
+    <button class="btn btn-ghost" id="btn-back" style="display:none" onclick="prevStage()">&#8592; Back</button>
+    <button class="btn btn-primary" id="btn-forward" onclick="nextStage()">Continue &nbsp;&#8594;</button>
+    <button class="btn btn-print" onclick="printScenario()">&#128424;&nbsp; Print This Scenario</button>
+  </div>
+
+</div><!-- /tab-demo -->
+
+<!-- TAB 2: INTRO -->
+<div id="tab-intro" class="tab-content">
+
+  <div class="hero-banner">
+    <p class="hero-banner-tag">Understanding Your DPDP Obligations</p>
+    <h2>You want to do the right thing. The rules are just hard to follow.</h2>
+    <p>
+      The DPDP Act affects every business in India that handles personal data. The penalties are significant,
+      but most compliance gaps come from not knowing what the law requires of your specific business.
+      PRAMANA helps you understand your obligations, find where you stand, and get a clear plan to close the gaps.
+    </p>
+  </div>
+
+  <!-- HOW IT WORKS -->
+  <div class="how-it-works">
+    <h2>How PRAMANA Works</h2>
+    <p class="subtitle">No technical team required. No cloud dependency. Get started in under 15 minutes.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">&#128230;</div>
+        <div class="step-title">Install On-Premise</div>
+        <div class="step-desc">Download the ZIP, run install.bat to install Python dependencies, copy and edit the .env file, then run start.bat. Runs on any Windows/Linux machine with Python 3.12. No internet needed after install.</div>
+        <div class="step-time">10-15 minutes</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">&#127970;</div>
+        <div class="step-title">Select Your Sector</div>
+        <div class="step-desc">Pick your industry (Clinic, School, Fintech, HR, EdTech). PRAMANA pre-loads the DPDP obligations, AI risk templates, and compliance checklist for your sector.</div>
+        <div class="step-time">1 minute</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">&#128203;</div>
+        <div class="step-title">Answer 15 Questions</div>
+        <div class="step-desc">A simple yes/no/not-sure checklist about your data practices. No legal jargon. Each answer maps to a specific DPDP section. Get your compliance score (0-100), grade (A-F), and traffic light (Green/Yellow/Red).</div>
+        <div class="step-time">5 minutes</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">4</div>
+        <div class="step-icon">&#128202;</div>
+        <div class="step-title">Get Your Gap Report</div>
+        <div class="step-desc">A plain-language report showing: your penalty exposure, your top 3 compliance gaps, step-by-step remediation actions, and an audit-grade compliance record you can show the Board.</div>
+        <div class="step-time">Instant</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INTEGRATION -->
+  <div class="integration-section">
+    <h2>How It Fits Into Your Business</h2>
+    <p class="subtitle">PRAMANA runs inside your network, not in someone else's cloud. Here's what that means for you:</p>
+    <div class="integration-grid">
+      <div class="integration-card">
+        <div class="int-icon">&#128274;</div>
+        <div class="int-title">Your Data Never Leaves</div>
+        <div class="int-desc">PRAMANA runs on a machine inside your office or server room. No patient records, student data, or financial information is sent to any external server. An egress filter enforces this, even if a component tries to phone home, it's blocked. This matters for DPDP Sec 16 (cross-border transfer) compliance.</div>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128268;</div>
+        <div class="int-title">No External Dependencies</div>
+        <div class="int-desc">No external cloud APIs. The AI governance engine runs 100% locally on your private on-premise infrastructure. No monthly API bills. No surprise cost spikes. No vendor lock-in. Works on a standard desktop or mini-PC, no GPU required for the assessment mode.</div>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128421;</div>
+        <div class="int-title">Simple Web Interface</div>
+        <div class="int-desc">Access via your secure private local web interface. No client app installation required on staff devices.. No VPN. No firewall changes. Your compliance officer, your clinic manager, your school principal, anyone can use it from their existing laptop. Reports export as HTML or PDF.</div>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128225;</div>
+        <div class="int-title">Air-Gap Friendly</div>
+        <div class="int-desc">For high-security environments (hospitals, banks, defense), PRAMANA can run fully air-gapped. Updates come as signed offline bundles, you transfer them via USB, the system verifies the cryptographic signature, then applies the update. No network connection needed, ever.</div>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128101;</div>
+        <div class="int-title">Multi-User, Role-Based</div>
+        <div class="int-desc">Your compliance officer sees the full dashboard. Your department heads see only their sector's checklist. Your auditor gets a read-only report view. All access is logged with a tamper-evident audit trail, so you can prove who did what, when.</div>
+      </div>
+      <div class="integration-card">
+        <div class="int-icon">&#128230;</div>
+        <div class="int-title">One-Click Reports</div>
+        <div class="int-desc">Generate a Board-ready compliance report in one click. Includes: your compliance score, penalty exposure, gap analysis, remediation plan, AI system inventory, and regulatory mapping. Print it, email it, or hand it to your auditor. No formatting needed.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT PRAMANA DOES FOR YOU -->
+  <div class="trust-section">
+    <h2>What PRAMANA Does For You</h2>
+    <p class="subtitle" style="text-align:center; font-size:15px; color:var(--text-muted); margin-bottom:28px; max-width:640px; margin-left:auto; margin-right:auto;">
+      You didn't start your business to become a compliance expert. But the rules have changed, and ignoring them isn't an option. Here's how PRAMANA helps you stay on top of it.
+    </p>
+    <div class="trust-grid">
+      <div class="integration-card" style="border-left: 4px solid var(--red-border);">
+        <div class="int-icon">&#128269;</div>
+        <div class="int-title">Finds Your Gaps Before Someone Else Does</div>
+        <div class="int-desc">You answer 15 simple yes/no questions about how your business handles data. PRAMANA maps each answer to the exact DPDP section that applies to you. If there's a gap, you'll know about it in 5 minutes, not when a notice arrives in the mail.</div>
+      </div>
+      <div class="integration-card" style="border-left: 4px solid var(--gold-border);">
+        <div class="int-icon">&#128203;</div>
+        <div class="int-title">Gives You a Plan, Not Just a Score</div>
+        <div class="int-desc">A compliance score is just a number. What you actually need is: "Fix this first. Here's how. Here's the template. Here's who needs to do it." That's what PRAMANA gives you, a step-by-step remediation plan in plain language, no legal degree required.</div>
+      </div>
+      <div class="integration-card" style="border-left: 4px solid var(--green-border);">
+        <div class="int-icon">&#128274;</div>
+        <div class="int-title">Runs Inside Your Office, Not Someone Else's Cloud</div>
+        <div class="int-desc">Your patient records, student data, financial information, none of it leaves your building. PRAMANA runs on a machine in your office. No external servers. No API calls. No monthly cloud bills. An egress filter enforces this even if something tries to connect outward.</div>
+      </div>
+      <div class="integration-card" style="border-left: 4px solid var(--blue);">
+        <div class="int-icon">&#9878;</div>
+        <div class="int-title">Speaks Your Sector's Language</div>
+        <div class="int-desc">A clinic's obligations are different from a school's. A fintech's risks are different from an HR department's. PRAMANA comes pre-loaded with the specific DPDP sections, AI risk classifications, and compliance checklists for your industry, not a generic one-size-fits-all template.</div>
+      </div>
+      <div class="integration-card" style="border-left: 4px solid var(--gold-border);">
+        <div class="int-icon">&#128202;</div>
+        <div class="int-title">Produces Evidence You Can Show the Board</div>
+        <div class="int-desc">If the Data Protection Board sends a notice, "we tried" isn't enough. You need documented evidence that you assessed your compliance, identified gaps, and took steps to fix them. PRAMANA generates that record automatically, with dates, findings, and remediation actions.</div>
+      </div>
+      <div class="integration-card" style="border-left: 4px solid #c084fc;">
+        <div class="int-icon">&#9201;</div>
+        <div class="int-title">Takes 15 Minutes, Not 15 Weeks</div>
+        <div class="int-desc">You don't need to hire a consultant. You don't need a legal team. You don't need to read the 35-page DPDP Act. Install PRAMANA, answer 15 questions about your business, and get your compliance report. The penalties under DPDP are already in force, every day without an assessment is a day of exposure.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <h2>Check Your DPDP Compliance in 5 Minutes, Free</h2>
+    <p class="cta-sub">No credit card. No signup. No data leaves your computer. Get your compliance score instantly.</p>
+    <div class="cta-buttons">
+      <a class="cta-btn cta-btn-primary" href="../frontend/public/dpdp_gap_assessment.html" target="_blank">
+        &#128203; Start Free Gap Assessment
+      </a>
+      <a class="cta-btn cta-btn-secondary" href="mailto:hello@pramana.ai?subject=Book%20a%20DPDP%20compliance%20demo&body=Hi,%20I%20saw%20your%20SMB%20demo%20and%20would%20like%20to%20book%20a%2015-minute%20demo.%20My%20industry%20is:%20_____">
+        &#128197; Book a 15-Min Demo
+      </a>
+    </div>
+    <p class="cta-note">
+      PRAMANA is currently available to a small group of Indian businesses. We're onboarding 15 companies this quarter, each gets a dedicated setup session, sector-specific compliance templates, and direct access to our team for questions. No long-term contracts. No auto-renewal. If it doesn't work for you, you stop using it.
+    </p>
+  </div>
+
+</div><!-- /tab-intro -->
+
+<script>
+const DOMAINS = {
+
+  clinic: {
+    name: "Clinic & Hospital",
+    icon: "Clinic",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What happened at a private clinic",
+        sceneLabel: "Last Tuesday, at a typical private clinic",
+        title: "Your AI receptionist shared a patient's medical records",
+        story: "You run a private clinic in your city. To save time, you use an AI-powered appointment management system. It handles bookings, sends reminders, and maintains patient records automatically.\n\nLast Tuesday, your system received an insurance pre-authorization request for a patient named Priya. Without any human check, the AI retrieved Priya's full health record, including her diabetes diagnosis, prescription history, and recent test results, and forwarded it to the insurance company's verification portal.\n\nPriya never gave permission for her health records to be shared with the insurer.",
+        callout: "Priya only consented to the clinic keeping her records for treatment. She never agreed to share them with any third party, including her insurance company."
+      },
+      {
+        type: "risk",
+        cardTitle: "What the Law Says",
+        cardSubtitle: "What this means for you under the DPDP Act",
+        penalties: [
+          { amount: "Up to &#8377;250 Cr", label: "If a data security breach is involved", basis: "DPDP Schedule, Sec 8(5)" },
+          { amount: "Up to &#8377;200 Cr", label: "For sharing health data without consent", basis: "DPDP Schedule, Sec 9 / Sec 6" }
+        ],
+        consequences: [
+          { icon: "&#9878;", text: "<strong>Personal liability for the clinic owner</strong>, not just the company. You can be held individually responsible." },
+          { icon: "&#128203;", text: "<strong>NABH accreditation review</strong>, a regulatory complaint can trigger an inspection of your entire data handling practice." },
+          { icon: "&#129309;", text: "<strong>Patient complaint to DPBI</strong>, Priya can file directly with the Data Protection Board. You have no evidence that you tried to comply." },
+          { icon: "&#128240;", text: "<strong>Public regulatory orders</strong>, Board findings are published. Your clinic's name appears on a public record of violations." }
+        ],
+        question: "\"If a patient complains to the Data Protection Board tomorrow, how will you prove that your AI only shared data that was explicitly permitted?\"",
+        questionAttrib: "A question worth asking yourself"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How PRAMANA Helps",
+        cardSubtitle: "What PRAMANA would have found before this became a violation",
+        evalMsg: "Running DPDP compliance assessment for your clinic, checking consent records, notice obligations, and data sharing practices...",
+        verdictType: "blocked-box",
+        verdictIcon: "&#128269;",
+        verdictLabel: "GAP FOUND: No consent record for third-party health data sharing",
+        verdictDetail: "PRAMANA's assessment engine identified that your clinic has no documented consent for sharing patient health records with insurance companies. This gap is flagged as HIGH RISK. The gap report includes the exact DPDP section violated (Sec 6), the remediation step needed, and a compliance record you can show the Board.",
+        techDetail: "Gap detected: DPDP Sec 6 (Consent required for processing). No consent scope documented for cross-party health data transfer. Remediation: Implement consent form for insurance data sharing.",
+        query: "Assessment query: Does our clinic have valid consent records for sharing patient health data with third-party insurance portals?",
+        outcomes: [
+          { icon: "&#128269;", title: "Gap Identified", text: "PRAMANA found the missing consent record before a patient or auditor did.", good: true },
+          { icon: "&#128203;", title: "Remediation Plan", text: "Step-by-step plan to fix the gap: consent form template, notice update, staff checklist.", good: true },
+          { icon: "&#9878;", title: "Audit-Grade Record", text: "Documented evidence that you proactively assessed and addressed the compliance gap.", good: true }
+        ]
+      }
+    ],
+    additionalIssues: [
+      {
+        title: "Your telemedicine app stores patient video recordings indefinitely",
+        section: "DPDP Sec 8(5), Storage Limitation",
+        penalty: "Up to &#8377;250 Cr",
+        emotion: "Every teleconsultation your doctors do is recorded and stored. Patients assume these are temporary. They're not. Months of video records sit on a server with no deletion policy. If a patient asks 'why do you still have my video from 6 months ago?', what will you say?",
+        urgency: "The Board can order deletion of all excess data AND fine you for the period it was held. Every day you keep data longer than necessary adds to the violation period."
+      },
+      {
+        title: "Your diagnostic AI processes patient data without explaining how decisions are made",
+        section: "DPDP Sec 7, Right to Information",
+        penalty: "Up to &#8377;50 Cr",
+        emotion: "When your AI suggests a diagnosis or treatment plan, the patient has a right to know what data was used and how the decision was reached. Right now, most clinic AI systems provide no explanation at all. The patient gets a result and is expected to trust it blindly.",
+        urgency: "A patient who receives an incorrect AI-assisted diagnosis can file a complaint that you failed to provide information about automated processing. This is a Sec 7 violation on top of any medical negligence claim."
+      },
+      {
+        title: "Patient records are accessible to all staff, not just the treating doctor",
+        section: "DPDP Sec 8, Security Safeguards",
+        penalty: "Up to &#8377;250 Cr",
+        emotion: "Your receptionist, your billing clerk, and your nurse all have access to the same patient records system. The receptionist can pull up a patient's full medical history. The billing clerk can see diagnosis details. This isn't intentional snooping, it's just how the software was set up. But DPDP requires access to be limited to what each person needs.",
+        urgency: "A single staff member accessing records they shouldn't have access to is a data breach under DPDP. You don't need a hacker, your own team can create the violation."
+      }
+    ]
+  },
+
+  school: {
+    name: "School & College",
+    icon: "School",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What happened at a school using an EdTech app",
+        sceneLabel: "Ongoing, at a school using an EdTech app",
+        title: "Your school's app is tracking and profiling students, including a 14-year-old",
+        story: "Your school signed up for an EdTech homework platform. Teachers love it, students submit assignments, watch video lessons, and get automated feedback. Parents approved the app at the beginning of the year.\n\nWhat nobody noticed is the app's data terms. It tracks exactly which videos each student watches, how long they study, which topics they struggle with, and their daily usage patterns. This behaviour data is used to show targeted ads, for private tutoring services, branded notebooks, and premium subscription upgrades.\n\nOne of your students, Rohan, is 14 years old. The school deployed the app for all students, including him.",
+        callout: "Section 9 of the DPDP Act makes tracking, behavioural monitoring, and targeted advertising directed at children an absolute prohibition, regardless of any consent obtained."
+      },
+      {
+        type: "risk",
+        cardTitle: "What the Law Says",
+        cardSubtitle: "What this means under the DPDP Act",
+        penalties: [
+          { amount: "Up to &#8377;200 Cr", label: "Children's data mishandled (Sec 9)", basis: "DPDP First Schedule, Item 2" },
+          { amount: "Up to &#8377;50 Cr", label: "Consent obligation violation (Sec 6)", basis: "DPDP First Schedule, Item 5" }
+        ],
+        consequences: [
+          { icon: "&#128104;", text: "<strong>Parents can file complaints individually</strong>, each affected parent is an independent complainant to the Data Protection Board." },
+          { icon: "&#127979;", text: "<strong>School is treated as Data Fiduciary</strong>, by deploying the app, your institution is responsible for how student data is used." },
+          { icon: "&#128241;", text: "<strong>The app vendor's terms don't protect you</strong>, liability follows the entity that processed the data, not just who built the software." },
+          { icon: "&#128240;", text: "<strong>Reputational damage</strong>, a parent complaint to the Board becomes a media story. Other schools and parents hear about it." }
+        ],
+        question: "\"Can you show that every piece of student data your apps collect has a specific, lawful purpose, and that no minor is being tracked or profiled?\"",
+        questionAttrib: "A question worth asking school administrators"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How PRAMANA Helps",
+        cardSubtitle: "What PRAMANA would have found before this became a violation",
+        evalMsg: "Running DPDP assessment for your school, checking children's data protections, consent practices, and EdTech vendor data flows...",
+        verdictType: "blocked-box",
+        verdictIcon: "&#128269;",
+        verdictLabel: "GAP FOUND: Behavioral tracking of minors without Sec 9 compliance",
+        verdictDetail: "PRAMANA's assessment engine identified that your school's EdTech app tracks student behavior and shows targeted ads, including to minors under 18. This is an absolute prohibition under DPDP Sec 9(3), regardless of consent. The gap report flags this as CRITICAL, includes the exact section violated, and provides a remediation checklist to disable tracking for minor accounts.",
+        techDetail: "Gap detected: DPDP Sec 9(3), absolute ban on tracking/advertising to children. Non-derogable prohibition. Remediation: Disable behavioral tracking for all minor accounts, audit EdTech vendor data practices.",
+        query: "Assessment query: Are any of our EdTech platforms tracking or profiling students under 18, or showing them targeted advertisements?",
+        outcomes: [
+          { icon: "&#128269;", title: "Gap Identified", text: "PRAMANA found the tracking violation before a parent or the Board did.", good: true },
+          { icon: "&#127979;", title: "Remediation Plan", text: "Clear checklist: disable tracking for minors, audit vendor terms, update parental notices.", good: true },
+          { icon: "&#128203;", title: "Board-Ready Evidence", text: "If a parent complains, you have a documented assessment showing you identified and addressed the gap.", good: true }
+        ]
+      }
+    ],
+    additionalIssues: [
+      {
+        title: "Face recognition attendance system processing minors' biometric data",
+        section: "DPDP Sec 9 + Biometric Data Rules",
+        penalty: "Up to &#8377;200 Cr",
+        emotion: "Your school installed a face recognition system for attendance. It's fast, it's modern, parents seem to like it. But under DPDP Sec 9, processing a child's biometric data requires verifiable parental consent, and 'the school sent a circular' is not verifiable consent. Each child's face scan is biometric data. Each scan without proper consent is a separate violation.",
+        urgency: "Every day the face recognition system runs without documented verifiable parental consent for each student, you accumulate violations. 500 students x 180 school days = 90,000 potential violations."
+      },
+      {
+        title: "Student performance data shared with coaching institutes and education portals",
+        section: "DPDP Sec 6, Consent Scope",
+        penalty: "Up to &#8377;50 Cr",
+        emotion: "Your school shares student performance reports with external coaching institutes 'for the students' benefit'. Parents agreed to the school collecting data, they did not agree to it being shared with third-party coaching centers. This is a separate consent violation for each student whose data was shared.",
+        urgency: "Every student whose data was shared without explicit consent for that specific purpose is an independent complaint. 200 students x &#8377;50 Cr maximum per incident. The math is not in your favor."
+      },
+      {
+        title: "CCTV cameras in classrooms recording children continuously",
+        section: "DPDP Sec 9(3), No Tracking of Children",
+        penalty: "Up to &#8377;200 Cr",
+        emotion: "You installed CCTV in classrooms for 'security'. But the cameras run all day, recording every student's movement, expression, and behavior. This is continuous behavioral monitoring of children, exactly what DPDP Sec 9(3) prohibits. Security cameras that record adults in a lobby are one thing. Cameras that track children in a learning environment are another.",
+        urgency: "The DPDP Rules 2025 are specific: behavioral monitoring of children is an absolute prohibition. There is no consent that overrides it. Your CCTV policy needs to be reviewed now, not after a parent files a complaint."
+      }
+    ]
+  },
+
+  fintech: {
+    name: "Fintech & NBFC",
+    icon: "Fintech",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What happened at a lending platform",
+        sceneLabel: "This month, at a lending app's automated backend",
+        title: "Your loan AI rejected an applicant and shared their financial data without notice",
+        story: "Your lending app uses an AI engine to evaluate loan applications. It processes income data, employment history, repayment track record, and credit bureau scores, all in seconds.\n\nLast week, Arun applied for a personal loan. The AI engine declined the application. So far, so normal. But here's what also happened automatically: the rejection reason, including Arun's income bracket, employer name, loan repayment history, and credit score, was forwarded to a data analytics partner your platform works with for credit risk modelling.\n\nArun's application form made no mention of this data sharing. He was never asked to consent to it.",
+        callout: "Under DPDP Section 6, personal data can only be processed for the purpose the individual was informed about. Sharing financial data with a third party without notice is a separate, independent violation."
+      },
+      {
+        type: "risk",
+        cardTitle: "What the Law Says",
+        cardSubtitle: "What this exposure means for your business",
+        penalties: [
+          { amount: "Up to &#8377;50 Cr", label: "Consent obligation breach per incident", basis: "DPDP First Schedule, Item 5" },
+          { amount: "Up to &#8377;200 Cr", label: "If RBI data localisation rules are also triggered", basis: "RBI Master Direction + DPDP Sec 16(2)" }
+        ],
+        consequences: [
+          { icon: "&#127974;", text: "<strong>RBI dual exposure</strong>, payment system data sharing may simultaneously trigger Reserve Bank of India regulations, creating compound liability." },
+          { icon: "&#128451;", text: "<strong>Data Principal erasure rights (Sec 12)</strong>, Arun can demand deletion of all records. Your credit risk model depends on this data." },
+          { icon: "&#9878;", text: "<strong>Multiple complainants</strong>, every rejected applicant whose data was shared has an independent complaint right. Hundreds of incidents x up to &#8377;50 Cr each." },
+          { icon: "&#128274;", text: "<strong>RBI licence implications</strong>, a DPBI finding against an NBFC triggers automatic review by RBI's enforcement division." }
+        ],
+        question: "\"For every loan decision your AI made this year, do you have a record of exactly what data was shared, with whom, and the consent basis for each share?\"",
+        questionAttrib: "A question worth asking fintech compliance officers"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How PRAMANA Helps",
+        cardSubtitle: "What PRAMANA would have found before this became a violation",
+        evalMsg: "Running DPDP assessment for your fintech, checking consent records, data sharing practices, and RBI data localisation compliance...",
+        verdictType: "blocked-box",
+        verdictIcon: "&#128269;",
+        verdictLabel: "GAP FOUND: No consent record for third-party financial data sharing",
+        verdictDetail: "PRAMANA assessment found that your lending app shares rejected applicants' financial data with an analytics partner without consent. This violates DPDP Sec 6 and may trigger RBI data localisation rules. The gap report flags dual-regulator exposure (DPBI + RBI) and provides a remediation plan.",
+        techDetail: "Gap: DPDP Sec 6 (Consent scope) + Sec 16(2) (RBI data localisation). Remediation: Add consent disclosure for data sharing, audit all third-party data flows.",
+        query: "Assessment: For every loan decision this year, do we have consent records for all data shared with third parties?",
+        outcomes: [
+          { icon: "&#128269;", title: "Gap Identified", text: "PRAMANA found the unauthorized data sharing before a customer or RBI audit did.", good: true },
+          { icon: "&#128203;", title: "Dual-Regulator Plan", text: "Remediation plan covers both DPDP and RBI compliance in one report.", good: true },
+          { icon: "&#9878;", title: "Audit-Grade Record", text: "Documented evidence that you proactively assessed data sharing practices.", good: true }
+        ]
+      }
+    ],
+    additionalIssues: [
+      {
+        title: "Credit scoring AI with no explainability or human review mechanism",
+        section: "DPDP Sec 7 + RBI MRM Guidelines",
+        penalty: "Up to &#8377;50 Cr + RBI action",
+        emotion: "Your AI credit scoring system rejects loan applicants automatically. When a customer asks 'why was I rejected?', your support team has no answer, the AI's decision is a black box. Under DPDP Sec 7, every person has the right to know how a decision about them was made. Under RBI Model Risk Management guidelines, you need human oversight of AI credit decisions.",
+        urgency: "RBI is actively auditing NBFCs for AI model governance. A black-box credit scoring AI with no explainability is a dual violation, DPDP and RBI MRM. One audit finding can trigger both regulators."
+      },
+      {
+        title: "Customer financial data stored on overseas cloud servers",
+        section: "DPDP Sec 16(2) + RBI Data Localisation",
+        penalty: "Up to &#8377;200 Cr + RBI penalty",
+        emotion: "Your fintech app runs on AWS or Azure. Your customer data, names, PAN numbers, transaction history, credit scores, sits on servers in Singapore or Dublin. You assumed the cloud provider handles compliance. They don't. RBI's data localisation mandate requires all payment system data to stay in India. DPDP Sec 16(2) allows sectoral overrides, and RBI's override says: keep it here.",
+        urgency: "RBI has already fined multiple fintechs for data localisation violations. Moving data back to India takes months. Every day your data sits overseas is a day of dual-regulator exposure."
+      },
+      {
+        title: "Automated loan rejections with no grievance redressal mechanism",
+        section: "DPDP Sec 13, Grievance Redressal",
+        penalty: "Up to &#8377;50 Cr per complainant",
+        emotion: "A customer's loan is rejected by your AI. They want to appeal. They call your support number. The agent says 'the system rejected it, we can't override it'. There's no escalation path. No human review. No grievance officer. The customer is told to apply again in 90 days. Under DPDP Sec 13, every Data Fiduciary must have a grievance redressal mechanism with a designated officer.",
+        urgency: "A customer who can't get their grievance addressed goes directly to the Board. The Board doesn't just fine you for the original issue, they fine you for not having a grievance mechanism. Two violations for the price of one."
+      }
+    ]
+  },
+
+  hr: {
+    name: "Business & HR",
+    icon: "Business",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What's happening in your office right now",
+        sceneLabel: "Ongoing, at a mid-sized business with employee monitoring",
+        title: "Your office monitoring system is collecting employee biometrics without proper notice",
+        story: "Your company installed a productivity monitoring system six months ago. Employees scan their thumbprint at entry, exit, and every time they access the server room. The system also logs computer activity, websites visited, applications used, and time spent idle, and takes periodic screenshots.\n\nEmployees signed an employment contract before joining. The contract has a general clause: \"Company may monitor its premises and systems.\" No separate data collection notice was given. No specific purpose was explained. No employee was told how long their data would be kept, or given a way to access or object to it.\n\nYour HR software now contains six months of biometric attendance records, computer activity logs, and screenshots for every employee.",
+        callout: "A general employment contract clause does not satisfy DPDP Act Section 5 and 6 requirements. Each data collection activity requires a specific, clear notice, separate from the employment agreement."
+      },
+      {
+        type: "risk",
+        cardTitle: "What the Law Says",
+        cardSubtitle: "What your business is exposed to",
+        penalties: [
+          { amount: "Up to &#8377;50 Cr", label: "Consent / notice violation per employee", basis: "DPDP First Schedule, Item 5" },
+          { amount: "Up to &#8377;200 Cr", label: "If biometric data breach occurs", basis: "DPDP First Schedule, Item 1/2" }
+        ],
+        consequences: [
+          { icon: "&#128104;", text: "<strong>Every employee is an independent complainant</strong>, with 50 employees, that's 50 separate complaints. Each is handled individually by the Board." },
+          { icon: "&#128188;", text: "<strong>Labour law intersection</strong>, data violations by employers are increasingly being linked to unfair labour practice claims." },
+          { icon: "&#128465;", text: "<strong>Erasure demands</strong>, employees can demand deletion of their biometric and activity records under Sec 12. Your HR system's historical data becomes legally vulnerable." },
+          { icon: "&#128269;", text: "<strong>Audit exposure</strong>, a single complaint triggers a Board audit of all data practices. Six months of non-compliant data collection will be scrutinised." }
+        ],
+        question: "\"Can you produce, for each employee, a specific notice explaining exactly what data you collect, why, for how long, and with whom it might be shared?\"",
+        questionAttrib: "A question worth asking business owners and HR heads"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How PRAMANA Helps",
+        cardSubtitle: "What PRAMANA would have found before this became a violation",
+        evalMsg: "Running DPDP assessment for your business, checking employee notice compliance, biometric data practices, and consent records...",
+        verdictType: "blocked-box",
+        verdictIcon: "&#128269;",
+        verdictLabel: "GAP FOUND: No DPDP-compliant notice for biometric data processing",
+        verdictDetail: "PRAMANA assessment found that 47 of 50 employees have no DPDP-compliant notice for biometric data collection. Your employment contract clause does not satisfy Sec 5 and 6 requirements. The gap report provides a notice template, remediation checklist, and compliance record.",
+        techDetail: "Gap: DPDP Sec 5 (Notice required) + Sec 6 (Consent). Remediation: Issue DPDP-compliant notices to all employees, update consent forms for biometric data.",
+        query: "Assessment: Can we produce a DPDP-compliant notice for each employee explaining what biometric data we collect, why, and how long we keep it?",
+        outcomes: [
+          { icon: "&#128269;", title: "Gap Identified", text: "PRAMANA found 47 employees without proper notice before a complaint or audit.", good: true },
+          { icon: "&#128203;", title: "Remediation Plan", text: "Notice template, employee list, and step-by-step fix plan provided to HR.", good: true },
+          { icon: "&#9878;", title: "Audit-Grade Record", text: "Documented evidence that you proactively assessed and addressed the gap.", good: true }
+        ]
+      }
+    ],
+    additionalIssues: [
+      {
+        title: "Resume screening AI with potential gender and age bias",
+        section: "DPDP Sec 7, Right to Information",
+        penalty: "Up to &#8377;50 Cr per complainant",
+        emotion: "Your HR team uses an AI tool to screen resumes. It ranks candidates by 'cultural fit'. But what does 'cultural fit' actually mean? If the AI was trained on historical hiring data where most hires were men aged 25-35, it will quietly prefer men aged 25-35. A rejected candidate who discovers this can file a complaint under DPDP Sec 7, they have a right to know how the decision was made.",
+        urgency: "AI bias in hiring is getting regulatory attention globally. In India, a rejected candidate who suspects bias can demand an explanation under DPDP Sec 7. If you can't provide one, the presumption works against you."
+      },
+      {
+        title: "Employee performance AI making automated termination decisions",
+        section: "DPDP Sec 7 + Labour Law Intersection",
+        penalty: "Up to &#8377;50 Cr + Labour court claims",
+        emotion: "Your performance management system flags 'low performers' automatically. Managers use these flags to make termination decisions. The employee was never told their performance was being evaluated by an AI. They were never given a chance to review the AI's assessment. They were never told they could challenge it. Under DPDP Sec 7, employees have the right to information about automated decisions that affect them.",
+        urgency: "Labour courts are increasingly receptive to claims that AI-driven terminations violate both DPDP and labour law. A single case can set a precedent for your entire workforce."
+      },
+      {
+        title: "Former employee data retained indefinitely after termination",
+        section: "DPDP Sec 12, Erasure",
+        penalty: "Up to &#8377;50 Cr per complainant",
+        emotion: "An employee left your company 2 years ago. Their personal data, salary history, performance reviews, medical records from health checkups, biometric attendance data, is still in your HR system. They've asked you to delete it. You said 'we need it for records'. Under DPDP Sec 12, they have the right to erasure, and 'we need it for records' is not a valid exemption unless you can prove a specific legal requirement to retain it.",
+        urgency: "Every former employee whose data you hold without a legal basis is a complaint waiting to happen. The longer you keep it, the harder it is to explain why."
+      }
+    ]
+  },
+
+  edtech: {
+    name: "EdTech & Subscriptions",
+    icon: "EdTech",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What your app did automatically last month",
+        sceneLabel: "Last month, at an EdTech subscription app",
+        title: "Your app auto-renewed a premium subscription for a 13-year-old student",
+        story: "Your EdTech app offers video lessons, practice tests, and a premium subscription for advanced features. It has hundreds of thousands of users across India.\n\nDuring sign-up, you ask for date of birth. Amit, aged 13, signed up with his parents' phone and payment details. His account shows him as a student in Class 8. The system identified his age at sign-up.\n\nLast month, when his trial period ended, the system automatically charged the saved credit card for an annual premium subscription, &#8377;4,999. No reminder was sent beforehand. His parents only noticed when they saw the bank statement.\n\nAmit's parents never gave verifiable consent for him to use a paid subscription, and the DPDP Act specifically requires verifiable parental consent before any processing of a child's data, including financial processing.",
+        callout: "Section 9 of the DPDP Act prohibits processing a child's data, including billing, without verifiable parental consent. Standard app-level Terms of Service acceptance by a minor is not valid consent."
+      },
+      {
+        type: "risk",
+        cardTitle: "What the Law Says",
+        cardSubtitle: "What this means for your platform",
+        penalties: [
+          { amount: "Up to &#8377;200 Cr", label: "Processing minor's data without parental consent", basis: "DPDP First Schedule, Item 2 (Sec 9)" },
+          { amount: "Up to &#8377;50 Cr", label: "Consent obligation violation per incident", basis: "DPDP First Schedule, Item 5" }
+        ],
+        consequences: [
+          { icon: "&#128241;", text: "<strong>App Store review and de-listing risk</strong>, Google Play and App Store policies require apps targeting minors to comply with local child data laws. A Board finding can trigger app removal." },
+          { icon: "&#128176;", text: "<strong>Mass refund demands</strong>, every parent of a minor who was auto-renewed can demand a full refund plus file a complaint. Multiply by thousands of users." },
+          { icon: "&#128276;", text: "<strong>Board notification required</strong>, once a systemic minor data violation is identified, your platform may be required to proactively notify the Board of all affected accounts." },
+          { icon: "&#128202;", text: "<strong>Scale multiplies liability</strong>, unlike a small clinic, your platform may have tens of thousands of minor accounts. Liability does not cap, each incident is counted separately." }
+        ],
+        question: "\"For every user under 18 on your platform, do you have verifiable parental consent on record, and are you certain no billing, tracking, or advertising is applied to those accounts?\"",
+        questionAttrib: "A question worth asking EdTech founders and product teams"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How PRAMANA Helps",
+        cardSubtitle: "What PRAMANA would have found before this became a violation",
+        evalMsg: "Running DPDP assessment for your EdTech platform, checking minor account detection, parental consent records, and billing practices...",
+        verdictType: "blocked-box",
+        verdictIcon: "&#128269;",
+        verdictLabel: "GAP FOUND: Minor accounts billed without verifiable parental consent",
+        verdictDetail: "PRAMANA assessment found that your platform auto-renews subscriptions for minor accounts without verifiable parental consent. This violates DPDP Sec 9(1). The gap report flags all affected accounts, provides a consent verification workflow, and a compliance record showing proactive remediation.",
+        techDetail: "Gap: DPDP Sec 9(1) (Parental consent) + Sec 9(2) (Child well-being). Remediation: Implement parental consent verification before billing minor accounts, audit all minor account billing history.",
+        query: "Assessment: For every user under 18 on our platform, do we have verifiable parental consent on record before any billing action?",
+        outcomes: [
+          { icon: "&#128269;", title: "Gap Identified", text: "PRAMANA found the missing parental consent before a mass refund demand or Board notice.", good: true },
+          { icon: "&#128203;", title: "Remediation Plan", text: "Consent verification workflow, affected account list, and billing audit checklist.", good: true },
+          { icon: "&#9878;", title: "Audit-Grade Record", text: "Documented evidence that you proactively assessed and addressed the gap.", good: true }
+        ]
+      }
+    ],
+    additionalIssues: [
+      {
+        title: "Online exam proctoring AI using facial recognition on minors",
+        section: "DPDP Sec 9, Biometric Data of Children",
+        penalty: "Up to &#8377;200 Cr",
+        emotion: "Your proctoring AI watches students through their webcam during online exams. It tracks eye movement, detects 'suspicious' behavior, and flags students for cheating. For a 14-year-old taking a math test, this means a camera recording their face, their room, their expressions, all processed by AI without verifiable parental consent for biometric processing. This is a Sec 9 violation on top of a Sec 6 violation.",
+        urgency: "Proctoring AI on minors is one of the most visible DPDP risks. A single parent complaint about 'a camera watching my child' can trigger a Board investigation into your entire platform."
+      },
+      {
+        title: "Student behavioral data sold to third-party advertisers and app developers",
+        section: "DPDP Sec 6 + Sec 9(3)",
+        penalty: "Up to &#8377;200 Cr",
+        emotion: "Your platform collects detailed data on how students learn, what they click, how long they spend on each question, where they hesitate. This data is 'anonymized' and shared with third parties for 'research'. But anonymization that can be reversed by combining datasets isn't anonymization. And sharing behavioral data about children is prohibited under Sec 9(3) regardless of consent.",
+        urgency: "The DPDP Rules 2025 are clear: no behavioral tracking of children, period. 'Anonymized' data that can be re-identified is still personal data. If your data sharing practices are discovered, the penalty applies per child affected."
+      },
+      {
+        title: "No mechanism for students or parents to request data deletion",
+        section: "DPDP Sec 12, Right to Erasure",
+        penalty: "Up to &#8377;50 Cr per complainant",
+        emotion: "A parent asks you to delete their child's account and all associated data. Your support team says 'we can deactivate the account but we can't delete the data for audit purposes'. Under DPDP Sec 12, the right to erasure is a fundamental right. Unless you have a specific legal obligation to retain the data, you must delete it. 'For audit purposes' is not a legal obligation unless a specific law requires it.",
+        urgency: "A parent who is refused erasure can complain to the Board immediately. The Board can order deletion AND fine you for the refusal. Your platform needs a one-click erasure mechanism, not a support ticket that gets ignored."
+      }
+    ]
+  }
+};
+
+/* STATE */
+let currentDomain = 'clinic';
+let currentStage = 1;
+let narrationPlaying = false;
+let narrationUtterance = null;
+
+/* TAB SWITCHING */
+function switchTab(tab) {
+  stopNarration();
+  const oldIssues = document.getElementById('additional-issues-container');
+  if (oldIssues) oldIssues.remove();
+  const oldBar = document.getElementById('narration-bar');
+  if (oldBar) oldBar.remove();
+
+  document.querySelectorAll('.main-tab').forEach(el => el.classList.remove('active'));
+  const tabBtn = document.getElementById('mtab-' + tab);
+  if (tabBtn) tabBtn.classList.add('active');
+
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  const tabContent = document.getElementById('tab-' + tab);
+  if (tabContent) tabContent.classList.add('active');
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+/* DOMAIN SELECTION */
+function selectDomain(d) {
+  stopNarration();
+  const oldBar = document.getElementById('narration-bar');
+  if (oldBar) oldBar.remove();
+  const oldIssues = document.getElementById('additional-issues-container');
+  if (oldIssues) oldIssues.remove();
+  currentDomain = d;
+  currentStage = 1;
+
+  document.querySelectorAll('.domain-tab').forEach(el => el.classList.remove('active'));
+  const tab = document.getElementById('dtab-' + d);
+  if (tab) tab.classList.add('active');
+
+  updateStepperUI();
+  renderStage();
+  updateNav();
+}
+
+/* STAGE NAVIGATION */
+function nextStage() {
+  stopNarration();
+  const oldBar = document.getElementById('narration-bar');
+  if (oldBar) oldBar.remove();
+  const oldIssues = document.getElementById('additional-issues-container');
+  if (oldIssues) oldIssues.remove();
+  if (currentStage < 3) {
+    currentStage++;
+    updateStepperUI();
+    renderStage();
+    updateNav();
+    window.scrollTo({ top: document.getElementById('stage-stepper').offsetTop - 60, behavior: 'smooth' });
+  }
+}
+
+function prevStage() {
+  stopNarration();
+  const oldBar = document.getElementById('narration-bar');
+  if (oldBar) oldBar.remove();
+  const oldIssues = document.getElementById('additional-issues-container');
+  if (oldIssues) oldIssues.remove();
+  if (currentStage > 1) {
+    currentStage--;
+    updateStepperUI();
+    renderStage();
+    updateNav();
+    window.scrollTo({ top: document.getElementById('stage-stepper').offsetTop - 60, behavior: 'smooth' });
+  }
+}
+
+function updateNav() {
+  const backBtn = document.getElementById('btn-back');
+  const fwdBtn = document.getElementById('btn-forward');
+
+  backBtn.style.display = currentStage > 1 ? 'inline-flex' : 'none';
+
+  if (currentStage === 3) {
+    fwdBtn.innerHTML = '&#8634; Explore Another Scenario';
+    fwdBtn.onclick = () => { currentStage = 1; updateStepperUI(); renderStage(); updateNav(); };
+  } else {
+    fwdBtn.innerHTML = 'Continue &nbsp;&#8594;';
+    fwdBtn.onclick = nextStage;
+  }
+}
+
+function updateStepperUI() {
+  for (let i = 1; i <= 3; i++) {
+    const item = document.getElementById('step-item-' + i);
+    item.classList.remove('active', 'done');
+    if (i < currentStage) item.classList.add('done');
+    else if (i === currentStage) item.classList.add('active');
+  }
+  for (let i = 1; i <= 2; i++) {
+    const conn = document.getElementById('step-conn-' + i);
+    conn.classList.toggle('done', i < currentStage);
+  }
+  [1,2,3].forEach(i => {
+    const item = document.getElementById('step-item-' + i);
+    const circle = item.querySelector('.step-circle');
+    if (item.classList.contains('done')) circle.innerHTML = '&#10003;';
+    else circle.textContent = i;
+  });
+}
+
+/* RENDER STAGE */
+function renderStage() {
+  const domain = DOMAINS[currentDomain];
+  const stageData = domain.stages[currentStage - 1];
+  const area = document.getElementById('stage-area');
+
+  let html = '';
+
+  if (stageData.type === 'prep') {
+    html = renderPrep(stageData, domain);
+  } else if (stageData.type === 'risk') {
+    html = renderRisk(stageData);
+  } else if (stageData.type === 'pramana') {
+    html = renderPRAMANA(stageData);
+  }
+
+  area.innerHTML = html;
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(6px)';
+  requestAnimationFrame(() => {
+    area.style.transition = 'all 0.35s ease';
+    area.style.opacity = '1';
+    area.style.transform = 'translateY(0)';
+  });
+
+  if (stageData.type === 'pramana') {
+    setTimeout(() => triggerPRAMANAAnimation(stageData), 400);
+  }
+
+  const oldIssues = document.getElementById('additional-issues-container');
+  if (oldIssues) oldIssues.remove();
+
+  if (stageData.type === 'pramana' && domain.additionalIssues && domain.additionalIssues.length > 0) {
+    const issuesHtml = renderAdditionalIssues(domain.additionalIssues);
+    const issuesContainer = document.createElement('div');
+    issuesContainer.id = 'additional-issues-container';
+    issuesContainer.innerHTML = issuesHtml;
+    issuesContainer.style.opacity = '0';
+    issuesContainer.style.transition = 'opacity 0.5s ease';
+
+    const stageNav = document.getElementById('stage-nav');
+    stageNav.parentNode.insertBefore(issuesContainer, stageNav.nextSibling);
+
+    setTimeout(() => { issuesContainer.style.opacity = '1'; }, 600);
+  }
+
+  addNarrationBar(domain, currentStage);
+}
+
+function renderPrep(s, domain) {
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#f0f9ff; border-left:4px solid var(--blue);">
+        <div class="stage-num-badge badge-prep">1</div>
+        <div>
+          <h3 class="stage-card-header-title">${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div class="story-scene-label">${s.sceneLabel}</div>
+        <div class="stage-title">${s.title}</div>
+        <div class="story-text">${s.story.replace(/\n\n/g, '</p><p style="margin-top:16px">').replace(/\n/g, '<br/>')}</div>
+        <div class="story-callout">${s.callout}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderRisk(s) {
+  const penaltyCards = s.penalties.map(p => `
+    <div class="penalty-card">
+      <span class="penalty-amount-big">${p.amount}</span>
+      <div class="penalty-label">${p.label}</div>
+      <div class="penalty-basis">${p.basis}</div>
+    </div>
+  `).join('');
+
+  const consequences = s.consequences.map(c => `
+    <li class="consequence-item">
+      <span class="consequence-icon">${c.icon}</span>
+      <span class="consequence-text">${c.text}</span>
+    </li>
+  `).join('');
+
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#fff5f5; border-left:4px solid var(--red);">
+        <div class="stage-num-badge badge-risk">2</div>
+        <div>
+          <h3 class="stage-card-header-title">${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div class="demo-query-label">Maximum Penalties Under the DPDP Act</div>
+        <div class="risk-grid">${penaltyCards}</div>
+
+        <div class="demo-query-label" style="margin-top:24px;">What Happens If You Don't Fix This</div>
+        <ul class="consequence-list">${consequences}</ul>
+
+        <div class="risk-question">
+          <p>${s.question}</p>
+          <cite>${s.questionAttrib}</cite>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPRAMANA(s) {
+  const outcomes = s.outcomes.map(o => `
+    <div class="outcome-card${o.good ? ' good' : ''}">
+      <div class="outcome-icon">${o.icon}</div>
+      <div class="outcome-title">${o.title}</div>
+      <div class="outcome-text">${o.text}</div>
+    </div>
+  `).join('');
+
+  const verdictBoxClass = s.verdictType;
+  const fakeHash = 'sha256_' + Math.random().toString(36).substr(2, 16);
+
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#f0fdf4; border-left:4px solid var(--green);">
+        <div class="stage-num-badge badge-prot">3</div>
+        <div>
+          <h3 class="stage-card-header-title">${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div class="pramana-demo-box">
+          <div class="demo-terminal-header">
+            <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+            <span class="terminal-label">PRAMANA &middot; Governance Control Plane</span>
+          </div>
+          <div class="demo-terminal-body">
+            <div class="demo-query-label">Query submitted to PRAMANA</div>
+            <div class="demo-query">${s.query}</div>
+
+            <div class="pramana-eval-row" id="pramana-eval-row">
+              <div class="pramana-spinner"></div>
+              <span class="pramana-eval-text" id="pramana-eval-text">${s.evalMsg}</span>
+            </div>
+
+            <div class="pramana-verdict-box ${verdictBoxClass}" id="pramana-verdict">
+              <div class="pramana-verdict">${s.verdictIcon}&nbsp; ${s.verdictLabel}</div>
+              <div class="pramana-verdict-detail">${s.verdictDetail}</div>
+              <div class="tech-detail">${s.techDetail}</div>
+            </div>
+
+            <div class="receipt-seal" id="pramana-receipt">
+              <span class="seal-hash">${fakeHash}</span>
+              <span class="seal-status">COMPLIANCE RECORD &middot; Audit-Grade &#10003;</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="demo-query-label">Outcome</div>
+        <div class="outcome-summary">${outcomes}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAdditionalIssues(issues) {
+  const cards = issues.map(issue => `
+    <div class="issue-card">
+      <div class="issue-card-header">
+        <div class="issue-card-title">${issue.title}</div>
+        <div class="issue-card-penalty">${issue.penalty}</div>
+      </div>
+      <div class="issue-card-section">${issue.section}</div>
+      <div class="issue-card-emotion">${issue.emotion}</div>
+      <div class="issue-card-urgency">${issue.urgency}</div>
+    </div>
+  `).join('');
+
+  return `
+    <div class="additional-issues-section">
+      <div class="additional-issues-title">Other risks in your sector worth knowing about</div>
+      <div class="additional-issues-subtitle">These are real DPDP exposure areas for businesses like yours. Each one carries its own penalty under the DPDP Act.</div>
+      ${cards}
+    </div>
+  `;
+}
+
+async function triggerPRAMANAAnimation(s) {
+  const evalRow = document.getElementById('pramana-eval-row');
+  const verdict = document.getElementById('pramana-verdict');
+  const receipt = document.getElementById('pramana-receipt');
+
+  if (!evalRow) return;
+
+  evalRow.classList.add('show');
+  await delay(1100);
+  evalRow.classList.remove('show');
+  await delay(200);
+  verdict.classList.add('show');
+  await delay(600);
+  receipt.classList.add('show');
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* VOICE NARRATION */
+function addNarrationBar(domain, stage) {
+  if (!('speechSynthesis' in window)) return;
+
+  const stageData = domain.stages[stage - 1];
+  let narrationText = '';
+
+  if (stage === 1 && stageData.type === 'prep') {
+    narrationText = buildStage1Narration(domain, stageData);
+  } else if (stage === 2 && stageData.type === 'risk') {
+    narrationText = buildStage2Narration(domain, stageData);
+  } else if (stage === 3 && stageData.type === 'pramana') {
+    narrationText = buildStage3Narration(domain, stageData);
+  }
+
+  if (!narrationText) return;
+
+  const oldBar = document.getElementById('narration-bar');
+  if (oldBar) oldBar.remove();
+
+  const area = document.getElementById('stage-area');
+  const bar = document.createElement('div');
+  bar.id = 'narration-bar';
+  bar.className = 'narration-bar';
+  window.currentNarrationText = narrationText;
+  bar.innerHTML = `
+    <button class="narration-btn" id="narration-btn" onclick="toggleNarration(window.currentNarrationText)">
+      <span id="narration-icon">&#9654;</span> <span id="narration-label">Listen to this scenario</span>
+    </button>
+    <span class="narration-status" id="narration-status"></span>
+  `;
+
+  area.parentNode.insertBefore(bar, area);
+}
+
+function buildStage1Narration(domain, s) {
+  const storyText = s.story.replace(/\n\n/g, '. ').replace(/\n/g, '. ');
+  return `Let me walk you through a real situation that could happen at ${domain.name.toLowerCase()}. ${s.title}. ${storyText} ${s.callout} This is not a hypothetical scenario. This is happening at businesses across India right now. Let's look at what this means for you under the DPDP Act.`;
+}
+
+function buildStage2Narration(domain, s) {
+  const penalties = s.penalties.map(p => p.amount.replace(/&#8377;/g, 'rupees') + ' ' + p.label).join('. ');
+  const consequences = s.consequences.map(c => c.text.replace(/<[^>]*>/g, '')).join('. ');
+  return `Here is what this means under the DPDP Act. The penalties you face: ${penalties}. And the consequences don't stop at fines. ${consequences} Ask yourself: ${s.question.replace(/<[^>]*>/g, '')} If you can't answer that question confidently, you need to hear what comes next.`;
+}
+
+function buildStage3Narration(domain, s) {
+  const outcomes = s.outcomes.map(o => o.title + ': ' + o.text).join('. ');
+  return `Here is how PRAMANA helps. ${s.verdictLabel}. ${s.verdictDetail} ${outcomes} This is what PRAMANA does. It finds the gaps before someone else does. It gives you a plan to fix them. And it creates a record that shows you took action. You can check your own compliance in five minutes. The link is at the bottom of this page.`;
+}
+
+function toggleNarration(text) {
+  if (narrationPlaying) {
+    stopNarration();
+    return;
+  }
+  startNarration(text);
+}
+
+function startNarration(text) {
+  if (!('speechSynthesis' in window)) return;
+  stopNarration();
+
+  narrationUtterance = new SpeechSynthesisUtterance(text);
+  narrationUtterance.lang = 'en-IN';
+  narrationUtterance.rate = 0.95;
+  narrationUtterance.pitch = 1.0;
+
+  const voices = speechSynthesis.getVoices();
+  const indianVoice = voices.find(v => v.lang === 'en-IN') || voices.find(v => v.lang.startsWith('en'));
+  if (indianVoice) narrationUtterance.voice = indianVoice;
+
+  narrationUtterance.onstart = () => {
+    narrationPlaying = true;
+    updateNarrationUI(true, 'Narrating...');
+  };
+  narrationUtterance.onend = () => {
+    narrationPlaying = false;
+    updateNarrationUI(false, '');
+  };
+  narrationUtterance.onerror = () => {
+    narrationPlaying = false;
+    updateNarrationUI(false, '');
+  };
+
+  speechSynthesis.speak(narrationUtterance);
+}
+
+function stopNarration() {
+  if ('speechSynthesis' in window) {
+    speechSynthesis.cancel();
+  }
+  narrationPlaying = false;
+  updateNarrationUI(false, '');
+}
+
+function updateNarrationUI(playing, status) {
+  const btn = document.getElementById('narration-btn');
+  const icon = document.getElementById('narration-icon');
+  const label = document.getElementById('narration-label');
+  const statusEl = document.getElementById('narration-status');
+
+  if (!btn) return;
+
+  if (playing) {
+    btn.classList.add('playing');
+    if (icon) icon.innerHTML = '&#9209;';
+    if (label) label.textContent = 'Stop narration';
+    if (statusEl) statusEl.textContent = status;
+  } else {
+    btn.classList.remove('playing');
+    if (icon) icon.innerHTML = '&#9654;';
+    if (label) label.textContent = 'Listen to this scenario';
+    if (statusEl) statusEl.textContent = '';
+  }
+}
+
+if ('speechSynthesis' in window) {
+  speechSynthesis.onvoiceschanged = () => {};
+}
+
+/* PRINT SCENARIO */
+function printScenario() {
+  const domain = DOMAINS[currentDomain];
+  const domainName = domain.name;
+
+  const prepData = domain.stages[0];
+  const riskData = domain.stages[1];
+  const pramanaData = domain.stages[2];
+
+  const penaltyCards = riskData.penalties.map(p => `
+    <div style="padding:14px; background:#fee2e2; border:1px solid #fca5a5; border-radius:8px; text-align:center;">
+      <div style="font-size:22px; font-weight:800; color:#b91c1c;">${p.amount}</div>
+      <div style="font-size:12px; color:#475569; margin-top:4px;">${p.label}</div>
+      <div style="font-size:10px; color:#64748b; margin-top:2px; font-family:monospace;">${p.basis}</div>
+    </div>
+  `).join('');
+
+  const consequences = riskData.consequences.map(c => `
+    <div style="display:flex; gap:10px; padding:12px; background:#f1f5f9; border-radius:6px; margin-bottom:8px;">
+      <span style="font-size:18px;">${c.icon}</span>
+      <span style="font-size:13px; color:#334155;">${c.text}</span>
+    </div>
+  `).join('');
+
+  const outcomes = pramanaData.outcomes.map(o => `
+    <div style="flex:1; min-width:140px; padding:14px; background:#dcfce7; border:1px solid #86efac; border-radius:8px;">
+      <div style="font-size:20px; margin-bottom:6px;">${o.icon}</div>
+      <div style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:4px;">${o.title}</div>
+      <div style="font-size:11px; color:#166534;">${o.text}</div>
+    </div>
+  `).join('');
+
+  const additionalCards = (domain.additionalIssues || []).map(issue => `
+    <div style="padding:14px; background:#f1f5f9; border:1px solid #e2e8f0; border-left:4px solid #fca5a5; border-radius:6px; margin-bottom:10px;">
+      <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+        <strong style="font-size:13px;">${issue.title}</strong>
+        <span style="font-size:12px; color:#dc2626; font-weight:700; font-family:monospace;">${issue.penalty}</span>
+      </div>
+      <div style="font-size:10px; color:#64748b; font-family:monospace; margin-bottom:8px;">${issue.section}</div>
+      <div style="font-size:12px; color:#334155; line-height:1.6; margin-bottom:8px;">${issue.emotion}</div>
+      <div style="font-size:11px; color:#92400e; padding:8px 12px; background:#fef3c7; border-radius:4px; border-left:3px solid #b45309;">&#9888; Why this needs attention now: ${issue.urgency}</div>
+    </div>
+  `).join('');
+
+  const printHtml = `
+<!DOCTYPE html>
+<html><head><meta charset="UTF-8"><title>PRAMANA - ${domainName} DPDP Scenario</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  body { font-family: 'Inter', sans-serif; color: #0f172a; max-width: 800px; margin: 0 auto; padding: 30px; line-height: 1.6; }
+  h1 { font-family: 'Cinzel', serif; font-size: 20px; color: #92400e; }
+  h2 { font-size: 16px; color: #0f172a; margin-top: 24px; margin-bottom: 10px; border-bottom: 2px solid #e2e8f0; padding-bottom: 6px; }
+  .scenario-header { text-align: center; margin-bottom: 24px; padding: 20px; background: linear-gradient(135deg, #fffbeb, #fff7ed); border-radius: 10px; }
+  .scenario-header h1 { font-size: 22px; }
+  .stage { margin-bottom: 24px; page-break-inside: avoid; }
+  .stage-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.08em; color: #64748b; font-weight: 700; }
+  .stage-title { font-size: 16px; font-weight: 700; margin: 6px 0 10px; }
+  .story { font-size: 13px; color: #334155; line-height: 1.8; }
+  .callout { padding: 12px 16px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 6px; font-size: 12px; color: #78350f; margin-top: 12px; font-style: italic; }
+  .penalty-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 12px 0; }
+  .footer { margin-top: 30px; padding: 16px; background: #1e293b; color: #94a3b8; border-radius: 8px; font-size: 11px; }
+  .footer em { color: #64748b; }
+</style></head><body>
+
+<div class="scenario-header">
+  <h1>${domainName}</h1>
+  <p style="font-size:13px; color:#64748b;">DPDP Compliance Risk Scenario &middot; PRAMANA Governance Control Plane</p>
+</div>
+
+<div class="stage">
+  <div class="stage-label">Stage 1: The Situation</div>
+  <div class="stage-title">${prepData.title}</div>
+  <div class="story">${prepData.story.replace(/\n\n/g, '</p><p style="margin-top:12px">').replace(/\n/g, '<br/>')}</div>
+  <div class="callout">${prepData.callout}</div>
+</div>
+
+<div class="stage">
+  <div class="stage-label">Stage 2: What the Law Says</div>
+  <h2>Maximum Penalties Under the DPDP Act</h2>
+  <div class="penalty-grid">${penaltyCards}</div>
+  <h2>What Happens If You Don't Fix This</h2>
+  ${consequences}
+  <div style="margin-top:16px; padding:14px; background:#fefce8; border:1px solid #fef08a; border-radius:8px;">
+    <p style="font-size:13px; font-style:italic; color:#713f12;">${riskData.question}</p>
+    <cite style="font-size:11px; color:#64748b;">${riskData.questionAttrib}</cite>
+  </div>
+</div>
+
+<div class="stage">
+  <div class="stage-label">Stage 3: How PRAMANA Helps</div>
+  <div style="padding:14px; background:#fee2e2; border:2px solid #fca5a5; border-radius:8px; margin:12px 0;">
+    <div style="font-size:15px; font-weight:800; color:#991b1b; margin-bottom:6px;">${pramanaData.verdictIcon} ${pramanaData.verdictLabel}</div>
+    <div style="font-size:12px; color:#7f1d1d; line-height:1.6;">${pramanaData.verdictDetail}</div>
+    <div style="font-size:10px; color:#64748b; font-family:monospace; margin-top:8px;">${pramanaData.techDetail}</div>
+  </div>
+  <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">${outcomes}</div>
+</div>
+
+${additionalCards ? `
+<div class="stage">
+  <div class="stage-label">Other Risks in Your Sector</div>
+  ${additionalCards}
+</div>
+` : ''}
+
+<div class="footer">
+  PRAMANA &middot; DPDP Governance Control Plane &middot; This document is a demonstration brief prepared for advisory purposes only.<br/>
+  All statutory references: Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023). Penalties per First Schedule.<br/>
+  <em>This is an AI-assisted demonstration system. Responses are generated by PRAMANA and should not be considered legal advice. Verify against the DPDP Act, 2023 and applicable sectoral regulations (RBI, NABH, etc.). AI transparency disclosure per EU AI Act Art. 50.</em>
+</div>
+
+</body></html>
+  `;
+
+  const win = window.open('', '_blank', 'width=850,height=1000');
+  win.document.write(printHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(() => win.print(), 800);
+}
+
+/* INIT */
+selectDomain('clinic');
+</script>
+
+<!-- EU AI Act Article 50 Transparency Disclosure -->
+<footer style="position:fixed;bottom:0;left:0;right:0;background:#1e293b;color:#94a3b8;text-align:center;padding:7px 14px;font-size:12px;z-index:9999;">
+  This is an AI-assisted demonstration system. Responses are generated by PRAMANA and should not be considered legal advice.
+  Verify against the DPDP Act, 2023 and applicable sectoral regulations (RBI, NABH, etc.). AI transparency disclosure per EU AI Act Art. 50.
+</footer>
+
+</body>
+</html>

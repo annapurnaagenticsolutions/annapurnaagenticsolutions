@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pramana &middot; Kiosk &amp; ATM DPDP Compliance</title>
+  <meta name="description" content="Pramana &mdash; DPDP compliance demonstration for bank kiosks, ATMs, CSPs, and self-service machines." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f8fafc;
+      --surface3:     #f1f5f9;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #2563eb;
+      --gold-mid:     #1d4ed8;
+      --gold-dim:     #eff6ff;
+      --gold-border:  #bfdbfe;
+      --green:        #16a34a;
+      --green-bright: #15803d;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --amber:        #d97706;
+      --amber-dim:    #fef3c7;
+      --blue:         #2563eb;
+      --blue-dim:     #eff6ff;
+      --blue-border:  #bfdbfe;
+      --purple:       #6366f1;
+      --purple-dim:   #eef2ff;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Plus Jakarta Sans', 'Inter', sans-serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04);
+      --shadow:       0 4px 20px -2px rgba(15,23,42,0.06);
+      --shadow-md:    0 8px 24px -4px rgba(15,23,42,0.08);
+      --shadow-lg:    0 14px 34px -4px rgba(15,23,42,0.10);
+    }
+
+    /* ── PRESENTER MODE ── */
+    body.presenter {
+      --pres-body-size: 17px;
+    }
+    body.presenter .stage-area { font-size: var(--pres-body-size, 17px); }
+    body.presenter .story-text { font-size: 18px !important; line-height: 1.9 !important; }
+    body.presenter .stage-title { font-size: 26px !important; }
+    body.presenter .penalty-amount-big { font-size: 72px !important; }
+    body.presenter .penalty-label { font-size: 16px !important; }
+    body.presenter .consequence-text { font-size: 16px !important; }
+    body.presenter .pramana-verdict { font-size: 20px !important; }
+    body.presenter .tech-detail { display: none !important; }
+    body.presenter .story-scene-label { font-size: 13px !important; }
+
+    /* ── DETAILED VIEW TOGGLE ── */
+    body:not(.detailed) .tech-detail { display: none !important; }
+    body:not(.detailed) .detailed-only { display: none !important; }
+    body.detailed .smb-only { display: none !important; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 14px 40px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      position: sticky;
+      top: 0;
+      background: rgba(255,255,255,0.96);
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .logo-badge {
+      padding: 6px 14px;
+      border: 1.5px solid #d97706;
+      border-radius: 6px;
+      font-family: var(--serif);
+      font-size: 12px;
+      font-weight: 700;
+      color: #78350f;
+      letter-spacing: 0.12em;
+      background: var(--gold-dim);
+      flex-shrink: 0;
+    }
+
+    .logo-text h1 { font-size: 15px; font-weight: 700; color: var(--text); }
+    .logo-text p { font-size: 11px; color: var(--text-muted); font-weight: 500; }
+    .logo-text .brand-attribution { font-size: 10px; color: var(--text-muted); margin-top: 2px; }
+
+    .header-right {
+      margin-left: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .toggle-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      border: 1.5px solid var(--border2);
+      background: var(--surface);
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+    .toggle-btn:hover { border-color: var(--gold-mid); color: var(--gold); }
+    .toggle-btn.on {
+      background: var(--gold-mid);
+      color: #ffffff;
+      border-color: var(--gold-mid);
+    }
+
+    .view-toggle {
+      display: flex;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 2px;
+    }
+    .view-toggle button {
+      padding: 6px 14px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+    .view-toggle button.active {
+      background: var(--blue);
+      color: #ffffff;
+    }
+
+    /* ── HERO BANNER ── */
+    .hero-banner {
+      background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 100%);
+      border-bottom: 1px solid var(--gold-border);
+      padding: 32px 40px;
+    }
+
+    .hero-banner-tag {
+      font-size: 11px;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .hero-banner h2 {
+      font-family: var(--serif);
+      font-size: clamp(22px, 3vw, 32px);
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero-banner p {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      max-width: 660px;
+      line-height: 1.7;
+    }
+
+    /* ── DOMAIN TABS ── */
+    .domain-tab-bar {
+      display: flex;
+      gap: 8px;
+      padding: 20px 40px 0;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+
+    .domain-tab {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 11px 18px;
+      border-radius: 8px 8px 0 0;
+      font-size: 13.5px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid transparent;
+      border-bottom: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--sans);
+      transition: all 0.15s;
+      margin-bottom: -1px;
+    }
+    .domain-tab:hover { background: var(--surface2); color: var(--text); }
+    .domain-tab.active {
+      background: var(--surface);
+      color: var(--text);
+      border-color: var(--border);
+      font-weight: 700;
+      border-bottom-color: var(--surface);
+    }
+
+    .domain-icon { font-size: 18px; }
+
+    /* ── STAGE STEPPER ── */
+    .stage-stepper {
+      display: flex;
+      align-items: center;
+      padding: 20px 40px;
+      gap: 0;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 2px solid var(--border2);
+      background: var(--surface2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-muted);
+      flex-shrink: 0;
+      transition: all 0.25s;
+    }
+
+    .step-item.active .step-circle {
+      background: var(--gold-mid);
+      border-color: var(--gold-mid);
+      color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(180, 83, 9, 0.12);
+    }
+    .step-item.done .step-circle {
+      background: var(--green);
+      border-color: var(--green);
+      color: #ffffff;
+    }
+    .step-item.done .step-circle::after { content: '\2713'; }
+
+    .step-num-label { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.09em; color: var(--text-muted); font-weight: 600; }
+    .step-name { font-size: 13px; font-weight: 700; color: var(--text); }
+    .step-item.active .step-name { color: var(--gold-mid); }
+    .step-item.done .step-name { color: var(--green); }
+
+    .step-connector {
+      flex: 1;
+      height: 2px;
+      background: var(--border);
+      margin: 0 16px;
+      min-width: 30px;
+    }
+    .step-connector.done { background: var(--green); }
+
+    /* ── STAGE AREA ── */
+    .stage-area {
+      max-width: 900px;
+      padding: 32px 40px;
+    }
+
+    .stage-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .stage-card-header {
+      padding: 18px 24px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .stage-num-badge {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .badge-prep { background: var(--blue-dim); color: var(--blue); }
+    .badge-risk { background: var(--red-dim); color: var(--red); }
+    .badge-prot { background: var(--green-dim); color: var(--green); }
+
+    .stage-card-header h3 { font-size: 15px; font-weight: 700; color: var(--text); }
+    .stage-card-header .stage-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .stage-card-body { padding: 24px; }
+
+    .story-scene-label {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--text-muted);
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .stage-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.3;
+    }
+
+    .story-text {
+      font-size: 15px;
+      color: var(--text-dim);
+      line-height: 1.85;
+      margin-bottom: 18px;
+    }
+
+    .story-callout {
+      padding: 14px 18px;
+      background: #fffbeb;
+      border: 1px solid var(--gold-border);
+      border-left: 4px solid var(--gold-mid);
+      border-radius: 8px;
+      font-size: 14px;
+      color: var(--text);
+      line-height: 1.7;
+    }
+
+    /* ── RISK GRID ── */
+    .risk-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-bottom: 20px;
+    }
+
+    .penalty-card {
+      padding: 20px;
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .penalty-amount-big {
+      font-size: 54px;
+      font-weight: 800;
+      color: var(--red-bright);
+      line-height: 1.1;
+      font-family: var(--sans);
+      display: block;
+    }
+
+    .penalty-label {
+      font-size: 13px;
+      color: #991b1b;
+      font-weight: 600;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+
+    .penalty-basis {
+      font-size: 11px;
+      color: #b91c1c;
+      margin-top: 4px;
+      font-family: var(--mono);
+    }
+
+    .consequence-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .consequence-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .consequence-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .consequence-text { font-size: 14px; color: var(--text-dim); line-height: 1.6; }
+    .consequence-text strong { color: var(--text); }
+
+    .risk-question {
+      margin-top: 20px;
+      padding: 18px 20px;
+      background: #fefce8;
+      border: 1px solid #fef08a;
+      border-radius: 10px;
+    }
+
+    .risk-question p {
+      font-size: 15px;
+      font-style: italic;
+      color: #713f12;
+      line-height: 1.7;
+    }
+
+    .risk-question cite {
+      display: block;
+      margin-top: 8px;
+      font-size: 12px;
+      color: var(--text-muted);
+      font-style: normal;
+    }
+
+    /* ── PRAMANA DEMO BOX ── */
+    .pramana-demo-box {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .demo-terminal-header {
+      padding: 10px 16px;
+      background: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dot-r { width: 10px; height: 10px; border-radius: 50%; background: #ef4444; }
+    .dot-y { width: 10px; height: 10px; border-radius: 50%; background: #f59e0b; }
+    .dot-g { width: 10px; height: 10px; border-radius: 50%; background: #22c55e; }
+    .terminal-label { font-size: 11px; color: #94a3b8; margin-left: auto; font-family: var(--mono); }
+
+    .demo-terminal-body { padding: 18px; }
+
+    .demo-query-label {
+      font-size: 10.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.09em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+
+    .demo-query {
+      font-size: 13px;
+      color: var(--text);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--blue);
+      border-radius: 6px;
+      padding: 12px 16px;
+      line-height: 1.65;
+      margin-bottom: 16px;
+    }
+
+    .pramana-eval-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .pramana-eval-row.show { opacity: 1; }
+
+    .pramana-spinner {
+      width: 16px; height: 16px;
+      border: 2px solid var(--border2);
+      border-top-color: var(--gold);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      flex-shrink: 0;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .pramana-eval-text {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 600;
+    }
+
+    .pramana-verdict-box {
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: all 0.45s ease;
+    }
+    .pramana-verdict-box.show { opacity: 1; transform: translateY(0); }
+
+    .pramana-verdict-box.blocked-box { background: var(--red-dim); border: 2px solid var(--red-border); }
+    .pramana-verdict-box.hold-box { background: var(--amber-dim); border: 2px solid var(--gold-border); }
+    .pramana-verdict-box.protected-box { background: var(--green-dim); border: 2px solid var(--green-border); }
+
+    .pramana-verdict {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pramana-verdict-box.blocked-box .pramana-verdict { color: #991b1b; }
+    .pramana-verdict-box.hold-box .pramana-verdict { color: #92400e; }
+    .pramana-verdict-box.protected-box .pramana-verdict { color: #166534; }
+
+    .pramana-verdict-detail { font-size: 13.5px; line-height: 1.7; }
+    .pramana-verdict-box.blocked-box .pramana-verdict-detail { color: #7f1d1d; }
+    .pramana-verdict-box.hold-box .pramana-verdict-detail { color: #78350f; }
+    .pramana-verdict-box.protected-box .pramana-verdict-detail { color: #14532d; }
+
+    .tech-detail {
+      font-family: var(--mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 10px;
+      line-height: 1.6;
+    }
+
+    .receipt-seal {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      opacity: 0;
+      transition: opacity 0.4s;
+    }
+    .receipt-seal.show { opacity: 1; }
+
+    .seal-hash { font-family: var(--mono); font-size: 11px; color: var(--text-muted); }
+    .seal-status { font-family: var(--mono); font-size: 11px; color: var(--green); font-weight: 700; }
+
+    /* ── OUTCOME SUMMARY ── */
+    .outcome-summary {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .outcome-card {
+      flex: 1;
+      min-width: 160px;
+      padding: 16px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    .outcome-icon { font-size: 24px; margin-bottom: 8px; }
+    .outcome-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .outcome-text { font-size: 12px; color: var(--text-dim); line-height: 1.55; }
+    .outcome-card.good { border-color: var(--green-border); background: var(--green-dim); }
+    .outcome-card.good .outcome-text { color: #166534; }
+
+    /* ── NAVIGATION ── */
+    .stage-nav {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 40px 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 10px 22px;
+      border-radius: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      font-family: var(--sans);
+      cursor: pointer;
+      border: 1px solid var(--border2);
+      transition: all 0.15s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .btn-primary {
+      background: var(--gold-mid);
+      color: #ffffff;
+      border-color: var(--gold-mid);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    .btn-primary:hover { background: var(--gold); }
+
+    .btn-ghost { background: var(--surface); color: var(--text-dim); }
+    .btn-ghost:hover { background: var(--surface2); color: var(--text); }
+
+    .btn-print {
+      background: var(--surface2);
+      color: var(--text-dim);
+      border: 1px solid var(--border2);
+      margin-left: auto;
+    }
+    .btn-print:hover { background: var(--surface); color: var(--text); }
+
+    /* ── DPDP APPLICABILITY SECTION ── */
+    .applicability-section {
+      max-width: 900px;
+      padding: 32px 40px 48px;
+    }
+
+    .applicability-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      padding: 28px;
+    }
+
+    .applicability-card h2 {
+      font-family: var(--serif);
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .applicability-card p {
+      font-size: 14.5px;
+      color: var(--text-dim);
+      line-height: 1.8;
+      margin-bottom: 14px;
+    }
+
+    .applicability-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .applicability-item {
+      padding: 16px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .applicability-item .ai-section {
+      font-family: var(--mono);
+      font-size: 12px;
+      color: var(--blue);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .applicability-item .ai-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .applicability-item .ai-desc {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      line-height: 1.6;
+    }
+
+    .timeline-box {
+      margin-top: 20px;
+      padding: 16px 20px;
+      background: var(--blue-dim);
+      border: 1px solid #bae6fd;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #0c4a6e;
+      line-height: 1.7;
+    }
+
+    .timeline-box strong { color: var(--blue); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      header, .hero-banner, .domain-tab-bar, .stage-stepper, .stage-area, .stage-nav, .applicability-section { padding-left: 20px; padding-right: 20px; }
+      .stage-area { padding: 20px; }
+      .domain-tab-bar { gap: 6px; }
+      .domain-tab { padding: 8px 12px; font-size: 12px; }
+      .stage-stepper { padding: 14px 20px; }
+    }
+
+    /* ── PRINT STYLES ── */
+    @media print {
+      header, .domain-tab-bar, .stage-stepper, .stage-nav, .toggle-btn, .view-toggle { display: none !important; }
+      body { background: white; font-size: 12pt; }
+      .stage-area { padding: 0; max-width: 100%; }
+      .stage-card { box-shadow: none; break-inside: avoid; border: 1pt solid #ccc; }
+      .hero-banner { background: white; border: none; padding: 20pt 0; }
+      .penalty-amount-big { font-size: 42pt !important; }
+      .pramana-eval-row { display: none !important; }
+      .pramana-verdict-box { opacity: 1 !important; transform: none !important; }
+      .receipt-seal { opacity: 1 !important; }
+      .pramana-verdict-box.blocked-box { background: #fee2e2 !important; print-color-adjust: exact; }
+      .pramana-verdict-box.protected-box { background: #dcfce7 !important; print-color-adjust: exact; }
+      .outcome-card.good { background: #dcfce7 !important; print-color-adjust: exact; }
+    }
+
+    .print-header { display: none; }
+  </style>
+</head>
+<body>
+<!-- Annapurna Unified Frosted Navigation Bar -->
+<header class="annapurna-site-header" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e2e8f0;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99999;font-family:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 4px 20px -2px rgba(15,23,42,0.04);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="../../../" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;font-weight:800;font-size:14px;">
+      <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#38bdf8,#6366f1);box-shadow:0 0 10px rgba(56,189,248,0.4);"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <a href="../../" style="color:#64748b;text-decoration:none;font-weight:600;font-size:13px;">Pramana (प्रमाण)</a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <span style="color:#2563eb;font-weight:700;font-size:13px;">Bank Kiosks & ATM Compliance</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s ease;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      <span>📥</span> Print / Save PDF
+    </button>
+    <a href="../../demos/" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      All Showcases
+    </a>
+    <a href="../../../contact/" style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#ffffff;padding:7px 16px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.25);">
+      Request Demo →
+    </a>
+  </div>
+</header>
+
+
+
+
+
+
+<header>
+  <div class="logo-badge">PRAMANA</div>
+  <div class="logo-text">
+    <h1>Kiosk &amp; ATM DPDP Compliance</h1>
+    <p>Real scenarios from self-service banking. Real risks under the DPDP Act.</p>
+    <div class="brand-attribution">Annapurna Agentic Solutions</div>
+  </div>
+  <div class="header-right">
+    <div class="view-toggle">
+      <button id="viewSmb" class="active" onclick="setView('smb')">Simple View</button>
+      <button id="viewDetailed" onclick="setView('detailed')">Detailed View</button>
+    </div>
+    <button class="toggle-btn" id="pres-btn" onclick="togglePresenter()">
+      &#128065;&nbsp; Presenter: <span id="pres-label">OFF</span>
+    </button>
+  </div>
+</header>
+
+<div class="hero-banner">
+  <p class="hero-banner-tag">Interactive Compliance Demonstration</p>
+  <h2>Your Kiosks and ATMs Process Personal Data &mdash; DPDP Applies</h2>
+  <p>
+    Bank kiosks, ATMs, Customer Service Points (CSPs), and self-service machines all collect and process
+    digital personal data &mdash; Aadhaar numbers, biometrics, account details, transaction history.
+    Under the Digital Personal Data Protection Act, 2023, the bank is the Data Fiduciary and is responsible
+    for every machine, every operator, and every receipt. Select a scenario below to see the risks and how
+    Pramana helps.
+  </p>
+</div>
+
+<!-- Domain Tabs -->
+<div class="domain-tab-bar" id="domain-tab-bar">
+  <button class="domain-tab active" id="dtab-csp" onclick="selectDomain('csp')"><span class="domain-icon">&#127974;</span> CSP / Kiosk Banking</button>
+  <button class="domain-tab" id="dtab-kiosk" onclick="selectDomain('kiosk')"><span class="domain-icon">&#128196;</span> Self-Service Kiosk</button>
+  <button class="domain-tab" id="dtab-operator" onclick="selectDomain('operator')"><span class="domain-icon">&#128100;</span> CSP Operator Access</button>
+</div>
+
+<!-- Stage Stepper -->
+<div class="stage-stepper" id="stage-stepper">
+  <div class="step-item active" id="step-item-1">
+    <div class="step-circle">1</div>
+    <div class="step-text">
+      <div class="step-num-label">Stage 1</div>
+      <div class="step-name">The Situation</div>
+    </div>
+  </div>
+  <div class="step-connector" id="step-conn-1"></div>
+  <div class="step-item" id="step-item-2">
+    <div class="step-circle">2</div>
+    <div class="step-text">
+      <div class="step-num-label">Stage 2</div>
+      <div class="step-name">The Risk</div>
+    </div>
+  </div>
+  <div class="step-connector" id="step-conn-2"></div>
+  <div class="step-item" id="step-item-3">
+    <div class="step-circle">3</div>
+    <div class="step-text">
+      <div class="step-num-label">Stage 3</div>
+      <div class="step-name">How Pramana Helps</div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage content area -->
+<div class="stage-area" id="stage-area"></div>
+
+<!-- Navigation -->
+<div class="stage-nav" id="stage-nav">
+  <button class="btn btn-ghost" id="btn-back" style="display:none" onclick="prevStage()">&larr; Back</button>
+  <button class="btn btn-primary" id="btn-forward" onclick="nextStage()">See What Happens &nbsp;&rarr;</button>
+  <button class="btn btn-print" onclick="printScenario()">&#128424;&nbsp; Print This Scenario</button>
+</div>
+
+<!-- DPDP Applicability Section -->
+<div class="applicability-section">
+  <div class="applicability-card">
+    <h2>Why DPDP Applies to Kiosks &amp; ATMs</h2>
+    <p>
+      The DPDP Act, 2023 applies to <strong>all processing of digital personal data within India</strong>
+      (Sec 3). Kiosks, ATMs, and CSPs process digital personal data every transaction &mdash; Aadhaar
+      numbers, fingerprints, account numbers, names, balances, and transaction histories are all
+      &ldquo;personal data&rdquo; under the Act.
+    </p>
+    <p>
+      The bank is the <strong>Data Fiduciary</strong> &mdash; it determines why and how data is
+      processed. The Business Correspondent (BC) / CSP operator is a <strong>Data Processor</strong>
+      (Sec 8) &mdash; they process data on the bank&rsquo;s instructions. The bank is liable for the
+      CSP&rsquo;s compliance failures.
+    </p>
+    <p class="detailed-only">
+      Large banks processing millions of customer records are likely to be notified as
+      <strong>Significant Data Fiduciaries (SDF)</strong> under Sec 10, triggering additional obligations:
+      DPO appointment, annual DPIA, independent audit, and algorithmic due diligence.
+    </p>
+
+    <div class="applicability-grid">
+      <div class="applicability-item">
+        <div class="ai-section">Sec 3 &middot; Application</div>
+        <div class="ai-title">Applies to Digital Personal Data</div>
+        <div class="ai-desc">Kiosks collect data in digital form (Aadhaar, biometrics, account data). DPDP applies.</div>
+      </div>
+      <div class="applicability-item">
+        <div class="ai-section">Sec 8(1)-(2) &middot; Data Processor</div>
+        <div class="ai-title">Bank = Fiduciary, CSP = Processor</div>
+        <div class="ai-desc">The bank is liable for the CSP/operator&rsquo;s data handling. A DPA contract is mandatory.</div>
+      </div>
+      <div class="applicability-item">
+        <div class="ai-section">Sec 8(5) + Rule 6 &middot; Security</div>
+        <div class="ai-title">Reasonable Security Safeguards</div>
+        <div class="ai-desc">Encryption, access control, logging (1-year retention), backups. Mandatory for all kiosks.</div>
+      </div>
+      <div class="applicability-item">
+        <div class="ai-section">Sec 8(6)-(7) + Rule 7 &middot; Breach</div>
+        <div class="ai-title">72-Hour Breach Notification</div>
+        <div class="ai-desc">Any data breach (including receipt leakage) must be reported to the Board within 72 hours.</div>
+      </div>
+      <div class="applicability-item">
+        <div class="ai-section">Sec 5 &middot; Notice</div>
+        <div class="ai-title">Privacy Notice at Every Touchpoint</div>
+        <div class="ai-desc">Every kiosk/CSP must display what data is collected, why, and the customer&rsquo;s rights.</div>
+      </div>
+      <div class="applicability-item">
+        <div class="ai-section">Sec 10 &middot; SDF</div>
+        <div class="ai-title">Significant Data Fiduciary</div>
+        <div class="ai-desc">Large banks likely to be notified as SDFs &mdash; DPO, DPIA, audit, algorithmic due diligence.</div>
+      </div>
+    </div>
+
+    <div class="timeline-box">
+      <strong>DPDP Rules 2025 Timeline:</strong> Notified on 13 November 2025. Rules 1, 2, 17&ndash;21
+      effective immediately. Rule 4 (Consent Manager) effective after 1 year. Rules 3, 5&ndash;16, 22&ndash;23
+      effective after 18 months (May 2027). Banks should begin compliance now &mdash; the 18-month window
+      is for implementation, not waiting.
+    </div>
+  </div>
+</div>
+
+<script>
+/* ──────────────────────────────────────
+   DOMAIN DATA &mdash; 3 Scenarios
+────────────────────────────────────── */
+const DOMAINS = {
+
+  csp: {
+    name: "CSP / Kiosk Banking",
+    icon: "\u{1F3E4}",
+    stages: [
+      /* ── STAGE 1: SITUATION ── */
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What happens at a Customer Service Point",
+        sceneLabel: "Today &mdash; at a CSP outlet in a village",
+        title: "Aadhaar biometric authentication at a CSP &mdash; with no privacy notice and fingerprint retained",
+        story: `A customer visits a Customer Service Point (CSP) operated by a Business Correspondent (BC) in a village. To withdraw cash from their PM Jan Dhan account, the CSP operator asks for their Aadhaar number and captures their fingerprint on the biometric scanner.\n\nThe fingerprint is transmitted to UIDAI for authentication and the transaction is approved. But here is what the customer does not know:\n\nFirst, the CSP device stores the fingerprint locally for 30 days &mdash; a vendor default that was never changed. Second, the CSP operator can see the customer&rsquo;s full Aadhaar details, photo, and address on the terminal screen. Third, there is no privacy notice displayed anywhere at the CSP &mdash; no sign, no screen prompt, nothing telling the customer what data is collected or why.\n\nThe customer walks away with their cash. Their fingerprint sits on the CSP device for a month.`,
+        callout: "Biometric data is personal data under DPDP. The bank is the Data Fiduciary and is responsible for how the CSP device handles it &mdash; including vendor defaults that retain data beyond the authentication purpose."
+      },
+      /* ── STAGE 2: RISK ── */
+      {
+        type: "risk",
+        cardTitle: "The Risk",
+        cardSubtitle: "What this means for the bank under the DPDP Act",
+        penalties: [
+          { amount: "Up to \u20B9250 Cr", label: "Biometric data breach (Sec 8(5))", basis: "DPDP First Schedule &mdash; Item 1" },
+          { amount: "Up to \u20B950 Cr", label: "No privacy notice at CSP (Sec 5)", basis: "DPDP First Schedule &mdash; Item 5" }
+        ],
+        consequences: [
+          { icon: "\u{1F3E4}", text: "<strong>Bank is Data Fiduciary, CSP is Data Processor</strong> &mdash; the bank is liable for the CSP&rsquo;s compliance failures, including the vendor&rsquo;s 30-day fingerprint retention default." },
+          { icon: "\u{1F91D}", text: "<strong>Biometric data is immutable</strong> &mdash; unlike a password, a fingerprint cannot be changed. Once breached, the customer&rsquo;s biometric identity is compromised forever." },
+          { icon: "\u{1F4CB}", text: "<strong>UIDAI + DPDP dual compliance</strong> &mdash; the Aadhaar Act requires biometric data to be purged after authentication. DPDP Sec 8(3) requires the same. Both laws are violated simultaneously." },
+          { icon: "\u{1F4F0}", text: "<strong>Public regulatory orders</strong> &mdash; Board findings are published. The bank&rsquo;s name appears on a public record of violations at a village CSP." }
+        ],
+        question: "\"Can the bank show that every CSP device purges biometric data immediately after authentication &mdash; and that every CSP displays a DPDP-compliant privacy notice?\"",
+        questionAttrib: "&mdash; Question to ask bank compliance officers"
+      },
+      /* ── STAGE 3: HOW PRAMANA HELPS ── */
+      {
+        type: "pramana",
+        cardTitle: "How Pramana Helps",
+        cardSubtitle: "What Pramana would have found before this became a violation",
+        evalMsg: "Running DPDP compliance assessment for CSP network &mdash; checking biometric retention, notice compliance, and operator access...",
+        verdictType: "blocked-box",
+        verdictIcon: "\u{1F6AB}",
+        verdictLabel: "GAP FOUND &mdash; Biometric data retained beyond authentication purpose",
+        verdictDetail: "Pramana&rsquo;s assessment engine identified three gaps: (1) CSP device retains fingerprint for 30 days &mdash; violates Sec 8(3) purpose limitation and Aadhaar Act Sec 29. (2) No privacy notice displayed at CSP &mdash; violates Sec 5. (3) CSP operator has unrestricted access to Aadhaar details &mdash; violates Sec 8(4) access control. Gap report includes exact DPDP sections, remediation steps, and a compliance record for the Board.",
+        techDetail: "Gap 1: DPDP Sec 8(3) + Aadhaar Act Sec 29 &mdash; biometric retention beyond auth purpose &middot; Gap 2: DPDP Sec 5 &mdash; no notice at CSP &middot; Gap 3: DPDP Sec 8(4) + Rule 6(1)(b) &mdash; no role-based access for CSP operators",
+        query: "Assessment query: Does our CSP network comply with DPDP biometric retention, notice, and access control requirements?",
+        outcomes: [
+          { icon: "\u{1F50D}", title: "Gap Identified", text: "Pramana found the 30-day fingerprint retention default before a breach or audit did.", good: true },
+          { icon: "\u{1F4CB}", title: "Remediation Plan", text: "Step-by-step: purge biometric data post-auth, display Sec 5 notice on CSP screen, implement role-based operator access.", good: true },
+          { icon: "\u2696\uFE0F", title: "Audit-Grade Record", text: "Documented evidence that the bank proactively assessed and addressed CSP compliance gaps.", good: true }
+        ]
+      }
+    ]
+  },
+
+  kiosk: {
+    name: "Self-Service Kiosk",
+    icon: "\u{1F4C4}",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What happens at a passbook printing kiosk",
+        sceneLabel: "Yesterday &mdash; at a self-service passbook printing kiosk in a branch",
+        title: "Passbook kiosk prints personal data on a receipt &mdash; and leaves it in the tray",
+        story: `A customer walks into a bank branch and prints their passbook at a self-service kiosk. The kiosk prints: the customer&rsquo;s name, account number, transaction history, and current balance.\n\nThe customer takes their passbook but the kiosk also prints a transaction slip that falls into the receipt tray. The customer does not notice. An hour later, another customer picks up the slip and sees someone else&rsquo;s full account details.\n\nMeanwhile, inside the kiosk: the internal log stores the last 100 print jobs &mdash; every name, account number, and balance that was printed. The log is accessible via a web interface with the default admin password that was never changed. The kiosk vendor installed it three years ago and nobody has updated the password since.`,
+        callout: "A receipt left in a kiosk tray is an accidental disclosure of personal data &mdash; a personal data breach under DPDP Sec 2(u). The bank must notify the affected customer and the Data Protection Board within 72 hours."
+      },
+      {
+        type: "risk",
+        cardTitle: "The Risk",
+        cardSubtitle: "What this exposure means for the bank",
+        penalties: [
+          { amount: "Up to \u20B9250 Cr", label: "Accidental disclosure = breach (Sec 8(5))", basis: "DPDP First Schedule &mdash; Item 1" },
+          { amount: "Up to \u20B950 Cr", label: "No access control on kiosk logs (Sec 8(4))", basis: "DPDP First Schedule &mdash; Item 5" }
+        ],
+        consequences: [
+          { icon: "\u{1F4C4}", text: "<strong>Receipt tray = unsecured personal data</strong> &mdash; account number, name, and balance left in a public tray is a Sec 8(5) security failure." },
+          { icon: "\u{1F510}", text: "<strong>Default admin password = no reasonable security</strong> &mdash; Rule 6(1)(b) requires access control. A default password is not access control." },
+          { icon: "\u23F1\uFE0F", text: "<strong>72-hour breach notification</strong> &mdash; the bank must notify the affected customer and the Board within 72 hours of becoming aware. No notification process exists for kiosk incidents." },
+          { icon: "\u{1F4CB}", text: "<strong>Kiosk log retains 100 print jobs</strong> &mdash; 100 customers&rsquo; personal data accessible to anyone who types the default password. That is 100 potential breaches." }
+        ],
+        question: "\"If a customer finds someone else&rsquo;s account details in your kiosk&rsquo;s receipt tray, can you prove you took reasonable security safeguards under Rule 6?\"",
+        questionAttrib: "&mdash; Question to ask branch managers and IT security teams"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How Pramana Helps",
+        cardSubtitle: "What Pramana would have found before the receipt was left behind",
+        evalMsg: "Checking kiosk security configuration &mdash; log retention, access control, receipt handling, breach notification readiness...",
+        verdictType: "blocked-box",
+        verdictIcon: "\u{1F6AB}",
+        verdictLabel: "GAP FOUND &mdash; Unsecured kiosk log + receipt tray exposure + no breach process",
+        verdictDetail: "Pramana&rsquo;s assessment found three gaps: (1) Kiosk log retains 100 print jobs with default admin password &mdash; violates Rule 6(1)(b) access control and Rule 6(1)(e) log management. (2) Receipt tray exposes personal data without auto-shred &mdash; violates Sec 8(5) reasonable security. (3) No breach notification process for kiosk incidents &mdash; violates Sec 8(6) and Rule 7 (72-hour notification). Remediation plan included with each gap.",
+        techDetail: "Gap 1: Rule 6(1)(b) + 6(1)(e) &mdash; default password + 100-print-job log &middot; Gap 2: Sec 8(5) &mdash; unsecured receipt tray &middot; Gap 3: Sec 8(6) + Rule 7 &mdash; no 72-hour breach notification process for kiosks",
+        query: "Assessment query: Do our self-service kiosks meet DPDP Rule 6 security safeguards and Rule 7 breach notification requirements?",
+        outcomes: [
+          { icon: "\u{1F510}", title: "Security Gap Found", text: "Default password and unsecured log identified before a malicious actor exploited them.", good: true },
+          { icon: "\u{1F4C4}", title: "Receipt Remediation", text: "Auto-shred recommendation for receipts left in tray beyond 30 seconds.", good: true },
+          { icon: "\u23F1\uFE0F", title: "Breach Process", text: "72-hour breach notification workflow configured for all kiosk incidents.", good: true }
+        ]
+      }
+    ]
+  },
+
+  operator: {
+    name: "CSP Operator Access",
+    icon: "\u{1F464}",
+    stages: [
+      {
+        type: "prep",
+        cardTitle: "The Situation",
+        cardSubtitle: "What a CSP operator can do with customer KYC data",
+        sceneLabel: "Every day &mdash; at a CSP outlet handling 200+ customers",
+        title: "CSP operator has full KYC access, USB export enabled, and no audit log",
+        story: `A CSP operator (Business Correspondent) handles 200+ customers daily at a village outlet. The CSP terminal gives the operator full access to every customer&rsquo;s KYC profile: PAN number, Aadhaar number, home address, phone number, photograph, account balance, and transaction history.\n\nThe operator can view all of this for any customer &mdash; not just the one standing in front of them. They can search by name, by Aadhaar number, or by account number. The terminal also has a USB port that is enabled, allowing the operator to plug in a pen drive and export any customer&rsquo;s KYC data to a file.\n\nThere is no audit log. The bank has no record of which customers the operator viewed, what they searched for, or whether any data was exported to a USB drive. The operator has been doing this for two years.`,
+        callout: "Under DPDP Sec 8(4), the bank must implement access controls so that the CSP operator sees only the data needed for the specific transaction. Under Rule 6(1)(c), the bank must maintain logs of all access for one year. No access control + no audit log = two independent violations."
+      },
+      {
+        type: "risk",
+        cardTitle: "The Risk",
+        cardSubtitle: "What unrestricted operator access means for the bank",
+        penalties: [
+          { amount: "Up to \u20B950 Cr", label: "No access control (Sec 8(4) + Rule 6)", basis: "DPDP First Schedule &mdash; Item 5" },
+          { amount: "Up to \u20B9250 Cr", label: "USB export = data breach (Sec 8(5))", basis: "DPDP First Schedule &mdash; Item 1" }
+        ],
+        consequences: [
+          { icon: "\u{1F464}", text: "<strong>CSP operator is a Data Processor</strong> &mdash; the bank is liable for the operator&rsquo;s actions. If the operator sells KYC data, the bank faces the penalty." },
+          { icon: "\u{1F4BE}", text: "<strong>USB export = exfiltration = breach</strong> &mdash; exporting KYC data to a personal pen drive is unauthorised processing under Sec 2(u). Every export is a separate breach incident." },
+          { icon: "\u{1F4DD}", text: "<strong>No audit log = cannot prove compliance</strong> &mdash; Rule 6(1)(c) requires visibility on all access. Without logs, the bank cannot prove what the operator did or did not access." },
+          { icon: "\u{1F9ED}", text: "<strong>Identity theft risk</strong> &mdash; KYC data (PAN + Aadhaar + address + photo) is exactly what identity thieves need. A single CSP operator can compromise thousands of customers." }
+        ],
+        question: "\"Can the bank show the Board exactly what each CSP operator viewed, searched, and exported &mdash; for the last 12 months?\"",
+        questionAttrib: "&mdash; Question to ask bank compliance and IT security teams"
+      },
+      {
+        type: "pramana",
+        cardTitle: "How Pramana Helps",
+        cardSubtitle: "What Pramana would have found before the data was exported",
+        evalMsg: "Checking CSP operator access controls, USB port configuration, and audit logging...",
+        verdictType: "blocked-box",
+        verdictIcon: "\u{1F6AB}",
+        verdictLabel: "GAP FOUND &mdash; No access control + USB export enabled + no audit trail",
+        verdictDetail: "Pramana&rsquo;s assessment found three critical gaps: (1) Unrestricted KYC access &mdash; operator can view any customer&rsquo;s full profile, violating Sec 8(4) access control and Rule 6(1)(b). (2) USB export enabled on CSP terminal &mdash; violates Sec 8(5) reasonable security (exfiltration risk). (3) No access logging &mdash; violates Rule 6(1)(c) visibility and 6(1)(e) one-year log retention. Remediation plan: role-based access, disable USB, enable access logging.",
+        techDetail: "Gap 1: Sec 8(4) + Rule 6(1)(b) &mdash; no role-based access control &middot; Gap 2: Sec 8(5) &mdash; USB export enabled &middot; Gap 3: Rule 6(1)(c) + 6(1)(e) &mdash; no access logs, no 1-year retention",
+        query: "Assessment query: Do our CSP operator terminals enforce role-based access, disable USB export, and maintain access logs per Rule 6?",
+        outcomes: [
+          { icon: "\u{1F512}", title: "Access Restricted", text: "Operator sees only the data needed for the current transaction &mdash; not every customer&rsquo;s full KYC.", good: true },
+          { icon: "\u{1F6AB}", title: "USB Disabled", text: "USB export blocked at the terminal level. No data leaves the device on a pen drive.", good: true },
+          { icon: "\u{1F4DD}", title: "Full Audit Trail", text: "Every view, search, and action logged. Retained for 1 year per Rule 6(1)(e). Board-ready evidence.", good: true }
+        ]
+      }
+    ]
+  }
+};
+
+/* ──────────────────────────────────────
+   STATE
+────────────────────────────────────── */
+let currentDomain = 'csp';
+let currentStage = 1;
+let presenterMode = false;
+let currentView = localStorage.getItem('pramana_kiosk_view') || 'smb';
+
+// Initialize view toggle
+function initView() {
+  document.body.classList.toggle('detailed', currentView === 'detailed');
+  document.getElementById('viewSmb').classList.toggle('active', currentView === 'smb');
+  document.getElementById('viewDetailed').classList.toggle('active', currentView === 'detailed');
+}
+initView();
+
+function setView(view) {
+  currentView = view;
+  localStorage.setItem('pramana_kiosk_view', view);
+  initView();
+  renderStage();
+}
+
+/* ──────────────────────────────────────
+   DOMAIN SELECTION
+────────────────────────────────────── */
+function selectDomain(d) {
+  currentDomain = d;
+  currentStage = 1;
+  document.querySelectorAll('.domain-tab').forEach(el => el.classList.remove('active'));
+  const tab = document.getElementById('dtab-' + d);
+  if (tab) tab.classList.add('active');
+  updateStepperUI();
+  renderStage();
+  updateNav();
+}
+
+/* ──────────────────────────────────────
+   STAGE NAVIGATION
+────────────────────────────────────── */
+function nextStage() {
+  if (currentStage < 3) {
+    currentStage++;
+    updateStepperUI();
+    renderStage();
+    updateNav();
+    window.scrollTo({ top: document.getElementById('stage-stepper').offsetTop - 60, behavior: 'smooth' });
+  }
+}
+
+function prevStage() {
+  if (currentStage > 1) {
+    currentStage--;
+    updateStepperUI();
+    renderStage();
+    updateNav();
+    window.scrollTo({ top: document.getElementById('stage-stepper').offsetTop - 60, behavior: 'smooth' });
+  }
+}
+
+function updateNav() {
+  const backBtn = document.getElementById('btn-back');
+  const fwdBtn = document.getElementById('btn-forward');
+  backBtn.style.display = currentStage > 1 ? 'inline-flex' : 'none';
+  if (currentStage === 3) {
+    fwdBtn.textContent = '\u21BA See Another Scenario';
+    fwdBtn.onclick = () => { currentStage = 1; updateStepperUI(); renderStage(); updateNav(); };
+  } else {
+    fwdBtn.textContent = 'See What Happens \u2192';
+    fwdBtn.onclick = nextStage;
+  }
+}
+
+function updateStepperUI() {
+  for (let i = 1; i <= 3; i++) {
+    const item = document.getElementById('step-item-' + i);
+    item.classList.remove('active', 'done');
+    if (i < currentStage) item.classList.add('done');
+    else if (i === currentStage) item.classList.add('active');
+  }
+  for (let i = 1; i <= 2; i++) {
+    const conn = document.getElementById('step-conn-' + i);
+    conn.classList.toggle('done', i < currentStage);
+  }
+  [1,2,3].forEach(i => {
+    const item = document.getElementById('step-item-' + i);
+    const circle = item.querySelector('.step-circle');
+    if (item.classList.contains('done')) circle.textContent = '\u2713';
+    else circle.textContent = i;
+  });
+}
+
+/* ──────────────────────────────────────
+   RENDER STAGE
+────────────────────────────────────── */
+function renderStage() {
+  const domain = DOMAINS[currentDomain];
+  const stageData = domain.stages[currentStage - 1];
+  const area = document.getElementById('stage-area');
+  let html = '';
+
+  if (stageData.type === 'prep') html = renderPrep(stageData, domain);
+  else if (stageData.type === 'risk') html = renderRisk(stageData);
+  else if (stageData.type === 'pramana') html = renderPramana(stageData);
+
+  area.innerHTML = html;
+  area.style.opacity = '0';
+  area.style.transform = 'translateY(6px)';
+  requestAnimationFrame(() => {
+    area.style.transition = 'all 0.35s ease';
+    area.style.opacity = '1';
+    area.style.transform = 'translateY(0)';
+  });
+
+  if (stageData.type === 'pramana') {
+    setTimeout(() => triggerPramanaAnimation(stageData), 400);
+  }
+}
+
+function renderPrep(s, domain) {
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#f0f9ff; border-left:4px solid var(--blue);">
+        <div class="stage-num-badge badge-prep">1</div>
+        <div>
+          <h3>${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div class="story-scene-label">${s.sceneLabel}</div>
+        <div class="stage-title">${s.title}</div>
+        <div class="story-text">${s.story.replace(/\n\n/g, '</p><p style="margin-top:14px">').replace(/\n/g, '<br/>')}</div>
+        <div class="story-callout">${s.callout}</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderRisk(s) {
+  const penaltyCards = s.penalties.map(p => `
+    <div class="penalty-card">
+      <span class="penalty-amount-big">${p.amount}</span>
+      <div class="penalty-label">${p.label}</div>
+      <div class="penalty-basis">${p.basis}</div>
+    </div>
+  `).join('');
+
+  const consequences = s.consequences.map(c => `
+    <li class="consequence-item">
+      <span class="consequence-icon">${c.icon}</span>
+      <span class="consequence-text">${c.text}</span>
+    </li>
+  `).join('');
+
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#fff5f5; border-left:4px solid var(--red);">
+        <div class="stage-num-badge badge-risk">2</div>
+        <div>
+          <h3>${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div style="font-size:10.5px; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-muted); font-weight:600; margin-bottom:12px;">Maximum Penalties Under the DPDP Act</div>
+        <div class="risk-grid">${penaltyCards}</div>
+        <div style="font-size:10.5px; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-muted); font-weight:600; margin-bottom:12px; margin-top:20px;">What Happens If You Don&rsquo;t Fix This</div>
+        <ul class="consequence-list">${consequences}</ul>
+        <div class="risk-question">
+          <p>${s.question}</p>
+          <cite>${s.questionAttrib}</cite>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderPramana(s) {
+  const outcomes = s.outcomes.map(o => `
+    <div class="outcome-card${o.good ? ' good' : ''}">
+      <div class="outcome-icon">${o.icon}</div>
+      <div class="outcome-title">${o.title}</div>
+      <div class="outcome-text">${o.text}</div>
+    </div>
+  `).join('');
+
+  const verdictBoxClass = s.verdictType;
+  const fakeHash = 'sha256_' + Math.random().toString(36).substr(2, 16);
+
+  return `
+    <div class="stage-card">
+      <div class="stage-card-header" style="background:#f0fdf4; border-left:4px solid var(--green);">
+        <div class="stage-num-badge badge-prot">3</div>
+        <div>
+          <h3>${s.cardTitle}</h3>
+          <div class="stage-subtitle">${s.cardSubtitle}</div>
+        </div>
+      </div>
+      <div class="stage-card-body">
+        <div class="pramana-demo-box">
+          <div class="demo-terminal-header">
+            <div class="dot-r"></div><div class="dot-y"></div><div class="dot-g"></div>
+            <span class="terminal-label">Pramana &middot; Governance Control Plane</span>
+          </div>
+          <div class="demo-terminal-body">
+            <div class="demo-query-label">Query submitted to Pramana</div>
+            <div class="demo-query">${s.query}</div>
+            <div class="pramana-eval-row" id="pramana-eval-row">
+              <div class="pramana-spinner"></div>
+              <span class="pramana-eval-text" id="pramana-eval-text">${s.evalMsg}</span>
+            </div>
+            <div class="pramana-verdict-box ${verdictBoxClass}" id="pramana-verdict">
+              <div class="pramana-verdict">${s.verdictIcon}&nbsp; ${s.verdictLabel}</div>
+              <div class="pramana-verdict-detail">${s.verdictDetail}</div>
+              <div class="tech-detail">${s.techDetail}</div>
+            </div>
+            <div class="receipt-seal" id="pramana-receipt">
+              <span class="seal-hash">${fakeHash}</span>
+              <span class="seal-status">SEALED &middot; BSA Sec 63 Compliant \u2713</span>
+            </div>
+          </div>
+        </div>
+        <div style="font-size:10.5px; text-transform:uppercase; letter-spacing:0.09em; color:var(--text-muted); font-weight:600; margin-bottom:12px;">Outcome</div>
+        <div class="outcome-summary">${outcomes}</div>
+      </div>
+    </div>
+  `;
+}
+
+async function triggerPramanaAnimation(s) {
+  const evalRow = document.getElementById('pramana-eval-row');
+  const verdict = document.getElementById('pramana-verdict');
+  const receipt = document.getElementById('pramana-receipt');
+  if (!evalRow) return;
+  evalRow.classList.add('show');
+  await delay(1100);
+  evalRow.classList.remove('show');
+  await delay(200);
+  verdict.classList.add('show');
+  await delay(600);
+  receipt.classList.add('show');
+}
+
+function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+/* ──────────────────────────────────────
+   PRESENTER MODE
+────────────────────────────────────── */
+function togglePresenter() {
+  presenterMode = !presenterMode;
+  document.body.classList.toggle('presenter', presenterMode);
+  const btn = document.getElementById('pres-btn');
+  const label = document.getElementById('pres-label');
+  btn.classList.toggle('on', presenterMode);
+  label.textContent = presenterMode ? 'ON' : 'OFF';
+}
+
+/* ──────────────────────────────────────
+   PRINT SCENARIO
+────────────────────────────────────── */
+function printScenario() {
+  const domain = DOMAINS[currentDomain];
+  const domainName = domain.name;
+  const domainIcon = domain.icon;
+  const prepData = domain.stages[0];
+  const riskData = domain.stages[1];
+  const pramanaData = domain.stages[2];
+  const fakeHash = 'sha256_' + Math.random().toString(36).substr(2, 16);
+
+  const penalties = riskData.penalties.map(p => `
+    <div style="display:flex; justify-content:space-between; padding:10px 0; border-bottom:1px solid #e2e8f0;">
+      <span style="font-size:13px; color:#334155;">${p.label}</span>
+      <strong style="font-size:13px; color:#dc2626; font-family:monospace;">${p.amount}</strong>
+    </div>
+  `).join('');
+
+  const consequences = riskData.consequences.map(c => `
+    <div style="display:flex; gap:10px; padding:10px 0; border-bottom:1px solid #e2e8f0; align-items:flex-start;">
+      <span style="font-size:18px; flex-shrink:0;">${c.icon}</span>
+      <span style="font-size:13px; color:#334155; line-height:1.6;">${c.text}</span>
+    </div>
+  `).join('');
+
+  const verdictColour = pramanaData.verdictType === 'blocked-box' ? '#fee2e2'
+                      : pramanaData.verdictType === 'hold-box' ? '#fef3c7'
+                      : '#dcfce7';
+  const verdictTextColour = pramanaData.verdictType === 'blocked-box' ? '#991b1b'
+                           : pramanaData.verdictType === 'hold-box' ? '#92400e'
+                           : '#166534';
+
+  const outcomes = pramanaData.outcomes.map(o => `
+    <div style="flex:1; min-width:140px; padding:14px; background:${o.good ? '#dcfce7' : '#f1f5f9'}; border-radius:8px; border:1px solid ${o.good ? '#86efac' : '#e2e8f0'};">
+      <div style="font-size:20px; margin-bottom:6px;">${o.icon}</div>
+      <div style="font-size:13px; font-weight:700; color:#0f172a; margin-bottom:4px;">${o.title}</div>
+      <div style="font-size:12px; color:#334155; line-height:1.5;">${o.text}</div>
+    </div>
+  `).join('');
+
+  const printHtml = `
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <meta charset="UTF-8"/>
+      <title>Pramana &mdash; ${domainName} DPDP Scenario</title>
+      <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+      <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; color: #0f172a; font-size: 13px; line-height: 1.6; background: white; }
+        .print-page { max-width: 750px; margin: 0 auto; padding: 32px; }
+        .print-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 2px solid #e2e8f0; }
+        .print-logo { padding: 5px 12px; border: 1.5px solid #d97706; border-radius: 5px; font-family: 'Cinzel', serif; font-size: 12px; font-weight: 700; color: #78350f; background: #fef3c7; }
+        .print-title { font-size: 18px; font-weight: 800; color: #0f172a; }
+        .print-sub { font-size: 12px; color: #64748b; margin-top: 3px; }
+        .section-card { background: #ffffff; border: 1px solid #e2e8f0; border-radius: 10px; overflow: hidden; margin-bottom: 18px; }
+        .section-header { padding: 12px 18px; border-bottom: 1px solid #e2e8f0; display: flex; align-items: center; gap: 10px; }
+        .section-num { width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; flex-shrink: 0; }
+        .section-body { padding: 18px; }
+        .scenario-title { font-size: 16px; font-weight: 800; margin-bottom: 12px; }
+        .story-text { font-size: 13px; color: #334155; line-height: 1.8; margin-bottom: 12px; }
+        .callout { padding: 12px 16px; background: #fffbeb; border: 1px solid #fde68a; border-left: 4px solid #b45309; border-radius: 6px; font-size: 12.5px; color: #0f172a; line-height: 1.65; }
+        .footer { text-align: center; padding: 20px; border-top: 1px solid #e2e8f0; margin-top: 24px; font-size: 11px; color: #94a3b8; }
+      </style>
+    </head>
+    <body>
+      <div class="print-page">
+        <div class="print-header">
+          <div class="print-logo">PRAMANA</div>
+          <div>
+            <div class="print-title">${domainIcon} ${domainName} &mdash; DPDP Compliance Scenario</div>
+            <div class="print-sub">Digital Personal Data Protection Act, 2023 &middot; Kiosk &amp; ATM Advisory Brief &middot; Annapurna Agentic Solutions</div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header" style="background:#f0f9ff; border-left:4px solid #0369a1;">
+            <div class="section-num" style="background:#dbeafe; color:#1d4ed8;">1</div>
+            <div><strong>Stage 1: The Situation</strong> &nbsp;&middot;&nbsp; <span style="color:#64748b; font-size:12px;">${prepData.sceneLabel}</span></div>
+          </div>
+          <div class="section-body">
+            <div class="scenario-title">${prepData.title}</div>
+            <div class="story-text">${prepData.story.replace(/\n\n/g, '<br/><br/>').replace(/\n/g, '<br/>')}</div>
+            <div class="callout">${prepData.callout}</div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header" style="background:#fff5f5; border-left:4px solid #dc2626;">
+            <div class="section-num" style="background:#fee2e2; color:#991b1b;">2</div>
+            <div><strong>Stage 2: The Risk</strong> &nbsp;&middot;&nbsp; <span style="color:#64748b; font-size:12px;">DPDP Act penalties and consequences</span></div>
+          </div>
+          <div class="section-body">
+            <div style="margin-bottom:16px;">
+              <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:#64748b; font-weight:700; margin-bottom:8px;">Maximum Penalties Under the DPDP Act</div>
+              ${penalties}
+            </div>
+            <div>
+              <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:#64748b; font-weight:700; margin-bottom:8px;">What Happens If You Don&rsquo;t Fix This</div>
+              ${consequences}
+            </div>
+            <div style="margin-top:16px; padding:14px 16px; background:#fefce8; border-radius:8px;">
+              <p style="font-size:13.5px; font-style:italic; color:#713f12; line-height:1.7;">${riskData.question}</p>
+              <div style="font-size:11px; color:#92400e; margin-top:6px;">${riskData.questionAttrib}</div>
+            </div>
+          </div>
+        </div>
+        <div class="section-card">
+          <div class="section-header" style="background:#f0fdf4; border-left:4px solid #15803d;">
+            <div class="section-num" style="background:#dcfce7; color:#166534;">3</div>
+            <div><strong>Stage 3: How Pramana Helps</strong> &nbsp;&middot;&nbsp; <span style="color:#64748b; font-size:12px;">Real-time governance protection</span></div>
+          </div>
+          <div class="section-body">
+            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:14px; margin-bottom:16px;">
+              <div style="font-size:10px; text-transform:uppercase; letter-spacing:0.09em; color:#64748b; font-weight:700; margin-bottom:8px;">Query submitted to Pramana</div>
+              <div style="font-size:13px; color:#0f172a; background:#fff; border:1px solid #e2e8f0; border-left:3px solid #0369a1; border-radius:6px; padding:10px 14px; line-height:1.65; margin-bottom:14px;">${pramanaData.query}</div>
+              <div style="padding:14px 16px; background:${verdictColour}; border-radius:8px; border:1px solid #ddd; margin-bottom:12px;">
+                <div style="font-size:15px; font-weight:800; color:${verdictTextColour}; margin-bottom:6px;">${pramanaData.verdictIcon} ${pramanaData.verdictLabel}</div>
+                <div style="font-size:13px; color:${verdictTextColour}; line-height:1.65;">${pramanaData.verdictDetail}</div>
+                <div style="font-size:11px; color:${verdictTextColour}; opacity:0.7; margin-top:8px; font-family:monospace;">${pramanaData.techDetail}</div>
+              </div>
+              <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 12px; background:#fff; border:1px solid #e2e8f0; border-radius:5px;">
+                <span style="font-family:monospace; font-size:10.5px; color:#94a3b8;">${fakeHash}</span>
+                <span style="font-family:monospace; font-size:10.5px; color:#15803d; font-weight:700;">SEALED &middot; BSA Sec 63 Compliant \u2713</span>
+              </div>
+            </div>
+            <div style="display:flex; gap:10px; flex-wrap:wrap;">
+              ${outcomes}
+            </div>
+          </div>
+        </div>
+        <div class="footer">
+          Pramana &middot; DPDP Governance Control Plane &middot; Annapurna Agentic Solutions<br/>
+          All statutory references: Digital Personal Data Protection Act, 2023 (Act No. 22 of 2023) and DPDP Rules, 2025 (notified 13 Nov 2025).<br/>
+          <em>This is an AI-assisted demonstration system. Responses are generated by Pramana and should not be considered legal advice. &mdash; EU AI Act Art. 50 Disclosure</em>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+
+  const win = window.open('', '_blank', 'width=850,height=1000');
+  win.document.write(printHtml);
+  win.document.close();
+  win.focus();
+  setTimeout(() => win.print(), 800);
+}
+
+/* ──────────────────────────────────────
+   INIT
+────────────────────────────────────── */
+selectDomain('csp');
+</script>
+
+<!-- EU AI Act Article 50 Transparency Disclosure -->
+<footer style="position:fixed;bottom:0;left:0;right:0;background:#1e293b;color:#94a3b8;text-align:center;padding:6px 12px;font-size:11px;z-index:9999;">
+  This is an AI-assisted demonstration system. Responses are generated by Pramana and should not be considered legal advice.
+  Verify against primary regulatory sources. &mdash; EU AI Act Art. 50 Disclosure &middot; Annapurna Agentic Solutions
+</footer>
+
+</body>
+</html>

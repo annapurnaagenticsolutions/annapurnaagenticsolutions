@@ -14,7 +14,7 @@ def main()->int:
     for key,cfg in data['intents'].items():
         if set(cfg['structuralOrder'])!=BLOCKS: raise AssertionError(f'{key}: v2 home structural order must keep the single immersive journey act')
         if set(cfg['focusOrder'])!=FAMILIES: raise AssertionError(f'{key}: focus order must cover all families')
-        if set(cfg['worldOrder'])!={'ai','wonder','idea','axon','web','software'}: raise AssertionError(f'{key}: world order must cover six worlds')
+        if set(cfg['worldOrder'])!={'ai','wonder','idea','axon','web','software','pramana'}: raise AssertionError(f'{key}: world order must cover six worlds')
         if set(cfg['labOrder'])!={'runtime','axon','design'}: raise AssertionError(f'{key}: lab order must cover three rehearsals')
     if 'cannot alter product maturity' not in data['historyPolicy']: raise AssertionError('truth/history firewall missing')
     if 'no identity tracking' not in data['privacyPolicy'].lower(): raise AssertionError('privacy boundary missing')

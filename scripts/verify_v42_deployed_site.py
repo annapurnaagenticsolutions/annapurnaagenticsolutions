@@ -3,7 +3,7 @@ from pathlib import Path
 from html.parser import HTMLParser
 from urllib.parse import urlparse
 ROOT=Path(__file__).resolve().parents[1]
-LEGACY_PUBLIC_PREFIXES={'ai-solutions','axon','wonderhub-by-AnnapurnaAgenticSolutions','idea-hub','website-studio','software-lab'}
+LEGACY_PUBLIC_PREFIXES={'ai-solutions','axon','wonderhub-by-AnnapurnaAgenticSolutions','idea-hub','website-studio','software-lab','pramana'}
 PAGES=['index.html','explore.html','lab.html','evidence.html','about/index.html','contact/index.html','404.html']
 class P(HTMLParser):
     def __init__(self): super().__init__(); self.ids=[]; self.links=[]; self.target_blank=[]

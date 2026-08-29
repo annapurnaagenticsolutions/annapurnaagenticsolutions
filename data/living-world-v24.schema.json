@@ -52,7 +52,7 @@
         "idea",
         "axon",
         "web",
-        "software"
+        "software","pramana"
       ],
       "additionalProperties": {
         "type": "array",

@@ -42,7 +42,7 @@
       "summary": "Balanced view across the Annapurna ecosystem.",
       "reason": "No stronger intent signal is active, so the site keeps a balanced company view.",
       "primaryCta": {
-        "label": "Explore the ecosystem \u2192",
+        "label": "Explore the ecosystem →",
         "href": "explore.html"
       },
       "secondaryCta": {
@@ -55,7 +55,8 @@
         "idea",
         "axon",
         "web",
-        "software"
+        "software",
+        "pramana"
       ],
       "labOrder": [
         "runtime",
@@ -78,7 +79,7 @@
       "summary": "Governance, agent infrastructure and inspectable AI systems first.",
       "reason": "This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.",
       "primaryCta": {
-        "label": "Explore AI systems \u2192",
+        "label": "Explore AI systems →",
         "href": "explore.html#world=ai"
       },
       "secondaryCta": {
@@ -91,7 +92,8 @@
         "software",
         "web",
         "wonder",
-        "idea"
+        "idea",
+        "pramana"
       ],
       "labOrder": [
         "runtime",
@@ -114,7 +116,7 @@
       "summary": "Learning worlds, visual exploration and progressive interaction first.",
       "reason": "This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.",
       "primaryCta": {
-        "label": "Explore learning worlds \u2192",
+        "label": "Explore learning worlds →",
         "href": "wonderhub-by-AnnapurnaAgenticSolutions/"
       },
       "secondaryCta": {
@@ -127,7 +129,8 @@
         "idea",
         "ai",
         "software",
-        "axon"
+        "axon",
+        "pramana"
       ],
       "labOrder": [
         "design",
@@ -150,7 +153,7 @@
       "summary": "Practical India-first tools and delivery experience first.",
       "reason": "This view prioritizes Idea Hub and practical product delivery before infrastructure detail.",
       "primaryCta": {
-        "label": "Explore practical tools \u2192",
+        "label": "Explore practical tools →",
         "href": "idea-hub/"
       },
       "secondaryCta": {
@@ -163,7 +166,8 @@
         "web",
         "ai",
         "wonder",
-        "axon"
+        "axon",
+        "pramana"
       ],
       "labOrder": [
         "design",
@@ -186,7 +190,7 @@
       "summary": "Interactive interfaces, interaction design and browser-native experiences first.",
       "reason": "This view brings the experience-design proof forward, then shows the product families it can express.",
       "primaryCta": {
-        "label": "Explore Website Studio \u2192",
+        "label": "Explore Website Studio →",
         "href": "website-studio/"
       },
       "secondaryCta": {
@@ -199,7 +203,8 @@
         "software",
         "ai",
         "idea",
-        "axon"
+        "axon",
+        "pramana"
       ],
       "labOrder": [
         "design",

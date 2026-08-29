@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRAMANA (प्रमाण) · DPO Office Walk-in Consultation Simulation</title>
+  <meta name="description" content="Simulate a real-world walk-in consultation at an AI Data Protection Officer (DPO) firm. Watch specialized agents (Legal, Consent, Technical, Chief DPO) take turns advising SMBs under India's DPDP Act 2023." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f8fafc;
+      --surface3:     #f1f5f9;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #2563eb;
+      --gold-mid:     #1d4ed8;
+      --gold-dim:     #eff6ff;
+      --gold-border:  #bfdbfe;
+      --green:        #16a34a;
+      --green-bright: #15803d;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --amber:        #d97706;
+      --amber-dim:    #fef3c7;
+      --blue:         #2563eb;
+      --blue-dim:     #eff6ff;
+      --blue-border:  #bfdbfe;
+      --purple:       #6366f1;
+      --purple-dim:   #eef2ff;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      --serif:        'Plus Jakarta Sans', 'Inter', sans-serif;
+      --radius:       12px;
+      --radius-lg:    18px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.04);
+      --shadow:       0 4px 20px -2px rgba(15,23,42,0.06);
+      --shadow-md:    0 8px 24px -4px rgba(15,23,42,0.08);
+      --shadow-lg:    0 14px 34px -4px rgba(15,23,42,0.10);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14.5px;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1240px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-border);
+      letter-spacing: 0.08em;
+    }
+
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .header-links {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      color: var(--gold-mid);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--gold-border);
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: var(--gold-dim);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #fde68a;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, #f0fdf4 0%, #fffbeb 50%, #eff6ff 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--gold-mid);
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+
+    .hero h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    /* ── SMB CLIENT SELECTOR STRIP ── */
+    .client-select-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 10px;
+    }
+
+    .client-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .client-card:hover {
+      border-color: var(--gold-mid);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .client-card.active {
+      border-color: var(--gold-mid);
+      background: var(--gold-dim);
+      box-shadow: 0 0 16px var(--gold-dim);
+    }
+
+    .client-avatar-icon {
+      font-size: 26px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1.5px solid var(--border2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .client-meta .name {
+      font-weight: 800;
+      font-size: 13.5px;
+      color: var(--text);
+    }
+
+    .client-meta .sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    /* ── DPO SPECIALIST TEAM DISPLAY STRIP ── */
+    .dpo-team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .dpo-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s;
+    }
+
+    .dpo-card.active {
+      border-color: var(--gold-mid);
+      background: #fffbeb;
+      box-shadow: 0 0 16px rgba(180, 83, 9, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .dpo-avatar-svg {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .dpo-info .role {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      font-family: var(--mono);
+      color: var(--gold-mid);
+    }
+
+    .dpo-info .name {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text);
+    }
+
+    /* ── LIVE INTERACTIVE CONSULTATION STAGE ── */
+    .stage-card {
+      background: var(--surface);
+      border: 2px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 28px;
+      box-shadow: var(--shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .stage-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .stage-title h3 {
+      font-size: 17px;
+      font-weight: 800;
+      font-family: var(--serif);
+      color: var(--gold);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Dialogue Timeline Container */
+    .dialogue-timeline {
+      background: var(--surface2);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-lg);
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      min-height: 380px;
+      max-height: 520px;
+      overflow-y: auto;
+      font-family: var(--mono);
+    }
+
+    .timeline-msg {
+      padding: 16px 20px;
+      border-radius: var(--radius-lg);
+      max-width: 88%;
+      font-size: 13px;
+      line-height: 1.6;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: var(--shadow-sm);
+      animation: popIn 0.3s ease-out;
+    }
+
+    .timeline-msg.client {
+      align-self: flex-start;
+      background: var(--blue-dim);
+      border: 1.5px solid var(--blue-border);
+      color: #0369a1;
+    }
+
+    .timeline-msg.agent1 {
+      align-self: flex-end;
+      background: #ffffff;
+      border: 1.5px solid var(--gold-mid);
+      color: var(--text);
+    }
+
+    .timeline-msg.agent2 {
+      align-self: flex-end;
+      background: #faf5ff;
+      border: 1.5px solid var(--purple);
+      color: var(--text);
+    }
+
+    .timeline-msg.agent3 {
+      align-self: flex-end;
+      background: #f0fdf4;
+      border: 1.5px solid var(--green);
+      color: var(--text);
+    }
+
+    .timeline-msg.agent4 {
+      align-self: flex-end;
+      background: #fffbeb;
+      border: 2px solid var(--gold);
+      color: var(--text);
+      box-shadow: var(--shadow);
+    }
+
+    .msg-header {
+      font-size: 10.5px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(0,0,0,0.08);
+      padding-bottom: 4px;
+    }
+
+    .msg-statute-box {
+      background: rgba(0,0,0,0.03);
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 11.5px;
+      margin-top: 4px;
+    }
+
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Controls Bar */
+    .controls-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn-action {
+      padding: 12px 24px;
+      border-radius: var(--radius-lg);
+      border: none;
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-action.play {
+      background: var(--gold-mid);
+      color: #ffffff;
+    }
+    .btn-action.play:hover { background: var(--gold); transform: translateY(-1px); }
+
+    .btn-action.step {
+      background: var(--surface2);
+      border: 1.5px solid var(--border2);
+      color: var(--text-dim);
+    }
+    .btn-action.step:hover { border-color: var(--gold-mid); color: var(--text); }
+
+    .btn-action.download {
+      background: var(--green-dim);
+      border: 1.5px solid var(--green-border);
+      color: var(--green);
+    }
+    .btn-action.download:hover { background: #86efac; color: #0f172a; }
+
+    /* Custom Query */
+    .custom-box {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+
+    .custom-input {
+      flex: 1;
+      background: var(--surface);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius);
+      padding: 12px 16px;
+      font-family: var(--sans);
+      font-size: 13.5px;
+      color: var(--text);
+    }
+    .custom-input:focus { outline: none; border-color: var(--gold-mid); }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+<!-- Annapurna Unified Frosted Navigation Bar -->
+<header class="annapurna-site-header" style="background:rgba(255,255,255,0.9);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid #e2e8f0;padding:12px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99999;font-family:'Plus Jakarta Sans','Inter',-apple-system,BlinkMacSystemFont,sans-serif;box-shadow:0 4px 20px -2px rgba(15,23,42,0.04);">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <a href="../../../" style="display:flex;align-items:center;gap:10px;text-decoration:none;color:#0f172a;font-weight:800;font-size:14px;">
+      <span style="display:inline-block;width:12px;height:12px;border-radius:3px;background:linear-gradient(135deg,#38bdf8,#6366f1);box-shadow:0 0 10px rgba(56,189,248,0.4);"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <a href="../../" style="color:#64748b;text-decoration:none;font-weight:600;font-size:13px;">Pramana (प्रमाण)</a>
+    <span style="color:#cbd5e1;font-size:12px;">/</span>
+    <span style="color:#2563eb;font-weight:700;font-size:13px;">Virtual DPO Consultation</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+    <button onclick="window.print()" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;cursor:pointer;font-weight:600;display:inline-flex;align-items:center;gap:6px;transition:all 0.15s ease;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      <span>📥</span> Print / Save PDF
+    </button>
+    <a href="../../demos/" style="background:#ffffff;border:1px solid #e2e8f0;color:#334155;padding:7px 14px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,0.04);">
+      All Showcases
+    </a>
+    <a href="../../../contact/" style="background:linear-gradient(135deg,#2563eb,#4f46e5);color:#ffffff;padding:7px 16px;border-radius:8px;font-size:12.5px;text-decoration:none;font-weight:700;box-shadow:0 4px 12px rgba(37,99,235,0.25);">
+      Request Demo →
+    </a>
+  </div>
+</header>
+
+
+
+
+
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand-left">
+        <div class="logo-badge">प्रमाण · PRAMANA</div>
+        <div class="brand-title">
+          <h1>DPO OFFICE WALK-IN CONSULTATION SIMULATION <span>🇮🇳</span></h1>
+          <p>Real-Time Multi-Agent Cyber Lawyer & DPO Advisory Stage</p>
+        </div>
+      </div>
+      <div class="header-links">
+        <a href="dpdp_citadel_simulation.html" class="nav-btn">
+          🏛️ Living Citadel Arena ➔
+        </a>
+        <a href="dpdp_gap_assessment_pro.html" class="nav-btn">
+          📊 5-Min Gap Audit Pro ➔
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">Multi-Agent Legal Collaboration Theater</div>
+      <h2>Real-World <span style="color: var(--gold-mid);">DPO Office Consultation</span> Simulator</h2>
+      <p>
+        Experience how an SMB business owner walks into a DPO advisory firm and receives coordinated counsel from specialized AI officers (Legal Counsel, Consent Architect, Technical DPO, and Chief DPO) to avoid penalties <strong>up to ₹250 Crore</strong>.
+      </p>
+    </section>
+
+    <!-- SMB CLIENT SELECTOR STRIP -->
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+      Step 1: Choose an SMB Client Visiting the DPO Office
+    </div>
+    <div class="client-select-strip">
+      <div class="client-card active" onclick="setClient('clinic')">
+        <div class="client-avatar-icon">🏥</div>
+        <div class="client-meta">
+          <div class="name">Dr. Rohan</div>
+          <div class="sub">Director, City Clinic (25 Beds)</div>
+        </div>
+      </div>
+
+      <div class="client-card" onclick="setClient('school')">
+        <div class="client-avatar-icon">🎒</div>
+        <div class="client-meta">
+          <div class="name">Principal Ananya</div>
+          <div class="sub">Heritage K-12 (1,200 Students)</div>
+        </div>
+      </div>
+
+      <div class="client-card" onclick="setClient('fintech')">
+        <div class="client-avatar-icon">💳</div>
+        <div class="client-meta">
+          <div class="name">CTO Vikram</div>
+          <div class="sub">FastPay Micro-Fintech & NBFC</div>
+        </div>
+      </div>
+
+      <div class="client-card" onclick="setClient('hr')">
+        <div class="client-avatar-icon">👥</div>
+        <div class="client-meta">
+          <div class="name">HR Head Sneha</div>
+          <div class="sub">TechVenture Staffing Agency</div>
+        </div>
+      </div>
+
+      <div class="client-card" onclick="setClient('retail')">
+        <div class="client-avatar-icon">🛒</div>
+        <div class="client-meta">
+          <div class="name">Founder Amit</div>
+          <div class="sub">QuickCart E-Commerce</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DPO SPECIALIST TEAM STRIP -->
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+      The 4 Presiding Specialized DPO Officers:
+    </div>
+    <div class="dpo-team-grid">
+      <!-- Agent 1 -->
+      <div class="dpo-card active" id="card-agent1">
+        <svg viewBox="0 0 100 100" class="dpo-avatar-svg" style="background: linear-gradient(135deg, #b45309, #0f172a);">
+          <circle cx="50" cy="50" r="44" fill="#1e293b" stroke="#f59e0b" stroke-width="3"/>
+          <circle cx="50" cy="40" r="22" fill="#0f172a" stroke="#f59e0b" stroke-width="2"/>
+          <rect x="35" y="36" width="30" height="12" rx="6" fill="#f59e0b" />
+          <circle cx="44" cy="42" r="3" fill="#ffffff" />
+          <circle cx="56" cy="42" r="3" fill="#ffffff" />
+          <path d="M 38 68 Q 50 78 62 68" stroke="#f59e0b" stroke-width="3" fill="none" />
+        </svg>
+        <div class="dpo-info">
+          <div class="role">Agent 1: Legal Counsel</div>
+          <div class="name">Advocate Arjun</div>
+        </div>
+      </div>
+
+      <!-- Agent 2 -->
+      <div class="dpo-card" id="card-agent2">
+        <svg viewBox="0 0 100 100" class="dpo-avatar-svg" style="background: linear-gradient(135deg, #7e22ce, #0f172a);">
+          <circle cx="50" cy="50" r="44" fill="#1e293b" stroke="#c084fc" stroke-width="3"/>
+          <circle cx="50" cy="42" r="22" fill="#0f172a" stroke="#c084fc" stroke-width="2"/>
+          <rect x="34" y="38" width="32" height="10" rx="5" fill="#c084fc" />
+          <circle cx="43" cy="43" r="2.5" fill="#ffffff" />
+          <circle cx="57" cy="43" r="2.5" fill="#ffffff" />
+          <path d="M 40 70 Q 50 62 60 70" stroke="#c084fc" stroke-width="3" fill="none" />
+        </svg>
+        <div class="dpo-info">
+          <div class="role">Agent 2: Consent Architect</div>
+          <div class="name">Officer Priya</div>
+        </div>
+      </div>
+
+      <!-- Agent 3 -->
+      <div class="dpo-card" id="card-agent3">
+        <svg viewBox="0 0 100 100" class="dpo-avatar-svg" style="background: linear-gradient(135deg, #15803d, #0f172a);">
+          <circle cx="50" cy="50" r="44" fill="#1e293b" stroke="#34d399" stroke-width="3"/>
+          <circle cx="50" cy="42" r="22" fill="#0f172a" stroke="#34d399" stroke-width="2"/>
+          <rect x="35" y="36" width="30" height="12" rx="6" fill="#34d399" />
+          <circle cx="44" cy="42" r="3" fill="#ffffff" />
+          <circle cx="56" cy="42" r="3" fill="#ffffff" />
+          <path d="M 40 68 Q 50 78 60 68" stroke="#34d399" stroke-width="3" fill="none" />
+        </svg>
+        <div class="dpo-info">
+          <div class="role">Agent 3: Technical DPO</div>
+          <div class="name">Engineer Vikram</div>
+        </div>
+      </div>
+
+      <!-- Agent 4 -->
+      <div class="dpo-card" id="card-agent4">
+        <svg viewBox="0 0 100 100" class="dpo-avatar-svg" style="background: linear-gradient(135deg, #0284c7, #0f172a);">
+          <circle cx="50" cy="50" r="44" fill="#1e293b" stroke="#38bdf8" stroke-width="4"/>
+          <circle cx="50" cy="40" r="24" fill="#0f172a" stroke="#38bdf8" stroke-width="2.5"/>
+          <rect x="32" y="34" width="36" height="14" rx="7" fill="#38bdf8" />
+          <circle cx="42" cy="41" r="3.5" fill="#ffffff" />
+          <circle cx="58" cy="41" r="3.5" fill="#ffffff" />
+          <circle cx="50" cy="18" r="5" fill="#38bdf8" />
+        </svg>
+        <div class="dpo-info">
+          <div class="role">Agent 4: Chief DPO</div>
+          <div class="name">Lead Auditor Aegis</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- LIVE CONSULTATION TIMELINE STAGE -->
+    <div class="stage-card">
+      <div class="stage-header">
+        <div class="stage-title">
+          <h3><span>⚖️</span> <span id="consult-title">Consultation Chamber: Dr. Rohan (Clinic Director)</span></h3>
+          <p>Multi-turn turn-taking advisory session with DPBI compliance certification.</p>
+        </div>
+        <div style="font-family: var(--mono); font-size: 11px; font-weight: 800; color: var(--gold-mid);" id="turn-badge">
+          TURN: 1 OF 4 (INTAKE & APPLICABILITY)
+        </div>
+      </div>
+
+      <!-- Dialogue Timeline -->
+      <div class="dialogue-timeline" id="dialogue-box">
+        <!-- Injected via JS -->
+      </div>
+
+      <!-- Control Bar -->
+      <div class="controls-bar">
+        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+          <button class="btn-action play" onclick="runAutoPlay()">
+            <span>▶</span>
+            <span>AUTO-PLAY LIVE CONSULTATION</span>
+          </button>
+          <button class="btn-action step" onclick="nextStep()">
+            <span>⏭️ Next Step</span>
+          </button>
+          <button class="btn-action step" onclick="resetMeeting()">
+            <span>🔄 Reset Meeting</span>
+          </button>
+        </div>
+        <button class="btn-action download" onclick="downloadTranscript()">
+          <span>📥</span>
+          <span>Download DPO Advisory Brief (PDF/Text)</span>
+        </button>
+      </div>
+
+      <!-- Custom Write-in Query -->
+      <div class="custom-box">
+        <input type="text" id="custom-text" class="custom-input" placeholder="Type a custom follow-up question for the DPO team..." onkeydown="if(event.key==='Enter') askCustom()" />
+        <button class="btn-action play" onclick="askCustom()">⚡ ASK DPO TEAM</button>
+      </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2026 Pramana (प्रमाण) · Annapurna Agentic Governance Suite. All Rights Reserved.</div>
+      <div>100% Client-Side Simulation · Coordinated Multi-Agent DPDP Legal Advisory</div>
+    </footer>
+  </div>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playChime(freq = 600) {
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+        gain.gain.setValueAtTime(0.08, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.18);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.18);
+      } catch (e) {}
+    }
+
+    const CONSULTATION_SCENARIOS = {
+      clinic: {
+        title: 'Consultation Chamber: Dr. Rohan (Clinic Director, 25 Beds)',
+        turns: [
+          {
+            speaker: 'client',
+            role: 'Dr. Rohan (Clinic Director)',
+            text: 'Hello team, we run a 25-bed multi-specialty diagnostic clinic in Pune with 15 consulting doctors. Does the DPDP Act 2023 apply to us, or is it only for massive hospital chains like Apollo?',
+            statute: null
+          },
+          {
+            speaker: 'agent1',
+            role: 'Advocate Arjun (Legal Counsel)',
+            highlightCard: 'card-agent1',
+            text: 'Welcome, Dr. Rohan. To answer directly: Yes, absolutely. Section 3 of the DPDP Act 2023 contains NO minimum revenue or patient count threshold. Any entity that processes digital health records in India is legally classified as a "Data Fiduciary". Storing unencrypted patient vitals exposes the clinic to statutory penalties up to ₹250 Crore under Section 8(5).',
+            statute: 'Section 3 (Application of Act) & Section 8(5) (Security Safeguards)'
+          },
+          {
+            speaker: 'client',
+            role: 'Dr. Rohan (Clinic Director)',
+            text: 'Our doctors routinely share patient blood test reports and MRI scans on WhatsApp groups for fast second opinions. Patients also receive prescriptions over WhatsApp. Is this compliant?',
+            statute: null
+          },
+          {
+            speaker: 'agent2',
+            role: 'Officer Priya (Consent Architect)',
+            highlightCard: 'card-agent2',
+            text: 'Allow me to address this, Dr. Rohan. Under Section 6 and Section 5, you cannot share patient health data on commercial messaging platforms without explicit, itemized, multilingual consent in the patient\'s native Schedule VIII language (e.g. Marathi/Hindi). Sharing diagnostic records on standard WhatsApp groups violates purpose limitation and reasonable security duties.',
+            statute: 'Section 5 (Notice in Schedule VIII Languages) & Section 6 (Consent Requirements)'
+          },
+          {
+            speaker: 'client',
+            role: 'Dr. Rohan (Clinic Director)',
+            text: 'That sounds serious. What if a patient asks us to delete all their medical history from our computers under the 72-hour Right to Erasure? How do we technically execute that without corrupting billing databases?',
+            statute: null
+          },
+          {
+            speaker: 'agent3',
+            role: 'Engineer Vikram (Technical DPO)',
+            highlightCard: 'card-agent3',
+            text: 'Here is how we solve that technically, Dr. Rohan. We deploy the Pramana eBPF Proxy at your clinic gateway. First, all 12-digit Aadhaar numbers and patient names are dynamically tokenized into irreversible SHA-256 vault hashes. When a citizen exercises Section 11 Right-to-Erasure, Pramana automatically scrubs their live EHR shards and Redis cache keys within 14 minutes, leaving a verifiable cryptographic certificate without breaking accounting ledgers.',
+            statute: 'Section 11(3) (Right to Erasure) & Technical Ingress Tokenization'
+          },
+          {
+            speaker: 'agent4',
+            role: 'Lead Auditor Aegis (Chief DPO)',
+            highlightCard: 'card-agent4',
+            text: 'Summary Assessment: Dr. Rohan, by deploying Pramana\'s automated consent gateway and eBPF tokenization, your clinic eliminates up to ₹250 Crore in statutory liability, fulfills 72-hour grievance SLAs, and receives an official DPBI Audit Ready Attestation Certificate today.',
+            statute: 'DPBI Board Statutory Compliance Certificate #PR-MED-89201 [SEALED ✅]'
+          }
+        ]
+      },
+      school: {
+        title: 'Consultation Chamber: Principal Ananya (Heritage K-12 School)',
+        turns: [
+          {
+            speaker: 'client',
+            role: 'Principal Ananya (School Principal)',
+            text: 'Good morning. We manage 1,200 students from Grade 1 to 12. We use a mobile app for homework, attendance, and fee payments. What are our legal obligations regarding children\'s personal data?',
+            statute: null
+          },
+          {
+            speaker: 'agent1',
+            role: 'Advocate Arjun (Legal Counsel)',
+            highlightCard: 'card-agent1',
+            text: 'Good morning, Principal Ananya. Under Section 9 of the DPDP Act 2023, processing data of any citizen under 18 years is strictly regulated. Violating children\'s data obligations carries mandatory statutory fines up to ₹200 Crore under Section 33.',
+            statute: 'Section 9 (Processing of Personal Data of Children)'
+          },
+          {
+            speaker: 'client',
+            role: 'Principal Ananya (School Principal)',
+            text: 'Our third-party EdTech learning app wants to run behavioral analytics on student quiz times and show recommended study tutorials. Can we allow that?',
+            statute: null
+          },
+          {
+            speaker: 'agent2',
+            role: 'Officer Priya (Consent Architect)',
+            highlightCard: 'card-agent2',
+            text: 'Strictly prohibited, Principal Ananya. Section 9(3) imposes an absolute statutory ban on behavioral monitoring, tracking, or targeted advertising directed at children. Furthermore, Section 9(1) requires verifiable parental consent (e.g. DigiLocker / Aadhaar OTP) before collecting any student data.',
+            statute: 'Section 9(1) (Verifiable Parental Consent) & Section 9(3) (Ban on Tracking)'
+          },
+          {
+            speaker: 'client',
+            role: 'Principal Ananya (School Principal)',
+            text: 'How do we enforce this on third-party software vendors and protect biometric attendance data?',
+            statute: null
+          },
+          {
+            speaker: 'agent3',
+            role: 'Engineer Vikram (Technical DPO)',
+            highlightCard: 'card-agent3',
+            text: 'We mandate signed Data Processing Agreements (DPA) under Section 8(2) for all software vendors, and encrypt biometric templates with HSM vault keys so student fingerprint data cannot be extracted or weaponized.',
+            statute: 'Section 8(2) (Processor Liability) & Biometric Encryption'
+          },
+          {
+            speaker: 'agent4',
+            role: 'Lead Auditor Aegis (Chief DPO)',
+            highlightCard: 'card-agent4',
+            text: 'Official Certification: Heritage School is provisioned with automated parental consent gates and ad-tracking hard blocks. Statutory exposure reduced from up to ₹200 Cr to ₹0.',
+            statute: 'Section 9 Minor Protection Seal #PR-EDU-10492 [SEALED ✅]'
+          }
+        ]
+      },
+      fintech: {
+        title: 'Consultation Chamber: CTO Vikram (FastPay NBFC)',
+        turns: [
+          {
+            speaker: 'client',
+            role: 'CTO Vikram (FastPay NBFC)',
+            text: 'Hi team. We operate an instant personal loan mobile app. Our database holds unmasked 12-digit Aadhaar numbers and PAN cards. We also share leads with third-party insurance telecallers. What is our risk?',
+            statute: null
+          },
+          {
+            speaker: 'agent1',
+            role: 'Advocate Arjun (Legal Counsel)',
+            highlightCard: 'card-agent1',
+            text: 'CTO Vikram, your current setup presents severe statutory exposure up to ₹250 Crore under Section 8(5) for data security failure, and up to ₹50 Crore under Section 6 for bundled consent violations.',
+            statute: 'Section 8(5) (Security Failure) & Section 6(1) (Bundled Consent Prohibition)'
+          },
+          {
+            speaker: 'agent2',
+            role: 'Officer Priya (Consent Architect)',
+            highlightCard: 'card-agent2',
+            text: 'Pre-ticked checkboxes or forcing a loan applicant to consent to telemarketing calls as a condition for getting a loan is legally void. Consent for loan processing and marketing calls MUST be completely separate and itemized.',
+            statute: 'Section 6(1) & Section 6(2) (Purpose Limitation & Unbundling)'
+          },
+          {
+            speaker: 'agent3',
+            role: 'Engineer Vikram (Technical DPO)',
+            highlightCard: 'card-agent3',
+            text: 'We hook your backend APIs with Pramana eBPF probes. Unmasked Aadhaar numbers are immediately tokenized into SHA-256 hashes, telecaller webhook egress is gated unless explicit opt-in is cryptographically signed, and cloud hosting DPAs are locked down.',
+            statute: 'Aadhaar Act Section 29 & DPDP Section 8 Technical Tokenization'
+          },
+          {
+            speaker: 'agent4',
+            role: 'Lead Auditor Aegis (Chief DPO)',
+            highlightCard: 'card-agent4',
+            text: 'Fintech Attestation: FastPay architecture converted to full tokenized zero-trust model. Total statutory fine avoided: Up to ₹250 Crore.',
+            statute: 'Fintech DPDP Audit Certificate #PR-FIN-77219 [SEALED ✅]'
+          }
+        ]
+      },
+      hr: {
+        title: 'Consultation Chamber: HR Head Sneha (TechVenture Staffing)',
+        turns: [
+          {
+            speaker: 'client',
+            role: 'HR Head Sneha (TechVenture)',
+            text: 'Hello. We receive 5,000 candidate resumes monthly. We keep them in our cloud folders for years in case a future job opens up. Does DPDP regulate employee and applicant data?',
+            statute: null
+          },
+          {
+            speaker: 'agent1',
+            role: 'Advocate Arjun (Legal Counsel)',
+            highlightCard: 'card-agent1',
+            text: 'Yes, Sneha. Resumes contain sensitive digital personal data (PAN, phone, salary, address). Under Section 8(7), personal data must be erased as soon as the purpose of collection is fulfilled.',
+            statute: 'Section 8(7) (Storage Limitation & Mandatory Erasure)'
+          },
+          {
+            speaker: 'agent2',
+            role: 'Officer Priya (Consent Architect)',
+            highlightCard: 'card-agent2',
+            text: 'You cannot retain resumes indefinitely unless candidates explicitly opt-in to a future talent pool notice in their native language with an easy 1-click revocation link.',
+            statute: 'Section 6(4) (Right to Withdraw Consent)'
+          },
+          {
+            speaker: 'agent3',
+            role: 'Engineer Vikram (Technical DPO)',
+            highlightCard: 'card-agent3',
+            text: 'Pramana sets automated TTL expiration rules on candidate folders. Unhired resumes are automatically wiped after 180 days unless renewed, generating cryptographic proof of deletion.',
+            statute: 'Automated Lifecycle Storage Pruning Engine'
+          },
+          {
+            speaker: 'agent4',
+            role: 'Lead Auditor Aegis (Chief DPO)',
+            highlightCard: 'card-agent4',
+            text: 'HR Compliance Verified: TechVenture Staffing certified with zero orphaned resume risk. Penalty avoided: Up to ₹50 Crore.',
+            statute: 'HR Governance Certificate #PR-HR-44102 [SEALED ✅]'
+          }
+        ]
+      },
+      retail: {
+        title: 'Consultation Chamber: Founder Amit (QuickCart E-Commerce)',
+        turns: [
+          {
+            speaker: 'client',
+            role: 'Founder Amit (QuickCart)',
+            text: 'Hi everyone. We ship 50,000 e-commerce orders a month. Delivery drivers see customer phone numbers, and we send WhatsApp discount promos after every purchase. Are we compliant?',
+            statute: null
+          },
+          {
+            speaker: 'agent1',
+            role: 'Advocate Arjun (Legal Counsel)',
+            highlightCard: 'card-agent1',
+            text: 'Hi Amit. Exposing customer phone numbers directly to delivery riders and auto-subscribing buyers to WhatsApp promotional spam violates Section 8 safeguards and Section 6 consent rules.',
+            statute: 'Section 8(5) (Security Controls) & Section 6(1) (Unbundled Opt-In)'
+          },
+          {
+            speaker: 'agent2',
+            role: 'Officer Priya (Consent Architect)',
+            highlightCard: 'card-agent2',
+            text: 'Under DPDP rules, delivery address and phone number are collected strictly for order delivery, NOT for lifetime marketing. Promotional WhatsApp messages require a separate, standalone opt-in.',
+            statute: 'Section 6(2) (Specific Purpose Limitation)'
+          },
+          {
+            speaker: 'agent3',
+            role: 'Engineer Vikram (Technical DPO)',
+            highlightCard: 'card-agent3',
+            text: 'Pramana activates virtual number bridging (masking customer numbers for riders) and automatically purges delivery GPS coordinates 24 hours after successful delivery.',
+            statute: 'Dynamic Number Masking & 24h Post-Delivery Data Purging'
+          },
+          {
+            speaker: 'agent4',
+            role: 'Lead Auditor Aegis (Chief DPO)',
+            highlightCard: 'card-agent4',
+            text: 'E-Commerce Seal: QuickCart customer data shielded with zero plaintext leakage. Total penalty liability avoided: Up to ₹250 Crore.',
+            statute: 'Retail Statutory Attestation #PR-RET-99412 [SEALED ✅]'
+          }
+        ]
+      }
+    };
+
+    let currentClientKey = 'clinic';
+    let currentTurnIndex = 0;
+    let autoPlayTimer = null;
+
+    function setClient(key) {
+      if (autoPlayTimer) clearInterval(autoPlayTimer);
+      currentClientKey = key;
+      currentTurnIndex = 0;
+
+      document.querySelectorAll('.client-card').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+
+      const data = CONSULTATION_SCENARIOS[key];
+      document.getElementById('consult-title').innerText = data.title;
+      renderDialogue();
+      playChime(650);
+    }
+
+    function renderDialogue() {
+      const data = CONSULTATION_SCENARIOS[currentClientKey];
+      const box = document.getElementById('dialogue-box');
+      box.innerHTML = '';
+
+      // Highlight corresponding agent card
+      document.querySelectorAll('.dpo-card').forEach(c => c.classList.remove('active'));
+
+      for (let i = 0; i <= currentTurnIndex && i < data.turns.length; i++) {
+        const turn = data.turns[i];
+        const isClient = turn.speaker === 'client';
+        const msgClass = turn.speaker;
+
+        if (turn.highlightCard) {
+          const cEl = document.getElementById(turn.highlightCard);
+          if (cEl) cEl.classList.add('active');
+        }
+
+        const div = document.createElement('div');
+        div.className = `timeline-msg ${msgClass}`;
+        div.innerHTML = `
+          <div class="msg-header">
+            <span>${isClient ? '👤' : '⚖️'} ${turn.role}</span>
+            <span>${isClient ? 'CLIENT INQUIRY' : 'DPO ADVISORY COUNSEL'}</span>
+          </div>
+          <div>${turn.text}</div>
+          ${turn.statute ? `
+            <div class="msg-statute-box">
+              <strong style="color: var(--gold-mid);">📜 Statutory Reference:</strong> ${turn.statute}
+            </div>
+          ` : ''}
+        `;
+        box.appendChild(div);
+      }
+
+      box.scrollTop = box.scrollHeight;
+      document.getElementById('turn-badge').innerText = `TURN: ${Math.min(currentTurnIndex + 1, data.turns.length)} OF ${data.turns.length}`;
+    }
+
+    function nextStep() {
+      const data = CONSULTATION_SCENARIOS[currentClientKey];
+      if (currentTurnIndex < data.turns.length - 1) {
+        currentTurnIndex++;
+        renderDialogue();
+        playChime(700 + currentTurnIndex * 50);
+      }
+    }
+
+    function resetMeeting() {
+      if (autoPlayTimer) clearInterval(autoPlayTimer);
+      currentTurnIndex = 0;
+      renderDialogue();
+      playChime(500);
+    }
+
+    function runAutoPlay() {
+      if (autoPlayTimer) clearInterval(autoPlayTimer);
+      currentTurnIndex = 0;
+      renderDialogue();
+      playChime(550);
+
+      const data = CONSULTATION_SCENARIOS[currentClientKey];
+      autoPlayTimer = setInterval(() => {
+        if (currentTurnIndex < data.turns.length - 1) {
+          currentTurnIndex++;
+          renderDialogue();
+          playChime(700 + currentTurnIndex * 50);
+        } else {
+          clearInterval(autoPlayTimer);
+        }
+      }, 2200);
+    }
+
+    function askCustom() {
+      const input = document.getElementById('custom-text');
+      const text = input.value.trim();
+      if (!text) return;
+
+      const box = document.getElementById('dialogue-box');
+      
+      // Add client query
+      const clientDiv = document.createElement('div');
+      clientDiv.className = 'timeline-msg client';
+      clientDiv.innerHTML = `
+        <div class="msg-header">
+          <span>👤 SMB Executive (Custom Query)</span>
+          <span>AD-HOC INQUIRY</span>
+        </div>
+        <div>"${text}"</div>
+      `;
+      box.appendChild(clientDiv);
+
+      // Add DPO response
+      setTimeout(() => {
+        const dpoDiv = document.createElement('div');
+        dpoDiv.className = 'timeline-msg agent1';
+        dpoDiv.innerHTML = `
+          <div class="msg-header">
+            <span>⚖️ Advocate Arjun (Legal Counsel)</span>
+            <span>STATUTORY OPINION</span>
+          </div>
+          <div>In accordance with India's DPDP Act 2023, all processing of digital personal data must maintain unbundled multilingual consent under Section 6 and reasonable security safeguards under Section 8(5). Non-compliance exposes the business to statutory penalties up to ₹250 Crore.</div>
+          <div class="msg-statute-box">
+            <strong style="color: var(--gold-mid);">📜 Statutory Reference:</strong> DPDP Act 2023 Section 6, Section 8(5) & Section 33 Penalty Schedule
+          </div>
+        `;
+        box.appendChild(dpoDiv);
+        box.scrollTop = box.scrollHeight;
+        playChime(880);
+      }, 500);
+
+      input.value = '';
+    }
+
+    function downloadTranscript() {
+      const data = CONSULTATION_SCENARIOS[currentClientKey];
+      const text = `=====================================================
+PRAMANA (प्रमाण) · DPO OFFICE WALK-IN CONSULTATION REPORT
+=====================================================
+Session: ${data.title}
+Presiding DPO Team:
+- Advocate Arjun (Intake & Legal Counsel)
+- Officer Priya (Consent & Governance Architect)
+- Engineer Vikram (Technical & eBPF DPO)
+- Lead Auditor Aegis (Chief DPO & DPBI Board Liaison)
+Timestamp: ${new Date().toISOString()}
+
+FULL CONSULTATION TRANSCRIPT:
+${data.turns.map((t, idx) => `
+[TURN ${idx + 1}] ${t.role}:
+"${t.text}"
+${t.statute ? `Statutory Finding: ${t.statute}\n` : ''}`).join('')}
+
+TOTAL STATUTORY PENALTY EXPOSURE AVOIDED: UP TO ₹250 CRORE.
+Official DPBI Compliance Seal Sealed by Pramana Autonomous Suite.
+=====================================================`;
+
+      const blob = new Blob([text], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `DPO_Office_Consultation_${currentClientKey}_${Date.now()}.txt`;
+      a.click();
+    }
+
+    // Initialize default meeting
+    renderDialogue();
+  </script>
+</body>
+</html>
