@@ -1,0 +1,20 @@
+# Annapurna Agentic Solutions
+
+Annapurna Agentic Solutions presents governed AI systems, learning products, practical digital tools, interactive web experiences and open software experiments.
+
+## Primary public pages
+- Home: https://annapurnaagenticsolutions.com/
+- Explore: https://annapurnaagenticsolutions.com/explore.html
+- Interactive Lab: https://annapurnaagenticsolutions.com/lab.html
+- Evidence: https://annapurnaagenticsolutions.com/evidence.html
+- About: https://annapurnaagenticsolutions.com/about/
+- Contact: https://annapurnaagenticsolutions.com/contact/
+
+## Source
+- GitHub organization: https://github.com/annapurnaagenticsolutions
+- Portal source: https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions
+- AXON: https://github.com/annapurnaagenticsolutions/axon
+- Open Enterprise AgentOps Mesh: https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh
+
+## Trust policy
+Marketing claims should be checked against the Evidence page. Repository activity is engineering evidence, not proof of adoption or production maturity. Public-source conflicts remain visible rather than being silently reconciled toward a promotional interpretation.

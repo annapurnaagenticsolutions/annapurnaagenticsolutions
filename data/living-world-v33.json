@@ -1,0 +1,68 @@
+{
+  "schemaVersion": 1,
+  "release": "3.3",
+  "principle": "A single persistent material should survive the complete Home narrative and every major interaction should visibly follow Sense, Anticipate, Transform, Propagate and Settle.",
+  "journey": {
+    "persistentStageThroughBeats": true,
+    "storyShellClipsStickyStage": false,
+    "gridAreas": [
+      "story",
+      "world"
+    ],
+    "beats": [
+      "establish",
+      "focus",
+      "journey"
+    ],
+    "journeyUsesExistingStage": true,
+    "ctaReceivesArrivalSignal": true
+  },
+  "motionGrammar": {
+    "phases": [
+      "sense",
+      "anticipate",
+      "transform",
+      "propagate",
+      "settle"
+    ],
+    "autoplayWithoutSignal": false,
+    "appliesTo": [
+      "world selection",
+      "focus/journey beat",
+      "CTA arrival",
+      "Lab input change"
+    ]
+  },
+  "material": {
+    "renderer": "Canvas2D",
+    "newWebGLContext": false,
+    "particleTrails": true,
+    "worldSpecificStructures": true,
+    "reducedMotionDisablesBridge": true,
+    "mobileDisablesBridge": true
+  },
+  "explore": {
+    "selectedWorldReorganizesGeometry": true,
+    "relatedWorldPropagationVisible": true,
+    "newPanelAdded": false
+  },
+  "lab": {
+    "runtimeFailurePhysicallyFracturesPath": true,
+    "axonPresetsReorganizeTopology": true,
+    "singleTheatrePreserved": true
+  },
+  "typography": {
+    "impactWordsUnderlined": false
+  },
+  "truthBoundary": {
+    "writesProductTruth": false,
+    "writesEvidence": false,
+    "writesSemanticHistory": false,
+    "writesVisitorProfile": false
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false
+  }
+}

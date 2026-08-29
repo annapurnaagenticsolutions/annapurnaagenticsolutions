@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "release": "2.1",
+  "principle": "The environment should reveal connection, real activity and continuity without adding dashboard chrome.",
+  "features": {
+    "realStateCurrent": {
+      "source": "repository-signals.json",
+      "visibleAs": "flow density and packet speed",
+      "showsMetricsOnHome": false
+    },
+    "resonanceField": {
+      "trigger": "deliberate world selection",
+      "relatedWorldsRemainProminent": true,
+      "unrelatedWorldsRecede": true
+    },
+    "continuousHandoff": {
+      "from": "hero ecosystem",
+      "to": "connected journey",
+      "drivenBy": "scroll progress"
+    },
+    "tactileCore": {
+      "input": "pointer",
+      "maxDisplacementPx": 4
+    },
+    "returnEvolution": {
+      "source": "device-local session/exploration state",
+      "changesTruth": false
+    },
+    "guidedJourney": {
+      "interruptible": true,
+      "writesVisitorMemory": false
+    }
+  },
+  "performance": {
+    "newFramework": false,
+    "newWebGLContext": false,
+    "reducedMotionFallback": true
+  }
+}

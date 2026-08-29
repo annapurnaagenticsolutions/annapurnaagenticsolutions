@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "temporal-state.schema.json",
+  "title": "Annapurna Shared Temporal State",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "generationIntervalDays",
+    "lastGeneratedAt",
+    "authoritativeTimezone",
+    "sourcePolicy",
+    "signals",
+    "presentation",
+    "fallbackPolicy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "generationIntervalDays": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 30
+    },
+    "lastGeneratedAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "authoritativeTimezone": {
+      "type": "string",
+      "minLength": 1
+    },
+    "sourcePolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "fallbackPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "signals": {
+      "type": "object",
+      "required": [
+        "date",
+        "weekday",
+        "weather"
+      ],
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "weekday": {
+          "enum": [
+            "Monday",
+            "Tuesday",
+            "Wednesday",
+            "Thursday",
+            "Friday",
+            "Saturday",
+            "Sunday"
+          ]
+        },
+        "weather": {
+          "type": "object",
+          "required": [
+            "enabled",
+            "reason"
+          ],
+          "properties": {
+            "enabled": {
+              "const": false
+            },
+            "reason": {
+              "type": "string",
+              "minLength": 10
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "presentation": {
+      "type": "object",
+      "required": [
+        "key",
+        "label",
+        "accentWorld",
+        "fieldNote"
+      ],
+      "properties": {
+        "key": {
+          "type": "string",
+          "minLength": 3
+        },
+        "label": {
+          "type": "string",
+          "minLength": 3
+        },
+        "accentWorld": {
+          "enum": [
+            "ai",
+            "wonder",
+            "idea",
+            "axon",
+            "web",
+            "software"
+          ]
+        },
+        "fieldNote": {
+          "type": "string",
+          "minLength": 10
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

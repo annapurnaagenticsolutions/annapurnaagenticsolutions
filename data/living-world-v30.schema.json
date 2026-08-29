@@ -1,0 +1,162 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "home",
+    "explore",
+    "lab",
+    "agentic",
+    "sensory",
+    "truthBoundary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.0"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 60
+    },
+    "home": {
+      "type": "object",
+      "required": [
+        "publicActs",
+        "persistentLivingStageCount",
+        "cameraBeats",
+        "impactWords",
+        "connectedJourneyUsesSameEnvironment"
+      ],
+      "properties": {
+        "publicActs": {
+          "const": 3
+        },
+        "persistentLivingStageCount": {
+          "const": 1
+        },
+        "cameraBeats": {
+          "const": [
+            "establish",
+            "focus",
+            "journey"
+          ]
+        },
+        "connectedJourneyUsesSameEnvironment": {
+          "const": true
+        },
+        "impactWords": {
+          "type": "object",
+          "required": [
+            "underlined",
+            "semanticDepth",
+            "maxSimultaneousEmphasis"
+          ],
+          "properties": {
+            "underlined": {
+              "const": false
+            },
+            "semanticDepth": {
+              "const": true
+            },
+            "maxSimultaneousEmphasis": {
+              "const": 2
+            }
+          }
+        }
+      }
+    },
+    "explore": {
+      "type": "object",
+      "required": [
+        "presentation",
+        "cardGridPrimary",
+        "connectedWorldsRecedeAndAdvance",
+        "visibleAdaptiveDebugRibbon"
+      ],
+      "properties": {
+        "presentation": {
+          "const": "spatial-atlas"
+        },
+        "cardGridPrimary": {
+          "const": false
+        },
+        "connectedWorldsRecedeAndAdvance": {
+          "const": true
+        },
+        "visibleAdaptiveDebugRibbon": {
+          "const": false
+        }
+      }
+    },
+    "lab": {
+      "type": "object",
+      "required": [
+        "presentation",
+        "simulations",
+        "simultaneousPrimaryPanels",
+        "internalRedesignCommentaryVisible"
+      ],
+      "properties": {
+        "presentation": {
+          "const": "single-interaction-theatre"
+        },
+        "simultaneousPrimaryPanels": {
+          "const": 1
+        },
+        "internalRedesignCommentaryVisible": {
+          "const": false
+        }
+      }
+    },
+    "agentic": {
+      "type": "object"
+    },
+    "sensory": {
+      "type": "object",
+      "required": [
+        "narrativeAwareTransitionsMaxMs",
+        "reducedMotionFallback",
+        "autoplayAudio",
+        "newWebGLContext"
+      ],
+      "properties": {
+        "narrativeAwareTransitionsMaxMs": {
+          "maximum": 800
+        },
+        "reducedMotionFallback": {
+          "const": true
+        },
+        "autoplayAudio": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        }
+      }
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "adaptiveStateStillAvailableToGuide",
+        "presentationMayChangeProductTruth",
+        "presentationMayChangeEvidence"
+      ],
+      "properties": {
+        "adaptiveStateStillAvailableToGuide": {
+          "const": true
+        },
+        "presentationMayChangeProductTruth": {
+          "const": false
+        },
+        "presentationMayChangeEvidence": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,39 @@
+name: Annapurna post-publish gate
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Deployed portal base URL
+        required: true
+        default: https://annapurnaagenticsolutions.com/
+permissions:
+  contents: read
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - name: Verify deployed first-party and configured public surfaces
+        run: python scripts/verify_v43_public_runtime.py "${{ inputs.base_url }}"
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "24"}
+      - name: Lighthouse deployed first-party pages
+        env:
+          BASE_URL: ${{ inputs.base_url }}
+        run: |
+          mkdir -p .quality
+          case "$BASE_URL" in */) ;; *) BASE_URL="$BASE_URL/" ;; esac
+          for target in "index:" "explore:explore.html" "lab:lab.html" "evidence:evidence.html" "about:about/" "contact:contact/"; do
+            name="${target%%:*}"
+            page="${target#*:}"
+            npx --yes lighthouse@13.4.1 "${BASE_URL}${page}" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=".quality/${name}.json"
+            python scripts/check_lighthouse.py ".quality/${name}.json"
+          done

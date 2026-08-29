@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "release": "2.0",
+  "thesis": "one persistent spatial ecosystem with three public acts and no dashboard-style landing-page blocks",
+  "homeActs": [
+    "living-ecosystem",
+    "connected-journey",
+    "focused-next-step"
+  ],
+  "hero": {
+    "detailPlacement": "outside-spatial-field",
+    "productNodeForm": "spatial-points-not-cards",
+    "worldCount": 6,
+    "wholeSceneReframing": true,
+    "pointerDepth": true,
+    "scrollDepth": true,
+    "guidedConnections": true
+  },
+  "journey": {
+    "stickyDesktop": true,
+    "maxSteps": 3,
+    "signalFollowsPath": true,
+    "manualInterruptionWins": true,
+    "publicMetricsOnHome": false
+  },
+  "copyPolicy": {
+    "methodologyExplanationOnHome": false,
+    "internalLivingTerminologyOnHome": false,
+    "maxHomeSections": 3
+  },
+  "performance": {
+    "newFrameworks": 0,
+    "newWebGLContexts": 0,
+    "productionLcpInpRegressionMaxPct": 10
+  },
+  "truthPolicy": "presentation-only; spatial choreography cannot alter product maturity, evidence, public telemetry or semantic history"
+}

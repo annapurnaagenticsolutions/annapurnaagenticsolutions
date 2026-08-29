@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "world-presentation.schema.json",
+  "title": "Annapurna Living Lab Spatial World Presentation",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceLabel",
+    "historyPolicy",
+    "worlds"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "historyPolicy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "worlds": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "index",
+          "accent",
+          "core",
+          "caption",
+          "story",
+          "facts",
+          "publicState",
+          "sceneArchetype"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          },
+          "index": {
+            "type": "string",
+            "pattern": "^0[1-6]$"
+          },
+          "accent": {
+            "type": "string",
+            "minLength": 2
+          },
+          "core": {
+            "type": "string",
+            "minLength": 2
+          },
+          "caption": {
+            "type": "string",
+            "minLength": 3
+          },
+          "story": {
+            "type": "string",
+            "minLength": 20
+          },
+          "facts": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 4,
+            "items": {
+              "type": "string",
+              "minLength": 2
+            }
+          },
+          "publicState": {
+            "type": "string",
+            "minLength": 2
+          },
+          "sceneArchetype": {
+            "enum": [
+              "network",
+              "constellation",
+              "city",
+              "lanes",
+              "frames",
+              "grid"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

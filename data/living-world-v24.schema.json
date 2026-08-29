@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "propagation",
+    "causalLinks",
+    "visibleConsequences",
+    "truthBoundary",
+    "accessibility",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "2.4"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 40
+    },
+    "propagation": {
+      "type": "object",
+      "required": [
+        "trigger",
+        "pendingPerTarget",
+        "consumedOn",
+        "persistsAcrossPageLoads",
+        "replacesOlderPendingConsequence"
+      ],
+      "properties": {
+        "pendingPerTarget": {
+          "const": 1
+        },
+        "persistsAcrossPageLoads": {
+          "const": false
+        },
+        "replacesOlderPendingConsequence": {
+          "const": true
+        }
+      }
+    },
+    "causalLinks": {
+      "type": "object",
+      "required": [
+        "ai",
+        "wonder",
+        "idea",
+        "axon",
+        "web",
+        "software"
+      ],
+      "additionalProperties": {
+        "type": "array",
+        "minItems": 2,
+        "maxItems": 2,
+        "items": {
+          "type": "object",
+          "required": [
+            "target",
+            "effect"
+          ]
+        }
+      }
+    },
+    "visibleConsequences": {
+      "type": "array",
+      "minItems": 4
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "writesProductTruth",
+        "writesEvidence",
+        "writesSemanticHistory",
+        "writesVisitorProfile",
+        "writesLocalStorage"
+      ],
+      "properties": {
+        "writesProductTruth": {
+          "const": false
+        },
+        "writesEvidence": {
+          "const": false
+        },
+        "writesSemanticHistory": {
+          "const": false
+        },
+        "writesVisitorProfile": {
+          "const": false
+        },
+        "writesLocalStorage": {
+          "const": false
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object"
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "newWebGLContext"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema.org/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "typography",
+    "opticalMaterial",
+    "evidenceField",
+    "preserves",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.8"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 120
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "opticalMaterial": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "evidenceField": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "preserves": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext",
+        "newNetworkDependency",
+        "backdropFilterLimitedToSemanticSurfaces"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "newNetworkDependency": {
+          "const": false
+        },
+        "backdropFilterLimitedToSemanticSurfaces": {
+          "const": true
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "release": "2.4",
+  "principle": "A completed micro-scene may leave an ephemeral, visible consequence in related worlds, allowing cause-and-effect to continue across the shared ecosystem.",
+  "propagation": {
+    "trigger": "micro-scene completion",
+    "pendingPerTarget": 1,
+    "consumedOn": "first deliberate micro-scene interaction in the target world",
+    "persistsAcrossPageLoads": false,
+    "replacesOlderPendingConsequence": true
+  },
+  "causalLinks": {
+    "ai": [
+      {
+        "target": "axon",
+        "effect": "policy-bound"
+      },
+      {
+        "target": "web",
+        "effect": "evidence-aware"
+      }
+    ],
+    "wonder": [
+      {
+        "target": "web",
+        "effect": "learner-aware"
+      },
+      {
+        "target": "idea",
+        "effect": "need-aware"
+      }
+    ],
+    "idea": [
+      {
+        "target": "software",
+        "effect": "experiment-ready"
+      },
+      {
+        "target": "web",
+        "effect": "delivery-aware"
+      }
+    ],
+    "axon": [
+      {
+        "target": "ai",
+        "effect": "structure-aware"
+      },
+      {
+        "target": "software",
+        "effect": "pattern-ready"
+      }
+    ],
+    "web": [
+      {
+        "target": "wonder",
+        "effect": "experience-aware"
+      },
+      {
+        "target": "ai",
+        "effect": "explainability-aware"
+      }
+    ],
+    "software": [
+      {
+        "target": "axon",
+        "effect": "pattern-aware"
+      },
+      {
+        "target": "idea",
+        "effect": "result-aware"
+      }
+    ]
+  },
+  "visibleConsequences": [
+    "node afterglow",
+    "cross-world current",
+    "inherited micro-scene cue",
+    "integration pulse"
+  ],
+  "truthBoundary": {
+    "writesProductTruth": false,
+    "writesEvidence": false,
+    "writesSemanticHistory": false,
+    "writesVisitorProfile": false,
+    "writesLocalStorage": false
+  },
+  "accessibility": {
+    "consequenceIsNotRequiredForNavigation": true,
+    "nativeControlsRemainPrimary": true,
+    "reducedMotionKeepsState": true
+  },
+  "performance": {
+    "newFramework": false,
+    "newWebGLContext": false
+  }
+}

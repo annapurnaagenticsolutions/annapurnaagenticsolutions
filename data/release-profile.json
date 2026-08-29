@@ -1,0 +1,65 @@
+{
+  "schemaVersion": 1,
+  "release": "1.0",
+  "channel": "production",
+  "canonicalBaseUrl": "https://annapurnaagenticsolutions.com/",
+  "truthPolicy": "operational-only; release metadata cannot alter product maturity or semantic history",
+  "privacy": {
+    "serverSideAnalytics": false,
+    "identityTracking": false,
+    "fingerprinting": false,
+    "localStorageKey": "annapurnaLivingV20",
+    "resetControl": "#reset-memory"
+  },
+  "security": {
+    "csp": "meta-policy",
+    "runtimeThirdPartyScripts": 0,
+    "embeddedArtifacts": "sandboxed-on-demand",
+    "embedAllowSameOrigin": false,
+    "strictCspCompatibleMarkup": true,
+    "inlineStyleAttributes": 0,
+    "inlineScripts": 0
+  },
+  "performanceBudgetsGzip": {
+    "index.html": 17000,
+    "explore.html": 10000,
+    "lab.html": 12000,
+    "evidence.html": 10500,
+    "assets/site.css": 35000,
+    "assets/site.js": 30500,
+    "assets/material.js": 3000,
+    "assets/public-data.js": 9000,
+    "about/index.html": 6000,
+    "contact/index.html": 5000,
+    "assets/company.css": 5000,
+    "site.webmanifest": 1000,
+    "llms.txt": 1500
+  },
+  "lighthouseMinimums": {
+    "performance": 85,
+    "accessibility": 95,
+    "best-practices": 90,
+    "seo": 90
+  },
+  "requiredPublicRoutes": [
+    "explore.html",
+    "lab.html",
+    "evidence.html",
+    "about/",
+    "contact/",
+    "ai-solutions/",
+    "axon/",
+    "wonderhub-by-AnnapurnaAgenticSolutions/",
+    "idea-hub/",
+    "website-studio/",
+    "software-lab/",
+    "sitemap.xml",
+    "robots.txt",
+    "site.webmanifest",
+    "llms.txt"
+  ],
+  "criticalProofUrls": [
+    "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/interactive_demo_path.html",
+    "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/demos/jewellery/jewellery-v3/index.html"
+  ]
+}

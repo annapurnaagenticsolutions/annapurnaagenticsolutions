@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "micro-simulations.schema.json",
+  "title": "Living Lab micro-simulation truth contract",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceLabel",
+    "truthPolicy",
+    "simulations"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "truthPolicy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "simulations": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "product",
+          "boundary",
+          "presets"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "governance",
+              "axon",
+              "experience"
+            ]
+          },
+          "product": {
+            "type": "string",
+            "minLength": 2
+          },
+          "boundary": {
+            "type": "string",
+            "minLength": 10
+          },
+          "presets": {
+            "type": "array",
+            "minItems": 3,
+            "items": {
+              "type": "string",
+              "minLength": 2
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

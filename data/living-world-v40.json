@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "release": "4.0",
+  "principle": "Move from a polished living visual system to one continuous intelligent environment by strengthening continuity, provenance interaction, contextual guidance, navigation choreography, meaningful engineering signals and viewport resilience without adding a new framework or 3D dependency.",
+  "enhancements": {
+    "crossPageContinuityRibbon": true,
+    "hashResumeAndWorldMemory": true,
+    "interactiveEvidenceField": true,
+    "evidenceFiltersAndCoverageSummary": true,
+    "repositoryEvidenceContextOverVanityMetrics": true,
+    "contextualGuideActions": true,
+    "sharedNavigationTransition": true,
+    "stickyHeaderAndScrollHardening": true,
+    "restrainedFieldBreathing": true
+  },
+  "experienceContracts": {
+    "homeTypographyFrozen": true,
+    "labLayoutFrozen": true,
+    "selectiveGlassOnly": true,
+    "evidenceConflictPreserved": true,
+    "privateLocalContinuity": true,
+    "reducedMotionFallback": true,
+    "reducedTransparencyFallback": true,
+    "noNewFramework": true,
+    "noNewWebGLContext": true,
+    "noNewNetworkDependency": true
+  },
+  "performance": {
+    "siteJsBudgetGzip": 30000,
+    "browserLcpInpPromotionGateRetained": true,
+    "routePayloadStillStaticAndDependencyFree": true
+  }
+}

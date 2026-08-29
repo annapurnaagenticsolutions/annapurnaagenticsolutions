@@ -1,0 +1,107 @@
+{
+  "schemaVersion": 5,
+  "verifiedAt": "2026-08-25",
+  "sourceLabel": "source-reconciled public site + evidence snapshot",
+  "metrics": {
+    "portfolioLines": 6,
+    "websiteDemos": 12,
+    "liveAiTools": 2
+  },
+  "portfolios": [
+    {
+      "id": "ai",
+      "name": "AI Solutions",
+      "stage": "live",
+      "detail": "2 tools listed live; additional tools developing"
+    },
+    {
+      "id": "wonder",
+      "name": "WonderHub",
+      "stage": "live",
+      "detail": "learning discovery hub"
+    },
+    {
+      "id": "idea",
+      "name": "Idea Hub",
+      "stage": "prototype",
+      "detail": "page ready; products developing"
+    },
+    {
+      "id": "axon",
+      "name": "AXON",
+      "stage": "prototype",
+      "detail": "public source available; repository describes pre-production reference implementation"
+    },
+    {
+      "id": "web",
+      "name": "Website Studio",
+      "stage": "live",
+      "detail": "12 functional interactive demos"
+    },
+    {
+      "id": "software",
+      "name": "Software Lab",
+      "stage": "experiment",
+      "detail": "open-source collections developing"
+    }
+  ],
+  "signals": [
+    {
+      "type": "PORTFOLIO",
+      "value": "6 product lines",
+      "source": "Root portal"
+    },
+    {
+      "type": "DESIGN",
+      "value": "12 website demos",
+      "source": "Website Studio"
+    },
+    {
+      "type": "AI",
+      "value": "2 tools listed Live",
+      "source": "AI Solutions (source-local)"
+    },
+    {
+      "type": "RECONCILE",
+      "value": "AXON pre-production",
+      "source": "AXON repository"
+    },
+    {
+      "type": "MESH",
+      "value": "v2.8 reference implementation",
+      "source": "AgentOps Mesh repository"
+    },
+    {
+      "type": "TELEMETRY",
+      "value": "3 public repositories tracked",
+      "source": "Deploy-time GitHub snapshots"
+    },
+    {
+      "type": "EVIDENCE",
+      "value": "9 sourced claims",
+      "source": "Evidence Atlas"
+    },
+    {
+      "type": "PROOF",
+      "value": "3 inspectable artifacts",
+      "source": "Living Lab v0.7"
+    },
+    {
+      "type": "ARCHITECTURE",
+      "value": "Static-first core",
+      "source": "Portal design"
+    }
+  ],
+  "feed": [
+    "Six portfolio lines remain mapped into one public capability graph.",
+    "Website Studio exposes 12 functional interactive demos across four industries.",
+    "AXON is publicly inspectable and its repository describes a pre-production reference implementation.",
+    "AXON exposes an axon govern bridge that produces AgentOps Mesh governance submissions.",
+    "AgentOps Mesh v2.8 documents 125 backend tests and 80 API smoke checks as its expected validation baseline.",
+    "AgentOps Mesh v2.8 remains explicitly a reference architecture and governance template, not a production system.",
+    "Three Annapurna repositories are tracked as deploy-time public engineering telemetry.",
+    "Nine market-facing claims now carry explicit public-source provenance in the Evidence Atlas.",
+    "Cross-product composition is presented as deterministic demonstration logic, not a production integration claim.",
+    "Visitor-triggered evolution remains device-local presentation state."
+  ]
+}

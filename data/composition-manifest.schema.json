@@ -1,0 +1,19 @@
+{
+  "$schema":"https://json-schema.org/draft/2020-12/schema",
+  "$id":"https://annapurnaagenticsolutions.github.io/annapurna-portal/data/composition-manifest.schema.json",
+  "title":"Annapurna Living Lab Cross-product Composition Manifest",
+  "type":"object",
+  "required":["schemaVersion","verifiedAt","sourceLabel","disclaimer","journeys"],
+  "properties":{
+    "schemaVersion":{"const":1},
+    "verifiedAt":{"type":"string","format":"date"},
+    "sourceLabel":{"type":"string","minLength":1},
+    "disclaimer":{"type":"string","minLength":1},
+    "journeys":{"type":"array","minItems":3,"items":{"$ref":"#/$defs/journey"}}
+  },
+  "$defs":{
+    "endpoint":{"type":"object","required":["world","code","title","copy"],"properties":{"world":{"type":"string","pattern":"^[a-z0-9-]+$"},"code":{"type":"string","minLength":1},"title":{"type":"string","minLength":1},"copy":{"type":"string","minLength":1}},"additionalProperties":false},
+    "journey":{"type":"object","required":["id","title","source","axonCopy","meshCopy","output","summary","route","evidenceClaimIds"],"properties":{"id":{"type":"string","pattern":"^[a-z0-9-]+$"},"title":{"type":"string","minLength":1},"source":{"$ref":"#/$defs/endpoint"},"axonCopy":{"type":"string","minLength":1},"meshCopy":{"type":"string","minLength":1},"output":{"$ref":"#/$defs/endpoint"},"summary":{"type":"string","minLength":1},"route":{"type":"array","minItems":4,"maxItems":4,"items":{"type":"string","minLength":1}},"evidenceClaimIds":{"type":"array","minItems":1,"uniqueItems":true,"items":{"type":"string","pattern":"^[a-z0-9-]+$"}}},"additionalProperties":false}
+  },
+  "additionalProperties":false
+}

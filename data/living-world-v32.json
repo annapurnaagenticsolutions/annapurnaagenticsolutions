@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "release": "3.2",
+  "principle": "Translate meaningful world selection and narrative state into a temporary material response that crosses environment and typography, forms a world-specific structure, and then settles without becoming decorative spectacle.",
+  "materialCycle": [
+    "signal",
+    "travel",
+    "formation",
+    "settling"
+  ],
+  "home": {
+    "bridgeRenderer": "Canvas2D",
+    "newWebGLContext": false,
+    "particleCountDesktop": 32,
+    "particleCountLowPower": 18,
+    "worldGrammars": {
+      "ai": "lanes",
+      "wonder": "constellation",
+      "idea": "blocks",
+      "axon": "typed-lanes",
+      "web": "frames",
+      "software": "grid"
+    },
+    "crossesCopyEnvironmentBoundary": true,
+    "semanticWordUnderline": false,
+    "fallbackTargets": [
+      "stage-name",
+      "journey-focus"
+    ],
+    "lazyLoaded": true
+  },
+  "explore": {
+    "materialFieldOnDeliberateSelection": true,
+    "addsPanel": false
+  },
+  "lab": {
+    "theatreMaterialResponseOnModeChange": true,
+    "addsPanel": false
+  },
+  "motion": {
+    "triggers": [
+      "deliberate world selection",
+      "focus scroll beat",
+      "journey scroll beat",
+      "lab mode selection"
+    ],
+    "autoplayLoopWithoutSignal": false,
+    "reducedMotionDisablesBridgeCanvas": true,
+    "mobileDisablesBridgeCanvas": true
+  },
+  "truthBoundary": {
+    "persistsMaterialState": false,
+    "writesProductTruth": false,
+    "writesEvidence": false,
+    "writesSemanticHistory": false,
+    "writesVisitorProfile": false
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false
+  }
+}

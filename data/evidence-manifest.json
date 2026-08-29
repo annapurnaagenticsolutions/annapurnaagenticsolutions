@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 2,
+  "verifiedAt": "2026-08-25",
+  "sourceLabel": "public-source evidence atlas",
+  "claims": [
+    {
+      "id": "portal-six-lines",
+      "statement": "The Annapurna portal presents six product lines.",
+      "status": "verified",
+      "evidenceClass": "public_page",
+      "sourceName": "Annapurna Portal",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/",
+      "scope": "Root portal portfolio section",
+      "note": "The public portal states: Six product lines. One company."
+    },
+    {
+      "id": "studio-twelve-demos",
+      "statement": "Website Studio presents 12 functional interactive website demonstrations across four industries.",
+      "status": "verified",
+      "evidenceClass": "public_page",
+      "sourceName": "Website Studio \u2014 The Versatility Vault",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/",
+      "scope": "Studio introduction and demo matrix",
+      "note": "The public studio describes 12 functional interactive sites across four industry groups."
+    },
+    {
+      "id": "ai-two-listed-live",
+      "statement": "The AI Solutions page currently lists AgentOps Mesh and AXON in its Live section.",
+      "status": "source_local",
+      "evidenceClass": "public_page",
+      "sourceName": "AI Solutions",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/ai-solutions/",
+      "scope": "Available Tools / Live",
+      "note": "This is preserved as a source-local portfolio claim rather than treated as the final maturity verdict for AXON.",
+      "conflictsWith": [
+        "axon-preproduction"
+      ]
+    },
+    {
+      "id": "axon-preproduction",
+      "statement": "AXON's public repository describes the implementation as pre-production and a sophisticated reference implementation.",
+      "status": "verified",
+      "evidenceClass": "public_repository",
+      "sourceName": "annapurnaagenticsolutions/axon",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/axon",
+      "scope": "Repository README status",
+      "note": "The portfolio uses the conservative synthesis Prototype / pre-production when public Annapurna sources disagree.",
+      "conflictsWith": [
+        "ai-two-listed-live"
+      ]
+    },
+    {
+      "id": "mesh-five-nine-seven",
+      "statement": "AgentOps Mesh publicly presents five operating phases, a nine-gate workflow, and a seven-step procurement-agent demo path.",
+      "status": "verified",
+      "evidenceClass": "public_product",
+      "sourceName": "Open Enterprise AgentOps Mesh",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/",
+      "scope": "Product overview and interactive demo path",
+      "note": "The product page presents Intake, Govern, Enforce, Observe and Launch plus a nine-gate workflow; the public demo path contains seven guided steps."
+    },
+    {
+      "id": "ring-builder-three-step",
+      "statement": "Website Studio includes a live three-step custom ring builder with selectable setting, metal and stone plus price updates.",
+      "status": "verified",
+      "evidenceClass": "live_demo",
+      "sourceName": "Bespoke \u2014 Custom Ring Builder",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/demos/jewellery/jewellery-v3/index.html",
+      "scope": "Live configurator",
+      "note": "The public demo exposes three configuration stages and a displayed total price."
+    },
+    {
+      "id": "mesh-reference-status",
+      "statement": "AgentOps Mesh public repository identifies v2.8 as a reference architecture and governance template, not a production system.",
+      "status": "verified",
+      "evidenceClass": "public_repository",
+      "sourceName": "annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "scope": "Repository README current release and status",
+      "note": "Live connector execution, live model-provider calls, production IAM, raw secrets, external API calls and cloud provisioning are described as disabled by design."
+    },
+    {
+      "id": "axon-govern-mesh-bridge",
+      "statement": "AXON exposes an axon govern command that compiles AXON source into an AgentOps Mesh governance submission JSON and can submit it to a running Mesh instance.",
+      "status": "verified",
+      "evidenceClass": "public_repository",
+      "sourceName": "annapurnaagenticsolutions/axon",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/axon",
+      "scope": "Repository README / axon govern command",
+      "note": "This verifies a public integration bridge between the two projects. It does not imply either project is a production deployment."
+    },
+    {
+      "id": "mesh-v28-validation-baseline",
+      "statement": "AgentOps Mesh v2.8 documents an expected validation baseline of 125 backend tests passed, 80 API smoke checks passed, public repository validation passed, benchmark_passed, and public_launch_candidate_ready.",
+      "status": "verified",
+      "evidenceClass": "public_repository",
+      "sourceName": "annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "scope": "Repository README / Validation commands / expected v2.8 baseline",
+      "note": "These are repository-stated expected validation results for the reference release, not independent production or customer validation."
+    }
+  ],
+  "artifacts": [
+    {
+      "id": "agentops-mesh",
+      "world": "ai",
+      "kind": "public_product",
+      "title": "AgentOps Mesh governance journey",
+      "subtitle": "Evidence-connected product proof",
+      "url": "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/interactive_demo_path.html",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/",
+      "facts": [
+        "v2.8 reference architecture",
+        "9-gate governance workflow",
+        "8 repository commits",
+        "Reference implementation / not production",
+        "125 backend tests expected passed",
+        "80 API smoke checks expected passed",
+        "MIT licensed"
+      ],
+      "previewMode": "iframe"
+    },
+    {
+      "id": "axon-repository",
+      "world": "axon",
+      "kind": "public_repository",
+      "title": "AXON public implementation",
+      "subtitle": "Source-level product proof",
+      "url": "https://github.com/annapurnaagenticsolutions/axon",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/axon",
+      "facts": [
+        "18 repository commits",
+        "9 open issues",
+        "2 forks",
+        "Python + TypeScript targets",
+        "Pre-production reference implementation",
+        "axon govern \u2192 Mesh submission bridge"
+      ],
+      "previewMode": "source",
+      "sample": "agent Hello {\n  model: @mock/model\n  fn run(name: Str) -> Str {\n    \"Hello, \" + name\n  }\n}"
+    },
+    {
+      "id": "ring-builder",
+      "world": "web",
+      "kind": "live_demo",
+      "title": "Website Studio custom ring builder",
+      "subtitle": "Real interactive design artifact",
+      "url": "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/demos/jewellery/jewellery-v3/index.html",
+      "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/",
+      "facts": [
+        "3-step configurator",
+        "Setting / Metal / Stone",
+        "Live price updates",
+        "Custom quote flow"
+      ],
+      "previewMode": "iframe"
+    }
+  ]
+}

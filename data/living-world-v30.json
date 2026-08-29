@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "release": "3.0",
+  "principle": "Preserve the living-system engine while rebuilding the public presentation around one persistent spatial environment, directed scroll beats and contextual interaction rather than dashboard-like sections.",
+  "home": {
+    "publicActs": 3,
+    "persistentLivingStageCount": 1,
+    "cameraBeats": [
+      "establish",
+      "focus",
+      "journey"
+    ],
+    "impactWords": {
+      "underlined": false,
+      "semanticDepth": true,
+      "maxSimultaneousEmphasis": 2
+    },
+    "connectedJourneyUsesSameEnvironment": true
+  },
+  "explore": {
+    "presentation": "spatial-atlas",
+    "cardGridPrimary": false,
+    "connectedWorldsRecedeAndAdvance": true,
+    "visibleAdaptiveDebugRibbon": false
+  },
+  "lab": {
+    "presentation": "single-interaction-theatre",
+    "simulations": [
+      "runtime",
+      "axon",
+      "design"
+    ],
+    "simultaneousPrimaryPanels": 1,
+    "internalRedesignCommentaryVisible": false
+  },
+  "agentic": {
+    "visibleDebugExplanationRequired": false,
+    "pageActions": [
+      "setWorld",
+      "activateRouteStep",
+      "activateLabMode",
+      "filterContent",
+      "navigateToSection",
+      "highlightElement",
+      "adjustDepth"
+    ],
+    "dismissible": true
+  },
+  "sensory": {
+    "narrativeAwareTransitionsMaxMs": 720,
+    "reducedMotionFallback": true,
+    "autoplayAudio": false,
+    "newWebGLContext": false
+  },
+  "truthBoundary": {
+    "adaptiveStateStillAvailableToGuide": true,
+    "presentationMayChangeProductTruth": false,
+    "presentationMayChangeEvidence": false
+  }
+}

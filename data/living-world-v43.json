@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "release": "4.3",
+  "principle": "Promote the accepted living-world design to a production-cutover baseline by hardening metadata, accessibility, strict CSP compatibility, GitHub Pages packaging, public-link truth semantics and deployment verification without reopening the visual system.",
+  "enhancements": {
+    "productionMetadata": true,
+    "socialMetadata": true,
+    "strictCspCompatibleMarkup": true,
+    "skipNavigation": true,
+    "accessibleMobileNavigation": true,
+    "faviconAndManifest": true,
+    "githubPagesNoJekyll": true,
+    "sitemapLastmod": true,
+    "machineReadablePublicMap": true,
+    "publicLinkVerificationSemantics": true,
+    "cutoverRunbook": true
+  },
+  "integrityContracts": {
+    "noInlineStyleAttributes": true,
+    "noInlineScripts": true,
+    "noFakePagesRuntimeVerification": true,
+    "sourceVerificationSeparatedFromRuntimeVerification": true,
+    "coreVisualBaselineFrozen": true,
+    "selectiveGlassFrozen": true,
+    "aboutContactFrozen": true,
+    "evidenceFieldFrozen": true,
+    "noNewFramework": true,
+    "noNewNetworkRuntimeDependency": true
+  },
+  "responsiveTargets": {
+    "desktop": 1440,
+    "tablet": 1024,
+    "mobile": 390
+  },
+  "performance": {
+    "browserLcpInpPromotionGateRetained": true,
+    "staticDependencyFree": true,
+    "newRuntimeLibraries": 0,
+    "visualRearchitecture": false
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "release": "4.2",
+  "principle": "Complete the public-company layer without disturbing the accepted living-world baseline: About explains the operating model, Contact routes conversations honestly, and all public work links point to explicit GitHub or GitHub Pages destinations.",
+  "enhancements": {
+    "aboutIntegrated": true,
+    "contactIntegrated": true,
+    "publicLinkRegistry": true,
+    "verifiedGitHubLinks": true,
+    "verifiedGitHubPagesLinks": true,
+    "publicWorkDualLinks": true,
+    "staticMailtoContact": true,
+    "nestedPageAgentRouting": true,
+    "activeAboutContactNavigation": true,
+    "coreLivingBaselineFrozen": true
+  },
+  "integrityContracts": {
+    "noFakeContactForm": true,
+    "noInventedSocialProof": true,
+    "noResponseTimePromise": true,
+    "externalLinksUseNoopener": true,
+    "coreHomeFrozen": true,
+    "exploreFrozen": true,
+    "labFrozen": true,
+    "evidenceFrozen": true,
+    "selectiveGlassOnly": true,
+    "noNewFramework": true,
+    "noNewRuntimeDependency": true
+  },
+  "responsiveTargets": {
+    "desktop": 1440,
+    "tablet": 1024,
+    "mobile": 390
+  },
+  "performance": {
+    "aboutContactStylesSplitFromCoreCss": true,
+    "browserLcpInpPromotionGateRetained": true,
+    "staticDependencyFree": true
+  }
+}

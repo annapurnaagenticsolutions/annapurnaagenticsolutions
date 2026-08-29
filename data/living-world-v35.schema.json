@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "exploreSpatialGovernance",
+    "journeyTopology",
+    "semanticFieldPhysics",
+    "continuity",
+    "preserves",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.5"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 120
+    },
+    "exploreSpatialGovernance": {
+      "type": "object",
+      "required": [
+        "narrativeRailOutsideSpatialField",
+        "selectedWorldInspectorOverlaysTopology",
+        "safeZoneLayoutGovernor",
+        "coreCollisionAvoidance",
+        "nodeCollisionAvoidance",
+        "responsiveFallbackStacksNarrative"
+      ],
+      "properties": {
+        "narrativeRailOutsideSpatialField": {
+          "const": true
+        },
+        "selectedWorldInspectorOverlaysTopology": {
+          "const": false
+        },
+        "safeZoneLayoutGovernor": {
+          "const": true
+        },
+        "coreCollisionAvoidance": {
+          "const": true
+        },
+        "nodeCollisionAvoidance": {
+          "const": true
+        },
+        "responsiveFallbackStacksNarrative": {
+          "const": true
+        }
+      }
+    },
+    "journeyTopology": {
+      "type": "object",
+      "required": [
+        "routeUsesExistingWorldNodes",
+        "duplicateProductLabelsInRouteOverlay",
+        "routeGeometryTracksWorldNodes",
+        "activeRouteStepMorphsWorldNode",
+        "routeSignalTracksActiveWorld"
+      ],
+      "properties": {
+        "routeUsesExistingWorldNodes": {
+          "const": true
+        },
+        "duplicateProductLabelsInRouteOverlay": {
+          "const": false
+        },
+        "routeGeometryTracksWorldNodes": {
+          "const": true
+        },
+        "activeRouteStepMorphsWorldNode": {
+          "const": true
+        },
+        "routeSignalTracksActiveWorld": {
+          "const": true
+        }
+      }
+    },
+    "semanticFieldPhysics": {
+      "type": "object",
+      "required": [
+        "ai",
+        "wonder",
+        "idea",
+        "axon",
+        "web",
+        "software",
+        "physicsDrivenByActiveWorld"
+      ],
+      "properties": {
+        "ai": {
+          "const": "network"
+        },
+        "wonder": {
+          "const": "constellation"
+        },
+        "idea": {
+          "const": "city"
+        },
+        "axon": {
+          "const": "lanes"
+        },
+        "web": {
+          "const": "frames"
+        },
+        "software": {
+          "const": "grid"
+        },
+        "physicsDrivenByActiveWorld": {
+          "const": true
+        }
+      }
+    },
+    "continuity": {
+      "type": "object"
+    },
+    "preserves": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext",
+        "newNetworkDependency"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "newNetworkDependency": {
+          "const": false
+        }
+      }
+    }
+  }
+}

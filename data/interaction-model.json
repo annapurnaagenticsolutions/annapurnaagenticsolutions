@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 2,
+  "sourceLabel": "device-local interaction model",
+  "historyPolicy": "presentation/local-continuity only; interaction state cannot alter product maturity, evidence, telemetry or semantic company history",
+  "trackingPolicy": "no identity tracking, fingerprinting, server-side analytics or commercial behavioral scoring; recent deliberate selections may be used on-device only for adaptive page structure",
+  "storage": {
+    "scope": "device-local",
+    "key": "annapurnaLivingV19",
+    "resetControl": "#reset-memory",
+    "maxTrailWorlds": 6
+  },
+  "phases": [
+    {
+      "key": "observing",
+      "label": "Observing",
+      "minExplored": 0
+    },
+    {
+      "key": "mapping",
+      "label": "Mapping",
+      "minExplored": 1
+    },
+    {
+      "key": "connecting",
+      "label": "Connecting",
+      "minExplored": 3
+    },
+    {
+      "key": "constellation",
+      "label": "Constellation",
+      "minExplored": 5
+    }
+  ],
+  "connections": {
+    "ai": [
+      "axon",
+      "web"
+    ],
+    "wonder": [
+      "web",
+      "idea"
+    ],
+    "idea": [
+      "software",
+      "web"
+    ],
+    "axon": [
+      "ai",
+      "software"
+    ],
+    "web": [
+      "wonder",
+      "ai"
+    ],
+    "software": [
+      "axon",
+      "idea"
+    ]
+  },
+  "sessionPolicy": {
+    "gapMinutes": 360,
+    "semantics": "a return session begins only after the configured inactivity gap; normal page navigation does not increment it",
+    "clock": "device-local"
+  },
+  "returnStates": [
+    {
+      "key": "first",
+      "label": "First encounter",
+      "minSessions": 1,
+      "density": 0.72
+    },
+    {
+      "key": "returning",
+      "label": "Returning",
+      "minSessions": 2,
+      "density": 0.88
+    },
+    {
+      "key": "familiar",
+      "label": "Familiar",
+      "minSessions": 4,
+      "density": 1.0
+    },
+    {
+      "key": "embedded",
+      "label": "Embedded",
+      "minSessions": 7,
+      "density": 1.12
+    }
+  ],
+  "gestures": {
+    "horizontalSwipe": true,
+    "minSwipePx": 44,
+    "verticalTolerancePx": 58,
+    "corePulse": true,
+    "rememberSwipeSelection": true
+  }
+}

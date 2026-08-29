@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-08-25T04:28:07Z",
+  "sourceLabel": "semantic public-state history; entries append only when factual state changes",
+  "entries": [
+    {
+      "id": "2026-08-25-initial-public-baseline",
+      "capturedAt": "2026-08-25T04:09:00Z",
+      "kind": "baseline",
+      "label": "Living Lab public baseline",
+      "summary": "Initial semantic baseline for six portfolio lines, three public repositories and the Evidence Atlas.",
+      "semanticDigest": "852f60541131079bbef62bdb73178c8fb899bd94d006fb44ac0b5754f466ffdb",
+      "metrics": {
+        "portfolioLines": 6,
+        "websiteDemos": 12,
+        "liveAiTools": 2,
+        "trackedRepositories": 3,
+        "sourcedClaims": 7,
+        "inspectableArtifacts": 3
+      },
+      "stages": {
+        "ai": "live",
+        "wonder": "live",
+        "idea": "prototype",
+        "axon": "prototype",
+        "web": "live",
+        "software": "experiment"
+      },
+      "repositoryTotals": {
+        "commits": 45,
+        "openIssues": 9,
+        "stars": 0,
+        "forks": 2
+      }
+    },
+    {
+      "id": "20260825T042807Z-461a53a9b2",
+      "capturedAt": "2026-08-25T04:28:07Z",
+      "kind": "change",
+      "label": "Living Lab v0.7 evidence + composition state",
+      "summary": "Evidence Atlas expanded to nine sourced claims and the market-showcase release adds a cross-product composition layer while preserving existing product maturity boundaries.",
+      "semanticDigest": "461a53a9b2b465a8c43615b52186416b69def8da970dfb5d1093223f3eb0a458",
+      "metrics": {
+        "portfolioLines": 6,
+        "websiteDemos": 12,
+        "liveAiTools": 2,
+        "trackedRepositories": 3,
+        "sourcedClaims": 9,
+        "inspectableArtifacts": 3
+      },
+      "stages": {
+        "ai": "live",
+        "wonder": "live",
+        "idea": "prototype",
+        "axon": "prototype",
+        "web": "live",
+        "software": "experiment"
+      },
+      "repositoryTotals": {
+        "commits": 45,
+        "openIssues": 9,
+        "stars": 0,
+        "forks": 2
+      }
+    }
+  ]
+}

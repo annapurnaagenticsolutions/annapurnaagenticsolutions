@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 1,
+  "sourceLabel": "presentation-only cinematic scroll choreography",
+  "historyPolicy": "presentation-only; excluded from semantic company history and product maturity",
+  "chapters": [
+    {
+      "id": "observe",
+      "index": "01",
+      "world": "ai",
+      "verb": "SEE",
+      "title": "See the system before reading the brochure.",
+      "copy": "Start with the invisible operating field: agent intent, policy, evidence and execution become something a visitor can inspect.",
+      "proof": "Complex capability becomes understandable in motion.",
+      "scene": "network",
+      "accent": "#7dd3fc"
+    },
+    {
+      "id": "structure",
+      "index": "02",
+      "world": "axon",
+      "verb": "STRUCTURE",
+      "title": "Give agent intent a shape.",
+      "copy": "Typed workflows expose tools, memory and orchestration as explicit engineering structure.",
+      "proof": "The workflow becomes reviewable before runtime.",
+      "scene": "lanes",
+      "accent": "#a78bfa"
+    },
+    {
+      "id": "govern",
+      "index": "03",
+      "world": "ai",
+      "verb": "GOVERN",
+      "title": "Put control before autonomy.",
+      "copy": "Risk, policy, approvals, sandbox execution and evidence become visible gates rather than a compliance paragraph.",
+      "proof": "Governance becomes an operating path, not a document.",
+      "scene": "gates",
+      "accent": "#86efac"
+    },
+    {
+      "id": "experience",
+      "index": "04",
+      "world": "web",
+      "verb": "EXPERIENCE",
+      "title": "Turn capability into something people understand.",
+      "copy": "Presentation changes hierarchy, motion and interaction without changing the underlying product truth.",
+      "proof": "Design becomes product explanation, not decoration.",
+      "scene": "frames",
+      "accent": "#fda4af"
+    },
+    {
+      "id": "discover",
+      "index": "05",
+      "world": "wonder",
+      "verb": "DISCOVER",
+      "title": "Let curiosity become navigation.",
+      "copy": "Questions, experiments and connected paths turn learning content into an explorable world.",
+      "proof": "Interaction becomes a learning mechanism.",
+      "scene": "constellation",
+      "accent": "#c4b5fd"
+    },
+    {
+      "id": "evolve",
+      "index": "06",
+      "world": "software",
+      "verb": "EVOLVE",
+      "title": "Let experiments leave evidence behind.",
+      "copy": "Experiments either graduate into reusable primitives or remain visibly experimental.",
+      "proof": "The website can show evolution without pretending everything is finished.",
+      "scene": "grid",
+      "accent": "#5eead4"
+    }
+  ]
+}

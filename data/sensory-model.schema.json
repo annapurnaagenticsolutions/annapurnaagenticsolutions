@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sensory-model.schema.json",
+  "title": "Annapurna Sensory Living Model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "policy",
+    "motion",
+    "breathing",
+    "scrollBeats",
+    "narrativeTransitions",
+    "localMoments",
+    "explicitlySkipped"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "policy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "motion": {
+      "type": "object",
+      "required": [
+        "reducedMotion",
+        "lowPowerMaxHardwareConcurrency",
+        "saveDataMode"
+      ],
+      "properties": {
+        "reducedMotion": {
+          "type": "string"
+        },
+        "lowPowerMaxHardwareConcurrency": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 16
+        },
+        "saveDataMode": {
+          "enum": [
+            "minimal"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "breathing": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "targets",
+        "durationMs",
+        "maxScale"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "targets": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "type": "string"
+          }
+        },
+        "durationMs": {
+          "type": "integer",
+          "minimum": 2000,
+          "maximum": 5000
+        },
+        "maxScale": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 1.02
+        }
+      },
+      "additionalProperties": false
+    },
+    "scrollBeats": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "selector",
+          "label",
+          "accentWorld"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "selector": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "accentWorld": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "narrativeTransitions": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "maxDurationMs",
+        "sharedElements",
+        "fallback"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean"
+        },
+        "maxDurationMs": {
+          "type": "integer",
+          "maximum": 800
+        },
+        "sharedElements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "fallback": {
+          "enum": [
+            "instant"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "localMoments": {
+      "type": "object"
+    },
+    "explicitlySkipped": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": false
+}

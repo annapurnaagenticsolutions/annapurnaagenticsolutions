@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "public-links.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "verifiedAt",
+    "organization",
+    "organizationUrl",
+    "contact",
+    "surfaces",
+    "verification"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "organization": {
+      "const": "annapurnaagenticsolutions"
+    },
+    "organizationUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://github.com/"
+    },
+    "contact": {
+      "type": "object",
+      "required": [
+        "email",
+        "linkedin",
+        "location"
+      ],
+      "properties": {
+        "email": {
+          "type": "string",
+          "format": "email"
+        },
+        "linkedin": {
+          "type": "string",
+          "format": "uri"
+        },
+        "location": {
+          "type": "string",
+          "minLength": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "surfaces": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": false,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "label",
+          "pagesUrl",
+          "sourceUrl",
+          "sourceStatus",
+          "pagesStatus"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 2
+          },
+          "label": {
+            "type": "string",
+            "minLength": 2
+          },
+          "pagesUrl": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "format": "uri",
+            "pattern": "^https://github.com/"
+          },
+          "sourceStatus": {
+            "const": "verified_public"
+          },
+          "pagesStatus": {
+            "const": "post_publish_http_gate_required"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "checkedAt",
+        "sourceRepositories",
+        "portalRepositoryPaths",
+        "pagesRuntime",
+        "note"
+      ],
+      "properties": {
+        "checkedAt": {
+          "type": "string",
+          "format": "date"
+        },
+        "sourceRepositories": {
+          "const": "verified_public"
+        },
+        "portalRepositoryPaths": {
+          "const": "verified_public"
+        },
+        "pagesRuntime": {
+          "const": "post_publish_http_gate_required"
+        },
+        "note": {
+          "type": "string",
+          "minLength": 30
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

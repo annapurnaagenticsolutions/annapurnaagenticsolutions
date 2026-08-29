@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "release": "1.9",
+  "policy": "immersive coherence without visitor-facing implementation narration",
+  "sceneReframing": {
+    "worldDriven": true,
+    "wholeStage": true,
+    "sceneWord": true,
+    "globalAccentContinuity": true
+  },
+  "guidedPath": {
+    "userTriggered": true,
+    "maxSteps": 3,
+    "autoStepsPersistToMemory": false,
+    "reducedMotion": "shortened-state-sequence"
+  },
+  "explore": {
+    "miniScenePreviews": true,
+    "worldInspectorPersists": true
+  },
+  "copy": {
+    "visibleAdaptiveReceipt": false,
+    "visibleInternalPhaseLabels": false,
+    "methodologyInEngineeringDocsOnly": true
+  },
+  "performance": {
+    "newRuntimeFrameworks": 0,
+    "newWebGLContexts": 0,
+    "productionLcpInpRegressionMaxPct": 10
+  }
+}

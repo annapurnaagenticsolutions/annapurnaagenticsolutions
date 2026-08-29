@@ -1,0 +1,18 @@
+{
+  "name": "Annapurna Agentic Solutions",
+  "short_name": "Annapurna",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "Governed AI systems, learning products and interactive digital experiences.",
+  "icons": [
+    {
+      "src": "assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://annapurnaagenticsolutions.github.io/annapurna-portal/data/evidence-manifest.schema.json",
+  "title": "Annapurna Living Lab Evidence Manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "verifiedAt",
+    "sourceLabel",
+    "claims",
+    "artifacts"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "statement",
+          "status",
+          "evidenceClass",
+          "sourceName",
+          "sourceUrl",
+          "scope",
+          "note"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1
+          },
+          "status": {
+            "enum": [
+              "verified",
+              "source_local",
+              "reconciled"
+            ]
+          },
+          "evidenceClass": {
+            "enum": [
+              "public_page",
+              "public_repository",
+              "public_product",
+              "live_demo"
+            ]
+          },
+          "sourceName": {
+            "type": "string",
+            "minLength": 1
+          },
+          "sourceUrl": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "scope": {
+            "type": "string",
+            "minLength": 1
+          },
+          "note": {
+            "type": "string",
+            "minLength": 1
+          },
+          "conflictsWith": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[a-z0-9-]+$"
+            },
+            "uniqueItems": true
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "world",
+          "kind",
+          "title",
+          "subtitle",
+          "url",
+          "sourceUrl",
+          "facts",
+          "previewMode"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "world": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "kind": {
+            "enum": [
+              "public_product",
+              "public_repository",
+              "live_demo"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 1
+          },
+          "subtitle": {
+            "type": "string",
+            "minLength": 1
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "sourceUrl": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "facts": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "previewMode": {
+            "enum": [
+              "iframe",
+              "source"
+            ]
+          },
+          "sample": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "goal": "Make liveness and commercial relevance understandable within the first 30 seconds without adding spectacle.",
+  "firstVisit": {
+    "showCue": true,
+    "hideAfterExplicitIntent": true,
+    "cue": "Choose a path and watch the ecosystem shift with you."
+  },
+  "signals": [
+    "explicit intent",
+    "entry/referrer context",
+    "local exploration/return memory",
+    "shared temporal state"
+  ],
+  "responses": [
+    "section order",
+    "detail depth",
+    "primary product world",
+    "CTA path",
+    "cross-page priority"
+  ],
+  "receipt": {
+    "showIntent": true,
+    "showMemory": true,
+    "showSharedTemporal": true,
+    "showResponseSummary": true
+  },
+  "crossPageContext": {
+    "enabled": true,
+    "showWhen": [
+      "explicit intent",
+      "return session",
+      "recent trail"
+    ],
+    "dismissible": false
+  },
+  "motionPolicy": {
+    "causeEffectOnly": true,
+    "autoplayLoops": false,
+    "respectReducedMotion": true
+  },
+  "truthBoundary": "Perceived-liveness UI may explain adaptation but cannot alter product maturity, evidence, repository signals or semantic history."
+}

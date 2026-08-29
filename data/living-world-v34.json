@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "release": "3.4",
+  "principle": "Adaptive presentation must never detach a narrative beat from the persistent visual environment that gives that beat meaning; Journey remains inside the Home story/world frame at every intent state.",
+  "journeyFrame": {
+    "structuralAnchor": "home-story",
+    "journeyRemainsChildOfStoryCopy": true,
+    "persistentWorldRailVisible": true,
+    "desktopCopyAlignedToWrap": true,
+    "adaptivePriorityCanReparentAnchoredBlocks": false,
+    "routeOverlayUsesPersistentStage": true
+  },
+  "adaptiveStructure": {
+    "topLevelBlocksMayReorder": true,
+    "nestedAnchoredBlocksMayReorder": false,
+    "intentStillChangesRoute": true,
+    "intentStillChangesPrimaryWorld": true,
+    "intentStillChangesCtas": true
+  },
+  "preserves": {
+    "v33MotionGrammar": true,
+    "v33MaterialBridge": true,
+    "v33JourneyTopology": true,
+    "v32MaterialTruth": true,
+    "v31VisualStability": true,
+    "priorContracts": true
+  },
+  "truthBoundary": {
+    "writesProductTruth": false,
+    "writesEvidence": false,
+    "writesSemanticHistory": false,
+    "writesVisitorProfile": false
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false
+  }
+}

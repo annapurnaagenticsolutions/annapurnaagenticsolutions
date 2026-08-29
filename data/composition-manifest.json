@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-25",
+  "sourceLabel": "Living Lab cross-product composition contract",
+  "disclaimer": "Deterministic portfolio composition demonstration. It does not claim an integrated production runtime.",
+  "journeys": [
+    {
+      "id": "procurement",
+      "title": "Enterprise procurement agent",
+      "source": {"world": "ai", "code": "ENTERPRISE / INTENT", "title": "Procurement objective", "copy": "Define business intent, owner, supplier-data boundaries and acceptable autonomy before an agent exists."},
+      "axonCopy": "Use typed agent, tool and flow declarations to make the intended workflow inspectable before runtime.",
+      "meshCopy": "Route the declared agent through suitability, risk, policy, approval, sandbox and evidence gates.",
+      "output": {"world": "web", "code": "WEB / OPERATOR", "title": "Governed operator flow", "copy": "Present decisions, approvals and evidence as a clear operational journey rather than a hidden agent response."},
+      "summary": "Intent → typed agent structure → deterministic governance → operator-facing experience.",
+      "route": ["Business intent captured", "AXON workflow structure inspected", "AgentOps Mesh governance boundary applied", "Operator experience composed"],
+      "evidenceClaimIds": ["axon-govern-mesh-bridge", "mesh-v28-validation-baseline", "mesh-reference-status", "studio-twelve-demos"]
+    },
+    {
+      "id": "msme",
+      "title": "MSME compliance copilot",
+      "source": {"world": "idea", "code": "IDEA HUB / MSME", "title": "Practical business problem", "copy": "Start from an India-first compliance or operating task and define what must remain human-controlled."},
+      "axonCopy": "Represent tool access, data inputs and workflow steps explicitly so a future copilot is reviewable by construction.",
+      "meshCopy": "Apply deterministic policy, approval and audit boundaries before any sensitive business action is considered.",
+      "output": {"world": "web", "code": "WEB / PWA", "title": "Low-friction business UI", "copy": "Translate governed capability into a small, understandable workflow suitable for constrained devices and busy operators."},
+      "summary": "MSME need → explicit workflow → governance boundary → practical lightweight experience.",
+      "route": ["MSME task framed", "Workflow declarations made inspectable", "Governance and approvals mapped", "Practical experience composed"],
+      "evidenceClaimIds": ["axon-govern-mesh-bridge", "mesh-reference-status", "studio-twelve-demos"]
+    },
+    {
+      "id": "tutor",
+      "title": "STEM tutor",
+      "source": {"world": "wonder", "code": "WONDERHUB / LEARNING", "title": "Learning objective", "copy": "Begin with a curiosity-led learning goal, age context and the boundaries of what the tutor should explain or do."},
+      "axonCopy": "Describe tutoring agents, learning tools and orchestration explicitly instead of hiding the learning flow in prompts.",
+      "meshCopy": "Model policy, tool scope, approval and evidence for a safer learning-agent pathway before production integration.",
+      "output": {"world": "web", "code": "WEB / LEARNING WORLD", "title": "Explorable lesson world", "copy": "Turn the governed learning flow into an interactive visual experience where questions, experiments and explanations connect."},
+      "summary": "Learning goal → structured tutor workflow → safety/governance boundary → explorable lesson world.",
+      "route": ["Learning objective chosen", "Tutor workflow structured", "Safety and governance boundary mapped", "Learning world composed"],
+      "evidenceClaimIds": ["axon-govern-mesh-bridge", "mesh-reference-status", "studio-twelve-demos"]
+    }
+  ]
+}

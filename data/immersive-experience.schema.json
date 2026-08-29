@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "immersive-experience.schema.json",
+  "title": "Annapurna immersive experience policy",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "policy",
+    "requiredLayers",
+    "hero",
+    "motion",
+    "forbiddenEffects",
+    "visitorCopy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "1.9"
+    },
+    "policy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "requiredLayers": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "string"
+      }
+    },
+    "hero": {
+      "type": "object",
+      "required": [
+        "background",
+        "spatialStage",
+        "worldCount",
+        "worldPhysics",
+        "pointerDepth",
+        "scrollDepth",
+        "connectedRoute",
+        "guidedJourney",
+        "worldReframing",
+        "globalAccentContinuity"
+      ],
+      "properties": {
+        "background": {
+          "const": "white-first"
+        },
+        "spatialStage": {
+          "const": true
+        },
+        "worldCount": {
+          "const": 6
+        },
+        "worldPhysics": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "pointerDepth": {
+          "const": true
+        },
+        "scrollDepth": {
+          "const": true
+        },
+        "connectedRoute": {
+          "const": true
+        },
+        "guidedJourney": {
+          "const": true
+        },
+        "worldReframing": {
+          "const": true
+        },
+        "globalAccentContinuity": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "motion": {
+      "type": "object",
+      "required": [
+        "mustBeInputLinked",
+        "reducedMotionFallback",
+        "narrativeTransitionMaxMs",
+        "idleBreathingTargetsMax"
+      ],
+      "properties": {
+        "mustBeInputLinked": {
+          "const": true
+        },
+        "reducedMotionFallback": {
+          "type": "string"
+        },
+        "narrativeTransitionMaxMs": {
+          "type": "integer",
+          "maximum": 800
+        },
+        "idleBreathingTargetsMax": {
+          "type": "integer",
+          "maximum": 2
+        }
+      },
+      "additionalProperties": false
+    },
+    "forbiddenEffects": {
+      "type": "array",
+      "minItems": 5,
+      "items": {
+        "type": "string"
+      }
+    },
+    "visitorCopy": {
+      "type": "object",
+      "required": [
+        "forbiddenPhrases",
+        "methodologyLocation"
+      ],
+      "properties": {
+        "forbiddenPhrases": {
+          "type": "array",
+          "minItems": 5,
+          "items": {
+            "type": "string"
+          }
+        },
+        "methodologyLocation": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

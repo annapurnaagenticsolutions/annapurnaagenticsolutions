@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "release": "2.3",
+  "principle": "Each product world can temporarily reconfigure the shared ecosystem through an ephemeral, discoverable micro-scene.",
+  "microScenes": {
+    "ai": {
+      "mechanic": "open governed paths",
+      "topology": "AXON and Website Studio converge toward the governed core"
+    },
+    "wonder": {
+      "mechanic": "connect learning sparks",
+      "topology": "Website Studio and Idea Hub join the learning constellation"
+    },
+    "idea": {
+      "mechanic": "grow practical blocks",
+      "topology": "Software Lab and Website Studio form a delivery corridor"
+    },
+    "axon": {
+      "mechanic": "route typed packets",
+      "topology": "AI Solutions, AXON and Software Lab align into typed lanes"
+    },
+    "web": {
+      "mechanic": "shape experience frames",
+      "topology": "WonderHub and AI Solutions enter an experience composition"
+    },
+    "software": {
+      "mechanic": "activate experiment cells",
+      "topology": "AXON and Idea Hub snap into an experimental grid"
+    }
+  },
+  "interaction": {
+    "pointsPerScene": 3,
+    "coreAdvancesScene": true,
+    "sameWorldRetriggers": true,
+    "worldChangeInterrupts": true,
+    "persistsAcrossPageLoads": false
+  },
+  "truthBoundary": {
+    "writesProductTruth": false,
+    "writesSemanticHistory": false,
+    "writesVisitorIntent": false,
+    "writesExplorationMemory": false
+  },
+  "accessibility": {
+    "nativeButtons": true,
+    "keyboardOperable": true,
+    "reducedMotionKeepsTopology": true,
+    "mobileTopologyMovementDisabled": true
+  },
+  "performance": {
+    "newFramework": false,
+    "newWebGLContext": false,
+    "cssTopology": true
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://annapurnaagenticsolutions.github.io/annapurna-portal/data/site-signals.schema.json",
+  "title": "Annapurna Living Website Public Signal Manifest",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "verifiedAt",
+    "metrics",
+    "portfolios",
+    "signals",
+    "feed"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 5
+    },
+    "verifiedAt": {
+      "type": "string",
+      "format": "date"
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "metrics": {
+      "type": "object",
+      "required": [
+        "portfolioLines",
+        "websiteDemos",
+        "liveAiTools"
+      ],
+      "properties": {
+        "portfolioLines": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "websiteDemos": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "liveAiTools": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "portfolios": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "stage",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "stage": {
+            "enum": [
+              "research",
+              "experiment",
+              "prototype",
+              "live",
+              "mature"
+            ]
+          },
+          "detail": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "signals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "value",
+          "source"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "value": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "feed": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "additionalProperties": false
+}

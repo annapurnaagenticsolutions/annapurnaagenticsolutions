@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "features",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "2.1"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 20
+    },
+    "features": {
+      "type": "object",
+      "required": [
+        "realStateCurrent",
+        "resonanceField",
+        "continuousHandoff",
+        "tactileCore",
+        "returnEvolution",
+        "guidedJourney"
+      ]
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "newWebGLContext",
+        "reducedMotionFallback"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "reducedMotionFallback": {
+          "const": true
+        }
+      }
+    }
+  }
+}

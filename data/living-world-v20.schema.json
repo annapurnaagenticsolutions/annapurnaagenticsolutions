@@ -1,0 +1,153 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "living-world-v20.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "thesis",
+    "homeActs",
+    "hero",
+    "journey",
+    "copyPolicy",
+    "performance",
+    "truthPolicy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "2.0"
+    },
+    "thesis": {
+      "type": "string",
+      "minLength": 20
+    },
+    "homeActs": {
+      "type": "array",
+      "prefixItems": [
+        {
+          "const": "living-ecosystem"
+        },
+        {
+          "const": "connected-journey"
+        },
+        {
+          "const": "focused-next-step"
+        }
+      ],
+      "minItems": 3,
+      "maxItems": 3
+    },
+    "hero": {
+      "type": "object",
+      "required": [
+        "detailPlacement",
+        "productNodeForm",
+        "worldCount",
+        "wholeSceneReframing",
+        "pointerDepth",
+        "scrollDepth",
+        "guidedConnections"
+      ],
+      "properties": {
+        "detailPlacement": {
+          "const": "outside-spatial-field"
+        },
+        "productNodeForm": {
+          "const": "spatial-points-not-cards"
+        },
+        "worldCount": {
+          "const": 6
+        },
+        "wholeSceneReframing": {
+          "const": true
+        },
+        "pointerDepth": {
+          "const": true
+        },
+        "scrollDepth": {
+          "const": true
+        },
+        "guidedConnections": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "journey": {
+      "type": "object",
+      "required": [
+        "stickyDesktop",
+        "maxSteps",
+        "signalFollowsPath",
+        "manualInterruptionWins",
+        "publicMetricsOnHome"
+      ],
+      "properties": {
+        "stickyDesktop": {
+          "const": true
+        },
+        "maxSteps": {
+          "const": 3
+        },
+        "signalFollowsPath": {
+          "const": true
+        },
+        "manualInterruptionWins": {
+          "const": true
+        },
+        "publicMetricsOnHome": {
+          "const": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "copyPolicy": {
+      "type": "object",
+      "required": [
+        "methodologyExplanationOnHome",
+        "internalLivingTerminologyOnHome",
+        "maxHomeSections"
+      ],
+      "properties": {
+        "methodologyExplanationOnHome": {
+          "const": false
+        },
+        "internalLivingTerminologyOnHome": {
+          "const": false
+        },
+        "maxHomeSections": {
+          "const": 3
+        }
+      },
+      "additionalProperties": false
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFrameworks",
+        "newWebGLContexts",
+        "productionLcpInpRegressionMaxPct"
+      ],
+      "properties": {
+        "newFrameworks": {
+          "const": 0
+        },
+        "newWebGLContexts": {
+          "const": 0
+        },
+        "productionLcpInpRegressionMaxPct": {
+          "const": 10
+        }
+      },
+      "additionalProperties": false
+    },
+    "truthPolicy": {
+      "type": "string",
+      "pattern": "cannot alter product maturity"
+    }
+  },
+  "additionalProperties": false
+}

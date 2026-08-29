@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "release": "4.1",
+  "principle": "Keep cross-page continuity visible without allowing it to occupy or obscure page content: context becomes an intro-owned rail, world resume URLs become semantic state rather than DOM anchors, and all page restoration obeys the sticky header geometry.",
+  "enhancements": {
+    "introOwnedContextRail": true,
+    "reservedContextGeometry": true,
+    "compactContextHierarchy": true,
+    "semanticWorldStateHash": true,
+    "manualScrollRestoration": true,
+    "stickyHeaderResizeObserver": true,
+    "activeNavigationState": true,
+    "responsiveContextCollapse": true
+  },
+  "integrityContracts": {
+    "contextNeverOverlaysPageTitle": true,
+    "semanticWorldHashDoesNotTargetWorldNodeId": true,
+    "homeBaselineFrozen": true,
+    "labBaselineFrozen": true,
+    "evidenceFieldBaselineFrozen": true,
+    "selectiveGlassOnly": true,
+    "reducedMotionFallback": true,
+    "reducedTransparencyFallback": true,
+    "noNewFramework": true,
+    "noNewNetworkDependency": true
+  },
+  "responsiveTargets": {
+    "desktop": 1440,
+    "tablet": 1024,
+    "mobile": 390
+  },
+  "performance": {
+    "browserLcpInpPromotionGateRetained": true,
+    "staticDependencyFree": true
+  }
+}

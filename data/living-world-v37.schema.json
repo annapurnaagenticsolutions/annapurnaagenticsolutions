@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion","release","principle","typographyLock","visualQA","responsive","preserves","performance"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "release": {"const": "3.7"},
+    "principle": {"type":"string","minLength":160},
+    "typographyLock": {"type":"object","additionalProperties":{"const":true}},
+    "visualQA": {"type":"object","additionalProperties":{"const":true}},
+    "responsive": {
+      "type":"object",
+      "required":["desktop","tablet","mobile","tabletTypeScaleExplicit","mobileTypeScaleExplicit","smallMobileTypeScaleExplicit"],
+      "properties":{
+        "desktop":{"const":1440},"tablet":{"const":1024},"mobile":{"const":390},
+        "tabletTypeScaleExplicit":{"const":true},"mobileTypeScaleExplicit":{"const":true},"smallMobileTypeScaleExplicit":{"const":true}
+      }
+    },
+    "preserves":{"type":"object","additionalProperties":{"const":true}},
+    "performance":{
+      "type":"object",
+      "required":["newFramework","thirdPartyRuntimeAdded","newWebGLContext","newNetworkDependency"],
+      "properties":{
+        "newFramework":{"const":false},"thirdPartyRuntimeAdded":{"const":false},
+        "newWebGLContext":{"const":false},"newNetworkDependency":{"const":false}
+      }
+    }
+  }
+}

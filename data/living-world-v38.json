@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "release": "3.8",
+  "principle": "Use glass as an optical material only where it communicates inspection, focus, control or provenance; preserve white-space discipline and semantic typography with optical role differences rather than arbitrary page-by-page sizing.",
+  "typography": {
+    "homeDisplayDistinctFromPageH1": true,
+    "innerPageH1Shared": true,
+    "majorExperienceH2Shared": true,
+    "supportHeadingShared": true,
+    "fontFamilyUnchanged": true,
+    "connectedPunctuationOwnedByPreviousPhrase": true
+  },
+  "opticalMaterial": {
+    "selectiveNotGlobal": true,
+    "header": true,
+    "guide": true,
+    "exploreInspector": true,
+    "atlasCore": true,
+    "labSemanticSurfaces": true,
+    "evidenceLenses": true,
+    "fullStageBlurForbidden": true,
+    "solidFallback": true,
+    "forcedColorsFallback": true,
+    "reducedTransparencyFallback": true
+  },
+  "evidenceField": {
+    "staticDataFallback": true,
+    "fileProtocolPreviewSupported": true,
+    "sourceNameVisible": true,
+    "scopeVisible": true,
+    "conflictPreservedVisible": true,
+    "loadingFailureHasCalmFallback": true
+  },
+  "preserves": {
+    "v37TypographyBaseline": true,
+    "v35SpatialGovernance": true,
+    "v34JourneyOwnership": true,
+    "v33MotionGrammar": true,
+    "truthAndAccessibilityContracts": true
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false,
+    "backdropFilterLimitedToSemanticSurfaces": true
+  }
+}

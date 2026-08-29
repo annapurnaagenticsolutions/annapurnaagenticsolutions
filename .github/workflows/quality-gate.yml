@@ -1,0 +1,83 @@
+name: Annapurna production quality gate
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  structural:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "24"}
+      - run: python -m pip install --disable-pip-version-check jsonschema==4.26.0
+      - name: Refresh shared temporal state when interval is due
+        run: python scripts/generate_temporal_state.py
+      - name: Synchronize local-preview public data
+        run: python scripts/generate_public_data.py
+      - name: Validate truth contracts
+        run: |
+          python scripts/validate_json_schemas.py
+          python scripts/interaction_contract_test.py
+          python scripts/adaptive_contract_test.py
+          python scripts/temporal_sensory_contract_test.py
+          python scripts/perceived_liveness_contract_test.py
+          python scripts/immersive_experience_contract_test.py
+          python scripts/immersive_coherence_contract_test.py
+          python scripts/v20_living_world_contract_test.py
+          python scripts/v21_living_world_contract_test.py
+          python scripts/v22_living_world_contract_test.py
+          python scripts/v23_micro_scene_contract_test.py
+          python scripts/v24_cross_world_contract_test.py
+          python scripts/v24_ephemerality_test.py
+          python scripts/v25_composite_scene_contract_test.py
+          python scripts/v25_ephemerality_test.py
+          python scripts/v30_experience_reconstruction_test.py
+          python scripts/v31_visual_stability_test.py
+          python scripts/v32_material_living_test.py
+          python scripts/v33_motion_grammar_test.py
+          python scripts/v34_journey_frame_test.py
+          python scripts/v35_spatial_coherence_test.py
+          python scripts/v36_typography_rhythm_test.py
+          python scripts/v38_optical_material_test.py
+          python scripts/v38_public_data_test.py
+          python scripts/v39_triple_evaluation_test.py
+          python scripts/v40_experience_system_test.py
+          python scripts/v41_context_integrity_test.py
+          python scripts/v42_company_integration_test.py
+          python scripts/verify_v42_deployed_site.py
+          python scripts/v43_production_cutover_test.py
+          python scripts/public_copy_audit.py
+          python scripts/comprehension_audit.py
+          python scripts/performance_change_test.py
+          python scripts/first_30s_market_test.py
+      - name: Audit v4.3 production cutover candidate
+        run: python scripts/v43_release_audit.py
+      - name: Verify focused production HTTP surface
+        run: python scripts/verify_v43_http_surface.py
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with: {python-version: "3.12"}
+      - uses: actions/setup-node@v4
+        with: {node-version: "24"}
+      - name: Start static site
+        run: |
+          python -m http.server 8000 --bind 127.0.0.1 &
+          sleep 1
+      - name: Lighthouse focused pages
+        run: |
+          mkdir -p .quality
+          for target in "index:" "explore:explore.html" "lab:lab.html" "evidence:evidence.html" "about:about/" "contact:contact/"; do
+            name="${target%%:*}"
+            page="${target#*:}"
+            npx --yes lighthouse@13.4.1 "http://127.0.0.1:8000/${page}" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=".quality/${name}.json"
+            python scripts/check_lighthouse.py ".quality/${name}.json"
+          done

@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "sourceLabel": "device-local adaptive structure model",
+  "decisionMode": "deterministic-rules-first",
+  "historyPolicy": "adaptive presentation only; intent decisions cannot alter product maturity, evidence, public telemetry or semantic company history",
+  "privacyPolicy": "signals remain on-device; no identity tracking, fingerprinting, remote behavioral analytics or advertising profile is created",
+  "signals": [
+    {
+      "key": "explicit_intent",
+      "priority": 1,
+      "description": "Visitor explicitly selects what they came to explore."
+    },
+    {
+      "key": "entry_context",
+      "priority": 2,
+      "description": "URL intent parameter or known Annapurna referrer path provides an entry-context hint."
+    },
+    {
+      "key": "recent_deliberate_trail",
+      "priority": 3,
+      "description": "Recent intentional world selections can bias structure when no explicit intent exists."
+    },
+    {
+      "key": "return_state",
+      "priority": 4,
+      "description": "A genuine return session can restore the last relevant path after the configured inactivity gap."
+    }
+  ],
+  "intents": {
+    "explore": {
+      "label": "Explore all",
+      "primaryWorld": "ai",
+      "depth": "standard",
+      "structuralOrder": [
+        "living"
+      ],
+      "focusOrder": [
+        "ai",
+        "learning",
+        "experience"
+      ],
+      "summary": "Balanced view across the Annapurna ecosystem.",
+      "reason": "No stronger intent signal is active, so the site keeps a balanced company view.",
+      "primaryCta": {
+        "label": "Explore the ecosystem \u2192",
+        "href": "explore.html"
+      },
+      "secondaryCta": {
+        "label": "Open Interactive Lab",
+        "href": "lab.html"
+      },
+      "worldOrder": [
+        "ai",
+        "wonder",
+        "idea",
+        "axon",
+        "web",
+        "software"
+      ],
+      "labOrder": [
+        "runtime",
+        "axon",
+        "design"
+      ]
+    },
+    "enterprise": {
+      "label": "Enterprise AI",
+      "primaryWorld": "ai",
+      "depth": "deep",
+      "structuralOrder": [
+        "living"
+      ],
+      "focusOrder": [
+        "ai",
+        "experience",
+        "learning"
+      ],
+      "summary": "Governance, agent infrastructure and inspectable AI systems first.",
+      "reason": "This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.",
+      "primaryCta": {
+        "label": "Explore AI systems \u2192",
+        "href": "explore.html#world=ai"
+      },
+      "secondaryCta": {
+        "label": "Inspect evidence",
+        "href": "evidence.html"
+      },
+      "worldOrder": [
+        "ai",
+        "axon",
+        "software",
+        "web",
+        "wonder",
+        "idea"
+      ],
+      "labOrder": [
+        "runtime",
+        "axon",
+        "design"
+      ]
+    },
+    "learning": {
+      "label": "Learning",
+      "primaryWorld": "wonder",
+      "depth": "standard",
+      "structuralOrder": [
+        "living"
+      ],
+      "focusOrder": [
+        "learning",
+        "experience",
+        "ai"
+      ],
+      "summary": "Learning worlds, visual exploration and progressive interaction first.",
+      "reason": "This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.",
+      "primaryCta": {
+        "label": "Explore learning worlds \u2192",
+        "href": "wonderhub-by-AnnapurnaAgenticSolutions/"
+      },
+      "secondaryCta": {
+        "label": "Open Interactive Lab",
+        "href": "lab.html"
+      },
+      "worldOrder": [
+        "wonder",
+        "web",
+        "idea",
+        "ai",
+        "software",
+        "axon"
+      ],
+      "labOrder": [
+        "design",
+        "runtime",
+        "axon"
+      ]
+    },
+    "msme": {
+      "label": "MSME tools",
+      "primaryWorld": "idea",
+      "depth": "standard",
+      "structuralOrder": [
+        "living"
+      ],
+      "focusOrder": [
+        "learning",
+        "experience",
+        "ai"
+      ],
+      "summary": "Practical India-first tools and delivery experience first.",
+      "reason": "This view prioritizes Idea Hub and practical product delivery before infrastructure detail.",
+      "primaryCta": {
+        "label": "Explore practical tools \u2192",
+        "href": "idea-hub/"
+      },
+      "secondaryCta": {
+        "label": "Explore products",
+        "href": "explore.html#world=idea"
+      },
+      "worldOrder": [
+        "idea",
+        "software",
+        "web",
+        "ai",
+        "wonder",
+        "axon"
+      ],
+      "labOrder": [
+        "design",
+        "runtime",
+        "axon"
+      ]
+    },
+    "design": {
+      "label": "Design & web",
+      "primaryWorld": "web",
+      "depth": "standard",
+      "structuralOrder": [
+        "living"
+      ],
+      "focusOrder": [
+        "experience",
+        "learning",
+        "ai"
+      ],
+      "summary": "Interactive interfaces, interaction design and browser-native experiences first.",
+      "reason": "This view brings the experience-design proof forward, then shows the product families it can express.",
+      "primaryCta": {
+        "label": "Explore Website Studio \u2192",
+        "href": "website-studio/"
+      },
+      "secondaryCta": {
+        "label": "Try Interactive Lab",
+        "href": "lab.html"
+      },
+      "worldOrder": [
+        "web",
+        "wonder",
+        "software",
+        "ai",
+        "idea",
+        "axon"
+      ],
+      "labOrder": [
+        "design",
+        "runtime",
+        "axon"
+      ]
+    }
+  }
+}

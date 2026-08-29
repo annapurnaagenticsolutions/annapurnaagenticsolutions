@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "adaptive-model.schema.json",
+  "title": "Annapurna Living Lab Adaptive Structure Model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceLabel",
+    "decisionMode",
+    "historyPolicy",
+    "privacyPolicy",
+    "signals",
+    "intents"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 3
+    },
+    "decisionMode": {
+      "const": "deterministic-rules-first"
+    },
+    "historyPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "privacyPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "priority",
+          "description"
+        ],
+        "properties": {
+          "key": {
+            "enum": [
+              "explicit_intent",
+              "entry_context",
+              "recent_deliberate_trail",
+              "return_state"
+            ]
+          },
+          "priority": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "description": {
+            "type": "string",
+            "minLength": 15
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "intents": {
+      "type": "object",
+      "required": [
+        "explore",
+        "enterprise",
+        "learning",
+        "msme",
+        "design"
+      ],
+      "additionalProperties": {
+        "$ref": "#/$defs/intent"
+      }
+    }
+  },
+  "$defs": {
+    "intent": {
+      "type": "object",
+      "required": [
+        "label",
+        "primaryWorld",
+        "depth",
+        "structuralOrder",
+        "focusOrder",
+        "summary",
+        "reason",
+        "primaryCta",
+        "secondaryCta",
+        "worldOrder",
+        "labOrder"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 2
+        },
+        "primaryWorld": {
+          "enum": [
+            "ai",
+            "wonder",
+            "idea",
+            "axon",
+            "web",
+            "software"
+          ]
+        },
+        "depth": {
+          "enum": [
+            "concise",
+            "standard",
+            "deep"
+          ]
+        },
+        "structuralOrder": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "proof",
+              "capabilities",
+              "living"
+            ]
+          }
+        },
+        "focusOrder": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "learning",
+              "experience"
+            ]
+          }
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 15
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 20
+        },
+        "primaryCta": {
+          "$ref": "#/$defs/cta"
+        },
+        "secondaryCta": {
+          "$ref": "#/$defs/cta"
+        },
+        "worldOrder": {
+          "type": "array",
+          "minItems": 6,
+          "maxItems": 6,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "labOrder": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "runtime",
+              "axon",
+              "design"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "cta": {
+      "type": "object",
+      "required": [
+        "label",
+        "href"
+      ],
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 2
+        },
+        "href": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

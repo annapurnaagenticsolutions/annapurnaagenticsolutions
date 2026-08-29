@@ -1,0 +1,205 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "journey",
+    "motionGrammar",
+    "material",
+    "explore",
+    "lab",
+    "typography",
+    "truthBoundary",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.3"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 60
+    },
+    "journey": {
+      "type": "object",
+      "required": [
+        "persistentStageThroughBeats",
+        "storyShellClipsStickyStage",
+        "gridAreas",
+        "beats",
+        "journeyUsesExistingStage",
+        "ctaReceivesArrivalSignal"
+      ],
+      "properties": {
+        "persistentStageThroughBeats": {
+          "const": true
+        },
+        "storyShellClipsStickyStage": {
+          "const": false
+        },
+        "gridAreas": {
+          "const": [
+            "story",
+            "world"
+          ]
+        },
+        "beats": {
+          "const": [
+            "establish",
+            "focus",
+            "journey"
+          ]
+        },
+        "journeyUsesExistingStage": {
+          "const": true
+        },
+        "ctaReceivesArrivalSignal": {
+          "const": true
+        }
+      }
+    },
+    "motionGrammar": {
+      "type": "object",
+      "required": [
+        "phases",
+        "autoplayWithoutSignal",
+        "appliesTo"
+      ],
+      "properties": {
+        "phases": {
+          "const": [
+            "sense",
+            "anticipate",
+            "transform",
+            "propagate",
+            "settle"
+          ]
+        },
+        "autoplayWithoutSignal": {
+          "const": false
+        }
+      }
+    },
+    "material": {
+      "type": "object",
+      "required": [
+        "renderer",
+        "newWebGLContext",
+        "particleTrails",
+        "worldSpecificStructures",
+        "reducedMotionDisablesBridge",
+        "mobileDisablesBridge"
+      ],
+      "properties": {
+        "renderer": {
+          "const": "Canvas2D"
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "particleTrails": {
+          "const": true
+        },
+        "worldSpecificStructures": {
+          "const": true
+        }
+      }
+    },
+    "explore": {
+      "type": "object",
+      "required": [
+        "selectedWorldReorganizesGeometry",
+        "relatedWorldPropagationVisible",
+        "newPanelAdded"
+      ],
+      "properties": {
+        "selectedWorldReorganizesGeometry": {
+          "const": true
+        },
+        "relatedWorldPropagationVisible": {
+          "const": true
+        },
+        "newPanelAdded": {
+          "const": false
+        }
+      }
+    },
+    "lab": {
+      "type": "object",
+      "required": [
+        "runtimeFailurePhysicallyFracturesPath",
+        "axonPresetsReorganizeTopology",
+        "singleTheatrePreserved"
+      ],
+      "properties": {
+        "runtimeFailurePhysicallyFracturesPath": {
+          "const": true
+        },
+        "axonPresetsReorganizeTopology": {
+          "const": true
+        },
+        "singleTheatrePreserved": {
+          "const": true
+        }
+      }
+    },
+    "typography": {
+      "type": "object",
+      "required": [
+        "impactWordsUnderlined"
+      ],
+      "properties": {
+        "impactWordsUnderlined": {
+          "const": false
+        }
+      }
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "writesProductTruth",
+        "writesEvidence",
+        "writesSemanticHistory",
+        "writesVisitorProfile"
+      ],
+      "properties": {
+        "writesProductTruth": {
+          "const": false
+        },
+        "writesEvidence": {
+          "const": false
+        },
+        "writesSemanticHistory": {
+          "const": false
+        },
+        "writesVisitorProfile": {
+          "const": false
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        }
+      }
+    }
+  }
+}

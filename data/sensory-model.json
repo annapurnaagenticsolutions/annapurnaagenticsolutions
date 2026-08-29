@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "policy": "finishing-layer only; sensory effects cannot substitute for adaptive, organic, or page-agent behavior",
+  "motion": {
+    "reducedMotion": "disable breathing and animated transitions; scroll beats update without motion",
+    "lowPowerMaxHardwareConcurrency": 4,
+    "saveDataMode": "minimal"
+  },
+  "breathing": {
+    "enabled": true,
+    "targets": [
+      "#ecosystem-core"
+    ],
+    "durationMs": 3600,
+    "maxScale": 1.012
+  },
+  "scrollBeats": [
+    {
+      "key": "establish",
+      "selector": ".home-hero",
+      "label": "Explore",
+      "accentWorld": "temporal"
+    },
+    {
+      "key": "connect",
+      "selector": "[data-adaptive-block=\"living\"]",
+      "label": "Connect",
+      "accentWorld": "web"
+    },
+    {
+      "key": "continue",
+      "selector": ".cta",
+      "label": "Continue",
+      "accentWorld": "wonder"
+    }
+  ],
+  "narrativeTransitions": {
+    "enabled": true,
+    "maxDurationMs": 420,
+    "sharedElements": [
+      ".brand-mark",
+      ".brand"
+    ],
+    "fallback": "instant"
+  },
+  "localMoments": {
+    "morning": {
+      "fromHour": 5,
+      "toHour": 11,
+      "label": "Good morning",
+      "tone": "cool-clear"
+    },
+    "afternoon": {
+      "fromHour": 11,
+      "toHour": 17,
+      "label": "Good afternoon",
+      "tone": "neutral-bright"
+    },
+    "evening": {
+      "fromHour": 17,
+      "toHour": 21,
+      "label": "Good evening",
+      "tone": "warm-soft"
+    },
+    "night": {
+      "fromHour": 21,
+      "toHour": 5,
+      "label": "Welcome",
+      "tone": "quiet"
+    }
+  },
+  "explicitlySkipped": [
+    "cursor trails",
+    "magnetic hover buttons",
+    "custom cursor",
+    "confetti",
+    "parallax-everything",
+    "ambient audio",
+    "ambient shaders"
+  ]
+}

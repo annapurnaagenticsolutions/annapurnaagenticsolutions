@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "sourceLabel": "presentation-only spatial world grammar",
+  "historyPolicy": "presentation-only; excluded from semantic company history",
+  "worlds": [
+    {
+      "id": "ai",
+      "index": "01",
+      "accent": "cyan",
+      "core": "GOVERN",
+      "caption": "Governed connections",
+      "story": "Signals move only when a path is allowed. Evidence remains attached to every visible route.",
+      "facts": [
+        "Governance",
+        "AgentOps",
+        "Evaluation"
+      ],
+      "publicState": "Live",
+      "sceneArchetype": "network"
+    },
+    {
+      "id": "wonder",
+      "index": "02",
+      "accent": "violet",
+      "core": "DISCOVER",
+      "caption": "Learning constellations",
+      "story": "Questions orbit before answers. Each discovered concept reveals another path through the learning world.",
+      "facts": [
+        "K-12",
+        "STEM",
+        "Play"
+      ],
+      "publicState": "Live",
+      "sceneArchetype": "constellation"
+    },
+    {
+      "id": "idea",
+      "index": "03",
+      "accent": "green",
+      "core": "ENABLE",
+      "caption": "Practical business city",
+      "story": "Small tools become useful infrastructure when each block solves a concrete operating problem.",
+      "facts": [
+        "MSME",
+        "India-first",
+        "Practical"
+      ],
+      "publicState": "Developing",
+      "sceneArchetype": "city"
+    },
+    {
+      "id": "axon",
+      "index": "04",
+      "accent": "violet",
+      "core": "STRUCTURE",
+      "caption": "Typed-flow lanes",
+      "story": "Agent intent becomes inspectable structure before execution: tools, memory and flow have visible boundaries.",
+      "facts": [
+        "DSL",
+        "Typed flows",
+        "Codegen"
+      ],
+      "publicState": "Pre-production",
+      "sceneArchetype": "lanes"
+    },
+    {
+      "id": "web",
+      "index": "05",
+      "accent": "rose",
+      "core": "EXPERIENCE",
+      "caption": "Experience frames",
+      "story": "The same information can inhabit different visual systems while keeping meaning and conversion paths intact.",
+      "facts": [
+        "Interactive UX",
+        "Design systems",
+        "Living Web"
+      ],
+      "publicState": "Live",
+      "sceneArchetype": "frames"
+    },
+    {
+      "id": "software",
+      "index": "06",
+      "accent": "teal",
+      "core": "EXPERIMENT",
+      "caption": "Experimental grid",
+      "story": "Ideas enter as small experiments, expose their structure, and either graduate into reusable primitives or disappear.",
+      "facts": [
+        "Open source",
+        "Experiments",
+        "Patterns"
+      ],
+      "publicState": "Experiment",
+      "sceneArchetype": "grid"
+    }
+  ]
+}

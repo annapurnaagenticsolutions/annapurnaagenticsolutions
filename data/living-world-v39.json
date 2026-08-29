@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "release": "4.0",
+  "principle": "Stabilize the current living-world baseline through three independent evaluations: semantic optical typography and rhythm, restrained glass material with mobile/performance safeguards, and visible continuity/evidence inspection grammar without adding a new feature family.",
+  "evaluationPasses": {
+    "typographyAndRhythm": true,
+    "opticalMaterialAndPerformance": true,
+    "continuityAndEvidence": true
+  },
+  "typography": {
+    "homeDisplayDistinct": true,
+    "innerPageH1Shared": true,
+    "majorH2Shared": true,
+    "supportH3Shared": true,
+    "navigationAndControlsNormalized": true,
+    "responsiveScaleExplicit": true
+  },
+  "opticalMaterial": {
+    "selectiveGlassOnly": true,
+    "desktopBlurReduced": true,
+    "mobileStickyHeaderBlurDisabled": true,
+    "fullWorldStageBlurForbidden": true,
+    "evidenceHoverDoesNotFloat": true,
+    "accessibilityFallbacksPreserved": true
+  },
+  "continuity": {
+    "homeExitShowsCurrentTrail": true,
+    "ctaRetainsWorldAccent": true,
+    "evidenceInspectionPathVisible": true,
+    "evidenceNoteSemanticsVisible": true,
+    "localMemoryRemainsPrivate": true
+  },
+  "preserves": {
+    "v38EvidenceFallback": true,
+    "v38OpticalMaterialContract": true,
+    "v35SpatialGovernance": true,
+    "v34JourneyOwnership": true,
+    "v33MotionGrammar": true,
+    "truthAccessibilityAndPerformanceContracts": true
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false,
+    "mobileBackdropCostReduced": true
+  }
+}

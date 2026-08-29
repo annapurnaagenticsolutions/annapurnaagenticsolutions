@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "release": "3.5",
+  "principle": "Spatial coherence is a first-class interaction contract: narrative information must never collide with the product field, routes must transform the existing topology instead of duplicating it, and every world response must preserve meaning across viewport changes.",
+  "exploreSpatialGovernance": {
+    "narrativeRailOutsideSpatialField": true,
+    "selectedWorldInspectorOverlaysTopology": false,
+    "safeZoneLayoutGovernor": true,
+    "coreCollisionAvoidance": true,
+    "nodeCollisionAvoidance": true,
+    "responsiveFallbackStacksNarrative": true
+  },
+  "journeyTopology": {
+    "routeUsesExistingWorldNodes": true,
+    "duplicateProductLabelsInRouteOverlay": false,
+    "routeGeometryTracksWorldNodes": true,
+    "activeRouteStepMorphsWorldNode": true,
+    "routeSignalTracksActiveWorld": true
+  },
+  "semanticFieldPhysics": {
+    "ai": "network",
+    "wonder": "constellation",
+    "idea": "city",
+    "axon": "lanes",
+    "web": "frames",
+    "software": "grid",
+    "physicsDrivenByActiveWorld": true
+  },
+  "continuity": {
+    "restoresLastWorldFromLocalMemory": true,
+    "intentStillChangesRoute": true,
+    "persistentHomeWorldRetained": true
+  },
+  "preserves": {
+    "v34JourneyOwnership": true,
+    "v33MotionGrammar": true,
+    "v32MaterialTruth": true,
+    "v31VisualStability": true,
+    "priorContracts": true
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false
+  }
+}

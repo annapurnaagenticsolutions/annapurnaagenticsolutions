@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://annapurnaagenticsolutions.github.io/annapurna-portal/data/repository-signals.schema.json",
+  "title": "Annapurna Living Lab CI-generated repository signals",
+  "type": "object",
+  "required": ["schemaVersion", "generatedAt", "sourceLabel", "repositories"],
+  "properties": {
+    "schemaVersion": { "const": 2 },
+    "generatedAt": { "type": "string", "format": "date-time" },
+    "sourceLabel": { "type": "string", "minLength": 1 },
+    "repositories": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["id", "world", "owner", "name", "fullName", "htmlUrl", "commits", "stars", "forks", "openIssues", "latestCommit"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "world": { "type": "string", "enum": ["ai", "wonder", "idea", "axon", "web", "software"] },
+          "owner": { "type": "string", "minLength": 1 },
+          "name": { "type": "string", "minLength": 1 },
+          "fullName": { "type": "string", "minLength": 3 },
+          "htmlUrl": { "type": "string", "format": "uri" },
+          "commits": { "type": "integer", "minimum": 0 },
+          "stars": { "type": "integer", "minimum": 0 },
+          "forks": { "type": "integer", "minimum": 0 },
+          "openIssues": { "type": "integer", "minimum": 0 },
+          "latestCommit": {
+            "oneOf": [
+              { "type": "null" },
+              {
+                "type": "object",
+                "required": ["sha", "message", "date", "htmlUrl"],
+                "properties": {
+                  "sha": { "type": "string", "minLength": 7 },
+                  "message": { "type": "string", "minLength": 1 },
+                  "date": { "type": "string", "format": "date-time" },
+                  "htmlUrl": { "type": "string", "format": "uri" }
+                },
+                "additionalProperties": false
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

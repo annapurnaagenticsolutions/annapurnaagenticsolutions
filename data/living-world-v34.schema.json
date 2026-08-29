@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "journeyFrame",
+    "adaptiveStructure",
+    "preserves",
+    "truthBoundary",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.4"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 80
+    },
+    "journeyFrame": {
+      "type": "object",
+      "required": [
+        "structuralAnchor",
+        "journeyRemainsChildOfStoryCopy",
+        "persistentWorldRailVisible",
+        "desktopCopyAlignedToWrap",
+        "adaptivePriorityCanReparentAnchoredBlocks",
+        "routeOverlayUsesPersistentStage"
+      ],
+      "properties": {
+        "structuralAnchor": {
+          "const": "home-story"
+        },
+        "journeyRemainsChildOfStoryCopy": {
+          "const": true
+        },
+        "persistentWorldRailVisible": {
+          "const": true
+        },
+        "desktopCopyAlignedToWrap": {
+          "const": true
+        },
+        "adaptivePriorityCanReparentAnchoredBlocks": {
+          "const": false
+        },
+        "routeOverlayUsesPersistentStage": {
+          "const": true
+        }
+      }
+    },
+    "adaptiveStructure": {
+      "type": "object",
+      "required": [
+        "topLevelBlocksMayReorder",
+        "nestedAnchoredBlocksMayReorder",
+        "intentStillChangesRoute",
+        "intentStillChangesPrimaryWorld",
+        "intentStillChangesCtas"
+      ],
+      "properties": {
+        "topLevelBlocksMayReorder": {
+          "const": true
+        },
+        "nestedAnchoredBlocksMayReorder": {
+          "const": false
+        },
+        "intentStillChangesRoute": {
+          "const": true
+        },
+        "intentStillChangesPrimaryWorld": {
+          "const": true
+        },
+        "intentStillChangesCtas": {
+          "const": true
+        }
+      }
+    },
+    "preserves": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "truthBoundary": {
+      "type": "object"
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext",
+        "newNetworkDependency"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "newNetworkDependency": {
+          "const": false
+        }
+      }
+    }
+  }
+}

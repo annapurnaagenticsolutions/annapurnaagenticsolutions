@@ -1,0 +1,163 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "materialCycle",
+    "home",
+    "explore",
+    "lab",
+    "motion",
+    "truthBoundary",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.2"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 80
+    },
+    "materialCycle": {
+      "const": [
+        "signal",
+        "travel",
+        "formation",
+        "settling"
+      ]
+    },
+    "home": {
+      "type": "object",
+      "required": [
+        "bridgeRenderer",
+        "newWebGLContext",
+        "particleCountDesktop",
+        "particleCountLowPower",
+        "worldGrammars",
+        "crossesCopyEnvironmentBoundary",
+        "semanticWordUnderline",
+        "fallbackTargets",
+        "lazyLoaded"
+      ],
+      "properties": {
+        "bridgeRenderer": {
+          "const": "Canvas2D"
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "semanticWordUnderline": {
+          "const": false
+        },
+        "crossesCopyEnvironmentBoundary": {
+          "const": true
+        },
+        "lazyLoaded": {
+          "const": true
+        }
+      }
+    },
+    "explore": {
+      "type": "object",
+      "required": [
+        "materialFieldOnDeliberateSelection",
+        "addsPanel"
+      ],
+      "properties": {
+        "materialFieldOnDeliberateSelection": {
+          "const": true
+        },
+        "addsPanel": {
+          "const": false
+        }
+      }
+    },
+    "lab": {
+      "type": "object",
+      "required": [
+        "theatreMaterialResponseOnModeChange",
+        "addsPanel"
+      ],
+      "properties": {
+        "theatreMaterialResponseOnModeChange": {
+          "const": true
+        },
+        "addsPanel": {
+          "const": false
+        }
+      }
+    },
+    "motion": {
+      "type": "object",
+      "required": [
+        "triggers",
+        "autoplayLoopWithoutSignal",
+        "reducedMotionDisablesBridgeCanvas",
+        "mobileDisablesBridgeCanvas"
+      ],
+      "properties": {
+        "autoplayLoopWithoutSignal": {
+          "const": false
+        },
+        "reducedMotionDisablesBridgeCanvas": {
+          "const": true
+        },
+        "mobileDisablesBridgeCanvas": {
+          "const": true
+        }
+      }
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "persistsMaterialState",
+        "writesProductTruth",
+        "writesEvidence",
+        "writesSemanticHistory",
+        "writesVisitorProfile"
+      ],
+      "properties": {
+        "persistsMaterialState": {
+          "const": false
+        },
+        "writesProductTruth": {
+          "const": false
+        },
+        "writesEvidence": {
+          "const": false
+        },
+        "writesSemanticHistory": {
+          "const": false
+        },
+        "writesVisitorProfile": {
+          "const": false
+        }
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        }
+      }
+    }
+  }
+}

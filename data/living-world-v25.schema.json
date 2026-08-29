@@ -1,0 +1,126 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "composites",
+    "unlock",
+    "visibleBehavior",
+    "truthBoundary",
+    "accessibility",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "2.5"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 50
+    },
+    "composites": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "sequence",
+          "label",
+          "meaning"
+        ],
+        "properties": {
+          "sequence": {
+            "type": "array",
+            "minItems": 3,
+            "maxItems": 3,
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "unlock": {
+      "type": "object",
+      "required": [
+        "trigger",
+        "requiresConnectedEdges",
+        "menuOrBadgeRequired",
+        "persistsAcrossPageLoads",
+        "releasedOnDeliberateWorldChange",
+        "requiresConsequenceConsumption"
+      ],
+      "properties": {
+        "requiresConnectedEdges": {
+          "const": true
+        },
+        "menuOrBadgeRequired": {
+          "const": false
+        },
+        "persistsAcrossPageLoads": {
+          "const": false
+        },
+        "releasedOnDeliberateWorldChange": {
+          "const": true
+        },
+        "requiresConsequenceConsumption": {
+          "const": true
+        }
+      }
+    },
+    "visibleBehavior": {
+      "type": "array",
+      "minItems": 6
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "claimsLiveProductComposition",
+        "writesEvidence",
+        "writesSemanticHistory",
+        "writesVisitorProfile",
+        "writesLocalStorage"
+      ],
+      "properties": {
+        "claimsLiveProductComposition": {
+          "const": false
+        },
+        "writesEvidence": {
+          "const": false
+        },
+        "writesSemanticHistory": {
+          "const": false
+        },
+        "writesVisitorProfile": {
+          "const": false
+        },
+        "writesLocalStorage": {
+          "const": false
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object"
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "newWebGLContext"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        }
+      }
+    }
+  }
+}

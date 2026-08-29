@@ -1,0 +1,299 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "interaction-model.schema.json",
+  "title": "Living Website Device-local Interaction Model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceLabel",
+    "historyPolicy",
+    "trackingPolicy",
+    "storage",
+    "sessionPolicy",
+    "returnStates",
+    "gestures",
+    "phases",
+    "connections"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 2
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 5
+    },
+    "historyPolicy": {
+      "type": "string",
+      "minLength": 40
+    },
+    "trackingPolicy": {
+      "type": "string",
+      "minLength": 30
+    },
+    "storage": {
+      "type": "object",
+      "required": [
+        "scope",
+        "key",
+        "resetControl",
+        "maxTrailWorlds"
+      ],
+      "properties": {
+        "scope": {
+          "const": "device-local"
+        },
+        "key": {
+          "const": "annapurnaLivingV19"
+        },
+        "resetControl": {
+          "const": "#reset-memory"
+        },
+        "maxTrailWorlds": {
+          "type": "integer",
+          "minimum": 3,
+          "maximum": 12
+        }
+      },
+      "additionalProperties": false
+    },
+    "sessionPolicy": {
+      "type": "object",
+      "required": [
+        "gapMinutes",
+        "semantics",
+        "clock"
+      ],
+      "properties": {
+        "gapMinutes": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 1440
+        },
+        "semantics": {
+          "type": "string",
+          "minLength": 40
+        },
+        "clock": {
+          "const": "device-local"
+        }
+      },
+      "additionalProperties": false
+    },
+    "returnStates": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "minSessions",
+          "density"
+        ],
+        "properties": {
+          "key": {
+            "enum": [
+              "first",
+              "returning",
+              "familiar",
+              "embedded"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 3
+          },
+          "minSessions": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "density": {
+            "type": "number",
+            "minimum": 0.5,
+            "maximum": 1.5
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "gestures": {
+      "type": "object",
+      "required": [
+        "horizontalSwipe",
+        "minSwipePx",
+        "verticalTolerancePx",
+        "corePulse",
+        "rememberSwipeSelection"
+      ],
+      "properties": {
+        "horizontalSwipe": {
+          "const": true
+        },
+        "minSwipePx": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 90
+        },
+        "verticalTolerancePx": {
+          "type": "integer",
+          "minimum": 30,
+          "maximum": 100
+        },
+        "corePulse": {
+          "const": true
+        },
+        "rememberSwipeSelection": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "phases": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "minExplored"
+        ],
+        "properties": {
+          "key": {
+            "enum": [
+              "observing",
+              "mapping",
+              "connecting",
+              "constellation"
+            ]
+          },
+          "label": {
+            "type": "string",
+            "minLength": 3
+          },
+          "minExplored": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 6
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "connections": {
+      "type": "object",
+      "required": [
+        "ai",
+        "wonder",
+        "idea",
+        "axon",
+        "web",
+        "software"
+      ],
+      "properties": {
+        "ai": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "wonder": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "idea": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "axon": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "web": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        },
+        "software": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

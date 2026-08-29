@@ -1,0 +1,122 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "first-30s-model.schema.json",
+  "title": "Annapurna First 30 Seconds Market Test Model",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "goal",
+    "historyPolicy",
+    "checkpoints",
+    "personas",
+    "heroRules",
+    "interactionRules"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 20
+    },
+    "historyPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "checkpoints": {
+      "type": "array",
+      "minItems": 3,
+      "items": {
+        "type": "object",
+        "required": [
+          "seconds"
+        ],
+        "properties": {
+          "seconds": {
+            "enum": [
+              5,
+              15,
+              30
+            ]
+          },
+          "mustUnderstand": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mustNotice": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "mustReach": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "personas": {
+      "type": "array",
+      "minItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "label",
+          "intent",
+          "primaryWorld",
+          "expectedNext"
+        ],
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "intent": {
+            "enum": [
+              "explore",
+              "enterprise",
+              "learning",
+              "msme",
+              "design"
+            ]
+          },
+          "primaryWorld": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          },
+          "expectedNext": {
+            "type": "array",
+            "minItems": 2,
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "heroRules": {
+      "type": "object"
+    },
+    "interactionRules": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

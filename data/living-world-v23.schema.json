@@ -1,0 +1,113 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "microScenes",
+    "interaction",
+    "truthBoundary",
+    "accessibility",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "2.3"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 30
+    },
+    "microScenes": {
+      "type": "object",
+      "required": [
+        "ai",
+        "wonder",
+        "idea",
+        "axon",
+        "web",
+        "software"
+      ],
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "mechanic",
+          "topology"
+        ]
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "required": [
+        "pointsPerScene",
+        "coreAdvancesScene",
+        "sameWorldRetriggers",
+        "worldChangeInterrupts",
+        "persistsAcrossPageLoads"
+      ],
+      "properties": {
+        "pointsPerScene": {
+          "const": 3
+        },
+        "persistsAcrossPageLoads": {
+          "const": false
+        }
+      }
+    },
+    "truthBoundary": {
+      "type": "object",
+      "required": [
+        "writesProductTruth",
+        "writesSemanticHistory",
+        "writesVisitorIntent",
+        "writesExplorationMemory"
+      ],
+      "properties": {
+        "writesProductTruth": {
+          "const": false
+        },
+        "writesSemanticHistory": {
+          "const": false
+        },
+        "writesVisitorIntent": {
+          "const": false
+        },
+        "writesExplorationMemory": {
+          "const": false
+        }
+      }
+    },
+    "accessibility": {
+      "type": "object",
+      "required": [
+        "nativeButtons",
+        "keyboardOperable",
+        "reducedMotionKeepsTopology",
+        "mobileTopologyMovementDisabled"
+      ]
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "newWebGLContext",
+        "cssTopology"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "cssTopology": {
+          "const": true
+        }
+      }
+    }
+  }
+}

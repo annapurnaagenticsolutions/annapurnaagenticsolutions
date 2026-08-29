@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "release": "3.1",
+  "principle": "Correct visual and sticky-layout regressions introduced by the v3.0 reconstruction without adding a new interaction or feature layer.",
+  "home": {
+    "legacyRouteSectionRemoved": true,
+    "persistentRailStretchesAcrossStory": true,
+    "journeyUsesSameStage": true,
+    "heroDashBeforeConnectedRemoved": true,
+    "impactWordsUnderlined": false,
+    "journeyMembersStayLegible": true
+  },
+  "explore": {
+    "inactiveWorldsReadable": true,
+    "relatedWorldsRemainProminent": true,
+    "spatialAtlasRetained": true
+  },
+  "lab": {
+    "singleTheatreRetained": true,
+    "modeRailStickyBelowHeaderDesktop": true,
+    "theatreHeightReduced": true,
+    "internalMethodologyCopyVisible": false
+  },
+  "scope": {
+    "newFeatureLayer": false,
+    "newFramework": false,
+    "newWebGLContext": false,
+    "truthModelChanged": false
+  },
+  "accessibility": {
+    "reducedMotionRetained": true,
+    "mobileSingleColumnFallbackRetained": true
+  }
+}

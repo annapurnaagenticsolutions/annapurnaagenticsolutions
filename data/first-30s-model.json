@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "goal": "A first-time market visitor should understand what Annapurna builds, experience a responsive portfolio, and find a relevant next step within 30 seconds.",
+  "historyPolicy": "evaluation/presentation only; checkpoint logic cannot alter product truth, evidence, telemetry or semantic history",
+  "checkpoints": [
+    {
+      "seconds": 5,
+      "mustUnderstand": [
+        "company scope",
+        "primary value proposition",
+        "clear next action"
+      ]
+    },
+    {
+      "seconds": 15,
+      "mustNotice": [
+        "intent lens",
+        "interactive ecosystem",
+        "visible world response"
+      ]
+    },
+    {
+      "seconds": 30,
+      "mustReach": [
+        "relevant product/proof path",
+        "interactive guide or evidence path",
+        "contact path"
+      ]
+    }
+  ],
+  "personas": [
+    {
+      "key": "enterprise",
+      "label": "Enterprise AI buyer",
+      "intent": "enterprise",
+      "primaryWorld": "ai",
+      "expectedNext": [
+        "explore.html#world=ai",
+        "evidence.html",
+        "contact/"
+      ]
+    },
+    {
+      "key": "architect",
+      "label": "AI architect / technical evaluator",
+      "intent": "enterprise",
+      "primaryWorld": "ai",
+      "expectedNext": [
+        "lab.html",
+        "evidence.html",
+        "axon/"
+      ]
+    },
+    {
+      "key": "learning",
+      "label": "Education / learning visitor",
+      "intent": "learning",
+      "primaryWorld": "wonder",
+      "expectedNext": [
+        "wonderhub-by-AnnapurnaAgenticSolutions/",
+        "lab.html",
+        "contact/"
+      ]
+    },
+    {
+      "key": "msme",
+      "label": "MSME / operator",
+      "intent": "msme",
+      "primaryWorld": "idea",
+      "expectedNext": [
+        "idea-hub/",
+        "explore.html#world=idea",
+        "contact/"
+      ]
+    },
+    {
+      "key": "design",
+      "label": "Design / website prospect",
+      "intent": "design",
+      "primaryWorld": "web",
+      "expectedNext": [
+        "website-studio/",
+        "lab.html",
+        "contact/"
+      ]
+    },
+    {
+      "key": "general",
+      "label": "General referral visitor",
+      "intent": "explore",
+      "primaryWorld": "ai",
+      "expectedNext": [
+        "explore.html",
+        "lab.html",
+        "contact/"
+      ]
+    }
+  ],
+  "heroRules": {
+    "maxH1Words": 12,
+    "requiredScopeTerms": [
+      "AI",
+      "learning",
+      "digital experiences"
+    ],
+    "maxPrimaryHeroParagraphWords": 42,
+    "maxPrimaryNavLinks": 5,
+    "maxIntentChoices": 5,
+    "duplicateMetricBlocksAboveFold": 0
+  },
+  "interactionRules": {
+    "worldCount": 6,
+    "guidedConnection": true,
+    "pageAgentExplainability": true,
+    "deliberateIntentChangesStructure": true,
+    "passiveLoadDoesNotAnimateStructure": true
+  }
+}

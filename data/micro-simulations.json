@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "sourceLabel": "deterministic explanatory simulations",
+  "truthPolicy": "simulation-only; never production execution or adoption evidence",
+  "simulations": [
+    {
+      "id": "governance",
+      "product": "Runtime Integrity concept",
+      "boundary": "illustrative deterministic gate response",
+      "presets": [
+        "healthy",
+        "context",
+        "policy",
+        "tool"
+      ]
+    },
+    {
+      "id": "axon",
+      "product": "AXON",
+      "boundary": "illustrative typed workflow structure; does not invoke AXON",
+      "presets": [
+        "research",
+        "procurement",
+        "tutor"
+      ]
+    },
+    {
+      "id": "experience",
+      "product": "Website Studio",
+      "boundary": "presentation adaptation only; factual claim remains constant",
+      "presets": [
+        "operator",
+        "executive",
+        "learner"
+      ]
+    }
+  ]
+}

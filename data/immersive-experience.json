@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "release": "1.9",
+  "policy": "experience-first; immersive behavior stays product-led, user-triggered and free of visitor-facing methodology explanations",
+  "requiredLayers": [
+    "adaptive-structure",
+    "organic-motion",
+    "page-agent"
+  ],
+  "hero": {
+    "background": "white-first",
+    "spatialStage": true,
+    "worldCount": 6,
+    "worldPhysics": [
+      "network",
+      "constellation",
+      "city",
+      "lanes",
+      "frames",
+      "grid"
+    ],
+    "pointerDepth": true,
+    "scrollDepth": true,
+    "connectedRoute": true,
+    "guidedJourney": true,
+    "worldReframing": true,
+    "globalAccentContinuity": true
+  },
+  "motion": {
+    "mustBeInputLinked": true,
+    "reducedMotionFallback": "instant-state-change",
+    "narrativeTransitionMaxMs": 800,
+    "idleBreathingTargetsMax": 2
+  },
+  "forbiddenEffects": [
+    "cursor trails",
+    "magnetic hover buttons",
+    "custom cursor",
+    "confetti",
+    "parallax-everything",
+    "autoplay audio"
+  ],
+  "visitorCopy": {
+    "forbiddenPhrases": [
+      "Why \u201cliving\u201d",
+      "Not more animation",
+      "A living website should",
+      "Rules-based",
+      "DETERMINISTIC REHEARSAL",
+      "WORKFLOW REHEARSAL",
+      "PRESENTATION REHEARSAL",
+      "On-device rules first",
+      "normal static website remains underneath",
+      "Current route",
+      "Why am I seeing this?"
+    ],
+    "methodologyLocation": "engineering documentation only"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "baselineRelease": "3.3",
+  "measurementPolicy": "static transfer deltas are checked locally; LCP and INP regression must be measured in browser CI/deployment before promotion",
+  "maxBrowserRegressionPercent": {
+    "LCP": 10,
+    "INP": 10
+  },
+  "baselineGzipBytes": {
+    "index.html": 3195,
+    "explore.html": 1766,
+    "lab.html": 2118,
+    "evidence.html": 1283,
+    "assets/site.css": 26393,
+    "assets/site.js": 23963,
+    "assets/material.js": 2340
+  },
+  "browserBaselineStatus": "requires deployed v3.3 comparable browser run before v3.4 production promotion",
+  "analyticsPolicy": "performance observations remain local; no telemetry endpoint is configured"
+}

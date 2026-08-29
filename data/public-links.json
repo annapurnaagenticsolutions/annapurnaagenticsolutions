@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "verifiedAt": "2026-08-29",
+  "organization": "annapurnaagenticsolutions",
+  "organizationUrl": "https://github.com/annapurnaagenticsolutions",
+  "contact": {
+    "email": "annapurnaagenticsolutions@zohomail.in",
+    "linkedin": "https://www.linkedin.com/in/annapurna-agentic-solutions/",
+    "location": "Bengaluru, Karnataka, India"
+  },
+  "surfaces": [
+    {
+      "id": "portal",
+      "label": "Annapurna Portal",
+      "pagesUrl": "https://annapurnaagenticsolutions.com/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "live"
+    },
+    {
+      "id": "ai",
+      "label": "AI Solutions",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/ai-solutions/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/ai-solutions",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "wonder",
+      "label": "WonderHub",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/wonderhub-by-AnnapurnaAgenticSolutions/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/wonderhub-by-AnnapurnaAgenticSolutions",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "idea",
+      "label": "Idea Hub",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/idea-hub/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/idea-hub",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "axon",
+      "label": "AXON",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/axon/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/axon",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "web",
+      "label": "Website Studio",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/website-studio/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/website-studio",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "software",
+      "label": "Software Lab",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/software-lab/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "mesh",
+      "label": "AgentOps Mesh",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    },
+    {
+      "id": "mesh-demo",
+      "label": "AgentOps Mesh Interactive Path",
+      "pagesUrl": "https://annapurnaagenticsolutions.github.io/open-enterprise-agentops-mesh/interactive_demo_path.html",
+      "sourceUrl": "https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "sourceStatus": "verified_public",
+      "pagesStatus": "post_publish_http_gate_required"
+    }
+  ],
+  "verification": {
+    "checkedAt": "2026-08-29",
+    "sourceRepositories": "verified_public",
+    "portalRepositoryPaths": "verified_public",
+    "pagesRuntime": "post_publish_http_gate_required",
+    "note": "Repository and path existence were verified against public GitHub surfaces. GitHub Pages runtime availability is a deployment-time gate and is not inferred from repository existence."
+  }
+}

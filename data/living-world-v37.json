@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "release": "3.7",
+  "principle": "Typography is governed by semantic role rather than by page: every public H1 uses one locked token, every major experiential H2 uses one locked token, supporting headings use one locked tier, and lead, body, UI and metadata text follow explicit shared sizes across the site.",
+  "typographyLock": {
+    "singleH1TokenAcrossHomeExploreLabEvidence404": true,
+    "singleMajorH2TokenAcrossFocusJourneyLabCTA": true,
+    "singleSupportingHeadingTokenAcrossInspectorsAndSections": true,
+    "singleLeadTokenAcrossPublicIntros": true,
+    "singleBodyTokenAcrossInspectorsAndSimulationCopy": true,
+    "singleUIAndMetadataScale": true,
+    "pageSpecificHeadingSizesForbidden": true,
+    "fontFamilyLockedAcrossPublicSurface": true
+  },
+  "visualQA": {
+    "connectedPunctuationCannotOrphan": true,
+    "displayHeadingsUseBalancedWrapping": true,
+    "exploreNodeTitleSizeDoesNotChangeWithState": true,
+    "journeyTopologyDeEmphasizedDuringTrace": true,
+    "stickyHeaderScrollOffsetProtected": true,
+    "inactiveExploreLabelsRemainReadable": true
+  },
+  "responsive": {
+    "desktop": 1440,
+    "tablet": 1024,
+    "mobile": 390,
+    "tabletTypeScaleExplicit": true,
+    "mobileTypeScaleExplicit": true,
+    "smallMobileTypeScaleExplicit": true
+  },
+  "preserves": {
+    "v36TypographyRhythm": true,
+    "v35SpatialGovernance": true,
+    "v34JourneyOwnership": true,
+    "v33MotionGrammar": true,
+    "truthAndAccessibilityContracts": true
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false
+  }
+}

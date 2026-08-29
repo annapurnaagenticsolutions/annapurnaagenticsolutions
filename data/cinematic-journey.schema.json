@@ -1,0 +1,102 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "cinematic-journey.schema.json",
+  "title": "Living Lab cinematic scroll choreography",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "sourceLabel",
+    "historyPolicy",
+    "chapters"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "sourceLabel": {
+      "type": "string",
+      "minLength": 1
+    },
+    "historyPolicy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "chapters": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "index",
+          "world",
+          "verb",
+          "title",
+          "copy",
+          "proof",
+          "scene",
+          "accent"
+        ],
+        "properties": {
+          "id": {
+            "enum": [
+              "observe",
+              "structure",
+              "govern",
+              "experience",
+              "discover",
+              "evolve"
+            ]
+          },
+          "index": {
+            "type": "string",
+            "pattern": "^0[1-6]$"
+          },
+          "world": {
+            "enum": [
+              "ai",
+              "wonder",
+              "idea",
+              "axon",
+              "web",
+              "software"
+            ]
+          },
+          "verb": {
+            "type": "string",
+            "minLength": 2
+          },
+          "title": {
+            "type": "string",
+            "minLength": 10
+          },
+          "copy": {
+            "type": "string",
+            "minLength": 20
+          },
+          "proof": {
+            "type": "string",
+            "minLength": 10
+          },
+          "scene": {
+            "enum": [
+              "network",
+              "lanes",
+              "gates",
+              "frames",
+              "constellation",
+              "grid"
+            ]
+          },
+          "accent": {
+            "type": "string",
+            "pattern": "^#[0-9a-fA-F]{6}$"
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

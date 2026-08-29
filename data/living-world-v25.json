@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "release": "2.5",
+  "principle": "A meaningful sequence of completed connected worlds may unlock a temporary composite scene whose visual behavior belongs to the combination rather than any single product.",
+  "composites": [
+    {
+      "id": "governed-runtime",
+      "sequence": [
+        "ai",
+        "axon",
+        "software"
+      ],
+      "label": "Governed Runtime",
+      "meaning": "governance + typed agent structure + reusable software patterns"
+    },
+    {
+      "id": "learning-experience",
+      "sequence": [
+        "wonder",
+        "web",
+        "ai"
+      ],
+      "label": "Adaptive Experience",
+      "meaning": "learning + experience design + governed AI"
+    },
+    {
+      "id": "prototype-system",
+      "sequence": [
+        "idea",
+        "software",
+        "axon"
+      ],
+      "label": "Prototype to System",
+      "meaning": "practical need + experimentation + typed architecture"
+    },
+    {
+      "id": "experience-action",
+      "sequence": [
+        "web",
+        "wonder",
+        "idea"
+      ],
+      "label": "Experience to Action",
+      "meaning": "experience design + learning + practical action"
+    }
+  ],
+  "unlock": {
+    "trigger": "three completed micro-scenes forming an inherited causal chain",
+    "requiresConnectedEdges": true,
+    "menuOrBadgeRequired": false,
+    "persistsAcrossPageLoads": false,
+    "releasedOnDeliberateWorldChange": true,
+    "requiresConsequenceConsumption": true
+  },
+  "visibleBehavior": [
+    "unrelated worlds recede",
+    "three member worlds converge",
+    "canvas closes a three-edge composite current",
+    "semantic scene word changes",
+    "core role changes",
+    "connected journey recomposes"
+  ],
+  "truthBoundary": {
+    "claimsLiveProductComposition": false,
+    "writesEvidence": false,
+    "writesSemanticHistory": false,
+    "writesVisitorProfile": false,
+    "writesLocalStorage": false
+  },
+  "accessibility": {
+    "normalNavigationUnaffected": true,
+    "reducedMotionKeepsCompositeState": true,
+    "mobileDisablesTopologyTranslation": true
+  },
+  "performance": {
+    "newFramework": false,
+    "newWebGLContext": false
+  }
+}

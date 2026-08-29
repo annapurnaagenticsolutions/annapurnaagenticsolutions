@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "release": "2.2",
+  "principle": "Impact comes from semantic depth and world-specific cause/effect, not generic animation.",
+  "semanticDepth": {
+    "words": [
+      "AI systems",
+      "learning products",
+      "digital experiences",
+      "connected",
+      "working experience"
+    ],
+    "trigger": "active world + scroll/pointer depth",
+    "decorativeBounce": false,
+    "reducedMotion": "flat semantic text"
+  },
+  "worldSignatures": {
+    "ai": "network node propagation",
+    "wonder": "concept constellation orbit",
+    "idea": "business city growth",
+    "axon": "typed lane packets",
+    "web": "experience frame morph",
+    "software": "experimental grid activation"
+  },
+  "interaction": {
+    "trigger": "deliberate world selection",
+    "retriggerable": true,
+    "interruptible": true,
+    "writesSemanticHistory": false,
+    "writesProductTruth": false
+  },
+  "performance": {
+    "newFramework": false,
+    "newWebGLContext": false,
+    "cssDrivenSignatures": true
+  }
+}

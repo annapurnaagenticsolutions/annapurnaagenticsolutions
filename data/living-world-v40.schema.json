@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "enhancements",
+    "experienceContracts",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "type": "integer",
+      "const": 1
+    },
+    "release": {
+      "type": "string",
+      "const": "4.0"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 20
+    },
+    "enhancements": {
+      "type": "object",
+      "minProperties": 6,
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "experienceContracts": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "boolean"
+      }
+    },
+    "performance": {
+      "type": "object"
+    }
+  },
+  "additionalProperties": false
+}

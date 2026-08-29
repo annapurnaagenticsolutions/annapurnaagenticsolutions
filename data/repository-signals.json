@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-08-25T04:09:00Z",
+  "sourceLabel": "GitHub public repository snapshots verified 2026-08-25",
+  "repositories": [
+    {
+      "id": "portal",
+      "world": "web",
+      "owner": "annapurnaagenticsolutions",
+      "name": "annapurna-portal",
+      "fullName": "annapurnaagenticsolutions/annapurna-portal",
+      "htmlUrl": "https://github.com/annapurnaagenticsolutions/annapurna-portal",
+      "commits": 19,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "latestCommit": null
+    },
+    {
+      "id": "axon",
+      "world": "axon",
+      "owner": "annapurnaagenticsolutions",
+      "name": "axon",
+      "fullName": "annapurnaagenticsolutions/axon",
+      "htmlUrl": "https://github.com/annapurnaagenticsolutions/axon",
+      "commits": 18,
+      "stars": 0,
+      "forks": 2,
+      "openIssues": 9,
+      "latestCommit": null
+    },
+    {
+      "id": "mesh",
+      "world": "ai",
+      "owner": "annapurnaagenticsolutions",
+      "name": "open-enterprise-agentops-mesh",
+      "fullName": "annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "htmlUrl": "https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh",
+      "commits": 8,
+      "stars": 0,
+      "forks": 0,
+      "openIssues": 0,
+      "latestCommit": null
+    }
+  ]
+}

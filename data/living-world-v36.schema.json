@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "principle",
+    "typography",
+    "visualRhythm",
+    "journeySignal",
+    "responsive",
+    "preserves",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "3.6"
+    },
+    "principle": {
+      "type": "string",
+      "minLength": 120
+    },
+    "typography": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "visualRhythm": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "journeySignal": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "responsive": {
+      "type": "object",
+      "required": [
+        "desktop",
+        "tablet",
+        "mobile",
+        "mobileAtlasStacks",
+        "mobileTypographyHasExplicitBounds",
+        "reducedMotionRouteRemainsReadable"
+      ],
+      "properties": {
+        "desktop": {
+          "const": 1440
+        },
+        "tablet": {
+          "const": 1024
+        },
+        "mobile": {
+          "const": 390
+        },
+        "mobileAtlasStacks": {
+          "const": true
+        },
+        "mobileTypographyHasExplicitBounds": {
+          "const": true
+        },
+        "reducedMotionRouteRemainsReadable": {
+          "const": true
+        }
+      }
+    },
+    "preserves": {
+      "type": "object",
+      "additionalProperties": {
+        "const": true
+      }
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newFramework",
+        "thirdPartyRuntimeAdded",
+        "newWebGLContext",
+        "newNetworkDependency"
+      ],
+      "properties": {
+        "newFramework": {
+          "const": false
+        },
+        "thirdPartyRuntimeAdded": {
+          "const": false
+        },
+        "newWebGLContext": {
+          "const": false
+        },
+        "newNetworkDependency": {
+          "const": false
+        }
+      }
+    }
+  }
+}

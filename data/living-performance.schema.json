@@ -1,0 +1,60 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "living-performance.schema.json",
+  "title": "Living Website Performance Change Contract",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "baselineRelease",
+    "measurementPolicy",
+    "maxBrowserRegressionPercent",
+    "baselineGzipBytes",
+    "browserBaselineStatus",
+    "analyticsPolicy"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "baselineRelease": {
+      "const": "3.3"
+    },
+    "measurementPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "maxBrowserRegressionPercent": {
+      "type": "object",
+      "required": [
+        "LCP",
+        "INP"
+      ],
+      "properties": {
+        "LCP": {
+          "const": 10
+        },
+        "INP": {
+          "const": 10
+        }
+      },
+      "additionalProperties": false
+    },
+    "baselineGzipBytes": {
+      "type": "object",
+      "minProperties": 6,
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1
+      }
+    },
+    "browserBaselineStatus": {
+      "type": "string",
+      "minLength": 20
+    },
+    "analyticsPolicy": {
+      "type": "string",
+      "minLength": 20
+    }
+  },
+  "additionalProperties": false
+}

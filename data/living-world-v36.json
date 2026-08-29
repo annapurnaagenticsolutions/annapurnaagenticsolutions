@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "release": "3.6",
+  "principle": "Typography and spatial rhythm are interaction infrastructure: identical semantic levels use one token system across pages, Journey-only signals never leak into other states, and responsive layouts preserve hierarchy without shrinking or colliding content.",
+  "typography": {
+    "singleDisplayTokenAcrossHomeExploreLabEvidence": true,
+    "singleSectionDisplayTokenAcrossHomeBeats": true,
+    "singleLabSceneTitleToken": true,
+    "leadBodyTokenSharedAcrossPageIntros": true,
+    "semanticLevelMayVaryByRoleNotPage": true,
+    "mobileTokensExplicitlyBounded": true
+  },
+  "visualRhythm": {
+    "pageIntroTopOffsetNormalized": true,
+    "pageIntroMeasureNormalized": true,
+    "exploreNarrativeRailNarrowedForFieldPriority": true,
+    "exploreNodeLabelsUseFixedSizeWithStateOpacity": true,
+    "labCodeBlockVisualDominanceReduced": true
+  },
+  "journeySignal": {
+    "routeOrderBadgesVisibleOnlyDuringJourney": true,
+    "routeStrokeReduced": true,
+    "routeDashSpacingIncreased": true,
+    "persistentNodesRemainRouteOwners": true
+  },
+  "responsive": {
+    "desktop": 1440,
+    "tablet": 1024,
+    "mobile": 390,
+    "mobileAtlasStacks": true,
+    "mobileTypographyHasExplicitBounds": true,
+    "reducedMotionRouteRemainsReadable": true
+  },
+  "preserves": {
+    "v35SpatialGovernance": true,
+    "v34JourneyOwnership": true,
+    "v33MotionGrammar": true,
+    "v32MaterialTruth": true,
+    "priorContracts": true
+  },
+  "performance": {
+    "newFramework": false,
+    "thirdPartyRuntimeAdded": false,
+    "newWebGLContext": false,
+    "newNetworkDependency": false
+  }
+}

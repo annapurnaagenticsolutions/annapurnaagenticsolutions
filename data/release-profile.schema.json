@@ -1,0 +1,176 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "release-profile.schema.json",
+  "title": "Living Lab Production Release Profile",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "channel",
+    "canonicalBaseUrl",
+    "truthPolicy",
+    "privacy",
+    "security",
+    "performanceBudgetsGzip",
+    "lighthouseMinimums",
+    "requiredPublicRoutes",
+    "criticalProofUrls"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "4.3"
+    },
+    "channel": {
+      "enum": [
+        "release-candidate",
+        "production"
+      ]
+    },
+    "canonicalBaseUrl": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    },
+    "truthPolicy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "privacy": {
+      "type": "object",
+      "required": [
+        "serverSideAnalytics",
+        "identityTracking",
+        "fingerprinting",
+        "localStorageKey",
+        "resetControl"
+      ],
+      "properties": {
+        "serverSideAnalytics": {
+          "const": false
+        },
+        "identityTracking": {
+          "const": false
+        },
+        "fingerprinting": {
+          "const": false
+        },
+        "localStorageKey": {
+          "type": "string",
+          "minLength": 5,
+          "const": "annapurnaLivingV20"
+        },
+        "resetControl": {
+          "type": "string",
+          "pattern": "^#"
+        }
+      },
+      "additionalProperties": false
+    },
+    "security": {
+      "type": "object",
+      "required": [
+        "csp",
+        "runtimeThirdPartyScripts",
+        "embeddedArtifacts",
+        "embedAllowSameOrigin",
+        "strictCspCompatibleMarkup",
+        "inlineStyleAttributes",
+        "inlineScripts"
+      ],
+      "properties": {
+        "csp": {
+          "const": "meta-policy"
+        },
+        "runtimeThirdPartyScripts": {
+          "const": 0
+        },
+        "embeddedArtifacts": {
+          "const": "sandboxed-on-demand"
+        },
+        "embedAllowSameOrigin": {
+          "const": false
+        },
+        "strictCspCompatibleMarkup": {
+          "const": true
+        },
+        "inlineStyleAttributes": {
+          "const": 0
+        },
+        "inlineScripts": {
+          "const": 0
+        }
+      },
+      "additionalProperties": false
+    },
+    "performanceBudgetsGzip": {
+      "type": "object",
+      "required": [
+        "index.html",
+        "explore.html",
+        "lab.html",
+        "evidence.html",
+        "assets/site.css",
+        "assets/site.js"
+      ],
+      "additionalProperties": {
+        "type": "integer",
+        "minimum": 1000
+      }
+    },
+    "lighthouseMinimums": {
+      "type": "object",
+      "required": [
+        "performance",
+        "accessibility",
+        "best-practices",
+        "seo"
+      ],
+      "properties": {
+        "performance": {
+          "type": "integer",
+          "minimum": 80,
+          "maximum": 100
+        },
+        "accessibility": {
+          "type": "integer",
+          "minimum": 90,
+          "maximum": 100
+        },
+        "best-practices": {
+          "type": "integer",
+          "minimum": 85,
+          "maximum": 100
+        },
+        "seo": {
+          "type": "integer",
+          "minimum": 85,
+          "maximum": 100
+        }
+      },
+      "additionalProperties": false
+    },
+    "requiredPublicRoutes": {
+      "type": "array",
+      "minItems": 8,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 2
+      }
+    },
+    "criticalProofUrls": {
+      "type": "array",
+      "minItems": 2,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "format": "uri",
+        "pattern": "^https://"
+      }
+    }
+  },
+  "additionalProperties": false
+}

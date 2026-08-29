@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "perceived-liveness-model.schema.json",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "goal",
+    "firstVisit",
+    "signals",
+    "responses",
+    "receipt",
+    "crossPageContext",
+    "motionPolicy",
+    "truthBoundary"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "goal": {
+      "type": "string",
+      "minLength": 20
+    },
+    "firstVisit": {
+      "type": "object",
+      "required": [
+        "showCue",
+        "hideAfterExplicitIntent",
+        "cue"
+      ],
+      "properties": {
+        "showCue": {
+          "type": "boolean"
+        },
+        "hideAfterExplicitIntent": {
+          "type": "boolean"
+        },
+        "cue": {
+          "type": "string",
+          "minLength": 10
+        }
+      },
+      "additionalProperties": false
+    },
+    "signals": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "responses": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "string",
+        "minLength": 3
+      }
+    },
+    "receipt": {
+      "type": "object"
+    },
+    "crossPageContext": {
+      "type": "object"
+    },
+    "motionPolicy": {
+      "type": "object"
+    },
+    "truthBoundary": {
+      "type": "string",
+      "minLength": 30
+    }
+  },
+  "additionalProperties": false
+}

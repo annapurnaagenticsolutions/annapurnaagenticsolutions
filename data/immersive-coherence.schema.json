@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "immersive-coherence.schema.json",
+  "title": "v1.9 immersive coherence contract",
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "release",
+    "policy",
+    "sceneReframing",
+    "guidedPath",
+    "explore",
+    "copy",
+    "performance"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "release": {
+      "const": "1.9"
+    },
+    "policy": {
+      "type": "string",
+      "minLength": 20
+    },
+    "sceneReframing": {
+      "type": "object",
+      "required": [
+        "worldDriven",
+        "wholeStage",
+        "sceneWord",
+        "globalAccentContinuity"
+      ],
+      "properties": {
+        "worldDriven": {
+          "const": true
+        },
+        "wholeStage": {
+          "const": true
+        },
+        "sceneWord": {
+          "const": true
+        },
+        "globalAccentContinuity": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "guidedPath": {
+      "type": "object",
+      "required": [
+        "userTriggered",
+        "maxSteps",
+        "autoStepsPersistToMemory",
+        "reducedMotion"
+      ],
+      "properties": {
+        "userTriggered": {
+          "const": true
+        },
+        "maxSteps": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 3
+        },
+        "autoStepsPersistToMemory": {
+          "const": false
+        },
+        "reducedMotion": {
+          "type": "string",
+          "minLength": 5
+        }
+      },
+      "additionalProperties": false
+    },
+    "explore": {
+      "type": "object",
+      "required": [
+        "miniScenePreviews",
+        "worldInspectorPersists"
+      ],
+      "properties": {
+        "miniScenePreviews": {
+          "const": true
+        },
+        "worldInspectorPersists": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "copy": {
+      "type": "object",
+      "required": [
+        "visibleAdaptiveReceipt",
+        "visibleInternalPhaseLabels",
+        "methodologyInEngineeringDocsOnly"
+      ],
+      "properties": {
+        "visibleAdaptiveReceipt": {
+          "const": false
+        },
+        "visibleInternalPhaseLabels": {
+          "const": false
+        },
+        "methodologyInEngineeringDocsOnly": {
+          "const": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "performance": {
+      "type": "object",
+      "required": [
+        "newRuntimeFrameworks",
+        "newWebGLContexts",
+        "productionLcpInpRegressionMaxPct"
+      ],
+      "properties": {
+        "newRuntimeFrameworks": {
+          "const": 0
+        },
+        "newWebGLContexts": {
+          "const": 0
+        },
+        "productionLcpInpRegressionMaxPct": {
+          "type": "integer",
+          "maximum": 10
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
