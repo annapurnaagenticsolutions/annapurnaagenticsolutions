@@ -22,7 +22,7 @@
 @media(forced-colors:active){.btn-primary{border:1px solid ButtonText}.living-stage,.focus-card,.sim-card,.world-card,.world-inspector{border:1px solid CanvasText}}
 @view-transition{navigation:auto}
 ::view-transition-old(root){animation:page-out .16s ease both}
-::view-transition-new(root){animation:page-in .22s ease both}
+::view-transition-new(root){animation:page-in .18s ease forwards}
 @keyframes page-out{to{opacity:0;transform:translateY(-3px)}}
 @keyframes page-in{from{opacity:0;transform:translateY(4px)}}
 .living-stage{isolation:isolate;transition:border-color .25s ease,box-shadow .25s ease}
