@@ -1,13 +1,13 @@
 # Pramana Lead Gate — Cloudflare Setup Guide
 ## One-time manual steps in the Cloudflare dashboard and terminal
 
-> **Binding strategy**: D1, KV, and the Resend secret are bound to the Pages
-> project **in the Cloudflare dashboard**, not in `wrangler.toml`. This keeps
-> account-specific resource IDs out of git and avoids placeholder deploy
-> failures. `wrangler.toml` only holds non-secret `[vars]` (e.g.
-> `ALLOWED_ORIGIN`). The Functions code reads bindings by name from
-> `context.env` — names must match exactly:
-> `PRAMANA_LEADS` (D1), `PRAMANA_OTP` (KV), `RESEND_API_KEY` (secret).
+> **Binding strategy**: D1, KV, the Resend secret, and the `ALLOWED_ORIGIN`
+> env var are all configured **in the Cloudflare dashboard**. There is no
+> `wrangler.toml` in the repo — this keeps account-specific resource IDs out
+> of this public git repo and avoids placeholder deploy failures. The
+> Functions code reads bindings by name from `context.env` — names must match
+> exactly: `PRAMANA_LEADS` (D1), `PRAMANA_OTP` (KV), `RESEND_API_KEY` (secret),
+> `ALLOWED_ORIGIN` (var).
 
 ---
 
@@ -64,9 +64,10 @@ No ID needs to be copied anywhere — binding happens in Step 4.
 
 ---
 
-## STEP 4 — Bind D1 + KV to the Pages Project (dashboard)
+## STEP 4 — Bind D1 + KV + ALLOWED_ORIGIN to the Pages Project (dashboard)
 
-This is the key step — it replaces the old "paste IDs into wrangler.toml" flow.
+This is the key step. There is no `wrangler.toml` in the repo, so all
+bindings and environment variables are configured here in the dashboard.
 
 1. Cloudflare dashboard → **Workers & Pages** → select your Pages project
    (`annapurnaagenticsolutions`)
@@ -84,6 +85,13 @@ This is the key step — it replaces the old "paste IDs into wrangler.toml" flow
 - Type: **KV namespace**
 - Variable name: `PRAMANA_OTP`  ← must match exactly
 - KV namespace: select `PRAMANA_OTP`
+- Environment: **Production** (and **Preview** if needed)
+- **Save**
+
+**ALLOWED_ORIGIN environment variable:**
+- Type: **Environment variable** (Plain text)
+- Variable name: `ALLOWED_ORIGIN`  ← must match exactly
+- Value: `https://annapurnaagenticsolutions.com`
 - Environment: **Production** (and **Preview** if needed)
 - **Save**
 
@@ -181,12 +189,12 @@ error). Verify in the deployment log: you should see
 ## Local Development (optional)
 
 To run the Functions locally with bindings, use `wrangler pages dev` and pass
-bindings on the CLI (since they're not in `wrangler.toml`):
+everything on the CLI (there is no `wrangler.toml` in the repo):
 
 ```bash
-npx wrangler pages dev . \
-  --kv=PRAMANA_OTP \
-  --d1=PRAMANA_LEADS \
+npx wrangler pages dev . `
+  --kv=PRAMANA_OTP `
+  --d1=PRAMANA_LEADS `
   --var ALLOWED_ORIGIN:http://localhost:8788
 ```
 
