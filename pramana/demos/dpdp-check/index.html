@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Free DPDP Compliance Check - Annapurna Agentic Solutions</title>
-<meta name="description" content="Check your DPDP compliance in 5 minutes. Free, no signup, no data leaves your computer. For Indian businesses: Clinics, Schools, Fintech, HR, EdTech.">
+<meta name="description" content="Check your DPDP compliance in 5 minutes. Free 15-question self-assessment for Indian businesses (Clinics, Schools, Fintech, HR, EdTech). Unlock your full report with your email.">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -409,6 +409,90 @@ body {
 .action-btn.primary { background: var(--blue); color: white; border-color: var(--blue); }
 .action-btn.primary:hover { background: #1d4ed8; }
 
+/* LEAD GATE */
+.gate-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-top: 20px;
+  display: none;
+}
+.gate-card.show { display: block; }
+.gate-teaser {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.gate-lock-note {
+  font-size: 14px;
+  color: var(--text-dim);
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+.gate-form-title { font-size: 17px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+.form-row { margin-bottom: 16px; }
+.form-row label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.form-row input[type="text"],
+.form-row input[type="email"] {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--border2);
+  border-radius: var(--radius);
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--text);
+  background: var(--surface);
+}
+.form-row input:focus { outline: 2px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
+.choice-group { display: flex; flex-wrap: wrap; gap: 8px; }
+.choice-btn {
+  padding: 8px 14px;
+  border: 1px solid var(--border2);
+  border-radius: 99px;
+  background: var(--surface);
+  color: var(--text-dim);
+  font-size: 13px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.choice-btn:hover { border-color: var(--blue); }
+.choice-btn.selected { border-color: var(--blue); background: var(--blue-dim); color: var(--blue); font-weight: 600; }
+.consent-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 20px 0;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+  cursor: pointer;
+}
+.consent-row input[type="checkbox"] { margin-top: 3px; width: 16px; height: 16px; flex-shrink: 0; }
+.gate-error {
+  background: var(--red-dim);
+  border: 1px solid var(--red-border);
+  color: var(--red-bright);
+  border-radius: var(--radius);
+  padding: 10px 14px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: none;
+}
+.gate-error.show { display: block; }
+.hp-field { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.gate-submit-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center; }
+
 /* LOADING */
 .loading {
   text-align: center;
@@ -438,6 +522,25 @@ body {
   line-height: 1.7;
 }
 .footer a { color: var(--blue); text-decoration: none; }
+
+/* OTP STEP */
+.otp-step { padding: 8px 0 0; }
+.otp-step #otp-input {
+  font-size: 1.5rem;
+  letter-spacing: 0.2em;
+  text-align: center;
+  max-width: 200px;
+  border: 2px solid var(--blue);
+  border-radius: 10px;
+  padding: 12px 16px;
+}
+.otp-step #otp-input:focus { outline: none; box-shadow: 0 0 0 3px rgba(37,99,235,.2); }
+.link-btn {
+  background: none; border: none; padding: 0; cursor: pointer;
+  color: var(--blue); font-size: inherit; text-decoration: underline;
+}
+.link-btn:disabled { color: var(--text-muted); text-decoration: none; cursor: default; }
+#gate-budget-group { flex-wrap: wrap; }
 
 /* RESPONSIVE */
 @media (max-width: 600px) {
@@ -486,12 +589,13 @@ body {
     <h1>Free <span class="highlight">DPDP</span> Compliance Check</h1>
     <p class="subtitle">
       Find out if your business is ready for India's data protection law.
-      Answer 15 simple questions in 5 minutes. No signup. No install. Your answers never leave this page.
+      Answer 15 simple questions in 5 minutes. Your answers stay in your browser &mdash;
+      share your email at the end to unlock your full report.
     </p>
     <div class="header-badges">
       <span class="header-badge"><span class="dot"></span> Based on DPDP Act 2023</span>
       <span class="header-badge">15 questions &middot; 5 minutes</span>
-      <span class="header-badge">100% private &middot; works offline</span>
+      <span class="header-badge">Free &middot; runs in your browser</span>
     </div>
   </div>
 
@@ -552,6 +656,114 @@ body {
   <div id="loading" class="loading">
     <div class="spinner"></div>
     <p>Calculating your compliance score...</p>
+  </div>
+
+  <!-- LEAD GATE: shown right after scoring, before the full report unlocks -->
+  <div id="gate-card" class="gate-card">
+    <div class="gate-teaser">
+      <div id="gate-score-circle" class="score-circle red">0</div>
+      <div class="score-info">
+        <div class="label">Your Compliance Score</div>
+        <div id="gate-score-value" class="value">0 / 100</div>
+        <div id="gate-score-grade" class="grade">Grade F</div>
+      </div>
+    </div>
+    <p class="gate-lock-note">
+      <strong id="gate-gap-count">0 gaps</strong> found, including priority issues specific to your
+      sector. Enter your details below to unlock your full gap-by-gap report and download it.
+    </p>
+
+    <div class="gate-form-title">Unlock your full report</div>
+    <form id="gate-form" novalidate>
+      <div class="gate-error" id="gate-error"></div>
+
+      <div class="form-row">
+        <label for="gate-name">Your name</label>
+        <input type="text" id="gate-name" name="name" autocomplete="name" maxlength="200" required>
+      </div>
+
+      <div class="form-row">
+        <label for="gate-email">Email</label>
+        <input type="email" id="gate-email" name="email" autocomplete="email" maxlength="320" required>
+      </div>
+
+      <div class="form-row">
+        <label>Your role</label>
+        <div class="choice-group" id="gate-role-group" role="group" aria-label="Your role">
+          <button type="button" class="choice-btn" data-value="founder_owner">Founder / Owner</button>
+          <button type="button" class="choice-btn" data-value="compliance_dpo">Compliance / DPO</button>
+          <button type="button" class="choice-btn" data-value="hr_admin">HR / Admin</button>
+          <button type="button" class="choice-btn" data-value="it_tech">IT / Tech</button>
+          <button type="button" class="choice-btn" data-value="consultant_advisor">Consultant / Advisor</button>
+          <button type="button" class="choice-btn" data-value="other">Other</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label>Company size</label>
+        <div class="choice-group" id="gate-size-group" role="group" aria-label="Company size">
+          <button type="button" class="choice-btn" data-value="solo">Just me</button>
+          <button type="button" class="choice-btn" data-value="2_10">2&ndash;10</button>
+          <button type="button" class="choice-btn" data-value="11_50">11&ndash;50</button>
+          <button type="button" class="choice-btn" data-value="51_200">51&ndash;200</button>
+          <button type="button" class="choice-btn" data-value="200_plus">200+</button>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <label for="gate-org">Organisation name</label>
+        <input type="text" id="gate-org" name="organization" autocomplete="organization" maxlength="200" required>
+      </div>
+
+      <!-- Honeypot: hidden from real visitors; bots often fill every field they can find. -->
+      <div class="hp-field" aria-hidden="true">
+        <label for="gate-website">Website</label>
+        <input type="text" id="gate-website" name="website" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="form-row">
+        <label>Annual compliance investment you'd consider <span style="font-weight:400;color:var(--text-muted);">(helps us tailor our response)</span></label>
+        <div class="choice-group" id="gate-budget-group" role="group" aria-label="Annual compliance investment">
+          <button type="button" class="choice-btn" data-value="under_50k">Under ₹50,000</button>
+          <button type="button" class="choice-btn" data-value="50k_2l">₹50k – ₹2 Lakh</button>
+          <button type="button" class="choice-btn" data-value="2l_10l">₹2L – ₹10 Lakh</button>
+          <button type="button" class="choice-btn" data-value="10l_plus">₹10 Lakh+</button>
+          <button type="button" class="choice-btn" data-value="need_quote">Need enterprise quote</button>
+        </div>
+      </div>
+
+      <label class="consent-row">
+        <input type="checkbox" id="gate-consent" required>
+        <span>
+          I agree that Annapurna Agentic Solutions can use my email to send me this report and
+          occasionally contact me about DPDP compliance. My questionnaire answers stay in my
+          browser and are not sent anywhere &mdash; only this form and my score are shared. I can
+          ask to be removed anytime by emailing
+          <a href="mailto:annapurnaagenticsolutions@zohomail.in" style="color:var(--blue);">annapurnaagenticsolutions@zohomail.in</a>.
+        </span>
+      </label>
+
+      <button type="submit" class="submit-btn" id="gate-submit-btn">Send Verification Code &rarr;</button>
+      <p class="gate-submit-note">A 6-digit code is sent to your work email to confirm it is valid. Free, always.</p>
+    </form>
+
+    <!-- OTP verification step (shown after form submit) -->
+    <div id="otp-step" class="otp-step" style="display:none">
+      <div class="gate-form-title">Check your email</div>
+      <p class="gate-lock-note" id="otp-sent-msg">Enter the 6-digit code we sent to your email.</p>
+      <div class="gate-error" id="otp-error"></div>
+      <div class="form-row">
+        <label for="otp-input">Verification code</label>
+        <input type="text" id="otp-input" inputmode="numeric" pattern="[0-9]{6}" maxlength="6"
+               autocomplete="one-time-code" placeholder="123456">
+      </div>
+      <button type="button" class="submit-btn" id="otp-submit-btn" onclick="submitOtp()">Verify &amp; Unlock Report &rarr;</button>
+      <p class="gate-submit-note">
+        Didn&#39;t receive it? Check spam, or
+        <button type="button" id="otp-resend-btn" class="link-btn" onclick="resendOtp()">resend the code</button>.
+        Code expires in 10 minutes.
+      </p>
+    </div>
   </div>
 
   <!-- RESULTS -->
@@ -615,7 +827,8 @@ body {
       This is a self-assessment tool based on the Digital Personal Data Protection Act, 2023.
       It is for informational purposes only and does not constitute legal advice.
       Please consult a qualified legal professional for specific compliance guidance.
-      Your answers are processed entirely in your browser and are never sent to any server.
+      Your questionnaire answers are processed entirely in your browser. Only your final score
+      and the contact details you provide when unlocking your report are sent to us.
     </p>
   </div>
 
@@ -866,9 +1079,262 @@ function calculateScore() {
       timestamp: new Date().toISOString(),
     };
 
-    showResult(lastResult);
+    showGate(lastResult);
   }, 800);
 }
+
+// --------------------------------------
+// LEAD GATE ? score teaser + OTP-verified unlock
+// Full gap report and download stay locked until email OTP is confirmed.
+// Endpoints are CF Pages Functions (/api/lead/submit, /api/lead/verify).
+// --------------------------------------
+
+// CF Pages Functions ? same origin, no absolute URL needed
+const SUBMIT_ENDPOINT = '/api/lead/submit';
+const VERIFY_ENDPOINT = '/api/lead/verify';
+const GATE_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const GATE_CONSENT_VERSION = 'v1';
+
+// Free/personal email domains ? B2B leads only (mirrors Worker list)
+const FREE_EMAIL_DOMAINS = new Set([
+  'gmail.com','googlemail.com','yahoo.com','yahoo.in','yahoo.co.in',
+  'hotmail.com','outlook.com','live.com','msn.com','icloud.com',
+  'me.com','mac.com','proton.me','protonmail.com','tutanota.com',
+  'aol.com','rediffmail.com','ymail.com','rocketmail.com',
+]);
+
+let selectedGateRole = null;
+let selectedGateSize = null;
+let selectedGateBudget = null;
+let pendingLeadEmail = null;   // set after form submit, used for OTP verify
+
+// Read UTM params from URL (captured as hidden data, never shown to user)
+const _utmParams = new URLSearchParams(location.search);
+const _utmSource   = _utmParams.get('utm_source')   || document.referrer || '';
+const _utmMedium   = _utmParams.get('utm_medium')   || '';
+const _utmCampaign = _utmParams.get('utm_campaign') || '';
+
+function showGate(r) {
+  document.getElementById('loading').classList.remove('show');
+  const gate = document.getElementById('gate-card');
+  gate.classList.add('show');
+
+  const circle = document.getElementById('gate-score-circle');
+  circle.className = 'score-circle ' + r.trafficLight.toLowerCase();
+  circle.textContent = r.score;
+  document.getElementById('gate-score-value').textContent = r.score + ' / 100';
+  document.getElementById('gate-score-grade').textContent = 'Grade ' + r.grade + ' ? ' + r.trafficLight;
+  document.getElementById('gate-gap-count').textContent = r.gaps.length + (r.gaps.length !== 1 ? ' gaps' : ' gap');
+}
+
+function showGateError(message) {
+  const errorEl = document.getElementById('gate-error');
+  errorEl.textContent = message;
+  errorEl.classList.add('show');
+}
+
+function showOtpError(message) {
+  const errorEl = document.getElementById('otp-error');
+  errorEl.textContent = message;
+  errorEl.classList.add('show');
+}
+
+function resetGate() {
+  document.getElementById('gate-card').classList.remove('show');
+  document.getElementById('gate-form').reset();
+  document.getElementById('gate-error').classList.remove('show');
+  document.getElementById('otp-step').style.display = 'none';
+  document.getElementById('otp-input').value = '';
+  document.getElementById('otp-error').classList.remove('show');
+  document.querySelectorAll('#gate-role-group .choice-btn, #gate-size-group .choice-btn, #gate-budget-group .choice-btn').forEach(b => b.classList.remove('selected'));
+  selectedGateRole = null;
+  selectedGateSize = null;
+  selectedGateBudget = null;
+  pendingLeadEmail = null;
+  const submitBtn = document.getElementById('gate-submit-btn');
+  submitBtn.disabled = false;
+  submitBtn.textContent = 'Send Verification Code \u2192';
+}
+
+async function submitGate(event) {
+  event.preventDefault();
+  document.getElementById('gate-error').classList.remove('show');
+
+  const name         = document.getElementById('gate-name').value.trim();
+  const email        = document.getElementById('gate-email').value.trim().toLowerCase();
+  const organization = document.getElementById('gate-org').value.trim();
+  const consent      = document.getElementById('gate-consent').checked;
+  const honeypot     = document.getElementById('gate-website').value.trim();
+
+  if (!name)         return showGateError('Please enter your name.');
+  if (!GATE_EMAIL_PATTERN.test(email)) return showGateError('Please enter a valid email address.');
+
+  // Free email domain check (client-side ? Worker also checks)
+  const domain = email.split('@')[1];
+  if (FREE_EMAIL_DOMAINS.has(domain)) {
+    return showGateError('Please use your work or organisation email. Personal email addresses (Gmail, Yahoo, etc.) are not accepted.');
+  }
+
+  if (!organization) return showGateError('Please enter your organisation name.');
+  if (!selectedGateRole) return showGateError('Please select your role.');
+  if (!selectedGateSize) return showGateError('Please select your company size.');
+  if (!consent)      return showGateError('Please check the consent box to continue.');
+
+  const submitBtn = document.getElementById('gate-submit-btn');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'Sending code\u2026';
+
+  const r = lastResult;
+  const payload = {
+    name, email, organization, website: honeypot,
+    role: selectedGateRole, company_size: selectedGateSize,
+    budget_range: selectedGateBudget || null,
+    sector: r.sector, score: r.score, grade: r.grade,
+    traffic_light: r.trafficLight,
+    passed: r.passed, failed: r.failed, warnings: r.warnings, total: r.total,
+    consent: true, consent_ver: GATE_CONSENT_VERSION, source_url: location.href,
+    utm_source: _utmSource, utm_medium: _utmMedium, utm_campaign: _utmCampaign,
+  };
+
+  try {
+    const response = await fetch(SUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await response.json();
+
+    if (data.status === 'already_registered') {
+      // Soft dedup ? show friendly message, don't hard block
+      showGateError(data.message || 'We already sent your results to this email. Check your inbox.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Verification Code \u2192';
+      return;
+    }
+
+    if (!response.ok || data.error) {
+      showGateError(data.message || 'Something went wrong. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Verification Code \u2192';
+      return;
+    }
+
+    // OTP sent ? show OTP step
+    pendingLeadEmail = email;
+    document.getElementById('gate-form').style.display = 'none';
+    document.getElementById('otp-sent-msg').textContent =
+      data.message || `A 6-digit code was sent to ${email}. Check your inbox (and spam).`;
+    document.getElementById('otp-step').style.display = 'block';
+    document.getElementById('otp-input').focus();
+
+  } catch (err) {
+    console.error('Submit error:', err);
+    showGateError('Network error. Please check your connection and try again.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Send Verification Code \u2192';
+  }
+}
+
+async function submitOtp() {
+  document.getElementById('otp-error').classList.remove('show');
+  const otpVal = document.getElementById('otp-input').value.trim();
+  if (!/^\d{6}$/.test(otpVal)) {
+    return showOtpError('Please enter the 6-digit code from your email.');
+  }
+
+  const btn = document.getElementById('otp-submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Verifying\u2026';
+
+  try {
+    const response = await fetch(VERIFY_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: pendingLeadEmail, otp: otpVal }),
+    });
+    const data = await response.json();
+
+    if (data.status === 'verified') {
+      // Unlock results
+      document.getElementById('gate-card').classList.remove('show');
+      showResult(lastResult);
+    } else {
+      showOtpError(data.message || 'Incorrect code. Please try again.');
+      btn.disabled = false;
+      btn.textContent = 'Verify & Unlock Report \u2192';
+    }
+  } catch (err) {
+    console.error('OTP verify error:', err);
+    showOtpError('Network error. Please check your connection and try again.');
+    btn.disabled = false;
+    btn.textContent = 'Verify & Unlock Report \u2192';
+  }
+}
+
+async function resendOtp() {
+  const resendBtn = document.getElementById('otp-resend-btn');
+  resendBtn.disabled = true;
+  resendBtn.textContent = 'Sending\u2026';
+  document.getElementById('otp-error').classList.remove('show');
+
+  // Re-trigger the gate form submission with the stored email
+  // Re-submit stored payload by re-triggering the submit endpoint
+  try {
+    const response = await fetch(SUBMIT_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: document.getElementById('gate-name').value.trim(),
+        email: pendingLeadEmail,
+        organization: document.getElementById('gate-org').value.trim(),
+        role: selectedGateRole, company_size: selectedGateSize,
+        budget_range: selectedGateBudget || null,
+        sector: lastResult.sector, score: lastResult.score,
+        consent: true, consent_ver: GATE_CONSENT_VERSION, source_url: location.href,
+        utm_source: _utmSource,
+      }),
+    });
+    const data = await response.json();
+    if (data.status === 'otp_sent' || data.status === 'already_registered') {
+      document.getElementById('otp-sent-msg').textContent = 'A new code was sent. Check your inbox.';
+    }
+  } catch (err) {
+    showOtpError('Could not resend. Please try again.');
+  }
+  setTimeout(() => {
+    resendBtn.disabled = false;
+    resendBtn.textContent = 'resend the code';
+  }, 30000); // 30s cooldown on resend button
+}
+
+// Choice button wiring: role, size, budget
+document.getElementById('gate-role-group').addEventListener('click', e => {
+  const btn = e.target.closest('.choice-btn');
+  if (!btn) return;
+  selectedGateRole = btn.dataset.value;
+  document.querySelectorAll('#gate-role-group .choice-btn').forEach(b => b.classList.toggle('selected', b === btn));
+});
+
+document.getElementById('gate-size-group').addEventListener('click', e => {
+  const btn = e.target.closest('.choice-btn');
+  if (!btn) return;
+  selectedGateSize = btn.dataset.value;
+  document.querySelectorAll('#gate-size-group .choice-btn').forEach(b => b.classList.toggle('selected', b === btn));
+});
+
+document.getElementById('gate-budget-group').addEventListener('click', e => {
+  const btn = e.target.closest('.choice-btn');
+  if (!btn) return;
+  selectedGateBudget = btn.dataset.value;
+  document.querySelectorAll('#gate-budget-group .choice-btn').forEach(b => b.classList.toggle('selected', b === btn));
+});
+
+// Allow Enter key in OTP input to submit
+document.getElementById('otp-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') { e.preventDefault(); submitOtp(); }
+});
+
+document.getElementById('gate-form').addEventListener('submit', submitGate);
 
 // --------------------------------------
 // SHOW RESULTS
@@ -1006,6 +1472,7 @@ function backToSectors() {
   selectedSector = null;
   currentQuestions = [];
   answers = {};
+  resetGate();
 
   document.getElementById('step-questions').style.display = 'none';
   document.getElementById('step-sector').style.display = 'block';
@@ -1022,6 +1489,7 @@ function restartAssessment() {
   currentQuestions = [];
   answers = {};
   lastResult = null;
+  resetGate();
 
   document.getElementById('result-card').classList.remove('show');
   document.getElementById('step-questions').style.display = 'none';
