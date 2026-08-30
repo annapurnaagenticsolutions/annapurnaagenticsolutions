@@ -9,9 +9,9 @@
   "description": "Governed AI systems, learning products and interactive digital experiences.",
   "icons": [
     {
-      "src": "assets/favicon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
+      "src": "assets/annapurna_dp.jpg",
+      "sizes": "400x400",
+      "type": "image/jpeg",
       "purpose": "any"
     }
   ]
