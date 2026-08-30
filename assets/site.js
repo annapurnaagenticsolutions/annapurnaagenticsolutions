@@ -7,7 +7,8 @@
     idea:{name:'Idea Hub',short:'Idea',core:'Enable',copy:'India-first practical digital tools for MSMEs and operators.',href:'idea-hub/',color:'#16825d',facts:['MSME','India-first','Practical'],state:'Developing'},
     axon:{name:'AXON',short:'AXON',core:'Structure',copy:'Typed agent workflows that make tools, memory and flow inspectable.',href:'axon/',color:'#8b5cf6',facts:['DSL','Typed flows','Codegen'],state:'Pre-production'},
     web:{name:'Website Studio',short:'Web',core:'Experience',copy:'Interactive design systems and immersive digital experiences.',href:'website-studio/',color:'#d94670',facts:['Interactive UX','Design systems','Immersive Web'],state:'Live'},
-    software:{name:'Software Lab',short:'Lab',core:'Experiment',copy:'Open-source experiments, reference patterns and reusable primitives.',href:'software-lab/',color:'#0891b2',facts:['Open source','Experiments','Patterns'],state:'Experiment'}
+    software:{name:'Software Lab',short:'Lab',core:'Experiment',copy:'Open-source experiments, reference patterns and reusable primitives.',href:'software-lab/',color:'#0891b2',facts:['Open source','Experiments','Patterns'],state:'Experiment'},
+    pramana:{name:'Pramana',short:'Pramana',core:'Govern',copy:'Source-grounded AI governance for India\u2019s DPDP Act — cryptographic evidence receipts, policy-as-code enforcement, and 6 live interactive showcases.',href:'pramana/',color:'#0e7490',facts:['DPDP Act','AI Governance','Compliance'],state:'Flagship'}
   };
   const fallbackPresentation={
     ai:{caption:'Governed connections',sceneArchetype:'network',story:'Signals move through policy, evidence and execution boundaries.'},
@@ -20,9 +21,9 @@
   };
   let presentation={...fallbackPresentation};
   let related={ai:['axon','pramana'],wonder:['web','idea'],idea:['software','web'],axon:['ai','software'],web:['wonder','ai'],software:['axon','idea'],pramana:['ai','axon']};
-  let phaseRules=[{key:'observing',label:'Observing',minExplored:0},{key:'mapping',label:'Mapping',minExplored:1},{key:'connecting',label:'Connecting',minExplored:3},{key:'constellation',label:'Constellation',minExplored:5}];
+  let phaseRules=[{key:'observing',label:'Observing',minExplored:0},{key:'mapping',label:'Mapping',minExplored:1},{key:'connecting',label:'Connecting',minExplored:3},{key:'constellation',label:'Constellation',minExplored:6}];
   let returnRules=[{key:'first',label:'First encounter',minSessions:1,density:.72},{key:'returning',label:'Returning',minSessions:2,density:.88},{key:'familiar',label:'Familiar',minSessions:4,density:1},{key:'embedded',label:'Embedded',minSessions:7,density:1.12}];
-  let maxTrailWorlds=6,sessionGapMinutes=360;
+  let maxTrailWorlds=7,sessionGapMinutes=360;
   let publicActivity={repos:0,commits:0,issues:0,intensity:.76,key:'steady'};
   let gesturePolicy={horizontalSwipe:true,minSwipePx:44,verticalTolerancePx:58,corePulse:true,rememberSwipeSelection:true};
   const ids=Object.keys(worlds);
@@ -40,7 +41,7 @@
   const reducedMotion=matchMedia('(prefers-reduced-motion: reduce)').matches;
   const lowPower=(Number(navigator.hardwareConcurrency)||8)<=4||navigator.connection?.saveData===true;
   document.body.dataset.motion=reducedMotion?'reduced':(lowPower?'minimal':'full');document.documentElement.dataset.motion=document.body.dataset.motion;
-  let temporalState={presentation:{label:'Shared rhythm',accentWorld:'ai',fieldNote:'A neutral shared presentation state is active.'},signals:{weekday:''},authoritativeTimezone:'shared clock'};
+  let temporalState={presentation:{label:'Shared rhythm',accentWorld:'pramana',fieldNote:'A neutral shared presentation state is active.'},signals:{weekday:''},authoritativeTimezone:'shared clock'};
   let sensoryModel=null;
   function localMoment(){
     const hour=new Date().getHours();
@@ -57,7 +58,7 @@
   function applyTemporalState(state){
     if(!state?.presentation)return;
     temporalState=state;const p=state.presentation,stage=$('.living-stage');
-    document.body.dataset.temporal=p.key||'shared';if(stage)stage.dataset.temporalWorld=p.accentWorld||'ai';
+    document.body.dataset.temporal=p.key||'shared';if(stage)stage.dataset.temporalWorld=p.accentWorld||'pramana';
     if($('#shared-temporal'))$('#shared-temporal').textContent=p.label||'Shared rhythm';
     if($('#shared-field-note'))$('#shared-field-note').textContent=` · ${p.fieldNote||''}`;
     // Shared temporal state only sets the opening visual focus when no stronger visitor signal/trail exists.
@@ -142,7 +143,7 @@
     return [...returnRules].sort((a,b)=>a.minSessions-b.minSessions).reduce((chosen,rule)=>n>=rule.minSessions?rule:chosen,returnRules[0]);
   }
 
-  let activeWorld=memory.lastWorld||'ai';
+  let activeWorld=memory.lastWorld||'pramana';
   let bursts=[];
 
   function renderMemory(){
@@ -542,12 +543,12 @@
       const delta=(e.key==='ArrowRight'||e.key==='ArrowDown')?1:-1;$$('.world-node')[(index+delta+ids.length)%ids.length]?.focus();
     });
   });
-  $('.living-stage')?.addEventListener('mouseleave',()=>setWorld(memory.lastWorld||'ai','restore'));
+  $('.living-stage')?.addEventListener('mouseleave',()=>setWorld(memory.lastWorld||'pramana','restore'));
   $$('.world-card').forEach(c=>c.addEventListener('click',()=>setWorld(c.dataset.world,'interaction')));
 
   // v3.5 spatial governor: Explore owns a dedicated narrative rail and a collision-safe field.
   const atlasBasePositions={
-    ai:[.10,.24],wonder:[.78,.18],idea:[.84,.55],axon:[.47,.84],web:[.10,.69],software:[.46,.08]
+    ai:[.10,.24],wonder:[.78,.18],idea:[.84,.55],axon:[.47,.84],web:[.10,.69],software:[.46,.08],pramana:[.86,.86]
   };
   function governAtlasLayout(){
     const atlas=$('.v3-atlas');if(!atlas||innerWidth<=760)return;
@@ -597,7 +598,7 @@
     if(b){b.textContent=`Connection pulse → ${targets.map(id=>worlds[id].short).join(' + ')}`;setTimeout(()=>{if(activeWorld&&b)b.textContent=(presentation[activeWorld]||fallbackPresentation[activeWorld]).caption},1100)}
   });
 
-  setWorld(memory.lastWorld||'ai','restore');renderMemory();
+  setWorld(memory.lastWorld||'pramana','restore');renderMemory();
 
   // v3.0: discrete camera-like story beats. Content scrolls; the same environment persists.
   const v3StoryBeats=$$('[data-v3-beat]');
@@ -645,15 +646,15 @@
   // v1.4 adaptive structure: real local signals -> inspectable rule decision -> DOM composition.
   const adaptiveFallback={
     intents:{
-      explore:{label:'Explore all',primaryWorld:'ai',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Balanced view across the Annapurna ecosystem.',reason:'No stronger intent signal is active, so the site keeps a balanced company view.',primaryCta:{label:'Explore the ecosystem →',href:'explore.html'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
-      enterprise:{label:'Enterprise AI',primaryWorld:'ai',depth:'deep',structuralOrder:['living'],focusOrder:['ai','experience','learning'],worldOrder:['ai','axon','software','web','wonder','idea'],labOrder:['runtime','axon','design'],summary:'Governance, agent infrastructure and inspectable AI systems first.',reason:'This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.',primaryCta:{label:'Explore AI systems →',href:'explore.html#world=ai'},secondaryCta:{label:'Inspect evidence',href:'evidence.html'}},
-      learning:{label:'Learning',primaryWorld:'wonder',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['wonder','web','idea','ai','software','axon'],labOrder:['design','runtime','axon'],summary:'Learning worlds, visual exploration and progressive interaction first.',reason:'This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.',primaryCta:{label:'Explore learning worlds →',href:'wonderhub-by-AnnapurnaAgenticSolutions/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
-      msme:{label:'MSME tools',primaryWorld:'idea',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['idea','software','web','ai','wonder','axon'],labOrder:['design','runtime','axon'],summary:'Practical India-first tools and delivery experience first.',reason:'This view prioritizes Idea Hub and practical product delivery before infrastructure detail.',primaryCta:{label:'Explore practical tools →',href:'idea-hub/'},secondaryCta:{label:'Explore products',href:'explore.html#world=idea'}},
-      design:{label:'Design & web',primaryWorld:'web',depth:'standard',structuralOrder:['living'],focusOrder:['experience','learning','ai'],worldOrder:['web','wonder','software','ai','idea','axon'],labOrder:['design','runtime','axon'],summary:'Interactive interfaces, immersive design and browser-native experiences first.',reason:'This view brings experience design forward, then shows the product families it connects.',primaryCta:{label:'Explore Website Studio →',href:'website-studio/'},secondaryCta:{label:'Try Interactive Lab',href:'lab.html'}}
+      explore:{label:'Explore all',primaryWorld:'pramana',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['pramana','ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Balanced view across the Annapurna ecosystem, with Pramana — our flagship DPDP governance product — leading.',reason:'No stronger intent signal is active, so the site keeps a balanced company view with Pramana as the flagship entry point.',primaryCta:{label:'Explore the ecosystem →',href:'explore.html'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
+      enterprise:{label:'Enterprise AI',primaryWorld:'ai',depth:'deep',structuralOrder:['living'],focusOrder:['ai','experience','learning'],worldOrder:['pramana','ai','axon','software','web','wonder','idea'],labOrder:['runtime','axon','design'],summary:'Governance, agent infrastructure and inspectable AI systems first.',reason:'This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.',primaryCta:{label:'Explore AI systems →',href:'explore.html#world=ai'},secondaryCta:{label:'Inspect evidence',href:'evidence.html'}},
+      learning:{label:'Learning',primaryWorld:'wonder',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['wonder','web','idea','ai','software','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Learning worlds, visual exploration and progressive interaction first.',reason:'This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.',primaryCta:{label:'Explore learning worlds →',href:'wonderhub-by-AnnapurnaAgenticSolutions/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
+      msme:{label:'MSME tools',primaryWorld:'idea',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['idea','software','web','ai','wonder','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Practical India-first tools and delivery experience first.',reason:'This view prioritizes Idea Hub and practical product delivery before infrastructure detail.',primaryCta:{label:'Explore practical tools →',href:'idea-hub/'},secondaryCta:{label:'Explore products',href:'explore.html#world=idea'}},
+      design:{label:'Design & web',primaryWorld:'web',depth:'standard',structuralOrder:['living'],focusOrder:['experience','learning','ai'],worldOrder:['web','wonder','software','ai','idea','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Interactive interfaces, immersive design and browser-native experiences first.',reason:'This view brings experience design forward, then shows the product families it connects.',primaryCta:{label:'Explore Website Studio →',href:'website-studio/'},secondaryCta:{label:'Try Interactive Lab',href:'lab.html'}}
     }
   };
   let adaptiveModel=adaptiveFallback,adaptiveDecision={intent:'explore',source:'default',reason:adaptiveFallback.intents.explore.reason},perceivedModel=null;
-  const worldIntent={ai:'enterprise',axon:'enterprise',wonder:'learning',idea:'msme',web:'design',software:'design'};
+  const worldIntent={ai:'enterprise',axon:'enterprise',pramana:'enterprise',wonder:'learning',idea:'msme',web:'design',software:'design'};
   const perfMetrics={lcp:null,interactionMax:null,longTaskTotal:0,domContentLoaded:null,load:null};
   window.__livingMetrics=perfMetrics;
   try{
@@ -721,7 +722,7 @@
     const labGrid=$('.lab-grid');if(labGrid&&Array.isArray(config.labOrder))config.labOrder.forEach((key,i)=>{const card=labGrid.querySelector(`[data-sim-card="${key}"]`);if(card){labGrid.appendChild(card);card.classList.toggle('is-priority',i===0)}});
   }
   const featuredRoutes={
-    explore:{title:'A connected portfolio, from systems to experiences.',summary:'Move between the six product worlds and follow the relationships that connect them.',steps:['ai','wonder','web'],href:'explore.html'},
+    explore:{title:'A connected portfolio, from governance to experiences.',summary:'Move between the product worlds and follow the relationships that connect them — starting with Pramana, our flagship DPDP governance product.',steps:['pramana','ai','web'],href:'explore.html'},
     enterprise:{title:'Governed AI from structure to experience.',summary:'Start with governance, move through typed agent structure, then see how the system is surfaced to users.',steps:['ai','axon','web'],href:'explore.html#world=ai'},
     learning:{title:'Learning worlds connected to experience design.',summary:'Move from interactive learning into the experience patterns and practical tools that help it reach real users.',steps:['wonder','web','idea'],href:'wonderhub-by-AnnapurnaAgenticSolutions/'},
     msme:{title:'Practical tools from idea to delivery.',summary:'Follow an India-first product idea through software experimentation and the interface that delivers it.',steps:['idea','software','web'],href:'idea-hub/'},
@@ -733,7 +734,8 @@
     idea:{title:'Practical ideas connect experimentation to delivery.',steps:['idea','software','web']},
     axon:{title:'Typed agent structure connects governance to software patterns.',steps:['axon','ai','software']},
     web:{title:'Experience design connects learning to governed systems.',steps:['web','wonder','ai']},
-    software:{title:'Experiments connect structure to practical products.',steps:['software','axon','idea']}
+    software:{title:'Experiments connect structure to practical products.',steps:['software','axon','idea']},
+    pramana:{title:'Governed AI connects statutory grounding to evidence-led execution.',steps:['pramana','ai','axon']}
   };
   let activeRouteIndex=0,currentFeaturedRoute=featuredRoutes.explore;
 
@@ -1065,7 +1067,7 @@
   function semanticWorldHref(id){return siteHref(`explore.html#world=${encodeURIComponent(id)}`)}
   function mountPageContext(){
     const home=location.pathname.endsWith('/')||location.pathname.endsWith('/index.html')||location.pathname.endsWith('index.html');if(home||$('.page-context-ribbon'))return;
-    const ids=(memory.trail?.length?memory.trail.slice(-3):[memory.lastWorld]).filter(id=>worlds[id]);const last=ids[ids.length-1]||'ai';
+    const ids=(memory.trail?.length?memory.trail.slice(-3):[memory.lastWorld]).filter(id=>worlds[id]);const last=ids[ids.length-1]||'pramana';
     const trailAge=memory.trailUpdatedAt?Math.max(0,now-memory.trailUpdatedAt):Infinity;const DAY=86_400_000;
     if(trailAge>90*DAY)return;
     const stale=trailAge>30*DAY;document.documentElement.style.setProperty('--world-accent',worlds[last].color);
