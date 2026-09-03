@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+<title>Security | Annapurna Agentic Solutions</title>
+<meta name="description" content="Vulnerability disclosure policy for Annapurna Agentic Solutions and the Pramana governance system. How to report a security issue responsibly."/>
+<link rel="canonical" href="https://annapurnaagenticsolutions.com/security/"/>
+<link href="../assets/site.css" rel="stylesheet"/>
+<link href="../assets/company.css" rel="stylesheet"/>
+<meta name="robots" content="index,follow"/>
+<meta name="theme-color" content="#ffffff"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<link rel="icon" href="../assets/annapurna_dp.jpg" type="image/jpeg"/>
+<link rel="manifest" href="../site.webmanifest"/>
+</head>
+<body class="v42-about">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" aria-label="Annapurna Agentic Solutions home" href="../">
+      <span aria-hidden="true" class="brand-mark"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <nav aria-label="Primary" class="nav-links">
+      <a href="../pramana/">Pramana</a>
+      <a href="../explore.html">Explore</a>
+      <a href="../evidence.html">Evidence</a>
+      <a href="../about/">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-soft" href="../contact/">Contact</a>
+      <button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">&#9776;</button>
+    </div>
+    <nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation">
+      <a href="../pramana/">Pramana</a>
+      <a href="../explore.html">Explore</a>
+      <a href="../evidence.html">Evidence</a>
+      <a href="../about/">About</a>
+      <a href="../contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">SECURITY</span>
+      <h1>Vulnerability Disclosure Policy</h1>
+      <p>We take security seriously. If you have found a potential vulnerability in Annapurna Agentic Solutions&#x2019; website, systems, or the Pramana governance engine, please tell us responsibly. We will acknowledge, investigate, and respond.</p>
+    </div>
+  </section>
+
+  <section class="v42-section">
+    <div class="wrap">
+
+      <div class="v42-security-grid">
+
+        <div class="v42-security-block">
+          <h2>How to report</h2>
+          <p>Send a report to <a href="mailto:security@annapurnaagenticsolutions.com">security@annapurnaagenticsolutions.com</a>. Please include:</p>
+          <ul class="v42-security-list">
+            <li>A description of the issue and where you found it</li>
+            <li>Steps to reproduce it reliably</li>
+            <li>The potential impact as you understand it</li>
+            <li>Any supporting screenshots, logs, or proof-of-concept (no need to exploit — the report is enough)</li>
+          </ul>
+          <p>We do not currently have a bug bounty programme, but we will acknowledge every good-faith report and keep you updated on its resolution.</p>
+        </div>
+
+        <div class="v42-security-block">
+          <h2>What to expect</h2>
+          <ul class="v42-security-list">
+            <li><strong>Acknowledgement</strong> within 5 business days of your report</li>
+            <li><strong>Initial triage and severity assessment</strong> within 10 business days</li>
+            <li><strong>Resolution or interim mitigation</strong> communicated to you once applied</li>
+            <li>We will credit you publicly (with your consent) when the issue is resolved</li>
+          </ul>
+        </div>
+
+        <div class="v42-security-block">
+          <h2>Scope</h2>
+          <p>In scope:</p>
+          <ul class="v42-security-list">
+            <li>This website and its subpages</li>
+            <li>Pramana&#x2019;s API surface when deployed by Annapurna Agentic Solutions for demonstration</li>
+            <li>Any exposure of personal data, credentials, or internal configuration</li>
+          </ul>
+          <p>Out of scope:</p>
+          <ul class="v42-security-list">
+            <li>Customer-hosted Pramana deployments (those are operated by the customer; they are responsible for their own infrastructure)</li>
+            <li>Automated scanning results without a proof-of-concept</li>
+            <li>Issues requiring physical access to hardware we do not operate</li>
+          </ul>
+        </div>
+
+        <div class="v42-security-block">
+          <h2>Good faith</h2>
+          <p>We ask that you:</p>
+          <ul class="v42-security-list">
+            <li>Give us reasonable time to respond before public disclosure</li>
+            <li>Do not access or modify data belonging to other users</li>
+            <li>Do not disrupt the availability of the site for others</li>
+          </ul>
+          <p>In return, we commit to:</p>
+          <ul class="v42-security-list">
+            <li>Treat your report in good faith</li>
+            <li>Not pursue legal action against researchers acting within this policy</li>
+            <li>Correct valid findings promptly</li>
+          </ul>
+        </div>
+
+        <div class="v42-security-block">
+          <h2>Our own incident response</h2>
+          <p>Annapurna Agentic Solutions maintains a written incident response plan. In the event of a security incident affecting personal data we hold (such as website lead data), we commit to notifying affected individuals and the Data Protection Board of India within the timeframes required by the DPDP Act 2023.</p>
+          <p>The Pramana system is designed so that customer-hosted deployments are fully self-contained &mdash; your governance evidence records and personal data never leave your infrastructure. Annapurna does not hold your operational data.</p>
+        </div>
+
+        <div class="v42-security-block">
+          <h2>Machine-readable disclosure</h2>
+          <p>Our <a href="/.well-known/security.txt"><code>security.txt</code></a> is available at the standard path per <a href="https://www.rfc-editor.org/rfc/rfc9116" target="_blank" rel="noopener noreferrer">RFC 9116 &#x2197;</a>.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <span>&#169; 2026 Annapurna Agentic Solutions &middot; Bengaluru, India</span>
+    <div class="footer-links">
+      <a href="../pramana/">Pramana</a>
+      <a href="../evidence.html">Evidence</a>
+      <a href="../about/">About</a>
+      <a href="../contact/">Contact</a>
+      <a href="./">Security</a>
+      <a href="../privacy/">Privacy</a>
+    </div>
+  </div>
+</footer>
+<script defer src="../assets/public-data.js"></script>
+<script defer src="../assets/site.js"></script>
+</body>
+</html>

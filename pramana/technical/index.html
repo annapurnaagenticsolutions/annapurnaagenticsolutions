@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'"/>
+<title>Pramana &#x2014; Technical Overview | Annapurna</title>
+<meta name="description" content="Pramana technical overview for engineers and architects. Three-layer governance pipeline, deterministic decisions, cryptographic evidence chain, formally verifiable policy enforcement. Full documentation available under NDA."/>
+<link rel="canonical" href="https://annapurnaagenticsolutions.com/pramana/technical/"/>
+<link href="../../assets/site.css" rel="stylesheet"/>
+<link href="../../assets/company.css" rel="stylesheet"/>
+<meta name="robots" content="index,follow"/>
+<meta name="theme-color" content="#ffffff"/>
+<meta name="color-scheme" content="light"/>
+<meta name="referrer" content="strict-origin-when-cross-origin"/>
+<link rel="icon" href="../../assets/annapurna_dp.jpg" type="image/jpeg"/>
+<link rel="manifest" href="../../site.webmanifest"/>
+</head>
+<body class="v42-about">
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../">
+      <span aria-hidden="true" class="brand-mark"></span>
+      <span>Annapurna Agentic Solutions</span>
+    </a>
+    <nav aria-label="Primary" class="nav-links">
+      <a href="../">Pramana</a>
+      <a href="../demos/">Showcases</a>
+      <a href="../../explore.html">Explore</a>
+      <a href="../../lab.html">Interactive Lab</a>
+      <a href="../../evidence.html">Evidence</a>
+      <a href="../../about/">About</a>
+    </nav>
+    <div class="nav-actions">
+      <a class="btn btn-soft" href="../../contact/">Contact</a>
+      <button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">&#9776;</button>
+    </div>
+    <nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation">
+      <a href="../">Pramana</a>
+      <a href="../demos/">Showcases</a>
+      <a href="../../explore.html">Explore</a>
+      <a href="../../lab.html">Interactive Lab</a>
+      <a href="../../evidence.html">Evidence</a>
+      <a href="../../about/">About</a>
+      <a href="../../contact/">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main-content" tabindex="-1">
+
+  <!-- HERO -->
+  <section class="page-hero">
+    <div class="wrap">
+      <span class="eyebrow">PRAMANA &middot; TECHNICAL OVERVIEW</span>
+      <h1>For engineers and architects evaluating Pramana.</h1>
+      <p>This page describes Pramana&rsquo;s architecture, guarantees, and integration approach at a conceptual level. Full technical documentation &mdash; API specifications, integration guides, and architecture deep-dives &mdash; is available to qualified evaluators under NDA. <a href="../../contact/">Contact us to request it.</a></p>
+      <div class="subnav">
+        <a href="#architecture">Architecture</a>
+        <a href="#guarantees">Guarantees</a>
+        <a href="#integration">Integration</a>
+        <a href="#benchmarks">Benchmarks</a>
+        <a href="#deployment">Deployment</a>
+        <a href="#nda">Full Documentation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 1. ARCHITECTURE — CONCEPT, NO IMPLEMENTATION NAMES -->
+  <section class="v42-section" id="architecture">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SYSTEM ARCHITECTURE</p>
+          <h2>A three-layer governance pipeline between your AI and the world.</h2>
+        </div>
+        <p>Pramana sits between your AI system and the actions it wants to take. Before any action executes, three checks happen in sequence. All three complete in a single governance decision under 50ms.</p>
+      </div>
+
+      <!-- Architecture flow diagram - pure CSS, no images, no inline styles -->
+      <div class="v42-arch-diagram" aria-label="Pramana three-layer governance pipeline" role="img">
+        <div class="v42-arch-source">
+          <span class="v42-arch-label">Your AI System</span>
+          <span class="v42-arch-sublabel">Any decision that touches personal data</span>
+        </div>
+        <div class="v42-arch-arrow" aria-hidden="true">&#x2193;</div>
+        <div class="v42-arch-layer v42-arch-layer-1">
+          <span class="v42-arch-num">01</span>
+          <div class="v42-arch-layer-body">
+            <span class="v42-arch-layer-name">Statutory Grounding</span>
+            <span class="v42-arch-layer-desc">Every AI-generated legal claim checked against primary Gazette sources</span>
+          </div>
+          <span class="v42-arch-badge-pass">Claim valid &#x2713;</span>
+        </div>
+        <div class="v42-arch-arrow" aria-hidden="true">&#x2193;</div>
+        <div class="v42-arch-layer v42-arch-layer-2">
+          <span class="v42-arch-num">02</span>
+          <div class="v42-arch-layer-body">
+            <span class="v42-arch-layer-name">Policy Enforcement</span>
+            <span class="v42-arch-layer-desc">Your compliance rules enforced before the action executes</span>
+          </div>
+          <span class="v42-arch-badge-pass">Policy satisfied &#x2713;</span>
+        </div>
+        <div class="v42-arch-arrow" aria-hidden="true">&#x2193;</div>
+        <div class="v42-arch-layer v42-arch-layer-3">
+          <span class="v42-arch-num">03</span>
+          <div class="v42-arch-layer-body">
+            <span class="v42-arch-layer-name">Evidence Sealing</span>
+            <span class="v42-arch-layer-desc">Decision, rule applied, timestamp &mdash; sealed in the evidence ledger</span>
+          </div>
+          <span class="v42-arch-badge-pass">Receipt issued &#x2713;</span>
+        </div>
+        <div class="v42-arch-arrow" aria-hidden="true">&#x2193;</div>
+        <div class="v42-arch-outcomes">
+          <div class="v42-arch-outcome v42-arch-outcome-pass">
+            <span>&#x2714;</span><span>Action executes</span>
+            <span class="v42-arch-outcome-sub">With sealed evidence</span>
+          </div>
+          <div class="v42-arch-outcome v42-arch-outcome-hold">
+            <span>&#x23F8;</span><span>Held for review</span>
+            <span class="v42-arch-outcome-sub">Human must approve</span>
+          </div>
+          <div class="v42-arch-outcome v42-arch-outcome-block">
+            <span>&#x2715;</span><span>Blocked</span>
+            <span class="v42-arch-outcome-sub">With block receipt</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="v42-pillar-grid">
+
+        <article class="v42-pillar-card v42-card-highlight-blue">
+          <span class="v42-link-kind">LAYER ONE &mdash; STATUTORY GROUNDING</span>
+          <h3>Every AI claim about the law is verified against primary sources.</h3>
+          <p>AI systems hallucinate. When they hallucinate about law &mdash; citing provisions that do not exist, misquoting obligations, inventing statutory references &mdash; the downstream consequence is a legal liability for your organisation.</p>
+          <p>Pramana&rsquo;s first layer checks every AI-generated statutory claim against a structured, versioned knowledge graph built from primary Gazette publications. The check is <strong>deterministic</strong> &mdash; not probabilistic re-evaluation by another AI. The knowledge graph version used for each check is recorded in the evidence receipt, so the basis for every decision is permanently traceable.</p>
+          <p class="v42-analogy-line">If the AI cites a provision that does not exist in the knowledge graph, the output is held. A phantom statute never reaches your customer.</p>
+        </article>
+
+        <article class="v42-pillar-card v42-card-highlight-amber">
+          <span class="v42-link-kind">LAYER TWO &mdash; POLICY ENFORCEMENT</span>
+          <h3>Your compliance rules are enforced before any action executes &mdash; not audited after.</h3>
+          <p>After the statutory check, the proposed action is evaluated against your organisation&rsquo;s defined policy set. Policies are expressed declaratively and are <strong>formally verifiable</strong> &mdash; before deployment, you can prove that a policy set is internally consistent, covers every action category, and cannot be bypassed by edge-case inputs.</p>
+          <p>The outcome of every policy evaluation is one of three dispositions: <strong>approved</strong> (action proceeds), <strong>blocked</strong> (action is denied and a receipt is issued), or <strong>held for human review</strong> (action waits in a reviewer queue until a named individual approves or rejects it). All three dispositions produce an evidence receipt.</p>
+          <p class="v42-analogy-line">Every compliance rule you define becomes a hard enforcement boundary &mdash; not a recommendation, not a post-hoc audit finding.</p>
+        </article>
+
+        <article class="v42-pillar-card v42-card-highlight-red">
+          <span class="v42-link-kind">LAYER THREE &mdash; EVIDENCE SEALING</span>
+          <h3>Every governance decision leaves a tamper-evident, auditor-readable receipt.</h3>
+          <p>Whether a decision was approved, blocked, or sent for human review &mdash; a cryptographically signed receipt is issued. Receipts form an <strong>integrity-verifiable chain</strong>: each receipt contains a verifiable reference to the one before it. Any gap in the chain, or any alteration to a historical receipt, is immediately detectable without access to the production system.</p>
+          <p>Receipts record: the action requested, the statutory provisions checked (with knowledge graph version), the policy rules applied (with policy version), the outcome, the timestamp at nanosecond precision, and &mdash; for human-review decisions &mdash; the identity of the reviewer and the time of their decision.</p>
+          <p class="v42-analogy-line">When the DPBI asks &ldquo;show us what your AI decided&rdquo; &mdash; this chain is your answer. It cannot be reconstructed after the fact. It can only be produced if it was created at decision time.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. FIVE KEY GUARANTEES -->
+  <section class="v42-section" id="guarantees">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">SYSTEM GUARANTEES</p>
+          <h2>Five properties a technical evaluator should test.</h2>
+        </div>
+        <p>These are not design aspirations. They are verifiable properties. We encourage evaluators to attempt to break them in a private test environment.</p>
+      </div>
+      <div class="v42-pillar-grid">
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 1 &mdash; DETERMINISM</span>
+          <h3>The same input always produces the same governance decision.</h3>
+          <p>Pramana&rsquo;s governance layer is not probabilistic. It does not re-evaluate decisions using a language model. Given an identical action request, an identical knowledge graph state, and an identical policy set &mdash; the decision will always be identical. This is a fundamental requirement for legal evidence: a decision that might be different if re-run is not a decision you can cite in proceedings.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 2 &mdash; CHAIN INTEGRITY</span>
+          <h3>Any tampering with historical receipts is detectable.</h3>
+          <p>Evidence receipts form a cryptographically linked chain. If any receipt in the sequence is altered, deleted, or replaced &mdash; even a single bit &mdash; the chain integrity check fails. This is verifiable by any third party with the public verification key, without access to the production system or the private signing material.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 3 &mdash; OFFLINE VERIFIABILITY</span>
+          <h3>Evidence bundles can be verified without system access.</h3>
+          <p>The sealed evidence bundle you export for a regulatory submission can be cryptographically verified by the DPBI, an auditor, or a court &mdash; without them needing access to your production system, your private signing material, or any live component of Pramana. The bundle is self-contained and verifiable in isolation.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 4 &mdash; FORMAL POLICY VERIFICATION</span>
+          <h3>Policy completeness and non-bypassability are provable before deployment.</h3>
+          <p>Pramana uses a policy engine with formal analysis tooling. Before a policy set goes to production, you can prove &mdash; mathematically, not through testing &mdash; that the policy set covers every action category you intend to govern, that no two rules contradict each other, and that there is no combination of inputs that would allow an action to bypass the policy enforcement layer. This is a stronger guarantee than test coverage.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 5 &mdash; ZERO EXTERNAL CALLS</span>
+          <h3>No data leaves your infrastructure. Ever.</h3>
+          <p>Pramana makes no external network calls during operation &mdash; no telemetry, no phone-home, no cloud API calls, no external model inference. Governance decisions are made entirely within your own infrastructure, using only the knowledge graph and policy rules you have deployed. This is not a privacy policy. It is a verifiable architectural property: there is no outbound connection in the system.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">GUARANTEE 6 &mdash; KNOWLEDGE GRAPH VERSIONING</span>
+          <h3>Every decision is traceable to the exact statutory source used.</h3>
+          <p>The knowledge graph is versioned. Every governance receipt records which version of the graph was used at decision time. If the DPDP Rules are updated, you update the graph, increment the version, and deploy. All prior decisions remain traceable to the exact statutory text that governed them at the time &mdash; so your evidence record does not become ambiguous when the law changes.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INTEGRATION APPROACH — CONCEPTS ONLY -->
+  <section class="v42-section" id="integration">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">INTEGRATION APPROACH</p>
+          <h2>In-process middleware. Not a proxy. Not a separate service.</h2>
+        </div>
+        <p>Pramana is designed to be the smallest possible addition to your existing AI system &mdash; one that adds governance without changing anything your users experience.</p>
+      </div>
+      <div class="v42-pillar-grid">
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">INTEGRATION PATTERN &mdash; INTERCEPT BEFORE ACTION</span>
+          <h3>Wrap the action-dispatch layer, not the AI model itself.</h3>
+          <p>You do not replace your AI model. You do not change your user interface. Pramana integrates at the point where your AI&rsquo;s intent translates into a real-world action &mdash; a database write, an API call, a notification, a decision record. Before the action executes, it passes through the governance gate. If approved, it proceeds. If blocked or held, the gate returns the disposition and a sealed receipt; your existing code handles the fallback.</p>
+          <p>Full API specification &mdash; method signatures, request/response schemas, error handling, and timeout behaviour &mdash; is available under NDA.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">INTEGRATION PATTERN &mdash; CLAIM VERIFICATION</span>
+          <h3>Pipe LLM output through the statutory checker before it reaches the user.</h3>
+          <p>For AI systems that generate customer-facing responses containing regulatory language, Pramana provides a claim-verification integration point. The LLM&rsquo;s output is passed through before delivery. Any statutory reference is matched against the knowledge graph. If a provision does not exist or is materially misapplied, the output is held and a clean fallback is returned.</p>
+          <p>This pattern requires no change to how your LLM is prompted or invoked &mdash; it intercepts the output, not the input.</p>
+        </article>
+
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">INTEGRATION PATTERN &mdash; HUMAN REVIEW QUEUE</span>
+          <h3>Significant decisions require a named human to approve before they execute.</h3>
+          <p>Certain decision categories &mdash; credit denial, data deletion, cross-system transfers, any action involving a minor&rsquo;s data &mdash; can be configured to require explicit human approval before execution. The action is held in a reviewer queue. A named individual reviews the AI&rsquo;s recommendation, approves or rejects it, and that human decision (including the reviewer&rsquo;s identity and timestamp) is sealed into the evidence chain alongside the AI&rsquo;s original recommendation.</p>
+          <p>The DPBI audit record then shows not just what the AI recommended, but who reviewed it and when.</p>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. BENCHMARKS — OUTCOMES ONLY, NO IMPLEMENTATION -->
+  <section class="v42-section" id="benchmarks">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">GOVERNANCE BENCHMARKS</p>
+          <h2>Five DPDP Act scenarios &mdash; decision outcomes.</h2>
+        </div>
+        <p>These five scenarios form Pramana&rsquo;s primary governance benchmark suite. Each represents a real class of AI decision that triggers a specific DPDP Act obligation. The outcome column shows what Pramana produces &mdash; not how.</p>
+      </div>
+      <div class="v42-scenario-box">
+        <table class="v42-scenario-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>DPDP Act obligation triggered</th>
+              <th>Pramana outcome</th>
+              <th>Evidence produced</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>AI cites a statutory provision that does not exist in the DPDP Act</td>
+              <td>Misrepresentation of legal rights to a Data Principal</td>
+              <td><span class="v42-badge v42-badge-held">HELD</span></td>
+              <td>Flagged receipt &mdash; identifies the phantom provision, holds the output for correction before delivery</td>
+            </tr>
+            <tr>
+              <td>Data from a customer support interaction is routed to a marketing pipeline without fresh consent</td>
+              <td>Purpose limitation (DPDP Act S.4) &middot; Consent scope (S.6)</td>
+              <td><span class="v42-badge v42-badge-blocked">BLOCKED</span></td>
+              <td>Block receipt &mdash; records the proposed transfer, the applicable rule, and the timestamp. Chain-linked to the original consent record.</td>
+            </tr>
+            <tr>
+              <td>AI recommends a loan denial with no human review gate configured</td>
+              <td>Significant automated decisions affecting individuals (S.12)</td>
+              <td><span class="v42-badge v42-badge-human">HELD FOR HUMAN REVIEW</span></td>
+              <td>Review receipt &mdash; records AI recommendation, reviewer identity, approval/rejection decision, and time. Both the AI and human layers are in the evidence chain.</td>
+            </tr>
+            <tr>
+              <td>AI action targets a data principal flagged as a minor &mdash; no verified parental consent on record</td>
+              <td>Children&rsquo;s data processing (S.9) &middot; DPDP Rules 2025, Rule 10</td>
+              <td><span class="v42-badge v42-badge-blocked">BLOCKED</span></td>
+              <td>Block receipt &mdash; confirms the minor flag, the absence of verified parental consent, and the policy rule activated. This receipt is the evidentiary proof that the safeguard was operational.</td>
+            </tr>
+            <tr>
+              <td>DPBI formal evidence request for a named individual &mdash; 180-day decision window</td>
+              <td>Evidence production in regulatory proceedings (S.18, S.33)</td>
+              <td><span class="v42-badge v42-badge-sealed">SEALED EXPORT</span></td>
+              <td>Integrity-verified export bundle &mdash; all governance receipts for the requested principal in chain sequence, verifiable by the DPBI without access to the production system.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="v42-table-note">Benchmark scenarios are run against the deterministic governance pipeline. Identical inputs produce identical outcomes. Performance: all five scenarios complete governance evaluation in under 50ms per decision (p99 on reference hardware). <em>Full benchmark methodology and test harness documentation available under NDA.</em></p>
+    </div>
+  </section>
+
+  <!-- 5. PERFORMANCE -->
+  <section class="v42-section">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">PERFORMANCE</p>
+          <h2>Governance that runs in the background &mdash; invisibly.</h2>
+        </div>
+      </div>
+      <div class="v42-pillar-grid">
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">DECISION LATENCY</span>
+          <h3>Under 50ms per governance decision (p99)</h3>
+          <p>The full three-layer pipeline &mdash; statutory grounding check, policy evaluation, and evidence receipt generation &mdash; completes in under 50 milliseconds at the 99th percentile on reference hardware. Users and customers experience no change in response time.</p>
+          <p>Latency scales predictably with policy set complexity. The primary driver is policy evaluation; knowledge graph lookups and receipt generation are constant-time operations for most decision types.</p>
+        </article>
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">KNOWLEDGE GRAPH</span>
+          <h3>Versioned statutory graph &mdash; DPDP Act, IT Act, sector schedules</h3>
+          <p>The primary knowledge graph covers the DPDP Act 2023 (all sections), DPDP Rules 2025, IT Act 2000 (data-relevant provisions), NITI Aayog AI principles, OECD AI Recommendations, ISO/IEC 42001 clauses, and NIST AI RMF categories. An extended graph covering additional frameworks is under active development.</p>
+          <p>The graph is versioned independently of the policy engine. Knowledge graph updates are deployed without requiring a system restart or policy set recompilation.</p>
+        </article>
+        <article class="v42-pillar-card">
+          <span class="v42-link-kind">POLICY ENGINE</span>
+          <h3>Declarative, formally verifiable &mdash; not rule-weight tuning</h3>
+          <p>Policies are expressed declaratively in a structured format. The engine supports formal analysis &mdash; before deployment, you can verify that your policy set is complete (covers every intended action category), consistent (no two rules contradict each other), and non-bypassable (no edge-case input can skip enforcement).</p>
+          <p>This is fundamentally different from ML-based anomaly detection or weighted rule engines &mdash; the outcome of a policy evaluation is provable from the policy text alone, without running the system.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. DEPLOYMENT -->
+  <section class="v42-section" id="deployment">
+    <div class="wrap">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">DEPLOYMENT MODEL</p>
+          <h2>Single-tenant. Your infrastructure. No external dependencies.</h2>
+        </div>
+      </div>
+      <div class="v42-scenario-box">
+        <table class="v42-scenario-table">
+          <thead>
+            <tr><th>Property</th><th>Value</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Deployment topology</td><td>Single-tenant, customer-hosted (on-premise or private cloud)</td></tr>
+            <tr><td>Multi-tenant / shared infrastructure</td><td>Not available. Each deployment is isolated.</td></tr>
+            <tr><td>Outbound network calls during operation</td><td>None. Zero telemetry. Zero phone-home.</td></tr>
+            <tr><td>Data residency</td><td>All governance data, receipts, and the knowledge graph remain within your infrastructure boundary. Nothing leaves.</td></tr>
+            <tr><td>License verification</td><td>Offline &mdash; cryptographically verified against the embedded public key. No external call required for license validation.</td></tr>
+            <tr><td>Knowledge graph updates</td><td>Versioned packages delivered via secure channel. Applied and verified by your operations team. No automatic updates.</td></tr>
+            <tr><td>Policy set changes</td><td>Declarative format, version-controlled. Changes require a controlled deployment. Hot-reload is not supported in the current release (intentional &mdash; policy changes should be deliberate, not continuous).</td></tr>
+            <tr><td>Evidence storage</td><td>Append-only local store. Receipts are tamper-evident once written &mdash; any later modification is detected and flagged. Storage engine choice documented in the full integration guide (NDA).</td></tr>
+            <tr><td>Current status</td><td>Private beta. Structured engagement &mdash; not self-serve. Founding buyer terms available.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <section class="v42-section">
+    <div class="wrap">
+      <div class="v42-disclaimer-card">
+        <strong>About This Product &amp; Honest Positioning</strong>
+        Pramana is a governed AI workflow system in private beta, developed by Annapurna Agentic Solutions. Deployment is single-tenant and customer-hosted (on-premise or private cloud). All regulatory content is founder primary-source checked against official Gazette publications, but is not independently legally verified.
+        <br/><br/>
+        Pramana assists with generating proof of AI governance decisions, enforcing compliance rules before AI actions execute, and checking AI-generated regulatory claims against primary statutory sources. It does not replace legal counsel, a professional compliance audit, or your organisation&rsquo;s governance policies.
+        <br/><br/>
+        Content on this page does not constitute legal advice and does not certify statutory DPDP compliance.
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. FULL DOCUMENTATION — NDA CTA -->
+  <section class="v42-section" id="nda">
+    <div class="wrap">
+      <div class="v42-story-block">
+        <span class="eyebrow">FULL TECHNICAL DOCUMENTATION</span>
+        <h2>Available to qualified evaluators under mutual NDA.</h2>
+        <p class="v42-story-para">The documentation package shared under NDA includes:</p>
+        <ul class="v42-tech-doc-list">
+          <li>Full system architecture &mdash; technology stack, component design, data flow diagrams</li>
+          <li>API specification &mdash; method signatures, request/response schemas, authentication, error handling</li>
+          <li>Policy authoring guide &mdash; policy language reference, worked examples for DPDP, RBI, and sector-specific obligations</li>
+          <li>Knowledge graph structure &mdash; node taxonomy, edge types, update procedures</li>
+          <li>Integration guide &mdash; patterns for specific AI frameworks, agent orchestration systems, and enterprise middleware</li>
+          <li>Evidence bundle specification &mdash; receipt format, chain verification procedure, export format</li>
+          <li>Benchmark methodology &mdash; test harness, reproduction steps, hardware reference configuration</li>
+          <li>Deployment runbook &mdash; installation, configuration, ongoing operations</li>
+        </ul>
+        <p class="v42-story-para">Engagements are structured &mdash; a private demonstration first, followed by a technical deep-dive with your engineering team, then a proof-of-concept deployment in your environment if the fit is confirmed. We do not do self-serve evaluations, because the right configuration depends on your specific AI systems and compliance obligations.</p>
+        <div class="hero-actions v42-cta-actions">
+          <a class="btn btn-primary" href="../../contact/">Request technical evaluation &#x2192;</a>
+          <a class="btn btn-soft" href="../demos/">Try the interactive showcases first</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <span>&#169; 2026 Annapurna Agentic Solutions &middot; Technical overview
+    <span class="v42-ai-disclosure">Content drafted with AI assistance; regulatory statements founder primary-source checked against official Gazette publications.</span></span>
+    <div class="footer-links">
+      <a href="../">Pramana</a>
+      <a href="../demos/">Showcases</a>
+      <a href="../../explore.html">Explore</a>
+      <a href="../../evidence.html">Evidence</a>
+      <a href="../../contact/">Contact</a>
+      <a href="../../privacy/">Privacy</a>
+      <a href="https://github.com/annapurnaagenticsolutions" target="_blank" rel="noopener noreferrer">GitHub &#x2197;</a>
+    </div>
+  </div>
+</footer>
+<script defer src="../../assets/public-data.js"></script>
+<script defer src="../../assets/site.js"></script>
+</body>
+</html>

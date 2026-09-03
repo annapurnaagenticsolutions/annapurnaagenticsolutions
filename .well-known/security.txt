@@ -1,0 +1,5 @@
+Contact: mailto:security@annapurnaagenticsolutions.com
+Expires: 2027-09-03T00:00:00.000Z
+Preferred-Languages: en
+Canonical: https://annapurnaagenticsolutions.com/.well-known/security.txt
+Policy: https://annapurnaagenticsolutions.com/security/
