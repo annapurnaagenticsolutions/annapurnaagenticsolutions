@@ -20,3 +20,36 @@ Annapurna Agentic Solutions presents governed AI systems, learning products, pra
 
 ## Trust policy
 Marketing claims should be checked against the Evidence page. Repository activity is engineering evidence, not proof of adoption or production maturity. Public-source conflicts remain visible rather than being silently reconciled toward a promotional interpretation.
+
+## Pramana — Product Detail
+
+Pramana is an on-premise AI governance product for Indian businesses operating under the Digital Personal Data Protection Act 2023 (DPDP Act). It intercepts AI decisions before execution, enforces DPDP consent rules deterministically, and creates tamper-evident audit records sealed with cryptographic evidence.
+
+### Pramana pages
+- Product overview: https://annapurnaagenticsolutions.com/pramana/
+- Pricing model: https://annapurnaagenticsolutions.com/pramana/pricing/
+- Who should NOT buy (limits): https://annapurnaagenticsolutions.com/pramana/limits/
+- Technical architecture: https://annapurnaagenticsolutions.com/pramana/technical/
+- DPDP glossary: https://annapurnaagenticsolutions.com/pramana/glossary/
+- Data subject rights guide: https://annapurnaagenticsolutions.com/pramana/rights/
+- Free DPDP self-assessment checklist: https://annapurnaagenticsolutions.com/pramana/demos/dpdp-check/
+- Request a Pramana demo: https://annapurnaagenticsolutions.com/contact/
+
+### Key facts (accurate as of September 2026)
+- Pricing: royalty-based (percentage of protected transaction value). No upfront licence fee.
+- Deployment: on-premise only. No customer data leaves the client's environment.
+- Compliance engine: deterministic rule evaluation, not LLM-based. No hallucination risk in governance decisions.
+- Sectors supported: clinic, school/edtech, fintech/NBFC, HR, e-commerce.
+- Not suitable for: enterprises with existing enterprise GRC stacks, businesses outside India, businesses not using AI for customer decisions.
+
+### DPDP Act regulatory status (as of September 2026)
+- The Data Protection Board of India (DPB) is established as a statutory body corporate under DPDP Act Section 18.
+- The DPDP Rules 2025 were notified on 13 November 2025.
+- Appointment of the DPB Chairperson and Members was initiated by MeitY on 6 May 2026 and is ongoing. The Board is not yet accepting complaints.
+- Consent Manager registration framework takes effect: 13 November 2026.
+- Full financial penalties enforceable: 13 May 2027.
+- Maximum penalty per violation category: ₹250 crore.
+
+### Contact for Pramana
+Email: annapurnaagenticsolutions@zohomail.in
+Subject line: "Pramana DPDP Governance Demo"
