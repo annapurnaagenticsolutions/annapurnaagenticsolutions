@@ -40,7 +40,9 @@ Pramana is an on-premise AI governance product for Indian businesses operating u
 - Deployment: on-premise only. No customer data leaves the client's environment.
 - Compliance engine: deterministic rule evaluation, not LLM-based. No hallucination risk in governance decisions.
 - Sectors supported: clinic, school/edtech, fintech/NBFC, HR, e-commerce.
-- Not suitable for: enterprises with existing enterprise GRC stacks, businesses outside India, businesses not using AI for customer decisions.
+- DPDP applicability: any entity that collects personal data in digital form — irrespective of size, sector, or use of AI.
+- Section 17 exemptions: the Central Government has power under Section 17(3) to exempt specific classes of entities. No blanket size or revenue exemption has been notified as of September 2026.
+- Not suitable for: enterprises with existing enterprise GRC stacks, businesses outside India.
 
 ### DPDP Act regulatory status (as of September 2026)
 - The Data Protection Board of India (DPB) is established as a statutory body corporate under DPDP Act Section 18.
