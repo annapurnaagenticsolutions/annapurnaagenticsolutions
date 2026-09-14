@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skill X by Avyan Info Solution — Learning Made Fun and Simple</title>
+  <meta name="description" content="Skill X by Avyan Info Solution helps children in Classes 1–10 learn with curiosity, confidence and joy through visual lessons, playful practice and thoughtful progress tracking.">
+  <meta name="theme-color" content="#2563eb">
+  <script src="js/storage_scope.js?v=62"></script>
+  <script>
+    // Enforce crisp white educational theme
+    (function () {
+      try {
+        document.documentElement.setAttribute('data-theme', 'light');
+        avyaanStorage.setItem('avyaan_theme', 'light');
+      } catch (e) { /* ignore */ }
+    })();
+  </script>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="canonical" href="https://smaraze.com/index.html">
+
+  <!-- Open Graph / social sharing -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Skill X by Avyan Info Solution">
+  <meta property="og:title" content="Skill X — Learning Made Fun and Simple">
+  <meta property="og:description" content="A joyful learning space for Classes 1–10 where children explore ideas, practise skills and build confidence.">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Skill X — Learning Made Fun and Simple">
+  <meta name="twitter:description" content="Explore, practise and understand with Skill X by Avyan Info Solution.">
+
+  <!-- Structured data: WebSite + LearningResource for rich search results -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Skill X by Avyan Info Solution",
+    "url": "https://smaraze.com/",
+    "description": "Joyful, visual learning for Classes 1–10 with guided practice and confidence-building feedback.",
+    "inLanguage": "en",
+    "audience": { "@type": "EducationalAudience", "educationalRole": "student" },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": "https://smaraze.com/index.html?q={search_term_string}",
+      "query-input": "required name=search_term_string"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Skill X learning journeys — Classes 1–10",
+    "url": "https://smaraze.com/index.html",
+    "description": "Interactive lessons for Classes 1–10: step-by-step explanations, visual tools, quizzes and reflective progress tracking.",
+    "educationalLevel": ["Grade 1", "Grade 2", "Grade 3", "Grade 4", "Grade 5", "Grade 6", "Grade 7", "Grade 8", "Grade 9", "Grade 10"],
+    "learningResourceType": ["Interactive lesson", "Quiz", "Flashcard", "Simulation"],
+    "inLanguage": "en",
+    "audience": { "@type": "EducationalAudience", "educationalRole": "student" },
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "category": "free" }
+  }
+  </script>
+
+  <!-- Clean White Design System CSS (v2 = cache-busting bump on release) -->
+  <link rel="stylesheet" href="style.css?v=62">
+
+  <!-- KaTeX is loaded on demand from app.js when a formula is first shown -->
+
+  <!-- Canvas Confetti for Celebration Particle Bursts -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Google Fonts: Inter for body text, Baloo 2 for kid-friendly headings -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- SKIP LINK FOR KEYBOARD / SCREEN-READER USERS -->
+  <a class="skip-link" href="#cardsGrid">Skip to content</a>
+
+  <!-- HEADER / NAVBAR -->
+  <header class="navbar">
+    <div class="navbar-inner">
+      <a href="index.html" class="brand">
+        <span class="brand-icon">S</span>
+        <span class="brand-lockup"><span class="brand-title">Skill X</span><span class="brand-subtitle">by Avyan Info Solution</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="index.html" class="nav-link active">Learn</a>
+        <a href="library.html" class="nav-link">Library</a>
+        <a href="progress.html" class="nav-link">Progress</a>
+        <a href="why.html" class="nav-link">Why Skill X</a>
+        <a href="progress.html" class="nav-link">For Parents</a>
+        <a href="about.html" class="nav-link">About</a>
+      </nav>
+
+      <div class="nav-right">
+        <div class="nav-xp-pill" id="navXpPill" title="Your XP and Level">
+          <span id="levelDisplay">Explorer</span>
+          <span class="nav-xp-divider"></span>
+          <span id="xpDisplay">0 XP</span>
+        </div>
+
+        <div class="nav-streak-pill" title="Daily streak">
+          <span id="streakCount">0</span>
+          <span class="nav-streak-icon"></span>
+        </div>
+
+        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="openLoginModal()">Log in</button>
+
+        <div id="userMenuTrigger" class="nav-avatar-wrap" style="display:none;" role="button" tabindex="0" aria-label="Open account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="userDropdown" onclick="toggleUserMenu()">
+          <span class="nav-avatar" id="userAvatar">S</span>
+          <!-- stopPropagation keeps clicks inside the dropdown (e.g. the class select) from bubbling up to #userMenuTrigger and closing the menu -->
+          <div class="user-dropdown" id="userDropdown" role="menu" aria-label="Account menu" aria-hidden="true" onclick="event.stopPropagation()">
+            <div class="user-dropdown-header">
+              <div id="userName" class="user-dropdown-name">Student</div>
+              <div id="userTierLabel" class="user-dropdown-sub">Class 7</div>
+            </div>
+            <div class="user-dropdown-section">
+              <label class="user-dropdown-label">Enrolled Class</label>
+              <select id="userGradeSelect" class="user-dropdown-select" onchange="changeAdoptedGrade(this.value)">
+                <option value="1">Class 1</option>
+                <option value="2">Class 2</option>
+                <option value="3">Class 3</option>
+                <option value="4">Class 4</option>
+                <option value="5">Class 5</option>
+                <option value="6">Class 6</option>
+                <option value="7" selected>Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+              </select>
+            </div>
+            <div class="user-dropdown-section">
+              <span id="tierPill" class="tier-badge">Premium</span>
+            </div>
+            <button class="btn btn-sm" style="justify-content:flex-start; width:100%; margin-bottom:0.4rem;" onclick="toggleUserMenu(); openDashboard();">📊 Progress Dashboard</button>
+            <button class="btn btn-sm" style="justify-content:flex-start; width:100%; margin-bottom:0.4rem;" onclick="toggleUserMenu(); openParentDashboard();">👨‍👩‍👧 Parent View</button>
+            <button id="adminNavBtn" class="btn btn-sm" style="display:none; justify-content:flex-start; width:100%; margin-bottom:0.4rem;" onclick="toggleUserMenu(); openAdminDashboard();">🛡️ Admin Dashboard</button>
+            <button id="logoutBtn" class="btn btn-sm btn-logout" onclick="logoutUser()">Log out</button>
+          </div>
+        </div>
+
+        <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu" aria-controls="mobileNavPanel" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOBILE NAV PANEL -->
+  <nav id="mobileNavPanel" class="nav-mobile-panel" aria-label="Primary navigation" aria-hidden="true">
+    <a href="index.html" class="mobile-nav-link">Learn</a>
+    <a href="library.html" class="mobile-nav-link">Library</a>
+    <a href="progress.html" class="mobile-nav-link">Progress</a>
+    <a href="why.html" class="mobile-nav-link">Why Skill X</a>
+    <a href="progress.html" class="mobile-nav-link">For Parents</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <button class="mobile-nav-link" onclick="toggleMobileNav(); openDashboard()">📊 Progress Dashboard</button>
+    <div class="mobile-nav-divider"></div>
+    <div class="mobile-nav-stats">
+      <div class="mobile-stat"><span id="levelDisplayMobile">Explorer</span><span id="xpDisplayMobile">0 XP</span></div>
+      <div class="mobile-stat"><span id="streakCountMobile">3</span><span>day streak</span></div>
+    </div>
+    <button id="loginMobileBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.8rem;" onclick="openLoginModal(); toggleMobileNav()">Log in</button>
+    <button id="logoutMobileBtn" class="btn" style="display:none;width:100%;justify-content:center;margin-top:0.6rem;" onclick="logoutUser(); toggleMobileNav()">Log out</button>
+  </nav>
+
+  <!-- HERO SECTION: JOYFUL, WARM, ACTIVE STEM LEARNING -->
+  <section class="hero-landing" id="heroSection">
+    <div class="hero-landing-container">
+      <div class="hero-landing-grid">
+        
+        <!-- LEFT: WARM, WELCOMING VALUE PROPOSITION -->
+        <div class="hero-landing-text">
+          <div class="hero-joy-badge">
+            <span class="pulse-dot-green"></span>
+            <span>Learning Made Fun and Simple • Classes 1–10</span>
+          </div>
+
+          <h1 class="hero-landing-title">
+            Every question can become an <span class="accent-joy">aha moment.</span>
+          </h1>
+
+          <p class="hero-landing-lead">
+            <strong>Avyan Info Solution proudly presents Skill X</strong> — short visual lessons, playful practice and gentle feedback that help children understand ideas, not just memorise answers. Explore <strong id="heroLessonCount">713</strong> learning topics across <strong id="heroSubjectCount">6</strong> subjects for Classes 1–10.
+          </p>
+
+          <div class="hero-landing-ctas">
+            <button type="button" class="btn-joy-primary" onclick="document.getElementById('exploreSection').scrollIntoView({behavior:'smooth', block:'start'});">
+              <span>🚀 Try a starter lesson</span>
+            </button>
+            <a href="why.html" class="btn-joy-secondary">
+              <span>✨ See how Skill X works</span>
+            </a>
+          </div>
+
+          <div class="hero-landing-trust">
+            <span>✓ Starter lessons to try</span>
+            <span class="dot-sep">•</span>
+            <span>✓ Classes 1 to 10</span>
+            <span class="dot-sep">•</span>
+            <span>✓ Child-safety focused & ad-free</span>
+            <span class="dot-sep">•</span>
+            <span>✓ Curriculum-informed</span>
+          </div>
+
+          <div class="hero-parent-note">
+            <span class="hero-parent-note-icon" aria-hidden="true">👨‍👩‍👧</span>
+            <span><strong>Joy for children. Clarity for families.</strong><small>Progress stays tied to the right learner profile.</small></span>
+          </div>
+        </div>
+
+        <!-- RIGHT: CHILDREN LEARNING, EXPLORING AND CELEBRATING SMALL WINS -->
+        <div class="hero-landing-visual">
+          <div class="hero-photo-collage" aria-label="Children enjoying hands-on learning">
+            <figure class="hero-photo-card hero-photo-card-main">
+              <img src="img/hero_students_stem.jpg" alt="Students happily exploring a science and robotics experiment" class="hero-main-photo" loading="eager">
+            </figure>
+            <figure class="hero-photo-card hero-photo-card-secondary">
+              <img src="img/young_students_exploring.jpg" alt="Young learners exploring a new idea together" class="hero-secondary-photo" loading="lazy">
+            </figure>
+            <figure class="hero-photo-card hero-photo-card-tertiary">
+              <video class="hero-tertiary-video" autoplay muted loop playsinline preload="metadata" poster="img/kids_enjoying_hero.webp" aria-label="Children enjoying a collaborative learning activity">
+                <source src="img/kids_enjoying_hero.mp4" type="video/mp4">
+              </video>
+            </figure>
+            <div class="hero-learning-note" aria-label="Sample learning moment">
+              <span class="hero-learning-note-icon">💡</span>
+              <span class="hero-learning-note-copy"><small class="hero-note-kicker">Sample learning moment</small><strong>Why does a shadow change?</strong><span class="hero-note-steps"><b>See</b><i>→</i><b>Try</b><i>→</i><b>Explain</b></span></span>
+            </div>
+            
+            <!-- OVERLAY FLOATING MICRO-CARDS SHOWCASING JOY & UNDERSTANDING -->
+            <div class="hero-photo-chip chip-top-left"><span class="chip-avatar">🧠</span><div><strong>I see why!</strong><span>Understanding starts with curiosity.</span></div></div>
+
+            <div class="hero-photo-chip chip-bottom-right"><span class="chip-avatar">🌱</span><div><strong>One small win</strong><span>Try it yourself, then grow.</span></div></div>
+
+            <div class="hero-photo-badge-xp">
+              <span class="badge-icon">✨</span>
+              <span>Understanding grows here</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 3 SIMPLE WAYS KIDS LEARN ON AVYAAN -->
+  <section class="how-kids-learn-section">
+    <div class="container">
+      <div class="section-heading-simple">
+        <h2>How Children Learn Here</h2>
+        <p>Three simple ingredients that make STEM exciting and memorable.</p>
+      </div>
+
+      <div class="simple-features-grid">
+        <div class="simple-feature-card">
+          <div class="feature-icon-box" style="background:#eff6ff; color:#2563eb;">🧪</div>
+          <h3>1. Play & Experiment</h3>
+          <p>Move sliders, mix solutions, drop weights, and test ideas in 20+ virtual labs without any mess. Kids learn by doing, not just reading.</p>
+        </div>
+
+        <div class="simple-feature-card">
+          <div class="feature-icon-box" style="background:#f0fdf4; color:#16a34a;">💡</div>
+          <h3>2. See Concepts Click</h3>
+          <p>Clear visual animations and step-by-step models make abstract math and physics ideas intuitive, friendly, and unforgettable.</p>
+        </div>
+
+        <div class="simple-feature-card">
+          <div class="feature-icon-box" style="background:#fefce8; color:#ca8a04;">🏆</div>
+          <h3>3. Celebrate Every Win</h3>
+          <p>Earn XP, unlock badges, keep learning streaks alive, and watch your child's confidence grow with every lesson mastered.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPLORE BY CLASS LEVEL (3 FRIENDLY STAGES) -->
+  <section class="stages-preview-section">
+    <div class="container">
+      <div class="section-heading-simple">
+        <h2>Tailored for Every Age & Stage</h2>
+        <p>From early curiosity in primary school to board exam confidence in Class 10.</p>
+      </div>
+
+      <div class="stages-grid-cards">
+        <div class="stage-card" role="link" tabindex="0" onclick="window.location.href='library.html#class-1'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='library.html#class-1';}">
+          <div class="stage-card-top">
+            <span class="stage-badge-pill">Classes 1–4</span>
+            <span class="stage-icon">🌱</span>
+          </div>
+          <h3>Foundational Wonder</h3>
+          <p>Playful numbers, shapes, nature, senses, and curiosity. Built with friendly visuals and encouraging praise.</p>
+          <span class="stage-explore-link">Explore Classes 1–4 &rarr;</span>
+        </div>
+
+        <div class="stage-card active-border" role="link" tabindex="0" onclick="window.location.href='library.html#class-6'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='library.html#class-6';}">
+          <div class="stage-card-top">
+            <span class="stage-badge-pill" style="background:#eff6ff; color:#1d4ed8;">Classes 5–7</span>
+            <span class="stage-icon">🔭</span>
+          </div>
+          <h3>Active Explorers</h3>
+          <p>Fractions, forces, light, electric circuits, living cells, and beginner coding. Hands-on virtual labs that explain why.</p>
+          <span class="stage-explore-link">Explore Classes 5–7 &rarr;</span>
+        </div>
+
+        <div class="stage-card" role="link" tabindex="0" onclick="window.location.href='library.html#class-9'" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();window.location.href='library.html#class-9';}">
+          <div class="stage-card-top">
+            <span class="stage-badge-pill" style="background:#faf5ff; color:#7e22ce;">Classes 8–10</span>
+            <span class="stage-icon">⚛️</span>
+          </div>
+          <h3>Board & Beyond</h3>
+          <p>Chemical reactions, optics, algebra, genetics, and AI. Curriculum-mapped concepts with deep conceptual intuition.</p>
+          <span class="stage-explore-link">Explore Classes 8–10 &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SAFE INTERACTIVE PREVIEW: demonstrates the learning style without
+       exposing a protected lesson body or answer key. -->
+  <section class="interactive-demo-section" aria-labelledby="interactiveDemoHeading">
+    <div class="container interactive-demo-grid">
+      <div class="interactive-demo-copy">
+        <span class="kicker-small">Try the learning style</span>
+        <h2 id="interactiveDemoHeading">Move one idea. See why it changes.</h2>
+        <p>Good learning starts with a visible question. Move the light source and watch the shadow respond—then imagine the questions your child can explore inside Skill X.</p>
+        <div class="interactive-demo-steps" aria-label="Skill X learning cycle">
+          <span class="demo-step-active">1&nbsp; Observe</span><span aria-hidden="true">→</span><span>2&nbsp; Predict</span><span aria-hidden="true">→</span><span>3&nbsp; Explain</span>
+        </div>
+        <a href="library.html" class="btn-joy-secondary">Explore starter topics →</a>
+      </div>
+      <div class="shadow-demo-card">
+        <div class="shadow-demo-header"><div><span class="kicker-small">A tiny science moment</span><strong>Why does a shadow change?</strong></div><span id="shadowDemoReading" class="shadow-demo-reading">Medium shadow</span></div>
+        <div class="shadow-demo-scene" aria-hidden="true">
+          <div class="shadow-demo-sun"></div>
+          <div class="shadow-demo-ray"></div>
+          <div class="shadow-demo-ground"></div>
+          <div class="shadow-demo-object"></div>
+          <div id="shadowDemoShadow" class="shadow-demo-shadow"></div>
+        </div>
+        <label class="shadow-demo-label" for="shadowAngleSlider"><span>Move the light</span><output id="shadowDemoValue" for="shadowAngleSlider">45°</output></label>
+        <input id="shadowAngleSlider" class="shadow-demo-slider" type="range" min="15" max="75" value="45" step="1" aria-label="Move the light source angle" oninput="updateShadowDemo(this.value)">
+        <p class="shadow-demo-caption">Lower light → longer shadow. Higher light → shorter shadow.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Motivational learning principles; these are not testimonials. -->
+  <section class="quotes-strip-section">
+    <div class="container">
+      <div class="section-heading-simple quotes-heading">
+        <span class="kicker-small">What we believe</span>
+        <h2>Learning grows when children feel safe to try</h2>
+        <p>Skill X is designed around encouragement, curiosity and understanding — never comparison.</p>
+      </div>
+      <div class="quotes-grid">
+        <div class="quote-item">
+          <div class="quote-stars">✦ Learning principle</div>
+          <p class="quote-text">“I can try, make a mistake, and try again.”</p>
+          <div class="quote-author">A child-friendly space for brave questions.</div>
+        </div>
+        <div class="quote-item">
+          <div class="quote-stars">✦ Learning principle</div>
+          <p class="quote-text">“When I understand the why, the answer feels easier.”</p>
+          <div class="quote-author">Visual explanations turn effort into insight.</div>
+        </div>
+        <div class="quote-item">
+          <div class="quote-stars">✦ Learning principle</div>
+          <p class="quote-text">“Every small discovery counts.”</p>
+          <div class="quote-author">Progress is a journey, not a race.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- A small landing-page preview; the searchable catalogue lives on library.html. -->
+  <section id="exploreSection" class="explore-preview-section">
+    <div class="container">
+      <div class="explore-preview-card">
+        <span class="kicker-small">A small taste of Skill X</span>
+        <h2>Start with one friendly idea</h2>
+        <p>Try a handful of starter lessons here. When you are ready to browse by subject, class or difficulty, open the full library in its own focused space.</p>
+        <div class="explore-preview-actions">
+          <a class="btn-joy-primary" href="library.html">Open the full STEM library →</a>
+          <a class="btn-joy-secondary" href="progress.html">See how progress works</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Parent confidence: clear, honest reasons to trust the learning journey. -->
+  <section class="parent-confidence-section" aria-labelledby="parentConfidenceHeading">
+    <div class="container">
+      <div class="parent-confidence-heading">
+        <span class="kicker-small">For families choosing a learning space</span>
+        <h2 id="parentConfidenceHeading">Joy for children. Clarity for families.</h2>
+        <p>Skill X keeps the child’s experience playful while giving parents a calm, understandable view of how learning is supported.</p>
+      </div>
+      <div class="parent-confidence-grid">
+        <article class="parent-confidence-card">
+          <span class="parent-confidence-icon" aria-hidden="true">🔐</span>
+          <h3>Profiles stay purposeful</h3>
+          <p>Parent context and learner activity stay separated so the right child sees the right journey.</p>
+        </article>
+        <article class="parent-confidence-card">
+          <span class="parent-confidence-icon" aria-hidden="true">🧭</span>
+          <h3>Progress has a story</h3>
+          <p>Children move from seeing an idea to trying it, explaining it and practising it with feedback.</p>
+        </article>
+        <article class="parent-confidence-card">
+          <span class="parent-confidence-icon" aria-hidden="true">💬</span>
+          <h3>No inflated promises</h3>
+          <p>We show principles and product behaviour openly while real-world testimonials and outcomes remain evidence-led.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTENT CARDS GRID -->
+  <main id="cardsGrid" class="content-grid"></main>
+
+  <!-- MODAL: ACHIEVEMENT PANEL -->
+  <div id="achievementsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 700px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('achievementsModal')">✕</button>
+      <div id="achievementPanelContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: WORDS I LEARNED (vocabulary ladder) -->
+  <div id="vocabModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 760px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('vocabModal')">✕</button>
+      <div id="vocabPanelContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: FAMILY PROFILES -->
+  <div id="familyProfilesModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 640px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('familyProfilesModal')">✕</button>
+      <div id="familyProfilesContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: PARENT DASHBOARD (separate, grown-up view) -->
+  <div id="parentDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 660px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('parentDashModal')">✕</button>
+      <div id="parentDashContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: ADMIN DASHBOARD (system analytics & operations) -->
+  <div id="adminDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 860px; max-height: 90vh; overflow-y: auto;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('adminDashModal')">✕</button>
+      <div id="adminDashContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: CONSENT & PRIVACY (DPDP) -->
+  <div id="privacyModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 560px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('privacyModal')">✕</button>
+      <div id="privacyContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: EXAM COUNTDOWN -->
+  <div id="examPlanModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 640px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('examPlanModal')">✕</button>
+      <div id="examPlanContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: BREAK SCREEN (healthy screen time) -->
+  <div id="breakModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 420px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('breakModal')">✕</button>
+      <div id="breakContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: DAILY SESSION SUMMARY -->
+  <div id="sessionSummaryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 420px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('sessionSummaryModal')">✕</button>
+      <div id="sessionSummaryContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: KNOWLEDGE MAP -->
+  <div id="knowledgeMapModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 700px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('knowledgeMapModal')">✕</button>
+      <div id="knowledgeMapContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: CLASS × SUBJECT COVERAGE MAP -->
+  <div id="coverageModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 840px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('coverageModal')">✕</button>
+      <div id="coverageContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: FIRST-VISIT ONBOARDING (CLASS PICKER) -->
+  <div id="onboardingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 560px;">
+      <button class="modal-close" onclick="skipOnboarding()" aria-label="Skip onboarding">✕</button>
+      <div style="text-align: center;">
+        <span style="font-size: 3rem; display: block;">👋</span>
+          <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0.4rem 0 0.3rem;">Welcome to Skill X!</h2>
+        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0 0 1.1rem;">Which class are you in? We will match your daily challenge, recommendations, and learning path to your grade.</p>
+        <div class="onboard-grade-grid">
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(1)">Class 1</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(2)">Class 2</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(3)">Class 3</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(4)">Class 4</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(5)">Class 5</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(6)">Class 6</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(7)">Class 7</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(8)">Class 8</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(9)">Class 9</button>
+          <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(10)">Class 10</button>
+        </div>
+        <button class="btn" style="margin-top: 1.1rem;" onclick="skipOnboarding()">Just exploring — skip for now</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: PARENT / TEACHER PROGRESS DASHBOARD -->
+  <div id="dashboardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 760px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('dashboardModal')">✕</button>
+      <div id="dashboardContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: CURRICULUM LEARNING PATH -->
+  <div id="pathModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 640px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('pathModal')">✕</button>
+      <div id="pathModalContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: 5-STEP TOPIC DETAIL VIEW -->
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('detailModal')">✕</button>
+      <div id="detailModalContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: CHAPTER MIXED-REVIEW QUIZ (interleaves MCQs from all lessons in the chapter) -->
+  <div id="reviewModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 720px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('reviewModal')">✕</button>
+      <div id="reviewContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: BOARD PREP — timed Class 9-10 chapter quiz sessions -->
+  <div id="boardPrepModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 720px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('boardPrepModal')">✕</button>
+      <div id="boardPrepContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: CURRICULUM ALIGNMENT — multi-board chapter & outcome map -->
+  <div id="boardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 860px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('boardModal')">✕</button>
+      <div id="boardContent"></div>
+    </div>
+  </div>
+
+  <!-- MODAL: STANDARD USERNAME & PASSWORD LOGIN -->
+  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 440px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('loginModal')">✕</button>
+
+      <div style="text-align: center; margin-bottom: 1.2rem;">
+        <span style="font-size: 2.5rem;">🔑</span>
+        <h2 style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Student Login</h2>
+        <p style="font-size: 0.85rem; color: var(--text-muted);">Sign in or create an account to access your enrolled grade content.</p>
+      </div>
+
+      <!-- LOGIN / REGISTER TAB SWITCHER -->
+      <div role="tablist" style="display: flex; gap: 0.4rem; margin-bottom: 1rem; background: #f1f5f9; padding: 0.25rem; border-radius: 10px;">
+        <button id="authTabLogin" role="tab" aria-selected="true" class="btn btn-sm" style="flex: 1; justify-content: center; background: #ffffff; border-color: #cbd5e1; font-weight: 700;" onclick="showAuthTab('login')">Log in</button>
+        <button id="authTabRegister" role="tab" aria-selected="false" class="btn btn-sm" style="flex: 1; justify-content: center;" onclick="showAuthTab('register')">Create account</button>
+      </div>
+
+      <div id="loginFormPanel">
+        <div id="loginError" style="display: none; background: #fef2f2; color: #991b1b; padding: 0.6rem; border-radius: 8px; font-size: 0.83rem; margin-bottom: 1rem; border: 1px solid #fecaca;"></div>
+
+        <form onsubmit="handleFormLogin(event)">
+          <div class="form-group">
+            <label for="loginUsername">Email or administrator ID</label>
+            <input type="text" id="loginUsername" class="form-input" placeholder="e.g. learner@example.com or admin ID" autocomplete="username" required>
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input type="password" id="loginPassword" class="form-input" placeholder="••••••••" required>
+          </div>
+
+          <div class="form-group">
+            <label for="loginGradeSelect">Select Enrolled Grade</label>
+            <select id="loginGradeSelect" class="form-input" style="cursor: pointer;">
+              <option value="1">Class 1</option>
+              <option value="2">Class 2</option>
+              <option value="3">Class 3</option>
+              <option value="4">Class 4</option>
+              <option value="5">Class 5</option>
+              <option value="6">Class 6</option>
+              <option value="7" selected>Class 7</option>
+              <option value="8">Class 8</option>
+              <option value="9">Class 9</option>
+              <option value="10">Class 10</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; justify-content: center; font-weight: 700; margin-top: 0.5rem;">
+            Sign In →
+          </button>
+        </form>
+      </div>
+
+      <!-- REGISTER PANEL (backend account service) -->
+      <div id="registerFormPanel" style="display: none;">
+        <div id="registerError" style="display: none; background: #fef2f2; color: #991b1b; padding: 0.6rem; border-radius: 8px; font-size: 0.83rem; margin-bottom: 1rem; border: 1px solid #fecaca;"></div>
+
+        <form onsubmit="handleFormRegister(event)">
+          <div class="form-group">
+            <label for="registerName">Full Name</label>
+            <input type="text" id="registerName" class="form-input" placeholder="e.g. Aisha Khan" required>
+          </div>
+
+          <div class="form-group">
+            <label for="registerEmail">Email</label>
+            <input type="email" id="registerEmail" class="form-input" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="registerPassword">Password</label>
+            <input type="password" id="registerPassword" class="form-input" placeholder="Create a password" minlength="8" required>
+          </div>
+
+          <div class="form-group">
+            <label for="registerConfirmPassword">Confirm Password</label>
+            <input type="password" id="registerConfirmPassword" class="form-input" placeholder="Repeat your password" required>
+          </div>
+
+          <div class="form-group">
+            <label for="registerGradeSelect">Select Enrolled Grade</label>
+            <select id="registerGradeSelect" class="form-input" style="cursor: pointer;">
+              <option value="1">Class 1</option>
+              <option value="2">Class 2</option>
+              <option value="3">Class 3</option>
+              <option value="4">Class 4</option>
+              <option value="5">Class 5</option>
+              <option value="6">Class 6</option>
+              <option value="7" selected>Class 7</option>
+              <option value="8">Class 8</option>
+              <option value="9">Class 9</option>
+              <option value="10">Class 10</option>
+            </select>
+          </div>
+
+          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.83rem; color:var(--text-main); cursor:pointer; margin:0.6rem 0;">
+            <input type="checkbox" id="registerParentMode" checked onchange="toggleRegisterParentMode(this.checked)" style="width:1rem; height:1rem; cursor:pointer;">
+            I'm a parent or lawful guardian (recommended for learners under 18)
+          </label>
+
+          <div id="registerChildFields" style="display:block;">
+            <div class="form-group">
+              <label for="registerChildName">Child's Name</label>
+              <input type="text" id="registerChildName" class="form-input" placeholder="e.g. Zoya Khan" value="">
+            </div>
+            <div class="form-group">
+              <label for="registerChildGrade">Child's Class</label>
+              <select id="registerChildGrade" class="form-input" style="cursor: pointer;">
+                <option value="1">Class 1</option>
+                <option value="2">Class 2</option>
+                <option value="3">Class 3</option>
+                <option value="4">Class 4</option>
+                <option value="5">Class 5</option>
+                <option value="6">Class 6</option>
+                <option value="7">Class 7</option>
+                <option value="8">Class 8</option>
+                <option value="9">Class 9</option>
+                <option value="10">Class 10</option>
+              </select>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.75rem; font-size: 0.95rem; justify-content: center; font-weight: 700; margin-top: 0.5rem;">
+            Create Account →
+          </button>
+        </form>
+
+        <p style="font-size: 0.7rem; color: var(--text-dim); text-align: center; margin-top: 0.6rem;">
+          Your account is stored securely by Skill X. Progress can be restored when you sign in.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: GRADE UPGRADE SUBSCRIPTION & PAYMENT GATEWAY -->
+  <div id="paywallModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 480px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('paywallModal')">✕</button>
+      
+      <div id="paywallModalContent">
+        <div style="text-align: center; margin-bottom: 1.2rem;">
+          <span style="font-size: 3rem;">🔒</span>
+          <h2 id="paywallTitle" style="font-size: 1.4rem; font-weight: 800; color: #0f172a;">Content Locked</h2>
+          <p id="paywallDesc" style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.4rem;">
+            This STEM topic requires an enrolled grade upgrade.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Skill X</h3>
+        <p>Avyan Info Solution’s learning platform for curious minds. Children explore concepts, practise skills and build confidence at their own pace.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Subjects</h4>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Mathematics', document.querySelectorAll('.chip')[1]); return false;}">Mathematics</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Physics', document.querySelectorAll('.chip')[2]); return false;}">Physics</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Chemistry', document.querySelectorAll('.chip')[3]); return false;}">Chemistry</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Biology', document.querySelectorAll('.chip')[4]); return false;}">Biology</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Computer Science & AI', document.querySelectorAll('.chip')[5]); return false;}">CS & AI</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Earth & Space', document.querySelectorAll('.chip')[6]); return false;}">Earth & Space</a>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="about.html">About</a>
+        <a href="coverage.html">🗺️ Coverage Matrix</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('knowledgeMapModal'); return false;}">Knowledge Map</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
+        <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
+        <a href="index.html" onclick="if(window.openMixedReview){openMixedReview(); return false;}">🔀 Mixed Review</a>
+        <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
+        <a href="index.html" onclick="if(window.startReviewSession){startReviewSession(); return false;}">Spaced Review</a>
+      </div>
+      <div class="footer-col">
+        <h4>Learning</h4>
+        <a href="progress.html">Progress guide</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4 (Foundational)</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7 (Preparatory)</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10 (Secondary)</a>
+        <a href="index.html" onclick="if(window.startDailyChallenge){startDailyChallenge(); return false;}">Daily Challenge</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trust & Legal</h4>
+        <a href="privacy.html">Privacy Policy (DPDP)</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="refund.html">Refund Policy</a>
+        <a href="parental-consent.html">Parental Consent</a>
+        <a href="safety.html">Child Safety Charter</a>
+        <a href="contact.html">Contact</a>
+        <a href="support.html">Help & Grievance Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span>
+      <span><span id="footerTopicCount">706</span> published topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
+    </div>
+    <div class="footer-attribution">
+      <span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <span class="footer-partner">Annapurna Agentic Solutions</span>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span>
+    </div>
+    <p class="footer-disclaimer">
+      Skill X is an independent learning platform presented by Avyan Info Solution. It is not affiliated with, endorsed by, or connected to
+      NCERT, CBSE, CISCE/ICSE, or any state education board. Curriculum references are provided as a study
+      aid — always follow your school's official syllabus.
+    </p>
+  </footer>
+
+  <!-- STEM MASTER DATASET (FALLBACK BUNDLE) -->
+  <script src="stem_data.js?v=62"></script>
+
+  <!-- REST API CLIENT, PAYMENT GATEWAY & PURE-LOGIC CORE MODULES -->
+  <script src="js/api_client.js?v=62"></script>
+  <script src="js/payment_gateway.js?v=62"></script>
+  <script src="js/app_core.js?v=62"></script>
+  <script src="js/vocab_data.js?v=62"></script>
+
+  <!-- MAIN APPLICATION CONTROLLER -->
+  <script src="app.js?v=62"></script>
+
+  <script>
+    // Keep the copyright year current
+    document.getElementById('copyrightYear').textContent = new Date().getFullYear();
+
+    // Offline support for low-connectivity deployments (network-first, cache fallback)
+    // Works on https and on localhost; skipped on plain http elsewhere (service worker requires a secure context).
+    if ('serviceWorker' in navigator) {
+      const isLocalHttp = location.protocol === 'http:' && (location.hostname === 'localhost' || location.hostname === '127.0.0.1');
+      if (location.protocol === 'https:' || isLocalHttp) {
+        navigator.serviceWorker.register('sw.js').catch(function () {});
+      }
+    }
+  </script>
+
+</body>
+</html>

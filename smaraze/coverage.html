@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skill X — Class × Subject Coverage Matrix</title>
+<meta name="description" content="Curriculum-informed Skill X lesson coverage across Classes 1–10 and six STEM subjects.">
+<link rel="canonical" href="https://smaraze.com/coverage.html">
+<meta property="og:title" content="Skill X Coverage Matrix">
+<meta property="og:description" content="Curriculum-informed lesson coverage across Classes 1–10 and six STEM subjects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://smaraze.com/coverage.html">
+<style>
+  :root {
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-dim: #94a3b8;
+    --bg: #f8fafc;
+    --bg-secondary: #f1f5f9;
+    --border-color: #e2e8f0;
+  }
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0;
+    background: var(--bg);
+    color: var(--text-main);
+  }
+  .page { max-width: 1400px; margin: 0 auto; padding: 24px 20px 60px; }
+  header { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 6px; }
+  header h1 { font-size: 1.5rem; font-weight: 800; margin: 0; }
+  header p { font-size: 0.85rem; color: var(--text-muted); margin: 6px 0 0; max-width: 760px; line-height: 1.5; }
+  .stats { display: flex; gap: 10px; flex-wrap: wrap; margin: 14px 0 22px; }
+  .stat {
+    border: 1px solid var(--border-color); background: #fff; border-radius: 10px;
+    padding: 10px 16px; text-align: center;
+  }
+  .stat b { display: block; font-size: 1.3rem; color: #1d4ed8; }
+  .stat span { font-size: 0.68rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.05em; }
+  .disclaimer {
+    background: #fffbeb; border: 1px solid #fde68a; color: #92400e;
+    border-radius: 10px; padding: 10px 14px; font-size: 0.78rem; line-height: 1.5; margin: 0 0 20px;
+  }
+  .wrap { overflow-x: auto; background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; }
+  table { border-collapse: collapse; width: 100%; min-width: 760px; }
+  th, td { padding: 8px 10px; font-size: 0.8rem; }
+  th.coverage-subj { text-align: center; }
+  td.coverage-class, th.coverage-corner { font-weight: 800; color: var(--text-muted); width: 90px; }
+  td.coverage-cell { text-align: center; cursor: default; border: 1px solid #eef2f7; border-radius: 4px; }
+  td.coverage-total { text-align: center; font-weight: 800; color: #334155; }
+  .coverage-count { font-weight: 800; }
+  .legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 14px; font-size: 0.75rem; color: var(--text-muted); }
+  .legend span::before { content: '· '; font-weight: 800; }
+  .legend .green::before { content: '✅ '; }
+  .legend .amber::before { content: '⚠️ '; }
+  .legend .red::before { content: '❌ '; }
+  h2 { font-size: 1rem; margin: 30px 0 10px; }
+  .detail-table { background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; }
+  .detail-table table { min-width: 560px; }
+  .detail-table td { border-bottom: 1px solid #eef2f7; }
+  .badge { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: 0.68rem; font-weight: 700; }
+  .badge.ok { background: #ecfdf5; color: #047857; }
+  .badge.thin { background: #fffbeb; color: #b45309; }
+  .badge.gap { background: #fef2f2; color: #b91c1c; }
+  footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--border-color); font-size: 0.72rem; color: var(--text-dim); text-align: center; }
+  .skip-link { position: absolute; left: -9999px; top: 0; z-index: 10; background: #1d4ed8; color: #fff; padding: 8px 12px; border-radius: 0 0 8px 0; font-weight: 700; }
+  .skip-link:focus { left: 0; }
+  
+    .stat, .wrap, .detail-table, table { background: #1e293b; }
+    td.coverage-cell { border-color: #334155; }
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#coverageMain">Skip to coverage matrix</a>
+<div class="page">
+<main id="coverageMain">
+  <header>
+    <span style="font-size:2rem;">🗺️</span>
+    <div>
+      <h1>Class × Subject Coverage Matrix</h1>
+      <p>Every cell shows the chapters covered out of the target curriculum-aligned set for that subject and class, with the topic count for each subject. Hover any cell for the exact gap list; the details table below lists every still-missing or thin chapter.</p>
+      <p class="coverage-note">The catalog contains 713 authored lessons. Learner discovery currently withholds a small set pending teacher safety and age-fit review; catalog counts below include those withheld records.</p>
+    </div>
+  </header>
+
+  <div class="stats" id="statStrip"></div>
+
+  <div class="disclaimer" id="disclaimer">
+    <b>Board alignment.</b> Skill X maps its lessons to the syllabus <i>patterns</i> of NCERT / CBSE, ICSE and state boards so any child can follow along with school. Skill X is an independent learning platform and is <b>not affiliated with, or endorsed by, any education board</b>. Where boards differ, Skill X teaches the concepts that appear across them.
+  </div>
+
+  <div class="wrap"><table id="matrix" aria-label="Skill X curriculum coverage by class and subject"></table></div>
+  <div class="legend">
+    <span class="green">full chapter coverage</span>
+    <span class="amber">thin chapter (1 topic)</span>
+    <span class="red">missing chapter</span>
+    <span>cell = covered / target chapters</span>
+  </div>
+
+  <h2>📋 Still missing or thin chapters</h2>
+  <div class="detail-table" id="details"></div>
+
+</main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h3>Skill X</h3>
+        <p>Interactive STEM learning for Classes 1–10. Learn by doing with visual tools, progress tracking, and a five-step learning cycle.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Subjects</h4>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Mathematics', document.querySelectorAll('.chip')[1]); return false;}">Mathematics</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Physics', document.querySelectorAll('.chip')[2]); return false;}">Physics</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Chemistry', document.querySelectorAll('.chip')[3]); return false;}">Chemistry</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Biology', document.querySelectorAll('.chip')[4]); return false;}">Biology</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Computer Science & AI', document.querySelectorAll('.chip')[5]); return false;}">CS & AI</a>
+        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Earth & Space', document.querySelectorAll('.chip')[6]); return false;}">Earth & Space</a>
+      </div>
+      <div class="footer-col">
+        <h4>Platform</h4>
+        <a href="about.html">About</a>
+        <a href="coverage.html">🗺️ Coverage Matrix</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('knowledgeMapModal'); return false;}">Knowledge Map</a>
+        <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
+        <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
+        <a href="index.html" onclick="if(window.openMixedReview){openMixedReview(); return false;}">🔀 Mixed Review</a>
+        <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
+        <a href="index.html" onclick="if(window.startReviewSession){startReviewSession(); return false;}">Spaced Review</a>
+      </div>
+      <div class="footer-col">
+        <h4>Learning</h4>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4 (Foundational)</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7 (Preparatory)</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10 (Secondary)</a>
+        <a href="index.html" onclick="if(window.startDailyChallenge){startDailyChallenge(); return false;}">Daily Challenge</a>
+      </div>
+      <div class="footer-col">
+        <h4>Trust & Legal</h4>
+        <a href="privacy.html">Privacy Policy (DPDP)</a>
+        <a href="terms.html">Terms of Service</a>
+        <a href="refund.html">Refund Policy</a>
+        <a href="parental-consent.html">Parental Consent</a>
+        <a href="safety.html">Child Safety Charter</a>
+        <a href="contact.html">Contact</a>
+        <a href="support.html">Help & Grievance Support</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span>
+      <span><span id="footerTopicCount">713</span> authored topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
+    </div>
+    <div class="footer-attribution">
+      <span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <span class="footer-partner">Annapurna Agentic Solutions</span>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span>
+    </div>
+    <p class="footer-disclaimer">
+      Skill X is an independent learning platform presented by Avyan Info Solution. It is not affiliated with, endorsed by, or connected to
+      NCERT, CBSE, CISCE/ICSE, or any state education board. Curriculum references are provided as a study
+      aid — always follow your school's official syllabus.
+    </p>
+  </footer>
+</div>
+
+<script src="stem_data.js?v=62"></script>
+<script>
+(function () {
+  const SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science & AI', 'Earth & Space'];
+  const CLASSES = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const SUBJ_COLOR = {
+    'Mathematics': '#2563eb', 'Physics': '#dc2626', 'Chemistry': '#16a34a',
+    'Biology': '#7c3aed', 'Computer Science & AI': '#ea580c', 'Earth & Space': '#0891b2'
+  };
+  const shortName = s => s === 'Mathematics' ? 'Math' : s === 'Computer Science & AI' ? 'CS & AI' : s === 'Earth & Space' ? 'Earth & Space' : s;
+
+  const topics = AVYAAN_DATA.topics;
+  const cov = AVYAAN_DATA.coverage || [];
+  const byCell = {};
+  for (const c of cov) byCell[c.class_level + '/' + c.subject] = c;
+
+  const subjTotal = s => topics.filter(t => t.subject === s).length;
+  const classTotal = c => topics.filter(t => t.class_level === c).length;
+
+  // Stats strip
+  const totalChapters = cov.reduce((s, c) => s + c.chapters, 0);
+  const coveredChapters = cov.reduce((s, c) => s + c.covered, 0);
+  const gaps = cov.reduce((s, c) => s + (c.gaps || []).length, 0);
+  const thin = cov.reduce((s, c) => s + (c.thin || []).length, 0);
+  const fullCells = cov.filter(c => (c.gaps || []).length === 0 && (c.thin || []).length === 0).length;
+  document.getElementById('statStrip').innerHTML = [
+    `<div class="stat"><b>${topics.length}</b><span>Lessons</span></div>`,
+    `<div class="stat"><b>${coveredChapters}/${totalChapters}</b><span>Chapters covered</span></div>`,
+    `<div class="stat"><b>${Math.round(coveredChapters / totalChapters * 100)}%</b><span>Coverage</span></div>`,
+    `<div class="stat"><b>${gaps}</b><span>Missing chapters</span></div>`,
+    `<div class="stat"><b>${thin}</b><span>Thin chapters</span></div>`,
+    `<div class="stat"><b>${fullCells}/${cov.length}</b><span>Full subject-class cells</span></div>`
+  ].join('');
+
+  // Matrix
+  const cellHtml = (cls, subj) => {
+    const cell = byCell[cls + '/' + subj];
+    if (!cell) return `<td class="coverage-cell" style="background:#f8fafc;"><span style="color:#cbd5e1;">—</span></td>`;
+    const pct = Math.round((cell.covered / cell.chapters) * 100);
+    const tip = [
+      subj + ' · Class ' + cls,
+      'Chapters: ' + cell.covered + ' / ' + cell.chapters + ' (' + pct + '%)',
+      'Topics: ' + cell.topics
+    ];
+    if ((cell.gaps || []).length) tip.push('Missing: ' + cell.gaps.join(', '));
+    if ((cell.thin || []).length) tip.push('Thin (1 topic): ' + cell.thin.join(', '));
+    const alpha = pct === 100 ? 0.82 : 0.12 + 0.6 * (pct / 100);
+    const flag = (cell.gaps || []).length ? '❌' : (cell.thin || []).length ? '⚠️' : '✅';
+    return `<td class="coverage-cell" title="${tip.join(' · ')}" style="background:${pct === 0 ? '#f8fafc' : 'rgba(37,99,235,' + alpha.toFixed(2) + ')'};"><span class="coverage-count">${cell.covered}/${cell.chapters}</span> <span style="font-size:0.7rem;">${flag}</span></td>`;
+  };
+
+  let m = '<thead><tr><th class="coverage-corner"></th>' +
+    SUBJECTS.map(s => `<th class="coverage-subj" style="color:${SUBJ_COLOR[s]};border-top:3px solid ${SUBJ_COLOR[s]};">${shortName(s)}</th>`).join('') +
+    '<th class="coverage-corner">Topics</th></tr></thead><tbody>';
+  CLASSES.forEach(c => {
+    m += `<tr><td class="coverage-class">Class ${c}</td>` +
+      SUBJECTS.map(s => cellHtml(c, s)).join('') +
+      `<td class="coverage-total">${classTotal(c)}</td></tr>`;
+  });
+  m += `<tr><td class="coverage-class">All</td>` +
+    SUBJECTS.map(s => `<td class="coverage-total">${subjTotal(s)}</td>`).join('') +
+    `<td class="coverage-total">${topics.length}</td></tr></tbody>`;
+  document.getElementById('matrix').innerHTML = m;
+
+  // Details: missing / thin chapters
+  const rows = [];
+  cov.forEach(c => {
+    (c.gaps || []).forEach(g => rows.push({ cl: c.class_level, subj: c.subject, chap: g, kind: 'gap' }));
+    (c.thin || []).forEach(g => rows.push({ cl: c.class_level, subj: c.subject, chap: g, kind: 'thin' }));
+  });
+  const d = rows.length
+    ? `<table><tr><th>Class</th><th>Subject</th><th>Chapter</th><th>Status</th></tr>` +
+      rows.map(r => `<tr><td>Class ${r.cl}</td><td style="color:${SUBJ_COLOR[r.subj] || '#334155'};">${r.subj}</td><td>${r.chap}</td><td>${r.kind === 'gap' ? '<span class="badge gap">Missing</span>' : '<span class="badge thin">Thin</span>'}</td></tr>`).join('') +
+      `</table>`
+    : '<p style="color:#059669; font-size:0.85rem;">🎉 Every mapped chapter has at least one lesson. Use the gap-topic tooling to deepen coverage further.</p>';
+  document.getElementById('details').innerHTML = d;
+})();
+</script>
+</body>
+</html>

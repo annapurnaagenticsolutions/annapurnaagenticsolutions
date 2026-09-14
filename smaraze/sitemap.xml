@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://smaraze.com/index.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://smaraze.com/progress.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://smaraze.com/library.html</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://smaraze.com/about.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url><loc>https://smaraze.com/why.html</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://smaraze.com/coverage.html</loc><changefreq>monthly</changefreq><priority>0.6</priority></url>
+  <url><loc>https://smaraze.com/privacy.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://smaraze.com/terms.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://smaraze.com/refund.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://smaraze.com/parental-consent.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://smaraze.com/safety.html</loc><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://smaraze.com/contact.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+  <url><loc>https://smaraze.com/support.html</loc><changefreq>monthly</changefreq><priority>0.4</priority></url>
+</urlset>

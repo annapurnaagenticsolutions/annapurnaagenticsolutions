@@ -1,0 +1,19 @@
+{
+  "name": "Avyaan — Interactive STEM Learning",
+  "short_name": "Avyaan",
+  "description": "Interactive STEM learning for Classes 1–10 — visual tools, step-by-step lessons, quizzes and mastery tracking.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "lang": "en",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

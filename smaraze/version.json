@@ -1,0 +1,6 @@
+{
+  "version": "2026.09.13.62",
+  "topicCount": 713,
+  "updated": "2026-09-13",
+  "note": "Bump the build number (last segment) via tools/bump_version.py whenever the content dataset (stem_data.js / backend stem_topics.json) changes. The service worker keys its offline cache on this value."
+}
