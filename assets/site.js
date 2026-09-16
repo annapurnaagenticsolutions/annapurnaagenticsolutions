@@ -819,7 +819,7 @@
   }
   function filterContent(intent){selectIntent(intent);const primary=(adaptiveModel.intents?.[intent]||{}).primaryWorld;if(primary){setWorld(primary,'preview');highlightElement(`[data-world="${primary}"]`)}return intent}
   function navigateToSection(target){
-    const routes={home:siteHref('./'),products:siteHref('explore.html'),explore:siteHref('explore.html'),lab:siteHref('lab.html'),evidence:siteHref('evidence.html'),about:siteHref('about/'),contact:siteHref('contact/'),capabilities:siteHref('explore.html'),living:'#living-response'};const href=routes[target]||target;
+    const routes={home:siteHref('./'),products:siteHref('products.html'),explore:siteHref('explore.html'),lab:siteHref('lab.html'),evidence:siteHref('evidence.html'),about:siteHref('about/'),contact:siteHref('contact/'),capabilities:siteHref('explore.html'),living:'#living-response'};const href=routes[target]||target;
     if(href.startsWith('#')){const el=$(href);if(el)el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth'});return href}navigateWithContinuity(href);return href;
   }
   function adjustDepth(level){applyDepth(level,'explicit');agentSay(`Showing ${level} detail.`);return level}
@@ -1083,8 +1083,8 @@
   function updateHeaderOffset(){const h=$('.site-header')?.getBoundingClientRect().height||72;document.documentElement.style.setProperty('--header-h',`${Math.round(h)}px`)}
   function markActiveNavigation(){
     const path=location.pathname.replace(/\/+$/,'').toLowerCase();
-    const active=path.endsWith('/explore.html')?'explore':path.endsWith('/lab.html')?'lab':path.endsWith('/evidence.html')?'evidence':(/\/about(?:\/index\.html)?$/.test(path)?'about':(/\/contact(?:\/index\.html)?$/.test(path)?'contact':''));
-    $$('.site-header a[href]').forEach(a=>{let ap;try{ap=new URL(a.getAttribute('href'),location.href).pathname.replace(/\/+$/,'').toLowerCase()}catch(_){return}const match=(active==='explore'&&ap.endsWith('/explore.html'))||(active==='lab'&&ap.endsWith('/lab.html'))||(active==='evidence'&&ap.endsWith('/evidence.html'))||(active==='about'&&/\/about(?:\/index\.html)?$/.test(ap))||(active==='contact'&&/\/contact(?:\/index\.html)?$/.test(ap));if(match)a.setAttribute('aria-current','page')});
+    const active=path.endsWith('/products.html')?'products':path.endsWith('/explore.html')?'explore':path.endsWith('/lab.html')?'lab':path.endsWith('/evidence.html')?'evidence':(/\/about(?:\/index\.html)?$/.test(path)?'about':(/\/contact(?:\/index\.html)?$/.test(path)?'contact':''));
+    $$('.site-header a[href]').forEach(a=>{let ap;try{ap=new URL(a.getAttribute('href'),location.href).pathname.replace(/\/+$/,'').toLowerCase()}catch(_){return}const match=(active==='products'&&ap.endsWith('/products.html'))||(active==='explore'&&ap.endsWith('/explore.html'))||(active==='lab'&&ap.endsWith('/lab.html'))||(active==='evidence'&&ap.endsWith('/evidence.html'))||(active==='about'&&/\/about(?:\/index\.html)?$/.test(ap))||(active==='contact'&&/\/contact(?:\/index\.html)?$/.test(ap));if(match)a.setAttribute('aria-current','page')});
   }
   function navigateWithContinuity(href){let u;try{u=new URL(href,location.href)}catch(_){location.href=href;return}try{sessionStorage.setItem('annapurnaNavContext',JSON.stringify({at:Date.now(),world:activeWorld,trail:memory.trail,from:location.pathname,to:u.pathname}))}catch(_){}document.body.classList.add('page-leaving');setTimeout(()=>{location.href=u.href},matchMedia('(prefers-reduced-motion:reduce)').matches?0:190)}
   function mountNavigationContinuity(){

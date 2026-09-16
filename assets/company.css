@@ -86,6 +86,12 @@
 .v42-disclaimer-card strong{color:#0f172a;display:block;margin-bottom:4px;font-size:13.5px}
 .v42-disclaimer-card strong+strong{margin-top:0}
 
+/* External legal review — publish scope and conclusion, not confidential source files. */
+.v42-legal-review .v42-public-grid{margin:34px 0 0}
+.v42-legal-review .v42-public-card{height:100%;box-sizing:border-box}
+.v42-legal-review .v42-legal-boundary{margin-top:18px;padding-top:16px;border-top:1px solid #e5eaf1}
+.v42-legal-review .v42-tech-page-link{margin-top:16px}
+
 /* v4.5 — Explore page enhancements */
 .explore-filter-row{display:flex;align-items:center;flex-wrap:wrap;gap:10px;padding:18px 0 24px;border-bottom:1px solid #e8edf4;margin-bottom:28px}
 .explore-filter-label{font-size:12px;font-weight:600;color:#69768a;text-transform:uppercase;letter-spacing:.06em;white-space:nowrap}
