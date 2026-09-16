@@ -10,6 +10,11 @@
 <meta property="og:description" content="Curriculum-informed lesson coverage across Classes 1–10 and six STEM subjects.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://smaraze.com/coverage.html">
+<link rel="stylesheet" href="style.css?v=64">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --text-main: #0f172a;
@@ -43,6 +48,9 @@
   }
   .wrap { overflow-x: auto; background: #fff; border: 1px solid var(--border-color); border-radius: 12px; padding: 14px; }
   table { border-collapse: collapse; width: 100%; min-width: 760px; }
+  .wrap { scrollbar-gutter: stable; }
+  th.coverage-corner, td.coverage-class { position: sticky; left: 0; z-index: 2; background: #fff; }
+  th.coverage-corner { z-index: 3; }
   th, td { padding: 8px 10px; font-size: 0.8rem; }
   th.coverage-subj { text-align: center; }
   td.coverage-class, th.coverage-corner { font-weight: 800; color: var(--text-muted); width: 90px; }
@@ -65,24 +73,98 @@
   footer { margin-top: 36px; padding-top: 14px; border-top: 1px solid var(--border-color); font-size: 0.72rem; color: var(--text-dim); text-align: center; }
   .skip-link { position: absolute; left: -9999px; top: 0; z-index: 10; background: #1d4ed8; color: #fff; padding: 8px 12px; border-radius: 0 0 8px 0; font-weight: 700; }
   .skip-link:focus { left: 0; }
-  
-    .stat, .wrap, .detail-table, table { background: #1e293b; }
-    td.coverage-cell { border-color: #334155; }
+  /* Coverage overview refresh: lead with the learner journey, then let the
+     matrix provide evidence for visitors who want the detail. */
+  .page { max-width: 1180px; padding: 34px 24px 72px; }
+  .coverage-hero {
+    position: relative; overflow: hidden; margin-bottom: 22px; padding: 30px 32px;
+    border: 1px solid #cfe0ff; border-radius: 26px;
+    background: radial-gradient(circle at 90% 10%, rgba(129,140,248,.30), transparent 42%),
+                linear-gradient(135deg, #eef7ff 0%, #ffffff 58%, #f4f2ff 100%);
+    box-shadow: 0 18px 50px rgba(37,99,235,.12);
+  }
+  .coverage-hero::after {
+    content: ''; position: absolute; width: 180px; height: 180px; right: -64px; bottom: -92px;
+    border-radius: 50%; background: rgba(96,165,250,.18); pointer-events: none;
+  }
+  .coverage-hero header { position: relative; z-index: 1; align-items: flex-start; gap: 18px; margin: 0; }
+  .coverage-hero-icon {
+    display: grid; place-items: center; flex: 0 0 56px; width: 56px; height: 56px;
+    border-radius: 18px; background: #fff; box-shadow: 0 8px 18px rgba(37,99,235,.14); font-size: 1.9rem;
+  }
+  .kicker { display: block; margin-bottom: 7px; color: #2563eb; font-size: .68rem; font-weight: 800; letter-spacing: .14em; }
+  .coverage-hero h1 { font-size: clamp(1.7rem, 3vw, 2.35rem); line-height: 1.1; letter-spacing: -.03em; }
+  .coverage-hero header p { max-width: 720px; font-size: .95rem; }
+  .coverage-hero-note {
+    position: relative; z-index: 1; margin: 20px 0 0; padding: 12px 14px;
+    border: 1px solid rgba(147,197,253,.65); border-radius: 13px; background: rgba(255,255,255,.72);
+    color: #475569; font-size: .78rem; line-height: 1.5;
+  }
+  .stats { gap: 12px; margin: 0 0 22px; }
+  .stat { min-width: 132px; flex: 1; border-radius: 16px; padding: 14px 12px; box-shadow: 0 8px 20px rgba(15,23,42,.05); }
+  .stat b { font-size: 1.45rem; }
+  .stat span { font-size: .65rem; }
+  .disclaimer { border-radius: 15px; padding: 13px 16px; margin-bottom: 22px; }
+  .wrap { padding: 18px; border-radius: 18px; box-shadow: 0 12px 30px rgba(15,23,42,.06); }
+  table { min-width: 720px; }
+  th, td { padding: 11px 12px; }
+  th.coverage-subj { font-size: .72rem; letter-spacing: .04em; text-transform: uppercase; }
+  td.coverage-class { color: #1e3a8a; }
+  td.coverage-cell { transition: transform .16s ease, box-shadow .16s ease; }
+  td.coverage-cell:hover { transform: translateY(-2px); box-shadow: 0 5px 12px rgba(30,64,175,.16); }
+  .legend { padding: 0 4px; gap: 12px 20px; }
+  .details-heading { margin-top: 34px; font-size: 1.25rem; letter-spacing: -.02em; }
+  .detail-table { border-radius: 18px; box-shadow: 0 12px 30px rgba(15,23,42,.05); }
+  .detail-table th { color: #475569; font-size: .7rem; text-transform: uppercase; letter-spacing: .06em; }
+  @media (max-width: 640px) {
+    .page { padding: 20px 14px 48px; }
+    .coverage-hero { padding: 22px 18px; border-radius: 20px; }
+    .coverage-hero-icon { flex-basis: 44px; width: 44px; height: 44px; font-size: 1.5rem; border-radius: 14px; }
+    .coverage-hero header { gap: 12px; }
+    .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .stat { min-width: 0; }
   }
 </style>
 </head>
 <body>
 <a class="skip-link" href="#coverageMain">Skip to coverage matrix</a>
+<header class="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="brand">
+      <span class="brand-icon">S</span>
+      <span class="brand-lockup"><span class="brand-title">Skill X</span><span class="brand-subtitle">by Avyan Info Solution</span></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary navigation">
+      <a href="index.html" class="nav-link">Learn</a>
+      <a href="library.html" class="nav-link">Library</a>
+      <a href="progress.html" class="nav-link">Progress</a>
+      <a href="why.html" class="nav-link">Why Skill X</a>
+      <a href="about.html" class="nav-link">About</a>
+    </nav>
+    <div class="nav-right"><a class="btn btn-primary btn-sm" href="index.html#login">Log in</a><button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false"><span></span><span></span><span></span></button></div>
+  </div>
+</header>
+<nav id="mobileNavPanel" class="nav-mobile-panel" aria-label="Primary navigation" aria-hidden="true">
+  <a href="index.html" class="mobile-nav-link">Learn</a>
+  <a href="library.html" class="mobile-nav-link">Library</a>
+  <a href="progress.html" class="mobile-nav-link">Progress</a>
+  <a href="why.html" class="mobile-nav-link">Why Skill X</a>
+  <a href="about.html" class="mobile-nav-link">About</a>
+  <a href="index.html#login" class="mobile-nav-link">Sign in / create account</a>
+</nav>
 <div class="page">
 <main id="coverageMain">
+  <section class="coverage-hero" aria-labelledby="coverageTitle">
   <header>
-    <span style="font-size:2rem;">🗺️</span>
+    <span class="coverage-hero-icon" aria-hidden="true">🗺️</span>
     <div>
-      <h1>Class × Subject Coverage Matrix</h1>
-      <p>Every cell shows the chapters covered out of the target curriculum-aligned set for that subject and class, with the topic count for each subject. Hover any cell for the exact gap list; the details table below lists every still-missing or thin chapter.</p>
-      <p class="coverage-note">The catalog contains 713 authored lessons. Learner discovery currently withholds a small set pending teacher safety and age-fit review; catalog counts below include those withheld records.</p>
+      <span class="kicker">CURRICULUM SNAPSHOT</span>
+      <h1 id="coverageTitle">A clear path from Class 1 to Class 10</h1>
+      <p>Explore how Skill X maps concepts across six STEM subjects. Use the matrix to spot the learning arc, then open the topic library for age-appropriate previews.</p>
     </div>
   </header>
+  <div class="coverage-hero-note"><strong>How to read this page:</strong> each cell shows covered chapters versus the mapped target. A thin or missing chapter is a signal for ongoing editorial work—not a promise that every board uses the same sequence.</div>
+  </section>
 
   <div class="stats" id="statStrip"></div>
 
@@ -98,7 +180,7 @@
     <span>cell = covered / target chapters</span>
   </div>
 
-  <h2>📋 Still missing or thin chapters</h2>
+  <h2 class="details-heading">📋 Where we are deepening coverage</h2>
   <div class="detail-table" id="details"></div>
 
 </main>
@@ -124,12 +206,12 @@
         <a href="about.html">About</a>
         <a href="coverage.html">🗺️ Coverage Matrix</a>
         <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
-        <a href="index.html" onclick="if(window.openModal){openModal('knowledgeMapModal'); return false;}">Knowledge Map</a>
+        <span class="footer-link-disabled" aria-disabled="true">Knowledge Map<small>Coming soon</small></span>
         <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
         <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
-        <a href="index.html" onclick="if(window.openMixedReview){openMixedReview(); return false;}">🔀 Mixed Review</a>
+        <span class="footer-link-disabled" aria-disabled="true">🔀 Mixed Review<small>Coming soon</small></span>
         <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
-        <a href="index.html" onclick="if(window.startReviewSession){startReviewSession(); return false;}">Spaced Review</a>
+        <span class="footer-link-disabled" aria-disabled="true">Spaced Review<small>Coming soon</small></span>
       </div>
       <div class="footer-col">
         <h4>Learning</h4>
@@ -212,7 +294,7 @@
     if ((cell.thin || []).length) tip.push('Thin (1 topic): ' + cell.thin.join(', '));
     const alpha = pct === 100 ? 0.82 : 0.12 + 0.6 * (pct / 100);
     const flag = (cell.gaps || []).length ? '❌' : (cell.thin || []).length ? '⚠️' : '✅';
-    return `<td class="coverage-cell" title="${tip.join(' · ')}" style="background:${pct === 0 ? '#f8fafc' : 'rgba(37,99,235,' + alpha.toFixed(2) + ')'};"><span class="coverage-count">${cell.covered}/${cell.chapters}</span> <span style="font-size:0.7rem;">${flag}</span></td>`;
+    return `<td class="coverage-cell" aria-label="${tip.join(' · ').replace(/"/g, '&quot;')}" style="background:${pct === 0 ? '#f8fafc' : 'rgba(37,99,235,' + alpha.toFixed(2) + ')'};"><span class="coverage-count">${cell.covered}/${cell.chapters}</span> <span style="font-size:0.7rem;" aria-hidden="true">${flag}</span></td>`;
   };
 
   let m = '<thead><tr><th class="coverage-corner"></th>' +
@@ -242,5 +324,6 @@
   document.getElementById('details').innerHTML = d;
 })();
 </script>
+<script src="js/site_nav.js?v=64"></script>
 </body>
 </html>

@@ -57,7 +57,7 @@
         <span class="kicker-small">The complete catalogue</span>
         <h1>Explore the Skill X STEM Library</h1>
         <p>Search by idea, subject or class. Guests can inspect titles and summaries, while a small set of starter lessons is open to try; full lesson bodies and assessment feedback stay protected behind a signed-in learner account.</p>
-        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
+        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="index.html" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);return false;}">🎓 See plans &amp; enrol</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
       </div>
     </section>
 
@@ -77,8 +77,8 @@
     <div class="controls-wrapper library-controls">
       <div style="display:flex;gap:.5rem;width:100%;align-items:center;flex-wrap:wrap;">
         <label class="sr-only" for="searchInput">Search STEM topics, formulas, or concepts</label>
-        <input type="text" id="searchInput" class="search-bar" placeholder="Search topics by keyword, formula, or concept..." oninput="browseMode='all';renderGrid()">
-        <select id="difficultyFilter" class="search-bar" style="max-width:190px;flex-shrink:0;" onchange="selectedDifficulty=this.value;browseMode='all';renderGrid()"><option value="all">🎚️ All difficulties</option><option value="easy">🟢 Easy</option><option value="medium">🟡 Medium</option><option value="hard">🔴 Hard</option><option value="solidified">🧠 Solidified only</option></select>
+        <input type="text" id="searchInput" class="search-bar" placeholder="Search topics by keyword, formula, or concept..." oninput="topicDisplayLimit=12;browseMode='all';renderGrid()">
+        <select id="difficultyFilter" class="search-bar" style="max-width:190px;flex-shrink:0;" onchange="topicDisplayLimit=12;selectedDifficulty=this.value;browseMode='all';renderGrid()"><option value="all">🎚️ All difficulties</option><option value="easy">🟢 Easy</option><option value="medium">🟡 Medium</option><option value="hard">🔴 Hard</option><option value="solidified">🧠 Solidified only</option></select>
       </div>
       <div class="chips-row" id="subjectChips" aria-label="Subject filters"></div>
       <div class="chips-row" id="classChips" aria-label="Class filters">
@@ -86,7 +86,7 @@
       </div>
     </div>
     <div class="section-divider"><span>Explore Topics</span></div>
-    <main id="cardsGrid" class="content-grid" aria-live="polite"></main>
+    <div id="cardsGrid" class="content-grid" aria-live="polite"></div>
   </main>
 
   <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"><div class="modal-card"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('detailModal')">✕</button><div id="detailModalContent"></div></div></div>

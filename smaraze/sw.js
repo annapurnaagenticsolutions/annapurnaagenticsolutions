@@ -2,7 +2,7 @@
    Avyaan STEM Platform — Service Worker (offline support)
    Strategy: network-first with cache fallback.
    - Online: always serves fresh content and updates the cache in the background.
-   - Offline: falls back to the last cached copy (or the cached home page).
+   - Offline: falls back to the last cached copy of the requested page.
    The offline cache is KEYED ON THE CONTENT VERSION served by /api/version:
    when the dataset version changes, the old cache is discarded on activate
    and rebuilt with the new assets — no manual cache busting needed.
@@ -13,13 +13,25 @@ const FALLBACK_CACHE = CACHE_PREFIX + '-unknown';
 // NOTE: keep the ?v= query strings in sync with index.html when you ship an update
 const CORE_ASSETS = [
   './index.html',
+  './library.html',
+  './progress.html',
   './about.html',
+  './why.html',
+  './coverage.html',
+  './privacy.html',
+  './terms.html',
+  './refund.html',
+  './parental-consent.html',
+  './safety.html',
+  './contact.html',
+  './support.html',
   './style.css?v=64',
   './app.js?v=64',
   './stem_data.js?v=64',
   './js/api_client.js?v=64',
   './js/payment_gateway.js?v=64',
   './js/app_core.js?v=64',
+  './js/site_nav.js?v=64',
   './js/vocab_data.js?v=64',
   './favicon.svg',
   './manifest.webmanifest',
@@ -91,9 +103,14 @@ self.addEventListener('fetch', function (event) {
           if (noQuery.toString() !== request.url) {
             return caches.match(noQuery.toString());
           }
-          // Fall back to the home page for navigations
-          if (request.mode === 'navigate') {
+          // Only the root route may fall back to the home page. Returning the
+          // homepage for an uncached legal/product route creates a misleading
+          // navigation result; make the offline state explicit instead.
+          if (request.mode === 'navigate' && (requestUrl.pathname === '/' || requestUrl.pathname === '/index.html')) {
             return caches.match('./index.html');
+          }
+          if (request.mode === 'navigate') {
+            return new Response('<!doctype html><title>Skill X offline</title><main style="font-family:system-ui;padding:2rem"><h1>You are offline</h1><p>Reconnect to open this page. Your saved learner progress remains on this device.</p><a href="/index.html">Return to Skill X</a></main>', { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
           }
           return undefined;
         });

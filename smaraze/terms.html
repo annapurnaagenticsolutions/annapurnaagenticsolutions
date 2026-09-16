@@ -109,9 +109,13 @@
 
       <div class="nav-right">
         <button class="btn btn-primary btn-sm" onclick="window.location.href='index.html'">Start Learning</button>
+        <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false"><span></span><span></span><span></span></button>
       </div>
     </div>
   </header>
+  <nav id="mobileNavPanel" class="nav-mobile-panel" aria-label="Primary navigation" aria-hidden="true">
+    <a href="index.html" class="mobile-nav-link">Learn</a><a href="why.html" class="mobile-nav-link">Why Skill X</a><a href="about.html" class="mobile-nav-link">About</a><a href="coverage.html" class="mobile-nav-link">Coverage</a><a href="support.html" class="mobile-nav-link">Support</a><a href="index.html#login" class="mobile-nav-link">Sign in / create account</a>
+  </nav>
 
   <section class="legal-hero">
     <div style="display: inline-block; padding: 0.3rem 0.8rem; background: #e0e7ff; color: #3730a3; border-radius: 999px; font-size: 0.8rem; font-weight: 800; text-transform: uppercase;">
@@ -205,5 +209,6 @@
     </p>
   </footer>
 
+  <script src="js/site_nav.js?v=64"></script>
 </body>
 </html>

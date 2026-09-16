@@ -185,7 +185,7 @@
           </h1>
 
           <p class="hero-landing-lead">
-            <strong>Avyan Info Solution proudly presents Skill X</strong> — short visual lessons, playful practice and gentle feedback that help children understand ideas, not just memorise answers. Explore <strong id="heroLessonCount">713</strong> learning topics across <strong id="heroSubjectCount">6</strong> subjects for Classes 1–10.
+            <strong>Avyan Info Solution proudly presents Skill X</strong> — short visual lessons, playful practice and gentle feedback that help children understand ideas, not just memorise answers. Explore <strong id="heroLessonCount">700+</strong> learning topics across <strong id="heroSubjectCount">6</strong> subjects for Classes 1–10.
           </p>
 
           <div class="hero-landing-ctas">
@@ -195,6 +195,9 @@
             <a href="why.html" class="btn-joy-secondary">
               <span>✨ See how Skill X works</span>
             </a>
+            <button type="button" class="btn-joy-secondary" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);}else{openLoginModal();}">
+              <span>🎓 See plans &amp; enrol</span>
+            </button>
           </div>
 
           <div class="hero-landing-trust">
@@ -711,7 +714,7 @@
         </form>
 
         <p style="font-size: 0.7rem; color: var(--text-dim); text-align: center; margin-top: 0.6rem;">
-          Your account is stored securely by Skill X. Progress can be restored when you sign in.
+          Your account is stored securely by Skill X. After account creation, we show the class-matched plans and secure Razorpay checkout. Progress can be restored when you sign in.
         </p>
       </div>
     </div>
@@ -755,12 +758,12 @@
         <a href="about.html">About</a>
         <a href="coverage.html">🗺️ Coverage Matrix</a>
         <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
-        <a href="index.html" onclick="if(window.openModal){openModal('knowledgeMapModal'); return false;}">Knowledge Map</a>
+        <span class="footer-link-disabled" aria-disabled="true">Knowledge Map<small>Coming soon</small></span>
         <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
         <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
-        <a href="index.html" onclick="if(window.openMixedReview){openMixedReview(); return false;}">🔀 Mixed Review</a>
+        <span class="footer-link-disabled" aria-disabled="true">🔀 Mixed Review<small>Coming soon</small></span>
         <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
-        <a href="index.html" onclick="if(window.startReviewSession){startReviewSession(); return false;}">Spaced Review</a>
+        <span class="footer-link-disabled" aria-disabled="true">Spaced Review<small>Coming soon</small></span>
       </div>
       <div class="footer-col">
         <h4>Learning</h4>
@@ -783,7 +786,7 @@
     </div>
     <div class="footer-bottom">
       <span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span>
-      <span><span id="footerTopicCount">706</span> published topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
+      <span><span id="footerTopicCount">700+</span> learner-visible topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
     </div>
     <div class="footer-attribution">
       <span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <span class="footer-partner">Annapurna Agentic Solutions</span>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span>

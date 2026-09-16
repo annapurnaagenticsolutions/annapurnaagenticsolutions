@@ -1456,6 +1456,47 @@ body {
 .skip-link:focus {
   left: 0;
 }
+.nav-link-disabled,
+.mobile-nav-link-disabled,
+.footer-link-disabled {
+  color: var(--text-dim) !important;
+  cursor: not-allowed;
+  opacity: .65;
+  text-decoration: none;
+}
+.nav-link-disabled small,
+.mobile-nav-link-disabled small,
+.footer-link-disabled small {
+  display: block;
+  margin-top: 2px;
+  font-size: .62rem;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.footer-link-disabled { display: block; margin: .35rem 0; font-size: .85rem; }
+
+/* Bounded library browsing: the result footer remains visible and calm
+   instead of pushing families through hundreds of cards. */
+.catalogue-expand {
+  margin: 0.5rem auto 1rem;
+  padding: 1rem 1.25rem;
+  max-width: 620px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 18px;
+  background: linear-gradient(135deg, #f8fbff, #ffffff);
+  box-shadow: 0 10px 24px rgba(37, 99, 235, 0.08);
+}
+.catalogue-expand p {
+  margin: 0 0 0.7rem;
+  color: var(--text-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+.catalogue-expand-end {
+  box-shadow: none;
+  background: var(--bg-secondary);
+}
 
 /* Keep labels available to assistive technology without adding visual noise. */
 .sr-only {

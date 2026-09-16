@@ -40,6 +40,9 @@ let dailyChallengeData = safeStorageJSON('avyaan_daily_challenge', {});
 // library.html. Keeping this state page-aware prevents a search/filter
 // control from accidentally turning the public home page into a catalogue.
 let browseMode = window.AVYAAN_LIBRARY_PAGE ? 'all' : 'curated';
+// Keep the catalogue calm and scannable. Reveal a second small page on
+// demand, but never render the complete catalogue in one long document.
+let topicDisplayLimit = 12;
 
 // A deliberately small set of starter lessons is available without an
 // account. The public bundle contains metadata only for protected topics;
@@ -511,7 +514,7 @@ function handleHashNavigation() {
   if (!h) return;
   if (h === '#login') { openLoginModal(); return; }
   if (h === '#achievements') { openModal('achievementsModal'); return; }
-  if (h === '#knowledge-map') { openModal('knowledgeMapModal'); return; }
+  if (h === '#knowledge-map') { if (typeof toast === 'function') toast('Knowledge Map is coming soon.'); return; }
   if (h === '#progress') { openDashboard(); return; }
   if (h === '#daily-challenge') { startDailyChallenge(); return; }
   const classMatch = h.match(/^#class-(\d+)$/);
@@ -1009,13 +1012,7 @@ function renderAchievementPanel() {
 
 // Start a spaced review session
 function startReviewSession() {
-  const dueIds = getTopicsDueForReview();
-  if (dueIds.length === 0) {
-    alert('🎉 No topics due for review right now! Keep learning and topics will appear here for spaced review.');
-    return;
-  }
-  // Open the first due topic
-  openTopicDetail(dueIds[0]);
+  if (typeof toast === 'function') toast('Spaced Review is coming soon while we finish the secure review flow.');
 }
 
 // ==========================================================================
@@ -1638,11 +1635,27 @@ async function handleFormRegister(e) {
       JSON.stringify({ name: name, email: email, role: 'Parent' })
     );
     saveFamilyProfileSlot(childName, childGrade);
+    // Parent registration is the first step of the authoritative learner
+    // journey. Persist the child on the server before offering enrollment so
+    // payment, consent and reports all reference the same child subject.
+    const childResult = await AvyaanAPI.createChild(childName, childGrade);
+    if (!childResult || childResult.status !== 'success') {
+      closeModal('loginModal');
+      if (typeof toast === 'function') toast('Parent account created. Finish setting up the learner profile from Parent View.');
+      openParentDashboard();
+      return;
+    }
+    window._activeParentChildId = childResult.child && childResult.child.id ? childResult.child.id : null;
   }
   updateNavbarUserUI();
   closeModal('loginModal');
   renderGrid();
   showAuthTab('login');
+  // Parents should never have to guess where enrollment happens. Once the
+  // account and child profile exist, show the live plan quote immediately.
+  if (window.AvyaanPayments && typeof AvyaanPayments.renderPaywall === 'function') {
+    setTimeout(() => AvyaanPayments.renderPaywall(null), 250);
+  }
 }
 
 // Toggle the parent-mode fields in the register form
@@ -1805,6 +1818,7 @@ function selectClassFilter(classVal, btnEl) {
   }
   selectedClass = classVal;
   browseMode = 'all';
+  topicDisplayLimit = 12;
   setHeroSubject(null);
   // Resolve the target inside the class-chip group by its label. Older
   // callers pass a positional chip index, but the age-adaptive subject row
@@ -1824,6 +1838,7 @@ function selectClassFilter(classVal, btnEl) {
 function selectSubjectFilter(subjVal, btnEl) {
   selectedSubject = subjVal;
   browseMode = 'all';
+  topicDisplayLimit = 12;
   setHeroSubject(subjectColorKey(subjVal));
   renderSubjectChips();
   renderGrid();
@@ -2052,6 +2067,7 @@ function renderClassPathSection(grade) {
 // Switch back to curated view
 function backToCurated() {
   browseMode = 'curated';
+  topicDisplayLimit = 12;
   selectedClass = 'all';
   selectedSubject = 'all';
   selectedDifficulty = 'all';
@@ -2168,15 +2184,24 @@ function renderGrid() {
     return;
   }
 
+  // Keep the first view compact, including the default All Subjects +
+  // All Classes selection. A second page is available through the control
+  // below, capped at 20 cards.
+  const visibleTopics = topics.slice(0, Math.min(topicDisplayLimit, 20));
+
   // Show "Back to curated" button when browsing all
   const backBtn = (isFiltering || browseMode === 'all') ? `
     <div style="grid-column: 1 / -1; margin-bottom: 0.5rem;">
       <button class="btn" style="font-size: 0.82rem;" onclick="backToCurated()">← Back to Home</button>
-      <span style="font-size: 0.82rem; color: var(--text-dim); margin-left: 0.5rem;">Showing ${topics.length} topics</span>
+      <span style="font-size: 0.82rem; color: var(--text-dim); margin-left: 0.5rem;">Showing ${visibleTopics.length} of ${topics.length} topics</span>
     </div>
   ` : '';
 
-  grid.innerHTML = backBtn + topics.map(topic => {
+  const expansion = topics.length > visibleTopics.length
+    ? '<div class="catalogue-expand" style="grid-column:1 / -1;"><p>Showing a focused selection keeps browsing quick. Use search or a class/subject filter to narrow further.</p><button class="btn btn-primary" type="button" onclick="expandTopicResults()">Show ' + (Math.min(20, topics.length) - visibleTopics.length) + ' more topics</button></div>'
+    : (topics.length > 12 ? '<div class="catalogue-expand catalogue-expand-end" style="grid-column:1 / -1;"><p>That is the maximum preview window. Search or choose a filter to explore another set of topics.</p></div>' : '');
+
+  grid.innerHTML = backBtn + visibleTopics.map(topic => {
     const unlocked = isTopicUnlocked(topic);
     const previewable = isTopicPreviewable(topic);
     const isMastered = completedTopicIds.has(topic.id);
@@ -2218,7 +2243,7 @@ function renderGrid() {
         </div>
       </div>
     `;
-  }).join('');
+  }).join('') + expansion;
   enhanceInteractiveSemantics(grid);
 }
 
@@ -2270,6 +2295,11 @@ async function openTopicDetail(topicId) {
   // Render the modal once in a loading state, then replace it with the
   // answer-key-free question payload returned by the API.
   await loadSecureQuizSession(topic.id);
+}
+
+function expandTopicResults() {
+  topicDisplayLimit = Math.min(20, topicDisplayLimit + 8);
+  renderGrid();
 }
 
 function renderTopicPreview(topic) {
@@ -5680,6 +5710,8 @@ function openChapterReview() {
 // dependency: topic MCQs live in the boot bundle).
 // ==========================================================================
 function openMixedReview() {
+  if (typeof toast === 'function') toast('Mixed Review is coming soon while we finish the secure review flow.');
+  return;
   const grade = (currentUser && currentUser.grade) || 1;
   const unlocked = AVYAAN_DATA.topics.filter(t => t.class_level <= grade && isTopicUnlocked(t));
   const pool = unlocked;

@@ -6,7 +6,7 @@
   <title>Progress &amp; Learning Journey | Skill X</title>
   <meta name="description" content="See how Skill X turns everyday practice into visible, encouraging learning progress for each child.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=56">
+  <link rel="stylesheet" href="style.css?v=64">
 </head>
 <body class="progress-page">
   <header class="navbar">
@@ -17,16 +17,30 @@
       </a>
       <nav class="nav-links" aria-label="Primary navigation">
         <a href="index.html" class="nav-link">Learn</a>
+        <a href="library.html" class="nav-link">Library</a>
         <a href="progress.html" class="nav-link active" aria-current="page">Progress</a>
         <a href="why.html" class="nav-link">Why Skill X</a>
+        <a href="progress.html#parent" class="nav-link">For Parents</a>
         <a href="about.html" class="nav-link">About</a>
       </nav>
       <div class="nav-right">
         <a href="index.html#progress" class="btn btn-primary btn-sm">Open dashboard</a>
-        <a href="index.html" class="nav-hamburger" aria-label="Back to learning">←</a>
+        <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
       </div>
     </div>
   </header>
+
+  <nav id="mobileNavPanel" class="nav-mobile-panel" aria-label="Primary navigation" aria-hidden="true">
+    <a href="index.html" class="mobile-nav-link">Learn</a>
+    <a href="library.html" class="mobile-nav-link">Library</a>
+    <a href="progress.html" class="mobile-nav-link">Progress</a>
+    <a href="why.html" class="mobile-nav-link">Why Skill X</a>
+    <a href="progress.html#parent" class="mobile-nav-link">For Parents</a>
+    <a href="about.html" class="mobile-nav-link">About</a>
+    <a href="index.html#login" class="mobile-nav-link">Sign in / create account</a>
+  </nav>
 
   <main>
     <section class="progress-hero">
@@ -42,8 +56,8 @@
           <p class="progress-privacy-note">Progress is shown inside the signed-in learner or parent dashboard and is kept separate for each child profile.</p>
         </div>
         <div class="progress-visual" aria-label="Illustration of a learning journey">
-          <div class="progress-visual-card progress-visual-card-main">
-            <div class="progress-visual-header"><span>Learning journey</span><span class="progress-check">✓</span></div>
+          <div class="progress-visual-card progress-visual-card-main" aria-label="Illustrative example, not a live learner record">
+            <div class="progress-visual-header"><span>Example learning journey</span><span class="progress-check">✓</span></div>
             <div class="progress-bar-label"><span>Understanding grows</span><strong>Today</strong></div>
             <div class="progress-bar"><span style="width: 68%"></span></div>
             <div class="progress-visual-stats"><span><strong>Learn</strong><small>Explore a new idea</small></span><span><strong>Practise</strong><small>Try it in a challenge</small></span></div>
@@ -80,12 +94,13 @@
   <footer class="site-footer">
     <div class="footer-container">
       <div class="footer-brand"><h3>Skill X</h3><p>Avyan Info Solution’s learning platform for curious minds. Explore, practise and understand at your own pace.</p></div>
-      <div class="footer-col"><h4>Learning</h4><a href="index.html">Browse lessons</a><a href="progress.html">Progress guide</a><a href="why.html">Why Skill X</a></div>
-      <div class="footer-col"><h4>Trust &amp; Legal</h4><a href="privacy.html">Privacy Policy</a><a href="parental-consent.html">Parental Consent</a><a href="safety.html">Child Safety Charter</a></div>
+      <div class="footer-col"><h4>Learning</h4><a href="index.html">Browse lessons</a><a href="library.html">STEM Library</a><a href="progress.html">Progress guide</a><a href="why.html">Why Skill X</a></div>
+      <div class="footer-col"><h4>Trust &amp; Legal</h4><a href="privacy.html">Privacy Policy</a><a href="terms.html">Terms of Service</a><a href="refund.html">Refund Policy</a><a href="parental-consent.html">Parental Consent</a><a href="safety.html">Child Safety Charter</a><a href="contact.html">Contact</a></div>
     </div>
     <div class="footer-bottom"><span>© <span id="copyrightYear"></span> Skill X by Avyan Info Solution</span><span>Learning with curiosity, clarity and confidence.</span></div>
     <div class="footer-attribution"><span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <span class="footer-partner">Annapurna Agentic Solutions</span>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span></div>
   </footer>
+  <script src="js/site_nav.js?v=64"></script>
   <script>document.getElementById('copyrightYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
