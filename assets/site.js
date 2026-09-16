@@ -1072,7 +1072,10 @@
     if(trailAge>90*DAY)return;
     const stale=trailAge>30*DAY;document.documentElement.style.setProperty('--world-accent',worlds[last].color);
     const intro=$('.v3-page-intro .wrap,.page-hero .wrap');if(!intro)return;
-    let meta=$('.page-intro-meta',intro);if(!meta){meta=document.createElement('div');meta.className='page-intro-meta';const eyebrow=intro.querySelector(':scope > .eyebrow');if(eyebrow){intro.insertBefore(meta,eyebrow);meta.appendChild(eyebrow)}else intro.prepend(meta)}
+    // Products has a two-column hero; keep the context rail inside its copy column
+    // so it cannot become a third grid item and reorder the hero artwork.
+    const contextHost=document.body.classList.contains('v43-products')?$('.products-hero-copy',intro):intro;if(!contextHost)return;
+    let meta=$('.page-intro-meta',contextHost);if(!meta){meta=document.createElement('div');meta.className='page-intro-meta';const eyebrow=contextHost.querySelector(':scope > .eyebrow');if(eyebrow){contextHost.insertBefore(meta,eyebrow);meta.appendChild(eyebrow)}else contextHost.prepend(meta)}
     const ribbon=document.createElement('nav');ribbon.className='page-context-ribbon';ribbon.setAttribute('aria-label','Exploration context');
     const trailText=ids.map(id=>worlds[id].short).join(' → ')||worlds[last].short;const secondary=document.body.classList.contains('v3-evidence')?['lab.html','Interactive Lab']:['evidence.html','Evidence'];
     const contextLabel=stale?'Previous trail':'Current trail',resumeLabel=stale?`Revisit ${worlds[last].short}`:`Resume ${worlds[last].short}`;
