@@ -1,0 +1,266 @@
+# Vidya Yantra — Journey Expansion Tasks
+
+- [x] Define the Ashram-first story arc, protagonist motivation, chapter order, and the later placement of the Rasa Engine.
+- [x] Create a landing page that introduces the world, growth journey, disciplines, seasons, guide characters, and entry to the playable game.
+- [x] Replace the current opening court with a playable Ashram initiation space featuring Shastra, weapon practice, elemental technique, and moral-study stations.
+- [x] Add an in-game day/night cycle and a clearly explained seasonal wheel inspired by six Indian seasonal moods in original fictional worldbuilding.
+- [x] Add a dialogue-quest system and a browsable codex for the original Rishi and Muni guide characters.
+- [x] Add a chapter-map presentation for the later traveler arc, Rasa Engine chapter, and monsoon observatory biome.
+- [x] Build the monsoon observatory prototype with rainfall atmosphere and an advanced yantra alignment puzzle.
+- [x] Improve knowledge-pulse and yantra calibration feedback with visual particles and browser-safe interactive sound.
+- [x] Define the apprentice’s origin, motivation, visual identity, and first relationship with the three guide characters.
+- [x] Add a cinematic visual introduction to the landing page that establishes Ashraya Vana, the apprentice, and the world’s wider tension.
+- [x] Create a persistent player chronicle for disciplines, learned skills, moral choices, unlocked techniques, and chapter progress.
+- [x] Build a clear four-branch skill constellation for Shastra, Astra, Prana, and Seva with practical exploration and action benefits.
+- [x] Define three original magic techniques that emerge from learning: star-thread sight, rainward pulse, and protective shelter weave.
+- [x] Build the Chapter II river-and-village travel map with distinct waypoints, travel unlocks, and the route into the later Rasa Engine chapter.
+- [x] Add a playable Nadi Bazaar exploration scene with original NPCs, a local need, and a route-choice quest.
+- [x] Add bespoke visual portraits for Rishi Aruna, Muni Laya, Raja Somavrat, and the Chapter II river guide.
+- [x] Add three guide-specific quest chains that unlock new codex entries and advancement in the corresponding discipline.
+- [x] Verify cross-chapter persistence, dialogue outcomes, travel flow, skill effects, and responsive world presentation.
+- [x] Verify the landing-to-game flow, main controls, demo route, responsiveness, and runtime logs.
+- [x] Define the Chapter II completion state, including route rewards, a public consequence, and the handoff to Chapter III.
+- [x] Add a persistent field inventory for map fragments, copper fittings, water-measure reeds, and shelter cloth.
+- [x] Add inventory pickups and clear in-world material markers across Nadi Corridor.
+- [x] Add a Nadi Bazaar completion panel that explains the player’s route choice, reward, and newly available destination.
+- [x] Add a field-journal page that records route outcomes, collected materials, and guide-arc milestones.
+- [x] Add a practical craft action that combines field materials into a repaired copper compass for Chapter III access.
+- [x] Add consequence notes from Aruna, Laya, and Somavrat that change according to the player’s carried stance.
+- [x] Create a Chapter III Rasa Engine discovery entrance with a prepared/unprepared gate and a cinematic first encounter.
+- [x] Add a playable Rasa Engine alignment challenge using the learned skills, route fragments, and calibrated focus pulse.
+- [x] Verify the full Ashram-to-road-to-Rasa progression, inventory persistence, route completion flow, and Chapter III entry.
+- [x] Define camera movement modes, environmental motion motifs, character-silhouette priorities, and the next Chapter III quest systems.
+- [x] Add camera easing, travel look-ahead, and focus framing that respond to player movement and nearby objectives.
+- [x] Add a cinematic arrival sweep for Ashram, Nadi Corridor, and Silent Courtyard scenes.
+- [x] Improve Ila’s in-world silhouette with layered garments, compass light, staff movement, and a stronger walking profile.
+- [x] Improve guide and NPC silhouettes with distinct clothing layers, gestures, props, and idle motion.
+- [x] Add moving water, drifting leaves, cloth banners, fireflies, and sky particles appropriate to each biome.
+- [x] Add environmental landmarks and inspectable story objects that make routes feel inhabited.
+- [x] Add a Tara route-completion ceremony with a persistent Route Seal and ferry departure moment.
+- [x] Add short ferry conversations that react to the traveller’s carried stance and guide-arc progress.
+- [x] Add a stance-reactive Chapter III challenge that changes the Rasa Engine’s visible response and journal outcome.
+- [x] Define the next fifteen feature interactions, their Chronicle records, and their Chapter III progression dependencies.
+- [x] Add camera orbit controls with a reset view affordance and a temporary close-focus mode around guides and objectives.
+- [x] Add route-based camera waypoints that create distinct bridge, ferry, pavilion, and observatory perspectives.
+- [x] Add a dynamic camera shake and slow-motion emphasis for meaningful pulse, alignment, and encounter moments.
+- [x] Add companion presence on the Nadi Corridor ferry with follow behavior and contextual proximity responses.
+- [x] Add a companion selection note in the Chronicle and a persistent bond level for the river guide Tara.
+- [x] Add a six-season visual overlay that affects sky tint, motes, banners, foliage, water, and ambient descriptions.
+- [x] Add a continuous day/night lighting cycle with dawn, midday, dusk, and starfall variants for each playable chapter.
+- [x] Add a seasonal observatory forecast board that previews environmental advantages in a future journey.
+- [x] Add inspectable world objects with concise field notes, material hints, and optional Codex discoveries.
+- [x] Add a route milestone ribbon that announces new locations, skills, materials, and guide-arc completions.
+- [x] Add a Chapter III three-ring encounter with sequential alignment stages and a visible stability meter.
+- [x] Add an encounter pressure state that requires measured movement, focus pulse timing, and recovery at shelter anchors.
+- [x] Add a Rasa Engine reward constellation that grants a new persistent technique after the encounter.
+- [x] Add a post-encounter journal outcome that summarizes stance, companion bond, technique reward, and next destination.
+- [x] Define the post-Rasa fifteen-feature dependency map, including companion quest gates, travel unlocks, and Chapter IV preparation.
+- [x] Add Tara’s first companion side quest, “The Missing Sounding,” with a river-navigation objective and bond reward.
+- [x] Add a Rishi Aruna fieldwork quest that uses Star-thread Sight to compare competing route evidence.
+- [x] Add a Muni Laya practice quest that uses timed movement and stability recovery in a changing environment.
+- [x] Add companion conversation moments that unlock after major milestones and reflect carried stance.
+- [x] Add companion-bond milestones with visible rewards and Chronicle records.
+- [x] Add a field map panel showing unlocked routes, current location, future destinations, and fast-travel actions.
+- [x] Add fast travel between Ashraya Vana, Nadi Corridor, Silent Courtyard, and the Monsoon Observatory.
+- [x] Add reactive destination cards that summarize season, companion presence, route condition, and available tasks.
+- [x] Add world-state variations in Nadi Corridor based on route consequence, companion bond, and season.
+- [x] Add a Chapter IV Monsoon Observatory briefing with the first explicit long-range objective after Rasa.
+- [x] Add an advanced Rainward Pulse technique that can redirect a moving environmental current.
+- [x] Add a Chapter IV stormfront traversal challenge with shelter choices and a seasonal forecast advantage.
+- [x] Add a long-term mastery tracker for Shastra, Astra, Prana, and Seva branches.
+- [x] Add an end-of-session Chronicle summary showing active quest, travel destination, mastery growth, and next recommendation.
+- [x] Add Tara’s bond-level-three storm-shelter navigation quest in the Monsoon Observatory.
+- [x] Add an explicit Rainward Current plus Resonance Shelter combination challenge.
+- [x] Add a companion milestone conversation after the Rasa Engine that reflects the carried stance.
+- [x] Add a second companion reward record, technique context, and bond-state HUD expression.
+- [x] Add Rishi Aruna’s competing-route evidence fieldwork quest in Ashraya Vana.
+- [x] Add a visible Star-thread comparison instrument for Aruna’s evidence quest.
+- [x] Add Muni Laya’s timed measured-movement practice quest with stability recovery.
+- [x] Add a practice-result record that feeds the Prana mastery branch.
+- [x] Add reactive Nadi Corridor voices and environmental cues based on route consequence, Tara bond, and season.
+- [x] Add collected-material icons and explanations to the field map and Chronicle inventory.
+- [x] Add Raja Somavrat’s Monsoon Observatory public-responsibility decision.
+- [x] Add an outcome summary that carries the public choice into later world-state narration.
+- [x] Add a moving stormfront traversal course with current redirection and shelter anchors.
+- [x] Add a Chapter V horizon signal once Rainward Current is earned.
+- [x] Add a Chapter V lead card with destination premise, prerequisite record, and next recommended practice.
+- [x] Add Chapter V: the playable High-Ridge Warning Archive biome.
+- [x] Add the Archive’s opening approach sequence and high-ridge arrival camera sweep.
+- [x] Add three archive signal lenses that compare river evidence, wind readings, and settlement memory.
+- [x] Add a Resonance Ledger knowledge-action puzzle that combines Star-thread Sight, Rainward Current, and Resonance Shelter.
+- [x] Add an Archive Keeper dialogue encounter that responds to Raja Somavrat’s carried public-water decision.
+- [x] Add Tara’s post-storm companion exchange and a bond-level-four route-planning reward.
+- [x] Add Rishi Aruna’s later consequence dialogue about evidence and early warning.
+- [x] Add Muni Laya’s later consequence dialogue about measured movement and collective calm.
+- [x] Add a carried-consequence timeline to the Traveller’s Chronicle.
+- [x] Add mission breadcrumb and nearest-objective guidance to the live field HUD.
+- [x] Add an accessibility control panel for reduced motion, larger field text, and high-contrast HUD mode.
+- [x] Add dedicated keyboard-accessible objective prompts and control reference.
+- [x] Add dynamic destination conditions in the field map for Chapter V unlock and public-choice outcomes.
+- [x] Add a high-ridge material reward and a new Mastery tracker threshold for archive completion.
+- [x] Add a Chapter VI horizon tease after the Archive’s first instrument is resolved.
+- [x] Add Chapter VI: the playable Listening Estuary biome.
+- [x] Add the Estuary’s arrival sweep from river mouth to tidal observatory.
+- [x] Add three tidal listening bowls that compare salinity, current, and habitat signals.
+- [x] Add a tide-window puzzle that combines Archive Shard, Rainward Current, and Measured Step.
+- [x] Add a mangrove refuge technique reward after resolving the tide window.
+- [x] Add an Estuary Listener character who responds to the Archive public-warning outcome.
+- [x] Add Tara’s coastal route-planning conversation and bond-level-five record.
+- [x] Add Rishi Aruna’s evidence dialogue about false certainty in tide forecasts.
+- [x] Add Muni Laya’s dialogue about collective calm during an evacuation drill.
+- [x] Add Raja Somavrat’s coastal stewardship choice between fishing access, habitat restoration, and flood readiness.
+- [x] Add a persistent estuary stewardship outcome to the Chronicle.
+- [x] Add cross-chapter Nadi Corridor return narration that reflects the coastal decision.
+- [x] Add a replayable seasonal tide drill with three randomized signal orders.
+- [x] Add a replay record, best completion count, and seasonal modifier card to the Chronicle.
+- [x] Add a combined five-branch mastery record that includes Archive and Estuary completion.
+- [x] Add a field-map Chapter VI destination card with prerequisite and consequence states.
+- [x] Add a coastal material reward and a new inventory explanation in the Chronicle.
+- [x] Add a guided first-time objective route and an optional challenge-route toggle.
+- [x] Add estuary-specific reduced-motion and high-contrast presentation adjustments.
+- [x] Add a Chapter VII horizon teaser after the stewardship decision is resolved.
+- [x] Create a cited research dossier on Ashram learning practices, Indian knowledge traditions, terrain, and seasonal ecology for narrative use.
+- [x] Add Chapter VII: the playable Salt Library coastal trade-and-memory biome.
+- [x] Add a terrain approach that moves from tidal archive steps through salt grass to a cliffside memory library.
+- [x] Add a seasonal salt-wind forecast informed by the six-season calendar.
+- [x] Add three memory caskets that compare oral testimony, navigation records, and ecological observation.
+- [x] Add a collaborative recitation-and-verification puzzle that treats learning as dialogue rather than rote retrieval.
+- [x] Add a field annotation technique that combines Star-thread Sight with the Archive Shard.
+- [x] Add a salt-marsh refuge reward that expands Mangrove Refuge into a coastal care technique.
+- [x] Add a Library Steward character whose questions distinguish memory, record, and responsibility.
+- [x] Add Tara’s sixth companion milestone about return routes and working with local knowledge holders.
+- [x] Add Rishi Aruna’s dialogue on pramāṇa-inspired evidence pluralism without presenting scripture as game canon.
+- [x] Add Muni Laya’s dialogue on practice, attention, and collective recitation without ritual simulation.
+- [x] Add Raja Somavrat’s public memory decision about trade records, local testimony, and ecological warnings.
+- [x] Add a persistent memory-stewardship outcome to the Chronicle.
+- [x] Add cross-chapter Estuary and Nadi reactions to the memory-stewardship decision.
+- [x] Add a research-informed Ashram return note about study, service, and field observation.
+- [x] Add a Salt Library replay route with shifting testimony order and seasonal salt-wind modifiers.
+- [x] Add a seventh destination card, memory-material inventory item, and six-branch mastery record.
+- [x] Add high-contrast and reduced-motion presentation adjustments for the Salt Library’s records and salt-wind cues.
+- [x] Add a Chapter VIII horizon tease grounded in a new original knowledge-ecology question.
+- [x] Expand the landing page into a complete seven-chapter pilgrimage map with a Chapter VIII Mirror Step horizon teaser.
+- [x] Add a Chronicle campaign recap that visualizes carried evidence, stewardship choices, and moral stances across the journey.
+- [x] Add Tara Vaidyi’s six-knot companion journal with all six milestones and their route-planning rewards.
+- [x] Research and define the original Mirror Step evidence-comparison and testimony-corroboration play loop.
+- [x] Generate and register a Chapter VIII Mirror Step concept plate that follows the Rasa Engine material language.
+- [x] Add Mirror Step persistence, HUD context, fast-travel horizon state, and Chapter VIII mastery tracking.
+- [x] Build the playable Mirror Step debate-and-testimony biome with distinct observation, inference, and testimony evidence stations.
+- [x] Add a contextual corroboration puzzle, an original Mirror Step interlocutor, and consequence records for Chapter VIII.
+- [x] Add accessibility, reduced-motion, high-contrast, seasonal replay, and campaign-reaction states for Mirror Step.
+- [x] Validate, build, and checkpoint the full campaign expansion.
+- [x] Add a reusable timed guide-exchange system with optional captions, readable speaker identity, and skip-safe playback.
+- [x] Author original captioned exchanges for Rishi Aruna, Muni Laya, Raja Somavrat, Tara, and the Margin Cartographer.
+- [x] Add six-season opening variations for the three core guides so repeat visits feel responsive.
+- [x] Add a post-Mirror Step Ashram homecoming exchange that connects study, service, field evidence, and public responsibility.
+- [x] Add an interactive six-knot Tara journal reader with each knot’s context, route-planning reward, and return-line reflection.
+- [x] Add chapter-aware Tara companion whispers and a route-planning prompt that responds to current carried evidence.
+- [x] Add a New Journey / Continue Journey distinction to the landing page based on the stored Chronicle.
+- [x] Add a landing-page continuation marker that names the most recent chapter, carried technique, and next field question.
+- [x] Add a dedicated eight-segment mastery wheel to the Chronicle using all current discipline and terrain branches.
+- [x] Add a Chronicle source ledger that distinguishes observation, inference, testimony, and public stewardship records.
+- [x] Add a Mirror Step response in Monsoon Observatory that reflects the player’s corroboration outcome.
+- [x] Add a Mirror Step response in the High-Ridge Warning Archive that reflects the player’s countermark choice.
+- [x] Add a reusable seasonal Archive signal challenge with three seasonal signal-order variants and persistent records.
+- [x] Add Archive replay outcomes to the campaign recap and mastery instrument.
+- [x] Add seasonal guide reflection notes that respond to the player’s latest route consequence.
+- [x] Define the original Chapter IX horizon as a new consequence-facing learning question without adapting sacred narrative.
+- [x] Research the Chapter IX thematic foundation and document the bounded implementation translation.
+- [x] Generate and register a Rasa Engine Chapter IX horizon concept plate.
+- [x] Add Chapter IX horizon language, field-map card, Chronicle readiness record, and landing teaser following Mirror Step completion.
+- [x] Validate clean, active, and completed campaign states; build and checkpoint the new batch.
+- [x] Extend the research dossier with a bounded Confluence Table design brief grounded in plural standpoints, revisable public knowledge, and source provenance.
+- [x] Refine and register the Chapter IX concept plate as the spatial target for a playable Confluence Table route.
+- [x] Add Chapter IX persistence, HUD context, map travel, Chronicle records, and ninth mastery branch.
+- [x] Build the playable Confluence Table Babylon.js world with three incoming route arms and a copper public-route instrument.
+- [x] Add three original source-condition stations: river gauge, ridge signal, and shore record.
+- [x] Add a route-braid puzzle that requires source, condition, and public consequence to remain distinct before they are connected.
+- [x] Add an original Confluence Steward interlocutor with dialogue that invites revision rather than declaring a winning doctrine.
+- [x] Add an amendable public-route choice whose consequence preserves a useful map alongside an explicit return condition.
+- [x] Add the Route Braid technique and a Confluence field material to progression, HUD, Chronicle, and mastery display.
+- [x] Add Tara’s post-six-knot unbound-line companion culmination and a context-aware route-planning response at the Table.
+- [x] Add seasonal Confluence Table replay orders and persistent public-route records.
+- [x] Add accessibility, reduced-motion, high-contrast, sound, camera, and ambient-life support for Chapter IX.
+- [x] Expand landing, campaign recap, timeline, field map, and Chronicle from eight to nine active campaign chapters.
+- [x] Add Confluence outcomes as reactive notes in Ashram, Nadi Corridor, Monsoon Observatory, Archive, Estuary, Salt Library, and Mirror Step.
+- [x] Add a source-ledger entry for revisability and a ninth segment to the full-journey mastery instrument.
+- [x] Add a timed caption exchange for the Confluence Steward and a final return-line exchange for Tara.
+- [x] Define an original Chapter X horizon question that follows the Confluence Table without adapting sacred narrative.
+- [x] Research and document the Chapter X thematic foundation and bounded implementation translation.
+- [x] Generate and register a Chapter X Rasa Engine horizon concept plate and surface it on the landing, map, and Chronicle after Chapter IX completion.
+- [x] Validate clean, locked, active, and completed Chapter IX states; run production build and checkpoint the batch.
+- [x] Extend the research dossier with a bounded Return Observatory design brief on source provenance, practical revision, and record lineage.
+- [x] Create a Chapter X implementation brief that defines its original field loop, material composition, and historical-texture guardrails.
+- [x] Confirm the registered Return Observatory concept plate as the spatial target for a playable Chapter X route.
+- [x] Add Chapter X persistence, HUD context, tenth route travel, Chronicle records, and a tenth mastery branch.
+- [x] Build the playable Return Observatory Babylon.js world with a diagonal amendment path and copper armillary return instrument.
+- [x] Add three original return windows for the river gauge, ridge warning, and shore record when their conditions change.
+- [x] Add a route-lineage puzzle that compares the prior public route, a changed condition, and an accountable amendment without erasing earlier use.
+- [x] Add an original Observatory Tender interlocutor who frames revision as care for readers rather than a verdict on the past.
+- [x] Add an amendable public-record decision that names what changes, what remains useful, and who must read the amendment.
+- [x] Add the Revision Compass technique and an Observatory Folio material to progression, HUD, Chronicle, and mastery display.
+- [x] Add Tara’s post-unbound-line return conversation that recognizes the six knots without inventing a seventh knot.
+- [x] Add seasonal Return Observatory replay orders and persistent amendment-lineage records.
+- [x] Add accessibility, reduced-motion, high-contrast, sound, camera, and ambient-life support for Chapter X.
+- [x] Expand landing, campaign recap, timeline, field map, and Chronicle from nine to ten active campaign chapters.
+- [ ] Add Chapter X amendment outcomes as reactive notes in the Ashram, Nadi Corridor, Monsoon Observatory, Archive, Estuary, Salt Library, Mirror Step, and Confluence Table.
+- [ ] Add fictional historical-texture field notes about instruments, water measures, travel records, and learning spaces without presenting a single fixed or universal Indian past.
+- [x] Add timed caption exchanges for the Observatory Tender and Tara’s final unbound-line return reflection.
+- [ ] Define an original Chapter XI horizon question that grows from route lineage without adapting sacred narrative.
+- [ ] Research, generate, register, and surface a Chapter XI Rasa Engine horizon concept plate after Chapter X completion.
+- [ ] Validate clean, locked, active, and completed Chapter X states; run production build and checkpoint the continuous-journey batch.
+
+
+## Next campaign batch — Chapter XI Living Survey
+- [ ] Define the Chapter XI Living Survey premise, chapter gates, and three-part return/compare/publish play loop.
+- [ ] Add Chronicle persistence for three variance marks, terrain register state, Surveyor of Returns encounter, lineage comparison, variance publication, seasonal replay, and Chapter XI completion.
+- [ ] Extend JourneyContext and HudBridge with Chapter XI fields, map state, mastery state, and accessibility context.
+- [ ] Build the playable Chapter XI Living Survey Babylon.js biome with a distinct survey basin, diagonal route, instrument terrace, and camera arrival.
+- [ ] Add three variance-mark stations for water reach, ridge passage, and shore access, each with distinct evidence and environmental feedback.
+- [ ] Add the terrain register interaction that records condition, confidence, affected reader, and earlier-route relationship without overwriting prior records.
+- [ ] Add the original Surveyor of Returns character with amendment-as-care dialogue and guide-specific reactions.
+- [ ] Add the route-lineage comparison chamber showing earlier route, Chapter X amendment, and Chapter XI field variance side by side.
+- [ ] Add the compare-and-publish-variance choice loop with Viveka, Sahas, and Karuna outcomes and a persistent public notation.
+- [ ] Add a Chapter XI seasonal replay challenge with six-season variance ordering and best-record tracking.
+- [ ] Add Chapter XI landing, field-map, and Chronicle presentation using the distinct procedural survey instrument preview.
+- [ ] Add a dedicated Chapter XI Rasa Engine concept plate when image-generation capacity is available, then register it in ASSETS.md and wire it to the visual target.
+- [ ] Deepen the Ashram homecoming response after Return Observatory and Living Survey completion, including a post-field study circle.
+- [ ] Add seasonal variant opening dialogue for Rishi Aruna, Muni Laya, Raja Somavrat, Tara, and the Surveyor of Returns.
+- [ ] Add a full-journey completion screen and visual mastery instrument after the Chapter XI variance is published, then validate the complete campaign handoff.
+- [ ] Validate locked, active, completed, seasonal replay, accessibility, landing, map, and Chronicle states; clear temporary browser fixtures and save a checkpoint.
+
+
+## Next campaign batch — Post-Living Survey expansion
+- [x] Build a dedicated lineage comparison screen showing prior route, Chapter X amendment, Chapter XI variance, and next reader side by side.
+- [x] Add an in-world comparison interaction that lets players inspect each lineage layer before publication rather than reading it only in the HUD.
+- [ ] Add a post-campaign Ashram homecoming study circle with Aruna, Laya, Somavrat, and Tara reacting to the published variance.
+- [ ] Add New Journey+ mode that preserves selected mastery records while resetting field conditions and route consequences.
+- [ ] Add a full-campaign epilogue chapter state that records completion without treating the knowledge route as closed.
+- [ ] Add a visual mastery instrument that maps all eleven chapters, core disciplines, public-care choices, and lineage practices.
+- [ ] Add a route-lineage replay browser for revisiting earlier chapter decisions and their later amendments.
+- [x] Add seasonal dialogue variants for the Surveyor of Returns and post-campaign Ashram guides across all six Indian seasons.
+- [x] Add a replayable Chapter XI challenge ladder with seasonal ordering, best-record history, and optional no-pulse mode.
+- [x] Add a distinct Chapter XI concept plate when image-generation capacity resets and connect it to the landing and Chronicle surfaces.
+- [x] Add a procedural lineage map overlay to the Living Survey that visually links water, ridge, shore, amendment, and variance marks.
+- [ ] Add completion-state accessibility refinements for reduced motion, large text, high contrast, captions, and keyboard route navigation.
+- [ ] Add a campaign-wide source ledger filter that separates observation, inference, testimony, amendment, and variance records.
+- [ ] Add a post-campaign companion journal page for Tara’s unbound line and the reader who must revise the next route.
+- [ ] Add a New Journey / Continue Journey / New Journey+ landing decision surface with clear persistence consequences.
+- [ ] Validate the new lineage and replay flows, update MEMORY.md and validation notes, clear browser fixtures, and save a checkpoint.
+
+## New season — The Open Almanac
+- [x] Define the eight-chapter Open Almanac season arc, original knowledge questions, chapter gates, companion beats, and continuity rules.
+- [x] Build Chapter XII: Lineage Chamber as a playable in-world comparison space for earlier route, amendment, variance, and next reader.
+- [ ] Build Chapter XIII: Wind Ledger Terrace, where seasonal air readings and village signal cloths produce a usable public forecast.
+- [ ] Build Chapter XIV: Hearths of Repair, where care, craft, and shared resource constraints reshape a traveling workshop route.
+- [ ] Build Chapter XV: Grassland Echo Field, where grazing paths, water traces, and oral wayfinding require accountable ecological listening.
+- [ ] Build Chapter XVI: Forest Floor Observatory, where leaf litter, shade, and understory movement reveal a slow seasonal threshold.
+- [ ] Build Chapter XVII: Sky-Measure Caravan, where stellar bearings, cloud depth, and road testimony guide a highland night crossing.
+- [ ] Build Chapter XVIII: Ghat of Returning Voices, where public memory, river access, and flood markers are held in an open assembly.
+- [ ] Build Chapter XIX: Commons Observatory, where the season’s records become a revisable shared plan rather than a final authority.
+- [x] Add the dedicated Chapter XI Living Survey concept plate, record it in ASSETS.md, and wire it into landing, map, Chronicle, and the in-world survey plane.
+- [x] Add a procedural lineage chamber interaction with inspectable panels, physical route threads, camera focus, and public-notation choices.
+- [x] Add six-season dialogue variants for the Surveyor of Returns, Tara, Aruna, Laya, and Somavrat in New Journey+.
+- [x] Add a New Journey+ seasonal challenge ladder with no-pulse option, carried mastery modifiers, best-run records, and accessible practice mode.
+- [ ] Add season-wide Chronicle, map, codex, mastery, accessibility, and source-ledger surfaces for The Open Almanac.
+- [x] Validate lineage chamber, New Journey+ modes, Chapter XI plate, and first-season-chapter flows; then build and checkpoint the season launch slice.

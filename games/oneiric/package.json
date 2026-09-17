@@ -1,0 +1,30 @@
+{
+  "name": "oneiric",
+  "version": "1.0.0",
+  "description": "ONEIRIC — a nested-dream heist game. Go deeper, time slows down, the mind fights back.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "check": "tsc --noEmit"
+  },
+  "keywords": [
+    "game",
+    "dream",
+    "heist",
+    "browser",
+    "canvas",
+    "roguelite"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "@types/three": "^0.165.0",
+    "typescript": "^5.4.5",
+    "vite": "^5.2.11"
+  },
+  "dependencies": {
+    "playwright": "^1.62.1",
+    "three": "^0.165.0"
+  }
+}

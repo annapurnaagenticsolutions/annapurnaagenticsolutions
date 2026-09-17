@@ -1,0 +1,44 @@
+[2026-08-15T05:44:41.586Z] {"timestamp":1786772679582,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:44:41.586Z] {"timestamp":1786772679636,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:44:41.586Z] {"timestamp":1786772681258,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-08-15T05:49:25.478Z] {"timestamp":1786772963708,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:25.478Z] {"timestamp":1786772963876,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:28.473Z] {"timestamp":1786772965323,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:28.473Z] {"timestamp":1786772965477,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:33.486Z] {"timestamp":1786772970213,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:33.487Z] {"timestamp":1786772970367,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:33.487Z] {"timestamp":1786772970743,"level":"LOG","args":["BJS - [11:19:30]: Babylon.js v9.21.2 - WebGL2 - Parallel shader compilation"],"stack":null}
+[2026-08-15T05:49:38.480Z] {"timestamp":1786772975359,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:38.480Z] {"timestamp":1786772975518,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:38.480Z] {"timestamp":1786772975724,"level":"LOG","args":["BJS - [11:19:35]: Babylon.js v9.21.2 - WebGL2 - Parallel shader compilation"],"stack":null}
+[2026-08-15T05:49:47.310Z] {"timestamp":1786772985294,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:47.310Z] {"timestamp":1786772985314,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:47.310Z] {"timestamp":1786772985539,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-08-15T05:49:47.310Z] {"timestamp":1786772985771,"level":"LOG","args":["BJS - [05:49:45]: Babylon.js v9.21.2 - WebGL2"],"stack":null}
+[2026-08-15T05:49:47.431Z] {"timestamp":1786772985294,"level":"DEBUG","args":["[Manus] Debug collector initialized (no rrweb, UI events only)"],"stack":null}
+[2026-08-15T05:49:47.431Z] {"timestamp":1786772985311,"level":"DEBUG","args":["[vite] connected."],"stack":null}
+[2026-08-15T05:49:47.431Z] {"timestamp":1786772985479,"level":"INFO","args":["%cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools","font-weight:bold"],"stack":null}
+[2026-08-15T05:49:47.431Z] {"timestamp":1786772985771,"level":"LOG","args":["BJS - [05:49:45]: Babylon.js v9.21.2 - WebGL2"],"stack":null}
+\n--- dev server ---
+[2026-08-15T05:43:45.028Z] Starting dev server with command: pnpm run dev
+[2026-08-15T05:43:47.042Z] > vidya-yantra@1.0.0 dev /home/ubuntu/vidya-yantra
+[2026-08-15T05:43:47.042Z] > vite --host
+[2026-08-15T05:43:47.510Z] VITE v7.1.9  ready in 427 ms
+[2026-08-15T05:43:47.510Z] ➜  Local:   http://localhost:3000/
+[2026-08-15T05:43:47.511Z] ➜  Network: http://169.254.0.21:3000/
+[2026-08-15T05:44:36.035Z] ELIFECYCLE  Command failed.
+[2026-08-15T05:44:36.077Z] Dev server exited with code -1
+[2026-08-15T05:44:37.147Z] Starting dev server with command: pnpm run dev
+[2026-08-15T05:44:37.915Z] > vidya-yantra@1.0.0 dev /home/ubuntu/vidya-yantra
+[2026-08-15T05:44:37.915Z] > vite --host
+[2026-08-15T05:44:38.370Z] 5:44:38 AM [vite] (client) Re-optimizing dependencies because lockfile has changed
+[2026-08-15T05:44:38.417Z] VITE v7.1.9  ready in 452 ms
+[2026-08-15T05:44:38.417Z] ➜  Local:   http://localhost:3000/
+[2026-08-15T05:44:38.417Z] ➜  Network: http://169.254.0.21:3000/
+[2026-08-15T05:44:39.471Z] [baseline-browser-mapping] The data in this module is over two months old.  To ensure accurate Baseline data, please update: `npm i baseline-browser-mapping@latest -D`
+[2026-08-15T05:49:14.430Z] 5:49:14 AM [vite] (client) hmr update /src/App.tsx, /src/index.css
+[2026-08-15T05:49:17.001Z] 5:49:17 AM [vite] (client) hmr update /src/index.css
+[2026-08-15T05:49:17.557Z] 5:49:17 AM [vite] (client) page reload index.html
+[2026-08-15T05:49:24.788Z] 5:49:24 AM [vite] (client) ✨ new dependencies optimized: @babylonjs/core/Engines/engine, @babylonjs/core/Cameras/arcRotateCamera, @babylonjs/core/Lights/hemisphericLight, @babylonjs/core/Lights/directionalLight, @babylonjs/core/Maths/math.color, @babylonjs/core/Maths/math.vector, @babylonjs/core/scene, @babylonjs/core/Meshes/meshBuilder, @babylonjs/core/Materials/standardMaterial, @babylonjs/core/Materials/Textures/texture, @babylonjs/core/Meshes/transformNode
+[2026-08-15T05:49:24.788Z] 5:49:24 AM [vite] (client) ✨ optimized dependencies changed. reloading
+[2026-08-15T05:49:29.331Z] 5:49:29 AM [vite] (client) hmr update /src/index.css, /src/components/GameCanvas.tsx

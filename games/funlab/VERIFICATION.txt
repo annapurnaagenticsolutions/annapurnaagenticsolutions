@@ -1,0 +1,11 @@
+FunLab Browser v0.6 verification
+================================
+npm test: PASS (32/32)
+npm run audit: PASS
+node --check: PASS (33 JavaScript/MJS files)
+Game module import verification: PASS (11/11)
+HTTP smoke: PASS (10/10 core/game/PWA resources)
+Backend freeze vs v0.5: PASS (ai-server.mjs + intelligence.schemas.json byte-for-byte SHA-256 match)
+Storage migration: v0.6 reads v0.5/v0.4/v0.3/v0.2/v0.1 and reset clears prior keys
+Headless Chromium screenshot QA: NOT VERIFIED — Chromium timed out in this container during graphics/system initialization; no screenshot pass is claimed.
+Extracted ZIP retest: PASS (32/32 tests + audit)

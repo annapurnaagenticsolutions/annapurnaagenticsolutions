@@ -1,0 +1,19 @@
+{
+  "name": "FunLab — tiny games, quick chaos",
+  "short_name": "FunLab",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#11131a",
+  "theme_color": "#11131a",
+  "description": "A browser-first collection of quick, replayable micro-games with direct manipulation, spatial play and selective Canvas2D/Three.js presentation.",
+  "icons": [
+    {"src":"./assets/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ],
+  "share_target": {
+    "action": "./?share_target=1",
+    "method": "GET",
+    "enctype": "application/x-www-form-urlencoded",
+    "params": {"title":"title","text":"text","url":"url"}
+  }
+}

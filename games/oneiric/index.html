@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ONEIRIC — a nested-dream heist game. Go deeper, time slows down, the mind fights back. Plant the seed at the bottom and kick out before you forget what's real." />
+  <title>ONEIRIC — Nested Dream Heist</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    body {
+      font-family: 'Georgia', 'Times New Roman', serif;
+      color: #d4a574;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    #canvas-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #webgl-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+    #hud-canvas {
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    #loading {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.5rem;
+      letter-spacing: 0.3em;
+      color: #d4a574;
+      text-transform: uppercase;
+      opacity: 0.7;
+      animation: pulse 2s ease-in-out infinite;
+      z-index: 10;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.9; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      #loading { animation: none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="loading">Entering the dream…</div>
+  <div id="canvas-container">
+    <canvas id="webgl-canvas" width="960" height="600"></canvas>
+    <canvas id="hud-canvas" width="960" height="600"></canvas>
+  </div>
+  <script type="module" src="./src/main.ts"></script>
+</body>
+</html>

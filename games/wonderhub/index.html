@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>WonderHub by Annapurna | Learning Universe Index</title>
+  <meta name="description" content="A bookmarkable discovery hub for Annapurna learning websites across study, play, stories, activities, creativity, STEM, and future skills." />
+  <meta name="theme-color" content="#fff7ed" />
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body id="top">
+  <a class="skip-link" href="#sites">Skip to websites</a>
+
+  <header class="site-header" aria-label="WonderHub header">
+    <nav class="nav-shell">
+      <a class="brand" href="./" aria-label="WonderHub by Annapurna home">
+        <span class="brand-mark">W</span>
+        <span>
+          <strong>WonderHub</strong>
+          <small>by Annapurna</small>
+        </span>
+      </a>
+      <div class="nav-actions" aria-label="Primary navigation">
+        <a href="#sites">Explore</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#add-site">Add links</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero section-pad">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">One bookmark. Many learning worlds.</p>
+          <h1>Your central gateway to study, play, stories, creativity, activities, and future skills.</h1>
+          <p class="hero-text">
+            WonderHub is a simple index for all Annapurna learning websites. It does not host full lessons or games here; it helps children, parents, teachers, and schools discover the right dedicated platform quickly.
+          </p>
+          <div class="hero-actions">
+            <a class="btn primary" href="#sites">Explore websites</a>
+            <a class="btn secondary" href="#live-sites">View live platforms</a>
+          </div>
+        </div>
+
+        <aside class="hero-panel" aria-label="WonderHub platform summary">
+          <div class="orb orb-one"></div>
+          <div class="orb orb-two"></div>
+          <div class="panel-card focus-card">
+            <span class="focus-icon">✦</span>
+            <div>
+              <strong>Designed as a discovery hub</strong>
+              <p>Add new websites over time by updating one JSON file.</p>
+            </div>
+          </div>
+          <div class="mini-grid" id="stats" aria-live="polite">
+            <div><strong>0</strong><span>Live</span></div>
+            <div><strong>0</strong><span>Coming soon</span></div>
+            <div><strong>0</strong><span>Categories</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section-pad compact" aria-label="Hub promise">
+      <div class="promise-strip">
+        <div>
+          <span>01</span>
+          <strong>Simple</strong>
+          <p>One clean page for all learning links.</p>
+        </div>
+        <div>
+          <span>02</span>
+          <strong>Expandable</strong>
+          <p>Future websites can be added without redesigning the hub.</p>
+        </div>
+        <div>
+          <span>03</span>
+          <strong>Focused</strong>
+          <p>Each linked platform keeps its own complete experience.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sites" class="section-pad">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Explore the universe</p>
+          <h2>Choose what you want to pursue.</h2>
+        </div>
+        <p>
+          Filter by category or search by topic. Live platforms open directly; planned ideas remain visible so the hub feels future-ready.
+        </p>
+      </div>
+
+      <div class="toolbar" aria-label="Website filters">
+        <label class="search-box">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Search STEM, stories, games, robotics..." autocomplete="off" />
+        </label>
+        <div class="filter-row" id="categoryFilters" aria-label="Category filters"></div>
+      </div>
+
+      <div id="live-sites" class="subsection-title">
+        <h3>Live platforms</h3>
+        <span id="liveCount">0 available</span>
+      </div>
+      <div class="site-grid" id="featuredGrid" aria-live="polite"></div>
+
+      <div class="subsection-title coming-title">
+        <h3>Future website slots</h3>
+        <span id="futureCount">0 planned</span>
+      </div>
+      <div class="site-grid muted-grid" id="futureGrid" aria-live="polite"></div>
+
+      <div class="empty-state" id="emptyState" hidden>
+        <strong>No matching websites found.</strong>
+        <p>Try another category or search term.</p>
+      </div>
+    </section>
+
+    <section id="how-it-works" class="section-pad soft-section">
+      <div class="section-head centered">
+        <p class="eyebrow">How this hub works</p>
+        <h2>Keep the hub light. Keep each experience focused.</h2>
+      </div>
+      <div class="steps">
+        <article>
+          <span>1</span>
+          <h3>Bookmark WonderHub</h3>
+          <p>Users return here as the front door for all current and future learning websites.</p>
+        </article>
+        <article>
+          <span>2</span>
+          <h3>Select an interest</h3>
+          <p>Study, play, color, read, build, or explore future skills from a single organized index.</p>
+        </article>
+        <article>
+          <span>3</span>
+          <h3>Open the dedicated site</h3>
+          <p>The actual lessons, activities, games, and stories remain inside their own specialized websites.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="add-site" class="section-pad add-site-section">
+      <div class="add-card">
+        <div>
+          <p class="eyebrow">Built for growth</p>
+          <h2>Add a future website by editing <code>data/sites.json</code>.</h2>
+          <p>
+            This keeps WonderHub maintainable. Every new initiative only needs a title, category, short pitch, status, tags, and URL.
+          </p>
+        </div>
+        <pre aria-label="Example website JSON"><code>{
+  "title": "Animal & Dinosaur World",
+  "category": "Stories",
+  "ageRange": "Class 1–5",
+  "status": "Coming Soon",
+  "url": "#",
+  "description": "A child-friendly gateway for animal facts, dinosaur stories, and nature learning.",
+  "tags": ["Animals", "Dinosaurs", "Nature"]
+}</code></pre>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div>
+      <strong>WonderHub by Annapurna</strong>
+      <p>A static, GitHub Pages-ready index for learning websites. No backend. No login. No heavy platform dependency.</p>
+    </div>
+    <a href="#top" aria-label="Back to top">Back to top ↑</a>
+  </footer>
+
+  <script src="assets/script.js"></script>
+</body>
+</html>

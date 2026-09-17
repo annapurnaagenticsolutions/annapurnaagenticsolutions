@@ -1,0 +1,10 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "tasks": {
+    "versus": {"required":["a","b"],"stringMax":{"a":60,"b":60}},
+    "persuade": {"required":["claim","argument","score"],"stringMax":{"claim":160,"argument":420},"numberRange":{"score":[0,100]}},
+    "jugaad": {"required":["solution"],"stringMax":{"solution":600}},
+    "combine": {"required":["a","b"],"stringMax":{"a":80,"b":80}},
+    "court": {"required":["dispute"],"stringMax":{"dispute":500}}
+  }
+}

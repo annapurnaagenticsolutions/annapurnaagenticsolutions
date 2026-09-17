@@ -1,0 +1,21 @@
+// Ashram-first design reminder: imagery introduces a lived learning journey before the later celestial-engine adventure.
+export const assets = {
+  rishiPortrait: "/manus-storage/vidya-yantra-rishi-portrait_0075771f.png",
+  logo: "/manus-storage/vidya-yantra-logo_e561d8a0.png",
+  ashramTarget: "/manus-storage/vidya-yantra-ashram-visual-target_fc6dfac6.png",
+  ashramLanding: "/manus-storage/vidya-yantra-ashram-landing_91789f57.png",
+  monsoonObservatory: "/manus-storage/vidya-yantra-monsoon-observatory_b584efd0.png",
+  warningArchive: "/manus-storage/vidya-yantra-chapter-v-warning-archive_96e06e0c.png",
+  listeningEstuary: "/manus-storage/vidya-yantra-chapter-vi-listening-estuary_165ea31c.png",
+  saltLibrary: "/manus-storage/vidya-yantra-chapter-vii-salt-library_3d166d7d.png",
+  mirrorStep: "/manus-storage/vidya-yantra-mirror-step-concept_0b8c7bfd.png",
+  confluenceTable: "/manus-storage/vidya-yantra-chapter-ix-confluence-table_5e68b7dc.png",
+  returnObservatory: "/manus-storage/vidya-yantra-return-observatory-concept_4b913fac.png",
+  livingSurvey: "/manus-storage/vidya-yantra-living-survey-chapter-xi_b1dec807.png",
+  seasonWheel: "/manus-storage/vidya-yantra-season-wheel_8f270735.png",
+  ilaIntroduction: "/manus-storage/vidya-yantra-ila-ashram-introduction_9cd6667f.png",
+  arunaPortrait: "/manus-storage/vidya-yantra-rishi-aruna-portrait_798f643d.png",
+  layaPortrait: "/manus-storage/vidya-yantra-muni-laya-portrait_8f762920.png",
+  somavratPortrait: "/manus-storage/vidya-yantra-raja-somavrat-portrait_7b2fdb64.png",
+  taraPortrait: "/manus-storage/vidya-yantra-tara-vaidyi-portrait_12d5d530.png",
+} as const;

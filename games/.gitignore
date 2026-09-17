@@ -1,0 +1,6 @@
+node_modules/
+dist/
+coverage/
+.vite/
+__manus__/
+*.log
