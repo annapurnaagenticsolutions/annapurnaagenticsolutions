@@ -10,6 +10,7 @@ Proposed public shape:
 play.annapurnaagenticsolutions.com/
   /                 catalogue and shared platform shell
   /funlab/          eleven mini-games in one collection
+  /kids-puzzle-world/ child-safe puzzle world
   /oneiric/         standalone dream-heist game
   /vidya-yantra/    learning world
   /varsha-hollow/   narrative world
@@ -25,6 +26,7 @@ The initial implementation should be static-first. Cloudflare Workers Static Ass
 - Anyone can open the catalogue and start playing without an account.
 - The first session must contain a complete, satisfying playable loop.
 - Anonymous progress is stored locally in the browser where the game supports saves.
+- For Kids Puzzle World, child-facing play remains local-first; any future account flow must be parent-mediated and introduced outside the child’s core puzzle loop.
 - No email, password, profile or child-identifying data is collected merely to try a game.
 - Core gameplay remains free during the initial launch period.
 
@@ -58,14 +60,15 @@ If a game needs a hard gate later, use a transparent milestone such as completin
 
 ## 4. Release order
 
-### Phase 1 — FunLab
+### Phase 1 — FunLab and Kids Puzzle World
 
-Release FunLab first as the platform’s proof that a collection of small games can be discoverable, fast and disciplined. Before public release:
+Release FunLab and Kids Puzzle World as the first static-first platform candidates. FunLab proves the collection model; Kids Puzzle World adds a focused, child-safe learning experience with five puzzle families. Before public release:
 
 - run the recorded test and audit suite;
 - replace or pin external runtime dependencies where practical;
 - complete real Chrome, Edge, mobile and keyboard checks;
 - confirm local saves, reset behavior and reduced-motion/accessibility behavior;
+- complete child-safety, touch-input and parent-facing privacy review for Kids Puzzle World;
 - publish a clear “free during preview” label.
 
 ### Phase 2 — ONEIRIC

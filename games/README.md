@@ -8,6 +8,7 @@ This directory is the source-controlled staging area for the browser experiences
 | --- | --- | --- | --- |
 | `wonderhub/` | WonderHub | Learning-world catalogue | Discovery hub; not a standalone game |
 | `funlab/` | FunLab | First platform launch candidate | Eleven browser-first activities with a release-gate process |
+| `kids-puzzle-world/` | Kids Puzzle World | Child-safe puzzle-world candidate | Five puzzle families, local-first persistence and no backend |
 | `oneiric/` | ONEIRIC | Standalone game | Current evolution of the earlier Lantern Warden concept |
 | `vidya-yantra/` | Vidya Yantra | Learning-world showcase | Babylon/React application; backend and chapter coverage still require validation |
 | `varsha-hollow/` | Varsha Hollow | Narrative-world showcase | Complete authored chapter set; completion and deployment checks remain |

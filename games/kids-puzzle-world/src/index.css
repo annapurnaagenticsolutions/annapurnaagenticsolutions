@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: var(--font-body);
+}
+
+body {
+  background: linear-gradient(135deg, var(--forest-sky, #e8f4f8) 0%, #f0f9fc 100%);
+  color: #333;
+}
+
+:root {
+  --font-display: 'Fredoka', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --color-forest-moss: #2d5016;
+  --color-forest-leaf: #6ba547;
+  --color-forest-light: #a8d5ba;
+  --color-forest-sky: #e8f4f8;
+  --color-maze-stone: #5a5a5a;
+  --color-maze-path: #d4a574;
+  --color-maze-wall: #3d3d3d;
+  --color-balance-sky: #87ceeb;
+  --color-balance-water: #4a90e2;
+  --color-balance-sand: #f4d03f;
+  --color-balance-wood: #8b6f47;
+  --color-gear-brass: #d4af37;
+  --color-gear-iron: #6b7280;
+  --color-gear-copper: #b87333;
+  --color-gear-silver: #c0c0c0;
+  --color-shape-primary: #ff6b6b;
+  --color-shape-secondary: #ffd93d;
+  --color-shape-tertiary: #6bcf7f;
+  --color-shape-quaternary: #4d96ff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
