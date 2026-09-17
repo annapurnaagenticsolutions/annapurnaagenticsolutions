@@ -1,0 +1,12 @@
+{
+  "platform": "Annapurna Play",
+  "sourceOfTruth": "GitHub",
+  "access": "guest-first",
+  "titles": [
+    { "slug": "funlab", "worker": "annapurna-play-funlab", "mode": "static", "config": "funlab/wrangler.jsonc" },
+    { "slug": "oneiric", "worker": "annapurna-play-oneiric", "mode": "static", "config": "oneiric/wrangler.jsonc" },
+    { "slug": "vidya-yantra", "worker": "annapurna-play-vidya-yantra", "mode": "static-showcase", "config": "vidya-yantra/wrangler.jsonc" },
+    { "slug": "varsha-hollow", "worker": "annapurna-play-varsha-hollow", "mode": "static-preview", "config": "varsha-hollow/wrangler.jsonc" },
+    { "slug": "kids-puzzle-world", "worker": "annapurna-play-kids-puzzle-world", "mode": "static", "config": "kids-puzzle-world/wrangler.jsonc" }
+  ]
+}

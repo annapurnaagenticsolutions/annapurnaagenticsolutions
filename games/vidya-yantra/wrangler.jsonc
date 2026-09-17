@@ -1,0 +1,9 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "annapurna-play-vidya-yantra",
+  "compatibility_date": "2026-09-17",
+  "assets": {
+    "directory": "./dist/static",
+    "not_found_handling": "404-page"
+  }
+}

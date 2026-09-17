@@ -12,9 +12,7 @@ describe('Seed Puzzle Definition', () => {
   })
 
   it('should be deterministic for same seed', () => {
-    const state1 = seedPuzzleDefinition.createInitialState(123)
-    const state2 = seedPuzzleDefinition.createInitialState(123)
-    expect(state1).toEqual(state2)
+    expect(seedPuzzleDefinition.createInitialState(123)).toEqual(seedPuzzleDefinition.createInitialState(123))
   })
 
   it('should increment via reducer', () => {
@@ -27,42 +25,35 @@ describe('Seed Puzzle Definition', () => {
   it('should detect win condition when current equals target', () => {
     let state = seedPuzzleDefinition.createInitialState(42)
     expect(seedPuzzleDefinition.checkWin(state)).toBe(false)
-
-    for (let i = 0; i < state.target; i++) {
-      state = seedPuzzleDefinition.reducer(state, { type: 'increment' })
-    }
-
+    for (let i = 0; i < state.target; i++) state = seedPuzzleDefinition.reducer(state, { type: 'increment' })
     expect(seedPuzzleDefinition.checkWin(state)).toBe(true)
   })
 
   it('should work with PuzzleRuntime', () => {
     const runtime = new PuzzleRuntime(seedPuzzleDefinition, 42)
-
     expect(runtime.status).toBe('idle')
-
     const targetValue = runtime.currentState.target
-    for (let i = 0; i < targetValue; i++) {
-      runtime.dispatch({ type: 'increment' })
-    }
-
+    for (let i = 0; i < targetValue; i++) runtime.dispatch({ type: 'increment' })
     expect(runtime.status).toBe('won')
     expect(runtime.currentState.moves).toBe(targetValue)
   })
 
-  it('should serialize and deserialize', () => {
+  it('should serialize and deserialize the generated state', () => {
     const runtime = new PuzzleRuntime(seedPuzzleDefinition, 42)
     runtime.dispatch({ type: 'increment' })
     runtime.dispatch({ type: 'increment' })
-
     const serialized = runtime.serialize()
-    expect(serialized.payload).toEqual({ target: 5, current: 2, moves: 2 })
+    expect(serialized.payload).toEqual({
+      target: runtime.currentState.target,
+      current: 2,
+      moves: 2,
+    })
   })
 
   it('should reset state correctly', () => {
     const runtime = new PuzzleRuntime(seedPuzzleDefinition, 42)
     runtime.dispatch({ type: 'increment' })
     runtime.dispatch({ type: 'increment' })
-
     runtime.reset()
     expect(runtime.currentState.current).toBe(0)
     expect(runtime.currentState.moves).toBe(0)

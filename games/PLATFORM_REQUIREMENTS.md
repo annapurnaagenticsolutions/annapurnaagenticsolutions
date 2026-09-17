@@ -60,9 +60,9 @@ If a game needs a hard gate later, use a transparent milestone such as completin
 
 ## 4. Release order
 
-### Phase 1 — FunLab and Kids Puzzle World
+### Phase 1 — Static-first platform candidates
 
-Release FunLab and Kids Puzzle World as the first static-first platform candidates. FunLab proves the collection model; Kids Puzzle World adds a focused, child-safe learning experience with five puzzle families. Before public release:
+Release FunLab and Kids Puzzle World as the first static-first platform candidates. FunLab proves the collection model; Kids Puzzle World adds a focused, child-safe learning experience with five puzzle families. The shared deployment preparation now covers all five requested titles, while public release can still be sequenced by maturity. Before public release:
 
 - run the recorded test and audit suite;
 - replace or pin external runtime dependencies where practical;
@@ -77,7 +77,7 @@ Deploy ONEIRIC as a separate showcase route after a clean install, production bu
 
 ### Phase 3 — Learning worlds
 
-Validate Varsha Hollow and Vidya Yantra separately. Their current React/Babylon/Express/Drizzle shape is not a drop-in static deployment. First decide whether each becomes a client-only showcase or receives a Workers-compatible backend and storage plan.
+Validate Varsha Hollow and Vidya Yantra separately. Their current React/Babylon/Express/Drizzle shape is not a drop-in full-stack static deployment, so the first deployment unit is now explicit: Vidya Yantra ships as a static showcase and Varsha Hollow as a static preview with cloud save/auth deferred. A Workers-compatible backend and storage plan remains a separate release when those features are ready.
 
 WonderHub can remain the learning catalogue and should not be treated as evidence that every linked learning world is production-ready.
 

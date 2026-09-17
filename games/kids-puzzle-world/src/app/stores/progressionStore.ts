@@ -1,14 +1,13 @@
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import { loadSave, saveSave } from '@/persistence/saveStore'
-import { createDefaultSave, LevelProgress } from '@/persistence/saveSchema'
+import { LevelProgress } from '@/persistence/saveSchema'
 
 interface ProgressionState {
   unlockedRegionIds: string[]
   levels: Record<string, LevelProgress>
   completedLevels: string[]
 
-  // Actions
   unlockRegion: (regionId: string) => void
   completePuzzle: (levelKey: string) => void
   startPuzzle: (levelKey: string) => void
@@ -19,11 +18,12 @@ interface ProgressionState {
 }
 
 const REGION_ORDER = ['pattern-forest', 'maze-mountain', 'balance-bay', 'gear-factory', 'shape-workshop']
+const LEVELS_PER_REGION = 5
 
 export const useProgressionStore = create<ProgressionState>()(
   persist(
     (set, get) => ({
-      unlockedRegionIds: ['pattern-forest'], // Start with first region unlocked
+      unlockedRegionIds: ['pattern-forest'],
       levels: {},
       completedLevels: [],
 
@@ -37,25 +37,30 @@ export const useProgressionStore = create<ProgressionState>()(
       completePuzzle: (levelKey: string) => {
         set((state) => {
           const newLevels = { ...state.levels }
-          if (!newLevels[levelKey]) {
-            newLevels[levelKey] = { status: 'completed', lastPlayedAt: new Date().toISOString() }
-          } else {
-            newLevels[levelKey] = { ...newLevels[levelKey], status: 'completed' }
+          newLevels[levelKey] = {
+            ...(newLevels[levelKey] || {}),
+            status: 'completed',
+            lastPlayedAt: new Date().toISOString(),
           }
 
-          // Unlock next region if all puzzles in current region are complete
-          const currentRegionIndex = REGION_ORDER.findIndex((rid) => levelKey.startsWith(rid))
-          if (currentRegionIndex >= 0 && currentRegionIndex < REGION_ORDER.length - 1) {
+          const currentRegionId = REGION_ORDER.find((regionId) => levelKey.startsWith(`${regionId}/`))
+          const currentRegionIndex = currentRegionId ? REGION_ORDER.indexOf(currentRegionId) : -1
+          const currentRegionComplete = currentRegionId
+            ? Array.from({ length: LEVELS_PER_REGION }, (_, index) => `${currentRegionId}/level-${index + 1}`).every(
+                (key) => newLevels[key]?.status === 'completed',
+              )
+            : false
+
+          const unlockedRegionIds = [...state.unlockedRegionIds]
+          if (currentRegionComplete && currentRegionIndex >= 0 && currentRegionIndex < REGION_ORDER.length - 1) {
             const nextRegion = REGION_ORDER[currentRegionIndex + 1]
-            const regionLevels = Object.keys(newLevels).filter((k) => k.startsWith(nextRegion))
-            if (regionLevels.length === 0 || regionLevels.every((k) => newLevels[k].status === 'completed')) {
-              state.unlockedRegionIds.push(nextRegion)
-            }
+            if (!unlockedRegionIds.includes(nextRegion)) unlockedRegionIds.push(nextRegion)
           }
 
           return {
+            unlockedRegionIds,
             levels: newLevels,
-            completedLevels: Object.keys(newLevels).filter((k) => newLevels[k].status === 'completed'),
+            completedLevels: Object.keys(newLevels).filter((key) => newLevels[key].status === 'completed'),
           }
         })
         get().saveProgress()
@@ -64,22 +69,18 @@ export const useProgressionStore = create<ProgressionState>()(
       startPuzzle: (levelKey: string) => {
         set((state) => {
           const newLevels = { ...state.levels }
-          if (!newLevels[levelKey]) {
-            newLevels[levelKey] = { status: 'started', lastPlayedAt: new Date().toISOString() }
-          } else {
-            newLevels[levelKey] = { ...newLevels[levelKey], status: 'started', lastPlayedAt: new Date().toISOString() }
+          newLevels[levelKey] = {
+            ...(newLevels[levelKey] || {}),
+            status: 'started',
+            lastPlayedAt: new Date().toISOString(),
           }
           return { levels: newLevels }
         })
       },
 
-      isRegionUnlocked: (regionId: string) => {
-        return get().unlockedRegionIds.includes(regionId)
-      },
+      isRegionUnlocked: (regionId: string) => get().unlockedRegionIds.includes(regionId),
 
-      getLevelProgress: (levelKey: string) => {
-        return get().levels[levelKey]
-      },
+      getLevelProgress: (levelKey: string) => get().levels[levelKey],
 
       loadProgress: () => {
         const saved = loadSave()
@@ -87,7 +88,7 @@ export const useProgressionStore = create<ProgressionState>()(
           unlockedRegionIds: saved.progression.unlockedRegionIds,
           levels: saved.progression.levels,
           completedLevels: Object.keys(saved.progression.levels).filter(
-            (k) => saved.progression.levels[k].status === 'completed',
+            (key) => saved.progression.levels[key].status === 'completed',
           ),
         })
       },
@@ -103,7 +104,7 @@ export const useProgressionStore = create<ProgressionState>()(
     {
       name: 'progression-store',
       storage: {
-        getItem: () => null, // Delegate to saveStore
+        getItem: () => null,
         setItem: () => {},
         removeItem: () => {},
       },
