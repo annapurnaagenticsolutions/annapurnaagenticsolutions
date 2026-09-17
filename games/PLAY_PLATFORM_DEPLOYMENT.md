@@ -1,6 +1,21 @@
 # Annapurna Play deployment plan
 
 The five experiences are presented as one platform but deployed as five independent Workers. This keeps a game-specific rollback or release hold from taking down the catalogue or another title.
+## Public platform surface
+
+The shareable entry point is https://play.annapurnaagenticsolutions.com/. Each title has a branded hostname under the same parent domain:
+
+| Surface | URL |
+| --- | --- |
+| Platform hub | https://play.annapurnaagenticsolutions.com/ |
+| FunLab | https://funlab.play.annapurnaagenticsolutions.com/ |
+| ONEIRIC | https://oneiric.play.annapurnaagenticsolutions.com/ |
+| Vidya Yantra | https://vidya-yantra.play.annapurnaagenticsolutions.com/ |
+| Varsha Hollow | https://varsha-hollow.play.annapurnaagenticsolutions.com/ |
+| Kids Puzzle World | https://kids-puzzle-world.play.annapurnaagenticsolutions.com/ |
+| Shared guest-progress API | https://api.play.annapurnaagenticsolutions.com/ |
+
+The API is a small Cloudflare Worker backed by D1. It accepts bounded, anonymous progress snapshots keyed by a client-generated opaque key; it does not collect names, email addresses, child profiles, chat, or account credentials. The current titles remain local-first until each game has an explicit, visible sync interaction designed and tested.
 
 ## Deployment matrix
 
@@ -34,6 +49,8 @@ Then validate and deploy the corresponding `wrangler.jsonc`:
 wrangler deploy --dry-run
 wrangler deploy
 ```
+
+The hub is deployed from play/wrangler.jsonc, and the shared API is deployed from play-api/wrangler.jsonc. Game configs attach their branded custom domains while retaining independent Worker rollback units.
 
 No command above creates accounts, changes auth, or migrates a database. The two learning worlds must not be described as fully backed by cloud accounts until their server/storage plans are separately deployed and tested.
 

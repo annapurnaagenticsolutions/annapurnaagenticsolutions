@@ -2,6 +2,13 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "annapurna-play-varsha-hollow",
   "compatibility_date": "2026-09-17",
+  "workers_dev": false,
+  "routes": [
+    {
+      "pattern": "varsha-hollow.play.annapurnaagenticsolutions.com",
+      "custom_domain": true
+    }
+  ],
   "assets": {
     "directory": "./dist/static",
     "not_found_handling": "single-page-application"

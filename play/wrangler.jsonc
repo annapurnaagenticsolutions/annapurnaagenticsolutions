@@ -1,16 +1,16 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "annapurna-play-vidya-yantra",
+  "name": "annapurna-play-hub",
   "compatibility_date": "2026-09-17",
   "workers_dev": false,
   "routes": [
     {
-      "pattern": "vidya-yantra.play.annapurnaagenticsolutions.com",
+      "pattern": "play.annapurnaagenticsolutions.com",
       "custom_domain": true
     }
   ],
   "assets": {
-    "directory": "./dist/static",
+    "directory": ".",
     "not_found_handling": "404-page"
   }
 }
