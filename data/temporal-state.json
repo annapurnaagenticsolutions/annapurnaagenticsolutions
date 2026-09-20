@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
   "generationIntervalDays": 2,
-  "lastGeneratedAt": "2026-09-17T07:08:19Z",
+  "lastGeneratedAt": "2026-09-20T17:08:14Z",
   "authoritativeTimezone": "Asia/Kolkata",
   "sourcePolicy": "presentation-only shared temporal state; cannot alter product maturity, evidence, repository metrics, or semantic company history",
   "signals": {
-    "date": "2026-09-17",
-    "weekday": "Thursday",
+    "date": "2026-09-20",
+    "weekday": "Sunday",
     "weather": {
       "enabled": false,
       "reason": "No deliberate brand home-base weather location has been configured."
     }
   },
   "presentation": {
-    "key": "thursday-wonder",
+    "key": "sunday-wonder",
     "label": "Discovery day",
     "accentWorld": "wonder",
     "fieldNote": "Follow curiosity into the learning worlds."
