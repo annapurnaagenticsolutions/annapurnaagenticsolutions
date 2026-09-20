@@ -1,9 +1,9 @@
 /* ==========================================================================
    Payment Gateway Client Integration — Official Razorpay Flow
    Self-paced STEM Platform for Classes 1–10:
-   - Band 1 (Classes 1–4): ₹2,999/6M, ₹4,999/1Y (+18% GST)
-   - Band 2 (Classes 5–7): ₹3,999/6M, ₹6,999/1Y (+18% GST)
-   - Band 3 (Classes 8–10): ₹4,999/6M, ₹8,499/1Y (+18% GST)
+   - Band 1 (Classes 1–4): ₹999/6M, ₹1,999/1Y (+18% GST)
+   - Band 2 (Classes 5–7): ₹1,499.50/6M, ₹2,999/1Y (+18% GST)
+   - Band 3 (Classes 8–10): ₹2,000/6M, ₹4,000/1Y (+18% GST)
 
    Prices show 18% GST breakdown and final payable amount.
    Future offerings (Live cohorts & hardware kits) marked as coming soon.
@@ -18,8 +18,8 @@ const AVYAAN_BANDS = Object.freeze({
     maxGrade: 4,
     description: 'Visual logic, spatial reasoning, tactile experiments, and foundational maths.',
     prices: {
-      '6m': { base: 2999, gst: 539.82, total: 3539, monthly: 500 },
-      '1y': { base: 4999, gst: 899.82, total: 5899, monthly: 416, savings: '16.7% annual savings' },
+      '6m': { base: 999, gst: 179.82, total: 1178.82, monthly: 166.5 },
+      '1y': { base: 1999, gst: 359.82, total: 2358.82, monthly: 166.58, savings: '5.0% annual savings' },
     },
   },
   band_5_7: {
@@ -30,8 +30,8 @@ const AVYAAN_BANDS = Object.freeze({
     maxGrade: 7,
     description: 'Algorithmic thinking, foundational physics & chemistry, earth science, and applied math.',
     prices: {
-      '6m': { base: 3999, gst: 719.82, total: 4719, monthly: 666 },
-      '1y': { base: 6999, gst: 1259.82, total: 8259, monthly: 583, savings: '12.5% annual savings' },
+      '6m': { base: 1499.5, gst: 269.91, total: 1769.41, monthly: 249.92 },
+      '1y': { base: 2999, gst: 539.82, total: 3538.82, monthly: 249.92, savings: '0% annual savings' },
     },
   },
   band_8_10: {
@@ -42,8 +42,8 @@ const AVYAAN_BANDS = Object.freeze({
     maxGrade: 10,
     description: 'Curriculum-informed study support, exam preparation, and Python & AI fundamentals.',
     prices: {
-      '6m': { base: 4999, gst: 899.82, total: 5899, monthly: 833 },
-      '1y': { base: 8499, gst: 1529.82, total: 10029, monthly: 708, savings: '15.0% annual savings' },
+      '6m': { base: 2000, gst: 360, total: 2360, monthly: 333.33 },
+      '1y': { base: 4000, gst: 720, total: 4720, monthly: 333.33, savings: '0% annual savings' },
     },
   },
 });
