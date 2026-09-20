@@ -1,0 +1,8 @@
+{
+  "$schema": "https://developers.cloudflare.com/workers/wrangler/configuration/schema.json",
+  "name": "smaraze-api",
+  "main": "./worker-final.js",
+  "compatibility_date": "2026-09-01",
+  "workers_dev": false,
+  "d1_databases": [{"binding":"DB","database_name":"avyaan","database_id":"beb63430-3981-40e4-b741-5ebae4f3db95"}]
+}
