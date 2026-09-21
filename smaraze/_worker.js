@@ -180,7 +180,8 @@ export default {
         const marker = 'const AVYAAN_DATA =';
         const markerIndex = source.indexOf(marker);
         const dataStart = markerIndex + marker.length;
-        const dataEnd = source.lastIndexOf(';');
+        const exportIndex = source.indexOf('if (typeof module', dataStart);
+        const dataEnd = exportIndex > dataStart ? source.lastIndexOf(';', exportIndex) : source.indexOf(';', dataStart);
         const publicData = JSON.parse(source.slice(dataStart, dataEnd).trim());
         delete publicData.demoUsers;
         const prices = { primary_paid: '1999 + GST/year; 999 + GST/6 months', pro_paid: '2999 + GST/year; 1499 + GST/6 months', master_paid: '4000 + GST/year; 2000 + GST/6 months' };
