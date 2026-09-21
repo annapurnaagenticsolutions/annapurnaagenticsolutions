@@ -11,7 +11,7 @@ def main():
     links=json.loads(read(Path('data/public-links.json')))
     assert cfg['release']=='4.2' and all(cfg['enhancements'].values()) and all(cfg['integrityContracts'].values())
     assert links['organizationUrl']=='https://github.com/annapurnaagenticsolutions'
-    assert links['contact']['email']=='annapurnaagenticsolutions@zohomail.in'
+    assert links['contact']['email']=='hello@annapurnaagenticsolutions.com'
     ids={x['id'] for x in links['surfaces']}; assert {'portal','ai','wonder','idea','axon','web','software','mesh','mesh-demo'} <= ids
     for x in links['surfaces']:
         assert urlparse(x['pagesUrl']).scheme=='https'
@@ -24,7 +24,7 @@ def main():
             tag=m.group(0); assert 'rel="noopener noreferrer"' in tag
     assert '<form' not in contact.lower(), 'Contact must not ship a fake static form'
     assert '48 hour' not in contact.lower() and 'respond within' not in contact.lower()
-    assert 'mailto:annapurnaagenticsolutions@zohomail.in' in contact
+    assert 'mailto:hello@annapurnaagenticsolutions.com' in contact
     assert 'Built in India' in about and 'Evidence before promotion' in about
     assert 'GitHub Pages' in about and 'See the live surface. Inspect the source.' in about
     assert 'No static form or hidden submission service' in contact

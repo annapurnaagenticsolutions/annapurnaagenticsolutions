@@ -14,7 +14,7 @@ def main():
             checks={
                 '/':['AI systems,','site.webmanifest','Skip to main content'],
                 '/about/':['We build systems that can be explored','og:description'],
-                '/contact/':['Bring the problem, constraints','annapurnaagenticsolutions@zohomail.in'],
+                '/contact/':['Bring the problem, constraints','hello@annapurnaagenticsolutions.com'],
                 '/explore.html':['Six worlds. One connected field.','mobile-navigation'],
                 '/lab.html':['Change an input. Watch the system reorganize.'],
                 '/evidence.html':['Marketing claims should','Evidence &amp; history'],

@@ -14,7 +14,7 @@ def main():
             checks={
                 '/':['AI systems,','Explore the ecosystem'],
                 '/about/':['We build systems that can be explored','See the live surface. Inspect the source.'],
-                '/contact/':['Bring the problem, constraints','annapurnaagenticsolutions@zohomail.in'],
+                '/contact/':['Bring the problem, constraints','hello@annapurnaagenticsolutions.com'],
                 '/explore.html':['Six worlds. One connected field.'],
                 '/lab.html':['Change an input. Watch the system reorganize.'],
                 '/evidence.html':['Marketing claims should','evidence path'],

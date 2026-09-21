@@ -82,12 +82,12 @@ if (typeof navigator !== 'undefined' && navigator.modelContext) {
       }
       body += '\nPlease share available times.\n';
       window.location.href =
-        'mailto:annapurnaagenticsolutions@zohomail.in' +
+        'mailto:pramanainfo@annapurnaagenticsolutions.com' +
         '?subject=' + subject +
         '&body=' + encodeURIComponent(body);
       return {
         status: 'email_client_opened',
-        to: 'annapurnaagenticsolutions@zohomail.in',
+        to: 'pramanainfo@annapurnaagenticsolutions.com',
         instructions: "The user's email client has been opened with a pre-filled Pramana demo request. Ask the user to review and send the email."
       };
     },
