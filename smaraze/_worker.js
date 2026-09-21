@@ -89,18 +89,117 @@ async function proxyApi(request, env) {
   }
 }
 
+const PAGE_ROUTES = {
+  '/': '/index.html',
+  '/library': '/library.html',
+  '/progress': '/progress.html',
+  '/why': '/why.html',
+  '/about': '/about.html',
+  '/coverage': '/coverage.html',
+  '/contact': '/contact.html',
+  '/support': '/support.html',
+  '/privacy': '/privacy.html',
+  '/terms': '/terms.html',
+  '/refund': '/refund.html',
+  '/parental-consent': '/parental-consent.html',
+  '/safety': '/safety.html',
+  '/class-coverage': '/class-coverage.html',
+  '/curriculum': '/curriculum.html',
+  '/knowledge-map': '/knowledge-map.html',
+  '/board-prep': '/board-prep.html',
+  '/mixed-review': '/mixed-review.html',
+  '/spaced-review': '/spaced-review.html',
+};
+
+function assetContentType(pathname) {
+  const path = pathname.toLowerCase().split('?')[0];
+  if (path.endsWith('.html') || path === '/' || path.endsWith('/')) return 'text/html; charset=utf-8';
+  if (path.endsWith('.css')) return 'text/css; charset=utf-8';
+  if (path.endsWith('.js') || path.endsWith('.mjs')) return 'text/javascript; charset=utf-8';
+  if (path.endsWith('.json')) return 'application/json; charset=utf-8';
+  if (path.endsWith('.webmanifest')) return 'application/manifest+json; charset=utf-8';
+  if (path.endsWith('.svg')) return 'image/svg+xml';
+  if (path.endsWith('.png')) return 'image/png';
+  if (path.endsWith('.jpg') || path.endsWith('.jpeg')) return 'image/jpeg';
+  if (path.endsWith('.webp')) return 'image/webp';
+  if (path.endsWith('.gif')) return 'image/gif';
+  if (path.endsWith('.ico')) return 'image/x-icon';
+  if (path.endsWith('.mp4')) return 'video/mp4';
+  if (path.endsWith('.webm')) return 'video/webm';
+  if (path.endsWith('.woff2')) return 'font/woff2';
+  if (path.endsWith('.woff')) return 'font/woff';
+  if (path.endsWith('.txt')) return 'text/plain; charset=utf-8';
+  if (path.endsWith('.xml')) return 'application/xml; charset=utf-8';
+  return null;
+}
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
+    if (url.hostname === 'skillx.smaraze.com') {
+      const target = new URL(request.url);
+      target.hostname = 'smaraze.com';
+      target.protocol = 'https:';
+      return new Response(null, {
+        status: 301,
+        headers: {
+          Location: target.toString(),
+          'Cache-Control': 'public, max-age=300',
+        },
+      });
+    }
     if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
       return proxyApi(request, env);
     }
 
-    const asset = await env.ASSETS.fetch(request);
+    const routeKey = url.pathname.length > 1 && url.pathname.endsWith('/')
+      ? url.pathname.slice(0, -1)
+      : url.pathname;
+    const targetPath = (request.method === 'GET' || request.method === 'HEAD')
+      ? (PAGE_ROUTES[routeKey] || url.pathname)
+      : url.pathname;
+    const targetUrl = new URL(request.url);
+    targetUrl.pathname = targetPath;
+    const assetRequest = targetPath === url.pathname
+      ? request
+      : new Request(targetUrl.toString(), {
+          method: request.method,
+          headers: request.headers,
+          redirect: 'manual',
+        });
+    const asset = await env.ASSETS.fetch(assetRequest);
     const isVersioned = url.searchParams.has('v');
-    return withSecurityHeaders(
+    const secured = withSecurityHeaders(
       asset,
       isVersioned ? 'public, max-age=31536000, immutable' : 'no-cache',
     );
+    const contentType = assetContentType(targetPath);
+    if (contentType) secured.headers.set('Content-Type', contentType);
+    if (targetPath.endsWith('/stem_data.js') && contentType === 'text/javascript; charset=utf-8') {
+      const source = await secured.text();
+      try {
+        const marker = 'const AVYAAN_DATA =';
+        const markerIndex = source.indexOf(marker);
+        const dataStart = markerIndex + marker.length;
+        const dataEnd = source.lastIndexOf(';');
+        const publicData = JSON.parse(source.slice(dataStart, dataEnd).trim());
+        delete publicData.demoUsers;
+        const prices = { primary_paid: '1999 + GST/year; 999 + GST/6 months', pro_paid: '2999 + GST/year; 1499 + GST/6 months', master_paid: '4000 + GST/year; 2000 + GST/6 months' };
+        for (const [id, tier] of Object.entries(publicData.tiers || {})) if (prices[id]) tier.price = prices[id];
+        const rewritten = new Response(source.slice(0, dataStart) + '\\n' + JSON.stringify(publicData) + '\\n;', secured);
+        rewritten.headers.set('Content-Type', 'text/javascript; charset=utf-8');
+        rewritten.headers.set('Cache-Control', 'no-cache');
+        return rewritten;
+      } catch (_) { return jsonError(503, 'Public learning bundle unavailable'); }
+    }    if (contentType && contentType.startsWith('text/html')) {
+      const html = await secured.text();
+      const partnerLink = "<a href='https://annapurnaagenticsolutions.com/' target='_blank' rel='noopener noreferrer'>Annapurna Agentic Solutions</a>";
+      const linked = html
+        .replaceAll('Annapurna Agentic Solutions.', partnerLink)
+        .replaceAll('Annapurna Agentic Solutions', partnerLink);
+      const rewritten = new Response(linked, secured);
+      rewritten.headers.set('Content-Type', 'text/html; charset=utf-8');
+      return rewritten;
+    }
+    return secured;
   },
 };

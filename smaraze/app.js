@@ -438,7 +438,9 @@ async function refreshAuthenticatedUser() {
   // HttpOnly session cookie survives it.  Recreate the non-secret local
   // session hint after the server validates that cookie so all authenticated
   // UI actions continue to use cookie credentials.
-  if (!AvyaanAPI.getToken() && typeof AvyaanAPI.csrfToken === 'function' && AvyaanAPI.csrfToken()) {
+  if (!AvyaanAPI.getToken()) {
+    // The API may use an HttpOnly Worker cookie without a readable CSRF cookie.
+    // A non-secret sentinel keeps dashboard guards enabled after reload.
     AvyaanAPI.setToken(null, 'cookie');
   }
   const stored = JSON.parse(avyaanStorage.getItem('avyaan_user') || '{}');
@@ -1512,7 +1514,10 @@ function coverageFilter(cls, subj) {
 
 // User changes adopted grade directly from header dropdown
 function changeAdoptedGrade(newGradeStr) {
-  const newGrade = parseInt(newGradeStr);
+  let newGrade = parseInt(newGradeStr);
+  if (currentUser && !currentUser.isGuest && String(currentUser.role || '').toLowerCase() === 'student') {
+    newGrade = Number(currentUser.enrolled_class || currentUser.grade || 1);
+  }
   if (!currentUser) {
     currentUser = {
       id: "user_custom",
@@ -1768,23 +1773,16 @@ function learnerTopics() {
 function isTopicUnlocked(topic) {
   if (!currentUser || !isPublicTopicForLearner(topic)) return false;
   if (String(currentUser.role || '').toLowerCase() === 'admin') return true;
-  // The public bundle contains metadata only for protected topics. Guests and
-  // free accounts can open a metadata preview, but full lesson bodies require
-  // an authenticated, entitled account and are fetched from the API.
-  if (currentUser.isGuest || currentUser.tier === 'free') return false;
-  const tierMaxGrade = {
-    free: 0,
-    primary_paid: 4,
-    pro_paid: 7,
-    master_paid: 10,
-    tier_1_4: 4,
-    tier_5_7: 7,
-    tier_8_10: 10
-  };
-  const maxGrade = tierMaxGrade[currentUser.tier] || 0;
+  // The browser mirrors the server decision for honest affordances; the API
+  // remains authoritative for full lesson delivery.
+  if (currentUser.isGuest || currentUser.tier === 'free' || currentUser.is_active_subscription === false) return false;
+  if (topic.subject === 'Computer Science & AI' || topic.subject === 'Earth & Space') {
+    if (!currentUser.is_active_subscription && !currentUser.subscription_expires_at) return false;
+  }
+  const tierMaxGrade = { primary_paid: 4, pro_paid: 7, master_paid: 10, tier_1_4: 4, tier_5_7: 7, tier_8_10: 10 };
+  const maxGrade = Number(currentUser.subscription_max_grade || tierMaxGrade[currentUser.tier] || 0);
   return topic.class_level === currentUser.grade && topic.class_level <= maxGrade;
 }
-
 function isTopicPreviewable(topic) {
   if (!topic || !FREE_PREVIEW_TOPIC_IDS.has(topic.id)) return false;
   if (!currentUser || (!currentUser.isGuest && currentUser.tier !== 'free')) return false;
