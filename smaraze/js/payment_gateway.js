@@ -196,14 +196,14 @@ const AvyaanPayments = {
 
       <!-- PRICE CARD & 18% GST BREAKDOWN -->
       <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem;">
-          <div>
+        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; margin-bottom: 0.6rem;">
+          <div style="min-width: 0; flex: 1;">
             <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">${dur === '1y' ? 'Annual Self-Paced Plan' : '6-Month Self-Paced Plan'}</div>
             <div style="font-size: 0.74rem; color: #64748b;">${band.description}</div>
           </div>
-          <div style="text-align: right;">
-            <div style="font-size: 1.45rem; font-weight: 900; color: #2563eb;">₹${priceData.total.toLocaleString('en-IN')}</div>
-            <div style="font-size: 0.7rem; color: #64748b;">₹${Number(priceData.monthly).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
+          <div style="flex: 0 0 auto; min-width: max-content; text-align: right; white-space: nowrap;">
+            <div style="font-size: clamp(1.15rem, 5vw, 1.45rem); font-weight: 900; color: #2563eb; white-space: nowrap; font-variant-numeric: tabular-nums;">₹${Number(priceData.total).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
+            <div style="font-size: 0.7rem; color: #64748b; white-space: nowrap;">₹${Number(priceData.monthly).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
           </div>
         </div>
 
