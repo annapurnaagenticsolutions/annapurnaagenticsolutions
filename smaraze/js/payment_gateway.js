@@ -6,7 +6,7 @@
    - Band 3 (Classes 8–10): ₹2,000/6M, ₹4,000/1Y (+18% GST)
 
    Prices show 18% GST breakdown and final payable amount.
-   Future offerings (Live cohorts & hardware kits) marked as coming soon.
+   Future offerings (Live cohorts) marked as coming soon.
    ========================================================================== */
 
 const AVYAAN_BANDS = Object.freeze({
@@ -87,7 +87,9 @@ const AvyaanPayments = {
           if (!quote) continue;
           band.prices[duration] = {
             base: quote.base_inr, gst: quote.gst_inr, total: quote.total_inr,
-            monthly: quote.effective_monthly_inr,
+            monthly: quote.effective_monthly_inr != null
+              ? quote.effective_monthly_inr
+              : Number((Number(quote.total_inr) / (duration === '1y' ? 12 : 6)).toFixed(2)),
             savings: quote.savings_vs_two_6m || ''
           };
         }
@@ -96,7 +98,9 @@ const AvyaanPayments = {
           base: plan.base_inr,
           gst: plan.gst_inr || 0,
           total: plan.total_inr,
-          monthly: plan.effective_monthly_inr || null,
+          monthly: plan.effective_monthly_inr != null
+            ? plan.effective_monthly_inr
+            : Number((Number(plan.total_inr) / (plan.duration === '1y' ? 12 : 6)).toFixed(2)),
           savings: plan.savings_vs_two_6m || ''
         };
       }
@@ -199,7 +203,7 @@ const AvyaanPayments = {
           </div>
           <div style="text-align: right;">
             <div style="font-size: 1.45rem; font-weight: 900; color: #2563eb;">₹${priceData.total.toLocaleString('en-IN')}</div>
-            <div style="font-size: 0.7rem; color: #64748b;">₹${priceData.monthly}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
+            <div style="font-size: 0.7rem; color: #64748b;">₹${Number(priceData.monthly).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
           </div>
         </div>
 
@@ -231,7 +235,6 @@ const AvyaanPayments = {
       <div style="background: #fdf8f6; border: 1px solid #fed7aa; border-radius: 10px; padding: 0.7rem 0.85rem; margin-top: 1rem; font-size: 0.74rem; color: #9a3412;">
         <div style="font-weight: 700; margin-bottom: 0.2rem;">✨ Future Offerings (Coming Soon)</div>
         <div>• <b>Live Mentor Cohorts:</b> Small groups (1:6) with weekly educator feedback.</div>
-        <div>• <b>Physical Hardware Kits:</b> Snap-fit robotics & electronics add-on kits.</div>
       </div>
     `;
   },
