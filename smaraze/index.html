@@ -108,7 +108,7 @@
           <span class="nav-streak-icon"></span>
         </div>
 
-        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="openLoginModal()">Log in</button>
+        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">Log in</button>
 
         <div id="userMenuTrigger" class="nav-avatar-wrap" style="display:none;" role="button" tabindex="0" aria-label="Open account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="userDropdown" onclick="toggleUserMenu()">
           <span class="nav-avatar" id="userAvatar">S</span>
@@ -195,7 +195,7 @@
             <a href="why.html" class="btn-joy-secondary">
               <span>✨ See how Skill X works</span>
             </a>
-            <button type="button" class="btn-joy-secondary" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);}else{openLoginModal();}">
+            <button type="button" class="btn-joy-secondary" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof window.AvyaanPayments.renderPaywall === 'function'){ window.AvyaanPayments.renderPaywall(null); } else if(typeof window.__skillxOpenPlans === 'function'){ window.__skillxOpenPlans(); } else if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); }">
               <span>🎓 See plans &amp; enroll</span>
             </button>
           </div>
