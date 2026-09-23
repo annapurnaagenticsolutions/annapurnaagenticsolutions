@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "generationIntervalDays": 2,
-  "lastGeneratedAt": "2026-09-20T17:08:14Z",
+  "lastGeneratedAt": "2026-09-23T01:41:43Z",
   "authoritativeTimezone": "Asia/Kolkata",
   "sourcePolicy": "presentation-only shared temporal state; cannot alter product maturity, evidence, repository metrics, or semantic company history",
   "signals": {
-    "date": "2026-09-20",
-    "weekday": "Sunday",
+    "date": "2026-09-23",
+    "weekday": "Wednesday",
     "weather": {
       "enabled": false,
       "reason": "No deliberate brand home-base weather location has been configured."
     }
   },
   "presentation": {
-    "key": "sunday-wonder",
-    "label": "Discovery day",
-    "accentWorld": "wonder",
-    "fieldNote": "Follow curiosity into the learning worlds."
+    "key": "wednesday-web",
+    "label": "Connection day",
+    "accentWorld": "web",
+    "fieldNote": "See how presentation and capability connect."
   },
   "fallbackPolicy": "If regeneration fails, keep serving the last valid temporal-state.json. If no state exists, runtime uses a neutral local fallback."
 }
