@@ -69,21 +69,35 @@ const AvyaanPayments = {
       this.planCatalogError = true;
       return false;
     }
-    const data = await AvyaanAPI.getPlans();
+    const data = await Promise.race([
+      AvyaanAPI.getPlans(),
+      new Promise(resolve => setTimeout(() => resolve({ plans: [], error: 'Pricing request timed out' }), 8000))
+    ]);
     if (!data || !Array.isArray(data.plans) || data.plans.length === 0) {
       this.planCatalogError = true;
       return false;
     }
     for (const plan of data.plans) {
-      const band = AVYAAN_BANDS[plan.band_id];
-      if (!band || !plan.options) continue;
-      for (const duration of ['6m', '1y']) {
-        const quote = plan.options[duration];
-        if (!quote) continue;
-        band.prices[duration] = {
-          base: quote.base_inr, gst: quote.gst_inr, total: quote.total_inr,
-          monthly: quote.effective_monthly_inr,
-          savings: quote.savings_vs_two_6m || ''
+      const bandKey = plan.band_id || plan.band;
+      const band = AVYAAN_BANDS[bandKey];
+      if (!band) continue;
+      if (plan.options) {
+        for (const duration of ['6m', '1y']) {
+          const quote = plan.options[duration];
+          if (!quote) continue;
+          band.prices[duration] = {
+            base: quote.base_inr, gst: quote.gst_inr, total: quote.total_inr,
+            monthly: quote.effective_monthly_inr,
+            savings: quote.savings_vs_two_6m || ''
+          };
+        }
+      } else if (plan.duration && plan.base_inr != null) {
+        band.prices[plan.duration] = {
+          base: plan.base_inr,
+          gst: plan.gst_inr || 0,
+          total: plan.total_inr,
+          monthly: plan.effective_monthly_inr || null,
+          savings: plan.savings_vs_two_6m || ''
         };
       }
     }
@@ -325,3 +339,6 @@ const AvyaanPayments = {
     }
   },
 };
+
+// Expose the payment facade for cross-page CTAs and safe inline integrations.
+window.AvyaanPayments = AvyaanPayments;
