@@ -186,7 +186,7 @@ export default {
         delete publicData.demoUsers;
         const prices = { primary_paid: '1999 + GST/year; 999 + GST/6 months', pro_paid: '2999 + GST/year; 1499 + GST/6 months', master_paid: '4000 + GST/year; 2000 + GST/6 months' };
         for (const [id, tier] of Object.entries(publicData.tiers || {})) if (prices[id]) tier.price = prices[id];
-        const rewritten = new Response(source.slice(0, dataStart) + '\\n' + JSON.stringify(publicData) + '\\n;', secured);
+        const rewritten = new Response(source.slice(0, dataStart) + '\n' + JSON.stringify(publicData) + '\n;', secured);
         rewritten.headers.set('Content-Type', 'text/javascript; charset=utf-8');
         rewritten.headers.set('Cache-Control', 'no-cache');
         return rewritten;
