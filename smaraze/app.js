@@ -1857,8 +1857,20 @@ function isTopicUnlocked(topic) {
 }
 function isTopicPreviewable(topic) {
   if (!topic || !FREE_PREVIEW_TOPIC_IDS.has(topic.id)) return false;
-  if (!currentUser || (!currentUser.isGuest && currentUser.tier !== 'free')) return false;
-  return currentUser.isGuest || topic.class_level === currentUser.grade;
+  // Guests and free accounts may open the deliberately curated starter
+  // preview. Paid accounts should use the entitlement-checked lesson path.
+  const guestOrFree = !currentUser
+    || currentUser.isGuest
+    || currentUser.tier === 'free'
+    || currentUser.is_active_subscription === false;
+  if (!guestOrFree) return false;
+  // A guest has no selected learner class yet, so the starter set is
+  // intentionally available without sign-in. A free account is limited to
+  // the class it selected during onboarding.
+  return !currentUser
+    || currentUser.isGuest
+    || !currentUser.grade
+    || Number(topic.class_level) === Number(currentUser.grade);
 }
 
 // Path helpers use the same entitlement check as the topic grid.
@@ -2162,17 +2174,12 @@ function renderGrid() {
   if (!grid) return;
   const searchQuery = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 
+  // Browsing is public. If boot timing has not created the guest profile
+  // yet, create it here rather than replacing the catalogue with a login wall.
+  // Only protected lesson bodies require authentication.
   if (!currentUser) {
-    grid.innerHTML = `
-      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
-        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔑</div>
-        <h3 style="color: var(--text-main);">Login to Explore STEM Topics</h3>
-        <p>Sign in to access ${learnerTopics().length} published STEM lessons across Mathematics, Physics, Chemistry, Biology, Computer Science & AI, and Earth & Space.</p>
-        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openLoginModal()">Login Now →</button>
-      </div>
-    `;
-    enhanceInteractiveSemantics(grid);
-    return;
+    currentUser = createGuestUser();
+    updateNavbarUserUI();
   }
 
   // If user is searching or filtering, always show full grid
@@ -2336,11 +2343,29 @@ async function openTopicDetail(topicId) {
   }
 
   // Paid lesson bodies are fetched only after server authorization.
+  // The API returns {content: ...}; older clients incorrectly required
+  // {topic: ...}, which made every authorized lesson look unavailable.
   if (!topic.workedExample && typeof AvyaanAPI !== 'undefined' && AvyaanAPI.getTopicContent) {
     const secure = await AvyaanAPI.getTopicContent(topicId);
-    if (!secure || !secure.topic) { if (typeof toast === 'function') toast('Lesson content is unavailable. Please sign in again.'); return; }
-    Object.assign(topic, secure.topic.metadata || {});
-    topic.metadata = secure.topic.metadata || topic.metadata;
+    if (!secure) {
+      if (typeof toast === 'function') toast('This lesson is not available in the protected content store yet. Please try again later.');
+      return;
+    }
+    const payload = secure.content || secure.topic || {};
+    const metadata = secure.topic?.metadata || payload.metadata || {};
+    if (metadata && typeof metadata === 'object') {
+      Object.assign(topic, metadata);
+      topic.metadata = metadata;
+    }
+    // Accept either a body object or a response whose topic itself is the
+    // body. Do not put answer keys in public previews; this branch is only
+    // reached after entitlement authorization.
+    const body = payload.body || payload.lesson || payload;
+    if (body && typeof body === 'object') Object.assign(topic, body);
+    if (!topic.workedExample && !topic.seeIt && !topic.whyItWorks && !topic.tryIt) {
+      if (typeof toast === 'function') toast('This lesson is not available in the protected content store yet. Please try again later.');
+      return;
+    }
   }
   currentActiveTopic = topic;
   isScratchpadActive = false;
