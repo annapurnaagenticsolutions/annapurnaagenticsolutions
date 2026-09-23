@@ -143,7 +143,17 @@ const AvyaanPayments = {
     this.planCatalogError = false;
 
    this.renderPaywallContent();
-   openModal('paywallModal');
+   if (typeof openModal === 'function') {
+     openModal('paywallModal');
+   } else {
+     const modal = document.getElementById('paywallModal');
+     if (modal) {
+       modal.classList.add('active');
+       modal.removeAttribute('aria-hidden');
+       modal.setAttribute('role', 'dialog');
+       modal.setAttribute('aria-modal', 'true');
+     }
+   }
     this.syncPlansFromServer().then(() => this.renderPaywallContent()).catch(() => { this.planCatalogError = true; this.renderPaywallContent(); });
   },
 
