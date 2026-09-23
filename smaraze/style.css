@@ -6041,6 +6041,10 @@ body.kid-mode .step-content li { font-size: 1.06rem !important; line-height: 1.7
   text-underline-offset: 2px;
 }
 .auth-recovery-link { display: block; margin-top: 0.35rem; }
+.auth-recovery-link-disabled:disabled { color: var(--text-muted, #64748b); cursor: not-allowed; opacity: 0.72; text-decoration: none; }
+.auth-recovery-status { font-weight: 600; text-decoration: none; }
+.auth-recovery-help { color: var(--text-muted, #64748b); font-size: 0.76rem; line-height: 1.45; margin: 0.2rem 0 0; }
+.auth-recovery-help a { color: var(--accent-primary, #2563eb); font-weight: 700; }
 .auth-text-button { margin-top: 0.75rem; }
 .auth-recovery-link:focus-visible,
 .auth-text-button:focus-visible { outline: 3px solid var(--border-focus, #93c5fd); outline-offset: 3px; border-radius: 4px; }

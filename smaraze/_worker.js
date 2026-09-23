@@ -192,8 +192,13 @@ export default {
         return rewritten;
       } catch (_) { return jsonError(503, 'Public learning bundle unavailable'); }
     }    if (contentType && contentType.startsWith('text/html')) {
-      secured.headers.set('Content-Type', 'text/html; charset=utf-8');
-      return secured;
+      const html = await secured.text();
+      const recoveryDisabled = '<button type="button" class="auth-recovery-link auth-recovery-link-disabled" disabled aria-disabled="true" title="Password recovery is temporarily unavailable">Forgot password? <span class="auth-recovery-status">(temporarily unavailable)</span></button>' +
+        '<p class="auth-recovery-help">Need access? Contact <a href="mailto:contact@smaraze.com">contact@smaraze.com</a> for assisted recovery.</p>';
+      const rewritten = html.replace('<button type="button" class="auth-recovery-link" onclick="showForgotPassword()">Forgot password?</button>', recoveryDisabled);
+      const response = new Response(rewritten, secured);
+      response.headers.set('Content-Type', 'text/html; charset=utf-8');
+      return response;
     }
     return secured;
   },
