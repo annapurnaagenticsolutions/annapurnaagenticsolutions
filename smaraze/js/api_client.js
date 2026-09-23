@@ -57,6 +57,7 @@ const AvyaanAPI = {
     try {
       const res = await fetch(`${this.baseUrl}/auth/register`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           name,
@@ -83,6 +84,7 @@ const AvyaanAPI = {
     try {
       const res = await fetch(`${this.baseUrl}/auth/login`, {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password })
       });
@@ -98,13 +100,45 @@ const AvyaanAPI = {
     }
   },
 
+  // Request a single-use password recovery link. The API deliberately returns
+  // a generic response so account existence is never disclosed.
+  async forgotPassword(email) {
+    try {
+      const res = await fetch(`${this.baseUrl}/auth/forgot-password`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: String(email || '').trim().toLowerCase() })
+      });
+      const data = await res.json().catch(() => ({}));
+      return { ...data, ok: res.ok };
+    } catch (e) {
+      return { status: 'error', detail: e.message, ok: false };
+    }
+  },
+
+  // Consume a recovery token and revoke all prior sessions on the server.
+  async resetPassword(token, password) {
+    try {
+      const res = await fetch(`${this.baseUrl}/auth/reset-password`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: String(token || ''), password: String(password || '') })
+      });
+      const data = await res.json().catch(() => ({}));
+      return { ...data, ok: res.ok };
+    } catch (e) {
+      return { status: 'error', detail: e.message, ok: false };
+    }
+  },
   // Logout — clear token
   logout() {
     const token = this.getToken();
     const headers = token && token !== '__cookie_session__' ? { Authorization: `Bearer ${token}` } : {};
     const csrf = this.csrfToken();
     if (csrf) headers['X-CSRF-Token'] = csrf;
-    fetch(`${this.baseUrl}/auth/logout`, { method: 'POST', headers, keepalive: true }).catch(() => {});
+    fetch(`${this.baseUrl}/auth/logout`, { method: 'POST', credentials: 'include', headers, keepalive: true }).catch(() => {});
     this.setToken(null);
     avyaanStorage.removeItem('avyaan_user');
     avyaanStorage.removeItem('avyaan_completed_topics');
@@ -132,7 +166,7 @@ const AvyaanAPI = {
   // Get current user profile (validates token)
   async getMe() {
     try {
-      const res = await fetch(`${this.baseUrl}/auth/me`, { headers: this.authHeaders() });
+      const res = await fetch(`${this.baseUrl}/auth/me`, { credentials: 'include', headers: this.authHeaders() });
       if (!res.ok) return null;
       const data = await res.json();
       return data.user;

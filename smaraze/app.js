@@ -213,6 +213,7 @@ document.addEventListener('DOMContentLoaded', () => {
   enhanceInteractiveSemantics();
   checkBadges();
   handleHashNavigation();
+  openPasswordResetFromUrl();
   maybeShowOnboarding();
   fetchContentVersion();
 });
@@ -1541,23 +1542,98 @@ function changeAdoptedGrade(newGradeStr) {
 function showAuthTab(tab) {
   const loginPanel = document.getElementById('loginFormPanel');
   const registerPanel = document.getElementById('registerFormPanel');
+  const forgotPanel = document.getElementById('forgotPasswordPanel');
+  const resetPanel = document.getElementById('resetPasswordPanel');
+  const tabList = document.querySelector('#loginModal [role="tablist"]');
   const loginTab = document.getElementById('authTabLogin');
   const registerTab = document.getElementById('authTabRegister');
   const isLogin = tab === 'login';
+  const isRegister = tab === 'register';
   if (loginPanel) loginPanel.style.display = isLogin ? 'block' : 'none';
-  if (registerPanel) registerPanel.style.display = isLogin ? 'none' : 'block';
+  if (registerPanel) registerPanel.style.display = isRegister ? 'block' : 'none';
+  if (forgotPanel) forgotPanel.style.display = tab === 'forgot' ? 'block' : 'none';
+  if (resetPanel) resetPanel.style.display = tab === 'reset' ? 'block' : 'none';
+  if (tabList) tabList.style.display = isLogin || isRegister ? 'flex' : 'none';
   if (loginTab) {
     loginTab.style.background = isLogin ? '#ffffff' : 'transparent';
     loginTab.style.borderColor = isLogin ? '#cbd5e1' : 'transparent';
     loginTab.setAttribute('aria-selected', String(isLogin));
   }
   if (registerTab) {
-    registerTab.style.background = isLogin ? 'transparent' : '#ffffff';
-    registerTab.style.borderColor = isLogin ? 'transparent' : '#cbd5e1';
-    registerTab.setAttribute('aria-selected', String(!isLogin));
+    registerTab.style.background = isRegister ? '#ffffff' : 'transparent';
+    registerTab.style.borderColor = isRegister ? '#cbd5e1' : 'transparent';
+    registerTab.setAttribute('aria-selected', String(isRegister));
+  }
+  if (tab === 'forgot') {
+    const email = document.getElementById('forgotPasswordEmail');
+    const loginEmail = document.getElementById('loginUsername');
+    if (email && loginEmail && !email.value) email.value = loginEmail.value.trim();
+    const notice = document.getElementById('forgotPasswordNotice');
+    if (notice) { notice.textContent = ''; notice.className = 'auth-notice'; }
   }
 }
 
+function showForgotPassword() {
+  showAuthTab('forgot');
+  const email = document.getElementById('forgotPasswordEmail');
+  if (email) setTimeout(() => email.focus(), 0);
+}
+
+function setAuthNotice(id, message, kind = 'info') {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.textContent = message;
+  el.className = `auth-notice ${kind}`;
+  el.style.display = 'block';
+}
+
+async function handleForgotPassword(e) {
+  e.preventDefault();
+  const email = (document.getElementById('forgotPasswordEmail')?.value || '').trim().toLowerCase();
+  if (!email) { setAuthNotice('forgotPasswordNotice', 'Enter the email used for the account.', 'error'); return; }
+  setAuthNotice('forgotPasswordNotice', 'Requesting recovery instructions…', 'info');
+  const data = await AvyaanAPI.forgotPassword(email);
+  if (!data || data.status !== 'accepted') {
+    setAuthNotice('forgotPasswordNotice', data?.detail || 'We could not start recovery. Please try again.', 'error');
+    return;
+  }
+  if (data.email_delivery === 'unavailable') {
+    setAuthNotice('forgotPasswordNotice', 'Recovery email delivery is not enabled on this deployment yet. Please contact help@smaraze.com for a manual recovery check.', 'warning');
+    return;
+  }
+  setAuthNotice('forgotPasswordNotice', 'If an account exists for that address, recovery instructions are on the way. Check spam too; the link expires in 30 minutes.', 'success');
+}
+
+async function handleResetPassword(e) {
+  e.preventDefault();
+  const password = document.getElementById('resetPassword')?.value || '';
+  const confirm = document.getElementById('resetPasswordConfirm')?.value || '';
+  const token = window._resetToken || new URLSearchParams(location.search).get('reset') || '';
+  if (new TextEncoder().encode(password).byteLength > 72) {
+    setAuthNotice('resetPasswordNotice', 'Password must be at most 72 UTF-8 bytes.', 'error'); return;
+  }
+  if (password.length < 8) { setAuthNotice('resetPasswordNotice', 'Password must be at least 8 characters.', 'error'); return; }
+  if (password !== confirm) { setAuthNotice('resetPasswordNotice', 'Passwords do not match.', 'error'); return; }
+  if (!token) { setAuthNotice('resetPasswordNotice', 'This recovery link is missing or invalid. Request a new one.', 'error'); return; }
+  setAuthNotice('resetPasswordNotice', 'Updating your password…', 'info');
+  const data = await AvyaanAPI.resetPassword(token, password);
+  if (!data || data.status !== 'success') {
+    setAuthNotice('resetPasswordNotice', data?.detail || 'This recovery link is invalid or expired. Request a new one.', 'error');
+    return;
+  }
+  window._resetToken = null;
+  try { history.replaceState({}, document.title, `${location.pathname}${location.hash || ''}`); } catch (_) {}
+  setAuthNotice('resetPasswordNotice', 'Password updated. You can now sign in with the new password.', 'success');
+}
+
+function openPasswordResetFromUrl() {
+  const token = new URLSearchParams(location.search).get('reset');
+  if (!token) return;
+  window._resetToken = token;
+  openLoginModal();
+  showAuthTab('reset');
+  setTimeout(() => document.getElementById('resetPassword')?.focus(), 0);
+}
 function setAuthError(id, message) {
   const el = document.getElementById(id);
   if (!el) return;

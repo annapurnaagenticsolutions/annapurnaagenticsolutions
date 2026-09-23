@@ -6024,3 +6024,39 @@ body.kid-mode .step-content li { font-size: 1.06rem !important; line-height: 1.7
     padding: 0.55rem 0.65rem;
   }
 }
+
+/* Authentication recovery controls */
+.auth-recovery-link,
+.auth-text-button {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  color: var(--accent-primary, #2563eb);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 0.45rem 0;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.auth-recovery-link { display: block; margin-top: 0.35rem; }
+.auth-text-button { margin-top: 0.75rem; }
+.auth-recovery-link:focus-visible,
+.auth-text-button:focus-visible { outline: 3px solid var(--border-focus, #93c5fd); outline-offset: 3px; border-radius: 4px; }
+.auth-panel-copy { color: var(--text-muted); font-size: 0.82rem; line-height: 1.5; margin: 0 0 1rem; }
+.auth-notice { display: none; border: 1px solid #bfdbfe; background: #eff6ff; color: #1e3a8a; border-radius: 10px; padding: 0.7rem 0.75rem; font-size: 0.82rem; line-height: 1.45; margin-bottom: 0.9rem; }
+.auth-notice.success { display: block; border-color: #bbf7d0; background: #f0fdf4; color: #166534; }
+.auth-notice.warning { display: block; border-color: #fed7aa; background: #fff7ed; color: #9a3412; }
+.auth-notice.error { display: block; border-color: #fecaca; background: #fef2f2; color: #991b1b; }
+.auth-notice.info { display: block; }
+
+@media (max-width: 768px) {
+  .modal-overlay { align-items: flex-start; padding: max(0.5rem, env(safe-area-inset-top)) 0.5rem max(0.5rem, env(safe-area-inset-bottom)) !important; overflow-y: auto; }
+  .modal-card { width: 100%; min-height: min(100%, 100dvh); height: auto; max-height: calc(100dvh - 1rem) !important; padding: 1.15rem !important; border-radius: 16px !important; margin: 0 !important; }
+  .modal-close { top: 0.65rem; right: 0.65rem; width: 40px; height: 40px; }
+  #loginModal .modal-card { padding-top: 1.2rem !important; }
+  #loginModal .form-input, #loginModal select, #loginModal .btn { min-height: 44px; }
+  #loginModal form { padding-bottom: 0.25rem; }
+  .nav-mobile-panel { max-height: calc(100dvh - 56px); overflow-y: auto; overscroll-behavior: contain; }
+}
