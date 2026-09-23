@@ -529,7 +529,11 @@ const AvyaanAPI = {
     try {
       if (!topicId || !this.getToken()) return null;
       const res = await fetch(`${this.baseUrl}/topics/${encodeURIComponent(topicId)}/content`, { headers: this.authHeaders() });
-      if (!res.ok) return null;
+      if (!res.ok) {
+        let detail = '';
+        try { detail = (await res.json())?.detail || ''; } catch (e) { /* non-JSON error */ }
+        return { __error: true, status: res.status, detail };
+      }
       return await res.json();
     } catch (e) { return null; }
   },
