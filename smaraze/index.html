@@ -164,7 +164,7 @@
       <div class="mobile-stat"><span id="levelDisplayMobile">Explorer</span><span id="xpDisplayMobile">0 XP</span></div>
       <div class="mobile-stat"><span id="streakCountMobile">3</span><span>day streak</span></div>
     </div>
-    <button id="loginMobileBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.8rem;" onclick="openLoginModal(); toggleMobileNav()">Log in</button>
+    <button id="loginMobileBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.8rem;" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } } if(typeof window.toggleMobileNav === 'function'){ window.toggleMobileNav(); }">Log in</button>
     <button id="logoutMobileBtn" class="btn" style="display:none;width:100%;justify-content:center;margin-top:0.6rem;" onclick="logoutUser(); toggleMobileNav()">Log out</button>
   </nav>
 
