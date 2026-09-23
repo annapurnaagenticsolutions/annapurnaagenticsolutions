@@ -2351,6 +2351,13 @@ async function openTopicDetail(topicId) {
       if (typeof toast === 'function') toast('This lesson is not available in the protected content store yet. Please try again later.');
       return;
     }
+    if (secure.__error) {
+      const authFailure = secure.status === 401 || secure.status === 403;
+      if (typeof toast === 'function') toast(authFailure
+        ? 'Your learner session has expired. Please sign in again.'
+        : 'This lesson is not available in the protected content store yet. Please try again later.');
+      return;
+    }
     const payload = secure.content || secure.topic || {};
     const metadata = secure.topic?.metadata || payload.metadata || {};
     if (metadata && typeof metadata === 'object') {
