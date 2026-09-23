@@ -57,7 +57,7 @@
         <span class="kicker-small">The complete catalogue</span>
         <h1>Explore the Skill X STEM Library</h1>
         <p>Search by idea, subject or class. Guests can inspect titles and summaries, while a small set of starter lessons is open to try; full lesson bodies and assessment feedback stay protected behind a signed-in learner account.</p>
-        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="index.html" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);return false;}">🎓 See plans &amp; enrol</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
+        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="#plans" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof AvyaanPayments.renderPaywall === 'function'){ AvyaanPayments.renderPaywall(null); } else if(window.__skillxOpenPlans){ window.__skillxOpenPlans(); }">🎓 See plans &amp; enroll</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
       </div>
     </section>
 
