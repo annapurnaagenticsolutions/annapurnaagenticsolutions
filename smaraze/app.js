@@ -1597,11 +1597,7 @@ async function handleForgotPassword(e) {
     setAuthNotice('forgotPasswordNotice', data?.detail || 'We could not start recovery. Please try again.', 'error');
     return;
   }
-  if (data.email_delivery === 'unavailable') {
-    setAuthNotice('forgotPasswordNotice', 'Recovery email delivery is not enabled on this deployment yet. Please contact help@smaraze.com for a manual recovery check.', 'warning');
-    return;
-  }
-  setAuthNotice('forgotPasswordNotice', 'If an account exists for that address, recovery instructions are on the way. Check spam too; the link expires in 30 minutes.', 'success');
+  setAuthNotice('forgotPasswordNotice', 'If an account exists for this email address, password recovery instructions will be sent.', 'success');
 }
 
 async function handleResetPassword(e) {
