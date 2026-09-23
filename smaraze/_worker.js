@@ -192,14 +192,8 @@ export default {
         return rewritten;
       } catch (_) { return jsonError(503, 'Public learning bundle unavailable'); }
     }    if (contentType && contentType.startsWith('text/html')) {
-      const html = await secured.text();
-      const partnerLink = "<a href='https://annapurnaagenticsolutions.com/' target='_blank' rel='noopener noreferrer'>Annapurna Agentic Solutions</a>";
-      const linked = html
-        .replaceAll('Annapurna Agentic Solutions.', partnerLink)
-        .replaceAll('Annapurna Agentic Solutions', partnerLink);
-      const rewritten = new Response(linked, secured);
-      rewritten.headers.set('Content-Type', 'text/html; charset=utf-8');
-      return rewritten;
+      secured.headers.set('Content-Type', 'text/html; charset=utf-8');
+      return secured;
     }
     return secured;
   },
