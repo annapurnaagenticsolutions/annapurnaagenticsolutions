@@ -4449,6 +4449,11 @@ function printWorksheetPack(subject, classLevel) {
 // ==========================================================================
 
 function openDashboard() {
+  const authenticated = currentUser && currentUser.id && currentUser.id !== 'guest';
+  if (!authenticated) {
+    openLoginModal();
+    return;
+  }
   renderDashboard();
   openModal('dashboardModal');
 }
