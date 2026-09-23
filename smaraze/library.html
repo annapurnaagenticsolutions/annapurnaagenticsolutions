@@ -35,7 +35,7 @@
       <div class="nav-right">
         <div class="nav-xp-pill" id="navXpPill" title="Your XP and Level"><span id="levelDisplay">Explorer</span><span class="nav-xp-divider"></span><span id="xpDisplay">0 XP</span></div>
         <div class="nav-streak-pill" title="Daily streak"><span id="streakCount">0</span><span class="nav-streak-icon"></span></div>
-        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="openLoginModal()">Log in</button>
+        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">Log in</button>
         <div id="userMenuTrigger" class="nav-avatar-wrap" style="display:none;" role="button" tabindex="0" aria-label="Open account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="userDropdown" onclick="toggleUserMenu()">
           <span class="nav-avatar" id="userAvatar">S</span>
           <div class="user-dropdown" id="userDropdown" role="menu" aria-label="Account menu" aria-hidden="true">
@@ -57,7 +57,7 @@
         <span class="kicker-small">The complete catalogue</span>
         <h1>Explore the Skill X STEM Library</h1>
         <p>Search by idea, subject or class. Guests can inspect titles and summaries, while a small set of starter lessons is open to try; full lesson bodies and assessment feedback stay protected behind a signed-in learner account.</p>
-        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="#plans" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof AvyaanPayments.renderPaywall === 'function'){ AvyaanPayments.renderPaywall(null); } else if(window.__skillxOpenPlans){ window.__skillxOpenPlans(); }">🎓 See plans &amp; enroll</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
+        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="#plans" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof window.AvyaanPayments.renderPaywall === 'function'){ window.AvyaanPayments.renderPaywall(null); } else if(typeof window.__skillxOpenPlans === 'function'){ window.__skillxOpenPlans(); } else if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">🎓 See plans &amp; enroll</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
       </div>
     </section>
 
