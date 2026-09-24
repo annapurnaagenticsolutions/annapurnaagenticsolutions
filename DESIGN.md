@@ -93,7 +93,7 @@ The sticky header is shared across public routes. Page sections use labeled anch
 
 ### Forms and overlays
 
-This public portfolio surface has no form, modal, picker or asynchronous CRUD workflow. If one is added later, it must use the canonical shared site patterns and keep its browser/OS ownership explicit.
+The Pramana public self-review uses native radio groups and a native select for a short context list. The select popup belongs to the browser/OS. Visitors see a printable snapshot before sharing details. An optional email copy collects name, email, profession and limited business context, verifies the address by code, then emails a short summary. Answers are held temporarily for that request and are not written to the lead database. Email requests are limited by verified address for 24 hours; marketing contact is a separate unchecked choice. The page keeps print available if email is unavailable.
 
 ### Iconography
 
@@ -113,3 +113,8 @@ Public copy is first-person, concrete and honest about limits. Numbers are shown
 - **Do:** Label prototypes and simulated telemetry so evaluators can trust the page.
 - **Don't:** Turn internal metrics into adoption, production, compliance or savings claims.
 - **Don't:** Add decorative gradients or motion that compete with the signal field, or UI controls that do not have a real destination or accessible name.
+
+
+## Pramana public entry
+
+The Pramana landing page speaks first to a small-business owner in plain English: familiar data moments, whether DPDP may matter, then what Pramana helps the team organise. The visual signature is a dark governance lens showing one everyday order moving into questions and a reviewable next step; the rest of the page keeps the shared Annapurna light palette, Inter type, navigation and button language. The free Compliance Check and six Pramana World routes remain visible. State legal limits in direct words and place exact sections, dates and official links in the DPDP source guide; never imply that the public check certifies compliance or disclose private product workings.

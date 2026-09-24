@@ -1,0 +1,15 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import { DatabaseSync } from 'node:sqlite';
+const db = new DatabaseSync(':memory:');
+db.exec(fs.readFileSync('migrations/0001_leads.sql', 'utf8'));
+db.exec(fs.readFileSync('migrations/0002_lead_privacy_v2.sql', 'utf8'));
+const insert = db.prepare('INSERT INTO report_requests (email,name,report_delivery_ack,privacy_notice_ver,source_url) VALUES (?,?,?,?,?)');
+insert.run('owner@example.test', 'Owner', 1, 'website-2026-09-24', '/pramana/demos/dpdp-check/');
+assert.equal(db.prepare('SELECT count(*) AS n FROM report_requests').get().n, 1);
+assert.equal(db.prepare('SELECT count(*) AS n FROM marketing_leads').get().n, 0);
+assert.equal(db.prepare('SELECT count(*) AS n FROM leads').get().n, 0);
+db.prepare('INSERT INTO marketing_leads (email,name,organization,role,company_size,sector,marketing_opt_in,marketing_consent_ver,privacy_notice_ver,source_url) VALUES (?,?,?,?,?,?,1,?,?,?)').run('opted@example.test','Owner','Example Shop','Owner','1-10','commerce','website-contact-v1','website-2026-09-24','/pramana/demos/dpdp-check/');
+assert.equal(db.prepare('SELECT count(*) AS n FROM marketing_leads').get().n, 1);
+assert.equal(db.prepare('SELECT count(*) AS n FROM leads').get().n, 0);
+console.log('Pramana request and contact tables are separate; legacy leads untouched');

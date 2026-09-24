@@ -1,191 +1,132 @@
 /**
- * Pramana Lead Gate — Cloudflare Pages Function
- * Route: POST /api/lead/submit
- *
- * Step 1: Validates email (not free domain), checks D1 for duplicates,
- *         generates a 6-digit OTP, stores it in KV with 10-min TTL,
- *         sends OTP email via Resend.com, returns status.
- *
- * Bindings required (set in Cloudflare Pages dashboard):
- *   - PRAMANA_LEADS (D1 database)
- *   - PRAMANA_OTP   (KV namespace)
- *   - RESEND_API_KEY (secret env var)
- *   - ALLOWED_ORIGIN (env var: https://annapurnaagenticsolutions.com)
+ * Public Pramana email receipt request. Cloudflare Pages Function: POST /api/lead/submit.
+ * Uses PRAMANA_LEADS (D1), PRAMANA_OTP (KV), and RESEND_API_KEY bindings.
+ * Questionnaire answers live only in short-lived KV until the address is verified.
  */
-
-// Free/personal email domains to block (B2B leads only)
-const FREE_EMAIL_DOMAINS = new Set([
-  'gmail.com','googlemail.com','yahoo.com','yahoo.in','yahoo.co.in',
-  'hotmail.com','outlook.com','live.com','msn.com','icloud.com',
-  'me.com','mac.com','proton.me','protonmail.com','tutanota.com',
-  'aol.com','rediffmail.com','ymail.com','rocketmail.com',
-]);
-
-// OTP TTL: 10 minutes
+const TOPICS = ['map', 'roles', 'purpose', 'notice', 'providers', 'security', 'retention',
+  'requests', 'evidence', 'children', 'automated', 'sdf', 'transfers', 'scope'];
+const ANSWERS = new Set(['in-place', 'partial', 'not-in-place', 'unsure', 'na']);
+const CONTEXTS = new Set(['service', 'care', 'education', 'finance', 'workforce', 'commerce']);
+const SIZES = new Set(['', '1-10', '11-50', '51-250', '251+']);
 const OTP_TTL_SECONDS = 600;
+const REQUEST_PAUSE_MS = 60_000;
+const REPEAT_PAUSE_MS = 86_400_000;
+const MAX_BODY_BYTES = 8_192;
 
-// 24h re-send window (soft dedup — allow re-send after 24h)
-const RESEND_COOLDOWN_HOURS = 24;
+const json = (value, status = 200) => new Response(JSON.stringify(value), {
+  status,
+  headers: {
+    'Content-Type': 'application/json; charset=utf-8',
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff'
+  }
+});
 
-function generateOtp() {
-  return String(Math.floor(100000 + Math.random() * 900000));
+const clean = (value, max) => typeof value === 'string' ? value.trim().slice(0, max + 1) : '';
+const validEmail = email => /^[^\s@]{1,64}@[^\s@]{1,190}\.[^\s@]{2,63}$/.test(email) && email.length <= 254;
+const toUtc = value => value ? Date.parse(value.includes('T') ? value : value.replace(' ', 'T') + 'Z') : NaN;
+
+async function keyFor(email) {
+  const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(email));
+  return 'otp:' + [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
 }
-
-function getCorsHeaders(origin, allowedOrigin) {
-  const allow = origin === allowedOrigin || allowedOrigin === '*' ? origin : allowedOrigin;
-  return {
-    'Access-Control-Allow-Origin': allow,
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Vary': 'Origin',
-  };
+async function digest(value) {
+  const bytes = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(value));
+  return [...new Uint8Array(bytes)].map(byte => byte.toString(16).padStart(2, '0')).join('');
 }
-
-function json(data, status = 200, corsHeaders = {}) {
-  return new Response(JSON.stringify(data), {
-    status,
-    headers: { 'Content-Type': 'application/json', ...corsHeaders },
-  });
+async function readBody(request) {
+  if (!(request.headers.get('Content-Type') || '').toLowerCase().startsWith('application/json')) return null;
+  const contentLength = Number(request.headers.get('Content-Length') || 0);
+  if (contentLength > MAX_BODY_BYTES) return null;
+  const raw = await request.text();
+  if (new TextEncoder().encode(raw).length > MAX_BODY_BYTES) return null;
+  try { return JSON.parse(raw); } catch { return null; }
 }
-
-export async function onRequestOptions({ request, env }) {
-  const origin = request.headers.get('Origin') || '';
-  return new Response(null, {
-    status: 204,
-    headers: getCorsHeaders(origin, env.ALLOWED_ORIGIN || '*'),
-  });
+function ownOrigin(request) {
+  const origin = request.headers.get('Origin');
+  return !origin || origin === new URL(request.url).origin;
 }
 
 export async function onRequestPost({ request, env }) {
-  const origin = request.headers.get('Origin') || '';
-  const cors = getCorsHeaders(origin, env.ALLOWED_ORIGIN || '*');
+  if (!ownOrigin(request)) return json({ error: 'origin_not_allowed', message: 'Open the check on the Pramana website and try again.' }, 403);
+  if (!env.PRAMANA_LEADS || !env.PRAMANA_OTP || !env.RESEND_API_KEY) {
+    return json({ error: 'email_unavailable', message: 'Email is temporarily unavailable. You can still print your notes.' }, 503);
+  }
+  const body = await readBody(request);
+  if (!body || typeof body !== 'object' || Array.isArray(body)) {
+    return json({ error: 'invalid_request', message: 'Please check the form and try again.' }, 400);
+  }
+  if (body.website) return json({ status: 'request_received' });
 
-  // ── Parse body ────────────────────────────────────────────────
-  let body;
+  const name = clean(body.name, 100);
+  const email = clean(body.email, 254).toLowerCase();
+  const organization = clean(body.organization, 120);
+  const role = clean(body.role, 80);
+  const companySize = clean(body.company_size, 10);
+  const sector = clean(body.sector, 20);
+  const answers = body.answers;
+  if (!name || name.length > 100 || !role || role.length > 80 || !validEmail(email)
+    || organization.length > 120 || !SIZES.has(companySize) || !CONTEXTS.has(sector)
+    || body.email_request !== true || typeof body.contact_me !== 'boolean'
+    || !answers || typeof answers !== 'object' || Array.isArray(answers)
+    || Object.keys(answers).length !== TOPICS.length
+    || !TOPICS.every(topic => ANSWERS.has(answers[topic]))) {
+    return json({ error: 'invalid_fields', message: 'Please complete your contact details and all 14 questions.' }, 400);
+  }
+
+  const now = Date.now();
+  const key = await keyFor(email);
+  let wrotePending = false;
   try {
-    body = await request.json();
-  } catch {
-    return json({ error: 'invalid_body', message: 'Request body must be JSON.' }, 400, cors);
-  }
-
-  const {
-    name, email, organization, role, company_size, sector,
-    budget_range, score, grade, traffic_light, passed, failed,
-    warnings, total, consent, consent_ver, source_url,
-    utm_source, utm_medium, utm_campaign,
-    website,  // honeypot field — must be empty
-  } = body;
-
-  // ── Honeypot spam check ───────────────────────────────────────
-  if (website && website.trim() !== '') {
-    // Silently accept but don't store — it's a bot
-    return json({ status: 'otp_sent' }, 200, cors);
-  }
-
-  // ── Basic validation ──────────────────────────────────────────
-  if (!name || !email || !consent) {
-    return json({ error: 'missing_fields', message: 'Name, email and consent are required.' }, 400, cors);
-  }
-
-  const emailNorm = email.toLowerCase().trim();
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailPattern.test(emailNorm)) {
-    return json({ error: 'invalid_email', message: 'Please enter a valid email address.' }, 400, cors);
-  }
-
-  // ── Free email domain check ───────────────────────────────────
-  const domain = emailNorm.split('@')[1];
-  if (FREE_EMAIL_DOMAINS.has(domain)) {
-    return json({
-      error: 'personal_email',
-      message: 'Please use your work or organisation email address. Personal email domains are not accepted.',
-    }, 400, cors);
-  }
-
-  // ── Duplicate / re-send check (D1) ───────────────────────────
-  const existing = await env.PRAMANA_LEADS.prepare(
-    'SELECT email, resend_at, created_at FROM leads WHERE email = ?'
-  ).bind(emailNorm).first();
-
-  if (existing) {
-    const lastSent = existing.resend_at || existing.created_at;
-    const hoursSinceLast = (Date.now() - new Date(lastSent + 'Z').getTime()) / 3_600_000;
-
-    if (hoursSinceLast < RESEND_COOLDOWN_HOURS) {
-      return json({
-        status: 'already_registered',
-        message: `We already sent your results to this email. Please check your inbox (including spam). You can request a re-send after ${Math.ceil(RESEND_COOLDOWN_HOURS - hoursSinceLast)} hours.`,
-      }, 200, cors);
+    const recent = await env.PRAMANA_LEADS.prepare(
+      'SELECT resend_at FROM report_requests WHERE email = ? AND resend_at IS NOT NULL ORDER BY id DESC LIMIT 1'
+    ).bind(email).first();
+    const existing = await env.PRAMANA_LEADS.prepare(
+      'SELECT created_at, resend_at, consent_ver FROM leads WHERE email = ?'
+    ).bind(email).first();
+    const lastVerified = Math.max(toUtc(recent?.resend_at) || 0,
+      toUtc(existing?.resend_at || (existing?.consent_ver === 'email-check-v2' ? null : existing?.created_at)) || 0);
+    if (Number.isFinite(lastVerified) && now - lastVerified < REPEAT_PAUSE_MS) {
+      return json({ status: 'request_received' });
+    }
+    const pending = await env.PRAMANA_OTP.get(key, { type: 'json' });
+    if (pending && pending.expires_at > now && now - pending.sent_at < REQUEST_PAUSE_MS) {
+      return json({ status: 'request_received' });
     }
 
-    // Past cooldown — allow re-send, update resend_at
-    await env.PRAMANA_LEADS.prepare(
-      'UPDATE leads SET resend_at = datetime("now") WHERE email = ?'
-    ).bind(emailNorm).run();
-  }
-
-  // ── Generate OTP and store in KV ─────────────────────────────
-  const otp = generateOtp();
-  const kvKey = `otp:${emailNorm}`;
-  const kvValue = JSON.stringify({
-    otp,
-    name, email: emailNorm, organization, role, company_size, sector,
-    budget_range, score, grade, traffic_light, passed, failed,
-    warnings, total, consent, consent_ver: consent_ver || 'v1', source_url,
-    utm_source, utm_medium, utm_campaign,
-    is_resend: !!existing,
-  });
-  await env.PRAMANA_OTP.put(kvKey, kvValue, { expirationTtl: OTP_TTL_SECONDS });
-
-  // ── Send OTP email via Resend ─────────────────────────────────
-  try {
-    const emailBody = `
-<!DOCTYPE html>
-<html>
-<head><meta charset="utf-8"/></head>
-<body style="font-family:system-ui,sans-serif;max-width:520px;margin:0 auto;padding:32px 16px;color:#1e293b">
-  <div style="background:#1e40af;border-radius:12px;padding:24px;margin-bottom:24px">
-    <h1 style="color:#fff;margin:0;font-size:20px">Pramana — DPDP Compliance Check</h1>
-    <p style="color:#bfdbfe;margin:4px 0 0;font-size:14px">Annapurna Agentic Solutions</p>
-  </div>
-  <p>Hi <strong>${name.split(' ')[0]}</strong>,</p>
-  <p>Here is your one-time verification code to unlock your full DPDP compliance report:</p>
-  <div style="background:#f1f5f9;border:2px solid #2563eb;border-radius:10px;padding:24px;text-align:center;margin:24px 0">
-    <div style="font-size:36px;font-weight:800;letter-spacing:0.15em;color:#1e40af">${otp}</div>
-    <p style="color:#64748b;font-size:13px;margin:8px 0 0">Valid for 10 minutes</p>
-  </div>
-  <p style="font-size:14px;color:#475569">Enter this code on the page where you completed the assessment. Do not share this code with anyone.</p>
-  <hr style="border:none;border-top:1px solid #e2e8f0;margin:24px 0"/>
-  <p style="font-size:12px;color:#94a3b8">
-    If you didn't request this, you can safely ignore this email.<br/>
-    Annapurna Agentic Solutions · <a href="https://annapurnaagenticsolutions.com/pramana/">annapurnaagenticsolutions.com/pramana</a>
-  </p>
-</body>
-</html>`;
-
-    const resendResp = await fetch('https://api.resend.com/emails', {
+    const random = new Uint32Array(1);
+    crypto.getRandomValues(random);
+    const code = String(random[0] % 1_000_000).padStart(6, '0');
+    const nonce = crypto.randomUUID();
+    const pendingValue = {
+      code_hash: await digest(nonce + ':' + code), nonce,
+      email, name, organization, role, company_size: companySize, sector,
+      contact_me: body.contact_me, answers,
+      sent_at: now, expires_at: now + OTP_TTL_SECONDS * 1000, attempts: 0
+    };
+    await env.PRAMANA_OTP.put(key, JSON.stringify(pendingValue), { expirationTtl: OTP_TTL_SECONDS });
+    wrotePending = true;
+    const sent = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${env.RESEND_API_KEY}`,
+        Authorization: 'Bearer ' + env.RESEND_API_KEY,
         'Content-Type': 'application/json',
+        'Idempotency-Key': 'pramana-code-' + nonce
       },
       body: JSON.stringify({
         from: 'Pramana by Annapurna <noreply@annapurnaagenticsolutions.com>',
-        to: [emailNorm],
-        subject: `${otp} is your Pramana verification code`,
-        html: emailBody,
-      }),
+        to: [email],
+        subject: 'Your Pramana verification code',
+        text: 'Your Pramana verification code is ' + code + '. It expires in 10 minutes.\n\nIf you did not request this, you can ignore this email.\n\nAnnapurna Agentic Solutions'
+      })
     });
-
-    if (!resendResp.ok) {
-      const resendErr = await resendResp.text();
-      console.error('Resend error:', resendErr);
-      return json({ error: 'email_failed', message: 'We could not send the verification email. Please try again.' }, 500, cors);
+    if (!sent.ok) {
+      await env.PRAMANA_OTP.delete(key);
+      return json({ error: 'email_unavailable', message: 'We could not send the code. Please try again later, or print your notes.' }, 503);
     }
-  } catch (err) {
-    console.error('Resend fetch error:', err);
-    return json({ error: 'email_failed', message: 'Email delivery failed. Please try again.' }, 500, cors);
+    return json({ status: 'request_received' });
+  } catch {
+    if (wrotePending) { try { await env.PRAMANA_OTP.delete(key); } catch {} }
+    return json({ error: 'email_unavailable', message: 'Email is temporarily unavailable. You can still print your notes.' }, 503);
   }
-
-  return json({ status: 'otp_sent', message: `A 6-digit code was sent to ${emailNorm}. Please check your inbox.` }, 200, cors);
 }

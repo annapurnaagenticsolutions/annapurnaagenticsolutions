@@ -29,6 +29,7 @@
   const topicsRoot = document.getElementById('assessment-questions');
   const summary = document.getElementById('assessment-summary');
   const form = document.getElementById('assessment-form');
+  let snapshot = null;
 
   const make = (tag, className, text) => {
     const el = document.createElement(tag);
@@ -69,10 +70,23 @@
 
   function assess(event) {
     event.preventDefault();
-    if (!form.reportValidity()) return;
+    const firstUnanswered = topics.find((topic) => !form.querySelector(`input[name="${topic.id}"]:checked`));
+    const error = document.getElementById('assessment-error');
+    if (firstUnanswered) {
+      const position = topics.indexOf(firstUnanswered) + 1;
+      error.textContent = `Answer all 14 topics to build your snapshot. Continue with question ${position}; choose “Not sure yet” if you do not have an answer.`;
+      error.hidden = false;
+      form.querySelector(`input[name="${firstUnanswered.id}"]`).focus();
+      return;
+    }
+    error.hidden = true;
     const answers = new Map(topics.map((topic) => [topic.id, new FormData(form).get(topic.id)]));
     const count = (key) => [...answers.values()].filter((value) => value === key).length;
     const selected = document.getElementById('organisation-context');
+    snapshot = { answers: Object.fromEntries(answers), sector: selected.value };
+    form.querySelectorAll('input').forEach((input) => { input.disabled = true; });
+    form.querySelector('button[type="submit"]').disabled = true;
+    selected.disabled = true;
     const report = document.createElement('div');
     report.className = 'assessment-result';
     report.append(make('p', 'eyebrow', 'YOUR DISCUSSION SNAPSHOT'));
@@ -95,17 +109,122 @@
     });
     if (!list.children.length) list.append(make('li', '', 'Your responses show no topics marked for follow-up. Keep the underlying evidence and review the facts and applicable dates with responsible people.'));
     report.append(list);
-    const note = make('p', 'pr-note', 'This is an informational self-review snapshot based only on your selections. It is not a compliance score, legal opinion, applicability finding, penalty estimate or certification. “Not sure” is a prompt for review, not a finding of non-compliance. Your answers remain in this browser page; they are not saved or sent.');
+    const note = make('p', 'pr-note', 'This is an informational self-review snapshot based only on your selections. It is not a compliance score, legal opinion, applicability finding, penalty estimate or certification. “Not sure” is a prompt for review, not a finding of non-compliance. Your answers stay in this browser unless you request an email copy. If you do, we send them temporarily to prepare that email.');
     report.append(note);
+    report.append(make('p', 'pr-note', 'To change an answer, choose Start again.'));
     const actions = make('div', 'assessment-actions');
     const print = make('button', 'pr-button', 'Print or save as PDF'); print.type = 'button'; print.dataset.print = '';
+    const email = make('button', 'pr-button pr-button-secondary', 'Email my notes'); email.type = 'button'; email.dataset.email = '';
     const restart = make('button', 'pr-button pr-button-secondary', 'Start again'); restart.type = 'button'; restart.dataset.restart = '';
-    actions.append(print, restart); report.append(actions);
+    actions.append(print, email, restart); report.append(actions);
     report.append(make('p', 'assessment-source', 'Check current official sources and commencement before acting.'));
     const sourceLink = document.createElement('a'); sourceLink.href = '/pramana/sources/'; sourceLink.textContent = 'Open the official DPDP source guide'; report.lastChild.append(' ', sourceLink);
+    const next = make('nav', 'assessment-next');
+    next.setAttribute('aria-label', 'Continue exploring Pramana');
+    const overview = make('a', '', 'How Pramana helps →'); overview.href = '/pramana/#how-pramana-helps';
+    const demos = make('a', '', 'Explore the simulations →'); demos.href = '/pramana/demos/';
+    next.append(overview, demos); report.append(next);
     summary.replaceChildren(report); summary.hidden = false;
+    const emailPanel = document.getElementById("assessment-email-panel");
+    if (emailPanel) emailPanel.hidden = false;
     summary.focus();
   }
+
+  const emailForm = document.getElementById('assessment-email-form');
+  const codeForm = document.getElementById('assessment-code-form');
+  const emailStatus = document.getElementById('assessment-email-status');
+  const codeStatus = document.getElementById('assessment-code-status');
+  let requestedEmail = '';
+
+  async function postEmail(path, payload) {
+    const response = await fetch(path, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(payload)
+    });
+    let data;
+    try { data = await response.json(); } catch { data = {}; }
+    return { response, data };
+  }
+
+  emailForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const invalid = [...emailForm.elements].find((field) => field.willValidate && !field.checkValidity());
+    if (invalid) {
+      emailStatus.textContent = invalid.type === 'email' ? 'Enter a valid email address.' : 'Please complete your name and profession or role.';
+      invalid.focus();
+      return;
+    }
+    const button = emailForm.querySelector('button[type="submit"]');
+    const details = new FormData(emailForm);
+    const answers = snapshot?.answers;
+    if (!answers || Object.values(answers).some((answer) => !answer)) {
+      emailStatus.textContent = 'Complete all 14 questions and build your notes before requesting email.';
+      return;
+    }
+    const payload = {
+      name: String(details.get('name') || '').trim(),
+      email: String(details.get('email') || '').trim(),
+      role: String(details.get('role') || '').trim(),
+      organization: String(details.get('organization') || '').trim(),
+      company_size: String(details.get('company_size') || ''),
+      sector: snapshot.sector,
+      contact_me: details.has('contact_me'),
+      email_request: true,
+      website: String(details.get('website') || ''),
+      answers
+    };
+    button.disabled = true;
+    emailStatus.textContent = 'Requesting your code…';
+    try {
+      const { response, data } = await postEmail('/api/lead/submit', payload);
+      if (!response.ok) {
+        emailStatus.textContent = data.message || 'We could not request a code. You can still print your notes.';
+        return;
+      }
+      requestedEmail = payload.email.toLowerCase();
+      emailStatus.textContent = 'If eligible, check ' + requestedEmail + ' for a six-digit code. An address that received notes in the last 24 hours must wait before requesting again.';
+      codeForm.hidden = false;
+      codeForm.querySelector('input[name="code"]').value = '';
+      codeForm.querySelector('input[name="code"]').focus();
+    } catch {
+      emailStatus.textContent = 'Email is unavailable right now. You can still print your notes.';
+    } finally {
+      button.disabled = false;
+    }
+  });
+
+  codeForm?.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const codeInput = codeForm.querySelector('input[name="code"]');
+    if (!codeInput.checkValidity() || !requestedEmail) {
+      codeStatus.textContent = 'Enter the six-digit code from your email.';
+      codeInput.focus();
+      return;
+    }
+    const button = codeForm.querySelector('button[type="submit"]');
+    button.disabled = true;
+    codeStatus.textContent = 'Checking your code…';
+    try {
+      const { response, data } = await postEmail('/api/lead/verify', {
+        email: requestedEmail,
+        code: String(new FormData(codeForm).get('code') || '').trim()
+      });
+      codeStatus.textContent = data.message || 'We could not verify the code. You can still print your notes.';
+      if (response.ok && data.status === 'verified') {
+        codeForm.querySelector('input[name="code"]').value = '';
+        codeForm.querySelector('input[name="code"]').disabled = true;
+        button.hidden = true;
+        emailForm.querySelector('input[name="name"]').value = '';
+        emailForm.querySelector('input[name="email"]').value = '';
+      }
+    } catch {
+      codeStatus.textContent = 'Email is unavailable right now. You can still print your notes.';
+    } finally {
+      button.disabled = false;
+    }
+  });
 
   const scenarioData = {
     service: { title: 'Customer service', summary: 'A support team uses account and conversation data to answer requests and proposes a new service-improvement use.', facts: ['What information is involved, and whose data is it?', 'What purpose was communicated, and what new purpose is proposed?', 'Who owns the decision and what evidence is needed?'] },
@@ -228,6 +347,11 @@
   }
   root.addEventListener('click', (event) => {
     if (event.target.closest('[data-print]')) window.print();
-    if (event.target.closest('[data-restart]')) { form?.reset(); summary.hidden = true; summary.replaceChildren(); window.scrollTo({ top: form.offsetTop, behavior: 'smooth' }); }
+    if (event.target.closest('[data-email]')) {
+      const panel = document.getElementById('assessment-email-panel');
+      panel?.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth', block: 'start' });
+      emailForm?.querySelector('input[name="name"]').focus({ preventScroll: true });
+    }
+    if (event.target.closest('[data-restart]')) { form?.reset(); form?.querySelectorAll('input').forEach((input) => { input.disabled = false; }); if (form) form.querySelector('button[type=submit]').disabled = false; const contextSelect = document.getElementById('organisation-context'); if (contextSelect) contextSelect.disabled = false; snapshot = null; summary.hidden = true; summary.replaceChildren(); const emailPanel = document.getElementById('assessment-email-panel'); if (emailPanel) emailPanel.hidden = true; emailForm?.reset(); codeForm?.reset(); if (codeForm) { codeForm.hidden = true; codeForm.querySelector('input[name="code"]').disabled = false; codeForm.querySelector('button').hidden = false; } if (emailStatus) emailStatus.textContent = ''; if (codeStatus) codeStatus.textContent = ''; requestedEmail = ''; window.scrollTo({ top: form.offsetTop, behavior: 'smooth' }); }
   });
 })();

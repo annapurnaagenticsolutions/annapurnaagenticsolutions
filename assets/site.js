@@ -1089,14 +1089,16 @@
     const active=path.endsWith('/products.html')?'products':path.endsWith('/explore.html')?'explore':path.endsWith('/lab.html')?'lab':path.endsWith('/evidence.html')?'evidence':(/\/about(?:\/index\.html)?$/.test(path)?'about':(/\/contact(?:\/index\.html)?$/.test(path)?'contact':''));
     $$('.site-header a[href]').forEach(a=>{let ap;try{ap=new URL(a.getAttribute('href'),location.href).pathname.replace(/\/+$/,'').toLowerCase()}catch(_){return}const match=(active==='products'&&ap.endsWith('/products.html'))||(active==='explore'&&ap.endsWith('/explore.html'))||(active==='lab'&&ap.endsWith('/lab.html'))||(active==='evidence'&&ap.endsWith('/evidence.html'))||(active==='about'&&/\/about(?:\/index\.html)?$/.test(ap))||(active==='contact'&&/\/contact(?:\/index\.html)?$/.test(ap));if(match)a.setAttribute('aria-current','page')});
   }
-  function navigateWithContinuity(href){let u;try{u=new URL(href,location.href)}catch(_){location.href=href;return}try{sessionStorage.setItem('annapurnaNavContext',JSON.stringify({at:Date.now(),world:activeWorld,trail:memory.trail,from:location.pathname,to:u.pathname}))}catch(_){}document.body.classList.add('page-leaving');setTimeout(()=>{location.href=u.href},matchMedia('(prefers-reduced-motion:reduce)').matches?0:190)}
+  function navigateWithContinuity(href){let u;try{u=new URL(href,location.href)}catch(_){location.href=href;return}try{sessionStorage.setItem('annapurnaNavContext',JSON.stringify({at:Date.now(),world:activeWorld,trail:memory.trail,from:location.pathname,to:u.pathname}))}catch(_){}location.href=u.href}
   function mountNavigationContinuity(){
     try{history.scrollRestoration='manual'}catch(_){}updateHeaderOffset();markActiveNavigation();
+    // A history-restored document can retain classes from an earlier navigation.
+    document.body.classList.remove('page-leaving');
     const header=$('.site-header');if(header&&'ResizeObserver'in window)new ResizeObserver(updateHeaderOffset).observe(header);else addEventListener('resize',updateHeaderOffset,{passive:true});
     const semanticHash=worldFromHash();
     try{const mark=JSON.parse(sessionStorage.getItem('annapurnaNavContext')||'null');if(mark&&Date.now()-mark.at<5000){document.body.classList.add('page-arriving');if(!location.hash||semanticHash)scrollTo(0,0);setTimeout(()=>document.body.classList.remove('page-arriving'),520);sessionStorage.removeItem('annapurnaNavContext')}}catch(_){}
     if(semanticHash)requestAnimationFrame(()=>scrollTo(0,0));
-    addEventListener('pageshow',e=>{if((e.persisted||semanticHash)&&(!location.hash||semanticHash))requestAnimationFrame(()=>scrollTo(0,0))},{passive:true});
+    addEventListener('pageshow',e=>{document.body.classList.remove('page-leaving');if((e.persisted||semanticHash)&&(!location.hash||semanticHash))requestAnimationFrame(()=>scrollTo(0,0))},{passive:true});
     document.addEventListener('click',e=>{const a=e.target.closest('a[href]');if(!a||e.defaultPrevented||e.button!==0||e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||a.target||a.hasAttribute('download'))return;const href=a.getAttribute('href');if(!href||href.startsWith('#')||/^(mailto:|tel:|javascript:)/i.test(href))return;let u;try{u=new URL(href,location.href)}catch(_){return}if(!['http:','https:','file:'].includes(u.protocol)||u.host&&u.host!==location.host)return;if(u.pathname===location.pathname&&u.search===location.search)return;
       e.preventDefault();navigateWithContinuity(u.href)
     });
