@@ -25,7 +25,8 @@ def main():
     failed=[];seen=set()
     for rel,marker in routes.items():
         url=urljoin(base,rel);seen.add(url)
-        try:check(url,marker)
+        minimum=0 if rel=='robots.txt' else 180
+        try:check(url,marker,min_bytes=minimum)
         except Exception as e:failed.append((url,repr(e)))
         time.sleep(.1)
     # Runtime-check every configured GitHub Pages surface. Source-repository truth is a separate gate.
