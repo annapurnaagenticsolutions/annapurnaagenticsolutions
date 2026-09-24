@@ -20,7 +20,7 @@ def main():
                 '/evidence.html':['Marketing claims should','Evidence &amp; history'],
                 '/pramana/':['DPDP starts with the data behind everyday services.','Reviewed for controlled commercial outreach.'],
                 '/pramana/sources/':['G.S.R. 843(E)','MEITY LISTING'],
-                '/pramana/demos/dpdp-check/':['does not collect answers','legal applicability'],
+                '/pramana/demos/dpdp-check/':['Your answers remain in this browser page','legal applicability'],
                 '/data/public-links.json':['post_publish_http_gate_required','verified_public'],
                 '/site.webmanifest':['Annapurna Agentic Solutions','assets/favicon.svg'],
                 '/assets/favicon.svg':['<svg','linearGradient'],
