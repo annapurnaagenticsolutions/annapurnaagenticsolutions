@@ -38,7 +38,7 @@ export async function onRequestPost({request,env}) {
     if(v.attempts>=5) return json({error:'too_many_attempts',message:'Too many attempts. Please request a new code later.'},429);
     if(await hash(v.nonce+':'+code)!==v.code_hash) {
       v.attempts++;
-      await env.PRAMANA_OTP.put(key,JSON.stringify(v),{expirationTtl:Math.max(1,Math.ceil((v.expires_at-Date.now())/1000))});
+      await env.PRAMANA_OTP.put(key,JSON.stringify(v),{expirationTtl:Math.max(60,Math.ceil((v.expires_at-Date.now())/1000))});
       return json({error:'wrong_code',message:v.attempts>=5?'Too many attempts. Please request a new code later.':'That code did not match. '+(5-v.attempts)+' attempts left.'},400);
     }
     const recent=await env.PRAMANA_LEADS.prepare('SELECT resend_at FROM report_requests WHERE email = ? AND resend_at IS NOT NULL ORDER BY id DESC LIMIT 1').bind(email).first();

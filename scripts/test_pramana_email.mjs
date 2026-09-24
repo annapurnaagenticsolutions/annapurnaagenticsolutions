@@ -12,7 +12,7 @@ const env = {
   RESEND_API_KEY: 'test-only',
   PRAMANA_OTP: {
     async get(key) { return kvData.get(key) || null; },
-    async put(key, value) { kvData.set(key, JSON.parse(value)); },
+    async put(key, value, options) { assert.ok(options.expirationTtl >= 60, 'KV requires a minimum 60-second TTL'); kvData.set(key, JSON.parse(value)); },
     async delete(key) { kvData.delete(key); }
   },
   PRAMANA_LEADS: {
