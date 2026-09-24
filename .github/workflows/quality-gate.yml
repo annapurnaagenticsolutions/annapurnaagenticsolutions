@@ -75,7 +75,7 @@ jobs:
       - name: Lighthouse focused pages
         run: |
           mkdir -p .quality
-          for target in "index:" "explore:explore.html" "lab:lab.html" "evidence:evidence.html" "about:about/" "contact:contact/"; do
+          for target in "index:" "explore:explore.html" "lab:lab.html" "evidence:evidence.html" "about:about/" "contact:contact/" "pramana:pramana/" "dpdp-guide:pramana/sources/"; do
             name="${target%%:*}"
             page="${target#*:}"
             npx --yes lighthouse@13.4.1 "http://127.0.0.1:8000/${page}" --chrome-flags="--headless --no-sandbox --disable-dev-shm-usage" --only-categories=performance,accessibility,best-practices,seo --output=json --output-path=".quality/${name}.json"

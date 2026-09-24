@@ -1723,3 +1723,21 @@ html,body{overflow-x:clip}
 /* Responsive: Pramana flagship node sizing (matches .world-node shrink breakpoint) */
 @media(max-width:720px){.world-node.pramana-flagship{width:86px;min-height:54px;padding:8px 9px}.world-node.pramana-flagship strong{font-size:11px}}
 @media(max-width:700px){.v42-contact-card-copy>span{margin-bottom:24px}}
+
+/* Put the primary DPDP message before the interactive portfolio field on narrow screens. */
+@media(max-width:1080px){
+  .v3-story-grid{grid-template-areas:"story" "world"!important}
+  .v3-story-copy{grid-area:story!important;grid-row:1!important;grid-column:1!important}
+  .v3-world-rail{grid-area:world!important;grid-row:2!important;grid-column:1!important}
+}
+
+/* Shared, visible scrollbar baseline */
+:root{--scrollbar-thumb:#aab7c7;--scrollbar-track:#f7f9fc;--scrollbar-hover:#748399}
+*{scrollbar-color:var(--scrollbar-thumb) var(--scrollbar-track);scrollbar-width:thin}
+*::-webkit-scrollbar{width:10px;height:10px}
+*::-webkit-scrollbar-track{background:var(--scrollbar-track)}
+*::-webkit-scrollbar-thumb{background:var(--scrollbar-thumb);border:2px solid var(--scrollbar-track);border-radius:999px}
+*::-webkit-scrollbar-thumb:hover{background:var(--scrollbar-hover)}
+.sim-controls,.intent-options,.v2-portals .intent-options{scrollbar-width:thin;scrollbar-color:var(--scrollbar-thumb) var(--scrollbar-track)}
+.sim-controls::-webkit-scrollbar,.intent-options::-webkit-scrollbar,.v2-portals .intent-options::-webkit-scrollbar{display:block;height:8px}
+@media(forced-colors:active){*{scrollbar-color:auto!important}*::-webkit-scrollbar-track{background:Canvas}*::-webkit-scrollbar-thumb{background:ButtonText;border-color:Canvas}}

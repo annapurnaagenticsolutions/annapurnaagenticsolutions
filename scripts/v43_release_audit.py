@@ -17,10 +17,12 @@ def main():
     for rel,limit in profile['performanceBudgetsGzip'].items():
         p=ROOT/rel;assert p.exists(),rel
         size=len(gzip.compress(p.read_bytes(),9));assert size<=limit,(rel,size,limit)
-    # No inline style/script is a security property of core production HTML pages (demos in sub-folders run client-side interactive sandboxes).
-    for p in ROOT.rglob('*.html'):
-        if 'demos' in p.parts and p.parent != ROOT / 'pramana' / 'demos':
-            continue
+    # Scope the strict first-party CSP check to this company site and Pramana routes.
+    # Sibling product trees in this monorepo have separate runtime and CSP contracts.
+    site_html=set(ROOT.glob('*.html'))
+    for section in ['about','contact','privacy','security','pramana']:
+        site_html.update((ROOT/section).rglob('*.html'))
+    for p in sorted(site_html):
         text=p.read_text(encoding='utf-8',errors='replace').lower();assert ' style=' not in text,(p,'inline style');
         import re
         assert not any('src=' not in m.group(0).lower() for m in re.finditer(r'<script\b[^>]*>',text)),(p,'inline script')

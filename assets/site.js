@@ -8,7 +8,7 @@
     axon:{name:'AXON',short:'AXON',core:'Structure',copy:'Typed agent workflows that make tools, memory and flow inspectable.',href:'axon/',color:'#8b5cf6',facts:['DSL','Typed flows','Codegen'],state:'Pre-production'},
     web:{name:'Website Studio',short:'Web',core:'Experience',copy:'Interactive design systems and immersive digital experiences.',href:'website-studio/',color:'#d94670',facts:['Interactive UX','Design systems','Immersive Web'],state:'Live'},
     software:{name:'Software Lab',short:'Lab',core:'Experiment',copy:'Open-source experiments, reference patterns and reusable primitives.',href:'software-lab/',color:'#0891b2',facts:['Open source','Experiments','Patterns'],state:'Experiment'},
-    pramana:{name:'Pramana',short:'Pramana',core:'Govern',copy:'Source-grounded AI governance for India\u2019s DPDP Act — cryptographic evidence receipts, policy-as-code enforcement, and 6 live interactive showcases.',href:'pramana/',color:'#0e7490',facts:['DPDP Act','AI Governance','Compliance'],state:'Flagship'}
+    pramana:{name:'Pramana',short:'Pramana',core:'Govern',copy:'DPDP governance for digital personal-data processing across business and technology workflows.',href:'pramana/',color:'#0e7490',facts:['DPDP governance','Personal data','Business workflows'],state:'Product overview'}
   };
   const fallbackPresentation={
     ai:{caption:'Governed connections',sceneArchetype:'network',story:'Signals move through policy, evidence and execution boundaries.'},
@@ -17,10 +17,10 @@
     axon:{caption:'Typed-flow lanes',sceneArchetype:'lanes',story:'Intent becomes inspectable structure before it reaches execution.'},
     web:{caption:'Experience frames',sceneArchetype:'frames',story:'Information shifts into the visual system best suited to its audience.'},
     software:{caption:'Experimental grid',sceneArchetype:'grid',story:'Small experiments expose patterns that can graduate into reusable systems.'},
-    pramana:{caption:'Governed AI evidence',sceneArchetype:'grid',story:'Every compliance decision is source-grounded, policy-gated, and sealed in a cryptographic evidence receipt.'}
+    pramana:{caption:'DPDP governance',sceneArchetype:'grid',story:'Pramana focuses on governance for digital personal-data processing across business and technology contexts.'}
   };
   let presentation={...fallbackPresentation};
-  let related={ai:['axon','pramana'],wonder:['web','idea'],idea:['software','web'],axon:['ai','software'],web:['wonder','ai'],software:['axon','idea'],pramana:['ai','axon']};
+  let related={ai:['axon'],wonder:['web','idea'],idea:['software','web'],axon:['ai','software'],web:['wonder','ai'],software:['axon','idea'],pramana:[]};
   let phaseRules=[{key:'observing',label:'Observing',minExplored:0},{key:'mapping',label:'Mapping',minExplored:1},{key:'connecting',label:'Connecting',minExplored:3},{key:'constellation',label:'Constellation',minExplored:6}];
   let returnRules=[{key:'first',label:'First encounter',minSessions:1,density:.72},{key:'returning',label:'Returning',minSessions:2,density:.88},{key:'familiar',label:'Familiar',minSessions:4,density:1},{key:'embedded',label:'Embedded',minSessions:7,density:1.12}];
   let maxTrailWorlds=7,sessionGapMinutes=360;
@@ -646,7 +646,7 @@
   // v1.4 adaptive structure: real local signals -> inspectable rule decision -> DOM composition.
   const adaptiveFallback={
     intents:{
-      explore:{label:'Explore all',primaryWorld:'pramana',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['pramana','ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Balanced view across the Annapurna ecosystem, with Pramana — our flagship DPDP governance product — leading.',reason:'No stronger intent signal is active, so the site keeps a balanced company view with Pramana as the flagship entry point.',primaryCta:{label:'Explore the ecosystem →',href:'explore.html'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
+      explore:{label:'Explore all',primaryWorld:'pramana',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['pramana','ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Balanced view across Annapurna’s work, with Pramana’s DPDP governance focus introduced alongside other products.',reason:'No stronger intent signal is active, so the site keeps a balanced company view with Pramana as the flagship entry point.',primaryCta:{label:'Explore Pramana →',href:'pramana/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
       enterprise:{label:'Enterprise AI',primaryWorld:'ai',depth:'deep',structuralOrder:['living'],focusOrder:['ai','experience','learning'],worldOrder:['pramana','ai','axon','software','web','wonder','idea'],labOrder:['runtime','axon','design'],summary:'Governance, agent infrastructure and inspectable AI systems first.',reason:'This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.',primaryCta:{label:'Explore AI systems →',href:'explore.html#world=ai'},secondaryCta:{label:'Inspect evidence',href:'evidence.html'}},
       learning:{label:'Learning',primaryWorld:'wonder',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['wonder','web','idea','ai','software','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Learning worlds, visual exploration and progressive interaction first.',reason:'This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.',primaryCta:{label:'Explore learning worlds →',href:'wonderhub-by-AnnapurnaAgenticSolutions/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
       msme:{label:'MSME tools',primaryWorld:'idea',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['idea','software','web','ai','wonder','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Practical India-first tools and delivery experience first.',reason:'This view prioritizes Idea Hub and practical product delivery before infrastructure detail.',primaryCta:{label:'Explore practical tools →',href:'idea-hub/'},secondaryCta:{label:'Explore products',href:'explore.html#world=idea'}},
@@ -722,7 +722,7 @@
     const labGrid=$('.lab-grid');if(labGrid&&Array.isArray(config.labOrder))config.labOrder.forEach((key,i)=>{const card=labGrid.querySelector(`[data-sim-card="${key}"]`);if(card){labGrid.appendChild(card);card.classList.toggle('is-priority',i===0)}});
   }
   const featuredRoutes={
-    explore:{title:'A connected portfolio, from governance to experiences.',summary:'Move between the product worlds and follow the relationships that connect them — starting with Pramana, our flagship DPDP governance product.',steps:['pramana','ai','web'],href:'explore.html'},
+    explore:{title:'A connected portfolio, from governance to experiences.',summary:'Move between the product worlds and follow the relationships that connect them — starting with Pramana’s DPDP governance focus.',steps:['pramana','ai','web'],href:'explore.html'},
     enterprise:{title:'Governed AI from structure to experience.',summary:'Start with governance, move through typed agent structure, then see how the system is surfaced to users.',steps:['ai','axon','web'],href:'explore.html#world=ai'},
     learning:{title:'Learning worlds connected to experience design.',summary:'Move from interactive learning into the experience patterns and practical tools that help it reach real users.',steps:['wonder','web','idea'],href:'wonderhub-by-AnnapurnaAgenticSolutions/'},
     msme:{title:'Practical tools from idea to delivery.',summary:'Follow an India-first product idea through software experimentation and the interface that delivers it.',steps:['idea','software','web'],href:'idea-hub/'},
@@ -735,7 +735,7 @@
     axon:{title:'Typed agent structure connects governance to software patterns.',steps:['axon','ai','software']},
     web:{title:'Experience design connects learning to governed systems.',steps:['web','wonder','ai']},
     software:{title:'Experiments connect structure to practical products.',steps:['software','axon','idea']},
-    pramana:{title:'Governed AI connects statutory grounding to evidence-led execution.',steps:['pramana','ai','axon']}
+    pramana:{title:'DPDP governance spans digital personal-data processing.',steps:['pramana','ai','axon']}
   };
   let activeRouteIndex=0,currentFeaturedRoute=featuredRoutes.explore;
 

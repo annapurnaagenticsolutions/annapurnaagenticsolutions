@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from pathlib import Path
-import json,re
+import html as html_module,json,re
 from urllib.parse import urlparse
 ROOT=Path(__file__).resolve().parents[1]
 
@@ -30,7 +30,7 @@ def main():
     assert 'No static form or hidden submission service' in contact
     # Core public pages are frozen except explicit footer source link integration.
     for name in ['index.html','explore.html','lab.html','evidence.html']:
-        h=read(Path(name)); assert 'GitHub ↗' in h and '<main' in h and 'assets/company.css' not in h
+        h=html_module.unescape(read(Path(name))); assert 'GitHub ↗' in h and '<main' in h and 'assets/company.css' not in h
     js=read(Path('assets/site.js'))
     for marker in ['nestedPublicPage','siteHref=path','active===\'about\'','active===\'contact\'','github:\'github\'']:
         assert marker in js, marker

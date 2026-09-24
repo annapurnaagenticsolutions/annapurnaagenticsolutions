@@ -1,57 +1,39 @@
 # Annapurna Agentic Solutions
 
-Annapurna Agentic Solutions presents governed AI systems, learning products, practical digital tools, interactive web experiences and open software experiments.
+Annapurna Agentic Solutions works across DPDP governance, AI systems, learning products, practical tools and interactive digital experiences.
 
-## Primary public pages
+## Public pages
 - Home: https://annapurnaagenticsolutions.com/
-- Pramana (DPDP AI Governance): https://annapurnaagenticsolutions.com/pramana/
-- Pramana Showcases: https://annapurnaagenticsolutions.com/pramana/demos/
+- Pramana: https://annapurnaagenticsolutions.com/pramana/
+- Pramana use cases: https://annapurnaagenticsolutions.com/pramana/demos/
+- DPDP official sources and guide: https://annapurnaagenticsolutions.com/pramana/sources/
+- DPDP glossary: https://annapurnaagenticsolutions.com/pramana/glossary/
+- Data Principal rights overview: https://annapurnaagenticsolutions.com/pramana/rights/
+- Pramana evidence boundaries: https://annapurnaagenticsolutions.com/pramana/evidence/
+- Pramana product boundaries: https://annapurnaagenticsolutions.com/pramana/limits/
+- Products and projects: https://annapurnaagenticsolutions.com/products.html
 - Explore: https://annapurnaagenticsolutions.com/explore.html
 - Interactive Lab: https://annapurnaagenticsolutions.com/lab.html
-- Evidence: https://annapurnaagenticsolutions.com/evidence.html
+- Company Evidence: https://annapurnaagenticsolutions.com/evidence.html
 - About: https://annapurnaagenticsolutions.com/about/
+- Website privacy: https://annapurnaagenticsolutions.com/privacy/
+- Security: https://annapurnaagenticsolutions.com/security/
 - Contact: https://annapurnaagenticsolutions.com/contact/
 
-## Source
-- GitHub organization: https://github.com/annapurnaagenticsolutions
-- Portal source: https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions
-- AXON: https://github.com/annapurnaagenticsolutions/axon
-- Open Enterprise AgentOps Mesh: https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh
+## Pramana
+Pramana is a DPDP governance product from Annapurna, focused on digital personal-data processing across business and technology workflows. AI is one use case within the wider DPDP context. Public product information is intentionally high level; implementation, integration, security and commercial details are not published here.
+
+Public Pramana pages provide general information and educational prompts. They do not assess an organisation’s legal applicability, calculate readiness or penalties, issue a compliance certificate, or replace qualified legal advice.
 
 ## Trust policy
 Marketing claims should be checked against the Evidence page. Repository activity is engineering evidence, not proof of adoption or production maturity. Public-source conflicts remain visible rather than being silently reconciled toward a promotional interpretation.
 
-## Pramana — Product Detail
+## DPDP official-source policy
+Regulatory summaries should be checked against the Digital Personal Data Protection Act, 2023, official commencement notifications, the final Digital Personal Data Protection Rules, 2025 and official corrigenda. The Act and Rules have phased commencement. Check provision-level status as of the date being assessed; notification of an instrument does not mean every substantive obligation is already operative.
 
-Pramana is an on-premise AI governance product for Indian businesses operating under the Digital Personal Data Protection Act 2023 (DPDP Act). It intercepts AI decisions before execution, enforces DPDP consent rules deterministically, and creates tamper-evident audit records sealed with cryptographic evidence.
+- DPDP Act, 2023: https://www.meity.gov.in/static/uploads/2024/02/Digital-Personal-Data-Protection-Act-2023.pdf
+- G.S.R. 843(E), commencement notification: https://www.meity.gov.in/static/uploads/2025/11/c56ceae6c383460ca69577428d36828b.pdf
+- DPDP Rules, 2025 / G.S.R. 846(E): https://www.meity.gov.in/static/uploads/2025/11/53450e6e5dc0bfa85ebd78686cadad39.pdf
+- MeitY Rules and corrigendum listing: https://www.meity.gov.in/documents/act-and-policies/digital-personal-data-protection-rules-2025-gDOxUjMtQWa?pageTitle=Digital-Personal-Data-Protection-Rules-2025
 
-### Pramana pages
-- Product overview: https://annapurnaagenticsolutions.com/pramana/
-- Pricing model: https://annapurnaagenticsolutions.com/pramana/pricing/
-- Who should NOT buy (limits): https://annapurnaagenticsolutions.com/pramana/limits/
-- Technical architecture: https://annapurnaagenticsolutions.com/pramana/technical/
-- DPDP glossary: https://annapurnaagenticsolutions.com/pramana/glossary/
-- Data subject rights guide: https://annapurnaagenticsolutions.com/pramana/rights/
-- Free DPDP self-assessment checklist: https://annapurnaagenticsolutions.com/pramana/demos/dpdp-check/
-- Request a Pramana demo: https://annapurnaagenticsolutions.com/contact/
-
-### Key facts (accurate as of September 2026)
-- Pricing: royalty-based (percentage of protected transaction value). No upfront licence fee.
-- Deployment: on-premise only. No customer data leaves the client's environment.
-- Compliance engine: deterministic rule evaluation, not LLM-based. No hallucination risk in governance decisions.
-- Sectors supported: clinic, school/edtech, fintech/NBFC, HR, e-commerce.
-- DPDP applicability: any entity that collects personal data in digital form — irrespective of size, sector, or use of AI.
-- Section 17 exemptions: the Central Government has power under Section 17(3) to exempt specific classes of entities. No blanket size or revenue exemption has been notified as of September 2026.
-- Not suitable for: enterprises with existing enterprise GRC stacks, businesses outside India.
-
-### DPDP Act regulatory status (as of September 2026)
-- The Data Protection Board of India (DPB) is established as a statutory body corporate under DPDP Act Section 18.
-- The DPDP Rules 2025 were notified on 13 November 2025.
-- Appointment of the DPB Chairperson and Members was initiated by MeitY on 6 May 2026 and is ongoing. The Board is not yet accepting complaints.
-- Consent Manager registration framework takes effect: 13 November 2026.
-- Full financial penalties enforceable: 13 May 2027.
-- Maximum penalty per violation category: ₹250 crore.
-
-### Contact for Pramana
-Email: pramanainfo@annapurnaagenticsolutions.com
-Subject line: "Pramana DPDP Governance Demo"
+This information is general and is not a legal opinion, applicability assessment or compliance determination.

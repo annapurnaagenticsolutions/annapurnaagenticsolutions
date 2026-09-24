@@ -21,7 +21,7 @@ def main():
     profile=json.loads((ROOT/'data/release-profile.json').read_text());links=json.loads((ROOT/'data/public-links.json').read_text())
     base=sys.argv[1] if len(sys.argv)>1 else profile['canonicalBaseUrl']
     if not base.endswith('/'):base+='/'
-    routes={'':'AI systems,','explore.html':'Six worlds. One connected field.','lab.html':'Change an input. Watch the system reorganize.','evidence.html':'Marketing claims should','about/':'We build systems that can be explored','contact/':'Bring the problem, constraints','sitemap.xml':'<urlset','robots.txt':'Sitemap:'}
+    routes={'':'AI systems,','explore.html':'Seven worlds. One connected field.','lab.html':'Change an input. Watch the system reorganize.','evidence.html':'Marketing claims should','about/':'We build systems that can be explored','contact/':'Bring the problem, constraints','pramana/':'Reviewed for controlled commercial outreach.','pramana/sources/':'G.S.R. 843(E)','pramana/demos/dpdp-check/':'does not collect answers','sitemap.xml':'<urlset','robots.txt':'Sitemap:'}
     failed=[];seen=set()
     for rel,marker in routes.items():
         url=urljoin(base,rel);seen.add(url)
