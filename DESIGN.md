@@ -12,6 +12,9 @@ colors:
   background: "#FFFFFF"
   surface-soft: "#F7F9FC"
   line: "#E7EAF0"
+  scrollbar-thumb: "#AAB7C7"
+  scrollbar-track: "#F7F9FC"
+  scrollbar-hover: "#748399"
   muted: "#667085"
 typography:
   sans:

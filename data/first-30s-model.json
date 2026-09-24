@@ -88,7 +88,7 @@
       "key": "general",
       "label": "General referral visitor",
       "intent": "explore",
-      "primaryWorld": "ai",
+      "primaryWorld": "pramana",
       "expectedNext": [
         "explore.html",
         "lab.html",

@@ -29,7 +29,7 @@
   "intents": {
     "explore": {
       "label": "Explore all",
-      "primaryWorld": "ai",
+      "primaryWorld": "pramana",
       "depth": "standard",
       "structuralOrder": [
         "living"
@@ -39,24 +39,24 @@
         "learning",
         "experience"
       ],
-      "summary": "Balanced view across the Annapurna ecosystem.",
-      "reason": "No stronger intent signal is active, so the site keeps a balanced company view.",
+      "summary": "Pramana’s DPDP governance focus leads the portfolio view, with AI, learning and interactive experiences alongside it.",
+      "reason": "DPDP governance is Annapurna’s flagship product focus; the default view starts with Pramana and keeps the wider portfolio discoverable.",
       "primaryCta": {
-        "label": "Explore the ecosystem →",
-        "href": "explore.html"
+        "label": "Explore Pramana →",
+        "href": "pramana/"
       },
       "secondaryCta": {
         "label": "Open Interactive Lab",
         "href": "lab.html"
       },
       "worldOrder": [
+        "pramana",
         "ai",
         "wonder",
         "idea",
         "axon",
         "web",
-        "software",
-        "pramana"
+        "software"
       ],
       "labOrder": [
         "runtime",

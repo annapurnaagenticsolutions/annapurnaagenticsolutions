@@ -71,9 +71,7 @@ def main():
         direct=soup.select_one('nav.world-direct-links')
         assert_(direct is not None,f'{rel}: direct product link index missing')
         hrefs={a.get('href') for a in direct.find_all('a')}
-        assert_(# pramana is self-origin, skip external link check for now
-    all_six = {k:v for k,v in WORLD_LINKS.items() if k!='pramana'}
-    if not set(all_six.values()).issubset(hrefs),f'{rel}: not all six product hrefs are raw anchors')
+        assert_(set(WORLD_LINKS.values()).issubset(hrefs),f'{rel}: not all six product hrefs are raw anchors')
 
     # High 7: every public page has a no-JS escape path covering worlds and core pages.
     for rel in PAGES:
