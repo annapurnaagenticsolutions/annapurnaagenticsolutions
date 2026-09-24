@@ -210,3 +210,36 @@ body.pr-public .pr-native-menu-toggle:focus-visible{outline:3px solid rgba(37,99
 @media(max-width:980px){.pr-use-case-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:720px){.pr-use-case-grid{grid-template-columns:minmax(0,1fr)}}
 .pr-check-form{max-width:860px}.pr-check-form fieldset{border:0;padding:0;margin:0 0 20px}.pr-check-form legend{font-weight:700;margin-bottom:12px;color:var(--pr-ink)}.pr-check-list{list-style:none;padding:0;margin:0;display:grid;gap:9px}.pr-check-list li{border:1px solid var(--pr-line);border-radius:12px;background:#fff}.pr-check-list label{display:flex;gap:13px;align-items:flex-start;padding:14px 16px;cursor:pointer}.pr-check-list input{width:18px;height:18px;flex:0 0 auto;margin:2px 0 0;accent-color:#176b78}.pr-check-list strong,.pr-check-list small{display:block}.pr-check-list strong{font-size:14px;color:var(--pr-ink)}.pr-check-list small{font-size:13px;color:var(--pr-muted);margin-top:4px}.pr-check-summary{margin-top:18px;padding:16px 18px;border:1px solid var(--pr-line);border-radius:12px;background:#f7fafc}.pr-check-summary h3{margin:0 0 8px}.pr-check-summary p{margin:0 0 8px}.pr-check-summary ul{margin:0;padding-left:20px}
+
+/* Orientation across the public Pramana demos and optional-email check. */
+.pr-breadcrumbs{display:flex;align-items:center;flex-wrap:wrap;gap:6px 9px;padding-top:18px;color:#5c6b80;font-size:12px;font-weight:650}
+.pr-breadcrumbs a{color:#2459a6;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px}
+.pr-breadcrumbs a:hover{text-decoration-color:currentColor}
+.pr-breadcrumbs [aria-current=page]{color:#344054}
+.pr-breadcrumbs+.pr-hero{padding-top:30px}
+.pr-hub-actions{display:flex;align-items:center;flex-wrap:wrap;gap:11px 20px;margin-top:22px}
+.pr-hub-actions>a:not(.pr-button){color:#2459a6;font-size:13px;font-weight:700;text-decoration:underline;text-decoration-color:transparent;text-underline-offset:3px}
+.pr-hub-actions>a:not(.pr-button):hover{text-decoration-color:currentColor}
+@media print{.pr-breadcrumbs,.pr-hub-actions{display:none!important}}.pr-form-error{margin:16px 0;padding:12px 15px;border:1px solid #d69b9b;border-left:4px solid #b43c46;border-radius:10px;background:#fff7f7;color:#8b2530;font-size:13px;font-weight:650;line-height:1.5}.assessment-next{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:16px;padding-top:14px;border-top:1px solid var(--pr-line);font-size:13px;font-weight:700}
+.assessment-next a{color:var(--pr-blue);text-underline-offset:3px}
+.assessment-next a:hover{text-decoration:underline}
+.assessment-email-panel{scroll-margin-top:86px;margin:28px 0 0;padding:clamp(20px,3vw,34px);border:1px solid #cbdced;border-radius:18px;background:#f7fbff;max-width:900px}
+.assessment-email-panel h2{margin:4px 0 10px;font-size:clamp(23px,3vw,31px);color:var(--pr-ink)}
+.assessment-email-panel>p{max-width:720px;line-height:1.65}
+.assessment-email-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.assessment-email-fields label,.assessment-code-form label{display:grid;gap:6px;color:var(--pr-ink);font-size:13px;font-weight:700}
+.assessment-email-fields .assessment-label-line{font-weight:700;color:var(--pr-ink)}
+.assessment-email-fields .assessment-label-line small{font-size:12px;font-weight:400;color:var(--pr-muted)}
+.assessment-email-fields input,.assessment-email-fields select,.assessment-code-form input{width:100%;min-height:44px;padding:10px 12px;border:1px solid #b7c9dc;border-radius:9px;background:white;color:var(--pr-ink);font:inherit}
+.assessment-email-fields input:focus,.assessment-email-fields select:focus,.assessment-code-form input:focus{outline:2px solid var(--pr-blue);outline-offset:2px}
+.assessment-email-choice{display:flex;align-items:flex-start;gap:10px;max-width:720px;font-size:13px;line-height:1.5}
+.assessment-email-choice input{margin-top:3px;accent-color:var(--pr-blue)}
+.assessment-email-privacy{font-size:12px;color:var(--pr-muted);line-height:1.6}
+.assessment-email-status{min-height:1.5em;color:var(--pr-ink);font-size:13px;font-weight:650}
+.assessment-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;opacity:0!important}
+.assessment-code-form{margin-top:22px;padding-top:22px;border-top:1px solid var(--pr-line)}
+.assessment-code-form input{max-width:180px;font-size:20px;letter-spacing:.2em}
+@media(max-width:650px){.assessment-email-fields{grid-template-columns:1fr}}
+@media print{.assessment-email-panel{display:none!important}}
+
+.pr-button:disabled{opacity:.58;cursor:not-allowed}

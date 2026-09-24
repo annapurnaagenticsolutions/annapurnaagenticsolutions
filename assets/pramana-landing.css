@@ -56,6 +56,7 @@
 .pr-guide-start-card p,.pr-legal-card p,.pr-grid>article p{margin:0 0 12px;color:var(--muted);font-size:13px;line-height:1.65}
 .pr-tag,.pr-card-kicker{font-size:10px;font-weight:750;letter-spacing:.1em}
 .pr-tag{color:#0e7490}
+.pr-legal-review .pr-legal-plain{max-width:760px;margin:14px 0 0;color:#475467;font-size:14px;line-height:1.65}
 .pr-legal-grid,.pr-commencement-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
 .pr-commencement-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
 .pr-legal-card a{display:inline-block;margin-top:5px;color:var(--blue);font-size:13px;font-weight:700}
@@ -109,4 +110,80 @@ body.pramana-page .pr-native-menu-toggle:focus-visible{outline:3px solid rgba(37
   body.pramana-page .pr-native-menu{display:block}
   body.pramana-page .pr-native-menu[open] .mobile-nav{display:flex;position:absolute;top:calc(100% + 8px);right:0;z-index:60;width:min(320px,calc(100vw - 28px));padding:12px;flex-direction:column;gap:4px;background:#fff;border:1px solid var(--line);border-radius:0 0 16px 16px;box-shadow:0 16px 28px rgba(15,23,42,.08)}
   body.pramana-page .pr-native-menu[open] .mobile-nav a{min-height:44px;padding:8px 12px;border-radius:9px}
+}
+
+/* Make the DPDP-to-Pramana path explicit without changing the shared site identity. */
+.pramana-home .pr-audience-line{margin-bottom:10px}
+.pr-product-bridge{margin:0 0 21px;padding:10px 14px;border-left:3px solid var(--cyan);background:#f2f9fb;color:#344054;font-size:13px;line-height:1.55}
+.pr-product-bridge strong{color:var(--ink)}
+.pr-hero-more{display:flex;flex-wrap:wrap;gap:7px 22px;margin-top:13px;color:#0e7490;font-size:12px;font-weight:700}
+.pr-hero-more a:hover{text-decoration:underline;text-underline-offset:3px}
+.pr-hero-more a:focus-visible{outline:3px solid rgba(37,99,235,.28);outline-offset:3px}
+.pr-world-link{min-height:50px;font-size:12px}
+@media(max-width:620px){.pramana-home .hero-actions .btn{width:100%;height:auto;min-height:44px;padding:11px 14px;text-align:center}}
+/* Pramana landing hero: the everyday moment becomes a governance conversation. */
+.pramana-home .pr-hero{position:relative;overflow:hidden;padding:56px 0 62px!important;background:radial-gradient(circle at 82% 16%,rgba(8,145,178,.055),transparent 34%),#fff}
+.pramana-home .pr-hero-grid{grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:clamp(28px,4.5vw,58px);align-items:center}
+.pramana-home .pr-hero-copy h1{max-width:650px!important;margin:13px 0 21px!important;font-size:clamp(42px,3.7vw,52px)!important;line-height:1.045!important;letter-spacing:-.046em!important;text-wrap:balance}
+.pramana-home .pr-hero-copy h1 span{display:block;margin-top:4px;color:#0e7490}
+.pramana-home .pr-moment-strip{display:flex;flex-wrap:wrap;gap:7px 18px;padding:13px 0;margin:0 0 19px;border-top:1px solid #dbe4ed;border-bottom:1px solid #dbe4ed;color:#344054;font-size:12px;font-weight:700;line-height:1.3}
+.pramana-home .pr-moment-strip span{display:inline-flex;align-items:center;gap:8px}
+.pramana-home .pr-moment-strip span:before{content:"";display:block;flex:none;width:6px;height:6px;border-radius:50%;background:#0e7490;box-shadow:0 0 0 3px #e2f3f6}
+.pramana-home .pr-hero-copy .pr-lead{margin:0 0 8px;color:#344054;font-size:16px;line-height:1.6}
+.pramana-home .pr-scope-note{margin:6px 0 0;color:#667085;font-size:13px;line-height:1.6}
+.pramana-home .pr-product-bridge{margin:0 0 21px;padding:14px 17px;border-left:3px solid #0e7490;border-radius:0 14px 14px 0;background:#f2f9fb}
+.pramana-home .pr-product-bridge>span{display:block;color:#0e7490;font-size:10px;font-weight:800;letter-spacing:.1em}
+.pramana-home .pr-product-bridge p{margin:6px 0 0;color:#182c3d;font-size:15px;font-weight:650;line-height:1.45}
+.pramana-home .pr-hero-copy .hero-actions{gap:9px}
+.pramana-home .pr-hero-copy .hero-actions .btn{min-height:46px;height:auto;padding:10px 14px;line-height:1.3}
+.pramana-home .pr-cta-note{margin:10px 0 0;color:#667085;font-size:11.5px;line-height:1.5}
+.pramana-home .pr-hero-more{margin-top:12px;gap:7px 20px;font-size:12px}
+.pramana-home .pr-world-panel{padding:0;overflow:hidden;border-color:#dae4ee;border-radius:24px;background:#fff;box-shadow:0 20px 55px rgba(15,23,42,.1)}
+.pramana-home .pr-lens-stage{position:relative;isolation:isolate;overflow:hidden;min-height:332px;padding:24px 27px 20px;background:linear-gradient(140deg,#102135,#18334b);color:#fff}
+.pramana-home .pr-lens-stage:before{position:absolute;z-index:-1;right:-78px;top:-98px;width:260px;height:260px;border:1px solid rgba(126,211,225,.23);border-radius:50%;box-shadow:0 0 0 38px rgba(126,211,225,.055),0 0 0 78px rgba(126,211,225,.035);content:""}
+.pramana-home .pr-lens-head{display:flex;justify-content:space-between;align-items:center;gap:12px;color:#addfe9;font-size:10px;font-weight:800;letter-spacing:.11em}
+.pramana-home .pr-lens-glyph{width:29px;height:29px;display:grid;place-items:center;border:1px solid rgba(174,221,231,.45);border-radius:50%;color:#b5e7f0;font-size:17px;line-height:1}
+.pramana-home .pr-lens-event{max-width:330px;margin:19px 0 20px;font-size:clamp(23px,2.35vw,29px);font-weight:750;letter-spacing:-.035em;line-height:1.16}
+.pramana-home .pr-lens-questions{padding-top:14px;border-top:1px solid rgba(181,215,226,.28)}
+.pramana-home .pr-lens-questions>span,.pramana-home .pr-lens-outcome>span{display:block;color:#addfe9;font-size:10px;font-weight:800;letter-spacing:.1em}
+.pramana-home .pr-lens-questions>div{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.pramana-home .pr-lens-questions strong{padding:6px 9px;border:1px solid rgba(190,223,234,.25);border-radius:7px;background:rgba(255,255,255,.075);font-size:11px;font-weight:650}
+.pramana-home .pr-lens-outcome{margin-top:22px;padding:13px 16px 15px;border-radius:12px;background:#f7fcfd;box-shadow:0 8px 25px rgba(0,0,0,.1);color:#142b3d}
+.pramana-home .pr-lens-outcome>span{color:#0e7490}
+.pramana-home .pr-lens-outcome strong{display:block;margin-top:5px;font-size:16px;font-weight:750;letter-spacing:-.025em;line-height:1.3}
+.pramana-home .pr-lens-outcome i{padding:0 3px;color:#0e7490;font-style:normal}
+.pramana-home .pr-lens-caption{display:block;margin-top:10px;color:#b8cad6;font-size:10px;line-height:1.45}
+.pramana-home .pr-world-content{padding:22px 26px 20px}
+.pramana-home .pr-world-content .eyebrow{font-size:10px}
+.pramana-home .pr-world-panel h2{margin:6px 0 5px;font-size:19px;line-height:1.2}
+.pramana-home .pr-world-intro{font-size:12px;line-height:1.45}
+.pramana-home .pr-world-map{position:static;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:none;grid-template-areas:none;align-items:stretch;justify-items:stretch;gap:8px;margin:14px 0 0;overflow:visible}
+.pramana-home .pr-world-map:before,.pramana-home .pr-world-map:after{display:none}
+.pramana-home .pr-world-link{grid-area:auto;justify-content:flex-start;min-width:0;min-height:43px;padding:8px 10px;border-radius:9px;background:#f9fbfd;box-shadow:none;color:#344054;font-size:12.5px;font-weight:700;text-align:left;line-height:1.3}
+.pramana-home .pr-world-link:before{width:7px;height:7px;flex-basis:7px;box-shadow:none}
+.pramana-home .pr-world-link:hover{background:#fff}
+.pramana-home .pr-world-note{margin:14px 0 0;padding-top:11px;font-size:10px;line-height:1.45}
+@media(max-width:960px){
+  .pramana-home .pr-hero-grid{grid-template-columns:1fr;gap:30px}
+  .pramana-home .pr-world-panel{max-width:720px}
+}
+@media(max-width:720px){
+  .pramana-home .pr-hero{padding:40px 0 42px!important}
+  .pramana-home .pr-hero-copy h1{font-size:clamp(36px,8.8vw,42px)!important;margin-bottom:17px!important}
+  .pramana-home .pr-moment-strip{gap:9px 13px;margin-bottom:16px}
+  .pramana-home .pr-lens-stage{min-height:0;padding:22px}
+  .pramana-home .pr-world-content{padding:20px 21px}
+  .pramana-home .pr-world-map{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:none;grid-template-rows:none}
+  .pramana-home .pr-world-link{grid-area:auto;width:100%;max-width:none;min-height:47px}
+}
+@media(max-width:440px){
+  .pramana-home .pr-moment-strip{display:grid;grid-template-columns:1fr 1fr}
+  .pramana-home .pr-moment-strip span:last-child{grid-column:1/-1}
+  .pramana-home .pr-lens-outcome strong{font-size:14px}
+  .pramana-home .pr-world-link{font-size:12px}
+}
+@media(forced-colors:active){
+  .pramana-home .pr-lens-stage,.pramana-home .pr-lens-outcome,.pramana-home .pr-world-link,.pramana-home .pr-product-bridge{border:1px solid CanvasText}
+  .pramana-home .pr-lens-stage{background:Canvas;color:CanvasText}
+  .pramana-home .pr-lens-head,.pramana-home .pr-lens-questions>span,.pramana-home .pr-lens-outcome>span,.pramana-home .pr-lens-caption{color:CanvasText}
 }
