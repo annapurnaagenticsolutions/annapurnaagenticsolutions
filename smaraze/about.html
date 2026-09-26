@@ -25,7 +25,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="style.css?v=115">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -52,8 +52,8 @@
       </nav>
 
       <div class="nav-right">
-        <button class="btn btn-primary btn-sm" onclick="window.location.href='index.html'">Start Learning</button>
-        <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <a class="btn btn-primary btn-sm" href="index.html">Start Learning</a>
+        <button class="nav-hamburger" type="button" data-nav-toggle aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -131,7 +131,7 @@
     <!-- CURRICULUM COVERAGE -->
     <section class="about-section">
       <div class="about-section-header">
-        <h2><span id="aboutLessonCount">713</span> Lessons Across <span id="aboutSubjectCount">6</span> Disciplines</h2>
+        <h2><span id="aboutLessonCount">701</span> Learner-visible Lessons Across <span id="aboutSubjectCount">6</span> Disciplines</h2>
         <p>Organized by class and subject so every learner can follow a grade-appropriate path.</p>
       </div>
 
@@ -201,19 +201,19 @@
           <div class="pricing-tier">Primary</div>
           <div class="pricing-desc">Classes 1–4</div>
           <div class="pricing-price">₹999<span>/6 months + GST</span></div>
-          <p>Foundational STEM access. Annual option: ₹1,999 + GST.</p>
+          <p>Classes 1–4 access. Annual option: ₹1,999 + GST.</p>
         </div>
         <div class="pricing-card pricing-pro">
           <div class="pricing-tier">Pro</div>
           <div class="pricing-desc">Classes 5–7</div>
           <div class="pricing-price">₹1,499.50<span>/6 months + GST</span></div>
-          <p>Preparatory STEM access. Annual option: ₹2,999 + GST.</p>
+          <p>Classes 5–7 access. Annual option: ₹2,999 + GST.</p>
         </div>
         <div class="pricing-card pricing-master">
           <div class="pricing-tier">Master</div>
           <div class="pricing-desc">Classes 8–10</div>
           <div class="pricing-price">₹2,000<span>/6 months + GST</span></div>
-          <p>Secondary and board-prep STEM access. Annual option: ₹4,000 + GST.</p>
+          <p>Classes 8–10 access. Annual option: ₹4,000 + GST.</p>
         </div>
       </div>
     </section>
@@ -237,32 +237,32 @@
       </div>
       <div class="footer-col">
         <h4>Subjects</h4>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Mathematics', document.querySelectorAll('.chip')[1]); return false;}">Mathematics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Physics', document.querySelectorAll('.chip')[2]); return false;}">Physics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Chemistry', document.querySelectorAll('.chip')[3]); return false;}">Chemistry</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Biology', document.querySelectorAll('.chip')[4]); return false;}">Biology</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Computer Science & AI', document.querySelectorAll('.chip')[5]); return false;}">CS & AI</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Earth & Space', document.querySelectorAll('.chip')[6]); return false;}">Earth & Space</a>
+        <a href="library.html#subject-mathematics">Mathematics</a>
+        <a href="library.html#subject-physics">Physics</a>
+        <a href="library.html#subject-chemistry">Chemistry</a>
+        <a href="library.html#subject-biology">Biology</a>
+        <a href="library.html#subject-computer-science-and-ai">CS & AI</a>
+        <a href="library.html#subject-earth-and-space">Earth & Space</a>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
         <a href="about.html">About</a>
         <a href="coverage.html">🗺️ Coverage Matrix</a>
-        <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
+        <a href="index.html#achievements">Achievements</a>
         <span class="footer-link-disabled" aria-disabled="true">Knowledge Map<small>Coming soon</small></span>
-        <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
-        <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
+        <a href="coverage.html">Class Coverage</a>
+        <a href="index.html#board-prep">🎯 Board Prep</a>
         <span class="footer-link-disabled" aria-disabled="true">🔀 Mixed Review<small>Coming soon</small></span>
-        <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
+        <a href="coverage.html">📚 Curriculum</a>
         <span class="footer-link-disabled" aria-disabled="true">Spaced Review<small>Coming soon</small></span>
       </div>
       <div class="footer-col">
         <h4>Learning</h4>
         <a href="progress.html">Progress guide</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4 (Foundational)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7 (Preparatory)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10 (Secondary)</a>
-        <a href="index.html" onclick="if(window.startDailyChallenge){startDailyChallenge(); return false;}">Daily Challenge</a>
+        <a href="library.html#class-1">Classes 1–4</a>
+        <a href="library.html#class-6">Classes 5–7</a>
+        <a href="library.html#class-9">Classes 8–10</a>
+        <a href="index.html#daily-challenge">Daily Challenge</a>
       </div>
       <div class="footer-col">
         <h4>Trust & Legal</h4>
@@ -272,12 +272,13 @@
         <a href="parental-consent.html">Parental Consent</a>
         <a href="safety.html">Child Safety Charter</a>
         <a href="contact.html">Contact</a>
+        <a href="evidence.html">Evidence Center</a>
         <a href="support.html">Help & Grievance Support</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span>
-      <span><span id="footerTopicCount">713</span> authored topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
+      <span><span id="footerTopicCount">701</span> learner-visible topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
     </div>
     <div class="footer-attribution">
       <span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span>
@@ -289,21 +290,24 @@
     </p>
   </footer>
 
+  <script src="js/site_nav.js?v=115"></script>
   <script>
-    function toggleMobileNav() {
-      const panel = document.getElementById('mobileNavPanel');
-      if (panel) panel.classList.toggle('active');
-    }
-
-    // Keep the copyright year current
+// Keep the copyright year current
     document.getElementById('copyrightYear').textContent = new Date().getFullYear();
 
     // Fill topic/subject counts so hardcoded numbers never drift
     (function () {
       if (typeof AVYAAN_DATA === 'undefined') return;
-      var topics = AVYAAN_DATA.topics.length;
-      var subjects = new Set(AVYAAN_DATA.topics.map(function (t) { return t.subject; })).size;
-      var classes = new Set(AVYAAN_DATA.topics.map(function (t) { return t.class_level; })).size;
+      var quarantined = new Set([
+        'museum_physics_kinematics', 'museum_algebra_and_linear_equations',
+        'museum_solar_microgrid_architecture_-_photovoltaic_generation_and_bess',
+        'museum_earthquake_early_warning_system_-_p-wave_detection_and_telemetry',
+        'museum_amla', 'museum_ginger', 'museum_thermometer_and_fever_check'
+      ]);
+      var publicTopics = AVYAAN_DATA.topics.filter(function (t) { return !quarantined.has(t.id); });
+      var topics = publicTopics.length;
+      var subjects = new Set(publicTopics.map(function (t) { return t.subject; })).size;
+      var classes = new Set(publicTopics.map(function (t) { return t.class_level; })).size;
       var set = function (id, v) { var el = document.getElementById(id); if (el) el.textContent = v; };
       set('aboutLessonCount', topics);
       set('aboutSubjectCount', subjects);

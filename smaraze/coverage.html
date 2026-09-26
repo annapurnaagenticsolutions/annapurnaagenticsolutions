@@ -10,7 +10,7 @@
 <meta property="og:description" content="Curriculum-informed lesson coverage across Classes 1–10 and six STEM subjects.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://smaraze.com/coverage.html">
-<link rel="stylesheet" href="style.css?v=72">
+<link rel="stylesheet" href="style.css?v=115">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -141,7 +141,7 @@
       <a href="why.html" class="nav-link">Why Skill X</a>
       <a href="about.html" class="nav-link">About</a>
     </nav>
-    <div class="nav-right"><a class="btn btn-primary btn-sm" href="index.html#login">Log in</a><button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false"><span></span><span></span><span></span></button></div>
+    <div class="nav-right"><a class="btn btn-primary btn-sm" href="index.html#login">Log in</a><button class="nav-hamburger" type="button" data-nav-toggle aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false"><span></span><span></span><span></span></button></div>
   </div>
 </header>
 <nav id="mobileNavPanel" class="nav-mobile-panel" aria-label="Primary navigation" aria-hidden="true">
@@ -194,31 +194,31 @@
       </div>
       <div class="footer-col">
         <h4>Subjects</h4>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Mathematics', document.querySelectorAll('.chip')[1]); return false;}">Mathematics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Physics', document.querySelectorAll('.chip')[2]); return false;}">Physics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Chemistry', document.querySelectorAll('.chip')[3]); return false;}">Chemistry</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Biology', document.querySelectorAll('.chip')[4]); return false;}">Biology</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Computer Science & AI', document.querySelectorAll('.chip')[5]); return false;}">CS & AI</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Earth & Space', document.querySelectorAll('.chip')[6]); return false;}">Earth & Space</a>
+        <a href="library.html#subject-mathematics">Mathematics</a>
+        <a href="library.html#subject-physics">Physics</a>
+        <a href="library.html#subject-chemistry">Chemistry</a>
+        <a href="library.html#subject-biology">Biology</a>
+        <a href="library.html#subject-computer-science-and-ai">CS & AI</a>
+        <a href="library.html#subject-earth-and-space">Earth & Space</a>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
         <a href="about.html">About</a>
         <a href="coverage.html">🗺️ Coverage Matrix</a>
-        <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
+        <a href="index.html#achievements">Achievements</a>
         <span class="footer-link-disabled" aria-disabled="true">Knowledge Map<small>Coming soon</small></span>
-        <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
-        <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
+        <a href="coverage.html">Class Coverage</a>
+        <a href="index.html#board-prep">🎯 Board Prep</a>
         <span class="footer-link-disabled" aria-disabled="true">🔀 Mixed Review<small>Coming soon</small></span>
-        <a href="index.html" onclick="if(window.openBoardModal){openBoardModal(); return false;}">📚 Curriculum</a>
+        <a href="coverage.html">📚 Curriculum</a>
         <span class="footer-link-disabled" aria-disabled="true">Spaced Review<small>Coming soon</small></span>
       </div>
       <div class="footer-col">
         <h4>Learning</h4>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4 (Foundational)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7 (Preparatory)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10 (Secondary)</a>
-        <a href="index.html" onclick="if(window.startDailyChallenge){startDailyChallenge(); return false;}">Daily Challenge</a>
+        <a href="library.html#class-1">Classes 1–4</a>
+        <a href="library.html#class-6">Classes 5–7</a>
+        <a href="library.html#class-9">Classes 8–10</a>
+        <a href="index.html#daily-challenge">Daily Challenge</a>
       </div>
       <div class="footer-col">
         <h4>Trust & Legal</h4>
@@ -228,12 +228,13 @@
         <a href="parental-consent.html">Parental Consent</a>
         <a href="safety.html">Child Safety Charter</a>
         <a href="contact.html">Contact</a>
+        <a href="evidence.html">Evidence Center</a>
         <a href="support.html">Help & Grievance Support</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span>
-      <span><span id="footerTopicCount">713</span> authored topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
+      <span><span id="footerTopicCount">701</span> learner-visible topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span>
     </div>
     <div class="footer-attribution">
       <span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span>
@@ -246,7 +247,7 @@
   </footer>
 </div>
 
-<script src="stem_data.js?v=72"></script>
+<script src="stem_data.js?v=115"></script>
 <script>
 (function () {
   const SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science & AI', 'Earth & Space'];
@@ -257,7 +258,13 @@
   };
   const shortName = s => s === 'Mathematics' ? 'Math' : s === 'Computer Science & AI' ? 'CS & AI' : s === 'Earth & Space' ? 'Earth & Space' : s;
 
-  const topics = AVYAAN_DATA.topics;
+  const QUARANTINED_TOPIC_IDS = new Set([
+    'museum_physics_kinematics', 'museum_algebra_and_linear_equations',
+    'museum_solar_microgrid_architecture_-_photovoltaic_generation_and_bess',
+    'museum_earthquake_early_warning_system_-_p-wave_detection_and_telemetry',
+    'museum_amla', 'museum_ginger', 'museum_thermometer_and_fever_check'
+  ]);
+  const topics = AVYAAN_DATA.topics.filter(topic => !QUARANTINED_TOPIC_IDS.has(topic.id));
   const cov = AVYAAN_DATA.coverage || [];
   const byCell = {};
   for (const c of cov) byCell[c.class_level + '/' + c.subject] = c;
@@ -324,6 +331,6 @@
   document.getElementById('details').innerHTML = d;
 })();
 </script>
-<script src="js/site_nav.js?v=72"></script>
+<script src="js/site_nav.js?v=115"></script>
 </body>
 </html>

@@ -9,7 +9,8 @@
    ========================================================================== */
 
 const CACHE_PREFIX = 'avyaan-content';
-const FALLBACK_CACHE = CACHE_PREFIX + '-unknown';
+const RELEASE_VERSION = '2026.09.13.115';
+const FALLBACK_CACHE = CACHE_PREFIX + '-' + RELEASE_VERSION;
 // NOTE: keep the ?v= query strings in sync with index.html when you ship an update
 const CORE_ASSETS = [
   './index.html',
@@ -25,27 +26,66 @@ const CORE_ASSETS = [
   './safety.html',
   './contact.html',
   './support.html',
-  './style.css?v=65',
-  './app.js?v=65',
-  './stem_data.js?v=65',
-  './js/api_client.js?v=65',
-  './js/payment_gateway.js?v=65',
-  './js/app_core.js?v=65',
-  './js/site_nav.js?v=65',
-  './js/vocab_data.js?v=65',
+  './evidence.html',
+  './style.css?v=115',
+  './app.js?v=115',
+  './stem_data.js?v=115',
+  './js/api_client.js?v=115',
+  './js/learning_telemetry.js?v=115',
+  './js/payment_gateway.js?v=115',
+  './js/app_core.js?v=115',
+  './js/site_nav.js?v=115',
+  './js/vocab_data.js?v=115',
+  './js/i18n.js?v=115',
+  './js/context_library.js?v=115',
+  './js/challenge_library.js?v=115',
+  './js/offscreen_library.js?v=115',
+  './js/aha_engines.js?v=115',
+  './js/topic_roles.js?v=115',
+  './js/concept_graph.js?v=115',
   './favicon.svg',
   './manifest.webmanifest',
   './robots.txt',
   './sitemap.xml'
 ];
 
+// Canonical offline navigation targets. The edge Worker maps these aliases
+// online; the service worker must map them too so direct links still work offline.
+const OFFLINE_NAVIGATION_MAP = {
+  '/': './index.html',
+  '/index.html': './index.html',
+  '/library': './library.html',
+  '/library.html': './library.html',
+  '/progress': './progress.html',
+  '/progress.html': './progress.html',
+  '/why': './why.html',
+  '/why.html': './why.html',
+  '/about': './about.html',
+  '/about.html': './about.html',
+  '/coverage': './coverage.html',
+  '/coverage.html': './coverage.html',
+  '/contact': './contact.html',
+  '/contact.html': './contact.html',
+  '/support': './support.html',
+  '/support.html': './support.html',
+  '/privacy': './privacy.html',
+  '/privacy.html': './privacy.html',
+  '/terms': './terms.html',
+  '/terms.html': './terms.html',
+  '/refund': './refund.html',
+  '/refund.html': './refund.html',
+  '/parental-consent': './parental-consent.html',
+  '/parental-consent.html': './parental-consent.html',
+  '/safety': './safety.html',
+  '/safety.html': './safety.html',
+  '/evidence': './evidence.html',
+  '/evidence.html': './evidence.html',
+};
+
 let CURRENT_CACHE = FALLBACK_CACHE;
 
 function resolveCacheName() {
-  return fetch('/api/version', { cache: 'no-store' })
-    .then(function (r) { return r.json(); })
-    .then(function (data) { return CACHE_PREFIX + '-' + (data.version || 'unknown'); })
-    .catch(function () { return FALLBACK_CACHE; });
+  return Promise.resolve(CACHE_PREFIX + '-' + RELEASE_VERSION);
 }
 
 self.addEventListener('install', function (event) {
@@ -93,23 +133,18 @@ self.addEventListener('fetch', function (event) {
         return response;
       })
       .catch(function () {
-        return caches.match(request).then(function (cached) {
+        // Ignore query strings so versioned and unversioned requests share the
+        // same safe cached asset instead of producing a false offline miss.
+        return caches.match(request, { ignoreSearch: true }).then(function (cached) {
           if (cached) return cached;
-          // Lazy bundles may be requested WITHOUT their ?v= query (e.g. when
-          // /api/version was unreachable at boot). Match the precached
-          // versioned copy by stripping the query string.
-          var noQuery = new URL(request.url);
-          noQuery.search = '';
-          if (noQuery.toString() !== request.url) {
-            return caches.match(noQuery.toString());
-          }
-          // Only the root route may fall back to the home page. Returning the
-          // homepage for an uncached legal/product route creates a misleading
-          // navigation result; make the offline state explicit instead.
-          if (request.mode === 'navigate' && (requestUrl.pathname === '/' || requestUrl.pathname === '/index.html')) {
-            return caches.match('./index.html');
-          }
           if (request.mode === 'navigate') {
+            const target = OFFLINE_NAVIGATION_MAP[requestUrl.pathname];
+            if (target) {
+              return caches.match(target, { ignoreSearch: true }).then(function (page) {
+                if (page) return page;
+                return new Response('<!doctype html><title>Skill X offline</title><main style="font-family:system-ui;padding:2rem"><h1>You are offline</h1><p>Reconnect to open this page. Your saved learner progress remains on this device.</p><a href="/index.html">Return to Skill X</a></main>', { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
+              });
+            }
             return new Response('<!doctype html><title>Skill X offline</title><main style="font-family:system-ui;padding:2rem"><h1>You are offline</h1><p>Reconnect to open this page. Your saved learner progress remains on this device.</p><a href="/index.html">Return to Skill X</a></main>', { status: 503, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } });
           }
           return undefined;

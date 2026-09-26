@@ -11,10 +11,11 @@ let selectedClass = 'all';
 let selectedSubject = 'all';
 let selectedDifficulty = 'all';
 let currentActiveTopic = null;
+let contentIssueTopicId = null;
 let currentActiveStep = 1;
 let currentManipulatorValue = 5;
 let currentQuizIndex = 0;
-let currentRevealedStep = 1;
+let currentRevealedStep = 0;
 let isScratchpadActive = false;
 let isDrawing = false;
 let quizCorrectCount = 0;
@@ -23,6 +24,10 @@ let quizSessionDone = false;
 let quizSession = null; // { topicId, correct, wrong, ts } — one record per quiz run
 let quizSessionQuestions = null; // { topicId, sessionId, questions, expiresAt }
 let explanationLevel = 'standard'; // 'simple', 'standard', 'deep'
+let askWhyMode = 'why'; // 'why', 'change', 'life'
+let lessonJourneyStartedAt = 0;
+let lessonJourneyLastActionAt = 0;
+
 let userPrediction = ''; // student's prediction before seeing the manipulator
 let hasPredicted = false; // whether student has submitted a prediction for current topic
 
@@ -60,6 +65,7 @@ let currentPathClass = null;
 let estimationData = safeStorageJSON('avyaan_estimations', {}); // topicId -> {guess, timestamp}
 let assignment = null; // { topics: [id], due: 'YYYY-MM-DD' } — from ?assign=...&due=...
 let assignmentDismissed = false;
+let todayRouteStarting = false;
 
 // Operational Model State Variables
 let subTotal = 5, subTakeaway = 3;
@@ -157,7 +163,7 @@ let completedTopicIds = new Set(JSON.parse(avyaanStorage.getItem('avyaan_complet
 let solidifiedTopicIds = new Set(JSON.parse(avyaanStorage.getItem('avyaan_solidified_topics') || '[]'));
 
 function markSolidified(topicId) {
-  if (solidifiedTopicIds.has(topicId)) return;
+  if (isSolidified(topicId)) return;
   solidifiedTopicIds.add(topicId);
   avyaanStorage.setItem('avyaan_solidified_topics', JSON.stringify(Array.from(solidifiedTopicIds)));
   logActivity(topicId, 'solidified');
@@ -168,14 +174,29 @@ function isSolidified(topicId) {
   return solidifiedTopicIds.has(topicId);
 }
 
+// Evidence state is descriptive, not a predictive score. Retained memory is
+// shown only after two successful delayed recalls.
+function getMemoryState(topicId) {
+  const entry = getReviewEntry(topicId);
+  if (solidifiedTopicIds.has(topicId) && (getReviewEntry(topicId)?.successfulRecalls || 0) >= 2) return 'retained';
+  if (entry && entry.dueDate <= Date.now()) return 'recall_due';
+  if (completedTopicIds.has(topicId)) return 'secure_now';
+  if (entry) return 'practising';
+  return 'introduced';
+}
+
+function memoryStateLabel(state) {
+  return ({ introduced: 'Introduced', practising: 'Practising', secure_now: 'Secure now', recall_due: 'Time to remember', retained: 'Remembered over time' })[state] || 'Introduced';
+}
+
 // ---- Safe rendering helpers ----
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>\"']/g, ch => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '\"': '&quot;', "'": '&#39;' }[ch]));
 }
 
-// ---- English-only content ----
-function topicTitle(t) { return escapeHtml(t.title); }
-function topicSummary(t) { return escapeHtml(t.summary); }
+// ---- Locale-aware content helpers ----
+function topicTitle(t) { return escapeHtml(window.AvyaanI18n ? AvyaanI18n.topicText(t, 'title') : t.title); }
+function topicSummary(t) { return escapeHtml(window.AvyaanI18n ? AvyaanI18n.topicText(t, 'summary') : t.summary); }
 
 // ---- LAZY DATASET SPLITS ------------------------------------------------
 // reviews + boards live in separate files so the boot bundle stays lighter.
@@ -197,6 +218,40 @@ function loadLazy(kind, cb) {
   };
   s.onerror = () => { if (cb) cb(); };
   document.head.appendChild(s);
+}
+
+
+// Class-band data is loaded only when a learner opens a preview or entitled lesson.
+// The compact public index keeps the catalogue searchable without shipping all
+// lesson fields in the first request; the entitlement API remains authoritative.
+const CLASS_BAND_BY_CLASS = { 1: "1_4", 2: "1_4", 3: "1_4", 4: "1_4", 5: "5_7", 6: "5_7", 7: "5_7", 8: "8_10", 9: "8_10", 10: "8_10" };
+const classBandLoads = new Map();
+function classBandForClass(classLevel) { return CLASS_BAND_BY_CLASS[Number(classLevel)] || "1_4"; }
+function mergeClassBand(band) {
+  const payload = window.AVYAAN_DATA_BANDS?.["band_" + band];
+  if (!payload || !Array.isArray(payload.topics)) return;
+  const byId = new Map((AVYAAN_DATA.topics || []).map(topic => [topic.id, topic]));
+  payload.topics.forEach(topic => byId.set(topic.id, { ...(byId.get(topic.id) || {}), ...topic }));
+  AVYAAN_DATA.topics = Array.from(byId.values());
+  payload.topics = []; // release duplicate references after merge
+}
+function loadClassBand(classLevel) {
+  if (!window.AVYAAN_DATA_INDEX_ONLY) return Promise.resolve();
+  const band = classBandForClass(classLevel);
+  if (classBandLoads.has(band)) return classBandLoads.get(band);
+  const promise = new Promise(resolve => {
+    window.AVYAAN_DATA_BANDS = window.AVYAAN_DATA_BANDS || {};
+    const existing = window.AVYAAN_DATA_BANDS["band_" + band];
+    if (existing) { mergeClassBand(band); resolve(); return; }
+    const s = document.createElement("script");
+    const version = window.AVYAAN_CONTENT_VERSION ? "?v=" + encodeURIComponent(window.AVYAAN_CONTENT_VERSION.split(".").pop()) : "";
+    s.src = "stem_data_band_" + band + ".js" + version;
+    s.onload = () => { mergeClassBand(band); resolve(); };
+    s.onerror = () => { classBandLoads.delete(band); resolve(); }; // index metadata remains a safe fallback
+    document.head.appendChild(s);
+  });
+  classBandLoads.set(band, promise);
+  return promise;
 }
 
 // Initialize app on load
@@ -221,13 +276,16 @@ document.addEventListener('DOMContentLoaded', () => {
 // Content version: read /api/version for cache/diagnostic purposes.  The
 // release identifier is intentionally not shown in the public footer.
 function fetchContentVersion() {
-  fetch('/api/version', { cache: 'no-store' })
+  const request = window.AvyaanAPI && typeof window.AvyaanAPI.fetchWithTimeout === 'function'
+    ? window.AvyaanAPI.fetchWithTimeout('/api/version', { cache: 'no-store' }, 8000)
+    : Promise.reject(new Error('api_transport_unavailable'));
+  request
     .then(r => r.json())
     .then(data => {
       window.AVYAAN_CONTENT_VERSION = data.version;
       console.info('[Avyaan] content version', data.version, '·', data.topicCount, 'topics');
     })
-    .catch(() => { window.AVYAAN_CONTENT_VERSION = null; });
+    .catch(() => { window.AVYAAN_CONTENT_VERSION = null; trackLearningEvent('cache_mismatch', { error_code: 'version_unavailable' }); });
 }
 
 // ---- TEACHER ASSIGNMENTS: shareable link pins topics with a due date ----
@@ -326,35 +384,299 @@ function toast(message) {
 }
 
 // ==========================================================================
+// --------------------------------------------------------------------------
+// Recoverable failure states and consent-aware learning evidence.
+// Infrastructure errors must be visible and retryable; they never award XP,
+// mastery, review advancement, or payment access.
+// --------------------------------------------------------------------------
+const RECOVERY_COPY = Object.freeze({
+  offline: ['You are offline', 'Reconnect to continue. Your saved device progress is safe.', 'Retry'],
+  content_unavailable: ['Lesson content is unavailable', 'The lesson did not load, so no learning state was changed.', 'Retry'],
+  auth_expired: ['Your session expired', 'Sign in again to continue safely.', 'Sign in'],
+  quiz_unavailable: ['Secure quiz unavailable', 'No score or mastery was recorded. You can retry when the service is ready.', 'Retry'],
+  retryable: ['That did not finish', 'Please try again. Nothing was recorded until the service confirmed it.', 'Retry'],
+  cache_mismatch: ['A new Skill X version is ready', 'Refresh once to use the current lessons and controls.', 'Refresh']
+});
+
+function trackLearningEvent(name, fields) {
+  try { if (window.AvyaanTelemetry) window.AvyaanTelemetry.track(name, fields || {}); } catch (_) { /* telemetry never blocks learning */ }
+}
+
+function showRecoverableError(code, message, action) {
+  const copy = RECOVERY_COPY[code] || RECOVERY_COPY.retryable;
+  let el = document.getElementById('avyaan-recovery-banner');
+  if (!el) {
+    el = document.createElement('div');
+    el.id = 'avyaan-recovery-banner';
+    el.setAttribute('role', 'alert');
+    document.body.appendChild(el);
+  }
+  const label = message || copy[1];
+  const actionLabel = action?.label || copy[2];
+  const actionFn = action?.fn || (code === 'auth_expired' ? 'openLoginModal()' : code === 'cache_mismatch' ? 'location.reload()' : 'location.reload()');
+  el.innerHTML = `<div class="recovery-banner-copy"><strong>${escapeHtml(copy[0])}</strong><span>${escapeHtml(label)}</span></div><div class="recovery-banner-actions"><button type="button" class="btn btn-primary" onclick="${actionFn}">${escapeHtml(actionLabel)}</button><button type="button" class="btn recovery-dismiss" aria-label="Dismiss" onclick="this.closest('#avyaan-recovery-banner').remove()">Dismiss</button></div>`;
+  trackLearningEvent(code, { error_code: code, topic_id: currentActiveTopic?.id });
+}
+
+function retrySecureQuiz() {
+  if (!currentActiveTopic) return;
+  const notice = document.getElementById('quizSecureNotice');
+  if (notice) notice.textContent = 'Retrying secure quiz…';
+  loadSecureQuizSession(currentActiveTopic.id);
+}
+
+function retryLastReview() {
+  const request = window._lastReviewRequest;
+  if (!request) return;
+  startAggregateReview(request.selector, request.fallbackQuestions, request.title, request.context, request.timed, request.timeLimitSeconds, request.retrievalFirst);
+}
 // FIRST-VISIT ONBOARDING — pick a class so content matches the visitor
 // ==========================================================================
+let onboardingDraft = { grade: null, intent: 'explore', interest: 'surprise', minutes: 10 };
+
+const LEARNING_INTENTS = Object.freeze({
+  understand: 'Understand a new idea',
+  practise: 'Practise a skill',
+  remember: 'Revisit something tricky',
+  explore: 'Just explore'
+});
+const LEARNING_INTERESTS = Object.freeze({ maths: 'Maths', science: 'Science', space: 'Space', coding: 'Coding & AI', surprise: 'Surprise me' });
+const DIAGNOSTIC_BANK = Object.freeze({
+  early: [
+    { prompt: 'Which number is greater?', options: ['5', '8', 'They are equal'], answer: 1, concept: 'number comparison', subject: 'Mathematics' },
+    { prompt: 'What is 3 + 2?', options: ['4', '5', '6'], answer: 1, concept: 'addition', subject: 'Mathematics' },
+    { prompt: 'What comes next: 2, 4, 6, …?', options: ['7', '8', '9'], answer: 1, concept: 'patterns', subject: 'Mathematics' },
+    { prompt: 'Which is usually the longest?', options: ['A pencil', 'A classroom door', 'A spoon'], answer: 1, concept: 'measurement', subject: 'Science' },
+    { prompt: 'Which object can make a clear shadow?', options: ['A book', 'Clean air', 'A beam of light'], answer: 0, concept: 'light and shadows', subject: 'Science' }
+  ],
+  middle: [
+    { prompt: 'Which fraction is equal to one half?', options: ['2/3', '3/6', '4/5'], answer: 1, concept: 'fractions', subject: 'Mathematics' },
+    { prompt: 'A ratio of 2:3 has 2 red and 3 blue counters. How many counters altogether?', options: ['5', '6', '3'], answer: 0, concept: 'ratio', subject: 'Mathematics' },
+    { prompt: 'What happens to a moving object when an unbalanced force acts on it?', options: ['Its motion can change', 'It must stop forever', 'It becomes weightless'], answer: 0, concept: 'force and motion', subject: 'Science' },
+    { prompt: 'When salt dissolves in water, what has happened?', options: ['The salt has vanished', 'The salt particles spread through the water', 'The water became a new element'], answer: 1, concept: 'particles and change', subject: 'Science' },
+    { prompt: 'A bar chart shows 8 books on Monday and 5 on Tuesday. Which day has more?', options: ['Monday', 'Tuesday', 'They are equal'], answer: 0, concept: 'data interpretation', subject: 'Mathematics' }
+  ],
+  senior: [
+    { prompt: 'If 2x + 3 = 11, what is x?', options: ['3', '4', '7'], answer: 1, concept: 'algebra', subject: 'Mathematics' },
+    { prompt: 'In a right triangle, which relationship is the Pythagorean theorem?', options: ['a + b = c', 'a² + b² = c²', '2a + 2b = c'], answer: 1, concept: 'geometric reasoning', subject: 'Mathematics' },
+    { prompt: 'If voltage stays the same and resistance increases, current generally…', options: ['increases', 'decreases', 'becomes a chemical reaction'], answer: 1, concept: 'electricity and motion', subject: 'Science' },
+    { prompt: 'A reaction that forms a new substance is best described as…', options: ['a chemical change', 'a change of font', 'only a change of position'], answer: 0, concept: 'chemical change', subject: 'Chemistry' },
+    { prompt: 'Which is strongest evidence for a claim?', options: ['A repeatable measurement', 'A guess with no observation', 'A memorable slogan'], answer: 0, concept: 'evidence and data', subject: 'Science' }
+  ]
+});
+
+let diagnosticDraft = { questions: [], index: 0, answers: [], confidence: 'unsure', startedAt: null };
+
+function diagnosticBandForGrade(grade) {
+  const n = Number(grade) || 1;
+  return n <= 4 ? 'early' : n <= 7 ? 'middle' : 'senior';
+}
+
+function getDiagnosticQuestions(grade) {
+  return (DIAGNOSTIC_BANK[diagnosticBandForGrade(grade)] || DIAGNOSTIC_BANK.early).map(item => ({
+    prompt: item.prompt,
+    options: item.options.slice(),
+    answer: item.answer,
+    concept: item.concept,
+    subject: item.subject
+  }));
+}
+
+function getLearningProfile() {
+  const stored = safeStorageJSON('avyaan_learning_profile', {});
+  const storedGrade = Number(stored.grade);
+  const accountGrade = currentUser && !currentUser.isGuest ? Number(currentUser.grade) : 0;
+  const grade = Math.min(10, Math.max(1, accountGrade || storedGrade || 1));
+  const intent = Object.prototype.hasOwnProperty.call(LEARNING_INTENTS, stored.intent)
+    ? stored.intent
+    : 'explore';
+  const minutes = [5, 10, 20].includes(Number(stored.minutes)) ? Number(stored.minutes) : 10;
+  const interest = Object.prototype.hasOwnProperty.call(LEARNING_INTERESTS, stored.interest) ? stored.interest : 'surprise';
+  return { grade, intent, interest, minutes, completedAt: stored.completedAt || null, skipped: !!stored.skipped };
+}
+
+function saveLearningProfile(profile) {
+  const clean = {
+    grade: Math.min(10, Math.max(1, Number(profile.grade) || 1)),
+    intent: Object.prototype.hasOwnProperty.call(LEARNING_INTENTS, profile.intent) ? profile.intent : 'explore',
+    interest: Object.prototype.hasOwnProperty.call(LEARNING_INTERESTS, profile.interest) ? profile.interest : 'surprise',
+    minutes: [5, 10, 20].includes(Number(profile.minutes)) ? Number(profile.minutes) : 10,
+    completedAt: profile.completedAt || new Date().toISOString(),
+    skipped: !!profile.skipped
+  };
+  avyaanStorage.setItem('avyaan_learning_profile', JSON.stringify(clean));
+  return clean;
+}
+
+function renderOnboardingStep(step) {
+  const steps = {
+    grade: { id: 'onboardingStepGrade', label: 'Step 1 of 5 · Your class' },
+    intent: { id: 'onboardingStepIntent', label: 'Step 2 of 5 · Your intention' },
+    diagnostic: { id: 'onboardingStepDiagnostic', label: 'Step 3 of 5 · A gentle question set' },
+    confidence: { id: 'onboardingStepConfidence', label: 'Step 4 of 5 · Your confidence' },
+    time: { id: 'onboardingStepTime', label: 'Step 5 of 5 · Your time' }
+  };
+  const selected = steps[step] || steps.grade;
+  Object.values(steps).forEach(item => {
+    const el = document.getElementById(item.id);
+    if (el) el.hidden = item.id !== selected.id;
+  });
+  const status = document.getElementById('onboardingStatus');
+  if (status) status.textContent = selected.label;
+  const title = document.getElementById('onboardingTitle');
+  if (title) {
+    title.textContent = step === 'grade'
+      ? 'Let’s find a good starting point'
+      : step === 'intent'
+        ? 'Choose the kind of help you want'
+        : step === 'diagnostic'
+          ? 'Let’s notice what feels familiar'
+          : step === 'confidence'
+            ? 'Your thinking matters more than a score'
+            : 'Make the route fit your day';
+  }
+  if (step === 'intent') renderOnboardingInterestOptions();
+  if (step === 'diagnostic') renderDiagnosticQuestion();
+}
+
+function renderOnboardingInterestOptions() {
+  const row = document.getElementById('onboardingInterestOptions');
+  if (!row) return;
+  row.querySelectorAll('[data-interest]').forEach(button => {
+    const active = button.getAttribute('data-interest') === onboardingDraft.interest;
+    button.classList.toggle('active', active);
+    button.setAttribute('aria-pressed', String(active));
+  });
+}
+function renderDiagnosticQuestion() {
+  if (!diagnosticDraft.questions.length) {
+    diagnosticDraft.questions = getDiagnosticQuestions(onboardingDraft.grade || currentUser?.grade || 1);
+    diagnosticDraft.index = 0;
+    diagnosticDraft.answers = [];
+    diagnosticDraft.startedAt = Date.now();
+  }
+  const question = diagnosticDraft.questions[diagnosticDraft.index];
+  const prompt = document.getElementById('onboardingDiagnosticPrompt');
+  const options = document.getElementById('onboardingDiagnosticOptions');
+  const progress = document.getElementById('onboardingDiagnosticProgress');
+  if (!question || !prompt || !options) return;
+  prompt.textContent = question.prompt;
+  options.innerHTML = question.options.map((option, index) =>
+    '<button type="button" class="onboard-choice-btn diagnostic-option" onclick="chooseDiagnosticAnswer(' + index + ')"><strong>' + escapeHtml(option) + '</strong></button>'
+  ).join('');
+  if (progress) progress.textContent = 'Question ' + (diagnosticDraft.index + 1) + ' of ' + diagnosticDraft.questions.length + ' · take your best guess';
+}
+
+function chooseDiagnosticAnswer(answerIndex) {
+  const question = diagnosticDraft.questions[diagnosticDraft.index];
+  if (!question) return;
+  diagnosticDraft.answers.push({
+    concept: question.concept,
+    subject: question.subject,
+    correct: Number(answerIndex) === Number(question.answer)
+  });
+  diagnosticDraft.index += 1;
+  if (diagnosticDraft.index >= diagnosticDraft.questions.length) {
+    renderOnboardingStep('confidence');
+  } else {
+    renderDiagnosticQuestion();
+  }
+}
+
+function chooseOnboardingInterest(interest) {
+  onboardingDraft.interest = Object.prototype.hasOwnProperty.call(LEARNING_INTERESTS, interest) ? interest : 'surprise';
+  renderOnboardingInterestOptions();
+}
+
+function continueOnboardingIntent() {
+  diagnosticDraft.index = 0;
+  diagnosticDraft.answers = [];
+  diagnosticDraft.startedAt = Date.now();
+  renderOnboardingStep('diagnostic');
+}
+function chooseOnboardingConfidence(confidence) {
+  diagnosticDraft.confidence = ['sure', 'guessed', 'unsure'].includes(confidence) ? confidence : 'unsure';
+  renderOnboardingStep('time');
+}
 function maybeShowOnboarding() {
   if (avyaanStorage.getItem('avyaan_onboarded')) return;
-  // Returning real (non-guest) students don't need the picker
   if (currentUser && !currentUser.isGuest) {
     avyaanStorage.setItem('avyaan_onboarded', '1');
     return;
   }
-  setTimeout(() => openModal('onboardingModal'), 500);
+  const profile = safeStorageJSON('avyaan_learning_profile', {});
+  onboardingDraft = {
+    grade: Number(profile.grade) || Number(currentUser?.grade) || null,
+    intent: Object.prototype.hasOwnProperty.call(LEARNING_INTENTS, profile.intent) ? profile.intent : 'explore',
+    interest: Object.prototype.hasOwnProperty.call(LEARNING_INTERESTS, profile.interest) ? profile.interest : 'surprise',
+    minutes: [5, 10, 20].includes(Number(profile.minutes)) ? Number(profile.minutes) : 10
+  };
+  setTimeout(() => {
+    renderOnboardingStep('grade');
+    openModal('onboardingModal');
+  }, 500);
 }
 
 function chooseOnboardingGrade(grade) {
-  if (currentUser) {
-    currentUser.grade = grade;
+  onboardingDraft.grade = Math.min(10, Math.max(1, Number(grade) || 1));
+  diagnosticDraft = { questions: getDiagnosticQuestions(onboardingDraft.grade), index: 0, answers: [], confidence: 'unsure', startedAt: Date.now() };
+  if (currentUser && currentUser.isGuest) {
+    currentUser.grade = onboardingDraft.grade;
     avyaanStorage.setItem('avyaan_user', JSON.stringify(currentUser));
     updateNavbarUserUI();
   }
+  renderOnboardingStep('intent');
+}
+
+function chooseOnboardingIntent(intent) {
+  onboardingDraft.intent = Object.prototype.hasOwnProperty.call(LEARNING_INTENTS, intent) ? intent : 'explore';
+}
+
+function chooseOnboardingMinutes(minutes) {
+  onboardingDraft.minutes = [5, 10, 20].includes(Number(minutes)) ? Number(minutes) : 10;
+  finishOnboarding();
+}
+
+function finishOnboarding() {
+  const profile = saveLearningProfile({
+    grade: onboardingDraft.grade || Number(currentUser?.grade) || 1,
+    intent: onboardingDraft.intent,
+    interest: onboardingDraft.interest,
+    minutes: onboardingDraft.minutes,
+    skipped: false
+  });
+  const diagnosticEvidence = {
+    grade: profile.grade,
+    confidence: diagnosticDraft.confidence || 'unsure',
+    answers: Array.isArray(diagnosticDraft.answers) ? diagnosticDraft.answers.slice(0, 8) : [],
+    completedAt: new Date().toISOString(),
+    durationSeconds: diagnosticDraft.startedAt ? Math.max(0, Math.round((Date.now() - diagnosticDraft.startedAt) / 1000)) : null
+  };
+  avyaanStorage.setItem('avyaan_diagnostic_profile', JSON.stringify(diagnosticEvidence));
+  onboardingDraft = { grade: profile.grade, intent: profile.intent, interest: profile.interest, minutes: profile.minutes };
   avyaanStorage.setItem('avyaan_onboarded', '1');
   closeModal('onboardingModal');
+  updateNavbarUserUI();
   renderGrid();
   updateMasteryScorecard();
-  const chips = document.querySelectorAll('#classChips .chip');
-  if (chips && chips[grade]) chips[grade].click();
+  const targetLabel = profile.grade ? 'Class ' + profile.grade : 'All Classes';
+  const targetBtn = [...document.querySelectorAll('#classChips .chip')]
+    .find(c => c.textContent.trim() === targetLabel);
+  if (targetBtn && typeof targetBtn.click === 'function') targetBtn.click();
 }
 
 function skipOnboarding() {
+  const profile = saveLearningProfile({
+    grade: Number(currentUser?.grade) || 1,
+    intent: 'explore',
+    interest: 'surprise',
+    minutes: 10,
+    skipped: true
+  });
+  onboardingDraft = { grade: profile.grade, intent: profile.intent, interest: profile.interest, minutes: profile.minutes };
   avyaanStorage.setItem('avyaan_onboarded', '1');
   closeModal('onboardingModal');
+  renderGrid();
 }
 
 // Create a guest profile — no fake auto-login as a demo student
@@ -470,6 +792,17 @@ function applyAgeAdaptiveUI() {
 
 // Small, self-contained landing-page demonstration. It intentionally uses a
 // generic concept rather than protected lesson data or answer keys.
+// Bring the first product-like learning moment into view from the hero CTA.
+// The interactive control remains keyboard accessible and works without auth.
+function scrollToAhaLab() {
+  const lab = document.getElementById('ahaLab');
+  if (!lab) return;
+  lab.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  window.setTimeout(() => {
+    const control = document.getElementById('shadowAngleSlider');
+    if (control) control.focus({ preventScroll: true });
+  }, 350);
+}
 function updateShadowDemo(value) {
   const sunAngle = Math.max(15, Math.min(75, Number(value) || 45));
   const shadow = document.getElementById('shadowDemoShadow');
@@ -517,9 +850,10 @@ function handleHashNavigation() {
   if (!h) return;
   if (h === '#login') { openLoginModal(); return; }
   if (h === '#achievements') { openModal('achievementsModal'); return; }
-  if (h === '#knowledge-map') { if (typeof toast === 'function') toast('Knowledge Map is coming soon.'); return; }
+  if (h === '#knowledge-map') { if (document.getElementById('knowledgeMapModal')) { openModal('knowledgeMapModal'); } else { window.location.href = 'index.html#knowledge-map'; } return; }
   if (h === '#progress') { openDashboard(); return; }
   if (h === '#daily-challenge') { startDailyChallenge(); return; }
+  if (h === '#board-prep') { openBoardPrep(); return; }
   const classMatch = h.match(/^#class-(\d+)$/);
   if (classMatch) {
     const n = parseInt(classMatch[1], 10);
@@ -817,7 +1151,7 @@ function updateSmartScore(topicId, isCorrect, totalQuestions) {
   return newScore;
 }
 
-// Spaced Review / Memory Pulse — SM-2 scheduling with ease factor + repetition count.
+// Spaced Review / Memory Pulse — deterministic adaptive spacing with ease factor + repetition count.
 // The scheduling math lives in the testable core (sm2Next); this function is only
 // the localStorage/queue wrapper around it.
 const SM2_DAY_MS = 86400000;
@@ -827,9 +1161,21 @@ function getReviewEntry(topicId) {
 }
 
 function scheduleReview(topicId, correct) {
-  const next = sm2Next(getReviewEntry(topicId), correct);
+  const previous = getReviewEntry(topicId);
+  const next = sm2Next(previous, correct);
+  const successfulRecalls = correct === false ? 0 : (previous?.successfulRecalls || 0) + 1;
   reviewQueue = reviewQueue.filter(r => r.topicId !== topicId);
-  reviewQueue.push({ topicId, dueDate: Date.now() + SM2_DAY_MS * next.intervalDays, intervalDays: next.intervalDays, reps: next.reps, ease: next.ease, correct: correct !== false });
+  reviewQueue.push({
+    topicId,
+    dueDate: Date.now() + SM2_DAY_MS * next.intervalDays,
+    intervalDays: next.intervalDays,
+    reps: next.reps,
+    ease: next.ease,
+    correct: correct !== false,
+    successfulRecalls,
+    lastRecallAt: correct !== false ? Date.now() : (previous?.lastRecallAt || null),
+    lastOutcome: correct !== false ? 'correct' : 'incorrect'
+  });
   avyaanStorage.setItem('avyaan_review_queue', JSON.stringify(reviewQueue));
 }
 
@@ -847,26 +1193,266 @@ function logActivity(topicId, type) {
   log.push({ topicId, title: topic.title, emoji: topic.emoji, subject: topic.subject, classLevel: topic.class_level, type, ts: Date.now() });
   if (log.length > 200) log = log.slice(-200);
   avyaanStorage.setItem('avyaan_activity_log', JSON.stringify(log));
+  enqueueOfflineProgress(topicId, type);
 }
 
+const OFFLINE_PACK_KEY = 'avyaan_offline_pack';
+const OFFLINE_QUEUE_KEY = 'avyaan_offline_progress_queue';
+const OFFLINE_PACK_DAYS = 14;
+
+function getOfflinePack() {
+  const pack = safeStorageJSON(OFFLINE_PACK_KEY, null);
+  return pack && Array.isArray(pack.topics) ? pack : null;
+}
+
+function getOfflineProgressQueue() {
+  const queue = safeStorageJSON(OFFLINE_QUEUE_KEY, []);
+  return Array.isArray(queue) ? queue : [];
+}
+
+function offlinePackTopics(classLevel, subject) {
+  return AVYAAN_DATA.topics.filter(topic =>
+    FREE_PREVIEW_TOPIC_IDS.has(topic.id) &&
+    String(topic.class_level) === String(classLevel || '1') &&
+    ((!subject || subject === 'all') || String(topic.subject).toLowerCase() === String(subject).toLowerCase())
+  );
+}
+
+function enqueueOfflineProgress(topicId, type) {
+  const pack = getOfflinePack();
+  if (!pack || !pack.topics.some(topic => topic.id === topicId)) return;
+  const queue = getOfflineProgressQueue();
+  if (queue.some(event => event.topicId === topicId && event.type === type && Date.now() - Number(event.ts || 0) < 15000)) return;
+  const eventId = window.crypto?.randomUUID ? crypto.randomUUID() : 'offline-' + Date.now() + '-' + Math.random().toString(36).slice(2);
+  queue.push({ eventId, topicId, type: String(type || 'activity'), ts: Date.now(), status: 'pending', attempts: 0, nextAttemptAt: 0 });
+  avyaanStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(queue.slice(-100)));
+}
+
+function formatOfflineBytes(bytes) {
+  const n = Number(bytes || 0);
+  return n < 1024 ? String(n) + ' B' : (n / 1024).toFixed(1) + ' KB';
+}
+
+function renderOfflinePackPanel() {
+  const container = document.getElementById('offlinePackContent');
+  if (!container) return;
+  const pack = getOfflinePack();
+  const queue = getOfflineProgressQueue();
+  const version = window.AVYAAN_CONTENT_VERSION || '';
+  const stale = pack && pack.contentVersion && version && pack.contentVersion !== version;
+  if (!pack) {
+    container.innerHTML =
+      '<div class="offline-pack-kicker">LOW-CONNECTIVITY SUPPORT</div>' +
+      '<h2>Download an offline starter pack</h2>' +
+      '<p class="offline-pack-copy">Save a small, safe starter set for a child’s next screen-free or low-connectivity session. The pack contains six public Class 1 Mathematics previews, not protected lesson bodies.</p>' +
+      '<div class="offline-pack-controls">' +
+      '<label for="offlinePackClass">Class</label><select id="offlinePackClass" class="form-input"><option value="1">Class 1 · starter previews</option></select>' +
+      '<label for="offlinePackSubject">Subject</label><select id="offlinePackSubject" class="form-input"><option value="all">All starter subjects</option><option value="mathematics">Mathematics</option></select>' +
+      '</div>' +
+      '<p class="offline-pack-note">Estimated size is shown after saving. Paid lesson content remains entitlement-checked online.</p>' +
+      '<div class="offline-pack-actions"><button class="btn btn-primary" type="button" onclick="createOfflineStarterPack()">Save starter pack</button><button class="btn" type="button" onclick="closeModal(' + "'offlinePackModal'" + ')">Cancel</button></div>' +
+      '<div id="offlinePackStatus" role="status" aria-live="polite"></div>';
+    return;
+  }
+  const expires = new Date(Number(pack.expiresAt || 0));
+  const expiryLabel = Number.isNaN(expires.getTime()) ? 'unknown' : expires.toLocaleDateString();
+  const list = pack.topics.map(topic => '<li>' + escapeHtml(topic.emoji || '📘') + ' ' + escapeHtml(topic.title) + '</li>').join('');
+  const freshness = stale
+    ? '⚠️ A newer content release is available. Refresh this pack when online.'
+    : '✓ Current with content release ' + escapeHtml(pack.contentVersion || 'local');
+  const pending = queue.length
+    ? queue.length + ' offline progress event' + (queue.length === 1 ? '' : 's') + ' waiting for a signed-in sync.'
+    : 'No offline progress is waiting to sync.';
+  container.innerHTML =
+    '<div class="offline-pack-kicker">SAVED ON THIS DEVICE</div>' +
+    '<h2>Offline starter pack ready</h2>' +
+    '<p class="offline-pack-copy">' + pack.topics.length + ' public preview topics · ' + formatOfflineBytes(pack.sizeBytes) + ' · expires ' + escapeHtml(expiryLabel) + '</p>' +
+    '<div class="offline-pack-status ' + (stale ? 'is-stale' : '') + '" role="status">' + freshness + '</div>' +
+    '<ul class="offline-pack-list">' + list + '</ul>' +
+    '<p class="offline-pack-note">Protected lesson bodies and answer keys are never added to this public starter pack. ' + pending + '</p>' +
+    '<div class="offline-pack-actions"><button class="btn btn-primary" type="button" onclick="refreshOfflineStarterPack()">Refresh pack</button><button class="btn" type="button" onclick="flushOfflineProgressQueue().then(() => renderOfflinePackPanel())">Sync saved progress</button><button class="btn" type="button" onclick="clearOfflineStarterPack()">Remove from this device</button></div>';
+}
+
+function openOfflinePackModal() {
+  renderOfflinePackPanel();
+  openModal('offlinePackModal');
+}
+
+function createOfflineStarterPack() {
+  const classLevel = document.getElementById('offlinePackClass')?.value || '1';
+  const subject = document.getElementById('offlinePackSubject')?.value || 'all';
+  const topics = offlinePackTopics(classLevel, subject);
+  const status = document.getElementById('offlinePackStatus');
+  if (!topics.length) {
+    if (status) status.textContent = 'No public starter previews match that selection yet.';
+    return false;
+  }
+  const contentVersion = window.AVYAAN_CONTENT_VERSION || 'local';
+  const packTopics = topics.map(topic => ({
+    id: topic.id, title: topic.title, summary: topic.summary, outcome: topic.outcome || '',
+    emoji: topic.emoji || '📘', subject: topic.subject, classLevel: topic.class_level,
+    exercises: Array.isArray(topic.mcqs) ? topic.mcqs.slice(0, 2).map(item => ({ question: item.question, options: item.options })) : []
+  }));
+  const payload = {
+    schema: 'avyaan.offline-pack.v1', contentVersion, classLevel: String(classLevel), subject,
+    createdAt: Date.now(), expiresAt: Date.now() + OFFLINE_PACK_DAYS * 86400000, topics: packTopics
+  };
+  payload.sizeBytes = new Blob([JSON.stringify(payload)]).size;
+  avyaanStorage.setItem(OFFLINE_PACK_KEY, JSON.stringify(payload));
+  if (window.caches) {
+    caches.open('avyaan-offline-pack-' + contentVersion).then(cache =>
+      cache.put('/offline-pack.json', new Response(JSON.stringify(payload), { headers: { 'Content-Type': 'application/json' } }))
+    ).catch(() => {});
+  }
+  renderOfflinePackPanel();
+  return true;
+}
+
+function refreshOfflineStarterPack() {
+  avyaanStorage.removeItem(OFFLINE_PACK_KEY);
+  renderOfflinePackPanel();
+}
+
+function clearOfflineStarterPack() {
+  avyaanStorage.removeItem(OFFLINE_PACK_KEY);
+  avyaanStorage.removeItem(OFFLINE_QUEUE_KEY);
+  if (window.caches) caches.keys().then(keys => Promise.all(keys.filter(key => key.indexOf('avyaan-offline-pack-') === 0).map(key => caches.delete(key)))).catch(() => {});
+  renderOfflinePackPanel();
+}
+
+const OFFLINE_MAX_ATTEMPTS = 6;
+const OFFLINE_RETRY_BASE_MS = 15000;
+const OFFLINE_RETRY_MAX_MS = 15 * 60 * 1000;
+let offlineFlushInFlight = null;
+
+function offlineRetryDelay(attempts) {
+  return Math.min(OFFLINE_RETRY_MAX_MS, OFFLINE_RETRY_BASE_MS * Math.pow(2, Math.max(0, attempts - 1)));
+}
+
+async function flushOfflineProgressQueue() {
+  if (offlineFlushInFlight) return offlineFlushInFlight;
+  offlineFlushInFlight = (async () => {
+    const queue = getOfflineProgressQueue();
+    if (!queue.length) return { status: 'empty', pending: 0 };
+    if (!hasAuthenticatedAccount()) return { status: 'waiting_for_login', pending: queue.length };
+    if (navigator.onLine === false) return { status: 'offline', pending: queue.length };
+    const now = Date.now();
+    const due = queue.filter(event => Number(event.nextAttemptAt || 0) <= now && Number(event.attempts || 0) < OFFLINE_MAX_ATTEMPTS);
+    if (!due.length) return { status: 'backoff', pending: queue.length };
+    let result;
+    try { result = await syncProgressToCloud(); } catch (error) { result = { status: 'error', error_code: 'sync_failed' }; }
+    if (result && result.status !== 'error') {
+      avyaanStorage.removeItem(OFFLINE_QUEUE_KEY);
+      return { status: 'synced', pending: 0 };
+    }
+    const dueIds = new Set(due.map(event => event.eventId));
+    const updated = queue.map(event => {
+      if (!dueIds.has(event.eventId)) return event;
+      const attempts = Number(event.attempts || 0) + 1;
+      return { ...event, attempts, status: attempts >= OFFLINE_MAX_ATTEMPTS ? 'failed' : 'pending', nextAttemptAt: Date.now() + offlineRetryDelay(attempts) };
+    });
+    avyaanStorage.setItem(OFFLINE_QUEUE_KEY, JSON.stringify(updated.slice(-100)));
+    return { status: 'pending', pending: updated.length };
+  })();
+  try { return await offlineFlushInFlight; } finally { offlineFlushInFlight = null; }
+}
+
+function offlinePackStatusLine() {
+  const pack = getOfflinePack();
+  if (!pack) return '';
+  const queue = getOfflineProgressQueue();
+  return '<div class="offline-pack-inline-status">📦 Offline starter pack saved · ' + pack.topics.length + ' previews' + (queue.length ? ' · ' + queue.length + ' pending sync' : '') + '</div>';
+}
 function getActivityLog() {
   try { return JSON.parse(avyaanStorage.getItem('avyaan_activity_log') || '[]'); } catch (e) { return []; }
 }
 
 // Misconception tracking — every wrong answer that triggers myth/fact coaching
-// is logged so recurring misunderstandings surface in the parent report.
-function logMisconception(topicId, myth) {
+// is logged so recurring misunderstandings surface in recommendations and the
+// parent report. The stable misconceptionId lets us distinguish repeated hits
+// from unrelated myths in the same topic.
+function normalizeMisconceptionText(value) {
+  return String(value || '').trim().toLowerCase().replace(/\s+/g, ' ').slice(0, 160);
+}
+
+function misconceptionIdFor(topicId, myth) {
+  const stem = normalizeMisconceptionText(myth).replace(/[^a-z0-9]+/g, '_').replace(/^_|_$/g, '').slice(0, 80) || 'unknown';
+  return 'misconception_' + String(topicId || 'topic').replace(/[^a-zA-Z0-9_-]/g, '_') + '_' + stem;
+}
+
+function logMisconception(topicId, myth, metadata = {}) {
   const topic = AVYAAN_DATA.topics.find(t => t.id === topicId);
   if (!topic || !myth) return;
   let log = [];
   try { log = JSON.parse(avyaanStorage.getItem('avyaan_misconceptions') || '[]'); } catch (e) { log = []; }
-  log.push({ topicId, title: topic.title, emoji: topic.emoji, myth: myth.slice(0, 200), ts: Date.now() });
+  const record = {
+    misconceptionId: misconceptionIdFor(topicId, myth),
+    topicId,
+    title: topic.title,
+    emoji: topic.emoji,
+    subject: topic.subject,
+    myth: String(myth).slice(0, 200),
+    selectedText: String(metadata.selectedText || '').slice(0, 160),
+    correctText: String(metadata.correctText || '').slice(0, 160),
+    source: metadata.source || 'quiz_coaching',
+    repaired: false,
+    ts: Date.now()
+  };
+  log.push(record);
   if (log.length > 300) log = log.slice(-300);
   avyaanStorage.setItem('avyaan_misconceptions', JSON.stringify(log));
 }
 
 function getMisconceptionLog() {
   try { return JSON.parse(avyaanStorage.getItem('avyaan_misconceptions') || '[]'); } catch (e) { return []; }
+}
+
+function getMisconceptionInsights(windowMs = 7 * 24 * 60 * 60 * 1000) {
+  const cutoff = Date.now() - windowMs;
+  const grouped = {};
+  getMisconceptionLog().forEach(record => {
+    if (!record || Number(record.ts || 0) < cutoff) return;
+    const id = record.misconceptionId || misconceptionIdFor(record.topicId, record.myth);
+    const current = grouped[id] || {
+      misconceptionId: id,
+      topicId: record.topicId,
+      title: record.title || 'This idea',
+      emoji: record.emoji || '🧠',
+      subject: record.subject || '',
+      myth: record.myth || '',
+      count: 0,
+      lastTs: 0,
+      repaired: false
+    };
+    current.count += 1;
+    current.lastTs = Math.max(current.lastTs, Number(record.ts || 0));
+    current.repaired = current.repaired || record.repaired === true;
+    grouped[id] = current;
+  });
+  return Object.values(grouped).sort((a, b) => b.count - a.count || b.lastTs - a.lastTs);
+}
+
+function getRecurringMisconceptionTopics() {
+  return new Set(getMisconceptionInsights().filter(item => item.count >= 2).map(item => item.topicId));
+}
+
+// Explainable recommendations: every route/card reason is backed by a local
+// evidence signal and is phrased for the learner. This is intentionally not a
+// prediction score; it tells a family why the next step was selected.
+function getRecommendationReason(topic, kind = '') {
+  if (!topic) return { code: 'START_HERE', label: 'Why this?', text: 'A gentle place to begin.', parentText: 'A low-friction starting point for the learner.' };
+  const due = getTopicsDueForReview().includes(topic.id);
+  const recurring = getRecurringMisconceptionTopics().has(topic.id);
+  const diagnostic = safeStorageJSON('avyaan_diagnostic_profile', {});
+  if (due) return { code: 'RECALL_DUE', label: 'Memory check due', text: 'You learned this earlier, so it is time to see what you still remember.', parentText: 'This topic is due in the spaced-recall schedule.' };
+  if (recurring) return { code: 'MISCONCEPTION_RECURRING', label: 'Repair a sticky idea', text: 'A similar misunderstanding came up more than once; this lesson gives you a clearer way to rebuild the idea.', parentText: 'Repeated misconception evidence makes this a high-value repair topic.' };
+  if (topicMatchesDiagnosticNeed(topic, diagnostic)) return { code: 'PREREQUISITE_GAP', label: 'Build a foundation', text: 'Your starter check found a nearby idea worth strengthening first.', parentText: 'The diagnostic included an incorrect answer on a related concept.' };
+  const profile = getLearningProfile();
+  if (diagnostic.confidence && diagnostic.confidence !== 'sure' && topicMatchesLearningIntent(topic, profile.intent)) return { code: 'LOW_CONFIDENCE', label: 'Grow confidence', text: 'This is a friendly practice step for turning a guess into understanding.', parentText: 'The learner reported uncertainty in the starter check.' };
+  if (topicMatchesLearningInterest(topic, profile.interest)) return { code: 'EXPLORE_INTEREST', label: 'Matches your interest', text: 'This connects with the subject you said you wanted to explore.', parentText: 'The topic matches the learner’s selected interest.' };
+  if (kind === 'continue') return { code: 'CONTINUE_PATH', label: 'Continue your path', text: 'You already started this idea — pick it up while it is fresh.', parentText: 'Local activity shows unfinished progress on this topic.' };
+  if (kind === 'new' || kind === 'review') return { code: 'CORE_PATH_NEXT', label: 'Next in your class path', text: 'This is a sensible next step for your class and learning intention.', parentText: 'The topic is part of the learner’s class-level route.' };
+  return { code: 'START_HERE', label: 'A good next step', text: 'A short, age-appropriate way to keep learning moving.', parentText: 'A suitable topic from the active class catalogue.' };
 }
 
 function timeAgo(ts) {
@@ -1014,8 +1600,24 @@ function renderAchievementPanel() {
 }
 
 // Start a spaced review session
-function startReviewSession() {
-  if (typeof toast === 'function') toast('Spaced Review is coming soon while we finish the secure review flow.');
+async function startReviewSession() {
+  const dueIds = getTopicsDueForReview().slice(0, 8);
+  if (!dueIds.length) {
+    if (typeof toast === 'function') toast('You are caught up — no memory checks are due right now.');
+    return false;
+  }
+  reviewRetrievalFirst = true;
+  const started = await startAggregateReview(
+    { mode: 'recall', topic_ids: dueIds, class_level: currentUser?.grade || 1 },
+    [],
+    'Memory Check',
+    null,
+    false,
+    0,
+    true,
+  );
+  if (!started) reviewRetrievalFirst = false;
+  return started;
 }
 
 // ==========================================================================
@@ -1113,7 +1715,7 @@ function getSessionStreakCount() {
 function startDailySession() {
   const queue = buildDailySessionQueue();
   if (queue.length === 0) {
-    alert('🎉 Nothing left to learn today — every topic is mastered and nothing is due for review. Amazing work!');
+    toast('🎉 Nothing left to learn today — every topic is mastered and nothing is due for review.');
     return;
   }
   dailySession = { queue: queue, idx: 0, xpStart: userXP, masteredStart: completedTopicIds.size, startedAt: Date.now() };
@@ -1209,60 +1811,61 @@ function renderKnowledgeMap() {
   const container = document.getElementById('knowledgeMapContent');
   if (!container) return;
 
-  const subjects = [...new Set(AVYAAN_DATA.topics.map(t => topicDisplaySubject(t)))];
-  const subjectKeys = subjects.map(subjectColorKey);
+  const topics = learnerTopics();
+  const subjects = [...new Set(topics.map(t => topicDisplaySubject(t)))];
+  const statusMeta = {
+    introduced: ['Introduced', '🌱'],
+    practising: ['Practising', '🔁'],
+    secure_now: ['Secure now', '✅'],
+    recall_due: ['Recall due', '🧠'],
+    retained: ['Remembered over time', '🌟']
+  };
+  const stateRank = { recall_due: 0, introduced: 1, practising: 2, secure_now: 3, retained: 4 };
+  const statusText = state => {
+    const meta = statusMeta[state] || statusMeta.introduced;
+    return `${meta[1]} ${meta[0]}`;
+  };
 
-  let html = '<div style="display: flex; flex-direction: column; gap: 1rem;">';
-
-  subjects.forEach((subject, si) => {
-    const subjKey = subjectKeys[si];
-    const subjTopics = AVYAAN_DATA.topics.filter(t => topicDisplaySubject(t) === subject);
-    const masteredCount = subjTopics.filter(t => completedTopicIds.has(t.id)).length;
-    const masteryPct = Math.round((masteredCount / subjTopics.length) * 100);
-    const score = subjTopics.reduce((sum, t) => sum + getSmartScore(t.id), 0);
-    const avgScore = Math.round(score / subjTopics.length);
-
-    // Class breakdown
-    const classes = [...new Set(subjTopics.map(t => t.class_level))].sort((a, b) => a - b);
+  const subjectCards = subjects.map(subject => {
+    const subjectTopics = topics.filter(t => topicDisplaySubject(t) === subject);
+    const subjKey = subjectColorKey(subject);
+    const counts = subjectTopics.reduce((acc, topic) => {
+      const state = getMemoryState(topic.id);
+      acc[state] = (acc[state] || 0) + 1;
+      return acc;
+    }, {});
+    const classes = [...new Set(subjectTopics.map(t => Number(t.class_level)).filter(Boolean))].sort((a, b) => a - b);
     const classBars = classes.map(cls => {
-      const clsTopics = subjTopics.filter(t => t.class_level === cls);
-      const clsMastered = clsTopics.filter(t => completedTopicIds.has(t.id)).length;
-      const pct = Math.round((clsMastered / clsTopics.length) * 100);
-      return `
-        <div style="display: flex; align-items: center; gap: 0.4rem; margin: 0.15rem 0;">
-          <span style="font-size: 0.7rem; font-weight: 700; color: var(--text-muted); min-width: 50px;">C${cls}</span>
-          <div style="flex: 1; background: #e2e8f0; height: 12px; border-radius: 6px; overflow: hidden;">
-            <div style="width: ${Math.max(2, pct)}%; height: 100%; background: var(--accent-primary); transition: width 0.4s;"></div>
-          </div>
-          <span style="font-size: 0.65rem; color: var(--text-dim); min-width: 35px; text-align: right;">${clsMastered}/${clsTopics.length}</span>
-        </div>
-      `;
+      const classTopics = subjectTopics.filter(t => Number(t.class_level) === cls);
+      const secure = classTopics.filter(t => ['secure_now', 'retained'].includes(getMemoryState(t.id))).length;
+      const pct = classTopics.length ? Math.round((secure / classTopics.length) * 100) : 0;
+      return `<div class="knowledge-class-row"><span>Class ${cls}</span><div class="knowledge-class-track"><div class="knowledge-class-fill subject-${subjKey}" style="width:${Math.max(0, Math.min(100, pct))}%"></div></div><strong>${secure}/${classTopics.length}</strong></div>`;
     }).join('');
+    const topicCards = subjectTopics.slice().sort((a, b) => {
+      const rank = (stateRank[getMemoryState(a.id)] ?? 1) - (stateRank[getMemoryState(b.id)] ?? 1);
+      return rank || Number(a.class_level || 0) - Number(b.class_level || 0) || String(a.title).localeCompare(String(b.title));
+    }).slice(0, 4).map(topic => {
+      const safeId = String(topic.id).replace(/'/g, "\\'");
+      const state = getMemoryState(topic.id);
+      const action = isTopicUnlocked(topic) ? 'Open lesson' : isTopicPreviewable(topic) ? 'Preview' : 'See topic';
+      return `<button type="button" class="knowledge-topic-node" onclick="openTopicDetail('${safeId}')"><span class="knowledge-topic-emoji">${topic.emoji || '📘'}</span><span class="knowledge-topic-copy"><strong>${escapeHtml(topic.title)}</strong><small>Class ${escapeHtml(topic.class_level)} · ${escapeHtml(statusText(state))}</small></span><span class="knowledge-topic-action">${action} →</span></button>`;
+    }).join('');
+    const stateChips = Object.keys(statusMeta).filter(state => counts[state]).map(state => `<span class="knowledge-state-chip">${statusText(state)} · ${counts[state]}</span>`).join('');
+    return `<article class="knowledge-subject-card"><div class="knowledge-subject-head"><div><span class="subject-tag subject-color-${subjKey}">${escapeHtml(subject)}</span><p>${subjectTopics.length} learner-visible topics · Classes ${classes[0] || '—'}–${classes[classes.length - 1] || '—'}</p></div><span class="knowledge-subject-icon">${subjectTopics[0]?.emoji || '📚'}</span></div><div class="knowledge-state-row">${stateChips || '<span class="knowledge-state-chip">🌱 Introduced · ' + subjectTopics.length + '</span>'}</div><div class="knowledge-class-list">${classBars}</div><div class="knowledge-topic-list"><div class="knowledge-section-label">A few nodes to explore</div>${topicCards}</div></article>`;
+  }).join('');
 
-    html += `
-      <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-left: 4px solid var(--accent-primary); border-radius: 0 12px 12px 0; padding: 1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
-          <div>
-            <span class="subject-tag subject-color-${subjKey}" style="font-weight: 800;">${subject}</span>
-            <span style="font-size: 0.75rem; color: var(--text-muted); margin-left: 0.4rem;">${subjTopics.length} topics</span>
-          </div>
-          <div style="text-align: right;">
-            <div style="font-size: 0.8rem; font-weight: 800; color: var(--accent-primary);">${masteryPct}% mastered</div>
-            <div style="font-size: 0.68rem; color: var(--text-muted);">Avg SmartScore: ${avgScore}</div>
-          </div>
-        </div>
-        ${classBars.join('')}
-        <div style="margin-top: 0.6rem; padding-top: 0.5rem; border-top: 1px dashed var(--border-color); font-size: 0.68rem; color: var(--text-muted);">
-          📖 ${new Set(subjTopics.map(t => t.chapter).filter(Boolean)).size} chapters across ${subjTopics.length} topics
-        </div>
-      </div>
-    `;
-  });
+  const topicById = new Map(topics.map(topic => [topic.id, topic]));
+  const bridgeRows = (AVYAAN_DATA.bridges || []).map(bridge => {
+    const left = topicById.get(bridge.a);
+    const right = topicById.get(bridge.b);
+    if (!left || !right || topicDisplaySubject(left) === topicDisplaySubject(right)) return '';
+    const safeLeft = String(left.id).replace(/'/g, "\\'");
+    const safeRight = String(right.id).replace(/'/g, "\\'");
+    return `<div class="knowledge-bridge-row"><button type="button" class="knowledge-bridge-topic" onclick="openTopicDetail('${safeLeft}')"><span>${left.emoji || '🔗'}</span><strong>${escapeHtml(left.title)}</strong></button><span class="knowledge-bridge-arrow" aria-hidden="true">↔</span><button type="button" class="knowledge-bridge-topic" onclick="openTopicDetail('${safeRight}')"><span>${right.emoji || '🔗'}</span><strong>${escapeHtml(right.title)}</strong></button><p>${escapeHtml(bridge.reason || 'These ideas reinforce one another.')}</p></div>`;
+  }).filter(Boolean).slice(0, 6).join('');
 
-  html += '</div>';
-  container.innerHTML = html;
+  container.innerHTML = `<div class="knowledge-map-shell"><div class="knowledge-map-intro"><div class="knowledge-map-kicker">🗺️ KNOWLEDGE UNIVERSE</div><h2 id="knowledgeMapHeading">See how ideas connect</h2><p>Each node is a learner-visible topic. Progress states come from this learner’s activity; lesson access still follows the account and class entitlement.</p><div class="knowledge-map-legend"><span>🌱 Introduced</span><span>🔁 Practising</span><span>✅ Secure now</span><span>🧠 Recall due</span></div></div><div class="knowledge-subject-grid">${subjectCards}</div><section class="knowledge-bridges"><div class="knowledge-section-label">CONNECTED IDEAS</div><h3>One idea can open another</h3><p>These authored bridges invite exploration across subjects. They never change access or claim mastery.</p>${bridgeRows || '<p class="knowledge-empty">Cross-subject connections will appear as the catalogue grows.</p>'}</section></div>`;
 }
-
 // CLASS × SUBJECT COVERAGE MAP — how many topics exist for every (class, subject)
 // Cell shading shows density; ⚠️ flags thin coverage (1–2 topics) worth expanding.
 const COVERAGE_SUBJECTS = ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science & AI', 'Earth & Space'];
@@ -1428,7 +2031,7 @@ function renderCoverage() {
     const gaps = cell.gaps || [];
     const thin = cell.thin || [];
     const tipLines = [
-      `${subj} · Class ${cls}`, `📖 Chapters: ${cell.covered} / ${cell.chapters} covered (${pct}%)`, `📚 Topics: ${cell.topics}`
+      `${subj} · Class ${cls}`, `📖 Chapters: ${cell.covered} / ${cell.chapters} covered (${pct == null ? '—' : pct + '%'})`, `📚 Topics: ${cell.topics}`
     ];
     if (gaps.length) tipLines.push('❌ Missing: ' + gaps.join(', '));
     if (thin.length) tipLines.push('⚠️ Thin (1 topic): ' + thin.join(', '));
@@ -1523,7 +2126,7 @@ function changeAdoptedGrade(newGradeStr) {
     currentUser = {
       id: "user_custom",
       name: `Student (Class ${newGrade})`,
-      email: `student.class${newGrade}@avyaan.edu`,
+      email: "",
       role: "Student",
       grade: newGrade,
       avatar: "🎒"
@@ -1829,7 +2432,10 @@ const QUARANTINED_TOPIC_IDS = new Set([
   'museum_algebra_and_linear_equations',
   'museum_solar_microgrid_architecture_-_photovoltaic_generation_and_bess',
   'museum_earthquake_early_warning_system_-_p-wave_detection_and_telemetry',
-  'museum_amla', 'museum_ginger', 'museum_thermometer_and_fever_check'
+  'museum_amla', 'museum_ginger', 'museum_thermometer_and_fever_check',
+  'museum_digestive_system', 'museum_solar_system', 'museum_volcano_anatomy',
+  'museum_electricity_and_circuits_-_current_flow_voltage_and_resistance',
+  'museum_solar_panel_at_home_-_photovoltaic_effect_and_inverters'
 ]);
 function isPublicTopicForLearner(topic) {
   return !!topic && (!QUARANTINED_TOPIC_IDS.has(topic.id) || String(currentUser?.role || '').toLowerCase() === 'admin');
@@ -1857,20 +2463,8 @@ function isTopicUnlocked(topic) {
 }
 function isTopicPreviewable(topic) {
   if (!topic || !FREE_PREVIEW_TOPIC_IDS.has(topic.id)) return false;
-  // Guests and free accounts may open the deliberately curated starter
-  // preview. Paid accounts should use the entitlement-checked lesson path.
-  const guestOrFree = !currentUser
-    || currentUser.isGuest
-    || currentUser.tier === 'free'
-    || currentUser.is_active_subscription === false;
-  if (!guestOrFree) return false;
-  // A guest has no selected learner class yet, so the starter set is
-  // intentionally available without sign-in. A free account is limited to
-  // the class it selected during onboarding.
-  return !currentUser
-    || currentUser.isGuest
-    || !currentUser.grade
-    || Number(topic.class_level) === Number(currentUser.grade);
+  if (!currentUser || (!currentUser.isGuest && currentUser.tier !== 'free')) return false;
+  return currentUser.isGuest || topic.class_level === currentUser.grade;
 }
 
 // Path helpers use the same entitlement check as the topic grid.
@@ -1942,6 +2536,186 @@ function renderSubjectChips() {
 }
 
 // Render Content Cards Grid
+// P0 LEARNING ROUTE — a transparent starting point, not an authoritative score.
+// It uses the active class, the learner's stated intention and existing local
+// activity signals. Server-recorded quiz/mastery evidence remains authoritative.
+function topicMatchesLearningIntent(topic, intent) {
+  if (!topic) return false;
+  if (intent === 'understand') return !!(topic.visual || topic.whyItWorks || topic.seeIt);
+  if (intent === 'practise') return !!(topic.tryIt || topic.mcqs?.length);
+  if (intent === 'remember') return !!(topic.mcqs?.length || topic.flashcards?.length);
+  return true;
+}
+
+function topicMatchesLearningInterest(topic, interest) {
+  if (!topic || !interest || interest === 'surprise') return false;
+  const subject = String(topic.subject || '').toLowerCase();
+  if (interest === 'maths') return subject.includes('math');
+  if (interest === 'science') return subject.includes('science') || subject.includes('physics') || subject.includes('chemistry') || subject.includes('biology');
+  if (interest === 'space') return subject.includes('earth') || subject.includes('space') || String(topic.title || '').toLowerCase().includes('space');
+  if (interest === 'coding') return subject.includes('computer') || subject.includes('ai');
+  return false;
+}
+function topicMatchesDiagnosticNeed(topic, diagnosticProfile) {
+  if (!topic || !diagnosticProfile || !Array.isArray(diagnosticProfile.answers)) return false;
+  const needs = diagnosticProfile.answers.filter(item => item && item.correct === false).map(item => String(item.concept || '').toLowerCase());
+  if (!needs.length) return false;
+  const haystack = [topic.title, topic.summary, topic.outcome, topic.chapter, topic.subject].filter(Boolean).join(' ').toLowerCase();
+  return needs.some(concept => concept.split(/\s+/).some(word => word.length > 3 && haystack.includes(word)));
+}
+function buildTodayPlan() {
+  const profile = getLearningProfile();
+  const grade = Number(currentUser?.grade || profile.grade || 1);
+  const minutes = profile.minutes || 10;
+  const limit = minutes <= 5 ? 1 : minutes >= 20 ? 3 : 2;
+  const candidates = learnerTopics().filter(topic =>
+    topic.class_level === grade && (isTopicUnlocked(topic) || isTopicPreviewable(topic))
+  );
+  const diagnosticProfile = safeStorageJSON('avyaan_diagnostic_profile', {});
+  const orderedCandidates = candidates.slice().sort((a, b) => {
+    const bScore = Number(topicMatchesDiagnosticNeed(b, diagnosticProfile)) * 2 + Number(topicMatchesLearningInterest(b, profile.interest));
+    const aScore = Number(topicMatchesDiagnosticNeed(a, diagnosticProfile)) * 2 + Number(topicMatchesLearningInterest(a, profile.interest));
+    return bScore - aScore;
+  });
+  const byId = new Map(candidates.map(topic => [topic.id, topic]));
+  const queue = [];
+  const seen = new Set();
+  const add = (topic, kind) => {
+    if (!topic || seen.has(topic.id) || queue.length >= limit) return;
+    seen.add(topic.id);
+    queue.push({ topic, kind, reason: getRecommendationReason(topic, kind) });
+  };
+
+  getTopicsDueForReview()
+    .map(id => byId.get(id))
+    .filter(Boolean)
+    .forEach(topic => add(topic, 'review'));
+
+  orderedCandidates
+    .filter(topic => {
+      const progress = safeStorageJSON('avyaan_progress_' + topic.id, null);
+      return progress && !completedTopicIds.has(topic.id) && topicMatchesLearningIntent(topic, profile.intent);
+    })
+    .forEach(topic => add(topic, 'continue'));
+
+  orderedCandidates
+    .filter(topic => !completedTopicIds.has(topic.id) && topicMatchesLearningIntent(topic, profile.intent))
+    .forEach(topic => add(topic, 'new'));
+
+  orderedCandidates
+    .filter(topic => !completedTopicIds.has(topic.id))
+    .forEach(topic => add(topic, 'new'));
+
+  return { profile, grade, minutes, items: queue, authority: 'local_preview' };
+}
+
+async function getTodayPlanForSession() {
+  const localPlan = buildTodayPlan();
+  const authenticated = !!(currentUser && !currentUser.isGuest && typeof AvyaanAPI !== 'undefined' && AvyaanAPI.getToken());
+  if (!authenticated || typeof AvyaanAPI.getRecommendations !== 'function') return localPlan;
+
+  try {
+    const response = await AvyaanAPI.getRecommendations();
+    const localById = new Map(learnerTopics().map(topic => [String(topic.id), topic]));
+    const limit = localPlan.minutes <= 5 ? 1 : localPlan.minutes >= 20 ? 3 : 2;
+    const serverItems = (Array.isArray(response?.recommendations) ? response.recommendations : [])
+      .map(recommendation => {
+        const topic = localById.get(String(recommendation?.id || ''));
+        if (!topic || !(isTopicUnlocked(topic) || isTopicPreviewable(topic))) return null;
+        const reasonText = String(recommendation.reason || 'A server-ranked next step for this learner.');
+        const evidenceBasis = Array.isArray(recommendation.evidence_basis) ? recommendation.evidence_basis : [];
+        return {
+          topic,
+          kind: 'server',
+          reason: {
+            code: String(recommendation.reason_code || 'SERVER_NEXT_STEP'),
+            label: 'Recommended next step',
+            text: reasonText,
+            parentText: reasonText,
+            evidenceBasis
+          }
+        };
+      })
+      .filter(Boolean)
+      .slice(0, limit);
+    if (response?.ok !== false && serverItems.length) {
+      return { ...localPlan, items: serverItems, authority: 'server', policy: response.policy || 'next-step-policy-v1' };
+    }
+  } catch (error) {
+    // The local plan remains a safe, explicit preview fallback when the API is
+    // unavailable; it never replaces the server's entitlement decision.
+  }
+  return { ...localPlan, authority: 'local_preview_fallback' };
+}
+
+async function startTodayPlan() {
+  if (todayRouteStarting) return;
+  todayRouteStarting = true;
+  try {
+    const plan = await getTodayPlanForSession();
+    if (!plan.items.length) {
+      if (currentUser?.isGuest) {
+        toast('Choose a starter class or sign in to unlock a learning route.');
+        openLoginModal();
+      } else {
+        toast('No eligible topics are ready for this route yet.');
+      }
+      return;
+    }
+    if (plan.authority === 'local_preview_fallback' && currentUser && !currentUser.isGuest) {
+      toast('The server route is temporarily unavailable. Starting a local preview; progress still requires a signed-in lesson.');
+    }
+    dailySession = {
+      queue: plan.items.map(item => ({ id: item.topic.id, kind: item.kind })),
+      idx: 0,
+      xpStart: userXP,
+      masteredStart: completedTopicIds.size,
+      startedAt: Date.now()
+    };
+    openDailySessionTopic();
+  } finally {
+    todayRouteStarting = false;
+  }
+}
+
+function renderTodayRoute(planOverride = null) {
+  const plan = planOverride || buildTodayPlan();
+  const intentLabel = LEARNING_INTENTS[plan.profile.intent] || LEARNING_INTENTS.explore;
+  const items = plan.items.map(item => {
+    const kind = item.kind === 'review' ? 'Review' : item.kind === 'continue' ? 'Continue' : item.kind === 'server' ? 'Recommended' : 'New';
+    const reason = item.reason || getRecommendationReason(item.topic, item.kind);
+    return '<span class="today-route-item" title="' + escapeHtml(reason.parentText || reason.text) + '">' + (item.topic.emoji || '📘') + ' ' + escapeHtml(item.topic.title) + ' <small>· ' + kind + '</small><em class="today-route-reason">' + escapeHtml(reason.text) + '</em></span>';
+  }).join('');
+
+  if (!plan.items.length) {
+    return '<section id="todayRouteCard" class="today-route-card today-route-empty" aria-labelledby="todayRouteHeading">' +
+      '<div><p class="today-route-kicker">Your next small step</p>' +
+      '<h2 id="todayRouteHeading">Choose a class to see a starter route</h2>' +
+      '<p class="today-route-copy">The public preview is intentionally small. Sign in or create a learner account when you are ready for protected lesson bodies and progress.</p>' +
+      '<p class="today-route-note">No progress is being inferred from browsing alone.</p></div>' +
+      '<div class="today-route-action"><button class="btn btn-primary" type="button" onclick="openLoginModal()">Create a learner route →</button></div></section>';
+  }
+
+  return '<section id="todayRouteCard" class="today-route-card" aria-labelledby="todayRouteHeading">' +
+    '<div><p class="today-route-kicker">Today’s learning route · Class ' + plan.grade + '</p>' +
+    '<h2 id="todayRouteHeading">' + escapeHtml(intentLabel) + ' in about ' + plan.minutes + ' minutes</h2>' +
+    '<p class="today-route-copy">A transparent starting point based on your class, intention and recent activity. It is not a mastery score.</p>' +
+    '<div class="today-route-list" aria-label="Topics in today’s route">' + items + '</div>' +
+    '<p class="today-route-note">' + (currentUser && !currentUser.isGuest && typeof AvyaanAPI !== 'undefined' && AvyaanAPI.getToken() ? 'When you start, signed-in recommendations use server-recorded progress and entitlement checks.' : 'Public preview routes stay intentionally small; sign in when you want a saved learning route.') + '</p></div>' +
+    '<div class="today-route-action"><button class="btn btn-primary" type="button" onclick="startTodayPlan()">Start today’s route →</button></div></section>';
+}
+async function hydrateTodayRoute(grid) {
+  if (!grid || !currentUser || currentUser.isGuest || typeof AvyaanAPI === 'undefined' || !AvyaanAPI.getToken()) return;
+  const card = grid.querySelector('#todayRouteCard');
+  if (!card) return;
+  const learnerId = String(currentUser.child_id || currentUser.id || '');
+  const plan = await getTodayPlanForSession();
+  if (plan.authority !== 'server' || !plan.items.length) return;
+  // Do not replace a card after an account/learner switch.
+  if (!currentUser || String(currentUser.child_id || currentUser.id || '') !== learnerId) return;
+  const latestCard = grid.querySelector('#todayRouteCard');
+  if (latestCard) latestCard.outerHTML = renderTodayRoute(plan);
+}
 // Render curated landing page with sections instead of dumping all topics
 function renderCuratedLanding(grid) {
   const userGrade = currentUser?.grade || 7;
@@ -1976,6 +2750,7 @@ function renderCuratedLanding(grid) {
 
   // Teacher assignment banner (from a shared ?assign=...&due=... link)
   html += renderAssignmentBanner();
+  html += renderTodayRoute();
 
   // Topic of the Week hero
   const weeklyTopic = isPublicLanding
@@ -1994,30 +2769,12 @@ function renderCuratedLanding(grid) {
     `;
   }
 
-  // One primary morning action: Today's Learning Session. It already ends
-  // with the Daily Challenge as its closer, so the challenge banner is folded
-  // in as a single line instead of competing for the child's attention.
-  const sStreak = getSessionStreakCount();
-  const challengeNote = dcTopic && !dc.completed
-    ? `Ends with today's Daily Challenge · ${dcTopic.title} · +100 XP`
-    : 'Due reviews → fresh topics → one guided sitting';
-  if (!isPublicLanding) html += `
-    <div class="daily-session-banner" onclick="startDailySession()">
-      <div class="ds-banner-left">
-        <div class="ds-banner-label">🎯 Today's Learning Session${sStreak > 0 ? ` · 🔥 ${sStreak}-day streak` : ''}</div>
-        <div class="ds-banner-title">Reviews first, then something new</div>
-        <div class="ds-banner-meta">${challengeNote}</div>
-      </div>
-      <div class="ds-banner-cta">Start →</div>
-    </div>
-  `;
-
   // Exam countdown card (only when a plan exists)
   if (!isPublicLanding) html += examPlanCard();
 
   // Continue Learning section
   if (inProgress.length > 0) {
-    html += renderCuratedSection('Continue Learning', 'Pick up where you left off', inProgress);
+    html += renderCuratedSection('Continue Learning', 'Pick up where you left off', inProgress, 'continue');
   }
 
   // Recommended for your grade
@@ -2071,11 +2828,12 @@ function renderCuratedLanding(grid) {
   grid.innerHTML = html;
   enhanceInteractiveSemantics(grid);
 }
-function renderCuratedSection(title, subtitle, topics) {
+function renderCuratedSection(title, subtitle, topics, recommendationKind = 'new') {
   const cardsHtml = topics.map(topic => {
     const isMastered = completedTopicIds.has(topic.id);
     const subjKey = subjectColorKey(topic.subject);
     const score = getSmartScore(topic.id);
+    const reason = isMastered ? null : getRecommendationReason(topic, recommendationKind);
     return `
       <div class="card mini-card" onclick="openTopicDetail('${topic.id}')">
         <div class="card-subject-accent subject-accent-${subjKey}"></div>
@@ -2084,12 +2842,14 @@ function renderCuratedSection(title, subtitle, topics) {
             <span class="card-emoji">${topic.emoji}</span>
             <div class="card-tags">
               <span class="class-tag">${topic.class_band}</span>
+              ${renderTopicRoleTag(topic, true)}
               ${isMastered ? '<span class="mini-mastered">Mastered</span>' : score > 0 ? `<span class="mini-score">${score}</span>` : ''}
             </div>
           </div>
           <div class="card-body">
             <h3 class="mini-title">${topicTitle(topic)}</h3>
             <p class="mini-summary">${topicSummary(topic)}</p>
+            ${reason ? `<p class="recommendation-reason"><span>${escapeHtml(reason.label)}</span> ${escapeHtml(reason.text)}</p>` : ''}
           </div>
         </div>
         <div class="card-footer mini-footer">
@@ -2174,12 +2934,17 @@ function renderGrid() {
   if (!grid) return;
   const searchQuery = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 
-  // Browsing is public. If boot timing has not created the guest profile
-  // yet, create it here rather than replacing the catalogue with a login wall.
-  // Only protected lesson bodies require authentication.
   if (!currentUser) {
-    currentUser = createGuestUser();
-    updateNavbarUserUI();
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 1rem; color: var(--text-muted);">
+        <div style="font-size: 3rem; margin-bottom: 0.5rem;">🔑</div>
+        <h3 style="color: var(--text-main);">Login to Explore STEM Topics</h3>
+        <p>Sign in to access ${learnerTopics().length} published STEM lessons across Mathematics, Physics, Chemistry, Biology, Computer Science & AI, and Earth & Space.</p>
+        <button class="btn btn-primary" style="margin-top: 1rem;" onclick="openLoginModal()">Login Now →</button>
+      </div>
+    `;
+    enhanceInteractiveSemantics(grid);
+    return;
   }
 
   // If user is searching or filtering, always show full grid
@@ -2187,6 +2952,7 @@ function renderGrid() {
 
   if (!isFiltering && browseMode === 'curated') {
     renderCuratedLanding(grid);
+    void hydrateTodayRoute(grid);
     return;
   }
 
@@ -2293,6 +3059,7 @@ function renderGrid() {
             <div class="card-tags">
               <span class="class-tag">${topic.class_band}</span>
               <span class="subject-tag subject-color-${subjKey}">${topicDisplaySubject(topic)}</span>
+              ${renderTopicRoleTag(topic, true)}
               ${isMastered ? '<span style="font-size: 0.68rem; font-weight: 800; background: #ecfdf5; color: #059669; border: 1px solid #6ee7b7; padding: 0.1rem 0.4rem; border-radius: 8px;">★ MASTERED</span>' : ''}
               ${isSolidified(topic.id) ? '<span style="font-size: 0.68rem; font-weight: 800; background: #eef2ff; color: #4338ca; border: 1px solid #c7d2fe; padding: 0.1rem 0.4rem; border-radius: 8px;" title="Memory proven by a successful spaced review">🧠 SOLIDIFIED</span>' : ''}
               ${renderRecallScore(topic)}
@@ -2324,15 +3091,50 @@ function renderGrid() {
   enhanceInteractiveSemantics(grid);
 }
 
+function resetTopicInteractionState(topicId) {
+  // Every lesson opens with an isolated interaction state. No slider, formula
+  // target, prediction, or simulation value can leak from the previous topic.
+  currentManipulatorValue = 5;
+  subTotal = 5; subTakeaway = 3;
+  addA = 4; addB = 2; isMerged = false;
+  multRows = 3; multCols = 4;
+  divTotal = 12; divBuckets = 3;
+  fracNum = 3; fracDen = 4;
+  physForce = 20; physMass = 5;
+  circVolts = 6; circResist = 10;
+  chemTemp = 40; chemStir = false;
+  bioLight = 60; bioCo2 = 50;
+  selectedFormulaTargetVar = 'primary';
+  sandboxVal1 = 12; sandboxVal2 = 4;
+  lightAngle = 45; lightAngleTopic = '';
+  soundFreq = 30; soundAmp = 40; soundTopic = '';
+  userPrediction = ''; hasPredicted = false;
+  currentActiveStep = 1; currentRevealedStep = 0; currentQuizIndex = 0;
+  isScratchpadActive = false; isDrawing = false;
+  contentIssueTopicId = null;
+}
+
 // Open Topic Detail Modal — 5-step learning ladder
 async function openTopicDetail(topicId) {
-  const topic = AVYAAN_DATA.topics.find(t => t.id === topicId);
+  let topic = AVYAAN_DATA.topics.find(t => t.id === topicId);
   if (!topic || !isPublicTopicForLearner(topic)) {
     if (typeof toast === 'function') toast('This lesson is temporarily unavailable while educators complete an age-and-safety review.');
     return;
   }
   stopReading();
-  if (isTopicPreviewable(topic)) {
+  resetTopicInteractionState(topicId);
+  trackLearningEvent('lesson_start', { topic_id: topicId });
+  lessonJourneyStartedAt = Date.now();
+  lessonJourneyLastActionAt = lessonJourneyStartedAt;
+  const previewable = isTopicPreviewable(topic);
+  const unlocked = isTopicUnlocked(topic);
+  if (!previewable && !unlocked) {
+    triggerPaywall(topicId);
+    return;
+  }
+  if (previewable) {
+    await loadClassBand(topic.class_level);
+    topic = AVYAAN_DATA.topics.find(t => t.id === topicId) || topic;
     renderTopicPreview(topic);
     openModal('detailModal');
     return;
@@ -2343,36 +3145,19 @@ async function openTopicDetail(topicId) {
   }
 
   // Paid lesson bodies are fetched only after server authorization.
-  // The API returns {content: ...}; older clients incorrectly required
-  // {topic: ...}, which made every authorized lesson look unavailable.
   if (!topic.workedExample && typeof AvyaanAPI !== 'undefined' && AvyaanAPI.getTopicContent) {
     const secure = await AvyaanAPI.getTopicContent(topicId);
-    if (!secure) {
-      if (typeof toast === 'function') toast('This lesson is not available in the protected content store yet. Please try again later.');
+    const protectedContent = secure?.content || secure?.topic?.content || secure?.topic || null;
+    if (!protectedContent) {
+      const code = secure?.error_code || (AvyaanAPI?.classifyError ? AvyaanAPI.classifyError(secure?.status, secure?.detail) : 'content_unavailable');
+      const errorMessage = code === 'feature_unavailable'
+        ? 'Interactive lesson content is temporarily unavailable on this release. Please try again later.'
+        : (secure?.detail || 'Please retry this lesson.');
+      showRecoverableError(code === 'auth_expired' ? 'auth_expired' : 'content_unavailable', errorMessage);
       return;
     }
-    if (secure.__error) {
-      const authFailure = secure.status === 401 || secure.status === 403;
-      if (typeof toast === 'function') toast(authFailure
-        ? 'Your learner session has expired. Please sign in again.'
-        : 'This lesson is not available in the protected content store yet. Please try again later.');
-      return;
-    }
-    const payload = secure.content || secure.topic || {};
-    const metadata = secure.topic?.metadata || payload.metadata || {};
-    if (metadata && typeof metadata === 'object') {
-      Object.assign(topic, metadata);
-      topic.metadata = metadata;
-    }
-    // Accept either a body object or a response whose topic itself is the
-    // body. Do not put answer keys in public previews; this branch is only
-    // reached after entitlement authorization.
-    const body = payload.body || payload.lesson || payload;
-    if (body && typeof body === 'object') Object.assign(topic, body);
-    if (!topic.workedExample && !topic.seeIt && !topic.whyItWorks && !topic.tryIt) {
-      if (typeof toast === 'function') toast('This lesson is not available in the protected content store yet. Please try again later.');
-      return;
-    }
+    Object.assign(topic, protectedContent.metadata || protectedContent);
+    topic.metadata = protectedContent.metadata || topic.metadata;
   }
   currentActiveTopic = topic;
   isScratchpadActive = false;
@@ -2383,11 +3168,12 @@ async function openTopicDetail(topicId) {
   quizSessionQuestions = null;
   userPrediction = '';
   hasPredicted = false;
+  askWhyMode = 'why';
 
   // Restore saved progress for this topic
   const savedProgress = JSON.parse(avyaanStorage.getItem('avyaan_progress_' + topicId) || 'null');
   currentActiveStep = savedProgress?.step || 1;
-  currentRevealedStep = savedProgress?.revealedStep || 1;
+  currentRevealedStep = savedProgress?.revealedStep ?? 0;
   currentQuizIndex = savedProgress?.quizIndex || 0;
 
   renderTopicModal();
@@ -2415,7 +3201,10 @@ function renderTopicPreview(topic) {
       <p>${topicSummary(topic)}</p>
       ${topic.outcome ? `<div class="lesson-outcome-box">🎯 <strong>In the full lesson you will…</strong> ${escapeHtml(topic.outcome.replace(/^You can\s+/i, ''))}</div>` : ''}
       <div class="library-access-note"><span aria-hidden="true">🔐</span><span>Sign in with a learner or parent account to open the visual explanation, activity and server-recorded quiz.</span></div>
-      <button class="btn btn-primary" onclick="closeModal('detailModal');openLoginModal()">Sign in to continue →</button>
+      <div class="content-preview-actions">
+        <button class="btn btn-primary" onclick="closeModal('detailModal');openLoginModal()">Sign in to continue →</button>
+        <button class="btn" type="button" onclick="openContentIssue('${String(topic.id).replace(/'/g, "\\'")}')">Report a catalogue issue</button>
+      </div>
     </div>
   `;
 }
@@ -2435,7 +3224,10 @@ async function loadSecureQuizSession(topicId) {
     renderTopicModal();
   } else {
     const quizNotice = document.getElementById('quizSecureNotice');
-    if (quizNotice) quizNotice.textContent = session?.detail || 'Secure quiz service is unavailable. Please retry this lesson.';
+    if (quizNotice) {
+      quizNotice.innerHTML = `${escapeHtml(session?.detail || 'Secure quiz service is unavailable. Please retry this lesson.')} <button type="button" class="btn" style="margin-top:.6rem;font-size:.8rem;" onclick="retrySecureQuiz()">Retry secure quiz</button>`;
+    }
+    showRecoverableError('quiz_unavailable', session?.detail || 'Please retry this lesson.', { label: 'Retry quiz', fn: 'retrySecureQuiz()' });
   }
   return session;
 }
@@ -2499,13 +3291,26 @@ function submitPrediction() {
 }
 
 function switchLessonStep(stepNum) {
+  const previousStep = currentActiveStep;
   currentActiveStep = stepNum;
+  const elapsed = lessonJourneyLastActionAt ? Date.now() - lessonJourneyLastActionAt : 0;
+  lessonJourneyLastActionAt = Date.now();
+  trackLearningEvent('lesson_step', { topic_id: currentActiveTopic?.id, step: stepNum });
+  if (elapsed > 0 && elapsed < 86400000) trackLearningEvent('time_to_next_action', { topic_id: currentActiveTopic?.id, step: previousStep, duration_ms: elapsed });
+  currentRevealedStep = stepNum === 4 ? 0 : 1;
+  saveTopicProgress();
+  renderTopicModal();
+}
+
+function startWorkedExample() {
+  trackLearningEvent('hint_used', { topic_id: currentActiveTopic?.id, step: 4, hint_used: true });
   currentRevealedStep = 1;
   saveTopicProgress();
   renderTopicModal();
 }
 
 function revealNextWorkedStep() {
+  trackLearningEvent('hint_used', { topic_id: currentActiveTopic?.id, step: 4, hint_used: true });
   currentRevealedStep++;
   saveTopicProgress();
   renderTopicModal();
@@ -2608,23 +3413,30 @@ function formatMathExpression(expr) {
 // ==========================================================================
 // DYNAMIC VISUAL TRANSFORMATION ENGINE DISPATCHER (STEP 1 "SEE IT")
 // ==========================================================================
+const REVIEWED_VISUAL_ENGINE_IDS = new Set([
+  'objects', 'shape', 'pattern', 'compare', 'clock', 'multiply', 'divide',
+  'barChart', 'fractionPie', 'money', 'placeValue', 'angle', 'grid',
+  'equationBalance', 'numberLine', 'speed', 'coordinate', 'triangle',
+  'light', 'force', 'circuit', 'sound', 'conceptMap', 'symmetry'
+]);
+
+function resolveVisualEngineId(topic) {
+  const engineId = String(topic?.visual?.engineId || '').trim();
+  return REVIEWED_VISUAL_ENGINE_IDS.has(engineId) ? engineId : '';
+}
+
 function renderDynamicManipulator(topic) {
-  const titleLower = (topic.title || '').toLowerCase();
-  const idLower = (topic.id || '').toLowerCase();
+  const visualType = resolveVisualEngineId(topic);
+  if (!visualType) return '';
   const emoji = topic.visual?.emoji || topic.emoji || '🍌';
   const label = topic.visual?.label || 'items';
 
-  // Data-driven mode: every topic now carries visual.type, so the engine must
-  // trust the data and NOT guess from title keywords. 'ratio' is a substring
-  // of 'duration' and 'operation' — keyword guessing silently picks the wrong
-  // tool. kwTitle is the visual type when present (matching the block's own
-  // vtype check), or the raw title otherwise (legacy fallback).
-  const visualType = topic.visual?.type;
-  const kwTitle = visualType ? visualType : titleLower;
-  const kwId = visualType ? '' : idLower;
+  // Visual dispatch is explicit and data-bound. A missing or unknown engine
+  // identity fails closed instead of guessing from topic titles or IDs.
+  const engineId = visualType;
 
   // 1. SUBTRACTION ENGINE
-  if (kwTitle.includes('subtraction') || kwTitle.includes('take away') || kwId.includes('sub')) {
+  if (engineId.includes('subtraction') || engineId.includes('take away')) {
     subTakeaway = Math.min(subTakeaway, subTotal);
     const remaining = Math.max(0, subTotal - subTakeaway);
 
@@ -2666,7 +3478,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 2. ADDITION MERGE ENGINE
-  if (kwTitle.includes('addition') || kwTitle.includes('plus') || kwTitle.includes('sum')) {
+  if (engineId.includes('addition') || engineId.includes('plus') || engineId.includes('sum')) {
     let itemsAHtml = Array(addA).fill(0).map((_, i) => `<div class="manip-item active"><span style="font-size:2rem;">${emoji}</span><span class="item-num">A${i+1}</span></div>`).join('');
     let itemsBHtml = Array(addB).fill(0).map((_, i) => `<div class="manip-item active"><span style="font-size:2rem;">${emoji}</span><span class="item-num">B${i+1}</span></div>`).join('');
 
@@ -2708,7 +3520,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 3. MULTIPLICATION ARRAY GRID ENGINE
-  if (kwTitle.includes('multiplication') || kwTitle.includes('times') || kwTitle.includes('times table') || (topic.visual?.type === 'multiply')) {
+  if (engineId.includes('multiplication') || engineId.includes('times') || engineId.includes('times table') || (engineId === 'multiply')) {
     let gridCells = '';
     for (let r = 0; r < multRows; r++) {
       for (let c = 0; c < multCols; c++) {
@@ -2745,7 +3557,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 4. DIVISION BUCKETS ENGINE
-  if (kwTitle.includes('division') || kwTitle.includes('share') || kwTitle.includes('split') || (topic.visual?.type === 'divide')) {
+  if (engineId.includes('division') || engineId.includes('share') || engineId.includes('split') || (engineId === 'divide')) {
     const itemsPerBucket = Math.floor(divTotal / divBuckets);
     const remainder = divTotal % divBuckets;
 
@@ -2788,9 +3600,9 @@ function renderDynamicManipulator(topic) {
   }
 
   // 5. FRACTION PIE ENGINE
-  if (kwTitle.includes('fraction') || kwTitle.includes('slice') || kwTitle.includes('ratio') || kwTitle.includes('pie chart') || (topic.visual?.type === 'fractionPie')) {
+  if (engineId.includes('fraction') || engineId.includes('slice') || engineId.includes('ratio') || engineId.includes('pie chart') || (engineId === 'fractionPie')) {
     // honour per-topic defaults when the lesson specifies them
-    if (topic.visual?.type === 'fractionPie') {
+    if (engineId === 'fractionPie') {
       if (topic.visual.denominator) fracDen = topic.visual.denominator;
       if (topic.visual.numerator != null) fracNum = Math.min(topic.visual.numerator, fracDen);
     }
@@ -2849,7 +3661,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 6. ELECTRIC CIRCUITS & OHM'S LAW ENGINE
-  if (kwTitle.includes('ohm') || kwTitle.includes('circuit') || kwTitle.includes('current') || (topic.visual?.type === 'circuit')) {
+  if (engineId.includes('ohm') || engineId.includes('circuit') || engineId.includes('current') || (engineId === 'circuit')) {
     const current = (circVolts / circResist).toFixed(2);
     const power = (circVolts * current).toFixed(1);
 
@@ -2889,8 +3701,8 @@ function renderDynamicManipulator(topic) {
 
   // 7. PHYSICS FORCE & ACCELERATION ENGINE
   // 7.5 SPEED / DISTANCE-TIME MANIPULATOR (motion, speed, velocity, distance)
-  if (kwTitle.includes('speed') || kwTitle.includes('velocity') || kwTitle.includes('distance')
-      || (kwTitle.includes('motion') && kwTitle.includes('time')) || (topic.visual?.type === 'speed')) {
+  if (engineId.includes('speed') || engineId.includes('velocity') || engineId.includes('distance')
+      || (engineId.includes('motion') && engineId.includes('time')) || (engineId === 'speed')) {
     const spDist = 100;
     const spTime = 5;
     const speedVal = (spDist / spTime).toFixed(1);
@@ -2920,8 +3732,8 @@ function renderDynamicManipulator(topic) {
   }
 
   // 8. FORCE & ACCELERATION MANIPULATOR
-  if (kwTitle.includes('force') || kwTitle.includes('push') || kwTitle.includes('motion')
-      || kwTitle.includes('friction') || kwTitle.includes('newton') || (topic.visual?.type === 'force')) {
+  if (engineId.includes('force') || engineId.includes('push') || engineId.includes('motion')
+      || engineId.includes('friction') || engineId.includes('newton') || (engineId === 'force')) {
     const accel = (physForce / physMass).toFixed(1);
 
     return `
@@ -2954,10 +3766,10 @@ function renderDynamicManipulator(topic) {
   }
 
   // 8. NUMBER LINE MANIPULATOR (integers, ordering, rounding, sequences)
-  if (kwTitle.includes('number line') || kwTitle.includes('integer') || kwTitle.includes('negative')
-      || kwTitle.includes('ascending') || kwTitle.includes('descending') || kwTitle.includes('rounding')
-      || kwTitle.includes('estimate') || kwTitle.includes('sequence') || kwTitle.includes('series')
-      || kwTitle.includes('progression') || (topic.visual?.type === 'numberLine')) {
+  if (engineId.includes('number line') || engineId.includes('integer') || engineId.includes('negative')
+      || engineId.includes('ascending') || engineId.includes('descending') || engineId.includes('rounding')
+      || engineId.includes('estimate') || engineId.includes('sequence') || engineId.includes('series')
+      || engineId.includes('progression') || (engineId === 'numberLine')) {
     const points = topic.visual?.points || [-5, -3, 0, 2, 5];
     const minVal = Math.min(...points, -10);
     const maxVal = Math.max(...points, 10);
@@ -2995,7 +3807,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 9. BAR CHART MANIPULATOR (data handling, statistics)
-  if (kwTitle.includes('data') || kwTitle.includes('bar chart') || kwTitle.includes('graph') || kwTitle.includes('statistics') || (topic.visual?.type === 'barChart')) {
+  if (engineId.includes('data') || engineId.includes('bar chart') || engineId.includes('graph') || engineId.includes('statistics') || (engineId === 'barChart')) {
     const labels = topic.visual?.labels || ['A', 'B', 'C', 'D'];
     const values = topic.visual?.values || [4, 7, 5, 3];
     const maxVal = Math.max(...values, 10);
@@ -3024,7 +3836,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 10. PLACE VALUE BLOCKS MANIPULATOR
-  if (kwTitle.includes('place value') || (topic.visual?.type === 'placeValue') || (topic.visual?.type === 'placeValueTable')) {
+  if (engineId.includes('place value') || (engineId === 'placeValue') || (engineId === 'placeValueTable')) {
     const num = currentManipulatorValue;
     const hundreds = Math.floor(num / 100);
     const tens = Math.floor((num % 100) / 10);
@@ -3066,7 +3878,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 11. CLOCK / TIME MANIPULATOR
-  if (kwTitle.includes('time') || kwTitle.includes('clock') || (topic.visual?.type === 'clock')) {
+  if (engineId.includes('time') || engineId.includes('clock') || (engineId === 'clock')) {
     const hours = Math.floor(currentManipulatorValue / 60) % 12 || 12;
     const minutes = currentManipulatorValue % 60;
     const hourAngle = (hours * 30) + (minutes * 0.5);
@@ -3102,11 +3914,11 @@ function renderDynamicManipulator(topic) {
   }
 
   // 12. GEOMETRY SHAPES MANIPULATOR
-  if (kwTitle.includes('shape') || kwTitle.includes('geometry') || kwTitle.includes('triangle')
-      || kwTitle.includes('angle') || kwTitle.includes('symmetry') || kwTitle.includes('perimeter')
-      || kwTitle.includes('rectangle') || kwTitle.includes('square') || kwTitle.includes('quadrilateral')
-      || kwTitle.includes('polygon') || kwTitle.includes('area of')
-      || (topic.visual?.type === 'shape') || (topic.visual?.type === 'triangle') || (topic.visual?.type === 'angle') || (topic.visual?.type === 'symmetry')) {
+  if (engineId.includes('shape') || engineId.includes('geometry') || engineId.includes('triangle')
+      || engineId.includes('angle') || engineId.includes('symmetry') || engineId.includes('perimeter')
+      || engineId.includes('rectangle') || engineId.includes('square') || engineId.includes('quadrilateral')
+      || engineId.includes('polygon') || engineId.includes('area of')
+      || (engineId === 'shape') || (engineId === 'triangle') || (engineId === 'angle') || (engineId === 'symmetry')) {
     const sides = currentManipulatorValue;
     const angle = 360 / sides;
     let points = '';
@@ -3142,7 +3954,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 13. EQUATION BALANCE / COMPARISON MANIPULATOR
-  if (kwTitle.includes('compare') || kwTitle.includes('greater') || kwTitle.includes('less') || kwTitle.includes('equal') || kwTitle.includes('balance') || (topic.visual?.type === 'compare') || (topic.visual?.type === 'equationBalance')) {
+  if (engineId.includes('compare') || engineId.includes('greater') || engineId.includes('less') || engineId.includes('equal') || engineId.includes('balance') || (engineId === 'compare') || (engineId === 'equationBalance')) {
     const leftVal = sandboxVal1;
     const rightVal = sandboxVal2;
     const comparison = leftVal > rightVal ? '>' : leftVal < rightVal ? '<' : '=';
@@ -3184,7 +3996,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 14. COORDINATE GEOMETRY PLOTTER (coordinate, line graph, speed-distance-time)
-  if (kwTitle.includes('coordinate') || kwTitle.includes('graph') && !kwTitle.includes('bar') || kwTitle.includes('linear') || (topic.visual?.type === 'coordinate')) {
+  if (engineId.includes('coordinate') || engineId.includes('graph') && !engineId.includes('bar') || engineId.includes('linear') || (engineId === 'coordinate')) {
     const px = sandboxVal1;
     const py = sandboxVal2;
     const gridSize = 10;
@@ -3231,9 +4043,9 @@ function renderDynamicManipulator(topic) {
   }
 
   // 15. DECIMAL / PERCENTAGE 10x10 GRID (also used for probability)
-  if (kwTitle.includes('decimal') || kwTitle.includes('percentage') || kwTitle.includes('percent')
-      || kwTitle.includes('probability') || kwTitle.includes('chance')
-      || (topic.visual?.type === 'grid') || (topic.visual?.type === 'decimalAdd')) {
+  if (engineId.includes('decimal') || engineId.includes('percentage') || engineId.includes('percent')
+      || engineId.includes('probability') || engineId.includes('chance')
+      || (engineId === 'grid') || (engineId === 'decimalAdd')) {
     const filled = Math.min(100, Math.max(0, currentManipulatorValue * 10));
     let cells = '';
     for (let i = 0; i < 100; i++) {
@@ -3264,7 +4076,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 16. INTERACTIVE ANGLE PROTRACTOR
-  if (kwTitle.includes('angle') || (topic.visual?.type === 'angle')) {
+  if (engineId.includes('angle') || (engineId === 'angle')) {
     const angle = Math.min(180, Math.max(0, currentManipulatorValue * 15));
     const rad = angle * Math.PI / 180;
     const cx = 80, cy = 80, r = 60;
@@ -3310,11 +4122,11 @@ function renderDynamicManipulator(topic) {
   }
 
   // 17. MONEY COUNTER
-  if (kwTitle.includes('money') || kwTitle.includes('profit') || kwTitle.includes('interest')
-      || kwTitle.includes('price') || kwTitle.includes('cost') || kwTitle.includes('shopping')
-      || kwTitle.includes('budget') || kwTitle.includes('discount') || kwTitle.includes('billing')
-      || kwTitle.includes('salary') || kwTitle.includes('wages') || kwTitle.includes('expense')
-      || (topic.visual?.type === 'money') || (topic.visual?.type === 'moneyAdd')) {
+  if (engineId.includes('money') || engineId.includes('profit') || engineId.includes('interest')
+      || engineId.includes('price') || engineId.includes('cost') || engineId.includes('shopping')
+      || engineId.includes('budget') || engineId.includes('discount') || engineId.includes('billing')
+      || engineId.includes('salary') || engineId.includes('wages') || engineId.includes('expense')
+      || (engineId === 'money') || (engineId === 'moneyAdd')) {
     const hundreds = Math.floor(sandboxVal1 / 100);
     const fifties = Math.floor((sandboxVal1 % 100) / 50);
     const tens = Math.floor((sandboxVal1 % 50) / 10);
@@ -3342,7 +4154,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 18. FRACTION ADDITION VISUALIZER
-  if (kwTitle.includes('adding') && kwTitle.includes('fraction') || kwTitle.includes('fraction addition') || (topic.visual?.type === 'fractionAdd')) {
+  if (engineId.includes('adding') && engineId.includes('fraction') || engineId.includes('fraction addition') || (engineId === 'fractionAdd')) {
     const num1 = Math.min(sandboxVal1, 8);
     const den1 = 8;
     const num2 = Math.min(sandboxVal2, 8);
@@ -3391,7 +4203,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 19. PATTERN BUILDER
-  if (kwTitle.includes('pattern') || (topic.visual?.type === 'pattern')) {
+  if (engineId.includes('pattern') || (engineId === 'pattern')) {
     const patternEmojis = ['🔴', '🟦', '🟢', '🟡', '🟣'];
     const seqLen = currentManipulatorValue + 3;
     let patternHtml = '';
@@ -3420,7 +4232,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 20. SYMMETRY MIRROR
-  if (kwTitle.includes('symmetry') || (topic.visual?.type === 'symmetry')) {
+  if (engineId.includes('symmetry') || (engineId === 'symmetry')) {
     const dots = Math.min(8, currentManipulatorValue);
     let leftDots = '';
     let rightDots = '';
@@ -3455,7 +4267,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 20.5 LIGHT RAYS ENGINE (reflection — angle of incidence = angle of reflection)
-  if (kwTitle.includes('light') || (topic.visual?.type === 'light')) {
+  if (engineId.includes('light') || (engineId === 'light')) {
     if (lightAngleTopic !== topic.id) { lightAngle = topic.visual?.angle ?? 45; lightAngleTopic = topic.id; }
     const theta = Math.min(85, Math.max(5, lightAngle));
     const rad = theta * Math.PI / 180;
@@ -3495,7 +4307,7 @@ function renderDynamicManipulator(topic) {
   }
 
   // 20.6 SOUND WAVES ENGINE (pitch from frequency, loudness from amplitude)
-  if (kwTitle.includes('sound') || (topic.visual?.type === 'sound')) {
+  if (engineId.includes('sound') || (engineId === 'sound')) {
     if (soundTopic !== topic.id) { soundFreq = topic.visual?.freq ?? 30; soundAmp = topic.visual?.amp ?? 40; soundTopic = topic.id; }
     const cycles = Math.round(1 + (soundFreq / 60) * 4);
     const amp = 10 + (soundAmp / 55) * 42;
@@ -3536,105 +4348,15 @@ function renderDynamicManipulator(topic) {
     `;
   }
 
-  // 21. WHAT-IF SCENARIO EXPLORER (for science topics — physics, chemistry, biology)
-  const isScienceTopic = ['Physics', 'Chemistry', 'Biology', 'Earth & Space'].includes(topic.subject);
-  if (isScienceTopic && !kwTitle.includes('force') && !kwTitle.includes('ohm') && !kwTitle.includes('circuit') && !kwTitle.includes('speed') && !kwTitle.includes('distance')) {
-    const param1 = sandboxVal1;
-    const param2 = sandboxVal2;
-
-    // Generate scenario based on subject
-    let scenarioTitle = 'Interactive Exploration';
-    let param1Label = 'Parameter 1';
-    let param2Label = 'Parameter 2';
-    let outcome = '';
-
-    if (topic.subject === 'Physics') {
-      // Topic-aware physics scenarios instead of a one-size-fits-all slider
-      const pTitle = titleLower;
-      if (pTitle.includes('light') || pTitle.includes('reflection') || pTitle.includes('mirror') || pTitle.includes('shadow') || pTitle.includes('spectacle') || pTitle.includes('lens') || pTitle.includes('eye')) {
-        param1Label = 'Light Intensity';
-        param2Label = 'Angle of Light';
-        scenarioTitle = 'How does light behave?';
-        outcome = `With light intensity ${param1} and angle ${param2}, the reflected beam ${param1 > 50 ? 'is bright and clearly visible' : 'is dim and harder to see'}. ${param2 > 5 ? 'A steeper angle changes where the beam lands.' : 'A shallow angle keeps the beam close to the surface.'}`;
-      } else if (pTitle.includes('sound') || pTitle.includes('vibration') || pTitle.includes('pitch') || pTitle.includes('loud') || pTitle.includes('music') || pTitle.includes('hear')) {
-        param1Label = 'Vibration Strength';
-        param2Label = 'Vibration Speed';
-        scenarioTitle = 'What makes sounds loud or high?';
-        outcome = `With vibration strength ${param1} and speed ${param2}, the sound is ${param1 > 50 ? 'loud' : 'soft'}. ${param2 > 5 ? 'Fast vibrations make a high pitch.' : 'Slow vibrations make a low pitch.'}`;
-      } else if (pTitle.includes('magnet') || pTitle.includes('pole') || pTitle.includes('magnetic')) {
-        param1Label = 'Magnet Strength';
-        param2Label = 'Distance';
-        scenarioTitle = 'How does magnetism work?';
-        outcome = `With magnet strength ${param1} and distance ${param2}, the pull is ${param2 > 5 ? 'too weak to feel' : param1 > 50 ? 'strong' : 'moderate'}. Magnets attract iron from nearby, not far away.`;
-      } else if (pTitle.includes('float') || pTitle.includes('sink') || pTitle.includes('buoy') || pTitle.includes('boat')) {
-        param1Label = 'Weight of Object';
-        param2Label = 'Water Pushed Aside';
-        scenarioTitle = 'Why do things float or sink?';
-        outcome = `With weight ${param1} and displaced water ${param2}, the object ${param2 * 10 > param1 ? 'floats — the water pushes back harder than the weight' : 'sinks — the weight wins'}.`;
-      } else if (pTitle.includes('electric') || pTitle.includes('current') || pTitle.includes('electro') || pTitle.includes('conduct') || pTitle.includes('battery')) {
-        param1Label = 'Battery Power';
-        param2Label = 'Resistance';
-        scenarioTitle = 'How does electricity flow?';
-        outcome = `With battery power ${param1} and resistance ${param2}, the current flows ${param1 > 50 ? 'strongly' : 'weakly'}. ${param2 > 5 ? 'More resistance slows the flow.' : 'Low resistance lets charge move easily.'}`;
-      } else {
-        param1Label = 'Temperature';
-        param2Label = 'Pressure';
-        scenarioTitle = 'What happens when you change conditions?';
-        outcome = `At ${param1Label} = ${param1}°C and ${param2Label} = ${param2} atm, the system ${param1 > 50 ? 'expands rapidly' : 'remains stable'}. ${param2 > 5 ? 'High pressure compresses the material.' : 'Low pressure allows expansion.'}`;
-      }
-    } else if (topic.subject === 'Chemistry') {
-      param1Label = 'Temperature (°C)';
-      param2Label = 'Concentration';
-      scenarioTitle = 'What happens when you change conditions?';
-      outcome = `At ${param1}°C with concentration ${param2}, the reaction ${param1 > 50 ? 'speeds up significantly' : 'proceeds slowly'}. ${param2 > 5 ? 'Higher concentration means more particles collide.' : 'Lower concentration means fewer collisions.'}`;
-    } else if (topic.subject === 'Biology') {
-      param1Label = 'Light Intensity';
-      param2Label = 'Water Amount';
-      scenarioTitle = 'What happens when you change conditions?';
-      outcome = `With light ${param1} and water ${param2}, the organism ${param1 > 50 && param2 > 3 ? 'thrives and grows well' : param1 < 20 ? 'struggles due to low light' : 'shows reduced growth'}. Both factors are needed together.`;
-    } else if (topic.subject === 'Earth & Space') {
-      param1Label = 'Distance from Sun';
-      param2Label = 'Surface Temperature';
-      scenarioTitle = 'What happens when you change conditions?';
-      outcome = `At distance ${param1} and temperature ${param2}°C, conditions are ${param1 < 30 && param2 > 0 && param2 < 50 ? 'suitable for liquid water' : 'extreme and inhospitable'}.`;
-    }
-
-    return `
-      <div class="visual-engine-box">
-        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border-radius: 8px; padding: 0.6rem 0.8rem; margin-bottom: 0.8rem;">
-          <div style="font-size: 0.78rem; font-weight: 800; color: #0284c7; text-transform: uppercase;">🔍 ${scenarioTitle}</div>
-        </div>
-        <div class="engine-controls">
-          <div>
-            <label>${param1Label}: <strong>${param1}</strong></label>
-            <input type="range" min="0" max="100" value="${param1}" oninput="sandboxVal1=parseInt(this.value); renderTopicModal();">
-          </div>
-          <div>
-            <label>${param2Label}: <strong>${param2}</strong></label>
-            <input type="range" min="0" max="10" value="${param2}" oninput="sandboxVal2=parseInt(this.value); renderTopicModal();">
-          </div>
-        </div>
-        <div style="background: var(--bg-secondary); border: 1px solid var(--border-color); border-radius: 8px; padding: 0.8rem; margin-top: 0.8rem;">
-          <div style="font-size: 0.75rem; font-weight: 800; color: var(--accent-primary); text-transform: uppercase; margin-bottom: 0.3rem;">📊 Predicted Outcome</div>
-          <p style="font-size: 0.85rem; color: var(--text-main);">${outcome}</p>
-        </div>
-        <div style="margin-top: 0.6rem; padding: 0.5rem 0.8rem; background: #fef3c7; border-radius: 6px; font-size: 0.78rem; color: #92400e;">
-          💡 <strong>What-If:</strong> Try moving both sliders to extremes. What happens when one is very high and the other is very low?
-        </div>
-      </div>
-    `;
-  }
-
-  // DEFAULT COUNT SLIDER MANIPULATOR
-  const visualEmojisHtml = Array(currentManipulatorValue).fill(`<span style="font-size: 2.2rem; margin: 0 0.2rem;">${emoji}</span>`).join('');
-
+  // 21. No generic science simulator fallback.
+  // An interactive model must be explicitly reviewed and mapped to this topic;
+  // broad subject/title heuristics are not evidence that a simulation fits.
+  // No reviewed visual engine is available for this topic yet. Keep the
+  // lesson honest and usable without fabricating a concept-specific control.
   return `
-    <div class="manipulator-box">
-      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.6rem;">
-        🎛️ Interactive Manipulator Control: <span id="manipulatorCountVal" style="color: var(--accent-primary); font-size: 1.1rem; font-weight: 800;">${currentManipulatorValue}</span> ${label}
-      </div>
-      <input type="range" class="manipulator-slider" min="1" max="10" value="${currentManipulatorValue}" oninput="currentManipulatorValue=parseInt(this.value); renderTopicModal();">
-      <div id="manipulatorCanvasView" style="margin-top: 1rem; min-height: 50px;">${visualEmojisHtml}</div>
+    <div class="visual-engine-box" role="status">
+      <div style="font-size: 0.85rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; margin-bottom: 0.4rem;">🧭 Guided visual coming soon</div>
+      <p style="margin: 0; color: var(--text-main); line-height: 1.5;">This lesson currently uses its authored explanation, example and practice. An interactive model will appear here after it has been reviewed for this exact idea.</p>
     </div>
   `;
 }
@@ -3643,99 +4365,111 @@ function renderDynamicManipulator(topic) {
 // STEP 2 DETAILED FORMULA BREAKDOWN ENGINE (CARDS + TRIANGLE + SANDBOX)
 // ==========================================================================
 
+const REVIEWED_FORMULA_ENGINE_IDS = new Set([
+  'ohms-law', 'newtons-second-law', 'speed-distance-time', 'density',
+  'rectangle-area', 'pressure', 'percentage', 'simple-interest',
+  'kinetic-energy', 'multiplication', 'addition', 'subtraction', 'division'
+]);
+
+function resolveFormulaEngineId(topic) {
+  const engineId = String(topic?.formulaEngineId || '').trim();
+  return REVIEWED_FORMULA_ENGINE_IDS.has(engineId) ? engineId : '';
+}
+
 // 1. VARIABLE SYMBOL CARDS GENERATOR
 function renderFormulaVariableCards(topic) {
-  // This companion panel stays keyword-driven per topic title; it is not part
+  // This companion panel stays explicit reviewed formula engine; it is not part
   // of the data-driven manipulator gate.
-  const kwTitle = (topic.title || '').toLowerCase();
+  const engineId = resolveFormulaEngineId(topic);
+  if (!engineId) return '';
 
   let vars = [];
-  if (kwTitle.includes('ohm') || kwTitle.includes('circuit')) {
+  if (engineId === 'ohms-law' || engineId === 'ohms-law') {
     vars = [
       { symbol: 'V', name: 'Voltage (Potential Difference)', unit: 'Volts (V)', badgeBg: '#2563eb', analogy: '🌊 Water pressure pushing through a pipe' },
       { symbol: 'I', name: 'Current (Electric Charge Flow)', unit: 'Amperes (A)', badgeBg: '#059669', analogy: '💧 Rate of water flowing through the pipe per second' },
       { symbol: 'R', name: 'Resistance', unit: 'Ohms (Ω)', badgeBg: '#d97706', analogy: '🚧 Narrowness or friction restriction inside pipe' }
     ];
-  } else if (kwTitle.includes('force') || kwTitle.includes('push') || kwTitle.includes('motion')) {
+  } else if (engineId === 'newtons-second-law' || engineId === 'newtons-second-law' || engineId === 'newtons-second-law') {
     vars = [
       { symbol: 'F', name: 'Net Force', unit: 'Newtons (N)', badgeBg: '#2563eb', analogy: '🏎️ Total push or pull effort applied' },
       { symbol: 'm', name: 'Object Mass', unit: 'Kilograms (kg)', badgeBg: '#7c3aed', analogy: '⚖️ Heavy weight / resistance to motion' },
       { symbol: 'a', name: 'Acceleration', unit: 'Meters / sec² (m/s²)', badgeBg: '#059669', analogy: '💨 How quickly speed increases' }
     ];
-  } else if (kwTitle.includes('subtraction')) {
+  } else if (engineId === 'subtraction') {
     vars = [
       { symbol: 'A', name: 'Minuend (Start Amount)', unit: 'Initial Count', badgeBg: '#2563eb', analogy: '🍌 Bananas in the basket before eating' },
       { symbol: 'B', name: 'Subtrahend (Take Away)', unit: 'Removed Count', badgeBg: '#dc2626', analogy: '🍌 Bananas taken out or eaten' },
       { symbol: 'C', name: 'Difference (Remaining)', unit: 'Leftover Count', badgeBg: '#059669', analogy: '🍌 Bananas left over in the basket' }
     ];
-  } else if (kwTitle.includes('addition')) {
+  } else if (engineId === 'addition') {
     vars = [
       { symbol: 'A', name: 'First Addend', unit: 'Group A Count', badgeBg: '#2563eb', analogy: '🍎 Apples in Group A' },
       { symbol: 'B', name: 'Second Addend', unit: 'Group B Count', badgeBg: '#d97706', analogy: '🍎 Apples in Group B' },
       { symbol: 'C', name: 'Sum (Total Amount)', unit: 'Combined Count', badgeBg: '#059669', analogy: '🍎 Total apples after merging' }
     ];
-  } else if (kwTitle.includes('speed') || kwTitle.includes('velocity') || kwTitle.includes('distance')) {
+  } else if (engineId === 'speed-distance-time' || engineId === 'speed-distance-time' || engineId === 'speed-distance-time') {
     vars = [
       { symbol: 's', name: 'Speed', unit: 'metres/sec (m/s)', badgeBg: '#2563eb', analogy: '🏃 How fast you are running' },
       { symbol: 'd', name: 'Distance', unit: 'metres (m)', badgeBg: '#059669', analogy: '🛣️ How far you travelled' },
       { symbol: 't', name: 'Time', unit: 'seconds (s)', badgeBg: '#d97706', analogy: '⏱️ How long it took' }
     ];
-  } else if (kwTitle.includes('density')) {
+  } else if (engineId === 'density') {
     vars = [
       { symbol: 'ρ', name: 'Density', unit: 'kg/m³', badgeBg: '#2563eb', analogy: '🧱 How tightly packed the material is' },
       { symbol: 'm', name: 'Mass', unit: 'kilograms (kg)', badgeBg: '#059669', analogy: '⚖️ How heavy the object is' },
       { symbol: 'V', name: 'Volume', unit: 'cubic metres (m³)', badgeBg: '#d97706', analogy: '📦 How much space the object takes' }
     ];
-  } else if (kwTitle.includes('area') || (kwTitle.includes('rectangle') && !kwTitle.includes('triangle'))) {
+  } else if (engineId === 'rectangle-area' || (engineId === 'rectangle-area' && !engineId === 'rectangle-area')) {
     vars = [
       { symbol: 'A', name: 'Area', unit: 'square units (m²)', badgeBg: '#2563eb', analogy: '🔲 Total surface covered' },
       { symbol: 'l', name: 'Length', unit: 'metres (m)', badgeBg: '#059669', analogy: '📏 How long the shape is' },
       { symbol: 'w', name: 'Width', unit: 'metres (m)', badgeBg: '#d97706', analogy: '📐 How wide the shape is' }
     ];
-  } else if (kwTitle.includes('percentage') || kwTitle.includes('percent')) {
+  } else if (engineId === 'percentage' || engineId === 'percentage') {
     vars = [
       { symbol: '%', name: 'Percentage', unit: 'percent (%)', badgeBg: '#2563eb', analogy: '🍕 Slice of the whole (out of 100)' },
       { symbol: 'P', name: 'Part', unit: 'units', badgeBg: '#059669', analogy: '🧩 The portion you are measuring' },
       { symbol: 'W', name: 'Whole', unit: 'units', badgeBg: '#d97706', analogy: '🎯 The total or complete amount' }
     ];
-  } else if (kwTitle.includes('interest') || kwTitle.includes('simple interest')) {
+  } else if (engineId === 'simple-interest' || engineId === 'simple-interest') {
     vars = [
       { symbol: 'I', name: 'Simple Interest', unit: 'rupees (₹)', badgeBg: '#2563eb', analogy: '💰 Extra money earned or paid' },
       { symbol: 'P', name: 'Principal', unit: 'rupees (₹)', badgeBg: '#059669', analogy: '🏦 Original amount deposited or borrowed' },
       { symbol: 'R', name: 'Rate', unit: 'percent per year (%)', badgeBg: '#d97706', analogy: '📊 Interest percentage per year' },
       { symbol: 'T', name: 'Time', unit: 'years (yr)', badgeBg: '#7c3aed', analogy: '📅 Duration of the loan/deposit' }
     ];
-  } else if (kwTitle.includes('energy') || kwTitle.includes('kinetic')) {
+  } else if (engineId === 'kinetic-energy' || engineId === 'kinetic-energy') {
     vars = [
       { symbol: 'E', name: 'Energy', unit: 'Joules (J)', badgeBg: '#2563eb', analogy: '⚡ Capacity to do work' },
       { symbol: 'm', name: 'Mass', unit: 'kilograms (kg)', badgeBg: '#059669', analogy: '⚖️ How heavy the object is' },
       { symbol: 'v', name: 'Velocity', unit: 'metres/sec (m/s)', badgeBg: '#d97706', analogy: '🏃 How fast it is moving' }
     ];
-  } else if (kwTitle.includes('pressure')) {
+  } else if (engineId === 'pressure') {
     vars = [
       { symbol: 'P', name: 'Pressure', unit: 'Pascals (Pa)', badgeBg: '#2563eb', analogy: '🎈 Force spread over an area' },
       { symbol: 'F', name: 'Force', unit: 'Newtons (N)', badgeBg: '#059669', analogy: '💪 Total push applied' },
       { symbol: 'A', name: 'Area', unit: 'square metres (m²)', badgeBg: '#d97706', analogy: '🔲 Surface area in contact' }
     ];
-  } else if (kwTitle.includes('multiplication') || kwTitle.includes('times')) {
+  } else if (engineId === 'multiplication' || engineId === 'multiplication') {
     vars = [
       { symbol: 'A', name: 'First Factor', unit: 'Group A Count', badgeBg: '#2563eb', analogy: '🥚 Number of egg cartons' },
       { symbol: 'B', name: 'Second Factor', unit: 'Group B Count', badgeBg: '#d97706', analogy: '🥚 Eggs per carton' },
       { symbol: 'C', name: 'Product (Total)', unit: 'Combined Count', badgeBg: '#059669', analogy: '🥚 Total eggs in all cartons' }
     ];
-  } else if (kwTitle.includes('division') || kwTitle.includes('share')) {
+  } else if (engineId === 'division' || engineId === 'division') {
     vars = [
       { symbol: 'D', name: 'Dividend (Total)', unit: 'Total Count', badgeBg: '#2563eb', analogy: '🍪 Total cookies to share' },
       { symbol: 'd', name: 'Divisor (Groups)', unit: 'Number of Groups', badgeBg: '#d97706', analogy: '👥 Number of friends sharing' },
       { symbol: 'Q', name: 'Quotient (Per Group)', unit: 'Count Per Group', badgeBg: '#059669', analogy: '🍪 Cookies each friend gets' }
     ];
   } else {
-    vars = [
-      { symbol: 'A', name: 'Primary Input Parameter', unit: 'Standard SI Unit', badgeBg: '#2563eb', analogy: '💡 Given starting quantity' },
-      { symbol: 'B', name: 'Secondary Input Parameter', unit: 'Standard SI Unit', badgeBg: '#059669', analogy: '💡 Modifying operational factor' },
-      { symbol: 'C', name: 'Resulting Output', unit: 'Derived SI Unit', badgeBg: '#7c3aed', analogy: '🎯 Final calculated value' }
-    ];
+    // Unsupported expressions keep the authored school form; do not invent
+    // variable names, units, or roles from arbitrary text.
+    vars = [];
   }
+
+  if (!vars.length) return "";
 
   return `
     <div style="margin-top: 1.2rem;">
@@ -3760,11 +4494,12 @@ function renderFormulaVariableCards(topic) {
 
 // 2. FORMULA MAGIC TRIANGLE REARRANGER
 function renderFormulaMagicTriangle(topic) {
-  // Companion breakdown panel — keyword-driven per topic title (not part of
+  // Companion breakdown panel — explicit reviewed formula engine (not part of
   // the data-driven manipulator gate).
-  const kwTitle = (topic.title || '').toLowerCase();
+  const engineId = resolveFormulaEngineId(topic);
+  if (!engineId) return '';
 
-  if (kwTitle.includes('ohm') || kwTitle.includes('circuit')) {
+  if (engineId === 'ohms-law' || engineId === 'ohms-law') {
     let eqText = 'V = I × R', ruleText = 'Multiply Current (I) by Resistance (R)';
     if (selectedFormulaTargetVar === 'I') {
       eqText = 'I = V / R'; ruleText = 'Divide Voltage (V) by Resistance (R)';
@@ -3796,7 +4531,7 @@ function renderFormulaMagicTriangle(topic) {
     `;
   }
 
-  if (kwTitle.includes('force') || kwTitle.includes('push') || kwTitle.includes('motion')) {
+  if (engineId === 'newtons-second-law' || engineId === 'newtons-second-law' || engineId === 'newtons-second-law') {
     let eqText = 'F = m × a', ruleText = 'Multiply Mass (m) by Acceleration (a)';
     if (selectedFormulaTargetVar === 'a') {
       eqText = 'a = F / m'; ruleText = 'Divide Force (F) by Mass (m)';
@@ -3829,7 +4564,7 @@ function renderFormulaMagicTriangle(topic) {
   }
 
   // SPEED / DISTANCE / TIME
-  if (kwTitle.includes('speed') || kwTitle.includes('velocity') || kwTitle.includes('distance')) {
+  if (engineId === 'speed-distance-time' || engineId === 'speed-distance-time' || engineId === 'speed-distance-time') {
     let eqText = 's = d / t', ruleText = 'Divide Distance (d) by Time (t)';
     if (selectedFormulaTargetVar === 'd') {
       eqText = 'd = s × t'; ruleText = 'Multiply Speed (s) by Time (t)';
@@ -3840,7 +4575,7 @@ function renderFormulaMagicTriangle(topic) {
   }
 
   // DENSITY
-  if (kwTitle.includes('density')) {
+  if (engineId === 'density') {
     let eqText = 'ρ = m / V', ruleText = 'Divide Mass (m) by Volume (V)';
     if (selectedFormulaTargetVar === 'm') {
       eqText = 'm = ρ × V'; ruleText = 'Multiply Density (ρ) by Volume (V)';
@@ -3851,7 +4586,7 @@ function renderFormulaMagicTriangle(topic) {
   }
 
   // AREA OF RECTANGLE
-  if (kwTitle.includes('area') || (kwTitle.includes('rectangle') && !kwTitle.includes('triangle'))) {
+  if (engineId === 'rectangle-area' || (engineId === 'rectangle-area' && !engineId === 'rectangle-area')) {
     let eqText = 'A = l × w', ruleText = 'Multiply Length (l) by Width (w)';
     if (selectedFormulaTargetVar === 'l') {
       eqText = 'l = A / w'; ruleText = 'Divide Area (A) by Width (w)';
@@ -3862,7 +4597,7 @@ function renderFormulaMagicTriangle(topic) {
   }
 
   // PRESSURE
-  if (kwTitle.includes('pressure')) {
+  if (engineId === 'pressure') {
     let eqText = 'P = F / A', ruleText = 'Divide Force (F) by Area (A)';
     if (selectedFormulaTargetVar === 'F') {
       eqText = 'F = P × A'; ruleText = 'Multiply Pressure (P) by Area (A)';
@@ -3875,7 +4610,7 @@ function renderFormulaMagicTriangle(topic) {
   return '';
 }
 
-// Helper: render a generic magic triangle
+// Shared renderer for explicitly reviewed formula engines
 function renderMagicTriangleHtml(symbols, names, eqText, ruleText) {
   const targetVar = selectedFormulaTargetVar === 'primary' ? symbols[0] : selectedFormulaTargetVar;
   return `
@@ -3898,11 +4633,12 @@ function renderMagicTriangleHtml(symbols, names, eqText, ruleText) {
   `;
 }
 function renderFormulaSandboxCalculator(topic) {
-  // Companion breakdown panel — keyword-driven per topic title (not part of
+  // Companion breakdown panel — explicit reviewed formula engine (not part of
   // the data-driven manipulator gate).
-  const kwTitle = (topic.title || '').toLowerCase();
+  const engineId = resolveFormulaEngineId(topic);
+  if (!engineId) return '';
 
-  if (kwTitle.includes('ohm') || kwTitle.includes('circuit')) {
+  if (engineId === 'ohms-law' || engineId === 'ohms-law') {
     const calcCurrent = (sandboxVal1 / sandboxVal2).toFixed(2);
     return `
       <div class="formula-sandbox-box">
@@ -3932,7 +4668,7 @@ function renderFormulaSandboxCalculator(topic) {
     `;
   }
 
-  if (kwTitle.includes('subtraction')) {
+  if (engineId === 'subtraction') {
     const diff = Math.max(0, sandboxVal1 - sandboxVal2);
     return `
       <div class="formula-sandbox-box">
@@ -3962,7 +4698,7 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // SPEED / DISTANCE / TIME
-  if (kwTitle.includes('speed') || kwTitle.includes('velocity') || kwTitle.includes('distance')) {
+  if (engineId === 'speed-distance-time' || engineId === 'speed-distance-time' || engineId === 'speed-distance-time') {
     const speed = (sandboxVal1 / sandboxVal2).toFixed(2);
     return renderSandboxHtml('Speed Calculator', [
       { label: 'Distance d (metres):', val: 'sandboxVal1' },
@@ -3971,7 +4707,7 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // DENSITY
-  if (kwTitle.includes('density')) {
+  if (engineId === 'density') {
     const density = (sandboxVal1 / sandboxVal2).toFixed(2);
     return renderSandboxHtml('Density Calculator', [
       { label: 'Mass m (kg):', val: 'sandboxVal1' },
@@ -3980,7 +4716,7 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // AREA OF RECTANGLE
-  if (kwTitle.includes('area') || (kwTitle.includes('rectangle') && !kwTitle.includes('triangle'))) {
+  if (engineId === 'rectangle-area' || (engineId === 'rectangle-area' && !engineId === 'rectangle-area')) {
     const area = (sandboxVal1 * sandboxVal2).toFixed(2);
     return renderSandboxHtml('Area Calculator', [
       { label: 'Length l (metres):', val: 'sandboxVal1' },
@@ -3989,16 +4725,16 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // PERCENTAGE
-  if (kwTitle.includes('percentage') || kwTitle.includes('percent')) {
+  if (engineId === 'percentage' || engineId === 'percentage') {
     const pct = ((sandboxVal1 / sandboxVal2) * 100).toFixed(1);
     return renderSandboxHtml('Percentage Calculator', [
       { label: 'Part (units):', val: 'sandboxVal1' },
       { label: 'Whole (units):', val: 'sandboxVal2' }
-    ], '% = (Part / Whole) × 100', `% = (${sandboxVal1} / ${sandboxVal2}) × 100`, `Percentage = ${pct}%`);
+    ], '% = (Part / Whole) × 100', `% = (${sandboxVal1} / ${sandboxVal2}) × 100`, `Percentage = ${pct == null ? '—' : pct + '%'}`);
   }
 
   // SIMPLE INTEREST
-  if (kwTitle.includes('interest')) {
+  if (engineId === 'simple-interest') {
     const interest = (sandboxVal1 * sandboxVal2 * currentManipulatorValue / 100).toFixed(2);
     return `
       <div class="formula-sandbox-box">
@@ -4030,7 +4766,7 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // MULTIPLICATION
-  if (kwTitle.includes('multiplication') || kwTitle.includes('times')) {
+  if (engineId === 'multiplication' || engineId === 'multiplication') {
     const product = (sandboxVal1 * sandboxVal2).toFixed(0);
     return renderSandboxHtml('Multiplication Sandbox', [
       { label: 'First Factor (A):', val: 'sandboxVal1' },
@@ -4039,7 +4775,7 @@ function renderFormulaSandboxCalculator(topic) {
   }
 
   // ADDITION
-  if (kwTitle.includes('addition') || kwTitle.includes('plus')) {
+  if (engineId === 'addition' || engineId === 'addition') {
     const sum = (sandboxVal1 + sandboxVal2).toFixed(0);
     return renderSandboxHtml('Addition Sandbox', [
       { label: 'First Addend (A):', val: 'sandboxVal1' },
@@ -4050,7 +4786,7 @@ function renderFormulaSandboxCalculator(topic) {
   return '';
 }
 
-// Helper: render a generic sandbox calculator
+// Shared renderer for explicitly reviewed formula engines
 function renderSandboxHtml(title, inputs, formula, substituted, result) {
   const valMap = { sandboxVal1, sandboxVal2, currentManipulatorValue };
   return `
@@ -4481,15 +5217,35 @@ function printWorksheetPack(subject, classLevel) {
 // ==========================================================================
 
 function openDashboard() {
-  const authenticated = currentUser && currentUser.id && currentUser.id !== 'guest';
-  if (!authenticated) {
-    openLoginModal();
-    return;
-  }
   renderDashboard();
   openModal('dashboardModal');
 }
 
+function renderMemoryMapHtml() {
+  const all = AVYAAN_DATA.topics || [];
+  const byId = new Map(all.map(topic => [topic.id, topic]));
+  const log = getActivityLog();
+  const recentCutoff = Date.now() - (14 * 86400000);
+  const recentIds = [];
+  const recentSeen = new Set();
+  log.slice().reverse().forEach(event => {
+    if (event.ts < recentCutoff || !event.topicId || recentSeen.has(event.topicId)) return;
+    const topic = byId.get(event.topicId);
+    if (topic) { recentSeen.add(event.topicId); recentIds.push(topic); }
+  });
+  const due = getTopicsDueForReview().map(id => byId.get(id)).filter(Boolean).slice(0, 5);
+  const retained = Array.from(solidifiedTopicIds).filter(id => isSolidified(id)).map(id => byId.get(id)).filter(Boolean).slice(0, 5);
+  const topicButton = (topic, label) => {
+    const safeId = String(topic.id).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return `<button class="memory-map-item" onclick="openTopicDetail('${safeId}')"><span>${topic.emoji || '📖'}</span><span><strong>${escapeHtml(topic.title)}</strong><small>${label}</small></span><span aria-hidden="true">›</span></button>`;
+  };
+  const empty = text => `<p class="memory-map-empty">${text}</p>`;
+  return `<div class="memory-map-grid">
+    <section class="memory-map-card"><div class="memory-map-kicker">RECENTLY LEARNED</div><h4>Learned recently</h4><p>Ideas you have touched in the last two weeks.</p>${recentIds.length ? recentIds.slice(0, 5).map(topic => topicButton(topic, memoryStateLabel(getMemoryState(topic.id)))).join('') : empty('Complete a lesson and it will appear here.')}</section>
+    <section class="memory-map-card memory-map-due"><div class="memory-map-kicker">RETRIEVAL FIRST</div><h4>Time to remember <span class="memory-map-count">${due.length}</span></h4><p>Answer from memory before reopening the lesson.</p>${due.length ? `<button class="btn btn-primary memory-map-review" onclick="startReviewSession()">Start memory check →</button>${due.map(topic => topicButton(topic, 'Recall due')).join('')}` : empty('Nothing is due right now — nice work.')}</section>
+    <section class="memory-map-card memory-map-retained"><div class="memory-map-kicker">DELAYED EVIDENCE</div><h4>Remembered over time</h4><p>Topics with two or more successful delayed recalls.</p>${retained.length ? retained.map(topic => topicButton(topic, 'Retained')).join('') : empty('Your first retained topic will appear after spaced recall.')}</section>
+  </div>`;
+}
 function renderDashboard() {
   const container = document.getElementById('dashboardContent');
   if (!container) return;
@@ -4517,7 +5273,7 @@ function renderDashboard() {
           <span class="subject-badge subject-${subjKey}">${subj}</span>
           <span class="dash-subject-count">${mastered.length}/${topics.length} · ${avg !== null ? `avg ${avg}` : '—'}</span>
         </div>
-        <div class="path-progress-bar"><div class="path-progress-fill subject-${subjKey}" style="width:${pct}%"></div></div>
+        <div class="path-progress-bar"><div class="path-progress-fill subject-${subjKey}" style="width:${pct == null ? '—' : pct + '%'}"></div></div>
       </div>
     `;
   }).join('');
@@ -4558,7 +5314,7 @@ function renderDashboard() {
     return `
       <div class="dash-class-row">
         <span class="dash-class-label">Class ${c}</span>
-        <div class="path-progress-bar" style="flex:1;"><div class="path-progress-fill subject-math" style="width:${pct}%; background:#94a3b8;"></div></div>
+        <div class="path-progress-bar" style="flex:1;"><div class="path-progress-fill subject-math" style="width:${pct == null ? 0 : pct}%; background:#94a3b8;"></div></div>
         <span class="dash-class-pct">${mastered}/${topics.length}</span>
       </div>
     `;
@@ -4600,6 +5356,12 @@ function renderDashboard() {
     <div class="dash-section">
       <h3 class="dash-section-title">📚 Progress by Subject</h3>
       <div class="dash-subject-grid">${subjectRows}</div>
+    </div>
+
+    <div class="dash-section">
+      <h3 class="dash-section-title">🧠 Memory Map</h3>
+      <p class="dash-section-help">A transparent view of what was learned, what needs retrieval and what has held up over time.</p>
+      ${renderMemoryMapHtml()}
     </div>
 
     <div class="dash-section">
@@ -4782,60 +5544,56 @@ function navigateToNextTopic() {
 
 // 5b. MULTI-LEVEL EXPLANATION (Simple / Standard / Deep) for Step 3
 function renderMultiLevelExplanation(topic, whyItWorks) {
-  const summary = topic.summary || '';
-  const title = topic.title || '';
-  const subject = topic.subject || '';
-
-  // Generate 3 levels of explanation
-  let simple = `"${whyItWorks.text || summary}"`;
-  let standard = `"${whyItWorks.text || summary}" ${whyItWorks.reason || ''}`;
-  let deep = '';
-
-  if (subject === 'Mathematics') {
-    simple = `${title} works because of a simple pattern or rule we can see and touch. ${whyItWorks.text || summary}`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'The mathematical relationship follows from the structure of numbers and operations.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At a deeper level, this follows from the axioms of arithmetic and the properties of the number system. The formula ${topic.schoolForm?.expression || ''} is derived from these fundamental principles, and every step in the solution can be traced back to a mathematical proof.`;
-  } else if (subject === 'Physics') {
-    simple = `${title} happens because of a simple physical rule. ${whyItWorks.text || summary} Think of it like a cause and effect in nature.`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'This follows from the laws of physics — energy, force, and matter follow strict conservation and transformation rules.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At a fundamental level, this is governed by the laws of thermodynamics, Newton's laws of motion, or electromagnetic theory. The equation ${topic.schoolForm?.expression || ''} is a mathematical expression of these underlying physical laws, which have been verified through centuries of experimental evidence.`;
-  } else if (subject === 'Chemistry') {
-    simple = `${title} happens because of how atoms and molecules interact. ${whyItWorks.text || summary}`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'Chemical reactions follow the law of conservation of mass and specific bonding rules between atoms.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At the molecular level, this involves electron interactions, bond formation/breaking, and energy changes. The behavior follows from quantum mechanics and the electronic structure of atoms. Every chemical change can be explained by the rearrangement of electrons and the drive toward lower energy states.`;
-  } else if (subject === 'Biology') {
-    simple = `${title} happens because of how living things work. ${whyItWorks.text || summary}`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'Living systems follow specific biological processes — cells, tissues, and organs work together following the rules of life.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At a cellular and molecular level, this involves DNA, proteins, enzymes, and metabolic pathways. The process is regulated by gene expression, hormonal signals, and feedback loops that have evolved over millions of years through natural selection.`;
-  } else if (subject === 'Computer Science & AI') {
-    simple = `${title} works because computers follow step-by-step instructions. ${whyItWorks.text || summary}`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'Computers process data through algorithms — precise sequences of steps that transform input into output.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At the lowest level, this involves binary logic gates, memory addressing, and CPU instruction cycles. The algorithm's efficiency is measured in time and space complexity (Big-O notation), and modern implementations leverage parallel processing, caching, and optimization techniques.`;
-  } else if (subject === 'Earth & Space') {
-    simple = `${title} happens because of how the Earth and universe work. ${whyItWorks.text || summary}`;
-    standard = `${whyItWorks.text || summary} ${whyItWorks.reason || 'Earth and space phenomena follow measurable physical laws — gravity, plate tectonics, orbital mechanics, and electromagnetic radiation.'}`;
-    deep = `${whyItWorks.text || summary} ${whyItWorks.reason || ''} At a fundamental level, this is governed by gravitational forces, thermodynamics, fluid dynamics, and nuclear processes. The Earth's systems interact through complex feedback loops, and cosmic phenomena follow from general relativity and the Standard Model of particle physics.`;
-  } else {
-    deep = standard;
-  }
+  // Explanation levels are authored per topic. Never synthesize subject-wide
+  // claims: a subject label is not evidence that a topic teaches that theory.
+  const authored = whyItWorks && typeof whyItWorks === 'object' ? whyItWorks : {};
+  const summary = String(topic?.summary || '').trim();
+  const simple = String(authored.simple || authored.text || summary).trim();
+  const standard = String(authored.standard || authored.reason || authored.text || summary).trim();
+  const deep = String(authored.deep || '').trim();
+  const requested = ['simple', 'standard', 'deep'].includes(explanationLevel) ? explanationLevel : 'standard';
+  const text = (requested === 'simple' ? simple : requested === 'deep' ? deep : standard) || simple || standard || 'Explore the example and explain what you notice.';
+  const isAuthoredLevel = requested !== 'deep' || Boolean(deep);
 
   const levelConfig = {
     simple: { color: '#ecfdf5', border: '#6ee7b7', text: '#065f46', label: '🟢 Simple Explanation', hint: 'Easy to understand — no jargon' },
     standard: { color: '#eff6ff', border: 'var(--accent-primary)', text: '#1e3a8a', label: '🔵 Standard Explanation', hint: 'Grade-appropriate detail' },
-    deep: { color: '#fef2f2', border: '#fca5a5', text: '#991b1b', label: '🔴 Deep Dive', hint: 'Advanced — for curious minds' }
+    deep: { color: '#fef2f2', border: '#fca5a5', text: '#991b1b', label: '🔴 Deep Dive', hint: deep ? 'Advanced — for curious minds' : 'A deeper authored explanation is not available for this topic' }
   };
 
-  const cfg = levelConfig[explanationLevel] || levelConfig.standard;
-  const text = explanationLevel === 'simple' ? simple : explanationLevel === 'deep' ? deep : standard;
-
+  const cfg = levelConfig[requested] || levelConfig.standard;
+  const badge = isAuthoredLevel ? cfg.label : `${cfg.label} — using the topic's authored explanation`;
   return `
     <div style="background: ${cfg.color}; border-left: 4px solid ${cfg.border}; padding: 1rem; border-radius: 0 10px 10px 0; margin-bottom: 1rem;">
-      <div style="font-size: 0.72rem; font-weight: 800; color: ${cfg.text}; text-transform: uppercase; margin-bottom: 0.3rem;">${cfg.label} <span style="font-weight: 400; text-transform: none;">— ${cfg.hint}</span></div>
-      <p style="font-size: 0.95rem; color: ${cfg.text}; line-height: 1.6;">${text}</p>
+      <div style="font-size: 0.72rem; font-weight: 800; color: ${cfg.text}; text-transform: uppercase; margin-bottom: 0.3rem;">${badge} <span style="font-weight: 400; text-transform: none;">— ${cfg.hint}</span></div>
+      <p style="font-size: 0.95rem; color: ${cfg.text}; line-height: 1.6;">${escapeHtml(text)}</p>
     </div>
   `;
 }
-
+// Ask Why prompts turn one explanation into a small inquiry. The response is
+// deterministic and uses the lesson's own authored fields; it never claims
+// that an AI tutor or external source generated the answer.
+function renderAskWhyPanel(topic, whyItWorks) {
+  const mode = ['why', 'change', 'life'].includes(askWhyMode) ? askWhyMode : 'why';
+  const title = topic.title || 'this idea';
+  const whyText = whyItWorks?.reason || whyItWorks?.text || topic.summary || 'Look for the cause-and-effect relationship in this idea.';
+  const changeText = topic.seeIt?.instruction || topic.outcome || 'Change one part of the example and observe what changes — and what stays the same.';
+  const lifeText = `Where could you notice ${title} outside this lesson? Start with one example from home, school, nature or technology.`;
+  const content = mode === 'change' ? changeText : mode === 'life' ? lifeText : whyText;
+  const prompt = mode === 'change' ? 'What would change?' : mode === 'life' ? 'Where do we see it?' : 'Why does it happen?';
+  return `
+    <div class="ask-why-panel" aria-labelledby="askWhyHeading">
+      <div class="ask-why-kicker">🔎 Ask Why</div>
+      <h4 id="askWhyHeading">${prompt}</h4>
+      <p>${escapeHtml(String(content))}</p>
+      <div class="ask-why-actions" role="group" aria-label="Explore this explanation">
+        <button class="btn ask-why-btn${mode === 'why' ? ' is-active' : ''}" type="button" aria-pressed="${mode === 'why'}" onclick="askWhyMode='why'; renderTopicModal();">Why does it happen?</button>
+        <button class="btn ask-why-btn${mode === 'change' ? ' is-active' : ''}" type="button" aria-pressed="${mode === 'change'}" onclick="askWhyMode='change'; renderTopicModal();">What would change?</button>
+        <button class="btn ask-why-btn${mode === 'life' ? ' is-active' : ''}" type="button" aria-pressed="${mode === 'life'}" onclick="askWhyMode='life'; renderTopicModal();">Where do we see it?</button>
+      </div>
+    </div>
+  `;
+}
 // 6. REAL-LIFE CONNECTION (enhances Step 3)
 function renderRealLifeConnection(topic) {
   const summary = topic.summary || '';
@@ -4882,10 +5640,10 @@ function difficultyChipHtml(topic) {
 }
 
 // Recall score: how many successful spaced recalls a topic has survived. The
-// SM-2 reps count is the honest measure of memory-proven-ness.
+// Successful recall repetitions are the honest measure of memory evidence.
 function renderRecallScore(topic) {
   const entry = getReviewEntry(topic.id);
-  const reps = (entry && entry.reps) || 0;
+  const reps = (entry && entry.successfulRecalls) || 0;
   if (!reps || !isSolidified(topic.id)) return '';
   const title = 'Survived ' + reps + ' successful spaced recall' + (reps === 1 ? '' : 's');
   return `<span style="font-size: 0.68rem; font-weight: 800; background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe; padding: 0.1rem 0.4rem; border-radius: 8px;" title="${title}">🔁 ×${reps}</span>`;
@@ -4931,6 +5689,104 @@ function stopReading() {
   setListenLabel(false);
 }
 
+function contentReviewMetadata(topic) {
+  const version = window.AVYAAN_CONTENT_VERSION || 'local release';
+  return `<div class="content-trust-panel" role="note"><span>🧾 Content v${escapeHtml(version)}</span><span>Review status: structured release checks</span><button type="button" class="content-report-link" onclick="openContentIssue('${String(topic.id).replace(/'/g, "\\'")}')">Report an issue</button></div>`;
+}
+
+function getContentCorrectionReports() {
+  const reports = safeStorageJSON('avyaan_content_correction_reports', []);
+  return Array.isArray(reports) ? reports : [];
+}
+
+function openContentIssue(topicId) {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === topicId);
+  if (!topic) return;
+  contentIssueTopicId = topic.id;
+  const title = document.getElementById('contentIssueTopicTitle');
+  const details = document.getElementById('contentIssueDetails');
+  const status = document.getElementById('contentIssueStatus');
+  if (title) title.textContent = `${topic.emoji || '📘'} ${topic.title}`;
+  if (details) details.value = '';
+  if (status) status.textContent = '';
+  openModal('contentIssueModal');
+}
+
+function submitContentIssue() {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === contentIssueTopicId);
+  const category = document.getElementById('contentIssueCategory')?.value || 'factual';
+  const severity = document.getElementById('contentIssueSeverity')?.value || 'normal';
+  const detailsEl = document.getElementById('contentIssueDetails');
+  const status = document.getElementById('contentIssueStatus');
+  const details = String(detailsEl?.value || '').trim().slice(0, 1000);
+  if (!topic || details.length < 10) {
+    if (status) { status.style.color = '#b91c1c'; status.textContent = 'Please add at least 10 characters so the report can be reviewed.'; }
+    if (detailsEl) detailsEl.focus();
+    return false;
+  }
+  const version = window.AVYAAN_CONTENT_VERSION || 'local release';
+  const id = `CR-${Date.now().toString(36).toUpperCase()}`;
+  const reports = getContentCorrectionReports();
+  reports.push({ id, topicId: topic.id, title: topic.title, category, severity, details, status: 'reported', contentVersion: version, ts: Date.now() });
+  avyaanStorage.setItem('avyaan_content_correction_reports', JSON.stringify(reports.slice(-100)));
+  if (status) {
+    status.style.color = '#047857';
+    status.innerHTML = `Saved as <strong>${escapeHtml(id)}</strong> on this learner profile. To send it to the review team, <a href="mailto:contact@smaraze.com?subject=${encodeURIComponent('Skill X content report ' + id)}&body=${encodeURIComponent('Topic: ' + topic.title + '\\nCategory: ' + category + '\\nSeverity: ' + severity + '\\nContent version: ' + version + '\\n\\nDetails: ' + details)}">open an email draft</a>.`;
+  }
+  return true;
+}
+function renderLocaleControl() {
+  if (!window.AvyaanI18n) return '';
+  const state = AvyaanI18n.getState();
+  const options = AvyaanI18n.supportedLocales().map(item => `<option value="${item.code}" ${item.code === state.locale ? 'selected' : ''}>${escapeHtml(item.label)}</option>`).join('');
+  return `<div class="locale-control" role="group" aria-label="${escapeHtml(AvyaanI18n.t('locale.label', 'Language'))}"><label for="lessonLocale">${escapeHtml(AvyaanI18n.t('locale.label', 'Language'))}</label><select id="lessonLocale" onchange="AvyaanI18n.setLocale(this.value); renderTopicModal();">${options}</select><small>${escapeHtml(state.status)}</small></div>`;
+}
+function getAhaObservationEntries(topicId) {
+  const entries = safeStorageJSON('avyaan_aha_observations', []);
+  if (!Array.isArray(entries)) return [];
+  return topicId ? entries.filter(entry => entry && entry.topicId === topicId) : entries;
+}
+
+function recordAhaObservation(topicId, engineId) {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === topicId);
+  const engine = window.getAhaEngineForTopic && topic ? getAhaEngineForTopic(topic) : null;
+  if (!topic || !engine || engine.id !== engineId) return false;
+  const entries = getAhaObservationEntries();
+  if (!entries.some(entry => entry.topicId === topicId && entry.engineId === engineId)) {
+    entries.push({ topicId, engineId, evidence: 'learner_observed', ts: Date.now() });
+    avyaanStorage.setItem('avyaan_aha_observations', JSON.stringify(entries.slice(-120)));
+    logActivity(topicId, 'aha-observation');
+  }
+  renderTopicModal();
+  return true;
+}
+
+function renderTopicRoleTag(topic, compact = false) {
+  if (!window.getTopicLearningRole || !topic) return '';
+  const role = getTopicLearningRole(topic);
+  const title = compact ? role.label : `${role.label}: ${role.description}`;
+  return `<span class="topic-role-tag topic-role-${escapeHtml(role.tone)}" title="${escapeHtml(title)}">${escapeHtml(role.label)}</span>`;
+}
+function renderAhaEngineContract(topic) {
+  if (!window.getAhaEngineForTopic || !topic) return '';
+  const engine = getAhaEngineForTopic(topic);
+  if (!engine) return '';
+  const observed = getAhaObservationEntries(topic.id).some(entry => entry && entry.engineId === engine.id);
+  return `<aside class="aha-engine-contract" aria-labelledby="ahaEngineTitle">
+    <div class="aha-engine-kicker">💡 Aha Engine · learn by changing one thing</div>
+    <h4 id="ahaEngineTitle">${escapeHtml(engine.name)}</h4>
+    <p class="aha-engine-target"><strong>Look for:</strong> ${escapeHtml(engine.targetConcept)}</p>
+    <dl class="aha-engine-grid">
+      <div><dt>Try</dt><dd>${escapeHtml(engine.learnerAction)}</dd></div>
+      <div><dt>Notice</dt><dd>${escapeHtml(engine.observableChange)}</dd></div>
+      <div><dt>Explain</dt><dd>${escapeHtml(engine.explanationHook)}</dd></div>
+      <div><dt>Evidence</dt><dd>${escapeHtml(engine.assessmentHook)}</dd></div>
+    </dl>
+    <p class="aha-engine-access">♿ ${escapeHtml(engine.accessibilityControls)} ${escapeHtml(engine.reducedMotionMode)}</p>
+    <button class="btn ${observed ? '' : 'btn-primary'}" type="button" ${observed ? 'aria-pressed="true"' : ''} onclick="recordAhaObservation('${String(topic.id).replace(/'/g, "\\'")}', '${String(engine.id).replace(/'/g, "\\'")}')">${observed ? '✓ Observation recorded' : 'I noticed the change →'}</button>
+    <small class="aha-engine-note">This records a reflection only. It never changes mastery, XP, or access.</small>
+  </aside>`;
+}
 function renderTopicModal() {
   const topic = currentActiveTopic;
   if (!topic) return;
@@ -4984,6 +5840,10 @@ function renderTopicModal() {
   const container = document.getElementById('detailModalContent');
   container.innerHTML = `
     ${renderSessionDock()}
+
+${contentReviewMetadata(topic)}
+    ${renderLocaleControl()}
+    ${typeof renderIndiaContext === 'function' ? renderIndiaContext(topic) : ''}
     <!-- HEADER WITH SCRATCHPAD + MASTERED TOGGLE -->
     <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
       <div style="display: flex; align-items: center; gap: 1rem;">
@@ -4993,6 +5853,7 @@ function renderTopicModal() {
             <span class="class-tag">Class ${topic.class_level}</span>
             <span class="subject-tag subject-color-${subjectColorKey(topic.subject)}">${topic.subject}</span>
             ${difficultyChipHtml(topic)}
+            ${renderTopicRoleTag(topic)}
             ${topic.chapter ? `<span class="chapter-tag" title="Chapter">📖 ${topic.chapter.replace(/^Chapter\s*\d+\s*—\s*/, '')}</span>` : ''}
             ${completedTopicIds.has(topic.id) ? '<span style="font-size: 0.68rem; font-weight: 800; background: #ecfdf5; color: #059669; border: 1px solid #6ee7b7; padding: 0.1rem 0.4rem; border-radius: 8px;">★ MASTERED</span>' : ''}
           </div>
@@ -5021,8 +5882,8 @@ function renderTopicModal() {
         <button class="btn" style="background: #fff7ed; border-color: #fed7aa; color: #9a3412; font-weight: 700;" onclick="printWorksheet()" title="Print a worksheet for school or homework">
           🖨️ Print Worksheet
         </button>
-        <button class="btn" style="background: var(--accent-primary-light); border-color: #bfdbfe; color: #1d4ed8; font-weight: 700;" onclick="openChapterReview()" title="Mixed review quiz with questions from every lesson in this chapter">
-          🧩 Chapter Review
+        <button class="btn" style="background: var(--accent-primary-light); border-color: #bfdbfe; color: #1d4ed8; font-weight: 700;" onclick="openChapterReview()" title="Interleaved review rotates questions across the lessons in this chapter">
+          🧩 Interleaved Chapter Review
         </button>
         ${topic.class_level >= 9 ? `
         <button class="btn" style="background: #0f172a; border-color: var(--text-main); color: #fff; font-weight: 700;" onclick="openBoardPrep()" title="Timed board-style practice for this chapter">
@@ -5118,6 +5979,8 @@ function renderTopicModal() {
         <!-- DYNAMIC VISUAL ENGINE -->
         ${renderDynamicManipulator(topic)}
 
+        ${renderAhaEngineContract(topic)}
+
         <p style="font-size: 0.95rem; color: var(--text-main); margin-bottom: 0.8rem;">${seeIt.text || seeIt.prompt}</p>
 
         <div style="background: #0f172a; color: #ffffff; padding: 0.8rem 1rem; border-radius: 8px; font-weight: 700; font-size: 0.85rem; font-family: monospace;">
@@ -5170,6 +6033,7 @@ function renderTopicModal() {
 
         ${renderMultiLevelExplanation(topic, whyItWorks)}
 
+                ${renderAskWhyPanel(topic, whyItWorks)}
         ${renderRealLifeConnection(topic)}
       ` : ''}
 
@@ -5191,18 +6055,26 @@ function renderTopicModal() {
 
           <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.4rem;">Progressive Solution Steps:</div>
           
-          <ol class="worked-step-list">
-            ${workedStepsList.slice(0, currentRevealedStep).map(s => `<li style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text-main);">${s}</li>`).join('')}
-          </ol>
-
-          ${currentRevealedStep < workedStepsList.length ? `
-            <button class="btn btn-primary" style="font-size: 0.83rem; margin: 0.6rem 0;" onclick="revealNextWorkedStep()">
-              Show Step ${currentRevealedStep + 1} of ${workedStepsList.length} ›
-            </button>
-          ` : `
-            <div class="worked-answer-box">
-              ✓ Final Answer: ${workedExample.answer}
+          ${currentRevealedStep === 0 ? `
+            <div class="worked-attempt-prompt">
+              <strong>Pause before the reveal.</strong>
+              <span>Try the first move yourself: what would you identify, measure or calculate first?</span>
+              <button class="btn btn-primary" style="font-size: 0.83rem; margin-top: 0.65rem;" onclick="startWorkedExample()">I’ve had a go — reveal the first step →</button>
             </div>
+          ` : `
+            <ol class="worked-step-list">
+              ${workedStepsList.slice(0, currentRevealedStep).map(s => `<li style="margin-bottom: 0.4rem; font-weight: 600; color: var(--text-main);">${s}</li>`).join('')}
+            </ol>
+
+            ${currentRevealedStep < workedStepsList.length ? `
+              <button class="btn btn-primary" style="font-size: 0.83rem; margin: 0.6rem 0;" onclick="revealNextWorkedStep()">
+                Reveal Step ${currentRevealedStep + 1} of ${workedStepsList.length} ›
+              </button>
+            ` : `
+              <div class="worked-answer-box">
+                ✓ Final Answer: ${workedExample.answer}
+              </div>
+            `}
           `}
         </div>
       ` : ''}
@@ -5257,6 +6129,9 @@ function renderTopicModal() {
               <div id="selfCheckFeedback"></div>
             </div>
           ` : ''}
+          ${currentActiveTopic ? renderRealWorldChallenge(currentActiveTopic) : ''}
+          ${currentActiveTopic ? renderTransferChallenge(currentActiveTopic) : ''}
+          ${currentActiveTopic ? renderPortfolioArtifact(currentActiveTopic) : ''}
         ` : (accountSession && !serverQuestionsReady) ? `
         <div id="quizSecureNotice" role="status" style="background: #eff6ff; border: 1px solid #bfdbfe; padding: 1.2rem; border-radius: 12px; color: #1e40af;">
           Preparing a secure quiz for this learner…
@@ -5318,6 +6193,234 @@ function renderTopicModal() {
   }
 }
 
+// Transfer challenge — a short, optional application task after the secure quiz.
+// It records the learner's own connection, not a mastery score or a teacher grade.
+function getTransferChallenge(topic) {
+  const title = topic?.title || 'this idea';
+  const subject = String(topic?.subject || '').toLowerCase();
+  const summary = topic?.summary || topic?.outcome || 'the idea from this lesson';
+  if (subject.includes('math')) return {
+    prompt: `Where could you use ${title} to make a decision or solve a problem today? Give one example and, if you can, include a number.`,
+    hint: 'A shopping, cooking, travel or building example is a good place to start.'
+  };
+  if (subject.includes('physics')) return {
+    prompt: `Find one everyday moment where ${title} is happening. What changes, and what causes that change?`,
+    hint: 'Think about movement, light, sound, heat, pressure or electricity around you.'
+  };
+  if (subject.includes('chemistry')) return {
+    prompt: `Choose a safe everyday example related to ${title}. What do you observe, and what might be changing?`,
+    hint: 'Use an observation from cooking, cleaning, materials or water — never mix substances for this task.'
+  };
+  if (subject.includes('biology')) return {
+    prompt: `Where do you see ${title} in a living thing or local environment? Explain one cause-and-effect link.`,
+    hint: 'A plant, animal, your body or a nearby ecosystem can provide a useful example.'
+  };
+  if (subject.includes('computer') || subject.includes('ai')) return {
+    prompt: `Name one app, device or digital system where ${title} could matter. What input and output would you expect?`,
+    hint: 'Describe the system in your own words; do not share private account or device details.'
+  };
+  if (subject.includes('earth') || subject.includes('space')) return {
+    prompt: `Look outside or at a map: where could ${title} help explain something you notice?`,
+    hint: 'Weather, land, water, the Moon or the night sky are all fair starting points.'
+  };
+  return {
+    prompt: `Where might you notice ${title} outside this lesson? Describe one example and connect it to the idea: ${summary}`,
+    hint: 'A home, school, nature or community example is enough.'
+  };
+}
+
+function getTransferAttempts(topicId = null) {
+  const attempts = safeStorageJSON('avyaan_transfer_attempts', []);
+  if (!Array.isArray(attempts)) return [];
+  return topicId ? attempts.filter(item => item && item.topicId === topicId) : attempts;
+}
+
+function renderTransferChallenge(topic) {
+  const challenge = getTransferChallenge(topic);
+  const attempt = getTransferAttempts(topic.id).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))[0];
+  if (attempt) {
+    return `
+      <section class="transfer-challenge transfer-complete" aria-labelledby="transferHeading">
+        <div class="transfer-kicker">🌍 Transfer it</div>
+        <h3 id="transferHeading">You made a real-world connection</h3>
+        <p class="transfer-prompt">${escapeHtml(challenge.prompt)}</p>
+        <div class="transfer-response"><strong>Your note:</strong> ${escapeHtml(attempt.response)}</div>
+        <div class="transfer-status">${attempt.confidence === 'need_help' ? 'Keep the question nearby and revisit Step 3 when you are ready.' : 'Nice transfer — connecting an idea to life helps it travel beyond this lesson.'}</div>
+      </section>
+    `;
+  }
+  return `
+    <section class="transfer-challenge" aria-labelledby="transferHeading">
+      <div class="transfer-kicker">🌍 Transfer it</div>
+      <h3 id="transferHeading">Can you use this idea somewhere real?</h3>
+      <p class="transfer-prompt">${escapeHtml(challenge.prompt)}</p>
+      <p class="transfer-hint">${escapeHtml(challenge.hint)}</p>
+      <label class="sr-only" for="transferResponse">Your real-world connection</label>
+      <textarea id="transferResponse" class="transfer-input" rows="3" maxlength="600" placeholder="Write or dictate one connection in your own words."></textarea>
+      <div class="transfer-actions">
+        <button class="btn btn-primary" type="button" onclick="submitTransferChallenge('${String(topic.id).replace(/'/g, "\\'")}', 'connected')">I made a connection →</button>
+        <button class="btn" type="button" onclick="submitTransferChallenge('${String(topic.id).replace(/'/g, "\\'")}', 'need_help')">I need another example</button>
+      </div>
+      <p class="transfer-note">Optional practice — this is learning evidence, not a score.</p>
+    </section>
+  `;
+}
+
+function getRealWorldChallengeAttempts(topicId) {
+  const entries = safeStorageJSON('avyaan_real_world_challenges', []);
+  if (!Array.isArray(entries)) return [];
+  return topicId ? entries.filter(entry => entry && entry.topicId === topicId) : entries;
+}
+
+function renderRealWorldChallenge(topic) {
+  if (!window.getRealWorldChallenge || !topic) return '';
+  const challenge = getRealWorldChallenge(topic);
+  if (!challenge) return '';
+  const attempts = getRealWorldChallengeAttempts(topic.id).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0));
+  const latest = window._realWorldChallengeRetry ? null : attempts[0];
+  if (latest) {
+    return `<section class="real-world-challenge challenge-complete" aria-labelledby="realWorldChallengeTitle">
+      <div class="challenge-kicker">🧭 Transfer challenge · evidence only</div>
+      <h3 id="realWorldChallengeTitle">${escapeHtml(challenge.title)}</h3>
+      <p class="challenge-result"><strong>${latest.transferReady ? 'Transfer-ready evidence recorded' : 'Attempt recorded — another try may help'}</strong> · Strategy ${latest.strategyCorrect ? 'matched the evidence' : 'needs another look'}</p>
+      <p class="challenge-note">Your answer and explanation stay on this learner profile. They do not change mastery or unlock content.</p>
+      <button class="btn" type="button" onclick="window._realWorldChallengeRetry=true; window._realWorldChallengeDraft=null; renderTopicModal();">Try the challenge again</button>
+    </section>`;
+  }
+  const selected = window._realWorldChallengeDraft && window._realWorldChallengeDraft.challengeId === challenge.challengeId
+    ? window._realWorldChallengeDraft.strategyIndex : null;
+  const options = challenge.strategies.map((strategy, index) => `<button class="challenge-strategy ${selected === index ? 'is-selected' : ''}" type="button" aria-pressed="${selected === index}" onclick="selectRealWorldStrategy('${escapeHtml(challenge.challengeId)}', ${index})"><span>${String.fromCharCode(65 + index)}</span>${escapeHtml(strategy)}</button>`).join('');
+  return `<section class="real-world-challenge" aria-labelledby="realWorldChallengeTitle">
+    <div class="challenge-kicker">🧭 Transfer challenge · optional</div>
+    <h3 id="realWorldChallengeTitle">${escapeHtml(challenge.title)}</h3>
+    <p class="challenge-scenario">${escapeHtml(challenge.scenario)}</p>
+    <div class="challenge-data-grid"><div><strong>Useful information</strong><span>${escapeHtml(challenge.relevant)}</span></div><div><strong>Not useful yet</strong><span>${escapeHtml(challenge.irrelevant)}</span></div></div>
+    <p class="challenge-question"><strong>${escapeHtml(challenge.question)}</strong></p>
+    <div class="challenge-strategies" role="group" aria-label="Choose a strategy">${options}</div>
+    <label class="challenge-label" for="realWorldAnswer">${escapeHtml(challenge.answerPrompt)}</label>
+    <input id="realWorldAnswer" class="form-input" type="${challenge.answerType === 'number' ? 'number' : 'text'}" inputmode="${challenge.answerType === 'number' ? 'decimal' : 'text'}" placeholder="Your answer">
+    <label class="challenge-label" for="realWorldReasoning">${escapeHtml(challenge.explanationPrompt)}</label>
+    <textarea id="realWorldReasoning" class="form-input" rows="3" maxlength="500" placeholder="Explain your thinking in your own words."></textarea>
+    <div class="challenge-actions"><button class="btn btn-primary" type="button" onclick="submitRealWorldChallenge('${escapeHtml(challenge.challengeId)}', '${escapeHtml(topic.id)}')">Record my reasoning →</button></div>
+    <p class="challenge-note">This is transfer practice, not a score. A correct strategy with an explanation is descriptive evidence only.</p>
+  </section>`;
+}
+
+function selectRealWorldStrategy(challengeId, strategyIndex) {
+  window._realWorldChallengeDraft = { challengeId, strategyIndex: Number(strategyIndex) };
+  renderTopicModal();
+}
+
+function submitRealWorldChallenge(challengeId, topicId) {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === topicId);
+  const challenge = window.getRealWorldChallenge && topic ? getRealWorldChallenge(topic) : null;
+  const draft = window._realWorldChallengeDraft;
+  const answerEl = document.getElementById('realWorldAnswer');
+  const reasoningEl = document.getElementById('realWorldReasoning');
+  const answer = String(answerEl?.value || '').trim().slice(0, 240);
+  const reasoning = String(reasoningEl?.value || '').trim().slice(0, 500);
+  if (!topic || !challenge || challenge.challengeId !== challengeId || !draft || draft.challengeId !== challengeId) {
+    if (typeof toast === 'function') toast('Choose a strategy before recording your reasoning.');
+    return false;
+  }
+  if (answer.length < 2 || reasoning.length < 8) {
+    if (typeof toast === 'function') toast('Add an answer and a little explanation so the evidence is useful.');
+    if (reasoningEl && reasoning.length < 8) reasoningEl.focus(); else if (answerEl) answerEl.focus();
+    return false;
+  }
+  const normalized = answer.toLowerCase();
+  const answerGood = challenge.answerType === 'number'
+    ? Math.abs(Number(answer) - Number(challenge.answer)) < 0.001
+    : challenge.answer.toLowerCase().split(/[^a-z0-9]+/).filter(token => token.length > 2).some(token => normalized.includes(token));
+  const strategyCorrect = Number(draft.strategyIndex) === Number(challenge.correctStrategy);
+  const transferReady = strategyCorrect && answerGood && reasoning.length >= 20;
+  const entries = getRealWorldChallengeAttempts();
+  entries.push({ challengeId, topicId: topic.id, title: challenge.title, strategyCorrect, answerGood, transferReady, answer, reasoning, independent: true, ts: Date.now() });
+  avyaanStorage.setItem('avyaan_real_world_challenges', JSON.stringify(entries.slice(-80)));
+  logActivity(topic.id, 'transfer-challenge');
+  window._realWorldChallengeDraft = null;
+  window._realWorldChallengeRetry = false;
+  renderTopicModal();
+  return true;
+}
+function submitTransferChallenge(topicId, confidence) {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === topicId);
+  const input = document.getElementById('transferResponse');
+  const response = String(input?.value || '').trim().slice(0, 600);
+  if (!topic || response.length < 8) {
+    if (typeof toast === 'function') toast('Add a little more detail so your connection is useful later.');
+    if (input) input.focus();
+    return false;
+  }
+  const attempts = getTransferAttempts();
+  attempts.push({
+    topicId: topic.id,
+    title: topic.title,
+    subject: topic.subject,
+    response,
+    confidence: confidence === 'need_help' ? 'need_help' : 'connected',
+    ts: Date.now()
+  });
+  avyaanStorage.setItem('avyaan_transfer_attempts', JSON.stringify(attempts.slice(-80)));
+  logActivity(topic.id, 'transfer');
+  awardXP(15, 'Made a real-world connection');
+  checkBadges();
+  renderTopicModal();
+  return true;
+}
+// CREATE & EXPLAIN — optional learner-owned evidence, private by default.
+function getPortfolioPrompt(topic) {
+  const title = topic?.title || 'this idea';
+  const subject = String(topic?.subject || '').toLowerCase();
+  if (subject.includes('math')) return `Explain one rule or strategy from ${title} in your own words, and show a tiny example.`;
+  if (subject.includes('physics')) return `Explain what causes the main change in ${title}. Use one observation from the lesson or daily life.`;
+  if (subject.includes('chemistry')) return `Explain what changes in ${title} and what evidence would help you notice it.`;
+  if (subject.includes('biology')) return `Explain one cause-and-effect link in ${title}, using a living thing as your example.`;
+  if (subject.includes('computer') || subject.includes('ai')) return `Explain the input, process and output in ${title} as if you were teaching a friend.`;
+  if (subject.includes('earth') || subject.includes('space')) return `Explain one pattern in ${title} and what observation would support your explanation.`;
+  return `Explain the key idea in ${title} in one or two sentences, as if you were teaching someone younger.`;
+}
+
+function getPortfolioEntries(topicId = null) {
+  const entries = safeStorageJSON('avyaan_portfolio_entries', []);
+  if (!Array.isArray(entries)) return [];
+  return topicId ? entries.filter(entry => entry && entry.topicId === topicId) : entries;
+}
+
+function renderPortfolioArtifact(topic) {
+  if (!topic) return '';
+  const latest = getPortfolioEntries(topic.id).sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0))[0];
+  if (latest) {
+    return `<section class="portfolio-artifact portfolio-artifact-complete" aria-labelledby="portfolioHeading"><div class="portfolio-kicker">✍️ CREATE & EXPLAIN</div><h3 id="portfolioHeading">You explained it in your own words</h3><p class="portfolio-prompt">${escapeHtml(getPortfolioPrompt(topic))}</p><div class="portfolio-response"><strong>Your explanation:</strong> ${escapeHtml(latest.response)}</div><p class="portfolio-note">${latest.pinned ? '📌 Pinned for the parent report.' : '🔒 Saved privately on this learner profile.'} This is a reflection, not a teacher or AI grade.</p></section>`;
+  }
+  const safeId = String(topic.id).replace(/'/g, "\\'");
+  return `<section class="portfolio-artifact" aria-labelledby="portfolioHeading"><div class="portfolio-kicker">✍️ CREATE & EXPLAIN</div><h3 id="portfolioHeading">Show what you understand</h3><p class="portfolio-prompt">${escapeHtml(getPortfolioPrompt(topic))}</p><label class="sr-only" for="portfolioResponse">Your explanation</label><textarea id="portfolioResponse" class="portfolio-input" rows="3" maxlength="400" placeholder="Write one or two sentences in your own words."></textarea><div class="portfolio-actions"><button class="btn btn-primary" type="button" onclick="submitPortfolioArtifact('${safeId}', true)">📌 Pin for parent report</button><button class="btn" type="button" onclick="submitPortfolioArtifact('${safeId}', false)">🔒 Save privately</button></div><p class="portfolio-note">Optional and never public. No automatic grade is assigned.</p></section>`;
+}
+
+function submitPortfolioArtifact(topicId, pinned) {
+  const topic = AVYAAN_DATA.topics.find(item => item.id === topicId);
+  const input = document.getElementById('portfolioResponse');
+  const response = String(input?.value || '').trim().slice(0, 400);
+  if (!topic || response.length < 12) {
+    if (typeof toast === 'function') toast('Add a little more explanation so your thinking is useful later.');
+    if (input) input.focus();
+    return false;
+  }
+  const entries = getPortfolioEntries();
+  entries.push({
+    id: `portfolio_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`,
+    topicId: topic.id,
+    title: topic.title,
+    subject: topic.subject,
+    response,
+    pinned: pinned === true,
+    ts: Date.now()
+  });
+  avyaanStorage.setItem('avyaan_portfolio_entries', JSON.stringify(entries.slice(-60)));
+  logActivity(topic.id, 'portfolio');
+  renderTopicModal();
+  return true;
+}
 // ---- ESTIMATION CHALLENGE (math topics): guess before you calculate ----
 // Pulls a numeric target from the topic's worked example answer so the
 // student builds number sense: estimate first, then compare closeness.
@@ -5400,6 +6503,7 @@ function beginQuizSession(topicId) {
   quizSession = { id: sessionId, topicId, correct: 0, wrong: 0, ts: Date.now() };
   logActivity(topicId, 'quiz');
   persistQuizSession();
+  trackLearningEvent('quiz_start', { topic_id: topicId });
 }
 
 function bumpQuizSession(correct) {
@@ -5471,10 +6575,12 @@ async function checkQuizAnswerDiagnostic(btnEl, selectedIdx, correctAnsRaw, expl
     if (!authoritative || typeof authoritative.correct !== 'boolean') {
       buttons.forEach(b => { b.disabled = false; });
       feedback.style.display = 'block';
-      feedback.innerHTML = '<div class="selfcheck-feedback selfcheck-almost">The answer service is temporarily unavailable. Please retry; no mastery or XP was recorded.</div>';
+      feedback.innerHTML = '<div class="selfcheck-feedback selfcheck-almost">The answer service is temporarily unavailable. Please retry; no mastery or XP was recorded.</div><button type="button" class="btn" style="margin-top:.6rem;font-size:.8rem;" onclick="retrySecureQuiz()">Retry secure quiz</button>';
+      trackLearningEvent('content_error', { topic_id: currentActiveTopic.id, error_code: 'quiz_evaluation_unavailable' });
       return;
     }
     isCorrect = authoritative.correct;
+    trackLearningEvent('quiz_answer', { topic_id: currentActiveTopic.id, attempt_index: currentQuizIndex, independent: true, outcome: isCorrect ? 'correct' : 'incorrect' });
     if (Number.isInteger(authoritative.correct_option_index)) correctIdx = authoritative.correct_option_index;
     optionExplanation = authoritative.explanation || optionExplanation;
   }
@@ -5559,13 +6665,18 @@ async function checkQuizAnswerDiagnostic(btnEl, selectedIdx, correctAnsRaw, expl
       awardXP(20, 'Correct answer');
     }
 
-    // Retrieval-gated mastery: a correct answer on a DUE spaced review proves
-    // the memory survived the interval — that earns the Solidified tier.
-    if (currentActiveTopic && !isSolidified(currentActiveTopic.id) &&
-        completedTopicIds.has(currentActiveTopic.id) &&
-        getReviewEntry(currentActiveTopic.id) && getReviewEntry(currentActiveTopic.id).dueDate <= Date.now()) {
-      markSolidified(currentActiveTopic.id);
-      renderGrid();
+    // Retrieval-gated mastery: a due recall is one evidence event. Retained
+    // memory requires at least two successful delayed recalls, not one lucky tap.
+    if (currentActiveTopic && completedTopicIds.has(currentActiveTopic.id)) {
+      const dueEntry = getReviewEntry(currentActiveTopic.id);
+      if (dueEntry && dueEntry.dueDate <= Date.now()) {
+        scheduleReview(currentActiveTopic.id, true);
+        const updatedEntry = getReviewEntry(currentActiveTopic.id);
+        if (updatedEntry && updatedEntry.successfulRecalls >= 2 && !isSolidified(currentActiveTopic.id)) {
+          markSolidified(currentActiveTopic.id);
+          renderGrid();
+        }
+      }
     }
 
     // Check if this was the daily challenge topic
@@ -5580,7 +6691,7 @@ async function checkQuizAnswerDiagnostic(btnEl, selectedIdx, correctAnsRaw, expl
       bumpQuizSession(false);
       updateSmartScore(currentActiveTopic.id, false, totalQuestions);
       awardXP(5, 'Attempted (wrong answer)');
-      // SM-2 failure: a wrong answer on a topic that is in the review cycle
+      // Adaptive-review failure: a wrong answer on a topic that is in the review cycle
       // resets its interval so it comes back within a day.
       if (getReviewEntry(currentActiveTopic.id)) {
         scheduleReview(currentActiveTopic.id, false);
@@ -5597,7 +6708,7 @@ async function checkQuizAnswerDiagnostic(btnEl, selectedIdx, correctAnsRaw, expl
       // Use the first flashcard's myth/fact as coaching
       const fc = currentActiveTopic.flashcards[0];
       misconceptionCoach = `You selected <strong>"${escapeHtml(selectedText)}"</strong>. <strong>${escapeHtml(fc.myth)}</strong> — but the truth is: ${escapeHtml(fc.fact)}`;
-      logMisconception(currentActiveTopic.id, fc.myth);
+      logMisconception(currentActiveTopic.id, fc.myth, { selectedText, correctText: correctLabel, source: 'quiz_wrong_answer' });
       mythFactCard = `
         <div style="margin-top: 0.6rem; padding: 0.6rem; background: #fffbeb; border: 1px solid #fde68a; border-radius: 6px;">
           <div style="font-size: 0.75rem; font-weight: 800; color: #92400e; margin-bottom: 0.2rem;">🃏 Relevant Flashcard</div>
@@ -5663,6 +6774,7 @@ function maybeCelebrate(opts) {
 // Show quiz summary screen
 function showQuizSummary() {
   quizSessionDone = true;
+  trackLearningEvent('quiz_complete', { topic_id: currentActiveTopic?.id, outcome: quizCorrectCount >= quizAnsweredCount * 0.8 ? 'passed' : 'practice' });
   saveTopicProgress();
   renderTopicModal();
 }
@@ -5686,33 +6798,42 @@ function getTopicBridges(topicId) {
 }
 
 function renderBridgesHtml(topicId) {
-  const bridges = getTopicBridges(topicId);
-  if (!bridges.length) return '';
-  const rows = bridges.map(b => {
-    const partnerId = b.a === topicId ? b.b : b.a;
-    const partner = AVYAAN_DATA.topics.find(t => t.id === partnerId);
-    if (!partner) return '';
+  const source = AVYAAN_DATA.topics.find(topic => topic && topic.id === topicId);
+  const connections = window.getConceptConnections
+    ? getConceptConnections(topicId, AVYAAN_DATA)
+    : getTopicBridges(topicId).map(bridge => ({
+      topic: AVYAAN_DATA.topics.find(topic => topic.id === (bridge.a === topicId ? bridge.b : bridge.a)),
+      reason: bridge.reason,
+      relation: 'related',
+      meta: { label: 'Connects to', icon: '🔗' }
+    })).filter(connection => connection.topic);
+  if (!source || !connections.length) return '';
+  const rows = connections.slice(0, 4).map(connection => {
+    const partner = connection.topic;
+    const safeId = String(partner.id).replace(/'/g, "\\'");
+    const relation = connection.meta || { label: 'Connects to', icon: '🔗' };
     return `
-      <div style="display: flex; gap: 0.5rem; align-items: flex-start; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 10px; padding: 0.55rem 0.7rem; cursor: pointer;" onclick="openTopicDetail('${partner.id}')">
-        <span style="font-size: 1.1rem;">${partner.emoji || '🔗'}</span>
-        <div style="flex: 1; min-width: 0;">
-          <div style="font-size: 0.78rem; font-weight: 800; color: #4338ca;">${partner.subject} · Class ${partner.class_level}</div>
-          <div style="font-size: 0.9rem; font-weight: 700; color: var(--text-main);">${partner.title}</div>
-          <div style="font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem;">💡 ${b.reason}</div>
-        </div>
-        <span style="color: var(--accent-primary); font-weight: 800;">›</span>
-      </div>
+      <button class="concept-connection-card" type="button" onclick="openTopicDetail('${safeId}')">
+        <span class="concept-connection-icon">${partner.emoji || '🔗'}</span>
+        <span class="concept-connection-copy">
+          <span class="concept-connection-relation">${escapeHtml(relation.icon)} ${escapeHtml(relation.label)}</span>
+          <strong>${escapeHtml(partner.title)}</strong>
+          <small>${escapeHtml(partner.subject)} · Class ${escapeHtml(partner.class_level)}</small>
+          <em>💡 ${escapeHtml(connection.reason)}</em>
+        </span>
+        <span class="concept-connection-arrow" aria-hidden="true">›</span>
+      </button>
     `;
   }).join('');
   return `
-    <div style="margin-top: 0.6rem; background: #eef2ff; border: 1px solid #c7d2fe; border-radius: 12px; padding: 0.7rem 0.9rem;">
-      <div style="font-size: 0.78rem; font-weight: 800; color: #4338ca; margin-bottom: 0.5rem;">🔗 Connected ideas — see this lesson from another subject</div>
-      <div style="display: flex; flex-direction: column; gap: 0.4rem;">${rows}</div>
-    </div>
+    <section class="concept-connection-panel" aria-labelledby="conceptConnectionsTitle">
+      <div class="concept-connection-kicker">🧩 Concept connections</div>
+      <h3 id="conceptConnectionsTitle">Where this idea can take you</h3>
+      <p>These authored links are guidance, not gates. They never change access or claim mastery.</p>
+      <div class="concept-connection-list">${rows}</div>
+    </section>
   `;
 }
-
-// ==========================================================================
 // CHAPTER MIXED-REVIEW QUIZ — interleaves MCQs from every lesson in a chapter
 // ==========================================================================
 let reviewQuestions = [];
@@ -5725,6 +6846,9 @@ let reviewTimeLimitSeconds = 5 * 60;
 let reviewSession = null; // { id, mode, expiresAt } for server-bound aggregate reviews
 let reviewContext = null; // overrides currentActiveTopic for header (Board Prep from chapter list)
 let reviewModeTitle = 'Chapter Mixed Review';
+let reviewRetrievalFirst = false;
+let reviewOutcomeByTopic = Object.create(null);
+let reviewConfidenceByIndex = Object.create(null);
 
 function getChapterReview(topic) {
   if (!topic || !AVYAAN_DATA.reviews) return null;
@@ -5745,16 +6869,17 @@ function renderReviewServiceMessage(title, message, showLessonButton = false) {
   const lessonButton = showLessonButton && currentActiveTopic
     ? '<button class="btn btn-primary" style="margin-top:0.8rem;" onclick="closeModal(\'reviewModal\'); switchLessonStep(5)">Open secure lesson quiz →</button>'
     : '';
+  const retryButton = window._lastReviewRequest ? '<button type="button" class="btn" style="margin-top:0.8rem;" onclick="retryLastReview()">Retry review</button>' : '';
   container.innerHTML = `
     <div role="status" style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:1.4rem; text-align:center; color:#1e3a8a;">
       <div style="font-size:2rem;">🔐</div>
       <h2 style="font-size:1.1rem; margin:0.5rem 0;">${escapeHtml(title)}</h2>
       <p style="font-size:0.85rem; margin:0;">${escapeHtml(message)}</p>
-      ${lessonButton}
+      ${lessonButton}${retryButton}
     </div>`;
 }
 
-async function startAggregateReview(selector, fallbackQuestions, title, context, timed, timeLimitSeconds) {
+async function startAggregateReview(selector, fallbackQuestions, title, context, timed, timeLimitSeconds, retrievalFirst = false) {
   reviewSession = null;
   reviewQuestions = [];
   reviewIndex = 0;
@@ -5763,6 +6888,11 @@ async function startAggregateReview(selector, fallbackQuestions, title, context,
   reviewTimeLimitSeconds = timeLimitSeconds || 5 * 60;
   reviewContext = context || null;
   reviewModeTitle = title;
+  reviewRetrievalFirst = !!retrievalFirst;
+  window._lastReviewRequest = { selector, fallbackQuestions, title, context, timed, timeLimitSeconds, retrievalFirst };
+  trackLearningEvent('review_start', { outcome: title });
+  reviewOutcomeByTopic = Object.create(null);
+  reviewConfidenceByIndex = Object.create(null);
   stopReviewTimer();
   openModal('reviewModal');
   renderReviewServiceMessage('Preparing secure review…', 'Loading questions from the trusted learning service.');
@@ -5771,6 +6901,7 @@ async function startAggregateReview(selector, fallbackQuestions, title, context,
     const session = await AvyaanAPI.createReviewSession(selector);
     if (!session || session.status !== 'success' || !Array.isArray(session.questions) || session.questions.length < 4) {
       renderReviewServiceMessage('Secure review unavailable', session?.detail || 'Please try again later or use the individual lesson quiz.', true);
+      trackLearningEvent('content_error', { error_code: 'review_unavailable' });
       return false;
     }
     reviewSession = {
@@ -5798,7 +6929,8 @@ function openChapterReview() {
     const topic = currentActiveTopic;
     const review = getChapterReview(topic);
     if (!review || !review.questions || review.questions.length < 2) {
-      alert('No mixed review is available for this chapter yet.');
+      openModal('reviewModal');
+      renderReviewServiceMessage('Review coming soon', 'There is not enough verified question coverage for this chapter yet. Try the individual lesson quiz instead.', true);
       return;
     }
     await startAggregateReview(
@@ -5927,6 +7059,7 @@ function renderReviewQuestion() {
       <div style="font-size: 0.7rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 0.4rem;">
         Question ${reviewIndex + 1} of ${total} ${sourceTopicTitle ? '· from “' + escapeHtml(sourceTopicTitle) + '”' : ''}
       </div>
+          ${reviewRetrievalFirst ? `<div role="note" style="background:#eef2ff; border:1px solid #c7d2fe; border-radius:10px; padding:0.6rem 0.7rem; margin-bottom:0.7rem; color:#3730a3; font-size:0.8rem;"><strong>Recall first.</strong> Answer from memory before opening the lesson.</div>` : ''}
           <div style="font-size: 1.02rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.9rem;">${escapeHtml(q.question || '')}</div>
           <div style="display: flex; flex-direction: column; gap: 0.5rem;">
             ${(q.options || []).map((opt, oi) => `
@@ -5941,6 +7074,38 @@ function renderReviewQuestion() {
   `;
 }
 
+function recordReviewOutcome(question, correct) {
+  if (!reviewRetrievalFirst || !question || typeof correct !== 'boolean') return;
+  const topicId = question.topicId || question.topic_id;
+  if (!topicId || Object.prototype.hasOwnProperty.call(reviewOutcomeByTopic, topicId)) return;
+  reviewOutcomeByTopic[topicId] = correct;
+  scheduleReview(topicId, correct);
+  const entry = getReviewEntry(topicId);
+  if (correct && entry && entry.successfulRecalls >= 2 && !isSolidified(topicId)) {
+    markSolidified(topicId);
+  }
+}
+
+function recordReviewConfidence(level) {
+  if (!reviewRetrievalFirst) return;
+  const allowed = new Set(['sure', 'guess', 'unsure']);
+  if (!allowed.has(level)) return;
+  reviewConfidenceByIndex[reviewIndex] = level;
+  const feedback = document.getElementById('reviewFeedback');
+  if (feedback) {
+    feedback.querySelectorAll('[data-confidence]').forEach(button => {
+      button.disabled = true;
+      button.setAttribute('aria-pressed', button.dataset.confidence === level ? 'true' : 'false');
+    });
+    const next = feedback.querySelector('[data-review-next]');
+    if (next) { next.disabled = false; next.removeAttribute('aria-disabled'); }
+    const note = document.getElementById('reviewConfidenceNote');
+    if (note) note.textContent = 'Confidence saved — this helps explain how recall felt.';
+  }
+  const saved = safeStorageJSON('avyaan_review_confidence', {});
+  saved[`${reviewQuestions[reviewIndex]?.topicId || reviewQuestions[reviewIndex]?.topic_id || 'unknown'}:${Date.now()}`] = level;
+  avyaanStorage.setItem('avyaan_review_confidence', JSON.stringify(saved));
+}
 async function checkReviewAnswer(btnEl, selectedIdx, correctIdx) {
   if (btnEl && btnEl.dataset.answered) return;
   const q = reviewQuestions[reviewIndex];
@@ -5959,6 +7124,7 @@ async function checkReviewAnswer(btnEl, selectedIdx, correctIdx) {
     }
     if (result.correct) reviewScore++;
     if (btnEl) btnEl.dataset.answered = '1';
+    recordReviewOutcome(q, result.correct);
     revealReviewResult(result.correct_option_index, selectedIdx, false, result);
     return;
   }
@@ -5966,6 +7132,7 @@ async function checkReviewAnswer(btnEl, selectedIdx, correctIdx) {
   const isCorrect = selectedIdx === correctIdx;
   if (isCorrect) reviewScore++;
   if (btnEl) btnEl.dataset.answered = '1';
+  recordReviewOutcome(q, isCorrect);
   revealReviewResult(correctIdx, selectedIdx, false);
 }
 
@@ -5995,13 +7162,17 @@ function revealReviewResult(correctIdx, selectedIdx, timedOut, serverResult = nu
     ? q.explanations[selectedIdx] : (serverResult?.explanation || q.explanation);
   const serverCorrect = serverResult && typeof serverResult.correct === 'boolean' ? serverResult.correct : null;
   const answerLabel = Number.isInteger(correctIdx) ? String.fromCharCode(65 + correctIdx) : '';
+  const nextLabel = reviewIndex >= reviewQuestions.length - 1 ? '🏁 Finish Review' : 'Next Question ›';
+  const confidencePrompt = reviewRetrievalFirst ? `<div style="margin-top:0.8rem; padding-top:0.7rem; border-top:1px solid var(--border-color);"><div style="font-weight:800; color:var(--text-main);">How did that recall feel?</div><div style="display:flex; gap:0.4rem; flex-wrap:wrap; margin-top:0.45rem;"><button class="btn" data-confidence="sure" aria-pressed="false" onclick="recordReviewConfidence('sure')">I knew it</button><button class="btn" data-confidence="guess" aria-pressed="false" onclick="recordReviewConfidence('guess')">I guessed</button><button class="btn" data-confidence="unsure" aria-pressed="false" onclick="recordReviewConfidence('unsure')">I was unsure</button></div><div id="reviewConfidenceNote" role="status" style="font-size:0.75rem; color:var(--text-muted); margin-top:0.35rem;">Choose one before continuing.</div></div>` : '';
+  const nextButton = `<button class="btn" data-review-next="true" ${reviewRetrievalFirst ? 'disabled aria-disabled="true"' : ''} style="margin-top: 0.8rem; background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; font-weight: 700;" onclick="nextReviewQuestion()">${nextLabel}</button>`;
   feedback.innerHTML = (timedOut
     ? `<span style="font-weight: 800; color: #b45309;">⏰ Time's up! Submit the next question to continue; the answer remains protected.</span>`
     : ((serverCorrect === true || (!serverResult && selectedIdx === correctIdx))
       ? `<span style="font-weight: 800; color: #059669;">✓ Correct!</span>`
       : `<span style="font-weight: 800; color: #991b1b;">✗ Not quite${answerLabel ? ` — the right answer is ${answerLabel}.` : '.'}</span>`))
     + (perOption ? `<div style="margin-top: 0.3rem; color: var(--text-muted);">${escapeHtml(perOption)}</div>` : '')
-    + `<button class="btn" style="margin-top: 0.8rem; background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; font-weight: 700;" onclick="nextReviewQuestion()">${reviewIndex >= reviewQuestions.length - 1 ? '🏁 Finish Review' : 'Next Question ›'}</button>`;
+    + confidencePrompt
+    + nextButton;
 }
 
 function nextReviewQuestion() {
@@ -6021,7 +7192,7 @@ function nextReviewQuestion() {
       <div style="text-align: center; padding: 1.5rem;">
         <div style="font-size: 3rem;">${pct >= 80 ? '🏆' : pct >= 50 ? '🎉' : '💪'}</div>
         <h2 style="font-size: 1.3rem; font-weight: 800; color: var(--text-main); margin: 0.5rem 0 0.2rem;">${reviewTimed ? 'Board Prep complete!' : 'Review complete!'}</h2>
-        <p style="font-size: 0.95rem; color: var(--text-muted);">You scored <strong>${reviewScore} / ${total}</strong> (${pct}%)${timeUsed} on the ${reviewTimed ? 'timed chapter quiz' : 'mixed chapter review'}.
+        <p style="font-size: 0.95rem; color: var(--text-muted);">You scored <strong>${reviewScore} / ${total}</strong> (${pct == null ? '—' : pct + '%'})${timeUsed} on the ${reviewTimed ? 'timed chapter quiz' : 'mixed chapter review'}.
         ${reviewScore > best ? ' <span style="color: #059669; font-weight: 700;">New best score! 🏅</span>' : best > 0 ? ` Best: ${best}.` : ''}</p>
         <div style="display: flex; gap: 0.6rem; justify-content: center; margin-top: 1rem;">
           <button class="btn" style="background: var(--accent-primary); border-color: var(--accent-primary); color: #fff; font-weight: 700;" onclick="closeModal('reviewModal')">Done</button>
@@ -6086,7 +7257,7 @@ let boardPrepBoardFilter = 'All';
 // --------------------------------------------------------------------------
 function collectProgressState() {
   const payload = {};
-  const allowed = new Set(['avyaan_xp','avyaan_badges','avyaan_smart_scores','avyaan_review_queue','avyaan_daily_challenge','avyaan_estimations','avyaan_streak_data','avyaan_completed_topics','avyaan_solidified_topics']);
+  const allowed = new Set(['avyaan_xp','avyaan_badges','avyaan_smart_scores','avyaan_review_queue','avyaan_daily_challenge','avyaan_estimations','avyaan_transfer_attempts','avyaan_real_world_challenges','avyaan_aha_observations','avyaan_offscreen_activities','avyaan_portfolio_entries','avyaan_streak_data','avyaan_completed_topics','avyaan_solidified_topics']);
   for (let i = 0; i < avyaanStorage.length; i++) {
     const k = avyaanStorage.key(i);
     if (allowed.has(k) || (k && k.startsWith('avyaan_progress_'))) payload[k] = avyaanStorage.getItem(k);
@@ -6220,7 +7391,7 @@ function renderClassWideSummary() {
     const pct = total ? Math.round((s.mastered / total) * 100) : 0;
     return `<tr>
       <td style="font-weight:700;">${escapeHtml(p.name)} <span class="class-tag">C${p.grade}</span></td>
-      <td>${s.mastered}/${total} · ${pct}%</td>
+      <td>${s.mastered}/${total} · ${pct == null ? '—' : pct + '%'}</td>
       <td>${s.xp} XP</td>
       <td>${s.streak}🔥</td>
       <td>${s.solidified} 🧠</td>
@@ -6500,6 +7671,8 @@ function toggleTheme() {
   root.setAttribute('data-theme', 'light');
   avyaanStorage.setItem('avyaan_theme', 'light');
 }
+
+window.addEventListener('online', () => { flushOfflineProgressQueue(); });
 
 function syncThemeToggle() {
   const root = document.documentElement;
@@ -6841,6 +8014,8 @@ function buildWeeklyReportHtml() {
   const estimations = log.filter(a => a.type === 'estimation');
   const predictions = log.filter(a => a.type === 'prediction');
   const selfAssessed = log.filter(a => a.type && a.type.startsWith('self-assessed'));
+  const transferAttempts = getTransferAttempts().filter(a => a && Number(a.ts || 0) >= weekStart);
+  const portfolioEntries = getPortfolioEntries().filter(a => a && a.pinned === true && Number(a.ts || 0) >= weekStart);
 
   // --- Number sense: average estimation accuracy this week vs last week ---
   const estAll = safeStorageJSON('avyaan_estimations', {});
@@ -6858,7 +8033,7 @@ function buildWeeklyReportHtml() {
 
   // XP earned this week — activity-based awards + exact quiz XP from session records
   // (badge XP is a meta-achievement without a topic, surfaced via the Badges stat)
-  const xpMap = { 'mastered': 50, 'daily-challenge': 100, 'estimation': 5, 'prediction': 10 };
+  const xpMap = { 'mastered': 50, 'daily-challenge': 100, 'estimation': 5, 'prediction': 10, 'transfer': 15 };
   const quizSessions = JSON.parse(avyaanStorage.getItem('avyaan_quiz_sessions') || '[]');
   const quizSessionsThisWeek = quizSessions.filter(s => s && s.ts >= weekStart);
   const quizXpThisWeek = quizSessionsThisWeek.reduce((s, x) => s + (x.correct * 20) + (x.wrong * 5), 0);
@@ -6984,22 +8159,32 @@ function buildWeeklyReportHtml() {
     return `<tr><td>${t.emoji} ${t.title}</td><td>${t.subject} · Class ${t.class_level}</td><td>${ratingTxt}</td></tr>`;
   }).join('');
 
-  // --- Recurring misconceptions: same myth hit 2+ times this week ---
-  const misconLog = getMisconceptionLog();
-  const misconByTopic = {};
-  misconLog.forEach(m => {
-    if (m.ts < weekStart) return;
-    misconByTopic[m.topicId] = misconByTopic[m.topicId] || { count: 0, myth: m.myth, title: m.title, emoji: m.emoji, lastTs: 0 };
-    misconByTopic[m.topicId].count += 1;
-    misconByTopic[m.topicId].lastTs = Math.max(misconByTopic[m.topicId].lastTs, m.ts);
+  // --- Recurring misconceptions: same stable misconception hit 2+ times this week ---
+  const misconById = {};
+  getMisconceptionLog().forEach(m => {
+    if (!m || Number(m.ts || 0) < weekStart) return;
+    const id = m.misconceptionId || misconceptionIdFor(m.topicId, m.myth);
+    misconById[id] = misconById[id] || { count: 0, myth: m.myth, title: m.title, emoji: m.emoji, lastTs: 0, repaired: false };
+    misconById[id].count += 1;
+    misconById[id].lastTs = Math.max(misconById[id].lastTs, Number(m.ts || 0));
+    misconById[id].repaired = misconById[id].repaired || m.repaired === true;
   });
-  const misconRows = Object.values(misconByTopic)
+  const misconRows = Object.values(misconById)
     .filter(m => m.count >= 2)
     .sort((a, b) => b.count - a.count)
     .slice(0, 6)
-    .map(m => `<tr><td>${m.emoji} ${m.title}</td><td>${m.count}× this week</td><td>${m.myth}</td></tr>`).join('');
+    .map(m => `<tr><td>${m.emoji} ${m.title}</td><td>${m.count}× this week</td><td>${m.myth}${m.repaired ? ' · repair recorded' : ' · repair recommended'}</td></tr>`).join('');
 
-  // --- Focus for next week: top three weak topics with a concrete next step ---
+  const transferRows = transferAttempts.slice().sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0)).slice(0, 8).map(a => {
+    const topic = all.find(t => t.id === a.topicId);
+    return `<tr><td>${topic ? topic.emoji + ' ' + topic.title : escapeHtml(a.title || 'Lesson')}</td><td>${a.confidence === 'need_help' ? 'Needs another example' : 'Connection made'}</td><td>${escapeHtml(String(a.response || '').slice(0, 220))}</td><td>${fmt(a.ts)}</td></tr>`;
+  }).join('');
+
+  const portfolioRows = portfolioEntries.slice().sort((a, b) => Number(b.ts || 0) - Number(a.ts || 0)).slice(0, 8).map(a => {
+    const topic = all.find(t => t.id === a.topicId);
+    return `<tr><td>${topic ? topic.emoji + ' ' + topic.title : escapeHtml(a.title || 'Lesson')}</td><td>${escapeHtml(String(a.response || '').slice(0, 220))}</td><td>${fmt(a.ts)}</td></tr>`;
+  }).join('');
+  // --- Focus for next week
   const focusRows = weakTopics.slice(0, 3).map(t => {
     const rating = assessments[t.id] ? assessments[t.id].rating : 'due for review';
     const hint = rating === 'no'
@@ -7079,6 +8264,8 @@ function buildWeeklyReportHtml() {
     <div class="stat"><b>${predictions.length}</b><span>Predictions made</span></div>
     <div class="stat"><b>${earnedBadges.size}</b><span>Badges earned</span></div>
     <div class="stat"><b>${solidifiedTopicIds.size}</b><span>🧠 Solidified (recall-proven)</span></div>
+    <div class="stat"><b>${transferAttempts.length}</b><span>Transfer connections</span></div>
+    <div class="stat"><b>${portfolioEntries.length}</b><span>Portfolio highlights</span></div>
   </div>
 
   <h2>Day-by-day activity</h2>
@@ -7113,6 +8300,12 @@ function buildWeeklyReportHtml() {
   <h2>🧠 Recurring misconceptions</h2>
   ${misconRows ? `<table><tr><th>Topic</th><th>This week</th><th>The misunderstanding</th></tr>${misconRows}</table><p style="font-size:10px; color:#64748b;">Shown when the same misconception is hit 2+ times in one week — the flashcard in the lesson corrects it.</p>` : '<p style="color:#64748b;">No recurring misconceptions this week — misunderstandings are being resolved. 🎉</p>'}
 
+  <h2>🌍 Transfer connections</h2>
+  ${transferRows ? `<table><tr><th>Topic</th><th>Status</th><th>Learner connection</th><th>Date</th></tr>${transferRows}</table><p style="font-size:10px; color:#64748b;">These reflections show application attempts, not verified mastery scores.</p>` : '<p style="color:#64748b;">No transfer connections recorded this week yet.</p>'}
+
+  <h2>✍️ Portfolio highlights</h2>
+  ${portfolioRows ? `<table><tr><th>Topic</th><th>Learner explanation</th><th>Date</th></tr>${portfolioRows}</table><p style="font-size:10px; color:#64748b;">Only reflections the learner explicitly pinned are shown here. They are not verified grades.</p>` : '<p style="color:#64748b;">No portfolio highlights were pinned this week.</p>'}
+
   <h2>🎯 Focus for next week</h2>
   ${focusRows ? `<table><tr><th>Topic</th><th>Where</th><th>Suggested next step</th></tr>${focusRows}</table>` : '<p style="color:#64748b;">No focus topics — try something new next week. 🌱</p>'}
 
@@ -7137,7 +8330,7 @@ function openWeeklyReport() {
 // with the device's mail app) plus, when signed in with a real account, a
 // backend queue that delivers the full styled report and remembers the
 // subscription for future weeks.
-function emailWeeklyReport() {
+async function emailWeeklyReport() {
   const html = buildWeeklyReportHtml();
   const studentName = currentUser ? currentUser.name : 'Guest';
   const subject = `Avyaan Weekly Report — ${studentName} (${new Date().toLocaleDateString('en-IN')})`;
@@ -7151,35 +8344,80 @@ function emailWeeklyReport() {
   const mailto = 'mailto:?subject=' + encodeURIComponent(subject) +
     '&body=' + encodeURIComponent('Avyaan weekly progress report for ' + studentName +
       '\n\n' + plain + '\n\n— Generated by Avyaan STEM (smaraze.com)');
-  // Fire-and-forget backend queue; only when we know the parent's address.
-  queueWeeklyReportEmail(subject, html);
+  // Finish the server queue attempt before opening mailto. A navigation can
+  // cancel a fire-and-forget fetch, so the old ordering made the queue look
+  // successful while silently dropping it.
+  const queueResult = await queueWeeklyReportEmail(subject, html);
+  if (queueResult.status === 'queued') {
+    toast('📧 Report queued for the account email. Delivery is pending until email service is configured.');
+  } else if (queueResult.reason === 'not_parent_context') {
+    toast('📧 A device email draft is opening. Server reports are available from Parent View.');
+  } else if (queueResult.reason === 'unavailable') {
+    toast('📧 A device email draft is opening; server queue is temporarily unavailable.');
+  }
   window.location.href = mailto;
+  return queueResult;
 }
 
 async function queueWeeklyReportEmail(subject, bodyHtml) {
-  const user = JSON.parse(avyaanStorage.getItem('avyaan_user') || '{}');
-  if (!user.id || user.isGuest) return;
-  if (!window.AvyaanAPI || !AvyaanAPI.getToken()) return;
+  const user = currentUser || JSON.parse(avyaanStorage.getItem('avyaan_user') || '{}');
+  if (!user.id || user.isGuest || !window.AvyaanAPI || !AvyaanAPI.getToken()) {
+    return { status: 'device_only', reason: 'unavailable' };
+  }
+
+  const role = String(user.role || '').toLowerCase();
+  // Parent reports must be generated for the explicitly selected child. Do
+  // not accidentally treat the parent's account id as a learner subject.
+  const childId = role === 'parent'
+    ? (window._activeParentChildId || null)
+    : (user.child_id || user.id || null);
+  if (role === 'parent' && !childId) {
+    return { status: 'device_only', reason: 'not_parent_context' };
+  }
   const parentEmail = avyaanStorage.getItem('avyaan_parent_email') || user.email || '';
-  if (!parentEmail) return;
-  const report = await AvyaanAPI.createServerReport(user.id);
-  const res = report && report.report_id ? await AvyaanAPI.queueReportEmail(report.report_id, parentEmail, subject) : null;
-  if (res) avyaanStorage.setItem('avyaan_report_email_queued', String(Date.now()));
+  if (!childId || !parentEmail) return { status: 'device_only', reason: 'unavailable' };
+
+  try {
+    // Keep the universal device-draft fallback responsive even when the API
+    // origin is unreachable. A network stall must not strand the user here.
+    const timeout = ms => new Promise((_, reject) => setTimeout(() => reject(new Error('report queue timeout')), ms));
+    const report = await Promise.race([
+      AvyaanAPI.createServerReport(childId),
+      timeout(8000)
+    ]);
+    if (!report || !report.report_id) return { status: 'device_only', reason: 'unavailable' };
+    const res = await Promise.race([
+      AvyaanAPI.queueReportEmail(report.report_id, parentEmail, subject),
+      timeout(8000)
+    ]);
+    if (!res || (res.status && res.status !== 'queued')) {
+      return { status: 'device_only', reason: 'unavailable' };
+    }
+    avyaanStorage.setItem('avyaan_report_email_queued', String(Date.now()));
+    return { status: 'queued', report_id: report.report_id };
+  } catch (e) {
+    return { status: 'device_only', reason: 'unavailable' };
+  }
 }
 
 // Weekly-email subscription — "on" queues this week's report now and marks
 // the account for future auto-queued reports.
-function toggleWeeklyEmailSubscription() {
+async function toggleWeeklyEmailSubscription() {
   const wasOn = avyaanStorage.getItem('avyaan_weekly_email_subscribed') === 'on';
   const nowOn = !wasOn;
   avyaanStorage.setItem('avyaan_weekly_email_subscribed', nowOn ? 'on' : 'off');
   if (nowOn) {
-    queueWeeklyReportEmail(
+    const result = await queueWeeklyReportEmail(
       `Avyaan Weekly Report — ${currentUser ? currentUser.name : 'Guest'}`,
       buildWeeklyReportHtml()
     );
-    alert('📧 Weekly reports on! This week\'s report is queued for ' +
-      (avyaanStorage.getItem('avyaan_parent_email') || 'your registered email') + '.');
+    if (result.status === 'queued') {
+      toast('📧 Weekly reports on. This week\'s report is queued; delivery is pending until email service is configured.');
+    } else if (result.reason === 'not_parent_context') {
+      toast('📧 Weekly reports on for Parent View. Select a linked learner to queue this week\'s report.');
+    } else {
+      toast('📧 Weekly reports on for this device. Server delivery is temporarily unavailable.');
+    }
   }
   const btn = document.getElementById('weeklyEmailToggle');
   if (btn) btn.textContent = nowOn ? '✓ Weekly email ON' : '📧 Weekly email OFF';
@@ -7256,7 +8494,7 @@ async function renderParentDashboard() {
           <div style="display:flex; gap:0.5rem; overflow-x:auto; padding-bottom:0.5rem; margin-bottom:1rem;">
             ${children.map(ch => `
               <button class="btn btn-sm ${ch.id === activeChildId ? 'btn-primary' : ''}" style="border-radius:20px; padding:0.35rem 0.9rem; font-size:0.8rem;" onclick="window._activeParentChildId='${escapeHtml(ch.id)}'; renderParentDashboard();">
-                ${escapeHtml(ch.name || 'Child')} (Class ${escapeHtml(ch.enrolled_class || 1)})
+                ${escapeHtml(ch.display_name || ch.name || 'Child')} (Class ${escapeHtml(ch.class_level || ch.enrolled_class || 1)})
               </button>
             `).join('')}
           </div>`;
@@ -7264,22 +8502,24 @@ async function renderParentDashboard() {
         if (summary && summary.status === 'success') {
           const ch = summary.child || {};
           const m = summary.metrics || {};
-          const comp = m.mastered_in_class != null ? m.mastered_in_class : (summary.completed_lessons || 0);
-          const tot = m.total_class_topics != null ? m.total_class_topics : (summary.total_topics_in_class || 1);
-          const pct = m.class_completion_pct != null ? m.class_completion_pct : (Math.round((comp / tot) * 100));
-          const childName = ch.name || summary.child_name || 'Child';
-          const childClass = ch.enrolled_class || summary.enrolled_class || 1;
+          const comp = Number(m.mastered_lessons ?? m.mastered_in_class ?? summary.completed_lessons ?? 0);
+          const tot = m.total_class_topics != null ? Number(m.total_class_topics) : (summary.total_topics_in_class != null ? Number(summary.total_topics_in_class) : null);
+          const rawPct = m.class_completion_pct != null ? Number(m.class_completion_pct) : (tot ? Math.round((comp / tot) * 100) : null);
+          const pct = rawPct == null || !Number.isFinite(rawPct) ? null : Math.max(0, Math.min(100, rawPct));
+          const childName = ch.display_name || ch.name || summary.child_name || 'Child';
+          const childClass = ch.class_level || ch.enrolled_class || summary.enrolled_class || 1;
           const bandName = ch.band_name || summary.subscription_band || 'Free';
           const streak = m.streak_days != null ? m.streak_days : (summary.streak || 0);
-          const quizAcc = m.quiz_accuracy_pct != null ? m.quiz_accuracy_pct : (summary.quiz_accuracy_percent || 0);
-          const quizAtt = m.total_quiz_attempts != null ? m.total_quiz_attempts : (summary.quiz_attempts || 0);
-          const studyTime = m.estimated_study_minutes != null ? m.estimated_study_minutes : (summary.estimated_learning_time_minutes || 0);
+          const quizAtt = Number(m.quiz_attempts ?? m.total_quiz_attempts ?? summary.quiz_attempts ?? 0);
+          const quizCorrect = Number(m.quiz_correct ?? summary.quiz_correct ?? 0);
+          const quizAcc = m.quiz_accuracy_pct != null ? Number(m.quiz_accuracy_pct) : (quizAtt ? Math.round((quizCorrect / quizAtt) * 100) : null);
+          const studyTime = m.estimated_study_minutes != null ? m.estimated_study_minutes : (summary.estimated_learning_time_minutes ?? null);
           const tips = summary.parent_tips || summary.tips || [];
 
           const subjectRows = Array.isArray(summary.subject_breakdown)
             ? summary.subject_breakdown
             : Object.entries(summary.subject_breakdown || {}).map(([subject, mastered]) => ({ subject, mastered, total: mastered, percentage: Math.min(100, mastered * 5) }));
-          const subjBars = subjectRows.map(row => `
+          const subjBars = subjectRows.length ? subjectRows.map(row => `
             <div style="margin-bottom:0.4rem;">
               <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted);">
                 <span>${escapeHtml(row.subject || 'Subject')}</span>
@@ -7289,15 +8529,47 @@ async function renderParentDashboard() {
                 <div style="background:#2563eb; height:100%; width:${Math.min(100, row.percentage || 0)}%;"></div>
               </div>
             </div>
-          `).join('');
+          `).join('') : '<p style="font-size:0.8rem; color:#64748b; margin:0;">Subject-level progress will appear after the report has enough verified activity.</p>'
           const weakHtml = (summary.weak_areas && summary.weak_areas.length)
             ? summary.weak_areas.map(w => `<li style="font-size:0.8rem; color:#b91c1c; margin-bottom:0.25rem;"><b>${escapeHtml(w.topic_title || w.title || w.topic_id || w.id || 'Topic')}</b> (Accuracy: ${escapeHtml(w.accuracy ?? w.accuracy_pct ?? 0)}%)</li>`).join('')
-            : '<p style="font-size:0.8rem; color:#059669; margin:0;">✅ Strong grasp across all attempted concepts!</p>';
+            : (quizAtt > 0 ? '<p style="font-size:0.8rem; color:#059669; margin:0;">✅ No focus area is currently flagged in attempted quizzes.</p>' : '<p style="font-size:0.8rem; color:#64748b; margin:0;">No focus area yet — a server-recorded quiz will create useful evidence.</p>');
 
           const tipsHtml = tips.length
             ? tips.map(t => `<li style="font-size:0.8rem; color:#1e293b; margin-bottom:0.35rem;">${escapeHtml(t)}</li>`).join('')
             : '';
 
+          const topWeak = Array.isArray(summary.weak_areas) && summary.weak_areas.length
+            ? (summary.weak_areas[0].topic_title || summary.weak_areas[0].title || summary.weak_areas[0].topic_id || '')
+            : '';
+          const weeklyStoryText = quizAtt > 0
+            ? childName + ' has ' + quizAtt + ' recorded quiz attempt' + (quizAtt === 1 ? '' : 's') + (quizAcc == null ? ' with accuracy not yet available' : ' at ' + quizAcc + '% accuracy') + '. Use the next practice step to turn one clear idea into a repeatable skill.'
+            : 'There is not enough quiz evidence for a learning story yet. A short practice session will give the next report something useful to reflect on.';
+          const weeklyNextStep = topWeak
+            ? 'Suggested conversation: ask what felt confusing in “' + escapeHtml(topWeak) + '” and invite one explanation before showing the answer.'
+            : 'Suggested conversation: ask your child to explain one idea in their own words, then celebrate the effort rather than speed.';
+          const weeklyStoryHtml = '<div class="parent-weekly-story"><h4>🧭 This week’s learning story</h4><p>' + escapeHtml(weeklyStoryText) + '</p><small>' + weeklyNextStep + ' Metrics come from the verified parent report; they are not a prediction of future results.</small></div>';
+          const evidence = summary.evidence || {};
+          const quizEvidence = evidence.quiz || {};
+          const spacedEvidence = evidence.spaced_review || {};
+          const nextAction = Array.isArray(summary.next_actions) && summary.next_actions.length ? summary.next_actions[0] : null;
+          const nextActionHtml = nextAction
+            ? `<div class="parent-next-action" data-action-code="${escapeHtml(nextAction.code || 'NEXT_STEP')}"><strong>${escapeHtml(nextAction.label || 'Choose a short learning step')}</strong><span>${escapeHtml(nextAction.reason || 'Use the next small step to create more evidence.')}</span></div>`
+            : '<div class="parent-next-action"><strong>Choose a short learning step</strong><span>A little practice will make the next report more useful.</span></div>';
+          const decisionSupportHtml = `
+            <section class="parent-decision-support" aria-labelledby="parentDecisionHeading">
+              <div class="parent-decision-heading">
+                <div><h4 id="parentDecisionHeading">What this means · what to do next</h4><p>Use these evidence states to choose one calm, useful next step.</p></div>
+                <span class="parent-evidence-badge">Evidence guide</span>
+              </div>
+              <div class="parent-evidence-grid">
+                <div class="parent-evidence-item" data-evidence-state="verified"><strong>Verified activity</strong><span>${escapeHtml(String(comp))} lessons recorded</span><small>Completion is activity evidence, not durable mastery.</small></div>
+                <div class="parent-evidence-item" data-evidence-state="immediate"><strong>Immediate quiz evidence</strong><span>${quizEvidence.attempts ? escapeHtml(String(quizEvidence.attempts)) + ' attempt' + (quizEvidence.attempts === 1 ? '' : 's') + (quizEvidence.accuracy_pct != null ? ' · ' + escapeHtml(String(quizEvidence.accuracy_pct)) + '% accuracy' : '') : 'No quiz attempts yet'}</span><small>Based on server-evaluated answers only.</small></div>
+                <div class="parent-evidence-item" data-evidence-state="retained"><strong>Remembered over time</strong><span>${spacedEvidence.retained_topics ? escapeHtml(String(spacedEvidence.retained_topics)) + ' topic' + (spacedEvidence.retained_topics === 1 ? '' : 's') + ' with retained evidence' : 'Not established yet'}</span><small>Requires two or more successful spaced-review passes.</small></div>
+                <div class="parent-evidence-item" data-evidence-state="estimated"><strong>Estimated time</strong><span>${studyTime == null ? 'Not available' : escapeHtml(String(studyTime)) + ' minutes'}</span><small>Approximation from recorded activity; not a stopwatch.</small></div>
+              </div>
+              <div class="parent-next-action-wrap"><div class="parent-next-action-kicker">RECOMMENDED NEXT STEP</div>${nextActionHtml}</div>
+              <p class="parent-evidence-disclaimer">How we decide this: the report separates completion, immediate quiz results and spaced-review evidence. It does not turn a score into a prediction of future performance.</p>
+            </section>`;
           summaryHtml = `
             <div style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:12px; padding:1.2rem; margin-bottom:1rem;">
               <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.8rem;">
@@ -7308,26 +8580,26 @@ async function renderParentDashboard() {
                   </p>
                 </div>
                 <div style="text-align:right;">
-                  <span style="font-size:1.2rem; font-weight:800; color:#2563eb;">${pct}%</span>
-                  <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Class Mastery</div>
+                  <span style="font-size:1.2rem; font-weight:800; color:#2563eb;">${pct == null ? '—' : pct + '%'}</span>
+                  <div style="font-size:0.7rem; color:var(--text-muted); text-transform:uppercase;">Class progress</div>
                 </div>
               </div>
 
               <div style="background:#e2e8f0; height:8px; border-radius:4px; overflow:hidden; margin-bottom:1rem;">
-                <div style="background:#2563eb; height:100%; width:${pct}%;"></div>
+                <div style="background:#2563eb; height:100%; width:${pct == null ? 0 : pct}%;"></div>
               </div>
 
               <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.6rem; margin-bottom:1rem;">
                 <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:0.6rem; text-align:center;">
                   <div style="font-size:1.1rem; font-weight:800; color:var(--text-main);">${comp}/${tot}</div>
-                  <div style="font-size:0.7rem; color:var(--text-muted);">Lessons Finished</div>
+                  <div style="font-size:0.7rem; color:var(--text-muted);">Lessons with recorded completion</div>
                 </div>
                 <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:0.6rem; text-align:center;">
-                  <div style="font-size:1.1rem; font-weight:800; color:#059669;">${quizAcc}%</div>
+                  <div style="font-size:1.1rem; font-weight:800; color:#059669;">${quizAcc == null ? '—' : quizAcc + '%'}</div>
                   <div style="font-size:0.7rem; color:var(--text-muted);">Quiz Accuracy (${quizAtt} attempts)</div>
                 </div>
                 <div style="background:#fff; border:1px solid var(--border-color); border-radius:8px; padding:0.6rem; text-align:center;">
-                  <div style="font-size:1.1rem; font-weight:800; color:#ea580c;">${studyTime} min</div>
+                  <div style="font-size:1.1rem; font-weight:800; color:#ea580c;">${studyTime == null ? '—' : studyTime + ' min'}</div>
                   <div style="font-size:0.7rem; color:var(--text-muted);">Estimated Study Time</div>
                 </div>
               </div>
@@ -7336,6 +8608,9 @@ async function renderParentDashboard() {
                 <h4 style="font-size:0.85rem; margin:0 0 0.5rem; color:var(--text-main);">Subject Progress</h4>
                 ${subjBars}
               </div>
+
+              ${weeklyStoryHtml}
+              ${decisionSupportHtml}
 
               <div style="margin-top:1rem; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; padding:0.8rem;">
                 <h4 style="font-size:0.82rem; margin:0 0 0.4rem; color:#991b1b;">🎯 Focus Areas & Recommended Revision</h4>
@@ -7371,6 +8646,15 @@ async function renderParentDashboard() {
 
         ${childSelectorHtml}
         ${summaryHtml}
+        <div class="offline-pack-parent-card">
+          <div>
+            <div class="offline-pack-parent-kicker">📦 LOW-CONNECTIVITY SUPPORT</div>
+            <h4>Keep a small starter session ready</h4>
+            <p>Save six public Class 1 previews on this device. Protected lessons remain online and entitlement-checked.</p>
+          </div>
+          <button class="btn btn-primary btn-sm" type="button" onclick="openOfflinePackModal()">Download offline starter pack</button>
+                  ${offlinePackStatusLine()}
+        </div>
 
         <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:0.9rem 1rem; margin-top:1rem;">
           <h4 style="font-size:0.88rem; font-weight:700; margin:0 0 0.3rem; color:var(--text-main);">ðŸ§’ Create a learner profile</h4>
@@ -7568,41 +8852,50 @@ async function renderAdminDashboard() {
   const statusCounts = fin.status_counts || {};
   const dpdp = data.governance_and_safety || {};
   const ops = data.operational_health || {};
+  const reportQueue = ops.report_email_queue || {};
+  const numberMetric = value => Number.isFinite(Number(value)) ? Number(value).toLocaleString('en-IN') : '—';
+  const moneyMetric = value => Number.isFinite(Number(value)) ? `₹${Number(value).toLocaleString('en-IN', { maximumFractionDigits: 2 })}` : '—';
+  const quizAttempts = Number(learn.quiz_attempts || 0);
+  const quizAccuracy = Number.isFinite(Number(learn.quiz_accuracy)) ? `${Number(learn.quiz_accuracy)}%` : '—';
+  const activePaid = data.subscriptions && data.subscriptions.active_paid != null ? data.subscriptions.active_paid : (data.paid_users || 0);
+  const publishedTopics = ops.published_topics != null ? ops.published_topics : (data.published_topics || 0);
+  const classEntries = Object.entries(classes).sort((a, b) => Number(a[0]) - Number(b[0]));
+  const maxClassCount = Math.max(1, ...classEntries.map(([, count]) => Number(count) || 0));
 
-  const classBars = Object.entries(classes).map(([c, count]) => `
+  const classBars = classEntries.map(([c, count]) => `
     <div style="display:flex; align-items:center; gap:0.5rem; font-size:0.75rem; margin-bottom:0.25rem;">
-      <span style="width:50px; font-weight:600;">Class ${c}</span>
+      <span style="width:50px; font-weight:600;">Class ${escapeHtml(c)}</span>
       <div style="flex:1; background:#e2e8f0; height:8px; border-radius:4px; overflow:hidden;">
-        <div style="background:#2563eb; height:100%; width:${Math.min(100, count * 10)}%;"></div>
+        <div style="background:#2563eb; height:100%; width:${Math.min(100, (Number(count) || 0) / maxClassCount * 100)}%;"></div>
       </div>
-      <span style="width:30px; text-align:right; font-weight:700;">${count}</span>
+      <span style="width:50px; text-align:right; font-weight:700;">${numberMetric(count)}</span>
     </div>
-  `).join('');
+  `).join('') || '<p style="font-size:0.78rem; color:var(--text-muted); margin:0;">No learner registrations recorded yet.</p>';
 
   container.innerHTML = `
     <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.2rem; border-bottom:1px solid var(--border-color); padding-bottom:0.8rem;">
       <div>
         <h2 style="font-size:1.3rem; font-weight:800; color:var(--text-main); margin:0;">🛡️ Avyaan Administration & Telemetry</h2>
-        <p style="font-size:0.78rem; color:var(--text-muted); margin:0.2rem 0 0;">Real-time governance, revenue audit, and DPDP telemetry</p>
+        <p style="font-size:0.78rem; color:var(--text-muted); margin:0.2rem 0 0;">Current Worker snapshot for governance, payments, and safety</p>
       </div>
       <button class="btn btn-sm" onclick="renderAdminDashboard()">🔄 Refresh</button>
     </div>
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(130px, 1fr)); gap:0.7rem; margin-bottom:1.2rem;">
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.8rem; text-align:center;">
-        <div style="font-size:1.4rem; font-weight:800; color:#2563eb;">${u.total || 0}</div>
+        <div style="font-size:1.4rem; font-weight:800; color:#2563eb;">${numberMetric(u.total)}</div>
         <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Total Users</div>
       </div>
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.8rem; text-align:center;">
-        <div style="font-size:1.4rem; font-weight:800; color:#059669;">₹${fin.total_revenue_inr || 0}</div>
-        <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Net Revenue</div>
+        <div style="font-size:1.4rem; font-weight:800; color:#059669;">${moneyMetric(fin.total_revenue_inr)}</div>
+        <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Recorded payment value</div>
       </div>
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.8rem; text-align:center;">
-        <div style="font-size:1.4rem; font-weight:800; color:#7c3aed;">${learn.global_quiz_accuracy_pct || 0}%</div>
-        <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Avg Quiz Accuracy</div>
+        <div style="font-size:1.4rem; font-weight:800; color:#7c3aed;">${quizAccuracy}</div>
+        <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Verified quiz accuracy</div>
       </div>
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:0.8rem; text-align:center;">
-        <div style="font-size:1.4rem; font-weight:800; color:#d97706;">${activeToday}</div>
+        <div style="font-size:1.4rem; font-weight:800; color:#d97706;">${numberMetric(activeToday)}</div>
         <div style="font-size:0.72rem; color:var(--text-muted); text-transform:uppercase;">Active Today</div>
       </div>
     </div>
@@ -7624,23 +8917,23 @@ async function renderAdminDashboard() {
         <div style="display:flex; flex-direction:column; gap:0.4rem; font-size:0.78rem;">
           <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid var(--border-color);">
             <span>Net Settlements:</span>
-            <b style="color:#059669;">${statusCounts.paid || 0} (₹${fin.total_revenue_inr || 0})</b>
+            <b style="color:#059669;">${numberMetric(statusCounts.paid)} (${moneyMetric(fin.total_revenue_inr)})</b>
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid var(--border-color);">
             <span>Pending Orders:</span>
-            <b style="color:#d97706;">${statusCounts.created || 0}</b>
+            <b style="color:#d97706;">${numberMetric(statusCounts.created)}</b>
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid var(--border-color);">
             <span>Failed Orders:</span>
-            <b style="color:#b91c1c;">${statusCounts.failed || 0}</b>
+            <b style="color:#b91c1c;">${numberMetric(statusCounts.failed)}</b>
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.3rem 0; border-bottom:1px solid var(--border-color);">
             <span>Refunds Processed:</span>
-            <b>${statusCounts.refunded || 0} (₹${fin.refunded_revenue_inr || 0})</b>
+            <b>${numberMetric(statusCounts.refunded)} (not reported)</b>
           </div>
           <div style="display:flex; justify-content:space-between; padding:0.3rem 0;">
-            <span>Active Paid Subscriptions:</span>
-            <b style="color:#2563eb;">${u.by_subscription && u.by_subscription.active_paid || 0}</b>
+            <span>Active paid subscriptions:</span>
+            <b style="color:#2563eb;">${numberMetric(activePaid)}</b>
           </div>
         </div>
       </div>
@@ -7648,21 +8941,24 @@ async function renderAdminDashboard() {
 
     <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1rem;">
       <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:1rem;">
-        <h4 style="font-size:0.88rem; font-weight:700; margin:0 0 0.5rem; color:#166534;">🔒 DPDP & Parental Governance</h4>
+        <h4 style="font-size:0.88rem; font-weight:700; margin:0 0 0.5rem; color:#166534;">🔒 Governance & safety signals</h4>
         <div style="font-size:0.78rem; color:#14532d; display:flex; flex-direction:column; gap:0.3rem;">
-          <div>Parent-Child Links: <b>${dpdp.parent_child_links || 0}</b></div>
-          <div>Parental Consent Records: <b>${dpdp.total_consent_records || 0}</b></div>
-          <div>Independently Verified Minors: <b>${dpdp.parent_verified || 0}</b></div>
-          <div>Under-18 Learner Declarations: <b>${dpdp.under_18_declared || 0}</b></div>
+          <div>Recorded payment/webhook events: <b>${numberMetric(dpdp.payment_events)}</b></div>
+          <div>Failed deletion jobs: <b>${numberMetric(dpdp.failed_deletion_jobs)}</b></div>
+          <div>Consent and relationship details: <b>restricted</b></div>
+          <small style="margin-top:0.25rem;">Detailed child-level governance data remains parent-authorized.</small>
         </div>
       </div>
 
       <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:1rem;">
         <h4 style="font-size:0.88rem; font-weight:700; margin:0 0 0.5rem; color:var(--text-main);">⚙️ Operational & Database Health</h4>
         <div style="font-size:0.78rem; color:var(--text-muted); display:flex; flex-direction:column; gap:0.3rem;">
-          <div>Database: <b style="color:#059669;">${ops.database_file || 'avyaan.db'}</b> (${ops.wal_mode ? 'WAL Mode' : 'Online'})</div>
-          <div>Database Size: <b>${ops.database_size_mb || 0} MB</b></div>
-          <div>Content Registry: <b>713 Lessons (Classes 1–10)</b></div>
+          <div>Database readiness: <b style="color:${ops.database === 'ok' ? '#059669' : '#b91c1c'};">${escapeHtml(ops.database || 'unknown')}</b></div>
+          <div>Published topics: <b>${numberMetric(publishedTopics)}</b></div>
+          <div>Webhook events: <b>${numberMetric(ops.webhook_events)}</b></div>
+          <div>Report emails queued: <b>${numberMetric(reportQueue.pending)}</b> pending · <b>${numberMetric(reportQueue.sent)}</b> sent · <b style="color:${Number(reportQueue.failed || 0) ? '#b91c1c' : '#059669'};">${numberMetric(reportQueue.failed)}</b> failed</div>
+          <div>Transactional delivery: <b style="color:${reportQueue.delivery_configured ? '#059669' : '#d97706'};">${reportQueue.delivery_configured ? 'configured' : 'queue only — Email binding pending'}</b></div>
+          <small style="margin-top:0.25rem;">This is a current Worker snapshot; queued reports are not confirmed as delivered until an external Email binding reports success.</small>
         </div>
       </div>
     </div>
@@ -7740,6 +9036,38 @@ function addScreenSeconds(sec) {
   return seconds;
 }
 
+function getOffscreenActivityEntries() {
+  const entries = safeStorageJSON('avyaan_offscreen_activities', []);
+  return Array.isArray(entries) ? entries : [];
+}
+
+function renderOffscreenBreakActivity(seed) {
+  if (!window.getOffscreenPrompt) return '';
+  const prompt = getOffscreenPrompt(seed || screenTimeDayKey());
+  const entries = getOffscreenActivityEntries();
+  const done = entries.some(entry => entry && entry.key === prompt.key && entry.date === screenTimeDayKey());
+  if (done) return `<div class="offscreen-activity offscreen-complete" role="status"><strong>🌱 You explored away from the screen.</strong><span>This counts as explored evidence only — never as mastery.</span></div>`;
+  return `<div class="offscreen-activity" aria-labelledby="offscreenActivityTitle">
+    <div class="offscreen-kicker">🌿 Try this away from the screen</div>
+    <h3 id="offscreenActivityTitle">${escapeHtml(prompt.title)}</h3>
+    <p>${escapeHtml(prompt.prompt)}</p>
+    ${prompt.supervision ? '<p class="offscreen-supervision">Adult note: decide whether this is suitable, supervise measuring or outdoor activity, and stop if anything feels unsafe.</p>' : ''}
+    <label class="challenge-label" for="offscreenParentNote">Optional parent note</label>
+    <textarea id="offscreenParentNote" class="form-input" rows="2" maxlength="240" placeholder="A short note about what was noticed (optional)"></textarea>
+    <button class="btn btn-primary" type="button" onclick="completeOffscreenActivity('${escapeHtml(prompt.key)}')">Mark as explored</button>
+    <small>This is optional and does not protect a streak or change a score.</small>
+  </div>`;
+}
+
+function completeOffscreenActivity(key) {
+  const prompt = (window.AVYAAN_OFFSCREEN_PROMPTS || []).find(item => item && item.key === key) || (window.getOffscreenPrompt ? getOffscreenPrompt(key + screenTimeDayKey()) : null);
+  const entries = getOffscreenActivityEntries();
+  const note = String(document.getElementById('offscreenParentNote')?.value || '').trim().slice(0, 240);
+  entries.push({ key: String(key || '').slice(0, 80), title: prompt?.title || 'Off-screen exploration', parentNote: note, date: screenTimeDayKey(), ts: Date.now(), evidence: 'explored_only' });
+  avyaanStorage.setItem('avyaan_offscreen_activities', JSON.stringify(entries.slice(-60)));
+  if (currentActiveTopic) logActivity(currentActiveTopic.id, 'offscreen-explored');
+  showBreakScreen();
+}
 function showBreakScreen() {
   const log = getActivityLog().filter(a => {
     try { return new Date(a.ts).toISOString().slice(0, 10) === screenTimeDayKey(); } catch (e) { return false; }
@@ -7758,6 +9086,7 @@ function showBreakScreen() {
         <div style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:0.5rem 0.9rem;"><b style="display:block; font-size:1.1rem; color:#1d4ed8;">${topicsToday}</b><span style="font-size:0.68rem; color:var(--text-dim);">topics today</span></div>
         <div style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:10px; padding:0.5rem 0.9rem;"><b style="display:block; font-size:1.1rem; color:#059669;">${masteredToday}</b><span style="font-size:0.68rem; color:var(--text-dim);">mastered</span></div>
       </div>
+      ${renderOffscreenBreakActivity(currentActiveTopic?.id || screenTimeDayKey())}
       <div style="display:flex; gap:0.6rem; justify-content:center;">
         <button class="btn btn-primary" style="font-size:0.85rem; padding:0.5rem 1.2rem;" onclick="breakScreenDone(false)">🏏 Take a break</button>
         <button class="btn" style="font-size:0.85rem; padding:0.5rem 1.2rem;" onclick="breakScreenDone(true)">⏱ 5 more minutes</button>
@@ -7991,9 +9320,17 @@ const PRIVACY_KEYS = [
   ['avyaan_misconceptions', 'Misconception coaching log'],
   ['avyaan_quiz_sessions', 'Quiz scores'],
   ['avyaan_estimations', 'Number-sense guesses'],
+  ['avyaan_transfer_attempts', 'Real-world connections'],
+  ['avyaan_real_world_challenges', 'Structured transfer challenges'],
+  ['avyaan_aha_observations', 'Aha Engine observation notes'],
+  ['avyaan_offscreen_activities', 'Off-screen exploration notes'],
+  ['avyaan_portfolio_entries', 'Learner explanations'],
   ['avyaan_screen_time_usage', 'Daily screen-time total'],
   ['avyaan_daily_challenge', 'Daily challenge state'],
-  ['avyaan_family_profiles', 'Saved child profiles']
+  ['avyaan_family_profiles', 'Saved child profiles'],
+  ['avyaan_content_correction_reports', 'Content issue reports (saved locally)'],
+  ['avyaan_offline_pack', 'Offline starter pack (device cache)'],
+  ['avyaan_offline_progress_queue', 'Offline progress waiting to sync']
 ];
 
 async function renderPrivacyPanel() {
@@ -8006,7 +9343,7 @@ async function renderPrivacyPanel() {
 
   // Best-effort backend consent status (signed in only).
   let backendLine = '<p style="font-size:0.75rem; color:var(--text-muted);">Stored on this device only (no account linked yet).</p>';
-  let analyticsOn = avyaanStorage.getItem('avyaan_consent_analytics') !== 'no';
+  let analyticsOn = avyaanStorage.getItem('avyaan_consent_analytics') === 'yes';
   if (user.id && !user.isGuest && window.AvyaanAPI && AvyaanAPI.getToken()) {
     const st = await AvyaanAPI.getConsentStatus();
     if (st) {
@@ -8054,16 +9391,25 @@ async function renderPrivacyPanel() {
 
 async function setConsentAnalytics(on) {
   avyaanStorage.setItem('avyaan_consent_analytics', on ? 'yes' : 'no');
+  if (on && window.AvyaanTelemetry) window.AvyaanTelemetry.flush().catch(() => {});
   const user = JSON.parse(avyaanStorage.getItem('avyaan_user') || '{}');
   if (user.id && !user.isGuest && window.AvyaanAPI && AvyaanAPI.getToken()) {
-    const res = await AvyaanAPI.updateConsent(on ? { withdraw_analytics: false } : { withdraw_analytics: true });
-    if (!res) {
+    const active = window.avyaanStorage && typeof avyaanStorage.getActiveScope === 'function'
+      ? avyaanStorage.getActiveScope() : {};
+    const role = String(user.role || '').toLowerCase();
+    const childId = user.child_id || (active.child_id && active.child_id !== 'default' ? active.child_id : null) || (role === 'student' ? user.id : null);
+    const payload = on
+      ? { allow_analytics: true, purposes: { analytics: true } }
+      : { withdraw_analytics: true, purposes: { analytics: false } };
+    if (childId) payload.child_id = childId;
+    const res = await AvyaanAPI.updateConsent(payload);
+    const serverAnalytics = !!(res && (res.layer_analytics === true || (res.consent && res.consent.analytics === true)));
+    if (!res || (on && !serverAnalytics) || (!on && serverAnalytics)) {
       avyaanStorage.setItem('avyaan_consent_analytics', on ? 'no' : 'yes');
       alert('Consent could not be synced. Your device preference was kept, but cloud consent was not changed.');
     } else if (res.status === 'withdrawn') console.info('[Avyaan] analytics consent withdrawn');
   }
 }
-
 async function withdrawAllData() {
   if (!confirm('Erase ALL Avyaan data on this device? This removes progress, XP, reports and profiles. This cannot be undone.')) return;
   const user = JSON.parse(avyaanStorage.getItem('avyaan_user') || '{}');
@@ -8131,7 +9477,10 @@ function closeModal(id) {
   const el = document.getElementById(id);
   if (!el) return;
   if (id === 'detailModal' || id === 'reviewModal' || id === 'boardPrepModal') stopReading();
-  if (id === 'reviewModal') stopReviewTimer();
+  if (id === 'detailModal' && currentActiveTopic && !quizSessionDone && lessonJourneyStartedAt) {
+    trackLearningEvent('lesson_abandon', { topic_id: currentActiveTopic.id, step: currentActiveStep, duration_ms: Math.max(0, Date.now() - lessonJourneyStartedAt) });
+  }
+  if (id === 'reviewModal') { stopReviewTimer(); trackLearningEvent('review_abandon', {}); }
   el.classList.remove('active');
   // Guided daily session: closing the current session topic advances to the
   // next one (the dock's End button nulls the session first, so this only

@@ -6,7 +6,7 @@
   <title>Progress &amp; Learning Journey | Skill X</title>
   <meta name="description" content="See how Skill X turns everyday practice into visible, encouraging learning progress for each child.">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="style.css?v=115">
 </head>
 <body class="progress-page">
   <header class="navbar">
@@ -25,7 +25,7 @@
       </nav>
       <div class="nav-right">
         <a href="index.html#progress" class="btn btn-primary btn-sm">Open dashboard</a>
-        <button class="nav-hamburger" type="button" onclick="toggleMobileNav()" aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false">
+        <button class="nav-hamburger" type="button" data-nav-toggle aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -83,7 +83,7 @@
       </div>
     </section>
 
-    <section class="progress-for-families">
+    <section id="parent" class="progress-for-families">
       <div class="container progress-family-grid">
         <div><span class="kicker-small">For families</span><h2>A clearer conversation about learning</h2><p>The parent view turns activity into a calm, useful picture: lessons explored, quiz accuracy, areas to revisit and the dates learning happened. Notes written by a parent are kept visibly separate from verified platform metrics.</p></div>
         <div class="progress-family-list"><div><span>✓</span><strong>Private by child</strong><small>Switching profiles never mixes progress.</small></div><div><span>✓</span><strong>Evidence-led</strong><small>Mastery follows completed practice, not a tap.</small></div><div><span>✓</span><strong>Actionable</strong><small>Every summary points to a helpful next step.</small></div></div>
@@ -100,7 +100,7 @@
     <div class="footer-bottom"><span>© <span id="copyrightYear"></span> Skill X by Avyan Info Solution</span><span>Learning with curiosity, clarity and confidence.</span></div>
     <div class="footer-attribution"><span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span></div>
   </footer>
-  <script src="js/site_nav.js?v=72"></script>
+  <script src="js/site_nav.js?v=115"></script>
   <script>document.getElementById('copyrightYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>

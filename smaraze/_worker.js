@@ -2,7 +2,7 @@
  * Cloudflare Pages Advanced Mode entry point.
  *
  * Static assets stay on Cloudflare's edge. API requests are proxied to the
- * separately deployed FastAPI origin so the browser uses one same-origin
+ * separately deployed API Worker origin so the browser uses one same-origin
  * URL and no CORS credentials need to be exposed in the frontend.
  */
 
@@ -10,45 +10,53 @@ const CONTENT_SECURITY_POLICY = [
   "default-src 'self'",
   "script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://checkout.razorpay.com",
   "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com",
-  "connect-src 'self' https://api.razorpay.com https://lumberjack.razorpay.com",
+  "connect-src 'self' https://api.smaraze.com https://api.razorpay.com https://lumberjack.razorpay.com",
   "img-src 'self' data: blob: https://*.razorpay.com",
   "font-src 'self' data: https://cdn.jsdelivr.net https://fonts.gstatic.com",
+  "media-src 'self' blob:",
+  "manifest-src 'self'",
   "worker-src 'self' blob:",
   "frame-src 'self' https://api.razorpay.com https://checkout.razorpay.com",
   "object-src 'none'",
   "base-uri 'self'",
   "form-action 'self'",
   "frame-ancestors 'none'",
+  "upgrade-insecure-requests",
 ].join('; ');
 
-function withSecurityHeaders(response, cacheControl) {
+function withSecurityHeaders(response, cacheControl, requestIdValue) {
   const secured = new Response(response.body, response);
   secured.headers.set('Content-Security-Policy', CONTENT_SECURITY_POLICY);
   secured.headers.set('X-Content-Type-Options', 'nosniff');
   secured.headers.set('X-Frame-Options', 'DENY');
   secured.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   secured.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()');
+  if (requestIdValue) secured.headers.set('X-Request-ID', requestIdValue);
   if (cacheControl) {
     secured.headers.set('Cache-Control', cacheControl);
   }
   return secured;
 }
 
-function jsonError(status, detail) {
+function jsonError(status, detail, requestIdValue) {
   return new Response(JSON.stringify({ detail }), {
     status,
     headers: {
       'Content-Type': 'application/json; charset=utf-8',
       'Cache-Control': 'no-store',
       'X-Content-Type-Options': 'nosniff',
+      ...(requestIdValue ? { 'X-Request-ID': requestIdValue } : {}),
     },
   });
 }
 
-async function proxyApi(request, env) {
+function validRequestId(value) {
+  return typeof value === 'string' && /^[A-Za-z0-9._:-]{1,64}$/.test(value) ? value : null;
+}
+async function proxyApi(request, env, requestIdValue) {
   const apiOrigin = String(env.API_ORIGIN || '').replace(/\/+$/, '');
   if (!apiOrigin) {
-    return jsonError(503, 'API is not configured');
+    return jsonError(503, 'API is not configured', requestIdValue);
   }
 
   const incoming = new URL(request.url);
@@ -56,7 +64,7 @@ async function proxyApi(request, env) {
   try {
     upstream = new URL(`${incoming.pathname}${incoming.search}`, `${apiOrigin}/`);
   } catch (_error) {
-    return jsonError(500, 'API configuration is invalid');
+    return jsonError(500, 'API configuration is invalid', requestIdValue);
   }
 
   const headers = new Headers(request.headers);
@@ -71,6 +79,7 @@ async function proxyApi(request, env) {
   if (connectingIp) headers.set('X-Forwarded-For', connectingIp);
   headers.set('X-Forwarded-Host', incoming.host);
   headers.set('X-Forwarded-Proto', incoming.protocol.replace(':', ''));
+  headers.set('X-Request-ID', requestIdValue);
 
   const init = {
     method: request.method,
@@ -83,9 +92,9 @@ async function proxyApi(request, env) {
 
   try {
     const response = await fetch(upstream, init);
-    return withSecurityHeaders(response, 'no-store');
+    return withSecurityHeaders(response, 'no-store', requestIdValue);
   } catch (_error) {
-    return jsonError(502, 'API origin unavailable');
+    return jsonError(502, 'API origin unavailable', requestIdValue);
   }
 }
 
@@ -103,12 +112,14 @@ const PAGE_ROUTES = {
   '/refund': '/refund.html',
   '/parental-consent': '/parental-consent.html',
   '/safety': '/safety.html',
-  '/class-coverage': '/class-coverage.html',
-  '/curriculum': '/curriculum.html',
-  '/knowledge-map': '/knowledge-map.html',
-  '/board-prep': '/board-prep.html',
-  '/mixed-review': '/mixed-review.html',
-  '/spaced-review': '/spaced-review.html',
+};
+
+// Legacy deep links resolve only to real pages or supported application hashes.
+const LEGACY_REDIRECTS = {
+  '/class-coverage': '/coverage.html',
+  '/curriculum': '/coverage.html',
+  '/knowledge-map': '/index.html#knowledge-map',
+  '/board-prep': '/index.html#board-prep',
 };
 
 function assetContentType(pathname) {
@@ -134,6 +145,7 @@ function assetContentType(pathname) {
 }
 export default {
   async fetch(request, env) {
+    const requestIdValue = validRequestId(request.headers.get('X-Request-ID')) || validRequestId(request.headers.get('CF-Ray')) || `req_${crypto.randomUUID()}`;
     const url = new URL(request.url);
     if (url.hostname === 'skillx.smaraze.com') {
       const target = new URL(request.url);
@@ -143,17 +155,31 @@ export default {
         status: 301,
         headers: {
           Location: target.toString(),
+          'X-Request-ID': requestIdValue,
           'Cache-Control': 'public, max-age=300',
         },
       });
     }
     if (url.pathname === '/api' || url.pathname.startsWith('/api/')) {
-      return proxyApi(request, env);
+      return proxyApi(request, env, requestIdValue);
     }
 
     const routeKey = url.pathname.length > 1 && url.pathname.endsWith('/')
       ? url.pathname.slice(0, -1)
       : url.pathname;
+    const legacyTarget = (request.method === 'GET' || request.method === 'HEAD') ? LEGACY_REDIRECTS[routeKey] : null;
+    if (legacyTarget) {
+      const target = new URL(legacyTarget, request.url);
+      target.search = url.search;
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: target.toString(),
+          'Cache-Control': 'public, max-age=300',
+          'X-Request-ID': requestIdValue,
+        },
+      });
+    }
     const targetPath = (request.method === 'GET' || request.method === 'HEAD')
       ? (PAGE_ROUTES[routeKey] || url.pathname)
       : url.pathname;
@@ -171,27 +197,11 @@ export default {
     const secured = withSecurityHeaders(
       asset,
       isVersioned ? 'public, max-age=31536000, immutable' : 'no-cache',
+      requestIdValue,
     );
     const contentType = assetContentType(targetPath);
     if (contentType) secured.headers.set('Content-Type', contentType);
-    if (targetPath.endsWith('/stem_data.js') && contentType === 'text/javascript; charset=utf-8') {
-      const source = await secured.text();
-      try {
-        const marker = 'const AVYAAN_DATA =';
-        const markerIndex = source.indexOf(marker);
-        const dataStart = markerIndex + marker.length;
-        const exportIndex = source.indexOf('if (typeof module', dataStart);
-        const dataEnd = exportIndex > dataStart ? source.lastIndexOf(';', exportIndex) : source.indexOf(';', dataStart);
-        const publicData = JSON.parse(source.slice(dataStart, dataEnd).trim());
-        delete publicData.demoUsers;
-        const prices = { primary_paid: '1999 + GST/year; 999 + GST/6 months', pro_paid: '2999 + GST/year; 1499 + GST/6 months', master_paid: '4000 + GST/year; 2000 + GST/6 months' };
-        for (const [id, tier] of Object.entries(publicData.tiers || {})) if (prices[id]) tier.price = prices[id];
-        const rewritten = new Response(source.slice(0, dataStart) + '\n' + JSON.stringify(publicData) + '\n;', secured);
-        rewritten.headers.set('Content-Type', 'text/javascript; charset=utf-8');
-        rewritten.headers.set('Cache-Control', 'no-cache');
-        return rewritten;
-      } catch (_) { return jsonError(503, 'Public learning bundle unavailable'); }
-    }    if (contentType && contentType.startsWith('text/html')) {
+    if (contentType && contentType.startsWith('text/html')) {
       const html = await secured.text();
       const recoveryDisabled = '<button type="button" class="auth-recovery-link auth-recovery-link-disabled" disabled aria-disabled="true" title="Password recovery is temporarily unavailable">Forgot password? <span class="auth-recovery-status">(temporarily unavailable)</span></button>' +
         '<p class="auth-recovery-help">Need access? Contact <a href="mailto:contact@smaraze.com">contact@smaraze.com</a> for assisted recovery.</p>';

@@ -13,12 +13,15 @@
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://smaraze.com/why.html">
 
-  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="style.css?v=115">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- SKIP LINK FOR KEYBOARD / SCREEN-READER USERS -->
+  <a class="skip-link" href="#whyMain">Skip to content</a>
 
   <!-- HEADER / NAVBAR -->
   <header class="navbar">
@@ -37,8 +40,8 @@
       </nav>
 
       <div class="nav-right">
-        <button class="btn btn-primary btn-sm" onclick="window.location.href='index.html'">Start Learning Free</button>
-        <button class="nav-hamburger" onclick="toggleMobileNav()" aria-label="Menu">
+        <a class="btn btn-primary btn-sm" href="index.html">Start Learning Free</a>
+        <button class="nav-hamburger" type="button" data-nav-toggle aria-label="Open navigation" aria-controls="mobileNavPanel" aria-expanded="false">
           <span></span><span></span><span></span>
         </button>
       </div>
@@ -55,6 +58,7 @@
   </div>
 
   <!-- WHY HERO -->
+  <main id="whyMain">
   <section class="why-hero">
     <div class="container">
       <div class="why-hero-badge">🌱 The Future of STEM Education</div>
@@ -70,7 +74,7 @@
     <div class="container">
       <div class="section-heading-center">
         <h2>Active Doing vs. Passive Memorization</h2>
-        <p>The difference between passing a test on Friday and remembering the concept for life.</p>
+        <p>The difference between finishing a lesson today and being able to use the idea later.</p>
       </div>
 
       <div class="comparison-grid">
@@ -95,8 +99,8 @@
           <ul class="comp-list">
             <li><strong>Interactive discovery:</strong> Move sliders, build circuits, and drop virtual weights to see cause and effect.</li>
             <li><strong>Visual intuition:</strong> Over 20+ interactive tools make abstract ideas tangible and intuitive.</li>
-            <li><strong>Spaced mastery:</strong> Built-in SM-2 spaced repetition supports spaced practice and review without burnout.</li>
-            <li><strong>Lifelong curiosity:</strong> Kids experience real "Aha!" moments and fall in love with STEM problem solving.</li>
+            <li><strong>Adaptive spaced review:</strong> Important ideas can return after a delay so learners practise remembering, not just rereading.</li>
+            <li><strong>Curiosity with purpose:</strong> Children can explore small aha moments while keeping the core learning path clear.</li>
           </ul>
         </div>
       </div>
@@ -117,7 +121,7 @@
           <div class="method-step-num">1</div>
           <div class="method-step-content">
             <h3>Predict</h3>
-            <p>Before showing the answer, we prompt the learner to predict what will happen. Cognitive science proves that predicting primes the brain for deeper neural encoding — even if the initial guess is wrong.</p>
+            <p>Before showing the answer, we prompt the learner to predict what will happen. Research on active retrieval and prediction informs this design. Skill X presents those as learning methods, not guarantees about an individual child outcome.</p>
           </div>
         </div>
 
@@ -149,7 +153,7 @@
           <div class="method-step-num">5</div>
           <div class="method-step-content">
             <h3>Master</h3>
-            <p>Adaptive quizzes, SmartScore mastery thresholds, and spaced repetition review schedules reinforce the concept over weeks and months.</p>
+            <p>Server-recorded quizzes, learning evidence and adaptive spaced review help the platform decide what to revisit over time.</p>
           </div>
         </div>
       </div>
@@ -180,7 +184,7 @@
         <div class="audience-info-card">
           <div class="audience-card-icon">👩‍🏫</div>
           <h3>Tuition & Coaching Centres</h3>
-          <p>Structured batch revision and board-prep diagnostic drills for Classes 1 to 10, subject to each centre's own teaching and assessment standards.</p>
+          <p>Structured exam-style practice for Classes 8-10, subject to each centre's own teaching and assessment standards.</p>
         </div>
       </div>
     </div>
@@ -191,13 +195,15 @@
     <div class="container">
       <div class="why-cta-box">
         <h2>Give Your Child The Gift of Real Understanding</h2>
-        <p>Explore 713 authored lessons across Mathematics, Physics, Chemistry, Biology, Computer Science & AI, and Earth & Space. Availability depends on class, plan, and teacher-safety review status; a small set may be temporarily withheld.</p>
+        <p>Explore 701 learner-visible topics across Mathematics, Physics, Chemistry, Biology, Computer Science & AI, and Earth & Space. Availability depends on class, plan, and teacher-safety review status; a small set may be temporarily withheld.</p>
         <div style="margin-top: 1.5rem;">
           <a href="index.html" class="hero-cta-primary" style="display:inline-flex;">🚀 Explore Lessons Now</a>
         </div>
       </div>
     </div>
   </section>
+
+  </main>
 
   <!-- CANONICAL FOOTER -->
   <footer class="site-footer">
@@ -208,12 +214,12 @@
       </div>
       <div class="footer-col">
         <h4>Subjects</h4>
-        <a href="index.html#subjects">Mathematics</a>
-        <a href="index.html#subjects">Physics</a>
-        <a href="index.html#subjects">Chemistry</a>
-        <a href="index.html#subjects">Biology</a>
-        <a href="index.html#subjects">Computer Science & AI</a>
-        <a href="index.html#subjects">Earth & Space</a>
+        <a href="library.html#subject-mathematics">Mathematics</a>
+        <a href="library.html#subject-physics">Physics</a>
+        <a href="library.html#subject-chemistry">Chemistry</a>
+        <a href="library.html#subject-biology">Biology</a>
+        <a href="library.html#subject-computer-science-and-ai">Computer Science & AI</a>
+        <a href="library.html#subject-earth-and-space">Earth & Space</a>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
@@ -224,9 +230,9 @@
       </div>
       <div class="footer-col">
         <h4>Learning</h4>
-        <a href="index.html">Classes 1–4 (Foundational)</a>
-        <a href="index.html">Classes 5–7 (Preparatory)</a>
-        <a href="index.html">Classes 8–10 (Secondary)</a>
+        <a href="index.html">Classes 1–4</a>
+        <a href="index.html">Classes 5–7</a>
+        <a href="index.html">Classes 8–10</a>
         <a href="why.html#method">The 5-Step Method</a>
       </div>
       <div class="footer-col">
@@ -237,12 +243,13 @@
         <a href="parental-consent.html">Parental Consent</a>
         <a href="safety.html">Child Safety Charter</a>
         <a href="contact.html">Contact</a>
+        <a href="evidence.html">Evidence Center</a>
         <a href="support.html">Help & Grievance Support</a>
       </div>
     </div>
     <div class="footer-bottom">
       <span>© 2026 Skill X by Avyan Info Solution</span>
-      <span>713 authored topics · 6 subjects · 10 class levels</span>
+      <span>701 learner-visible topics · 6 subjects · 10 class levels</span>
     </div>
     <div class="footer-attribution"><span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span></div>
     <p class="footer-disclaimer">
@@ -252,13 +259,10 @@
     </p>
   </footer>
 
-  <script src="js/storage_scope.js?v=72"></script>
-  <script src="js/api_client.js?v=72"></script>
+  <script src="js/storage_scope.js?v=115"></script>
+  <script src="js/api_client.js?v=115"></script>
+  <script src="js/site_nav.js?v=115"></script>
   <script>
-    function toggleMobileNav() {
-      const p = document.getElementById('mobileNavPanel');
-      if (p) p.classList.toggle('active');
-    }
-  </script>
+</script>
 </body>
 </html>

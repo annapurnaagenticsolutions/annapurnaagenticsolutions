@@ -6,7 +6,7 @@
   <title>Skill X by Avyan Info Solution — Learning Made Fun and Simple</title>
   <meta name="description" content="Skill X by Avyan Info Solution helps children in Classes 1–10 learn with curiosity, confidence and joy through visual lessons, playful practice and thoughtful progress tracking.">
   <meta name="theme-color" content="#2563eb">
-  <script src="js/storage_scope.js?v=72"></script>
+  <script src="js/storage_scope.js?v=115"></script>
   <script>
     // Enforce crisp white educational theme
     (function () {
@@ -62,7 +62,7 @@
   </script>
 
   <!-- Clean White Design System CSS (v2 = cache-busting bump on release) -->
-  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="style.css?v=115">
 
   <!-- KaTeX is loaded on demand from app.js when a formula is first shown -->
 
@@ -108,7 +108,7 @@
           <span class="nav-streak-icon"></span>
         </div>
 
-        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">Log in</button>
+        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="openLoginModal()">Log in</button>
 
         <div id="userMenuTrigger" class="nav-avatar-wrap" style="display:none;" role="button" tabindex="0" aria-label="Open account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="userDropdown" onclick="toggleUserMenu()">
           <span class="nav-avatar" id="userAvatar">S</span>
@@ -119,7 +119,7 @@
               <div id="userTierLabel" class="user-dropdown-sub">Class 7</div>
             </div>
             <div class="user-dropdown-section">
-              <label class="user-dropdown-label">Enrolled Class</label>
+              <label class="user-dropdown-label" for="userGradeSelect">Enrolled Class</label>
               <select id="userGradeSelect" class="user-dropdown-select" onchange="changeAdoptedGrade(this.value)">
                 <option value="1">Class 1</option>
                 <option value="2">Class 2</option>
@@ -164,7 +164,7 @@
       <div class="mobile-stat"><span id="levelDisplayMobile">Explorer</span><span id="xpDisplayMobile">0 XP</span></div>
       <div class="mobile-stat"><span id="streakCountMobile">3</span><span>day streak</span></div>
     </div>
-    <button id="loginMobileBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.8rem;" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } } if(typeof window.toggleMobileNav === 'function'){ window.toggleMobileNav(); }">Log in</button>
+    <button id="loginMobileBtn" class="btn btn-primary" style="width:100%;justify-content:center;margin-top:0.8rem;" onclick="openLoginModal(); toggleMobileNav()">Log in</button>
     <button id="logoutMobileBtn" class="btn" style="display:none;width:100%;justify-content:center;margin-top:0.6rem;" onclick="logoutUser(); toggleMobileNav()">Log out</button>
   </nav>
 
@@ -181,21 +181,21 @@
           </div>
 
           <h1 class="hero-landing-title">
-            Every question can become an <span class="accent-joy">aha moment.</span>
+            When children can <span class="accent-joy">see why,</span> STEM starts to click.
           </h1>
 
           <p class="hero-landing-lead">
-            <strong>Avyan Info Solution proudly presents Skill X</strong> — short visual lessons, playful practice and gentle feedback that help children understand ideas, not just memorise answers. Explore <strong id="heroLessonCount">700+</strong> learning topics across <strong id="heroSubjectCount">6</strong> subjects for Classes 1–10.
+            <strong>Avyan Info Solution proudly presents Skill X</strong> — short visual lessons, playful practice and gentle feedback that help children understand ideas, not just memorise answers. Move it, predict it, explain it and remember it across <strong id="heroLessonCount">700+</strong> learning topics for Classes 1–10.
           </p>
 
           <div class="hero-landing-ctas">
-            <button type="button" class="btn-joy-primary" onclick="document.getElementById('exploreSection').scrollIntoView({behavior:'smooth', block:'start'});">
-              <span>🚀 Try a starter lesson</span>
+            <button type="button" class="btn-joy-primary" onclick="scrollToAhaLab();">
+              <span>✨ Try a 60-second Aha</span>
             </button>
             <a href="why.html" class="btn-joy-secondary">
               <span>✨ See how Skill X works</span>
             </a>
-            <button type="button" class="btn-joy-secondary" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof window.AvyaanPayments.renderPaywall === 'function'){ window.AvyaanPayments.renderPaywall(null); } else if(typeof window.__skillxOpenPlans === 'function'){ window.__skillxOpenPlans(); } else if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); }">
+            <button type="button" class="btn-joy-secondary" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);}else{openLoginModal();}">
               <span>🎓 See plans &amp; enroll</span>
             </button>
           </div>
@@ -256,26 +256,26 @@
     <div class="container">
       <div class="section-heading-simple">
         <h2>How Children Learn Here</h2>
-        <p>Three simple ingredients that make STEM exciting and memorable.</p>
+        <p>One calm learning loop: understand the idea, practise it, then meet it again later.</p>
       </div>
 
       <div class="simple-features-grid">
         <div class="simple-feature-card">
           <div class="feature-icon-box" style="background:#eff6ff; color:#2563eb;">🧪</div>
-          <h3>1. Play & Experiment</h3>
-          <p>Move sliders, mix solutions, drop weights, and test ideas in 20+ virtual labs without any mess. Kids learn by doing, not just reading.</p>
+          <h3>1. Predict &amp; explore</h3>
+          <p>Children meet a visible question, make a guess, and interact with a model before the explanation arrives.</p>
         </div>
 
         <div class="simple-feature-card">
           <div class="feature-icon-box" style="background:#f0fdf4; color:#16a34a;">💡</div>
-          <h3>2. See Concepts Click</h3>
-          <p>Clear visual animations and step-by-step models make abstract math and physics ideas intuitive, friendly, and unforgettable.</p>
+          <h3>2. Explain &amp; practise</h3>
+          <p>Step-by-step models, guided practice and useful feedback help children connect a symbol or answer to the idea behind it.</p>
         </div>
 
         <div class="simple-feature-card">
           <div class="feature-icon-box" style="background:#fefce8; color:#ca8a04;">🏆</div>
-          <h3>3. Celebrate Every Win</h3>
-          <p>Earn XP, unlock badges, keep learning streaks alive, and watch your child's confidence grow with every lesson mastered.</p>
+          <h3>3. Remember over time</h3>
+          <p>Important ideas can return for retrieval and adaptive spaced review, so completion is not mistaken for retained learning.</p>
         </div>
       </div>
     </div>
@@ -286,7 +286,7 @@
     <div class="container">
       <div class="section-heading-simple">
         <h2>Tailored for Every Age & Stage</h2>
-        <p>From early curiosity in primary school to board exam confidence in Class 10.</p>
+        <p>The interface and task style become more formal as children move from concrete ideas to models, evidence and transfer.</p>
       </div>
 
       <div class="stages-grid-cards">
@@ -295,8 +295,8 @@
             <span class="stage-badge-pill">Classes 1–4</span>
             <span class="stage-icon">🌱</span>
           </div>
-          <h3>Foundational Wonder</h3>
-          <p>Playful numbers, shapes, nature, senses, and curiosity. Built with friendly visuals and encouraging praise.</p>
+          <h3>See &amp; try</h3>
+          <p>Classes 1–4 use concrete objects, pictures, short prompts and friendly feedback before formal notation.</p>
           <span class="stage-explore-link">Explore Classes 1–4 &rarr;</span>
         </div>
 
@@ -305,8 +305,8 @@
             <span class="stage-badge-pill" style="background:#eff6ff; color:#1d4ed8;">Classes 5–7</span>
             <span class="stage-icon">🔭</span>
           </div>
-          <h3>Active Explorers</h3>
-          <p>Fractions, forces, light, electric circuits, living cells, and beginner coding. Hands-on virtual labs that explain why.</p>
+          <h3>Predict &amp; explain</h3>
+          <p>Classes 5–7 connect visual models to structured practice, guided reasoning and the first useful notation.</p>
           <span class="stage-explore-link">Explore Classes 5–7 &rarr;</span>
         </div>
 
@@ -315,8 +315,8 @@
             <span class="stage-badge-pill" style="background:#faf5ff; color:#7e22ce;">Classes 8–10</span>
             <span class="stage-icon">⚛️</span>
           </div>
-          <h3>Board & Beyond</h3>
-          <p>Chemical reactions, optics, algebra, genetics, and AI. Curriculum-mapped concepts with deep conceptual intuition.</p>
+          <h3>Model &amp; apply</h3>
+          <p>Classes 8–10 use formal models, multi-step reasoning, data interpretation and transfer problems.</p>
           <span class="stage-explore-link">Explore Classes 8–10 &rarr;</span>
         </div>
       </div>
@@ -325,12 +325,12 @@
 
   <!-- SAFE INTERACTIVE PREVIEW: demonstrates the learning style without
        exposing a protected lesson body or answer key. -->
-  <section class="interactive-demo-section" aria-labelledby="interactiveDemoHeading">
+  <section id="ahaLab" class="interactive-demo-section" aria-labelledby="interactiveDemoHeading">
     <div class="container interactive-demo-grid">
       <div class="interactive-demo-copy">
-        <span class="kicker-small">Try the learning style</span>
+        <span class="kicker-small">The Skill X Aha Lab</span>
         <h2 id="interactiveDemoHeading">Move one idea. See why it changes.</h2>
-        <p>Good learning starts with a visible question. Move the light source and watch the shadow respond—then imagine the questions your child can explore inside Skill X.</p>
+        <p>Good learning starts with a visible question. Move the light source, make a prediction, and watch the shadow respond.</p>
         <div class="interactive-demo-steps" aria-label="Skill X learning cycle">
           <span class="demo-step-active">1&nbsp; Observe</span><span aria-hidden="true">→</span><span>2&nbsp; Predict</span><span aria-hidden="true">→</span><span>3&nbsp; Explain</span>
         </div>
@@ -427,7 +427,7 @@
   <main id="cardsGrid" class="content-grid"></main>
 
   <!-- MODAL: ACHIEVEMENT PANEL -->
-  <div id="achievementsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="achievementsModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Achievements" aria-hidden="true">
     <div class="modal-card" style="max-width: 700px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('achievementsModal')">✕</button>
       <div id="achievementPanelContent"></div>
@@ -435,7 +435,7 @@
   </div>
 
   <!-- MODAL: WORDS I LEARNED (vocabulary ladder) -->
-  <div id="vocabModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="vocabModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Words I learned" aria-hidden="true">
     <div class="modal-card" style="max-width: 760px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('vocabModal')">✕</button>
       <div id="vocabPanelContent"></div>
@@ -443,7 +443,7 @@
   </div>
 
   <!-- MODAL: FAMILY PROFILES -->
-  <div id="familyProfilesModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="familyProfilesModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Family profiles" aria-hidden="true">
     <div class="modal-card" style="max-width: 640px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('familyProfilesModal')">✕</button>
       <div id="familyProfilesContent"></div>
@@ -451,7 +451,7 @@
   </div>
 
   <!-- MODAL: PARENT DASHBOARD (separate, grown-up view) -->
-  <div id="parentDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="parentDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Parent dashboard" aria-hidden="true">
     <div class="modal-card" style="max-width: 660px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('parentDashModal')">✕</button>
       <div id="parentDashContent"></div>
@@ -459,7 +459,7 @@
   </div>
 
   <!-- MODAL: ADMIN DASHBOARD (system analytics & operations) -->
-  <div id="adminDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="adminDashModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Admin dashboard" aria-hidden="true">
     <div class="modal-card" style="max-width: 860px; max-height: 90vh; overflow-y: auto;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('adminDashModal')">✕</button>
       <div id="adminDashContent"></div>
@@ -467,7 +467,7 @@
   </div>
 
   <!-- MODAL: CONSENT & PRIVACY (DPDP) -->
-  <div id="privacyModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="privacyModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Privacy and consent" aria-hidden="true">
     <div class="modal-card" style="max-width: 560px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('privacyModal')">✕</button>
       <div id="privacyContent"></div>
@@ -475,7 +475,7 @@
   </div>
 
   <!-- MODAL: EXAM COUNTDOWN -->
-  <div id="examPlanModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="examPlanModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Exam plan" aria-hidden="true">
     <div class="modal-card" style="max-width: 640px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('examPlanModal')">✕</button>
       <div id="examPlanContent"></div>
@@ -483,7 +483,7 @@
   </div>
 
   <!-- MODAL: BREAK SCREEN (healthy screen time) -->
-  <div id="breakModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="breakModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Break reminder" aria-hidden="true">
     <div class="modal-card" style="max-width: 420px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('breakModal')">✕</button>
       <div id="breakContent"></div>
@@ -491,15 +491,54 @@
   </div>
 
   <!-- MODAL: DAILY SESSION SUMMARY -->
-  <div id="sessionSummaryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="sessionSummaryModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Session summary" aria-hidden="true">
     <div class="modal-card" style="max-width: 420px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('sessionSummaryModal')">✕</button>
       <div id="sessionSummaryContent"></div>
     </div>
   </div>
 
+  <!-- MODAL: OFFLINE STARTER PACK -->
+  <div id="offlinePackModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="offlinePackHeading" aria-label="Offline starter pack" aria-hidden="true">
+    <div class="modal-card offline-pack-card" style="max-width:560px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('offlinePackModal')">✕</button>
+      <div id="offlinePackContent" aria-live="polite"></div>
+    </div>
+  </div>
+  <!-- MODAL: CONTENT ISSUE REPORT -->
+  <div id="contentIssueModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contentIssueHeading" aria-hidden="true">
+    <div class="modal-card content-issue-card" style="max-width:560px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('contentIssueModal')">✕</button>
+      <div class="content-issue-shell">
+        <div class="content-issue-kicker">CONTENT REVIEW</div>
+        <h2 id="contentIssueHeading">Help us improve this lesson</h2>
+        <p>Topic: <strong id="contentIssueTopicTitle">—</strong></p>
+        <label for="contentIssueCategory">What should we check?</label>
+        <select id="contentIssueCategory" class="form-input">
+          <option value="factual">Factual or scientific accuracy</option>
+          <option value="pedagogy">Explanation or age fit</option>
+          <option value="safety">Safety wording or activity</option>
+          <option value="access">Access or entitlement issue</option>
+        </select>
+        <label for="contentIssueSeverity">Urgency</label>
+        <select id="contentIssueSeverity" class="form-input">
+          <option value="normal">Normal review</option>
+          <option value="high">High — could mislead or confuse</option>
+          <option value="safety">Safety concern</option>
+        </select>
+        <label for="contentIssueDetails">What did you notice?</label>
+        <textarea id="contentIssueDetails" class="form-input" rows="5" maxlength="1000" placeholder="Describe the specific sentence, question, or activity."></textarea>
+        <p class="content-issue-helper">The report is saved on this learner profile. You can open an email draft to send it to the review team.</p>
+        <div id="contentIssueStatus" role="status" aria-live="polite"></div>
+        <div class="content-issue-actions">
+          <button class="btn btn-primary" type="button" onclick="submitContentIssue()">Save report</button>
+          <button class="btn" type="button" onclick="closeModal('contentIssueModal')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- MODAL: KNOWLEDGE MAP -->
-  <div id="knowledgeMapModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="knowledgeMapModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="knowledgeMapHeading" aria-label="Knowledge map" aria-hidden="true">
     <div class="modal-card" style="max-width: 700px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('knowledgeMapModal')">✕</button>
       <div id="knowledgeMapContent"></div>
@@ -507,21 +546,26 @@
   </div>
 
   <!-- MODAL: CLASS × SUBJECT COVERAGE MAP -->
-  <div id="coverageModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="coverageModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Class and subject coverage" aria-hidden="true">
     <div class="modal-card" style="max-width: 840px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('coverageModal')">✕</button>
       <div id="coverageContent"></div>
     </div>
   </div>
 
-  <!-- MODAL: FIRST-VISIT ONBOARDING (CLASS PICKER) -->
-  <div id="onboardingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-card" style="max-width: 560px;">
+  <!-- MODAL: FIRST-VISIT ONBOARDING (CLASS + LEARNING INTENTION) -->
+  <div id="onboardingModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle" aria-label="Learning onboarding" aria-hidden="true">
+    <div class="modal-card onboarding-card" style="max-width: 560px;">
       <button class="modal-close" onclick="skipOnboarding()" aria-label="Skip onboarding">✕</button>
-      <div style="text-align: center;">
-        <span style="font-size: 3rem; display: block;">👋</span>
-          <h2 style="font-size: 1.5rem; font-weight: 800; color: #0f172a; margin: 0.4rem 0 0.3rem;">Welcome to Skill X!</h2>
-        <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0 0 1.1rem;">Which class are you in? We will match your daily challenge, recommendations, and learning path to your grade.</p>
+      <div class="onboarding-heading">
+        <span class="onboarding-emoji" aria-hidden="true">👋</span>
+        <h2 id="onboardingTitle">Let’s find a good starting point</h2>
+        <p id="onboardingIntro">A few gentle choices help Skill X suggest a useful first sitting. They do not change your account or access.</p>
+        <p id="onboardingStatus" class="onboarding-status" role="status" aria-live="polite">Step 1 of 5 · Your class</p>
+      </div>
+
+      <div id="onboardingStepGrade" class="onboarding-step">
+        <h3>Which class are you in?</h3>
         <div class="onboard-grade-grid">
           <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(1)">Class 1</button>
           <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(2)">Class 2</button>
@@ -534,13 +578,61 @@
           <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(9)">Class 9</button>
           <button class="onboard-grade-btn" onclick="chooseOnboardingGrade(10)">Class 10</button>
         </div>
-        <button class="btn" style="margin-top: 1.1rem;" onclick="skipOnboarding()">Just exploring — skip for now</button>
       </div>
+
+      <div id="onboardingStepIntent" class="onboarding-step" hidden>
+        <h3>What would feel useful today?</h3>
+        <div class="onboard-choice-grid">
+          <button class="onboard-choice-btn" onclick="chooseOnboardingIntent('understand')"><span aria-hidden="true">🔎</span><strong>Understand a new idea</strong><small>Start with a visual explanation.</small></button>
+          <button class="onboard-choice-btn" onclick="chooseOnboardingIntent('practise')"><span aria-hidden="true">🧩</span><strong>Practise a skill</strong><small>Try a question and explain your thinking.</small></button>
+          <button class="onboard-choice-btn" onclick="chooseOnboardingIntent('remember')"><span aria-hidden="true">🌱</span><strong>Revisit something tricky</strong><small>Return to a topic that needs another try.</small></button>
+          <button class="onboard-choice-btn" onclick="chooseOnboardingIntent('explore')"><span aria-hidden="true">✨</span><strong>Just explore</strong><small>Let the next small question surprise you.</small></button>
+        </div>
+        <p class="onboarding-interest-label">Optional: choose a subject to make the first route feel more personal.</p>
+        <div id="onboardingInterestOptions" class="onboard-interest-grid" role="group" aria-label="Optional subject interest">
+          <button type="button" class="onboard-interest-btn" data-interest="maths" aria-pressed="false" onclick="chooseOnboardingInterest('maths')">➗ Maths</button>
+          <button type="button" class="onboard-interest-btn" data-interest="science" aria-pressed="false" onclick="chooseOnboardingInterest('science')">🔬 Science</button>
+          <button type="button" class="onboard-interest-btn" data-interest="space" aria-pressed="false" onclick="chooseOnboardingInterest('space')">🌌 Space</button>
+          <button type="button" class="onboard-interest-btn" data-interest="coding" aria-pressed="false" onclick="chooseOnboardingInterest('coding')">💻 Coding & AI</button>
+          <button type="button" class="onboard-interest-btn" data-interest="surprise" aria-pressed="true" onclick="chooseOnboardingInterest('surprise')">✨ Surprise me</button>
+        </div>
+        <button type="button" class="btn btn-primary onboarding-continue-btn" onclick="continueOnboardingIntent()">Continue to a gentle question →</button>        <button type="button" class="onboarding-back-btn" onclick="renderOnboardingStep('grade')">← Change class</button>
+      </div>
+
+      <div id="onboardingStepDiagnostic" class="onboarding-step" hidden>
+        <h3 id="onboardingDiagnosticTitle">Let’s try one gentle question</h3>
+        <p id="onboardingDiagnosticPrompt" class="onboarding-diagnostic-prompt"></p>
+        <div id="onboardingDiagnosticOptions" class="onboard-choice-grid" role="group" aria-label="Diagnostic answer choices"></div>
+        <p id="onboardingDiagnosticProgress" class="onboarding-diagnostic-progress" role="status" aria-live="polite"></p>
+        <button type="button" class="onboarding-back-btn" onclick="renderOnboardingStep('intent')">← Change intention</button>
+      </div>
+
+      <div id="onboardingStepConfidence" class="onboarding-step" hidden>
+        <h3>How did that feel?</h3>
+        <p class="onboarding-diagnostic-prompt">There is no score here. This simply helps us choose a kinder starting point.</p>
+        <div class="onboard-choice-grid">
+          <button class="onboard-choice-btn" onclick="chooseOnboardingConfidence('sure')"><span aria-hidden="true">🌟</span><strong>I was sure</strong><small>I could explain my thinking.</small></button>
+          <button class="onboard-choice-btn" onclick="chooseOnboardingConfidence('guessed')"><span aria-hidden="true">🧭</span><strong>I guessed</strong><small>I had a hunch, but not the reason yet.</small></button>
+          <button class="onboard-choice-btn" onclick="chooseOnboardingConfidence('unsure')"><span aria-hidden="true">🌱</span><strong>I wasn’t sure</strong><small>I would like a gentle explanation.</small></button>
+        </div>
+        <button type="button" class="onboarding-back-btn" onclick="renderOnboardingStep('diagnostic')">← Try the questions again</button>
+      </div>
+      <div id="onboardingStepTime" class="onboarding-step" hidden>
+        <h3>How much time do you have?</h3>
+        <div class="onboard-time-grid">
+          <button class="onboard-time-btn" onclick="chooseOnboardingMinutes(5)"><strong>5 minutes</strong><small>One focused idea</small></button>
+          <button class="onboard-time-btn" onclick="chooseOnboardingMinutes(10)"><strong>10 minutes</strong><small>A short learning route</small></button>
+          <button class="onboard-time-btn" onclick="chooseOnboardingMinutes(20)"><strong>20 minutes</strong><small>Learn, practise and revisit</small></button>
+        </div>
+        <button type="button" class="onboarding-back-btn" onclick="renderOnboardingStep('intent')">← Change intention</button>
+      </div>
+
+      <button class="btn onboarding-skip-btn" onclick="skipOnboarding()">Just exploring — skip for now</button>
     </div>
   </div>
 
   <!-- MODAL: PARENT / TEACHER PROGRESS DASHBOARD -->
-  <div id="dashboardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="dashboardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Learning dashboard" aria-hidden="true">
     <div class="modal-card" style="max-width: 760px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('dashboardModal')">✕</button>
       <div id="dashboardContent"></div>
@@ -548,7 +640,7 @@
   </div>
 
   <!-- MODAL: CURRICULUM LEARNING PATH -->
-  <div id="pathModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="pathModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Learning path" aria-hidden="true">
     <div class="modal-card" style="max-width: 640px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('pathModal')">✕</button>
       <div id="pathModalContent"></div>
@@ -556,7 +648,7 @@
   </div>
 
   <!-- MODAL: 5-STEP TOPIC DETAIL VIEW -->
-  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Lesson details" aria-hidden="true">
     <div class="modal-card">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('detailModal')">✕</button>
       <div id="detailModalContent"></div>
@@ -564,7 +656,7 @@
   </div>
 
   <!-- MODAL: CHAPTER MIXED-REVIEW QUIZ (interleaves MCQs from all lessons in the chapter) -->
-  <div id="reviewModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="reviewModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Review session" aria-hidden="true">
     <div class="modal-card" style="max-width: 720px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('reviewModal')">✕</button>
       <div id="reviewContent"></div>
@@ -572,7 +664,7 @@
   </div>
 
   <!-- MODAL: BOARD PREP — timed Class 9-10 chapter quiz sessions -->
-  <div id="boardPrepModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="boardPrepModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Board preparation" aria-hidden="true">
     <div class="modal-card" style="max-width: 720px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('boardPrepModal')">✕</button>
       <div id="boardPrepContent"></div>
@@ -580,7 +672,7 @@
   </div>
 
   <!-- MODAL: CURRICULUM ALIGNMENT — multi-board chapter & outcome map -->
-  <div id="boardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="boardModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Curriculum alignment" aria-hidden="true">
     <div class="modal-card" style="max-width: 860px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('boardModal')">✕</button>
       <div id="boardContent"></div>
@@ -588,7 +680,7 @@
   </div>
 
   <!-- MODAL: STANDARD USERNAME & PASSWORD LOGIN -->
-  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Sign in or create an account" aria-hidden="true">
     <div class="modal-card" style="max-width: 440px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('loginModal')">✕</button>
 
@@ -715,7 +807,7 @@
             </select>
           </div>
 
-          <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.83rem; color:var(--text-main); cursor:pointer; margin:0.6rem 0;">
+          <label for="registerParentMode" style="display:flex; align-items:center; gap:0.5rem; font-size:0.83rem; color:var(--text-main); cursor:pointer; margin:0.6rem 0;">
             <input type="checkbox" id="registerParentMode" checked onchange="toggleRegisterParentMode(this.checked)" style="width:1rem; height:1rem; cursor:pointer;">
             I'm a parent or lawful guardian (recommended for learners under 18)
           </label>
@@ -755,7 +847,7 @@
   </div>
 
   <!-- MODAL: GRADE UPGRADE SUBSCRIPTION & PAYMENT GATEWAY -->
-  <div id="paywallModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true">
+  <div id="paywallModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Plans and enrolment" aria-hidden="true">
     <div class="modal-card" style="max-width: 480px;">
       <button class="modal-close" aria-label="Close dialog" onclick="closeModal('paywallModal')">✕</button>
       
@@ -780,19 +872,19 @@
       </div>
       <div class="footer-col">
         <h4>Subjects</h4>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Mathematics', document.querySelectorAll('.chip')[1]); return false;}">Mathematics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Physics', document.querySelectorAll('.chip')[2]); return false;}">Physics</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Chemistry', document.querySelectorAll('.chip')[3]); return false;}">Chemistry</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Biology', document.querySelectorAll('.chip')[4]); return false;}">Biology</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Computer Science & AI', document.querySelectorAll('.chip')[5]); return false;}">CS & AI</a>
-        <a href="index.html#subjects" onclick="if(window.selectSubjectFilter){selectSubjectFilter('Earth & Space', document.querySelectorAll('.chip')[6]); return false;}">Earth & Space</a>
+        <a href="library.html#subject-mathematics">Mathematics</a>
+        <a href="library.html#subject-physics">Physics</a>
+        <a href="library.html#subject-chemistry">Chemistry</a>
+        <a href="library.html#subject-biology">Biology</a>
+        <a href="library.html#subject-computer-science-and-ai">CS & AI</a>
+        <a href="library.html#subject-earth-and-space">Earth & Space</a>
       </div>
       <div class="footer-col">
         <h4>Platform</h4>
         <a href="about.html">About</a>
         <a href="coverage.html">🗺️ Coverage Matrix</a>
         <a href="index.html" onclick="if(window.openModal){openModal('achievementsModal'); return false;}">Achievements</a>
-        <span class="footer-link-disabled" aria-disabled="true">Knowledge Map<small>Coming soon</small></span>
+        <a href="index.html#knowledge-map" onclick="if(window.openModal){openModal('knowledgeMapModal'); return false;}">🗺️ Knowledge Map</a>
         <a href="index.html" onclick="if(window.openModal){openModal('coverageModal'); return false;}">Class Coverage</a>
         <a href="index.html" onclick="if(window.openBoardPrep){openBoardPrep(); return false;}">🎯 Board Prep</a>
         <span class="footer-link-disabled" aria-disabled="true">🔀 Mixed Review<small>Coming soon</small></span>
@@ -802,9 +894,9 @@
       <div class="footer-col">
         <h4>Learning</h4>
         <a href="progress.html">Progress guide</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4 (Foundational)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7 (Preparatory)</a>
-        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10 (Secondary)</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('1', document.querySelectorAll('.chip')[8]); return false;}">Classes 1–4</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('6', document.querySelectorAll('.chip')[13]); return false;}">Classes 5–7</a>
+        <a href="index.html" onclick="if(window.selectClassFilter){selectClassFilter('9', document.querySelectorAll('.chip')[16]); return false;}">Classes 8–10</a>
         <a href="index.html" onclick="if(window.startDailyChallenge){startDailyChallenge(); return false;}">Daily Challenge</a>
       </div>
       <div class="footer-col">
@@ -815,6 +907,7 @@
         <a href="parental-consent.html">Parental Consent</a>
         <a href="safety.html">Child Safety Charter</a>
         <a href="contact.html">Contact</a>
+        <a href="evidence.html">Evidence Center</a>
         <a href="support.html">Help & Grievance Support</a>
       </div>
     </div>
@@ -833,16 +926,20 @@
   </footer>
 
   <!-- STEM MASTER DATASET (FALLBACK BUNDLE) -->
-  <script src="stem_data.js?v=72"></script>
+  <script src="stem_data.js?v=115"></script>
 
   <!-- REST API CLIENT, PAYMENT GATEWAY & PURE-LOGIC CORE MODULES -->
-  <script src="js/api_client.js?v=72"></script>
-  <script src="js/payment_gateway.js?v=72"></script>
-  <script src="js/app_core.js?v=72"></script>
-  <script src="js/vocab_data.js?v=72"></script>
+  <script src="js/i18n.js?v=115"></script>
+  <script src="js/context_library.js?v=115"></script>
+  <script src="js/challenge_library.js?v=115"></script>
+  <script src="js/offscreen_library.js?v=115"></script><script src="js/aha_engines.js?v=115"></script><script src="js/topic_roles.js?v=115"></script><script src="js/concept_graph.js?v=115"></script>
+  <script src="js/api_client.js?v=115"></script><script src="js/learning_telemetry.js?v=115"></script>
+  <script src="js/payment_gateway.js?v=115"></script>
+  <script src="js/app_core.js?v=115"></script>
+  <script src="js/vocab_data.js?v=115"></script>
 
   <!-- MAIN APPLICATION CONTROLLER -->
-  <script src="app.js?v=72"></script>
+  <script src="app.js?v=115"></script>
 
   <script>
     // Keep the copyright year current

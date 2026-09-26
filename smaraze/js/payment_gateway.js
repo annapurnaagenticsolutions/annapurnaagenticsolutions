@@ -6,13 +6,13 @@
    - Band 3 (Classes 8–10): ₹2,000/6M, ₹4,000/1Y (+18% GST)
 
    Prices show 18% GST breakdown and final payable amount.
-   Future offerings (Live cohorts) marked as coming soon.
+   Future offerings (Live cohorts & hardware kits) marked as coming soon.
    ========================================================================== */
 
 const AVYAAN_BANDS = Object.freeze({
   band_1_4: {
     id: 'band_1_4',
-    name: 'Classes 1–4 (Foundational STEM)',
+    name: 'Classes 1–4 Plan',
     classes: 'Classes 1, 2, 3, 4',
     minGrade: 1,
     maxGrade: 4,
@@ -24,7 +24,7 @@ const AVYAAN_BANDS = Object.freeze({
   },
   band_5_7: {
     id: 'band_5_7',
-    name: 'Classes 5–7 (Preparatory STEM)',
+    name: 'Classes 5–7 Plan',
     classes: 'Classes 5, 6, 7',
     minGrade: 5,
     maxGrade: 7,
@@ -36,7 +36,7 @@ const AVYAAN_BANDS = Object.freeze({
   },
   band_8_10: {
     id: 'band_8_10',
-    name: 'Classes 8–10 (Secondary & Board Prep)',
+    name: 'Classes 8–10 Plan',
     classes: 'Classes 8, 9, 10',
     minGrade: 8,
     maxGrade: 10,
@@ -69,39 +69,21 @@ const AvyaanPayments = {
       this.planCatalogError = true;
       return false;
     }
-    const data = await Promise.race([
-      AvyaanAPI.getPlans(),
-      new Promise(resolve => setTimeout(() => resolve({ plans: [], error: 'Pricing request timed out' }), 8000))
-    ]);
+    const data = await AvyaanAPI.getPlans();
     if (!data || !Array.isArray(data.plans) || data.plans.length === 0) {
       this.planCatalogError = true;
       return false;
     }
     for (const plan of data.plans) {
-      const bandKey = plan.band_id || plan.band;
-      const band = AVYAAN_BANDS[bandKey];
-      if (!band) continue;
-      if (plan.options) {
-        for (const duration of ['6m', '1y']) {
-          const quote = plan.options[duration];
-          if (!quote) continue;
-          band.prices[duration] = {
-            base: quote.base_inr, gst: quote.gst_inr, total: quote.total_inr,
-            monthly: quote.effective_monthly_inr != null
-              ? quote.effective_monthly_inr
-              : Number((Number(quote.total_inr) / (duration === '1y' ? 12 : 6)).toFixed(2)),
-            savings: quote.savings_vs_two_6m || ''
-          };
-        }
-      } else if (plan.duration && plan.base_inr != null) {
-        band.prices[plan.duration] = {
-          base: plan.base_inr,
-          gst: plan.gst_inr || 0,
-          total: plan.total_inr,
-          monthly: plan.effective_monthly_inr != null
-            ? plan.effective_monthly_inr
-            : Number((Number(plan.total_inr) / (plan.duration === '1y' ? 12 : 6)).toFixed(2)),
-          savings: plan.savings_vs_two_6m || ''
+      const band = AVYAAN_BANDS[plan.band_id];
+      if (!band || !plan.options) continue;
+      for (const duration of ['6m', '1y']) {
+        const quote = plan.options[duration];
+        if (!quote) continue;
+        band.prices[duration] = {
+          base: quote.base_inr, gst: quote.gst_inr, total: quote.total_inr,
+          monthly: quote.effective_monthly_inr,
+          savings: quote.savings_vs_two_6m || ''
         };
       }
     }
@@ -143,17 +125,7 @@ const AvyaanPayments = {
     this.planCatalogError = false;
 
    this.renderPaywallContent();
-   if (typeof openModal === 'function') {
-     openModal('paywallModal');
-   } else {
-     const modal = document.getElementById('paywallModal');
-     if (modal) {
-       modal.classList.add('active');
-       modal.removeAttribute('aria-hidden');
-       modal.setAttribute('role', 'dialog');
-       modal.setAttribute('aria-modal', 'true');
-     }
-   }
+   openModal('paywallModal');
     this.syncPlansFromServer().then(() => this.renderPaywallContent()).catch(() => { this.planCatalogError = true; this.renderPaywallContent(); });
   },
 
@@ -206,14 +178,14 @@ const AvyaanPayments = {
 
       <!-- PRICE CARD & 18% GST BREAKDOWN -->
       <div style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 1.1rem; margin-bottom: 1.1rem;">
-        <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; margin-bottom: 0.6rem;">
-          <div style="min-width: 0; flex: 1;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.6rem;">
+          <div>
             <div style="font-size: 1.05rem; font-weight: 800; color: #0f172a;">${dur === '1y' ? 'Annual Self-Paced Plan' : '6-Month Self-Paced Plan'}</div>
             <div style="font-size: 0.74rem; color: #64748b;">${band.description}</div>
           </div>
-          <div style="flex: 0 0 auto; min-width: max-content; text-align: right; white-space: nowrap;">
-            <div style="font-size: clamp(1.15rem, 5vw, 1.45rem); font-weight: 900; color: #2563eb; white-space: nowrap; font-variant-numeric: tabular-nums;">₹${Number(priceData.total).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</div>
-            <div style="font-size: 0.7rem; color: #64748b; white-space: nowrap;">₹${Number(priceData.monthly).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
+          <div style="text-align: right;">
+            <div style="font-size: 1.45rem; font-weight: 900; color: #2563eb;">₹${priceData.total.toLocaleString('en-IN')}</div>
+            <div style="font-size: 0.7rem; color: #64748b;">₹${priceData.monthly}/mo effective${priceData.savings ? ' · ' + priceData.savings : ''}</div>
           </div>
         </div>
 
@@ -245,6 +217,7 @@ const AvyaanPayments = {
       <div style="background: #fdf8f6; border: 1px solid #fed7aa; border-radius: 10px; padding: 0.7rem 0.85rem; margin-top: 1rem; font-size: 0.74rem; color: #9a3412;">
         <div style="font-weight: 700; margin-bottom: 0.2rem;">✨ Future Offerings (Coming Soon)</div>
         <div>• <b>Live Mentor Cohorts:</b> Small groups (1:6) with weekly educator feedback.</div>
+        <div>• <b>Physical Hardware Kits:</b> Snap-fit robotics & electronics add-on kits.</div>
       </div>
     `;
   },
@@ -352,6 +325,3 @@ const AvyaanPayments = {
     }
   },
 };
-
-// Expose the payment facade for cross-page CTAs and safe inline integrations.
-window.AvyaanPayments = AvyaanPayments;

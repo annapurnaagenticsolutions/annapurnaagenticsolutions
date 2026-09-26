@@ -6,13 +6,13 @@
   <title>STEM Library | Skill X by Avyan Info Solution</title>
   <meta name="description" content="Explore the Skill X STEM library by subject, class and difficulty. Starter previews are open; protected lesson bodies require a signed-in learner account.">
   <meta name="theme-color" content="#2563eb">
-  <script src="js/storage_scope.js?v=72"></script>
+  <script src="js/storage_scope.js?v=115"></script>
   <script>
     (function () { try { document.documentElement.setAttribute('data-theme', 'light'); avyaanStorage.setItem('avyaan_theme', 'light'); } catch (e) {} }());
   </script>
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://smaraze.com/library.html">
-  <link rel="stylesheet" href="style.css?v=72">
+  <link rel="stylesheet" href="style.css?v=115">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
       <div class="nav-right">
         <div class="nav-xp-pill" id="navXpPill" title="Your XP and Level"><span id="levelDisplay">Explorer</span><span class="nav-xp-divider"></span><span id="xpDisplay">0 XP</span></div>
         <div class="nav-streak-pill" title="Daily streak"><span id="streakCount">0</span><span class="nav-streak-icon"></span></div>
-        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">Log in</button>
+        <button id="loginNavBtn" class="btn btn-primary btn-sm" onclick="openLoginModal()">Log in</button>
         <div id="userMenuTrigger" class="nav-avatar-wrap" style="display:none;" role="button" tabindex="0" aria-label="Open account menu" aria-haspopup="menu" aria-expanded="false" aria-controls="userDropdown" onclick="toggleUserMenu()">
           <span class="nav-avatar" id="userAvatar">S</span>
           <div class="user-dropdown" id="userDropdown" role="menu" aria-label="Account menu" aria-hidden="true">
@@ -57,16 +57,16 @@
         <span class="kicker-small">The complete catalogue</span>
         <h1>Explore the Skill X STEM Library</h1>
         <p>Search by idea, subject or class. Guests can inspect titles and summaries, while a small set of starter lessons is open to try; full lesson bodies and assessment feedback stay protected behind a signed-in learner account.</p>
-        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="#plans" onclick="event.preventDefault(); if(window.AvyaanPayments && typeof window.AvyaanPayments.renderPaywall === 'function'){ window.AvyaanPayments.renderPaywall(null); } else if(typeof window.__skillxOpenPlans === 'function'){ window.__skillxOpenPlans(); } else if(typeof window.openLoginModal === 'function'){ window.openLoginModal(); } else { const el=document.getElementById('loginModal'); if(el){ el.classList.add('active'); el.removeAttribute('aria-hidden'); } }">🎓 See plans &amp; enroll</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
+        <div class="library-page-actions"><a class="btn-joy-secondary" href="index.html">← Back to the welcome page</a><a class="btn-joy-secondary" href="index.html" onclick="if(window.AvyaanPayments){AvyaanPayments.renderPaywall(null);return false;}">🎓 See plans &amp; enroll</a><a class="btn-joy-primary" href="index.html#login">Sign in to unlock your learning path</a></div>
       </div>
     </section>
 
     <section class="explore-library-section library-catalogue-section" aria-labelledby="libraryHeading">
       <div class="container">
         <div class="library-stats-banner">
-          <div class="lib-stat-box"><div class="lib-stat-num" id="statTopics">0</div><div class="lib-stat-lbl">Learner-visible topics</div></div>
-          <div class="lib-stat-box"><div class="lib-stat-num" id="statSubjects">0</div><div class="lib-stat-lbl">Core subjects</div></div>
-          <div class="lib-stat-box"><div class="lib-stat-num" id="statClasses">0</div><div class="lib-stat-lbl">Class levels</div></div>
+          <div class="lib-stat-box"><div class="lib-stat-num" id="statTopics">701</div><div class="lib-stat-lbl">Learner-visible topics</div></div>
+          <div class="lib-stat-box"><div class="lib-stat-num" id="statSubjects">6</div><div class="lib-stat-lbl">Core subjects</div></div>
+          <div class="lib-stat-box"><div class="lib-stat-num" id="statClasses">10</div><div class="lib-stat-lbl">Class levels</div></div>
           <div class="lib-stat-box"><div class="lib-stat-num" id="statTools">20+</div><div class="lib-stat-lbl">Virtual labs & simulators</div></div>
         </div>
         <div class="library-access-note"><span aria-hidden="true">🔐</span><span><strong>Preview openly, learn privately.</strong> Protected lesson bodies, answer keys and progress are delivered only after the server confirms the learner’s account and entitlement.</span></div>
@@ -78,7 +78,7 @@
       <div style="display:flex;gap:.5rem;width:100%;align-items:center;flex-wrap:wrap;">
         <label class="sr-only" for="searchInput">Search STEM topics, formulas, or concepts</label>
         <input type="text" id="searchInput" class="search-bar" placeholder="Search topics by keyword, formula, or concept..." oninput="topicDisplayLimit=12;browseMode='all';renderGrid()">
-        <select id="difficultyFilter" class="search-bar" style="max-width:190px;flex-shrink:0;" onchange="topicDisplayLimit=12;selectedDifficulty=this.value;browseMode='all';renderGrid()"><option value="all">🎚️ All difficulties</option><option value="easy">🟢 Easy</option><option value="medium">🟡 Medium</option><option value="hard">🔴 Hard</option><option value="solidified">🧠 Solidified only</option></select>
+        <label class="sr-only" for="difficultyFilter">Filter by difficulty</label><select id="difficultyFilter" class="search-bar" style="max-width:190px;flex-shrink:0;" onchange="topicDisplayLimit=12;selectedDifficulty=this.value;browseMode='all';renderGrid()"><option value="all">🎚️ All difficulties</option><option value="easy">🟢 Easy</option><option value="medium">🟡 Medium</option><option value="hard">🔴 Hard</option><option value="solidified">🧠 Solidified only</option></select>
       </div>
       <div class="chips-row" id="subjectChips" aria-label="Subject filters"></div>
       <div class="chips-row" id="classChips" aria-label="Class filters">
@@ -86,18 +86,67 @@
       </div>
     </div>
     <div class="section-divider"><span>Explore Topics</span></div>
-    <div id="cardsGrid" class="content-grid" aria-live="polite"></div>
+    <div id="cardsGrid" class="content-grid" aria-live="polite"></div>    <noscript>
+      <section class="library-noscript-fallback" aria-labelledby="libraryFallbackHeading">
+        <h2 id="libraryFallbackHeading">A small starter set to explore</h2>
+        <p>These six Class 1 previews show the kind of learning available in Skill X. Enable JavaScript to filter the full catalogue and open interactive previews.</p>
+        <div class="content-grid">
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Counting 1 to 10</h3><p>Count objects one by one.</p></article>
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Numbers 11 to 20</h3><p>Understand teen numbers as ten and some more.</p></article>
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Before After Between</h3><p>Find nearby numbers.</p></article>
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Bigger and Smaller</h3><p>Compare two groups.</p></article>
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Addition with Objects</h3><p>Addition means putting together.</p></article>
+          <article class="content-card"><span class="class-tag">Class 1 · Mathematics</span><h3>Subtraction with Objects</h3><p>Subtraction means taking away.</p></article>
+        </div>
+        <p><a class="btn-joy-primary" href="index.html#login">Create an account to try a starter preview</a></p>
+      </section>
+    </noscript>
   </main>
 
-  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"><div class="modal-card"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('detailModal')">✕</button><div id="detailModalContent"></div></div></div>
-  <div id="paywallModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"><div class="modal-card" style="max-width:480px"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('paywallModal')">✕</button><div id="paywallModalContent"></div></div></div>
-  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-hidden="true"><div class="modal-card" style="max-width:440px"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('loginModal')">✕</button><div style="text-align:center;margin-bottom:1.2rem"><span style="font-size:2.5rem">🔑</span><h2 style="font-size:1.4rem;font-weight:800;color:#0f172a">Sign in to Skill X</h2><p style="font-size:.85rem;color:var(--text-muted)">Use your learner, parent or provisioned administrator account.</p></div><div id="loginFormPanel"><div id="loginError" style="display:none;background:#fef2f2;color:#991b1b;padding:.6rem;border-radius:8px;font-size:.83rem;margin-bottom:1rem;border:1px solid #fecaca"></div><form onsubmit="handleFormLogin(event)"><div class="form-group"><label for="loginUsername">Email or administrator ID</label><input type="text" id="loginUsername" class="form-input" autocomplete="username" required></div><div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" class="form-input" autocomplete="current-password" required></div><div class="form-group"><label for="loginGradeSelect">Learner class (if applicable)</label><select id="loginGradeSelect" class="form-input"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7" selected>Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option></select></div><button type="submit" class="btn btn-primary" style="width:100%;padding:.75rem;justify-content:center;font-weight:700">Sign In →</button></form><p style="font-size:.76rem;color:var(--text-dim);text-align:center;margin-top:.8rem">Need an account? <a href="index.html#login">Create one from the welcome page.</a></p></div></div></div>
+  <!-- MODAL: CONTENT ISSUE REPORT -->
+  <div id="contentIssueModal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="contentIssueHeading" aria-hidden="true">
+    <div class="modal-card content-issue-card" style="max-width:560px;">
+      <button class="modal-close" aria-label="Close dialog" onclick="closeModal('contentIssueModal')">✕</button>
+      <div class="content-issue-shell">
+        <div class="content-issue-kicker">CONTENT REVIEW</div>
+        <h2 id="contentIssueHeading">Help us improve this lesson</h2>
+        <p>Topic: <strong id="contentIssueTopicTitle">—</strong></p>
+        <label for="contentIssueCategory">What should we check?</label>
+        <select id="contentIssueCategory" class="form-input">
+          <option value="factual">Factual or scientific accuracy</option>
+          <option value="pedagogy">Explanation or age fit</option>
+          <option value="safety">Safety wording or activity</option>
+          <option value="access">Access or entitlement issue</option>
+        </select>
+        <label for="contentIssueSeverity">Urgency</label>
+        <select id="contentIssueSeverity" class="form-input">
+          <option value="normal">Normal review</option>
+          <option value="high">High — could mislead or confuse</option>
+          <option value="safety">Safety concern</option>
+        </select>
+        <label for="contentIssueDetails">What did you notice?</label>
+        <textarea id="contentIssueDetails" class="form-input" rows="5" maxlength="1000" placeholder="Describe the specific sentence, question, or activity."></textarea>
+        <p class="content-issue-helper">The report is saved on this learner profile. You can open an email draft to send it to the review team.</p>
+        <div id="contentIssueStatus" role="status" aria-live="polite"></div>
+        <div class="content-issue-actions">
+          <button class="btn btn-primary" type="button" onclick="submitContentIssue()">Save report</button>
+          <button class="btn" type="button" onclick="closeModal('contentIssueModal')">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="detailModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Lesson details" aria-hidden="true"><div class="modal-card"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('detailModal')">✕</button><div id="detailModalContent"></div></div></div>
+  <div id="paywallModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Plans and enrolment" aria-hidden="true"><div class="modal-card" style="max-width:480px"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('paywallModal')">✕</button><div id="paywallModalContent"></div></div></div>
+  <div id="loginModal" class="modal-overlay" role="dialog" aria-modal="true" aria-label="Sign in or create an account" aria-hidden="true"><div class="modal-card" style="max-width:440px"><button class="modal-close" aria-label="Close dialog" onclick="closeModal('loginModal')">✕</button><div style="text-align:center;margin-bottom:1.2rem"><span style="font-size:2.5rem">🔑</span><h2 style="font-size:1.4rem;font-weight:800;color:#0f172a">Sign in to Skill X</h2><p style="font-size:.85rem;color:var(--text-muted)">Use your learner, parent or provisioned administrator account.</p></div><div id="loginFormPanel"><div id="loginError" style="display:none;background:#fef2f2;color:#991b1b;padding:.6rem;border-radius:8px;font-size:.83rem;margin-bottom:1rem;border:1px solid #fecaca"></div><form onsubmit="handleFormLogin(event)"><div class="form-group"><label for="loginUsername">Email or administrator ID</label><input type="text" id="loginUsername" class="form-input" autocomplete="username" required></div><div class="form-group"><label for="loginPassword">Password</label><input type="password" id="loginPassword" class="form-input" autocomplete="current-password" required></div><div class="form-group"><label for="loginGradeSelect">Learner class (if applicable)</label><select id="loginGradeSelect" class="form-input"><option value="1">Class 1</option><option value="2">Class 2</option><option value="3">Class 3</option><option value="4">Class 4</option><option value="5">Class 5</option><option value="6">Class 6</option><option value="7" selected>Class 7</option><option value="8">Class 8</option><option value="9">Class 9</option><option value="10">Class 10</option></select></div><button type="submit" class="btn btn-primary" style="width:100%;padding:.75rem;justify-content:center;font-weight:700">Sign In →</button></form><p style="font-size:.76rem;color:var(--text-dim);text-align:center;margin-top:.8rem">Need an account? <a href="index.html#login">Create one from the welcome page.</a></p></div></div></div>
 
-  <footer class="site-footer"><div class="footer-container"><div class="footer-brand"><h3>Skill X</h3><p>Avyan Info Solution’s learning platform for curious minds. Explore concepts, practise skills and build confidence at your own pace.</p></div><div class="footer-col"><h4>Explore</h4><a href="index.html">Welcome page</a><a href="library.html">STEM Library</a><a href="progress.html">Progress guide</a><a href="why.html">Why Skill X</a></div><div class="footer-col"><h4>Trust & Legal</h4><a href="privacy.html">Privacy Policy (DPDP)</a><a href="terms.html">Terms of Service</a><a href="parental-consent.html">Parental Consent</a><a href="safety.html">Child Safety Charter</a><a href="support.html">Help & Grievance Support</a></div></div><div class="footer-bottom"><span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span><span><span id="footerTopicCount">0</span> learner-visible topics · <span id="footerSubjectCount">0</span> subjects · <span id="footerClassCount">0</span> class levels</span></div><div class="footer-attribution"><span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span></div><p class="footer-disclaimer">Skill X is an independent learning platform presented by Avyan Info Solution. It is not affiliated with, endorsed by, or connected to NCERT, CBSE, CISCE/ICSE, or any state education board. Curriculum references are provided as a study aid — always follow your school's official syllabus.</p></footer>
+  <footer class="site-footer"><div class="footer-container"><div class="footer-brand"><h3>Skill X</h3><p>Avyan Info Solution’s learning platform for curious minds. Explore concepts, practise skills and build confidence at your own pace.</p></div><div class="footer-col"><h4>Explore</h4><a href="index.html">Welcome page</a><a href="library.html">STEM Library</a><a href="progress.html">Progress guide</a><a href="why.html">Why Skill X</a></div><div class="footer-col"><h4>Trust & Legal</h4><a href="privacy.html">Privacy Policy (DPDP)</a><a href="terms.html">Terms of Service</a><a href="parental-consent.html">Parental Consent</a><a href="safety.html">Child Safety Charter</a><a href="evidence.html">Evidence Center</a>
+        <a href="support.html">Help & Grievance Support</a></div></div><div class="footer-bottom"><span>© <span id="copyrightYear">2026</span> Skill X by Avyan Info Solution</span><span><span id="footerTopicCount">701</span> learner-visible topics · <span id="footerSubjectCount">6</span> subjects · <span id="footerClassCount">10</span> class levels</span></div><div class="footer-attribution"><span class="footer-attribution-mark">S</span><span><strong>Skill X is proudly presented by <span class="footer-partner">Avyan Info Solution</span> in collaboration with <a class="footer-partner" href="https://annapurnaagenticsolutions.com/" target="_blank" rel="noopener noreferrer">Annapurna Agentic Solutions</a>.</strong><small>Built to help children learn with curiosity, clarity and confidence.</small></span></div><p class="footer-disclaimer">Skill X is an independent learning platform presented by Avyan Info Solution. It is not affiliated with, endorsed by, or connected to NCERT, CBSE, CISCE/ICSE, or any state education board. Curriculum references are provided as a study aid — always follow your school's official syllabus.</p></footer>
 
-  <script src="stem_data.js?v=72"></script><script src="js/api_client.js?v=72"></script><script src="js/payment_gateway.js?v=72"></script><script src="js/app_core.js?v=72"></script><script src="js/vocab_data.js?v=72"></script>
+  <script src="stem_data.js?v=115"></script><script src="js/i18n.js?v=115"></script><script src="js/context_library.js?v=115"></script><script src="js/challenge_library.js?v=115"></script><script src="js/offscreen_library.js?v=115"></script><script src="js/aha_engines.js?v=115"></script><script src="js/topic_roles.js?v=115"></script><script src="js/concept_graph.js?v=115"></script><script src="js/api_client.js?v=115"></script><script src="js/learning_telemetry.js?v=115"></script><script src="js/payment_gateway.js?v=115"></script><script src="js/app_core.js?v=115"></script><script src="js/vocab_data.js?v=115"></script>
   <script>window.AVYAAN_LIBRARY_PAGE = true;</script>
-  <script src="app.js?v=72"></script>
+  <script src="app.js?v=115"></script>
   <script>document.getElementById('copyrightYear').textContent = new Date().getFullYear();</script>
 </body>
 </html>
+
+

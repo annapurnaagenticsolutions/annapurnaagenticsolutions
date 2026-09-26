@@ -187,7 +187,7 @@
     return ['Mathematics', 'Physics', 'Chemistry', 'Biology', 'Computer Science & AI', 'Earth & Space'];
   };
 
-  // SM-2 spaced repetition: given the previous review entry (or null) and
+  // Adaptive spaced review: given the previous review entry (or null) and
   // whether the recall was correct, return the next { reps, ease, intervalDays }.
   // Successful recalls grow the interval 1→2→4→8→16→30 days (× ease); a failed
   // recall resets reps to 0 and schedules a 1-day re-review.
