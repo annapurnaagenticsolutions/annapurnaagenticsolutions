@@ -80,6 +80,8 @@ body {
 /* === CONSISTENT CONTAINER === */
 .container {
   max-width: var(--container-max);
+  width: 100%;
+  min-width: 0;
   margin: 0 auto;
   padding-left: var(--container-pad);
   padding-right: var(--container-pad);
@@ -1330,6 +1332,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
+  gap: 0.75rem;
   margin-bottom: 0.8rem;
 }
 
@@ -1343,19 +1346,27 @@ body {
 
 .card-tags {
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.25rem;
+  min-width: 0;
+  max-width: 72%;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
 }
 
 .class-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.7rem;
   font-weight: 700;
   background: var(--accent-primary-light);
   border: 1px solid #bfdbfe;
   color: #1e40af;
-  padding: 0.12rem 0.5rem;
+  padding: 0.2rem 0.55rem;
   border-radius: var(--radius-pill);
+  line-height: 1.15;
+  white-space: nowrap;
 }
 
 .library-noscript-fallback {
@@ -1377,11 +1388,21 @@ body {
 .library-noscript-fallback .content-card h3 { margin: .8rem 0 .35rem; font-size: 1rem; }
 .library-noscript-fallback .content-card p { margin: 0; color: var(--text-muted); font-size: .9rem; }
 .subject-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   font-size: 0.68rem;
   font-weight: 700;
   color: var(--text-muted);
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  max-width: 100%;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--radius-pill);
+  line-height: 1.15;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .card-body h3 {
@@ -2431,7 +2452,7 @@ body {
   86%, 100% { transform: translateX(58%) rotate(-8deg); opacity: 0; }
 }
 
-.hero-landing-container { position: relative; z-index: 1; }
+.hero-landing-container { position: relative; z-index: 1; width: 100%; min-width: 0; }
 
 .hero-tertiary-video {
   display: block;
@@ -2477,6 +2498,13 @@ body {
   padding: clamp(2.6rem, 6vw, 5rem) 0 2.4rem;
   background: linear-gradient(135deg, #eff6ff 0%, #ffffff 58%, #f5f3ff 100%);
   border-bottom: 1px solid #dbeafe;
+}
+
+.library-page-hero .container,
+.library-catalogue-section .container,
+.library-controls,
+.content-grid {
+  min-width: 0;
 }
 
 .library-page-hero h1 {
@@ -3658,23 +3686,27 @@ body {
    TODAY LEARNING ROUTE
    ========================================================================== */
 .today-route-card {
-  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1rem; align-items: center;
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 1.25rem; align-items: center;
+  width: 100%; min-width: 0;
   margin-bottom: 1rem; padding: 1rem 1.1rem; border: 1px solid #c7d2fe;
   border-radius: 16px; background: linear-gradient(105deg, #eef2ff 0%, #f8f7ff 58%, #ffffff 100%);
 }
+.today-route-card > div { min-width: 0; }
 .today-route-kicker { margin: 0 0 0.25rem; color: #4f46e5; font-size: 0.7rem; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; }
 .today-route-card h2 { margin: 0; color: #1e1b4b; font-size: 1.12rem; }
 .today-route-copy { margin: 0.3rem 0 0; color: #5b6475; font-size: 0.8rem; line-height: 1.45; }
-.today-route-list { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.65rem; }
-.today-route-item { display: inline-flex; align-items: center; gap: 0.3rem; padding: 0.35rem 0.55rem; border: 1px solid #c7d2fe; border-radius: 999px; background: rgba(255,255,255,0.8); color: #3730a3; font-size: 0.73rem; font-weight: 800; }
-.today-route-item small { color: #64748b; font-weight: 700; }
+.today-route-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 0.55rem; margin-top: 0.75rem; }
+.today-route-item { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: start; column-gap: 0.38rem; row-gap: 0.1rem; min-width: 0; width: 100%; padding: 0.55rem 0.65rem; border: 1px solid #c7d2fe; border-radius: 14px; background: rgba(255,255,255,0.84); color: #3730a3; font-size: 0.73rem; font-weight: 800; }
+.today-route-item small { grid-column: 2; color: #64748b; font-weight: 700; }
+.today-route-item .today-route-reason { grid-column: 2; min-width: 0; }
 .today-route-action { white-space: nowrap; }
 .today-route-note { margin: 0.6rem 0 0; color: #64748b; font-size: 0.7rem; }
 .today-route-empty { border-color: #fed7aa; background: linear-gradient(105deg, #fff7ed, #ffffff); }
 .today-route-empty .today-route-kicker { color: #c2410c; }
 
 @media (max-width: 640px) {
-  .today-route-card { grid-template-columns: 1fr; }
+  .today-route-card { grid-template-columns: minmax(0, 1fr); gap: 0.85rem; padding: 0.9rem; }
+  .today-route-list { grid-template-columns: 1fr; }
   .today-route-action { width: 100%; }
   .today-route-action .btn { width: 100%; justify-content: center; }
 }
@@ -5886,7 +5918,12 @@ body.kid-mode .step-content li { font-size: 1.06rem !important; line-height: 1.7
 .hero-landing-container,
 .hero-landing-grid,
 .hero-landing-text,
-.hero-landing-visual { position: relative; z-index: 1; }
+.hero-landing-visual { position: relative; z-index: 1; min-width: 0; }
+
+.hero-landing-title,
+.hero-landing-lead,
+.library-page-hero h1,
+.library-page-hero p { overflow-wrap: anywhere; }
 
 @keyframes heroLightSweep {
   0%, 18% { background-position: -120% 0, 0 0; }
@@ -6536,7 +6573,7 @@ body.kid-mode .step-content li { font-size: 1.06rem !important; line-height: 1.7
 .topic-role-teal { color: #0f766e; background: #f0fdfa; border-color: #99f6e4; }
 .topic-role-violet { color: #6d28d9; background: #f5f3ff; border-color: #ddd6fe; }
 .topic-role-amber { color: #92400e; background: #fffbeb; border-color: #fde68a; }
-.card-tags .topic-role-tag { align-self: flex-start; }
+.card-tags .topic-role-tag { align-self: center; max-width: 100%; }
 /* Authored concept/prerequisite connection panel */
 .concept-connection-panel { margin-top: .7rem; padding: .75rem .9rem; border: 1px solid #c7d2fe; border-radius: 14px; background: linear-gradient(145deg, #f8faff, #eef2ff); }
 .concept-connection-kicker { color: #4338ca; font-size: .72rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; }
@@ -6632,7 +6669,7 @@ body.kid-mode .step-content li { font-size: 1.06rem !important; line-height: 1.7
   .learning-science-card { min-height: auto; }
   .learning-science-loop { flex-wrap: wrap; gap: .4rem; font-size: .75rem; }
   .preview-grade-groups { grid-template-columns: 1fr; }
-  .preview-grade-cards { grid-template-columns: 1fr 1fr; }
+  .preview-grade-cards { grid-template-columns: 1fr; }
   .preview-grade-group summary { flex-wrap: wrap; }
   .preview-grade-group summary small { width: 100%; margin-left: 0; }
 }
