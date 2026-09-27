@@ -849,14 +849,18 @@ body {
   gap: 1.5rem;
 }
 
-/* When in curated mode, switch from grid to block to prevent width overflow */
-.content-grid:has(.mini-card) {
+/* Curated landing sections must span the catalogue width. Guest mode has no
+   mini-cards, so keying only on .mini-card leaves the route/preview panels in
+   the catalogue's multi-column grid and compresses them into a narrow column. */
+.content-grid:has(.mini-card),
+.content-grid:has(.curated-wrapper) {
   display: block;
   gap: 0;
 }
 
 /* Curated wrapper — constrains width, prevents horizontal overflow */
 .curated-wrapper {
+  width: 100%;
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
