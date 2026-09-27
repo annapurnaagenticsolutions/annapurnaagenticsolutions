@@ -49,16 +49,21 @@ let browseMode = window.AVYAAN_LIBRARY_PAGE ? 'all' : 'curated';
 // demand, but never render the complete catalogue in one long document.
 let topicDisplayLimit = 12;
 
-// A deliberately small set of starter lessons is available without an
-// account. The public bundle contains metadata only for protected topics;
-// lesson bodies are still fetched through the authenticated entitlement API.
+// A deliberately small, balanced set of starter lessons is available without
+// an account: one maths concept and one science concept for every class. The
+// public bundle contains preview-safe fields; protected lesson access remains
+// entitlement-checked by the API.
 const FREE_PREVIEW_TOPIC_IDS = new Set([
-  'math_c1-counting-1-to-10',
-  'math_c1-numbers-11-to-20',
-  'math_c1-before-after-between',
-  'math_c1-bigger-and-smaller',
-  'math_c1-addition-with-objects',
-  'math_c1-subtraction-with-objects'
+  'math_c1-addition-with-objects', 'life_shadow-day',
+  'math_c2-multiplication-as-groups', 'physics_c2-electricity-at-home',
+  'math_c3-can-we-share', 'physics_c3-complete-circuit',
+  'math_c4-equivalent-fractions', 'physics_c4-making-shadows',
+  'math_c5-ratio-as-comparison', 'physics_c5-electricity-at-home',
+  'math_c6-fractions', 'physics_c6-electricity-and-circuits',
+  'math_c7-linear-equations', 'physics_c7-reflection',
+  'math_c8-solving-linear-equations', 'physics_c8-force-and-pressure',
+  'math_c9-triangle-congruence', 'physics_c9-gravitation',
+  'math_c10-quadratic-equations', 'physics_c10-light-refraction'
 ]);
 let currentPathSubject = null; // subject+class selected in the Curriculum Path modal
 let currentPathClass = null;
@@ -1214,7 +1219,10 @@ function offlinePackTopics(classLevel, subject) {
   return AVYAAN_DATA.topics.filter(topic =>
     FREE_PREVIEW_TOPIC_IDS.has(topic.id) &&
     String(topic.class_level) === String(classLevel || '1') &&
-    ((!subject || subject === 'all') || String(topic.subject).toLowerCase() === String(subject).toLowerCase())
+    ((!subject || subject === 'all') ||
+      (String(subject).toLowerCase() === 'science'
+        ? ['physics', 'chemistry', 'biology', 'earth & space'].includes(String(topic.subject).toLowerCase())
+        : String(topic.subject).toLowerCase() === String(subject).toLowerCase()))
   );
 }
 
@@ -1244,10 +1252,10 @@ function renderOfflinePackPanel() {
     container.innerHTML =
       '<div class="offline-pack-kicker">LOW-CONNECTIVITY SUPPORT</div>' +
       '<h2>Download an offline starter pack</h2>' +
-      '<p class="offline-pack-copy">Save a small, safe starter set for a child’s next screen-free or low-connectivity session. The pack contains six public Class 1 Mathematics previews, not protected lesson bodies.</p>' +
+      '<p class="offline-pack-copy">Save a small, safe starter set for a child’s next screen-free or low-connectivity session. Choose a class and save its two public previews—one maths concept and one science concept. Protected lesson bodies are never added.</p>' +
       '<div class="offline-pack-controls">' +
-      '<label for="offlinePackClass">Class</label><select id="offlinePackClass" class="form-input"><option value="1">Class 1 · starter previews</option></select>' +
-      '<label for="offlinePackSubject">Subject</label><select id="offlinePackSubject" class="form-input"><option value="all">All starter subjects</option><option value="mathematics">Mathematics</option></select>' +
+      '<label for="offlinePackClass">Class</label><select id="offlinePackClass" class="form-input">' + Array.from({length: 10}, (_, i) => `<option value="${i + 1}">Class ${i + 1} · challenge previews</option>`).join('') + '</select>' +
+      '<label for="offlinePackSubject">Subject</label><select id="offlinePackSubject" class="form-input"><option value="all">Both preview subjects</option><option value="mathematics">Mathematics</option><option value="science">Science</option></select>' +
       '</div>' +
       '<p class="offline-pack-note">Estimated size is shown after saving. Paid lesson content remains entitlement-checked online.</p>' +
       '<div class="offline-pack-actions"><button class="btn btn-primary" type="button" onclick="createOfflineStarterPack()">Save starter pack</button><button class="btn" type="button" onclick="closeModal(' + "'offlinePackModal'" + ')">Cancel</button></div>' +
@@ -2729,7 +2737,7 @@ function renderCuratedLanding(grid) {
   }).slice(0, 4);
 
   // Section 2: Recommended for your grade (unlocked, not mastered, matching grade)
-  const recommended = allTopics.filter(t =>
+  const recommended = isPublicLanding ? [] : allTopics.filter(t =>
     t.class_level === userGrade && !completedTopicIds.has(t.id) && (isTopicUnlocked(t) || isTopicPreviewable(t))
   ).slice(0, 6);
 
@@ -2767,6 +2775,10 @@ function renderCuratedLanding(grid) {
         <div class="wt-hero-cta">Explore →</div>
       </div>
     `;
+  }
+
+  if (isPublicLanding) {
+    html += renderPublicPreviewSampler(allTopics.filter(t => FREE_PREVIEW_TOPIC_IDS.has(t.id)));
   }
 
   // Exam countdown card (only when a plan exists)
@@ -2827,6 +2839,31 @@ function renderCuratedLanding(grid) {
   html += '</div>';
   grid.innerHTML = html;
   enhanceInteractiveSemantics(grid);
+}
+
+function renderPublicPreviewSampler(topics) {
+  const grouped = Array.from({ length: 10 }, (_, index) => index + 1).map(grade => {
+    const pair = topics.filter(topic => Number(topic.class_level) === grade);
+    if (!pair.length) return '';
+    const cards = pair.map(topic => `
+      <article class="preview-sampler-card">
+        <div class="preview-sampler-card-top"><span class="card-emoji">${escapeHtml(topic.emoji || '📘')}</span><span class="preview-subject-pill">${escapeHtml(topicDisplaySubject(topic))}</span></div>
+        <h4>${topicTitle(topic)}</h4>
+        <p>${topicSummary(topic)}</p>
+        <button class="btn" type="button" onclick="openTopicDetail('${String(topic.id).replace(/'/g, "\\'")}')">Preview this idea →</button>
+      </article>`).join('');
+    return `<details class="preview-grade-group"${grade === 1 ? ' open' : ''}>
+      <summary><span>Class ${grade}</span><small>one maths idea · one science idea</small></summary>
+      <div class="preview-grade-cards">${cards}</div>
+    </details>`;
+  }).join('');
+  return `<section class="public-preview-sampler" aria-labelledby="previewSamplerHeading">
+    <div class="public-preview-sampler-heading"><span class="kicker-small">Open previews · Classes 1–10</span>
+      <h2 id="previewSamplerHeading">See a tricky idea become understandable</h2>
+      <p>Try two carefully chosen concepts for every class—one maths idea and one science idea. They are short previews, not the full paid curriculum.</p>
+    </div><div class="preview-grade-groups">${grouped}</div>
+    <p class="public-preview-disclaimer">Preview content is designed to show the learning approach. A parent or learner account is required for full explanations, activities, secure quizzes and saved progress.</p>
+  </section>`;
 }
 function renderCuratedSection(title, subtitle, topics, recommendationKind = 'new') {
   const cardsHtml = topics.map(topic => {
@@ -3193,14 +3230,23 @@ function expandTopicResults() {
 function renderTopicPreview(topic) {
   const container = document.getElementById('detailModalContent');
   if (!container) return;
+  const seeText = topic.seeIt?.text || topic.visual?.label || topicSummary(topic);
+  const whyText = topic.whyItWorks?.text || topic.whyItWorks?.reason || 'A short explanation connects the observation to the idea.';
+  const tryQuestion = topic.tryIt?.question || topic.quiz_preview_question || '';
+  const tryOptions = Array.isArray(topic.tryIt?.options) ? topic.tryIt.options : (Array.isArray(topic.quiz_preview_options) ? topic.quiz_preview_options : []);
   container.innerHTML = `
     <div class="topic-preview-panel">
       <div class="topic-preview-icon">${topic.emoji || '📘'}</div>
-      <span class="kicker-small">Starter preview · Class ${topic.class_level}</span>
+      <span class="kicker-small">Open preview · Class ${topic.class_level} · ${escapeHtml(topicDisplaySubject(topic))}</span>
       <h2>${topicTitle(topic)}</h2>
       <p>${topicSummary(topic)}</p>
+      <div class="preview-learning-beats">
+        <div class="preview-beat"><span class="preview-beat-label">1 · See it</span><p>${escapeHtml(seeText)}</p></div>
+        <div class="preview-beat"><span class="preview-beat-label">2 · Think about it</span><p>${escapeHtml(whyText)}</p></div>
+        ${tryQuestion ? `<div class="preview-beat preview-beat-question"><span class="preview-beat-label">3 · Try a thought</span><p>${escapeHtml(tryQuestion)}</p>${tryOptions.length ? `<div class="preview-option-row">${tryOptions.slice(0, 4).map(option => `<span>${escapeHtml(option)}</span>`).join('')}</div>` : ''}</div>` : ''}
+      </div>
       ${topic.outcome ? `<div class="lesson-outcome-box">🎯 <strong>In the full lesson you will…</strong> ${escapeHtml(topic.outcome.replace(/^You can\s+/i, ''))}</div>` : ''}
-      <div class="library-access-note"><span aria-hidden="true">🔐</span><span>Sign in with a learner or parent account to open the visual explanation, activity and server-recorded quiz.</span></div>
+      <div class="library-access-note"><span aria-hidden="true">🔐</span><span>This preview shows the learning rhythm. Sign in with a learner or parent account to open the complete visual explanation, activity, secure quiz and saved progress.</span></div>
       <div class="content-preview-actions">
         <button class="btn btn-primary" onclick="closeModal('detailModal');openLoginModal()">Sign in to continue →</button>
         <button class="btn" type="button" onclick="openContentIssue('${String(topic.id).replace(/'/g, "\\'")}')">Report a catalogue issue</button>
@@ -8650,7 +8696,7 @@ async function renderParentDashboard() {
           <div>
             <div class="offline-pack-parent-kicker">📦 LOW-CONNECTIVITY SUPPORT</div>
             <h4>Keep a small starter session ready</h4>
-            <p>Save six public Class 1 previews on this device. Protected lessons remain online and entitlement-checked.</p>
+            <p>Save the two public challenge previews for a chosen class on this device. Protected lessons remain online and entitlement-checked.</p>
           </div>
           <button class="btn btn-primary btn-sm" type="button" onclick="openOfflinePackModal()">Download offline starter pack</button>
                   ${offlinePackStatusLine()}
