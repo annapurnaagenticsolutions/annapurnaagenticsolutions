@@ -325,3 +325,8 @@ const AvyaanPayments = {
     }
   },
 };
+
+// Inline CTA handlers and pages loaded in a separate document resolve public
+// controllers through window. Keep the lexical binding above for app.js while
+// explicitly exposing the same controller for the landing/library CTAs.
+window.AvyaanPayments = AvyaanPayments;
