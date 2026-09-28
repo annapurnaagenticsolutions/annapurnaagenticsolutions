@@ -122,6 +122,13 @@ const AvyaanPayments = {
     this.renderPaywallContent();
   },
 
+  backToBandChooser() {
+    if (this.classSelectionLocked) return;
+    this.selectedBandKey = null;
+    this.selectedDuration = '1y';
+    this.renderPaywallContent();
+  },
+
   renderPaywall(topic) {
     this.selectedTopic = topic || null;
     let user = null;
@@ -167,7 +174,7 @@ const AvyaanPayments = {
         </div>
       `;
       return;
-    }
+  }
 
     if (!this.selectedBandKey) {
       modalContent.innerHTML = `
@@ -184,9 +191,12 @@ const AvyaanPayments = {
       return;
     }
 
-   const band = AVYAAN_BANDS[this.selectedBandKey] || AVYAAN_BANDS.band_5_7;
+    const band = AVYAAN_BANDS[this.selectedBandKey] || AVYAAN_BANDS.band_5_7;
     const dur = this.selectedDuration || '1y';
     const priceData = band.prices[dur];
+    const bandBackButton = !this.classSelectionLocked ? `
+      <button type="button" class="btn plan-band-back" onclick="AvyaanPayments.backToBandChooser()">← Back to class bands</button>
+    ` : '';
 
     modalContent.innerHTML = `
       <div style="text-align: center; margin-bottom: 1.1rem;">
@@ -198,6 +208,8 @@ const AvyaanPayments = {
           Full self-paced access to all 6 STEM subjects across ${band.classes}.
         </p>
       </div>
+
+      ${bandBackButton}
 
       <!-- DURATION TOGGLE SWITCHER -->
       <div role="tablist" style="display: flex; gap: 0.4rem; background: #f1f5f9; padding: 0.28rem; border-radius: 12px; margin-bottom: 1.1rem;">
@@ -246,11 +258,12 @@ const AvyaanPayments = {
         🔒 Secure checkout via Razorpay · Activation after payment verification
       </div>
 
-      <!-- FUTURE OFFERINGS NOTICE -->
+      <!-- CURRENT CAPABILITIES -->
       <div style="background: #fdf8f6; border: 1px solid #fed7aa; border-radius: 10px; padding: 0.7rem 0.85rem; margin-top: 1rem; font-size: 0.74rem; color: #9a3412;">
-        <div style="font-weight: 700; margin-bottom: 0.2rem;">✨ Future Offerings (Coming Soon)</div>
+        <div style="font-weight: 700; margin-bottom: 0.2rem;">✨ Built for curious learners</div>
+        <div>• <b>AI-enabled teachings:</b> Guided practice and responsive explanations.</div>
+        <div>• <b>Games-based learning:</b> Playful challenges that reinforce ideas.</div>
         <div>• <b>Live Mentor Cohorts:</b> Small groups (1:6) with weekly educator feedback.</div>
-        <div>• <b>Physical Hardware Kits:</b> Snap-fit robotics & electronics add-on kits.</div>
       </div>
     `;
   },

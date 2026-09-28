@@ -2561,6 +2561,15 @@ body {
 .plan-price-value,
 .plan-price-monthly { white-space: nowrap; }
 
+.plan-band-back {
+  width: 100%;
+  justify-content: center;
+  margin: -.25rem 0 .85rem;
+  color: #1d4ed8;
+  border-color: #bfdbfe;
+  background: #eff6ff;
+}
+
 @media (max-width: 420px) {
   .plan-price-card { padding: .9rem !important; }
   .plan-price-header { gap: .5rem; }
