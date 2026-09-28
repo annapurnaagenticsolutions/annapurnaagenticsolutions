@@ -261,8 +261,8 @@ const AvyaanPayments = {
       <!-- CURRENT CAPABILITIES -->
       <div style="background: #fdf8f6; border: 1px solid #fed7aa; border-radius: 10px; padding: 0.7rem 0.85rem; margin-top: 1rem; font-size: 0.74rem; color: #9a3412;">
         <div style="font-weight: 700; margin-bottom: 0.2rem;">✨ Built for curious learners</div>
-        <div>• <b>AI-enabled teachings:</b> Guided practice and responsive explanations.</div>
-        <div>• <b>Games-based learning:</b> Playful challenges that reinforce ideas.</div>
+        <div>• <b>AI Enabled Teachings:</b> Guided practice and responsive explanations.</div>
+        <div>• <b>Games Based Learnings:</b> Playful challenges that reinforce ideas.</div>
         <div>• <b>Live Mentor Cohorts:</b> Small groups (1:6) with weekly educator feedback.</div>
       </div>
     `;
