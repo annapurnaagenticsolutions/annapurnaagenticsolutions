@@ -56,9 +56,10 @@ function getBandKeyForGrade(grade) {
 }
 
 const AvyaanPayments = {
-  selectedBandKey: 'band_5_7',
+  selectedBandKey: null,
   selectedDuration: '1y',
   selectedTopic: null,
+  classSelectionLocked: false,
  checkoutIdempotencyKey: null,
  planCatalogLoaded: false,
   planCatalogError: false,
@@ -113,13 +114,30 @@ const AvyaanPayments = {
     this.renderPaywallContent();
   },
 
+  selectBand(bandKey) {
+    if (!Object.prototype.hasOwnProperty.call(AVYAAN_BANDS, bandKey)) return;
+    this.selectedBandKey = bandKey;
+    this.selectedDuration = '1y';
+    this.classSelectionLocked = false;
+    this.renderPaywallContent();
+  },
+
   renderPaywall(topic) {
     this.selectedTopic = topic || null;
     let user = null;
+    let profile = null;
     try { user = JSON.parse(avyaanStorage.getItem('avyaan_user') || 'null'); } catch (e) {}
+    try { profile = JSON.parse(avyaanStorage.getItem('avyaan_learning_profile') || 'null'); } catch (e) {}
 
-    const grade = (user && user.enrolled_class) || (topic && topic.class_level) || 7;
-   this.selectedBandKey = getBandKeyForGrade(grade);
+    // Never guess Class 5–7 for a guest. Use the authoritative enrolled class
+    // for signed-in accounts, a topic class when upgrading a specific lesson,
+    // or the visitor's explicit onboarding choice when available.
+    const accountGrade = user && !user.isGuest ? Number(user.enrolled_class || user.grade) : 0;
+    const topicGrade = topic && Number(topic.class_level);
+    const profileGrade = user && user.isGuest && profile ? Number(profile.grade) : 0;
+    const grade = [accountGrade, topicGrade, profileGrade].find(value => Number.isInteger(value) && value >= 1 && value <= 10) || null;
+    this.selectedBandKey = grade ? getBandKeyForGrade(grade) : null;
+    this.classSelectionLocked = !!(accountGrade || topicGrade);
    this.selectedDuration = '1y';
     this.planCatalogLoaded = false;
     this.planCatalogError = false;
@@ -133,7 +151,7 @@ const AvyaanPayments = {
    const modalContent = document.getElementById('paywallModalContent');
    if (!modalContent) return;
 
-    if (!this.planCatalogLoaded) {
+   if (!this.planCatalogLoaded) {
       modalContent.innerHTML = this.planCatalogError ? `
         <div style="text-align:center; padding:1.5rem 1rem;">
           <span style="font-size:2.3rem;">⚠️</span>
@@ -148,6 +166,21 @@ const AvyaanPayments = {
           <p style="color:#64748b; font-size:0.84rem; margin:0;">Avyaan is fetching the latest GST-inclusive quote securely.</p>
         </div>
       `;
+      return;
+    }
+
+    if (!this.selectedBandKey) {
+      modalContent.innerHTML = `
+        <div style="text-align:center; padding:1.25rem .6rem .55rem;">
+          <span style="font-size:2.4rem;">🎓</span>
+          <h2 style="font-size:1.2rem; font-weight:800; color:#0f172a; margin:.45rem 0 .35rem;">Choose the learner’s class</h2>
+          <p style="color:#64748b; font-size:.84rem; line-height:1.5; margin:0 auto 1rem; max-width:350px;">Select a class band to see the correct plan and GST-inclusive price. We never assume a class for guests.</p>
+          <div class="plan-band-choices" role="group" aria-label="Choose learner class band">
+            <button type="button" class="btn btn-sm" style="width:100%; justify-content:space-between; margin-bottom:.5rem;" onclick="AvyaanPayments.selectBand('band_1_4')"><span>Classes 1–4</span><span>Foundational STEM →</span></button>
+            <button type="button" class="btn btn-sm" style="width:100%; justify-content:space-between; margin-bottom:.5rem;" onclick="AvyaanPayments.selectBand('band_5_7')"><span>Classes 5–7</span><span>Preparatory STEM →</span></button>
+            <button type="button" class="btn btn-sm" style="width:100%; justify-content:space-between;" onclick="AvyaanPayments.selectBand('band_8_10')"><span>Classes 8–10</span><span>Secondary STEM →</span></button>
+          </div>
+        </div>`;
       return;
     }
 
