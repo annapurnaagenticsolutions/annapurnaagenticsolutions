@@ -2553,6 +2553,21 @@ body {
 .library-access-note strong { color: #1e40af; }
 .library-controls { margin-top: 0; }
 
+/* Payment quote values must remain readable as a single currency amount on
+   narrow phones. Let the description absorb available width and reserve a
+   non-shrinking column for the total. */
+.plan-price-copy { min-width: 0; flex: 1 1 auto; }
+.plan-price-figure { flex: 0 0 auto; min-width: max-content; margin-left: .75rem; }
+.plan-price-value,
+.plan-price-monthly { white-space: nowrap; }
+
+@media (max-width: 420px) {
+  .plan-price-card { padding: .9rem !important; }
+  .plan-price-header { gap: .5rem; }
+  .plan-price-figure { margin-left: .35rem; }
+  .plan-price-value { font-size: 1.25rem !important; }
+}
+
 .library-page .card.locked { filter: saturate(0.82); }
 
 .topic-preview-panel {
