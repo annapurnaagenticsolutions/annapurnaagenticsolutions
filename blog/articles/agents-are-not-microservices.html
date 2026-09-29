@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agents Are Not Microservices — Stop Treating Them Like They Are — The Agentic Edge</title>
+  <meta name="description" content="Agents Are Not Microservices — Stop Treating Them Like They Are">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/agents-are-not-microservices.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>Agents Are Not Microservices — Stop Treating Them Like They Are</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Shift</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Contrarian — the microservices playbook doesn't map to agents</p>
+
+<hr>
+
+<p>When microservices became the default architecture, we developed a playbook. Circuit breakers. Retries with exponential backoff. Saga patterns for distributed transactions. Graceful degradation. Health checks. Service meshes.</p>
+
+<p>This playbook is excellent — for deterministic services that do the same thing every time you call them.</p>
+
+<p>Now teams are applying this playbook to AI agents. It's not working. Here's why.</p>
+
+<p><strong>Microservices are deterministic. Agents are not.</strong></p>
+
+<p>When you call a microservice <code>/api/orders</code>, you get the same response for the same input. Always. If it fails, you retry. If it's down, you circuit-break. The failure modes are known and bounded.</p>
+
+<p>When you call an agent, you might get a different response every time. Not because it's broken — because it's reasoning. The same query with different context produces different actions. Retrying might give you a completely different result, not a corrected one. Circuit breaking doesn't help because the agent isn't down — it's just wrong.</p>
+
+<p><strong>Microservices don't make decisions. Agents do.</strong></p>
+
+<p>A microservice receives a request and processes it. It doesn't decide <em>whether</em> to process it. It doesn't choose which tools to use. It doesn't reason about trade-offs.</p>
+
+<p>An agent receives a goal and decides what to do. Which tools to call. Whether to ask for more information. Whether to escalate. Whether to act at all. This means the failure surface isn't just "the service crashed" — it's "the agent made the wrong decision."</p>
+
+<p>You can't retry a wrong decision. You can't circuit-break a bad judgment call. You need a different safety model.</p>
+
+<p><strong>Microservices have bounded blast radius. Agents don't.</strong></p>
+
+<p>A microservice typically operates within its domain. The orders service creates orders. The payment service processes payments. If the orders service fails, orders aren't created. The blast radius is contained.</p>
+
+<p>An agent with access to multiple tools has an unbounded blast radius. It can call any tool it has access to, in any order, for any reason. An agent that can read data, write data, send emails, and call external APIs can do all of those things in a single decision chain. A failure isn't "one service is down" — it's "the agent took a series of actions across multiple systems, some of which were wrong."</p>
+
+<p><strong>Microservices are stateless. Agents are stateful.</strong></p>
+
+<p>The best practice for microservices is statelessness. Each request is independent. You can scale horizontally by adding instances. If one crashes, another handles the next request.</p>
+
+<p>Agents are inherently stateful. They have memory. They have context. They have conversation history. They have goals they're pursuing across multiple steps. You can't just "add another instance" — the new instance doesn't have the context.</p>
+
+<p>This changes how you think about scaling, recovery, and failover. With microservices, you restart the pod. With agents, you need to reconstruct the decision context.</p>
+
+<p><strong>What we need instead.</strong></p>
+
+<p>The microservices playbook gave us operational patterns. For agents, we need a different set:</p>
+
+<ol>
+<li><strong>Policy-as-code, not just retries.</strong> Instead of retrying failed calls, prevent wrong calls. The agent's tools are gated by policies that are checked before execution, not after failure.</li>
+
+<ol>
+<li><strong>Audit trails, not just logs.</strong> Microservice logs tell you what happened. Agent audit trails need to tell you <em>why</em> it happened — what the agent perceived, what it reasoned, what alternatives it considered.</li>
+
+<ol>
+<li><strong>Evaluation gates, not just health checks.</strong> A microservice is healthy if it responds. An agent is healthy if it produces correct, safe, appropriate outputs. That requires evaluation, not just uptime checks.</li>
+
+<ol>
+<li><strong>Human-in-the-loop, not just graceful degradation.</strong> When a microservice fails, you degrade gracefully. When an agent is uncertain, you escalate to a human. The fallback isn't a cached response — it's a human decision.</li>
+
+<ol>
+<li><strong>Cost ceilings, not just rate limits.</strong> Microservices don't spend money per request. Agents do — every LLM call costs. You need cost ceilings per agent, per session, per action — not just rate limits per endpoint.</li>
+
+<p><strong>The bigger point.</strong></p>
+
+<p>We're not saying microservices patterns are useless for agents. Observability, deployment automation, infrastructure-as-code — these still apply. But the safety patterns, the failure handling, the operational model — these need rethinking.</p>
+
+<p>Agents are a new category. They need a new playbook.</p>
+
+<p>What patterns from microservices have you tried applying to agents — and where did they break?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

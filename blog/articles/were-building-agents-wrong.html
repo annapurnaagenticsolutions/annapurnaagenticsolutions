@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We&#x27;re Building Agents Wrong — The Agentic Edge</title>
+  <meta name="description" content="We&#x27;re Building Agents Wrong">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/were-building-agents-wrong.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>We&#x27;re Building Agents Wrong</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Shift</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Contrarian — challenge the current approach</p>
+
+<hr>
+
+<p>Everyone is building AI agents. Almost everyone is building them wrong.</p>
+
+<p>Not wrong in the "it doesn't work" sense. Wrong in the "we're repeating the same mistake we've made in every technology shift" sense.</p>
+
+<p>Here's the pattern:</p>
+
+<p><strong>1990s:</strong> Everyone built websites. Most were brochures with no function. The web became useful when we stopped thinking about "having a website" and started thinking about what the website <em>did</em>.</p>
+
+<p><strong>2000s:</strong> Everyone built mobile apps. Most were desktop experiences crammed onto a phone. Mobile became useful when we stopped porting and started designing for the medium.</p>
+
+<p><strong>2010s:</strong> Everyone built microservices. Most were distributed monoliths with extra steps. Microservices became useful when we stopped decomposing and started designing boundaries.</p>
+
+<p><strong>2020s:</strong> Everyone is building agents. Most are chatbots with extra tools bolted on.</p>
+
+<p>The mistake is the same every time: we take an old paradigm, add the new buzzword, and ship it. We don't rethink the fundamentals.</p>
+
+<p>Here's what we mean for agents:</p>
+
+<p><strong>We're building agents as if they're functions.</strong> Input comes in, output goes out. But agents aren't functions — they're autonomous actors. They perceive, decide, act, and learn. Treating them like stateless functions is why they fail in production.</p>
+
+<p><strong>We're wiring agents with boilerplate instead of declaring them.</strong> Every framework today requires 500+ lines of glue code to define a single multi-agent pipeline. We import 15 classes, wire them manually, and hope the types match at runtime. This is the equivalent of writing SQL queries as imperative code — it works, but it misses the point.</p>
+
+<p><strong>We're deploying agents without governance.</strong> An agent that can call tools, access data, and make decisions is an agent that can cause harm. Yet most teams deploy agents to production with no approval gates, no cost ceilings, no audit trails, and no policy enforcement. We'd never deploy a microservice without monitoring. Why are we deploying agents without governance?</p>
+
+<p><strong>We're treating agents as products instead of capabilities.</strong> "We built an AI agent!" is not a value proposition. What problem does it solve? Who does it help? What does it do that a simpler system couldn't? The suitability question — "should this even be an agent?" — is almost never asked.</p>
+
+<p>We've been building agent systems for a while, and we've made every one of these mistakes. The pattern we've learned is:</p>
+
+<ol>
+<li><strong>Start with the problem, not the agent.</strong> If a lookup table solves it, use a lookup table. Agents are for problems that require reasoning, context, and adaptation.</li>
+
+<ol>
+<li><strong>Declare, don't wire.</strong> An agent's capabilities, tools, memory, and constraints should be declarative — not 500 lines of imperative glue code. This is why we need better abstractions (or, in our case, a language).</li>
+
+<ol>
+<li><strong>Govern before you ship.</strong> Intake, evaluation, approval, monitoring. Every agent that touches real data needs these gates. Not as documents. As code.</li>
+
+<ol>
+<li><strong>Audit everything.</strong> If you can't answer "why did the agent make this decision?" with evidence, you're not ready for production.</li>
+
+<ol>
+<li><strong>Build for the medium.</strong> Agents aren't chatbots with tools. They're a new computing paradigm. Treat them that way.</li>
+
+<p>The teams that get this right will build agents that are trustworthy, governable, and genuinely useful. The teams that don't will build demos that break in production and erode trust in AI.</p>
+
+<p>We're at the beginning of the agentic era. The fundamentals matter more than the features.</p>
+
+<p>What patterns have you seen? What mistakes are teams making?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

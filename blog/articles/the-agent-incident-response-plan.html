@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agent Incident Response Plan — What to Do When Your Agent Breaks Something — The Agentic Edge</title>
+  <meta name="description" content="The Agent Incident Response Plan — What to Do When Your Agent Breaks Something">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-agent-incident-response-plan.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Agent Incident Response Plan — What to Do When Your Agent Breaks Something</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Practical — give people a playbook for the worst case</p>
+
+<hr>
+
+<p>Your agent will eventually do something wrong in production. Not "might." Will.</p>
+
+<p>The question isn't whether it will happen. The question is: when it happens, will you know what to do?</p>
+
+<p>Most teams have incident response plans for infrastructure outages. Few have incident response plans for agent failures. The two are different — agent failures involve decisions, not just downtime.</p>
+
+<p>Here's the playbook.</p>
+
+<p><strong>Step 1: Detect (Automated)</strong></p>
+
+<p>You need automated detection before you can respond. This means:</p>
+<ul>
+<li><strong>Policy violation alerts</strong> — the governance layer flags an action that violated policy</li>
+<li><strong>Cost ceiling alerts</strong> — the agent exceeded its budget</li>
+<li><strong>Evaluation drift alerts</strong> — the agent's quality scores are dropping</li>
+<li><strong>User feedback spikes</strong> — complaints or error reports increase</li>
+<li><strong>Anomalous behavior detection</strong> — the agent is calling tools in an unusual pattern</li>
+
+<p>If you don't have automated detection, you'll find out about the incident from a customer on LinkedIn. That's the worst way to learn.</p>
+
+<p><strong>Step 2: Contain (Immediate)</strong></p>
+
+<p>Once detected, contain the damage immediately:</p>
+<ul>
+<li><strong>Pause the agent.</strong> Not "shut down" — pause. You want to investigate, not destroy evidence.</li>
+<li><strong>Block the affected tool.</strong> If the agent sent wrong emails via NotificationAPI, block NotificationAPI for this agent. Don't block the entire agent if only one tool is the problem.</li>
+<li><strong>Preserve the audit trail.</strong> Don't clear logs. Don't restart services. The audit trail is your evidence.</li>
+<li><strong>Notify the sponsor.</strong> The human who approved this agent's deployment needs to know immediately.</li>
+
+<p>Time to contain: under 5 minutes. If it takes longer, your detection-to-action pipeline is too slow.</p>
+
+<p><strong>Step 3: Assess (Within 1 hour)</strong></p>
+
+<p>Now figure out what happened:</p>
+<ul>
+<li><strong>Read the audit trail.</strong> What did the agent perceive? What did it reason? What did it do? What policy checks passed or failed?</li>
+<li><strong>Identify the root cause.</strong> Was it a prompt issue? A tool failure? A policy gap? An adversarial input? A model regression?</li>
+<li><strong>Determine the blast radius.</strong> How many users were affected? How many actions were taken? What data was accessed or modified?</li>
+<li><strong>Classify the severity.</strong> SEV1 (data loss, financial impact, regulatory violation), SEV2 (significant user impact), SEV3 (minor impact, isolated).</li>
+
+<p><strong>Step 4: Remediate (Within 4 hours for SEV1)</strong></p>
+
+<p>Fix the immediate damage:</p>
+<ul>
+<li><strong>Undo the agent's actions.</strong> If it sent wrong emails, send corrections. If it processed wrong refunds, reverse them. If it modified wrong data, restore from backup.</li>
+<li><strong>Notify affected users.</strong> Be honest. "Our AI agent made an error. Here's what happened. Here's what we're doing about it."</li>
+<li><strong>Patch the agent.</strong> Fix the prompt, the tool, or the policy that caused the failure. Don't redeploy yet.</li>
+<li><strong>Document the incident.</strong> Timeline, root cause, blast radius, remediation steps. This is for the post-mortem.</li>
+
+<p><strong>Step 5: Prevent (Within 1 week)</strong></p>
+
+<p>Make sure this can't happen again:</p>
+<ul>
+<li><strong>Add evaluation cases.</strong> The specific scenario that caused the failure becomes a permanent test case. If the agent ever does this again, the evaluation suite catches it before production.</li>
+<li><strong>Add or modify policies.</strong> If the agent did something it shouldn't have, the policy was too permissive. Tighten it.</li>
+<li><strong>Add monitoring.</strong> If detection was slow, add alerts for this specific pattern.</li>
+<li><strong>Review similar agents.</strong> If you have other agents with similar capabilities, check if they have the same vulnerability.</li>
+
+<p><strong>Step 6: Communicate (Ongoing)</strong></p>
+
+<ul>
+<li><strong>Internal post-mortem.</strong> Within 1 week, conduct a blameless post-mortem. Focus on what went wrong in the system, not who went wrong.</li>
+<li><strong>External communication.</strong> For SEV1 incidents, publish a public incident report. This builds trust. Hiding incidents destroys trust.</li>
+<li><strong>Update the incident response plan.</strong> Every incident teaches you something. Update the plan with what you learned.</li>
+
+<p><strong>The template:</strong></p>
+
+<p>Every agent in production should have this incident response plan documented — specific to that agent. Who to notify. Which tools to block. How to undo actions. What the escalation path is.</p>
+
+<p>If you don't have this plan, the first incident will be chaotic. Chaos extends the damage. Chaos destroys trust.</p>
+
+<p>Does your team have an agent incident response plan — or will you figure it out when it happens?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

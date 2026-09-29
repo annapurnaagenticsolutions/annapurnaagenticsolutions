@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Why We Built AXON and AgentOps Mesh — and Why They&#x27;re Better Together — The Agentic Edge</title>
+  <meta name="description" content="Why We Built AXON and AgentOps Mesh — and Why They&#x27;re Better Together">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/why-we-built-axon-and-agentops-mesh.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>Why We Built AXON and AgentOps Mesh — and Why They&#x27;re Better Together</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Practical — show how two open-source tools solve the full agent lifecycle</p>
+
+<hr>
+
+<p>This week we open-sourced two projects. AXON — a programming language for AI agents. And AgentOps Mesh — a governance control plane for AI agents.</p>
+
+<p>We didn't build them separately by accident. We built them separately because they solve different halves of the same problem.</p>
+
+<p><strong>The problem: agents have a build side and a run side. Nobody solves both.</strong></p>
+
+<p>The build side: How do you define an agent? How do you declare its tools, memory, RAG pipelines, and multi-agent flows? How do you catch type errors before runtime? How do you compile to both Python and TypeScript from one source?</p>
+
+<p>The run side: How do you govern an agent in production? How do you enforce policies on what it's allowed to do? How do you require human approval for sensitive actions? How do you audit every decision, track costs, and evaluate quality?</p>
+
+<p>Every framework today picks a side. LangChain builds agents but doesn't govern them. Guardrails validates outputs but doesn't define agents. You stitch them together with glue code and hope the seams hold.</p>
+
+<p>We wanted to solve both sides. With purpose-built tools that connect at the seams.</p>
+
+<p><strong>AXON: the build side.</strong></p>
+
+<p>AXON is a typed DSL where agents, tools, memory, RAG, and flows are first-class language constructs. You write <code>.ax</code> files. The compiler checks types, validates flows, and catches errors before the agent ever runs.</p>
+
+<pre><code>agent ResearchBot {
+  model: @anthropic/claude-4
+  tools: [WebSearch, DocStore.retrieve]
+  memory: episodic
+  fn run(query: Str) -&gt; Result&lt;Report, AgentError&gt; {
+    let plan = await spawn Planner().plan(query)?
+    let results = await pool(size: 3, target: Worker).investigate(plan)?
+    Ok(await spawn Summarizer().summarize(results)?)
+  }
+}</code></pre>
+
+<p>One source file. Compiles to Python MCP server or TypeScript module. Mock mode runs without an LLM API key. 1100+ tests. 16 examples. MIT licensed.</p>
+
+<p><strong>AgentOps Mesh: the run side.</strong></p>
+
+<p>AgentOps Mesh is a governance control plane that sits between your agents and production. It enforces:</p>
+
+<ul>
+<li><strong>Policy</strong> — what is this agent allowed to do?</li>
+<li><strong>Approval</strong> — does this action need human review?</li>
+<li><strong>Audit</strong> — what did the agent do, and why?</li>
+<li><strong>Cost</strong> — how much is it spending?</li>
+<li><strong>Evaluation</strong> — is it getting better or worse?</li>
+<li><strong>Launch readiness</strong> — has it passed security review?</li>
+
+<p>Deterministic, not probabilistic. Rules and code, not an AI judging another AI. 160+ Python modules. Full API. Docker + docker-compose. MIT licensed.</p>
+
+<p><strong>Where they connect.</strong></p>
+
+<p>AXON compiles agents. AgentOps Mesh governs them. The connection point is the tool call.</p>
+
+<p>When AXON compiles an agent to a Python MCP server, every tool call the agent makes can be routed through AgentOps Mesh's policy engine. The agent declares its tools in AXON. The policy engine enforces what those tools are allowed to do at runtime.</p>
+
+<p>This means:</p>
+
+<ol>
+<li><strong>Compile-time safety + runtime governance.</strong> AXON catches type errors before the agent runs. AgentOps Mesh catches policy violations while the agent runs. Two layers of safety, two different kinds of errors, zero overlap.</li>
+
+<ol>
+<li><strong>Declare once, govern always.</strong> When you declare <code>tools: [WebSearch, Database.write]</code> in AXON, the compiler knows what the agent can do. AgentOps Mesh takes that declaration and enforces rules on each tool — allow WebSearch, require approval for Database.write, deny anything else.</li>
+
+<ol>
+<li><strong>Mock mode meets evaluation.</strong> AXON's <code>--mock</code> mode lets you run agents without API keys. AgentOps Mesh's evaluation framework lets you score agent quality over time. Together: test the definition for free, evaluate the behavior in production.</li>
+
+<ol>
+<li><strong>One source of truth.</strong> The AXON source file is the single declaration of what the agent is. The AgentOps Mesh policy file is the single declaration of what the agent is allowed to do. No scattered config, no framework-specific abstractions, no glue code.</li>
+
+<p><strong>Why this matters.</strong></p>
+
+<p>Most teams building AI agents today use 3-5 tools stitched together: a framework for definitions, a separate tool for governance, another for evaluation, another for monitoring. Each integration is custom. Each seam is a place where things break.</p>
+
+<p>We built AXON and AgentOps Mesh to reduce the seams. Not to one tool — that would be too much in one system. But to two tools, each excellent at their half, connected at a natural boundary.</p>
+
+<p>Both are MIT licensed. Both are on GitHub. Both are built by a small family business in India.</p>
+
+<p>If you're building AI agents, try them. Separately or together. Tell us what's missing.</p>
+
+<p>AXON: https://github.com/annapurnaagenticsolutions/axon</p>
+<p>AgentOps Mesh: https://github.com/annapurnaagenticsolutions/agentops-mesh</p>
+
+<p class="hashtags">#AIAgents #OpenSource #AgentOps #BuildInPublic #AgenticAI #AIGovernance</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Three Eras of Computing — And Why Agents Are Different — The Agentic Edge</title>
+  <meta name="description" content="The Three Eras of Computing — And Why Agents Are Different">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-three-eras-of-computing.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Three Eras of Computing — And Why Agents Are Different</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Shift</p>
+<p><strong>Length:</strong> ~900 words</p>
+<p><strong>Hook:</strong> Historical perspective — big picture thinking</p>
+
+<hr>
+
+<p>Every era of computing has been defined by a shift in who writes the instructions.</p>
+
+<p><strong>Era 1: Humans instruct machines (1940s–2010s)</strong></p>
+
+<p>From punch cards to Python, the fundamental model was the same: a human writes explicit instructions, the machine executes them. The human specifies every step, every condition, every edge case.</p>
+
+<p>The machine is fast. The human is slow. The bottleneck is the human figuring out what to tell the machine.</p>
+
+<p>This gave us software, the internet, mobile apps, and cloud infrastructure. It was a good run.</p>
+
+<p><strong>Era 2: Machines learn from data (2010s–2020s)</strong></p>
+
+<p>Machine learning changed the model: instead of writing instructions, humans provide data, and machines learn patterns. The human doesn't specify "if pixel X is red and pixel Y is green, it's a stop sign." The machine figures it out from a million examples.</p>
+
+<p>This gave us image recognition, recommendation systems, fraud detection, and language models. The bottleneck shifted from "what instructions to write" to "what data to provide."</p>
+
+<p><strong>Era 3: Machines instruct themselves (2020s–?)</strong></p>
+
+<p>Agents are the next shift. An agent doesn't just execute instructions or learn from data — it decides what to do. It perceives the situation, reasons about options, selects a course of action, uses tools to execute, observes the result, and learns for next time.</p>
+
+<p>The human doesn't specify the steps. The human specifies the goal. The agent figures out the steps.</p>
+
+<p>This is fundamentally different from both previous eras:</p>
+
+<p>| Dimension | Era 1 (Software) | Era 2 (ML) | Era 3 (Agents) |</p>
+<p>|-----------|-------------------|------------|-----------------|</p>
+<p>| Who decides steps? | Human | Human (via training setup) | Agent |</p>
+<p>| Adaptation | None | Pattern-based | Context-based |</p>
+<p>| Tool use | Human-coded | Limited | Autonomous |</p>
+<p>| Failure mode | Bug | Misclassification | Unpredictable action |</p>
+<p>| Governance need | Low | Medium | High |</p>
+<p>| Audit trail | Code execution | Model weights | Decision chain |</p>
+
+<h3>Why This Changes Everything</h3>
+
+<p>In Era 1, if software did something wrong, you traced the bug in the code. The code was deterministic. You could reproduce it.</p>
+
+<p>In Era 2, if a model misclassified something, you examined the training data. The behavior was statistical. You could improve the dataset.</p>
+
+<p>In Era 3, if an agent does something wrong, you need to understand: what did it perceive? What did it reason? What tools did it call? What would it do differently next time?</p>
+
+<p><strong>This is why agent governance is a new discipline, not just an extension of DevOps or MLOps.</strong></p>
+
+<p>DevOps governs deployment. MLOps governs models. AgentOps governs behavior.</p>
+
+<p>And behavior is harder to govern than deployment or models — because behavior is emergent, context-dependent, and potentially unpredictable.</p>
+
+<h3>What This Means for Organizations</h3>
+
+<ol>
+<li><strong>Your governance framework needs to evolve.</strong> Software governance (code review, testing, CI/CD) isn't enough. Model governance (data provenance, bias testing) isn't enough. You need agent governance: suitability assessment, evaluation gates, policy-as-code, audit trails, and production monitoring.</li>
+
+<ol>
+<li><strong>Your team structure needs to evolve.</strong> You need people who think about agent behavior the way you think about code quality. Not prompt engineers — agent governors. People who design the guardrails, not just the prompts.</li>
+
+<ol>
+<li><strong>Your risk model needs to evolve.</strong> A bug in software breaks a feature. A biased model misclassifies inputs. An unguarded agent can call APIs, access data, send emails, and make decisions — all autonomously. The blast radius is larger.</li>
+
+<ol>
+<li><strong>Your build approach needs to evolve.</strong> Wiring agents with 500 lines of Python boilerplate isn't sustainable. We need declarative abstractions — the same way SQL gave us declarative data query and Kubernetes gave us declarative infrastructure. Agents need their own declarative layer.</li>
+
+<h3>The Opportunity</h3>
+
+<p>The organizations that get this right — that treat agents as a new computing paradigm, not just "LLMs with tools" — will build systems that are more capable, more trustworthy, and more useful than anything we've seen before.</p>
+
+<p>The organizations that don't will build agents that work in demos and fail in production. And they'll wonder why.</p>
+
+<p>We're at the beginning of Era 3. The fundamentals we establish now will define the next decade.</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

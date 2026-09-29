@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agent Maturity Model — From Demo to Production in 5 Levels — The Agentic Edge</title>
+  <meta name="description" content="The Agent Maturity Model — From Demo to Production in 5 Levels">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-agent-maturity-model.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Agent Maturity Model — From Demo to Production in 5 Levels</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Framework — give people a roadmap</p>
+
+<hr>
+
+<p>Every AI agent goes through the same journey. Most teams don't know what the journey looks like — so they skip steps, miss gates, and deploy agents that aren't ready.</p>
+
+<p>Here's the agent maturity model we use. Five levels. Each one has specific gates. You don't advance until you pass them.</p>
+
+<p><strong>Level 1: Demo</strong></p>
+
+<p>The agent works in a controlled environment with curated inputs. It looks impressive. It makes people say "wow."</p>
+
+<p>What exists: A script that calls an LLM with a prompt and maybe one tool. No governance. No audit trail. No policy enforcement. No cost tracking.</p>
+
+<p>What it proves: The concept is technically feasible.</p>
+
+<p>What it doesn't prove: Everything else.</p>
+
+<p><strong>The gate to Level 2:</strong> Define the problem statement. What specific problem does this agent solve? Who is the user? What does success look like? If you can't answer these three questions, you don't have a Level 2 candidate. You have a party trick.</p>
+
+<p><strong>Level 2: Prototype</strong></p>
+
+<p>The agent works with real inputs but in a sandbox. It has multiple tools, a defined workflow, and basic error handling. It's not production-ready, but it's not a toy anymore.</p>
+
+<p>What exists: Agent definition with tools, basic error handling, mock data for testing, a few test cases.</p>
+
+<p>What it proves: The agent can handle real-world complexity — multiple tools, multi-step reasoning, edge cases.</p>
+
+<p>What it doesn't prove: That it's safe, reliable, or cost-effective at scale.</p>
+
+<p><strong>The gate to Level 3:</strong> Evaluation suite. You need a set of test cases with expected outcomes. At least 50 cases covering normal operation, edge cases, and failure modes. The agent must pass 90%+ of these cases. If you don't have an evaluation suite, you're not testing — you're hoping.</p>
+
+<p><strong>Level 3: Pilot</strong></p>
+
+<p>The agent works with real users in a limited scope. Maybe 10 users. Maybe one team. Real data, real tools, real consequences — but bounded.</p>
+
+<p>What exists: Production deployment with limited scope, basic logging, cost tracking, a human-in-the-loop for sensitive actions, an escalation path.</p>
+
+<p>What it proves: The agent works with real users, real data, and real edge cases that you didn't think of in your test suite.</p>
+
+<p>What it doesn't prove: That it scales, that it's safe at scale, or that the cost model works.</p>
+
+<p><strong>The gate to Level 4:</strong> Governance gates. Policy-as-code is in place. Audit trails are working. Cost ceilings are defined and enforced. Approval workflows exist for sensitive actions. An incident response plan is documented. A sponsor is identified. If any of these are missing, you're not ready for staging.</p>
+
+<p><strong>Level 4: Staging</strong></p>
+
+<p>The agent runs at near-production scale with full governance. It's one step away from production. Everything is tested — including the governance layer.</p>
+
+<p>What exists: Full deployment with all governance gates active, monitoring and alerting, drift detection, performance dashboards, cost dashboards, rollback plan.</p>
+
+<p>What it proves: The agent and its governance layer work together at scale. The policies don't block legitimate actions. The audit trail captures everything. The cost model is sustainable.</p>
+
+<p>What it doesn't prove: That it's ready for the unexpected — but nothing proves that.</p>
+
+<p><strong>The gate to Level 5:</strong> Launch readiness review. Security review, bias testing, rollback plan verification, cost model validation, sponsor sign-off, incident response drill. This is a formal review, not a vibe check. If the review fails, you go back to Level 4.</p>
+
+<p><strong>Level 5: Production</strong></p>
+
+<p>The agent is live. Real users, real data, real consequences, real scale.</p>
+
+<p>What exists: Everything from Level 4, plus continuous evaluation, automated incident response, regular audit trail reviews, cost optimization, and a feedback loop for improvement.</p>
+
+<p>What it proves: The agent is ready to be trusted with real decisions.</p>
+
+<p>What it doesn't prove: That it will always be right. It won't. But the governance layer ensures that when it's wrong, you can detect it, respond to it, and learn from it.</p>
+
+<p><strong>Where most teams get stuck.</strong></p>
+
+<p>Most teams get to Level 2 (Prototype) and jump straight to Level 5 (Production). They skip the evaluation suite, the governance gates, and the launch readiness review. Then they're surprised when the agent does something wrong and they can't explain why.</p>
+
+<p>The maturity model exists to prevent this. Each level has gates for a reason. Skipping gates doesn't save time — it creates incidents.</p>
+
+<p>What level is your most advanced agent at — and have you passed all the gates?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

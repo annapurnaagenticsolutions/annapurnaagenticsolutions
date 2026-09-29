@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Short Posts — The Agentic Edge</title>
+  <meta name="description" content="Short posts on AI agents, governance, open source, and building in public.">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/posts.html">
+<link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/" aria-current="page">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/" aria-current="page">Blog</a><a href="../contact/">Contact</a></nav></div></header>
+
+<div class="posts-page">
+  <h1>Short Posts</h1>
+  <p class="subtitle">Quick thoughts on AI agents, governance, open source, and building in public. Originally posted on LinkedIn.</p>
+
+  <div class="post-item">
+    <div class="post-num">Post 21 — Launch Post</div>
+    <div class="post-title">We Open-Sourced AXON and AgentOps Mesh</div>
+    <div class="post-body">🚀 We open-sourced AXON and AgentOps Mesh today.
+
+AXON is a typed domain-specific language for defining AI agents. You write a .ax file, and the compiler produces Python, TypeScript, Go, Rust, or an MCP server. AgentOps Mesh is a governance control plane that evaluates whether an agent should be allowed in production — 9 gates, deterministic policies, tamper-evident audit trails.
+
+Both are MIT licensed with all rulesets and governance policies included. No paid tier, no signup, no account needed.
+
+Why build another agent framework in 2026?
+
+We kept running into the same pattern. The agent logic is 50 lines. The glue code connecting frameworks, tools, and adapters is 500 lines. That glue code is 70% of the codebase, 70% of the bugs, and 70% of the maintenance burden. On the governance side, "is this safe to deploy?" was answered with a Slack thread and a Google Doc checklist. Not governance — hope.
+
+We wanted something typed, inspectable, and fully open. So we built both sides of the pipeline.
+
+A few implementation details:
+- AXON compiler core is Python stdlib-only — zero runtime dependencies
+- Parser compiled to WASM via Rust + wasm-pack, runs in the browser
+- Typed syntax: agent, tool, flow, rag, memory, spawn, pool as first-class keywords
+- Static type system: Result&lt;T, E&gt;, Option&lt;T&gt;, List&lt;T&gt;, union types, generics
+- Code generation to 5 targets: TypeScript, Python, Go, Rust, MCP server
+- CLI with 40+ commands including parse, validate, compile, run, test, govern, deploy
+- Mock mode — run agents without an LLM API key
+- AgentOps Mesh: 9 governance gates from intake through launch readiness
+- Policy-as-code, not AI judging AI — deterministic rules evaluate the agent contract
+- Tamper-evident audit trail with SHA-256 hashing
+- Browser playground — write, parse, compile, and submit for governance without installing anything
+
+The playground is the part we're most proud of. Open a URL, get a code editor with an example agent. Click Parse to see the IR. Click TypeScript to see compiled output. Click Govern to submit to AgentOps Mesh. No Python, no API key, no Docker. 60 seconds from "I've never heard of agent governance" to "I just submitted an agent for governance review."
+
+What it is not: AXON is a compiler, not a runtime — the generated code uses your existing framework. AgentOps Mesh is a governance template, not a production enforcement engine — no database, no auth, no multi-tenancy. The playground runs in mock mode by default.
+
+We still have a lot of work to do. The language spec is stable but the compiler doesn't implement everything yet. Not all codegen targets produce equally polished output. The governance gates are templates, not production-tested enforcement.
+
+We'd love the community to test it, break it, report issues, and tell us where it falls short. PRs for language features, codegen targets, governance policies, examples, and docs are very welcome.
+
+Try it (no install):
+🔗 Playground: https://annapurnaagenticsolutions.com/axon/playground.html
+🔗 AXON docs: https://annapurnaagenticsolutions.com/axon/playground/docs.html
+🔗 AgentOps Mesh: https://annapurnaagenticsolutions.com/agentops/
+🔗 AXON repo: https://github.com/annapurnaagenticsolutions/axon
+🔗 Mesh repo: https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh</div>
+    <div class="hashtags">#AIAgents #AgentOps #OpenSource #BuildInPublic #AIGovernance #AXON</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 20</div>
+    <div class="post-title">Zero to Agent in 60 Seconds</div>
+    <div class="post-body">Open a URL. See a code editor with an example agent. Click Parse — see the intermediate representation. Click TypeScript — see compiled code. Click Govern — submit to governance review.
+
+60 seconds. No Python. No API key. No Docker. No virtual environment. No framework install.
+
+We built this because we watched too many developers star a repo and never try it. The install funnel kills curiosity. So we removed the funnel.
+
+The playground is the README that runs itself. The playground is the docs you can interact with. The playground is the demo that doesn't need a calendar invite.
+
+What's the activation energy to try your tool?</div>
+    <div class="hashtags">#BuildInPublic #OpenSource #AIAgents #AXON #AgentOps</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 19</div>
+    <div class="post-title">The Contract Is the Governance</div>
+    <div class="post-body">Here's an idea we've been building toward: the agent definition should be the governance contract.
+
+When you write an agent in AXON, you declare its tools, its model, its memory, its permissions. That declaration is machine-readable. Which means a governance system can evaluate it automatically — without reading your code, without guessing your intent.
+
+AgentOps Mesh takes that declaration and runs it through 9 governance gates. Does the agent have the right permissions? Is the cost ceiling set? Is there an evaluation suite? Has a human approved it?
+
+The definition and the governance are not separate documents. They're the same document. That's the whole point.</div>
+    <div class="hashtags">#AIAgents #AIGovernance #AgentOps #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 18</div>
+    <div class="post-title">One File, Five Languages</div>
+    <div class="post-body">We wrote an agent definition in AXON — 20 lines. Then we clicked through the tabs in the playground:
+
+→ TypeScript: typed ES module with interfaces
+→ Go: package with interfaces
+→ Rust: module with traits
+→ Python: module with type hints
+→ MCP: FastMCP server ready to deploy
+
+Same 20 lines. Five compiled outputs. Zero manual porting.
+
+If you've ever maintained the same agent in three languages across web, backend, and CI — you know why this matters.
+
+The playground is live. No install. Try it.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic #AXON</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 17</div>
+    <div class="post-title">The Govern Button</div>
+    <div class="post-body">There's a button in the AXON playground labeled "Govern."
+
+You click it, and your agent definition is submitted to AgentOps Mesh — a governance control plane that evaluates whether the agent should be allowed in production. 9 gates: intake, suitability, data, evaluation, policy, approval, runtime, deployment, launch readiness.
+
+No install. No API key. No backend setup. You go from "I've never heard of agent governance" to "I just submitted an agent for governance review" in under 60 seconds.
+
+The button is the point. Governance shouldn't be a separate tool you buy after you've built agents. It should be a button next to "Compile."
+
+Try it: open the playground, write an agent, click Govern.</div>
+    <div class="hashtags">#AIAgents #AgentOps #AIGovernance #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 16</div>
+    <div class="post-title">30 Lines Instead of 500</div>
+    <div class="post-body">We wrote a research agent in 30 lines of AXON. The same agent in Python with LangChain was 500 lines — and most of those 500 lines were glue code connecting frameworks, not agent logic.
+
+AXON compiles those 30 lines to Python, TypeScript, Go, Rust, and MCP servers. One source, five targets. The compiler catches type errors before runtime.
+
+You can try it in the browser — no install, no API key. Open the playground, edit the example, click compile.
+
+What would your agent look like in 30 lines?</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic #AXON</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 15</div>
+    <div class="post-title">The 10-Year Filter</div>
+    <div class="post-body">Before you build something, ask: will this matter in 10 years?
+
+If the answer is no, why are you building it?
+
+The 10-year filter eliminates features that are impressive but ephemeral. What remains is the work that matters: foundations, community, trust, and impact.
+
+We're playing the long game. Not because we're patient — because it's the only game worth playing.</div>
+    <div class="hashtags">#BuildInPublic #OpenSource #LongTermThinking</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 14</div>
+    <div class="post-title">Your Agent Will Break Something</div>
+    <div class="post-body">Not "might." Will. The question is: when it happens, will you know what to do?
+
+Detect → Contain → Assess → Remediate → Prevent → Communicate.
+
+If you don't have an incident response plan for agent failures, the first incident will be chaotic. Chaos extends the damage. Chaos destroys trust.
+
+Does your team have a plan?</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 13</div>
+    <div class="post-title">Write the Story First</div>
+    <div class="post-body">We wrote a 16-page fairytale about our programming language. It got more engagement than the technical documentation.
+
+Not because the docs are bad. Because stories are how humans understand new concepts.
+
+The story is the top of the funnel. The docs are the bottom. Most technical teams start at the bottom and wonder why no one reads.
+
+What's the story of your product?</div>
+    <div class="hashtags">#BuildInPublic #Storytelling #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 12</div>
+    <div class="post-title">The India Constraint</div>
+    <div class="post-body">Silicon Valley assumes fiber, $20/month, English, iPhone, millions of users.
+
+India assumes 2G, $2/month, 22 languages, shared devices, hundreds of millions of users.
+
+Different constraints produce different technology. The India perspective produces tools that are more accessible, more efficient, and more global.
+
+Build where the constraints are hardest. The products will be better.</div>
+    <div class="hashtags">#BuildInPublic #India #OpenSource</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 11</div>
+    <div class="post-title">From Zero to Governance in 60 Seconds</div>
+    <div class="post-body">A developer opens the playground, writes an agent definition, clicks "Submit to Governance," and the agent is sent to AgentOps Mesh for policy evaluation.
+
+No install. No API key. No backend setup. 60 seconds from "I've never heard of agent governance" to "I just submitted an agent for governance review."
+
+That's the activation energy we want. What's yours?</div>
+    <div class="hashtags">#AIAgents #AgentOps #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 10</div>
+    <div class="post-title">The Playground as Documentation</div>
+    <div class="post-body">The most unexpected thing about building the AXON playground: it's not just for trying the language. It's for understanding the ecosystem.
+
+You open a URL and see tabs: Parse, Validate, Codegen, Govern. In 10 seconds, you understand the full agent lifecycle. No docs to read. No video to watch. The UI teaches you.
+
+The playground is documentation that you can interact with. It's a README that runs itself.</div>
+    <div class="hashtags">#BuildInPublic #OpenSource #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 9</div>
+    <div class="post-title">One Agent, Many Tools</div>
+    <div class="post-body">Before you build a multi-agent system, ask: can a single agent with good tools do the job?
+
+Multi-agent systems add coordination overhead, communication failures, and cascading errors. A single agent with specialized tools achieves most of the same capability at 1/3 the cost.
+
+Sometimes the best multi-agent system is a single agent with great tools.</div>
+    <div class="hashtags">#AIAgents #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 8</div>
+    <div class="post-title">AI Judging AI</div>
+    <div class="post-body">Using an AI model to govern another AI model is like using a security camera that only detects intruders 92% of the time.
+
+Governance should be deterministic — rules, policies, and code. Not probabilistic.
+
+AI detects, rules decide. The AI is a sensor, not a judge.
+
+What's your governance approach?</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 7</div>
+    <div class="post-title">70% Glue Code</div>
+    <div class="post-body">You start with 50 lines of agent logic. You end up with 800 lines of agent logic and 1,200 lines of glue code connecting frameworks, tools, and adapters.
+
+The glue code is 70% of your codebase. It's also 70% of your maintenance burden, 70% of your bugs, and 70% of your onboarding time.
+
+When a domain gets complex enough, you stop writing glue and start writing declarations. Agents have reached that point.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 6</div>
+    <div class="post-title">Most Teams Skip Level 3</div>
+    <div class="post-body">The agent maturity model: Demo → Prototype → Pilot → Staging → Production.
+
+Most teams jump from Prototype straight to Production. They skip the evaluation suite, the governance gates, and the launch readiness review.
+
+Then they're surprised when the agent does something wrong and they can't explain why.
+
+What level is your most advanced agent at?</div>
+    <div class="hashtags">#AIAgents #AIGovernance #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 5</div>
+    <div class="post-title">What If 100 Agents Per Employee?</div>
+    <div class="post-body">At current LLM prices, running 100 agents per employee costs $2-5/day. Less than coffee.
+
+A 10,000-person company would have 1,000,000 agents. Each calling tools, accessing data, making decisions.
+
+Without governance, this is a nightmare. With governance, it's a superpower. Which will it be?</div>
+    <div class="hashtags">#AIAgents #FutureOfWork #AgentOps</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 4</div>
+    <div class="post-title">The 70% Drop-Off</div>
+    <div class="post-body">70% of developers who star your repo never actually try it. They fall off in the install funnel: Python version, virtual env, API key, dependencies, config.
+
+We built a playground where you open a URL and try everything in the browser. No install. No API key. Zero activation energy.
+
+What's the activation energy to try your tool?</div>
+    <div class="hashtags">#BuildInPublic #OpenSource #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 3</div>
+    <div class="post-title">Logs vs Audit Trails</div>
+    <div class="post-body">Logs tell you what happened. Audit trails tell you why, whether it was allowed, who's responsible, and whether you can prove it.
+
+If your agent audit trail doesn't include perception, reasoning, alternatives considered, policy checks, approval provenance, cost tracking, and tamper-evident hashing — you don't have an audit trail. You have logs.
+
+Which do you have?</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 2</div>
+    <div class="post-title">The 25,000x Ratio</div>
+    <div class="post-body">When a microservice fails, you lose uptime. When an agent fails, the failure cost can be 25,000x the success cost.
+
+An agent that costs $0.02 to run correctly can cost $515 when it's wrong — the wrong refund, the wrong email, the wrong data access.
+
+Are you calculating failure economics for your agents?</div>
+    <div class="hashtags">#AIAgents #AIGovernance #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Post 1</div>
+    <div class="post-title">The Retry Trap</div>
+    <div class="post-body">You can't retry a wrong decision. You can retry a failed API call, but when an agent makes a bad judgment call, retrying just gives you a different bad call.
+
+The microservices playbook assumes deterministic failure. Agents are non-deterministic. We need a new playbook.
+
+What's your agent failure strategy?</div>
+    <div class="hashtags">#AIAgents #AgentOps #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 15 (Copy)</div>
+    <div class="post-title">STEM Without Culture</div>
+    <div class="post-body">STEM without culture produces technicians, not thinkers. Culture without STEM produces nostalgia, not progress.
+
+A child who can solve equations but can't reason about ethics is a child who will build technology without understanding its consequences.
+
+We need STEM + AI + Culture + Play. All four. In one platform. In 22 languages. Free forever.</div>
+    <div class="hashtags">#AIEducation #India #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 14 (Copy)</div>
+    <div class="post-title">Two Tools, One Lifecycle</div>
+    <div class="post-body">AXON compiles agents. AgentOps Mesh governs them. The connection point is the tool call.
+
+Compile-time safety + runtime governance. Declare once, govern always. Mock mode meets evaluation. One source of truth.
+
+Two tools, each excellent at their half, connected at a natural boundary. Both MIT licensed. Both built by a small family business in India.</div>
+    <div class="hashtags">#AIAgents #OpenSource #AgentOps #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 13 (Copy)</div>
+    <div class="post-title">Declare, Don't Wire</div>
+    <div class="post-body">Every agent framework today requires 500+ lines of glue code to define a single multi-agent pipeline. Import 15 classes, wire them manually, hope the types match at runtime.
+
+This is the equivalent of writing SQL queries as imperative code. It works, but it misses the point.
+
+Declare your agents. Let the compiler do the wiring.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 12 (Copy)</div>
+    <div class="post-title">Free Forever Is A Design Constraint</div>
+    <div class="post-body">When you decide something is free forever, every decision changes. You can't rely on subscription revenue, so you design for minimal infrastructure. You can't lock features behind paywalls, so you design for universal access. You can't assume fast internet, so you design for offline.
+
+The constraint produced better design. "Free" isn't a pricing strategy. It's a design philosophy.</div>
+    <div class="hashtags">#AIEducation #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 11 (Copy)</div>
+    <div class="post-title">The Trust Equation</div>
+    <div class="post-body">Trust in AI agents isn't a feeling. It's an equation:
+
+<strong>Trust = Transparency × Accountability × Predictability</strong>
+
+It's multiplicative, not additive. If any factor is zero, trust is zero.
+
+You can't bolt on governance after deployment. You design it in from the start.</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 10 (Copy)</div>
+    <div class="post-title">Open Source The Roads</div>
+    <div class="post-body">Open-sourcing infrastructure isn't charity. It's strategy.
+
+Every star on GitHub is a developer who might use our tools. Every enterprise that adopts our governance framework is a potential customer for our intelligence layer. Every contributor is a potential hire.
+
+The infrastructure builds the audience. The intelligence builds the business.
+
+Open source the roads. Charge for the destination.</div>
+    <div class="hashtags">#OpenSource #BuildInPublic #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 9 (Copy)</div>
+    <div class="post-title">AI Literacy Isn't Coding</div>
+    <div class="post-body">We don't need 250 million coders in India. We need 250 million people who understand AI well enough to navigate a world where AI is everywhere.
+
+AI literacy means: AI isn't magic, AI can be wrong, AI has biases, AI has limits, AI raises ethical questions.
+
+Start at 10. Start with intuition, not code. Start with questions, not answers.</div>
+    <div class="hashtags">#AIEducation #India #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 8 (Copy)</div>
+    <div class="post-title">One Source, Two Targets</div>
+    <div class="post-body">Your backend is Python. Your frontend is TypeScript. Your agent needs to run on both. So you write it twice.
+
+When the compiler targets both from the same source, you write it once. Half the development cost, half the maintenance cost, zero inconsistency risk.
+
+This isn't a convenience. It's an economic shift.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 7 (Copy)</div>
+    <div class="post-title">Offline-First Is A Design Constraint</div>
+    <div class="post-body">Half the world doesn't have reliable internet. But AI education assumes everyone is online.
+
+We built educational platforms that work offline. Download once, use forever. No backend, no API calls, no streaming.
+
+The constraint produced better design. Offline-first architecture, lightweight pages, shared-device support — these weren't features we added. They were consequences of being accessible.</div>
+    <div class="hashtags">#AIEducation #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 6 (Copy)</div>
+    <div class="post-title">The Three Questions</div>
+    <div class="post-body">When an AI agent causes an incident in production, you need to answer three questions:
+
+1. What happened? (Transparency)
+2. Who's responsible? (Accountability)
+3. Will it happen again? (Predictability)
+
+If you can't answer all three, your agent gets shut down. Not by choice — by mandate.
+
+Trust isn't optional. It's the product.</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 5 (Copy)</div>
+    <div class="post-title">Stories Outperform Specs</div>
+    <div class="post-body">We wrote a fairytale about our programming language. A 16-page storybook about a kingdom where agents fill forms and a developer who creates a language to free them.
+
+The storybook got more engagement than the technical documentation.
+
+Stories are how humans understand new concepts. Every culture teaches through stories. Every great teacher uses analogies. Yet in technology, we default to specifications.
+
+Start with the story. Show the specs later.</div>
+    <div class="hashtags">#BuildInPublic #Storytelling #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 4 (Copy)</div>
+    <div class="post-title">Mock Mode</div>
+    <div class="post-body">The single most useful feature we built for our agent language: --mock mode. Run any agent without calling an LLM. No API key, no cost, no latency.
+
+Why? Because every step between "I heard about this" and "I tried it" is a step where people drop off. Reduce the activation energy. Let people try before they buy.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 3 (Copy)</div>
+    <div class="post-title">Governance Is Not Optional</div>
+    <div class="post-body">We'd never deploy a microservice without monitoring. Why are we deploying agents without governance?
+
+An agent that can call tools, access data, and make decisions is an agent that can cause harm. No approval gates, no cost ceilings, no audit trails, no policy enforcement — this is how agents fail in production.
+
+Governance isn't a feature you add later. It's a layer you design in from the start.</div>
+    <div class="hashtags">#AIGovernance #AgentOps #AIAgents</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 2 (Copy)</div>
+    <div class="post-title">Frameworks vs Languages</div>
+    <div class="post-body">Every agent framework today is a library sitting on top of a language that was never designed for agents.
+
+Python wasn't designed for agents. TypeScript wasn't designed for agents. They're general-purpose languages with agent frameworks bolted on top.
+
+This works temporarily. The scaffolding holds the structure up, but it's not the foundation. Eventually, you need to pour concrete.
+
+A language is concrete.</div>
+    <div class="hashtags">#AIAgents #OpenSource #BuildInPublic</div>
+  </div>
+
+  <div class="post-item">
+    <div class="post-num">Archive — Post 1 (Copy)</div>
+    <div class="post-title">The Suitability Question</div>
+    <div class="post-body">Before you build an AI agent, ask: "Could a lookup table solve this?"
+
+If yes, use a lookup table. Agents are for problems that require reasoning, context, and adaptation — not for problems that require a database query.
+
+The best agent is the one you didn't build.</div>
+    <div class="hashtags">#AIAgents #AgentOps #BuildInPublic</div>
+  </div>
+
+</div>
+
+<div class="newsletter-box" id="subscribe">
+  <h3>Subscribe to The Agentic Edge</h3>
+  <p>Get new articles and short posts delivered to your inbox. No spam, unsubscribe anytime.</p>
+  <p class="newsletter-privacy">The subscription form is provided by Zoho. Your email is used for article updates; see our <a href="../privacy/">privacy notice</a>.</p>
+  <iframe id="ziframe_709223" aria-label="The Agentic Edge — Subscribe" frameborder="0" referrerpolicy="no-referrer" style="height:420px;width:100%;max-width:500px;border:none;" src="https://forms.zohopublic.in/sarangiamiyagm1/form/TheAgenticEdgeSubscribe/formperma/Ho6Yi2DACXvvL7kFsYDM3Wolv_imi9cc9fFklSzccT0"></iframe>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="index.html">Articles</a>
+    <a href="posts.html">Short Posts</a>
+    <a href="about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../assets/site.js"></script>
+</body>
+</html>

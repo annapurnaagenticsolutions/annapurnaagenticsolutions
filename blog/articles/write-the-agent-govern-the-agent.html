@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Write the Agent, Govern the Agent — Why We Built Both Sides — The Agentic Edge</title>
+  <meta name="description" content="Write the Agent, Govern the Agent — Why We Built Both Sides">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/write-the-agent-govern-the-agent.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>Write the Agent, Govern the Agent — Why We Built Both Sides</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Most teams build agents but skip governance. We built both — and made them work together in the browser.</p>
+
+<hr>
+
+<p>Every team building AI agents eventually hits the same wall.</p>
+
+<p>You write the agent. It works in the demo. You show it to your team. Everyone's excited. Then someone asks: "How do we know it's safe to put in production?"</p>
+
+<p>Silence.</p>
+
+<p>You add some logging. Maybe a review checklist. A Slack channel for approvals. Some guardrails hardcoded into the agent itself. It's not governance — it's hope.</p>
+
+<p>We've seen this pattern enough times to know: the gap between "agent works" and "agent is safe to deploy" is where most projects stall. Not because teams don't care about safety, but because the tools for defining agents and the tools for governing them live in different worlds.</p>
+
+<p>So we built both.</p>
+
+<p><strong>AXON: Define the agent.</strong></p>
+
+<p>AXON is a typed domain-specific language for AI agents. Instead of writing 500 lines of Python with framework boilerplate, you write 30 lines of declarative code:</p>
+
+<pre><code>agent ResearchBot {
+    model: @anthropic/claude-4
+    tools: [WebSearch, DocStore.retrieve]
+    memory: episodic
+
+    fn run(query: Str) -&gt; Result&lt;Report, AgentError&gt; {
+        let results = await WebSearch.search(query)?
+        Ok(Report { topic: query, findings: results })
+    }
+}</code></pre>
+
+<p>The compiler catches type errors before runtime. One <code>.ax</code> file compiles to Python, TypeScript, Go, Rust, and MCP servers. You write once, deploy anywhere.</p>
+
+<p>But here's what makes AXON different from "just another framework": the agent definition is a contract. It declares what tools the agent can use, what model it runs on, what its inputs and outputs are. This contract is machine-readable — which means it can be evaluated by a governance system.</p>
+
+<p><strong>AgentOps Mesh: Govern the agent.</strong></p>
+
+<p>AgentOps Mesh is a control plane that sits between your agent definitions and production. It asks one question: <em>should this agent be allowed to exist, use this data, call these tools, and move toward production?</em></p>
+
+<p>Not with AI judging AI. With deterministic policies. Rules. Code. You define what's acceptable, and the mesh enforces it.</p>
+
+<p>The governance workflow has 9 gates: intake, suitability, data access, evaluation, policy, approval, runtime controls, deployment, and launch readiness. Each gate is a checkpoint. Each checkpoint produces evidence. The evidence is tamper-evident and auditable.</p>
+
+<p><strong>The pipeline: define → compile → govern → deploy.</strong></p>
+
+<p>Here's where it gets interesting. AXON and AgentOps Mesh are designed to work together.</p>
+
+<p>You write an agent in AXON. You compile it to your target language. Then you submit it to AgentOps Mesh for governance review — directly from the CLI or from the browser playground.</p>
+
+<p>The mesh evaluates the agent's contract: what tools does it use? What data does it access? What's the cost ceiling? Are the permissions appropriate? Is there an evaluation suite? Has a human approved it?</p>
+
+<p>If the agent passes all gates, it gets a launch readiness score. If it doesn't, you get a specific list of what needs to change.</p>
+
+<p><strong>You can try it right now.</strong></p>
+
+<p>We built a playground where you can experience the full pipeline without installing anything.</p>
+
+<p>Open the playground URL in your browser. You'll see a code editor with an example agent loaded. Click "Parse" to see the intermediate representation. Click "TypeScript" or "Go" or "Rust" to see the compiled output. Click "Govern" to submit the agent to AgentOps Mesh for governance review.</p>
+
+<p>No Python installation. No API key. No virtual environment. No Docker. Just a URL and a browser.</p>
+
+<p>This was deliberate. We've watched too many developers star a repo, intend to try it, and never come back. The install funnel kills curiosity. So we removed it.</p>
+
+<p><strong>Why we open-sourced both.</strong></p>
+
+<p>We could have built AXON as a proprietary language and AgentOps Mesh as a SaaS product. We didn't, for two reasons.</p>
+
+<p>First, agent governance is too important to be locked behind a vendor. If you're trusting a system to decide whether your agents are safe for production, you need to be able to read the code, audit the policies, and modify the rules. Open source is the only honest way to do this.</p>
+
+<p>Second, the combination matters more than either piece alone. AXON without governance is just another way to write agents. Governance without a typed definition language is just another checklist. Together, they create something neither can do alone: a pipeline where the agent definition is the governance contract.</p>
+
+<p><strong>What we're not claiming.</strong></p>
+
+<p>We're not claiming this is finished. It's a prototype. The playground runs in mock mode by default — no real LLM calls unless you configure a provider key. The governance gates are templates, not production-ready enforcement. There's no database, no authentication, no multi-tenancy.</p>
+
+<p>What we are claiming is that the direction is right. Agents need to be defined with contracts and governed with deterministic policies. The tools to do this should be open, accessible, and tryable in 60 seconds.</p>
+
+<p>If you're curious, open the playground. Write a 10-line agent. Click "Govern." See what happens.</p>
+
+<p>Then tell us what's missing. We're building this in the open.</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

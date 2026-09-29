@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Open-Sourcing AgentOps Mesh — Why Governance Is the Missing Layer — The Agentic Edge</title>
+  <meta name="description" content="Open-Sourcing AgentOps Mesh — Why Governance Is the Missing Layer">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/open-sourcing-agentops-mesh.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>Open-Sourcing AgentOps Mesh — Why Governance Is the Missing Layer</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Problem — identify a gap everyone knows about but no one is solving</p>
+
+<hr>
+
+<p>Every company building AI agents has the same problem. None of them are solving it.</p>
+
+<p>The problem: governance.</p>
+
+<p>An agent that can call tools, access data, and make decisions is an agent that can cause harm. It can send emails, modify records, execute transactions, and interact with users — all without human review. In production. At scale.</p>
+
+<p>Yet most teams deploy agents to production with no approval gates, no cost ceilings, no audit trails, and no policy enforcement.</p>
+
+<p>We'd never deploy a microservice without monitoring. Why are we deploying agents without governance?</p>
+
+<p><strong>The gap isn't awareness. Everyone knows they need governance. The gap is tooling.</strong></p>
+
+<p>Most governance tools are either:</p>
+<ul>
+<li><strong>Too theoretical</strong> — frameworks and whitepapers that explain what governance should look like, but don't help you implement it</li>
+<li><strong>Too commercial</strong> — enterprise platforms that cost more than your entire AI budget</li>
+<li><strong>Too narrow</strong> — focused on one aspect (prompt injection, bias, hallucination) instead of the full lifecycle</li>
+
+<p>So we built AgentOps Mesh and open-sourced it.</p>
+
+<p><strong>What it does.</strong></p>
+
+<p>AgentOps Mesh is a control plane for AI agents. It sits between your agents and production, and it enforces:</p>
+
+<ul>
+<li><strong>Policy</strong> — what is this agent allowed to do? What data can it access? What tools can it call?</li>
+<li><strong>Approval</strong> — does this action require human review? Who approves it? What's the SLA?</li>
+<li><strong>Audit</strong> — what did the agent do, when, and why? Can you reconstruct the decision chain?</li>
+<li><strong>Cost</strong> — how much is this agent spending? What's the ceiling? What happens when it's exceeded?</li>
+<li><strong>Evaluation</strong> — how well is the agent performing? Is it getting better or worse over time?</li>
+<li><strong>Launch readiness</strong> — has this agent passed security review, bias testing, and rollback planning?</li>
+
+<p><strong>Why open source?</strong></p>
+
+<p>Governance is not a competitive advantage. It's infrastructure. If every company has to build their own governance layer from scratch, we'll have 100 fragmented implementations, none of them battle-tested. If we share one implementation, we all benefit.</p>
+
+<p>MIT licensed. Free for everyone — individuals, students, non-profits, companies. No royalty, no restrictions. Use it, modify it, deploy it, build businesses on it. We believe in building adoption first.</p>
+
+<p><strong>The design principles.</strong></p>
+
+<p><strong>Deterministic, not probabilistic.</strong> Governance should not be an AI model judging another AI model. It should be rules, policies, and code. Predictable. Auditable. Explainable.</p>
+
+<p><strong>Control plane, not framework.</strong> AgentOps Mesh is not another agent framework. It's a control plane that sits alongside whatever framework you use. It doesn't run your agents — it governs them.</p>
+
+<p><strong>Reference implementation, not platform.</strong> This is not a hosted service. It's a reference implementation you deploy in your own infrastructure. Your data stays in your environment.</p>
+
+<p><strong>What we learned building it.</strong></p>
+
+<p>The hardest part wasn't the technology. It was the scope. Governance is a vast space — policy, security, audit, cost, evaluation, launch readiness. We wanted to build everything. We had to prioritize.</p>
+
+<p>We started with policy enforcement and audit trails. Then added cost monitoring. Then evaluation. Then launch readiness. Each layer taught us something about the previous one.</p>
+
+<p>The biggest insight: governance is not about preventing agents from doing things. It's about making their actions visible, reviewable, and reversible. The goal isn't control — it's trust. You trust an agent because you can see what it did, understand why, and undo it if needed.</p>
+
+<p><strong>The honest part.</strong></p>
+
+<p>AgentOps Mesh is not complete. It is a public reference implementation. The core governance, evaluation, and audit systems work. Live connector adapters, live model-provider calls, and cloud provisioning are disabled by design — you enable them in your environment.</p>
+
+<p>We're open-sourcing it now because the community needs it now. Not in two years when it's "perfect." The perfect is the enemy of the deployed.</p>
+
+<p><strong>The ask.</strong></p>
+
+<p>If you're building AI agents in production, try AgentOps Mesh. Tell us what's missing. Contribute policies, evaluation frameworks, and connector adapters.</p>
+
+<p>Governance is the missing layer in AI agent deployment. Let's build it together.</p>
+
+<p>What's your governance strategy for AI agents — and is it working?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>
