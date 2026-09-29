@@ -1,0 +1,147 @@
+[
+  {
+    "id": "paheli_dukaan",
+    "name": "Paheli Dukaan",
+    "shopkeeper": "Paheli Chacha",
+    "icon": "🧩",
+    "shortDescription": "Classic riddles with simple words and tricky thinking.",
+    "longDescription": "A warm old riddle shop where Paheli Chacha tests your observation, memory, and imagination.",
+    "tone": "mysterious, playful, old-school",
+    "primarySkill": "Lateral thinking",
+    "recommendedFor": [
+      "kids",
+      "families",
+      "adults"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "colorTheme": "saffron"
+  },
+  {
+    "id": "emoji_puzzle",
+    "name": "Emoji Puzzle Stall",
+    "shopkeeper": "Emoji Bua",
+    "icon": "😀",
+    "shortDescription": "Decode emoji clues for foods, festivals, places, and funny situations.",
+    "longDescription": "A fast, expressive stall where Emoji Bua speaks mostly in symbols.",
+    "tone": "fast, expressive, funny",
+    "primarySkill": "Pattern recognition",
+    "recommendedFor": [
+      "kids",
+      "families",
+      "casual users"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium"
+    ],
+    "colorTheme": "pink"
+  },
+  {
+    "id": "logic_laddoo",
+    "name": "Logic Laddoo Shop",
+    "shopkeeper": "Laddoo Halwai",
+    "icon": "🍬",
+    "shortDescription": "Sweet-looking puzzles with hidden logic.",
+    "longDescription": "A reasoning shop where every laddoo has a logical filling.",
+    "tone": "sweet, tricky, encouraging",
+    "primarySkill": "Logic and reasoning",
+    "recommendedFor": [
+      "kids",
+      "students",
+      "adults"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "colorTheme": "yellow"
+  },
+  {
+    "id": "word_jumble_paan",
+    "name": "Word-Jumble Paan Shop",
+    "shopkeeper": "Paanwala Professor",
+    "icon": "📝",
+    "shortDescription": "Jumbles, hidden words, rhymes, and word tricks.",
+    "longDescription": "A language-play shop where words are chewed, twisted, and solved.",
+    "tone": "witty, poetic, word-loving",
+    "primarySkill": "Vocabulary and wordplay",
+    "recommendedFor": [
+      "kids",
+      "students",
+      "language learners"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "colorTheme": "green"
+  },
+  {
+    "id": "mythology_clue",
+    "name": "Mythology Clue Mandap",
+    "shopkeeper": "Katha Panditji",
+    "icon": "📜",
+    "shortDescription": "Story-based cultural and mythology clues.",
+    "longDescription": "A respectful story mandap with clues from familiar Indian epics, festivals, and symbols.",
+    "tone": "calm, respectful, story-based",
+    "primarySkill": "Cultural memory",
+    "recommendedFor": [
+      "families",
+      "students",
+      "adults"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "colorTheme": "purple"
+  },
+  {
+    "id": "science_magic",
+    "name": "Science Magic Cart",
+    "shopkeeper": "Science Jadugar",
+    "icon": "🔬",
+    "shortDescription": "Science riddles that feel like magic but explain real ideas.",
+    "longDescription": "A curiosity cart where everyday science becomes playful mystery.",
+    "tone": "curious, safe, wonder-filled",
+    "primarySkill": "Observation and science reasoning",
+    "recommendedFor": [
+      "kids",
+      "students",
+      "families"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "colorTheme": "blue"
+  },
+  {
+    "id": "wrong_answer",
+    "name": "Wrong Answer Only Shop",
+    "shopkeeper": "Ulta Baba",
+    "icon": "🙃",
+    "shortDescription": "Give the funniest wrong answer possible.",
+    "longDescription": "A comedy shop where logic is not allowed and nonsense gets applause.",
+    "tone": "absurd, comic, reverse-logic",
+    "primarySkill": "Creative humor",
+    "recommendedFor": [
+      "kids",
+      "families",
+      "adults"
+    ],
+    "difficultyMix": [
+      "easy",
+      "medium"
+    ],
+    "colorTheme": "orange"
+  }
+]

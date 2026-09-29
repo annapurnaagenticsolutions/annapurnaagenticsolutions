@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Provider Gateway Governance</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .tag { display: inline-block; padding: 5px 10px; border-radius: 999px; background: #1e293b; color: #cbd5e1; font-size: 12px; margin: 2px; }
+    code { background: #0f172a; padding: 2px 6px; border-radius: 6px; }
+    .warn { border-color: #b36b00; }
+  </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
+</head>
+<body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
+<header class="hero container">
+  <p class="pill"> Control Plane</p>
+  <h1>Provider Gateway Governance</h1>
+  <p class="lead"> model-routing controls for provider, model, region, data sensitivity, cost, fallback, and approval decisions.</p>
+</header>
+<main class="container">
+  <section class="card warn">
+    <h2>Boundary</h2>
+    <p>Live provider execution remains disabled. This console demonstrates route governance only.</p>
+  </section>
+  <section class="grid" id="profiles" style="margin-top:24px"></section>
+</main>
+<script>
+fetch('data/provider_gateway_profiles.json')
+  .then(r => r.json())
+  .then(data => {
+    const el = document.getElementById('profiles');
+    el.innerHTML = data.profiles.map(p => `
+      <article class="card">
+        <h3>${p.display_name}</h3>
+        <p><code>${p.provider_id}:${p.model_id}</code></p>
+        <p><strong>Trust tier:</strong> ${p.provider_trust_tier}</p>
+        <p><strong>Max sensitivity:</strong> ${p.max_data_sensitivity}</p>
+        <p><strong>Environments:</strong> ${p.allowed_environments.map(x=>`<span class="tag">${x}</span>`).join('')}</p>
+        <p><strong>Regions:</strong> ${p.allowed_regions.map(x=>`<span class="tag">${x}</span>`).join('')}</p>
+        <p><strong>Capabilities:</strong> ${p.capabilities.map(x=>`<span class="tag">${x}</span>`).join('')}</p>
+      </article>`).join('');
+  });
+</script>
+</body>
+</html>
+

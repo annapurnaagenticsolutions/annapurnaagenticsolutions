@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Policy-as-Code vs AI Judging AI — Why Determinism Matters for Governance — The Agentic Edge</title>
+  <meta name="description" content="Policy-as-Code vs AI Judging AI — Why Determinism Matters for Governance">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/policy-as-code-vs-ai-judging-ai.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>Policy-as-Code vs AI Judging AI — Why Determinism Matters for Governance</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Provocative — challenge the trend of using AI to govern AI</p>
+
+<hr>
+
+<p>There's a growing trend in AI governance: using AI models to evaluate other AI models. An LLM checks if the agent's output is safe. An AI classifier detects if the agent's behavior is appropriate. An AI judge scores the agent's response quality.</p>
+
+<p>This sounds reasonable. If AI can generate content, AI can evaluate content. If AI can make decisions, AI can review decisions.</p>
+
+<p>We think this is dangerous. Here's why.</p>
+
+<p><strong>Non-deterministic governance is an oxymoron.</strong></p>
+
+<p>Governance exists to provide predictability. "If the agent does X, the governance layer will catch it." This promise requires the governance layer to behave the same way every time. If the governance layer is an AI model, it might catch X today and miss it tomorrow.</p>
+
+<p>Imagine a security camera that only detects intruders 92% of the time. Would you trust it to secure your building? No — because the 8% it misses is the 8% that matters. You'd install deterministic sensors: motion detectors, door contacts, glass break sensors. These sensors trigger every time. They don't have off days.</p>
+
+<p>Agent governance should work the same way. The policies that prevent an agent from accessing unauthorized data should be deterministic. The rules that enforce cost ceilings should be deterministic. The checks that require human approval for sensitive actions should be deterministic.</p>
+
+<p><strong>The appeal of AI-as-judge.</strong></p>
+
+<p>We understand why teams use AI for governance. It's flexible. You can describe what "safe" means in natural language and let the AI figure it out. You don't have to enumerate every possible policy violation. The AI can catch things you didn't think of.</p>
+
+<p>This is real value — for evaluation, not for governance.</p>
+
+<p><strong>Evaluation vs. governance: the critical distinction.</strong></p>
+
+<p>Evaluation asks: "How good was this output?" This is inherently subjective. An LLM-as-judge is appropriate here because quality is a judgment, not a rule.</p>
+
+<p>Governance asks: "Was this action allowed?" This is inherently objective. The action either violated a policy or it didn't. An LLM-as-judge is inappropriate here because the answer should be deterministic.</p>
+
+<p>The confusion comes when teams use AI-as-judge for governance because they haven't defined their policies clearly enough. If you can't write a rule that says "the agent is not allowed to call Database.write without approval," you use an AI to "check if the agent's database access was appropriate." But "appropriate" is subjective — and subjective governance is unpredictable governance.</p>
+
+<p><strong>What deterministic governance looks like.</strong></p>
+
+<p>Policy-as-code means your governance rules are written in code, not in natural language. They're evaluated by a rules engine, not by an AI model. They produce the same result every time.</p>
+
+<p>Example policies:</p>
+
+<pre><code>policy RefundApproval {
+  if action.tool == &quot;BillingAPI.refund&quot; and action.amount &gt; 100 {
+    require_approval from: &quot;manager&quot;
+    timeout: 3600s
+    on_timeout: &quot;deny&quot;
+  }
+}
+
+policy DataAccess {
+  if action.tool matches /Database\.(write|delete)/ {
+    require_scope: &quot;data:write&quot;
+    audit: true
+  }
+}
+
+policy CostCeiling {
+  if agent.session_cost &gt; 10.00 {
+    deny: &quot;Session cost ceiling exceeded&quot;
+    alert: &quot;cost-team@company.com&quot;
+  }
+}</code></pre>
+
+<p>These policies are deterministic. They trigger every time the condition is met. They don't have false negatives. They don't have off days. They don't hallucinate.</p>
+
+<p><strong>When AI-as-judge is appropriate.</strong></p>
+
+<p>AI-as-judge has a place — in evaluation, not governance:</p>
+
+<ul>
+<li><strong>Quality scoring:</strong> "Was this response helpful?" — subjective, appropriate for LLM</li>
+<li><strong>Tone analysis:</strong> "Was this response polite?" — subjective, appropriate for LLM</li>
+<li><strong>Completeness check:</strong> "Did the agent address all parts of the request?" — subjective, appropriate for LLM</li>
+<li><strong>Safety classification:</strong> "Does this output contain harmful content?" — this is borderline. Use AI for detection, but use deterministic rules for action.</li>
+
+<p>The pattern: AI detects, rules decide. The AI flags something as potentially harmful. The deterministic policy decides what to do about it. The AI is a sensor, not a judge.</p>
+
+<p><strong>The practical takeaway.</strong></p>
+
+<p>If your governance layer relies on AI models to make enforcement decisions, you have unpredictable governance. It might work 90% of the time. The 10% it doesn't work is when governance matters most — the edge cases, the novel situations, the adversarial inputs.</p>
+
+<p>Write your governance as code. Use AI for evaluation and detection. Use deterministic rules for enforcement. This is the only way to guarantee that your governance layer behaves the same way every time.</p>
+
+<p>Because governance that's right 90% of the time isn't governance. It's a suggestion.</p>
+
+<p>What's your governance approach — deterministic rules, AI-as-judge, or a mix? And do you know which actions are governed by which?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

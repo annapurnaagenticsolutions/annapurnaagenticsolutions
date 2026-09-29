@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gallery - Feliciano</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      .masonry {
+        column-count: 1;
+        column-gap: 1.5rem;
+      }
+      @media (min-width: 640px) { .masonry { column-count: 2; } }
+      @media (min-width: 1024px) { .masonry { column-count: 3; } }
+      
+      .masonry-item {
+        break-inside: avoid;
+        margin-bottom: 1.5rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        border-radius: 2px;
+      }
+      .masonry-item img {
+        width: 100%;
+        display: block;
+        transition: transform 0.5s ease;
+      }
+      .masonry-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(26,26,26,0.6);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .masonry-item:hover img {
+        transform: scale(1.05);
+      }
+      .masonry-item:hover .masonry-overlay {
+        opacity: 1;
+      }
+      
+      /* Lightbox */
+      #lightbox {
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.9);
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+      }
+      #lightbox.active {
+        display: flex;
+      }
+      #lightbox img {
+        max-width: 100%;
+        max-height: 90vh;
+        border-radius: 4px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+      }
+      #lightbox-close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        color: white;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 101;
+      }
+    </style>
+  </head>
+  <body class="antialiased bg-brand-light">
+    
+    <!-- Header -->
+    <header class="navbar fixed top-0 w-full z-50 bg-brand-primary text-brand-light shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="menu.html" class="hover:text-brand-accent transition">Menu</a>
+            <a href="about.html" class="hover:text-brand-accent transition">About</a>
+            <a href="gallery.html" class="text-brand-accent border-b-2 border-brand-accent pb-1">Gallery</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <a href="reserve.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2 rounded-sm transition">Reserve a Table</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 text-center border-b border-gray-200">
+      <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+        <h4 class="font-serif italic text-brand-accent text-xl mb-2">Our Moments</h4>
+        <h1 class="text-5xl font-serif text-brand-primary mb-6">Gallery</h1>
+      </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="masonry" data-aos="fade-up">
+          <div class="masonry-item" onclick="openLightbox('assets/images/dish1.jpg')">
+            <img src="assets/images/dish1.jpg" alt="Dish 1" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+          <div class="masonry-item" onclick="openLightbox('assets/images/chef.jpg')">
+            <img src="assets/images/chef.jpg" alt="Chef" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+          <div class="masonry-item" onclick="openLightbox('assets/images/dish2.jpg')">
+            <img src="assets/images/dish2.jpg" alt="Dish 2" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+          <div class="masonry-item" onclick="openLightbox('assets/images/hero.jpg')">
+            <img src="assets/images/hero.jpg" alt="Interior" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+          <div class="masonry-item" onclick="openLightbox('assets/images/dish1.jpg')">
+            <img src="assets/images/dish1.jpg" alt="Dessert" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+          <div class="masonry-item" onclick="openLightbox('assets/images/dish2.jpg')">
+            <img src="assets/images/dish2.jpg" alt="Appetizer" />
+            <div class="masonry-overlay"><i class="fas fa-search-plus text-white text-3xl"></i></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lightbox Element -->
+    <div id="lightbox" onclick="closeLightbox()">
+      <i id="lightbox-close" class="fas fa-times"></i>
+      <img id="lightbox-img" src="" alt="Fullscreen View" onclick="event.stopPropagation()" />
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary text-gray-400 py-12 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        &copy; 2026 Feliciano Restaurant. All rights reserved.
+      </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true });
+      
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      
+      function openLightbox(src) {
+        lightboxImg.src = src;
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+      
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = 'auto';
+      }
+    </script>
+  </body>
+</html>

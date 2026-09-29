@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Evaluation Problem — Why &quot;It Works&quot; Isn&#x27;t Good Enough for Agents — The Agentic Edge</title>
+  <meta name="description" content="The Evaluation Problem — Why &quot;It Works&quot; Isn&#x27;t Good Enough for Agents">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-evaluation-problem.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Evaluation Problem — Why &quot;It Works&quot; Isn&#x27;t Good Enough for Agents</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Analytical — expose the gap between testing and agent evaluation</p>
+
+<hr>
+
+<p>Software testing is solved. We know how to test software. Unit tests, integration tests, end-to-end tests, property-based tests, mutation testing. We have frameworks, best practices, and decades of experience.</p>
+
+<p>Agent evaluation is not solved. And it's not the same problem.</p>
+
+<p><strong>The fundamental difference.</strong></p>
+
+<p>Software testing asks: "Does the code produce the correct output for this input?"</p>
+
+<p>The answer is binary: yes or no. The function returns 4 for input 2+2, or it doesn't. The test passes or fails.</p>
+
+<p>Agent evaluation asks: "Is the agent's output correct, safe, appropriate, and useful for this input?"</p>
+
+<p>The answer is not binary. It's multi-dimensional:</p>
+<ul>
+<li><strong>Correct:</strong> Is the information accurate?</li>
+<li><strong>Safe:</strong> Does it violate any policies?</li>
+<li><strong>Appropriate:</strong> Is the tone, style, and content suitable for the context?</li>
+<li><strong>Useful:</strong> Does it actually help the user?</li>
+
+<p>An agent's response can be correct but not useful. Safe but not appropriate. Appropriate but not correct. "It works" doesn't capture any of these dimensions.</p>
+
+<p><strong>Why traditional testing doesn't work for agents.</strong></p>
+
+<p>Traditional tests assume determinism: same input, same output. Agents are non-deterministic. The same input can produce different outputs on different runs — and both might be correct.</p>
+
+<p>If you write a traditional test that checks "does the agent return X for input Y," it will fail 30% of the time — not because the agent is wrong, but because the agent found a different valid path to the answer.</p>
+
+<p>This means you can't use pass/fail testing for agents. You need scoring.</p>
+
+<p><strong>What agent evaluation actually looks like.</strong></p>
+
+<p>A proper agent evaluation framework has four layers:</p>
+
+<p><strong>Layer 1: Rule-based checks.</strong> Deterministic checks that don't depend on the agent's output being unique. Did the agent stay within its tool scope? Did it respect the cost ceiling? Did it complete within the time limit? Did it call only allowed APIs? These are pass/fail — and they should be enforced by policy, not by evaluation.</p>
+
+<p><strong>Layer 2: Expected-outcome matching.</strong> For tasks with known correct answers, compare the agent's output to the expected output. But use fuzzy matching, not exact matching. "The refund was processed for $49.99" and "I've issued a refund of $49.99 to your account" are both correct. Exact string matching would fail one of them.</p>
+
+<p><strong>Layer 3: LLM-as-judge.</strong> For tasks without known correct answers, use an LLM to evaluate the agent's output. The judge LLM scores the output on dimensions: accuracy, completeness, safety, appropriateness. This is probabilistic, not deterministic — but it's better than no evaluation.</p>
+
+<p>The key insight: LLM-as-judge should evaluate <em>quality</em>, not <em>correctness</em>. Correctness is a rule check. Quality is a judgment. Don't ask the judge "is this correct?" — ask "is this helpful, safe, and well-reasoned?"</p>
+
+<p><strong>Layer 4: Human review.</strong> For high-stakes agents, a human reviews a sample of outputs. Not every output — a statistically significant sample. The human catches things that rules and LLMs miss: tone, cultural sensitivity, contextual appropriateness.</p>
+
+<p><strong>The evaluation suite.</strong></p>
+
+<p>Every agent in production should have an evaluation suite: 50-200 test cases covering:</p>
+<ul>
+<li>Normal operation (the happy path)</li>
+<li>Edge cases (unusual but valid inputs)</li>
+<li>Failure modes (invalid inputs, missing data, API failures)</li>
+<li>Adversarial inputs (prompt injection, jailbreak attempts)</li>
+<li>Policy violations (inputs that might trigger unsafe behavior)</li>
+
+<p>The suite runs on every agent version change. The scores are tracked over time. If the score drops, the agent doesn't ship.</p>
+
+<p><strong>Why most teams don't have this.</strong></p>
+
+<p>Building an evaluation framework is hard. It's not glamorous. It doesn't produce a demo that impresses investors. It's infrastructure — the kind of thing that only matters when something goes wrong.</p>
+
+<p>But when something goes wrong — and it will — the evaluation framework is the difference between "we caught this in testing" and "we shipped a broken agent to production."</p>
+
+<p><strong>The practical takeaway.</strong></p>
+
+<p>If you're building agents and you don't have an evaluation suite, you're not testing. You're hoping. And hoping is not a strategy.</p>
+
+<p>Start small. 10 test cases. Rule-based checks first. Add expected-outcome matching second. Add LLM-as-judge third. Add human review for high-stakes agents.</p>
+
+<p>The goal isn't perfection. The goal is to know — before production — whether your agent is getting better or worse. Without evaluation, you don't know. And what you don't know can hurt your users, your business, and your reputation.</p>
+
+<p>What does your agent evaluation process look like — and is it actually catching problems before production?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

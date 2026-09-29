@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #1a365d;
+  --color-brand-secondary: #2c5282;
+  --color-brand-light: #f7fafc;
+  --color-brand-accent: #f6ad55;
+  --color-brand-accent-hover: #ed8936;
+  --color-brand-highlight: #48bb78;
+  --font-serif: "Poppins", sans-serif;
+  --font-sans: "Open Sans", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-brand-light text-gray-800;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brand-primary font-semibold;
+  }
+}

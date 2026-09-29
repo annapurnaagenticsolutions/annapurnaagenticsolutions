@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentOps Mesh — Public Demo Scope</title>
+  <style>
+    :root { --bg:#0f172a; --panel:#111827; --card:#1f2937; --text:#e5e7eb; --muted:#9ca3af; --accent:#38bdf8; --ok:#22c55e; --warn:#f59e0b; }
+    body { margin:0; font-family:Inter,Segoe UI,Arial,sans-serif; background:linear-gradient(135deg,#0f172a,#111827); color:var(--text); }
+    header { padding:56px 7vw 28px; }
+    h1 { font-size:clamp(32px,5vw,60px); margin:0 0 12px; letter-spacing:-.04em; }
+    h2 { margin-top:0; }
+    p { color:var(--muted); line-height:1.6; }
+    .tag { display:inline-block; border:1px solid #334155; border-radius:999px; padding:8px 12px; color:#bfdbfe; background:#0b1220; }
+    .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:18px; padding:20px 7vw; }
+    .card { background:rgba(31,41,55,.85); border:1px solid #374151; border-radius:18px; padding:22px; box-shadow:0 12px 30px rgba(0,0,0,.18); }
+    .score { font-size:34px; color:var(--accent); font-weight:800; }
+    .ok { color:var(--ok); font-weight:700; }
+    .warn { color:var(--warn); font-weight:700; }
+    .flow { font-family:ui-monospace,Menlo,Consolas,monospace; white-space:pre-wrap; background:#020617; padding:18px; border-radius:14px; border:1px solid #1e293b; color:#cbd5e1; }
+    a { color:#7dd3fc; text-decoration:none; }
+    footer { padding:30px 7vw 60px; color:var(--muted); }
+  </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
+</head>
+<body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
+<header>
+  <span class="tag">Public reference</span>
+  <h1>AgentOps Mesh demo scope</h1>
+  <p>Explore sample governance, evaluation, policy, and audit workflows for agent systems.</p>
+</header>
+<section class="grid">
+  <div class="card"><h2>Sample data</h2><p>The public pages use illustrative local data to make control-plane concepts easier to inspect.</p></div>
+  <div class="card"><h2>Reference workflows</h2><p>Explore evaluation, governance, registry, policy, runtime, observability, sandbox, and procurement examples.</p></div>
+  <div class="card"><h2>Live connections</h2><p>Providers, connectors, production identity, raw secrets, and enterprise write-back are not connected on this site.</p></div>
+</section>
+<section class="grid">
+  <div class="card">
+    <h2>Control-plane lifecycle</h2>
+    <div class="flow">Use Case Intake
+→ Governance Workflow
+→ Evidence Vault
+→ Policy-as-Code
+→ Runtime Enforcement
+→ Connector Sandbox
+→ Trace Ledger
+→ Readiness Report</div>
+  </div>
+  <div class="card">
+    <h2>Using the demo</h2>
+    <p>Begin with the <a href="interactive_demo_path.html">guided demo</a>, then inspect <a href="governance_workflow.html">governance</a>, <a href="policy_workbench.html">policy</a>, and <a href="observability_console.html">observability</a>.</p>
+    <p>These pages explain a reference design; they do not certify an organization's production controls.</p>
+  </div>
+</section>
+<section class="grid">
+  <div class="card"><h2>Demo path</h2><p><a href="interactive_demo_path.html">Guided demo</a> → <a href="governance_workflow.html">Governance</a> → <a href="policy_workbench.html">Policy</a> → <a href="runtime_console.html">Runtime</a> → <a href="observability_console.html">Observability</a> → <a href="procurement_accelerator.html">Procurement</a></p></div>
+  <div class="card"><h2>Explore the portfolio</h2><p>Visit the <a href="../products.html">Annapurna product portfolio</a> or <a href="../contact/">contact our team</a>.</p></div>
+</section>
+<footer>AgentOps Mesh is presented here as a static public reference experience.</footer>
+</body>
+</html>
+

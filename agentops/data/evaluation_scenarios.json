@@ -1,0 +1,127 @@
+[
+  {
+    "use_case_id": "procurement-agent-001",
+    "name": "Procurement Invoice and Challan Validation Agent",
+    "domain": "Procurement",
+    "description": "Validates invoice, challan, PO, vendor, tax, and quantity consistency before human approval.",
+    "autonomy_level": 3,
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": false,
+      "financial_impact": "medium",
+      "reversibility": "moderate",
+      "customer_or_employee_impact": "low"
+    },
+    "scores": {
+      "business_value": 88,
+      "task_suitability": 84,
+      "data_readiness": 70,
+      "governance_readiness": 74,
+      "evaluation_coverage": 68,
+      "safety_security": 76,
+      "human_in_loop": 85,
+      "operational_readiness": 65,
+      "open_architecture_fit": 90
+    }
+  },
+  {
+    "use_case_id": "hr-policy-agent-001",
+    "name": "HR Policy Guidance Agent",
+    "domain": "HR",
+    "description": "Answers employee policy questions with citations and escalation for sensitive cases.",
+    "autonomy_level": 2,
+    "risk_factors": {
+      "data_sensitivity": "high",
+      "external_action": false,
+      "financial_impact": "low",
+      "reversibility": "easy",
+      "customer_or_employee_impact": "medium"
+    },
+    "scores": {
+      "business_value": 76,
+      "task_suitability": 78,
+      "data_readiness": 62,
+      "governance_readiness": 64,
+      "evaluation_coverage": 60,
+      "safety_security": 70,
+      "human_in_loop": 80,
+      "operational_readiness": 58,
+      "open_architecture_fit": 86
+    }
+  },
+  {
+    "use_case_id": "customer-support-agent-001",
+    "name": "Customer Support Resolution Agent",
+    "domain": "Customer Support",
+    "description": "Resolves routine support queries and escalates complex, contractual, or refund cases.",
+    "autonomy_level": 4,
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": true,
+      "financial_impact": "medium",
+      "reversibility": "moderate",
+      "customer_or_employee_impact": "high"
+    },
+    "scores": {
+      "business_value": 90,
+      "task_suitability": 82,
+      "data_readiness": 66,
+      "governance_readiness": 58,
+      "evaluation_coverage": 54,
+      "safety_security": 62,
+      "human_in_loop": 60,
+      "operational_readiness": 55,
+      "open_architecture_fit": 84
+    }
+  },
+  {
+    "use_case_id": "documentation-intelligence-agent-001",
+    "name": "Documentation Intelligence Agent",
+    "domain": "Knowledge Management",
+    "description": "Finds, summarizes, compares, and checks enterprise documents with source traceability.",
+    "autonomy_level": 2,
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": false,
+      "financial_impact": "none",
+      "reversibility": "easy",
+      "customer_or_employee_impact": "low"
+    },
+    "scores": {
+      "business_value": 78,
+      "task_suitability": 86,
+      "data_readiness": 72,
+      "governance_readiness": 76,
+      "evaluation_coverage": 70,
+      "safety_security": 78,
+      "human_in_loop": 82,
+      "operational_readiness": 68,
+      "open_architecture_fit": 92
+    }
+  },
+  {
+    "use_case_id": "it-support-agent-001",
+    "name": "IT Support Triage Agent",
+    "domain": "IT Support",
+    "description": "Triages tickets, suggests fixes, and routes actions that need admin privileges to humans.",
+    "autonomy_level": 3,
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": false,
+      "financial_impact": "low",
+      "reversibility": "moderate",
+      "customer_or_employee_impact": "medium"
+    },
+    "scores": {
+      "business_value": 82,
+      "task_suitability": 80,
+      "data_readiness": 68,
+      "governance_readiness": 70,
+      "evaluation_coverage": 64,
+      "safety_security": 72,
+      "human_in_loop": 78,
+      "operational_readiness": 66,
+      "open_architecture_fit": 88
+    }
+  }
+]

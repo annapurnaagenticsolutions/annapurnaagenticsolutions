@@ -1,0 +1,88 @@
+:root {
+  --accent: #2563eb;
+  --accent2: #7c3aed;
+  --brand-ink: #111827;
+  --brand-muted: #667085;
+  --brand-line: #e7eaf0;
+  --brand-soft: #f7f9fc;
+  --brand-blue: #2563eb;
+  --brand-violet: #7c3aed;
+  --brand-shadow: 0 18px 50px rgba(15, 23, 42, .08);
+}
+
+body {
+  background: #fff;
+  color: var(--brand-ink);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 50;
+  padding: 8px 14px;
+  border-radius: 11px;
+  background: var(--brand-ink);
+  color: #fff;
+  font-weight: 700;
+}
+
+.skip-link:focus { top: 16px; }
+
+.nav {
+  background: rgba(255, 255, 255, .88);
+  border-bottom-color: var(--brand-line);
+  box-shadow: 0 4px 18px rgba(15, 23, 42, .03);
+}
+
+.nav a { color: var(--brand-muted); }
+.nav a:hover, .nav a:focus-visible { color: var(--brand-ink); }
+.brand { color: var(--brand-ink); }
+
+.hero { padding: 68px 0 48px; }
+.badge {
+  border-color: #bfdbfe;
+  color: var(--brand-blue);
+  background: #eff6ff;
+}
+
+h1 {
+  max-width: 780px;
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  line-height: 1.08;
+  letter-spacing: -.045em;
+}
+
+h2 {
+  font-size: clamp(1.6rem, 3vw, 2.4rem);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+
+.lead { color: var(--brand-muted); font-size: 1.05rem; line-height: 1.7; }
+.btn { background: #fff; border-color: var(--brand-line); color: var(--brand-ink); border-radius: 11px; }
+.btn.primary { background: var(--brand-ink); color: #fff; }
+.btn.primary:hover, .btn.primary:focus-visible { background: #1f2937; }
+.actions { gap: 10px; }
+
+.card, .step {
+  background: #fff;
+  border-color: var(--brand-line);
+  box-shadow: var(--brand-shadow);
+}
+
+.card p, .card li, .metric-label { color: var(--brand-muted); }
+.kicker { color: var(--brand-blue); }
+.step { background: var(--brand-soft); }
+.step-number { background: #eff6ff; color: var(--brand-blue); }
+.table th { color: var(--brand-blue); background: #eff6ff; }
+.table td { color: var(--brand-muted); }
+.footer { border-top-color: var(--brand-line); color: var(--brand-muted); }
+
+main { display: block; }
+
+@media (max-width: 900px) {
+  .nav-inner { padding: 14px 0; }
+}

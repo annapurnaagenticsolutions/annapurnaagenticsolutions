@@ -1,0 +1,41 @@
+{
+  "catalog_type": "interface_concepts",
+  "public_notice": "Conceptual areas only. This static website does not publish or process these API routes.",
+  "groups": [
+    {
+      "group": "Core",
+      "purpose": "Health, weights, risk, and evaluation"
+    },
+    {
+      "group": "Governance and policy",
+      "purpose": "Use-case lifecycle, policy decisions, and approvals"
+    },
+    {
+      "group": "Registry, evidence, audit",
+      "purpose": "Agent records, evidence, audit events, and decision history"
+    },
+    {
+      "group": "Runtime and observability",
+      "purpose": "Mock runtime enforcement, provider registry, and trace ledger"
+    },
+    {
+      "group": "Security, identity, storage",
+      "purpose": "RBAC, tenant storage, identity simulation, and secret references"
+    },
+    {
+      "group": "Connectors and providers",
+      "purpose": "Sandboxed/dry-run connector contracts and provider/model routing governance"
+    },
+    {
+      "group": "Control plane",
+      "purpose": "Capability map, demo flow, API catalog, and release/adoption status"
+    }
+  ],
+  "live_execution_boundaries": [
+    "No live connector execution",
+    "No live model provider calls",
+    "No raw secret storage",
+    "No production IAM/OIDC integration",
+    "No irreversible enterprise write-back"
+  ]
+}

@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bespoke | Custom Ring Builder</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="antialiased overflow-hidden flex flex-col h-screen">
+
+    <!-- Top Nav -->
+    <nav class="h-20 border-b border-white/10 flex items-center justify-between px-8 bg-brand-dark z-50 flex-shrink-0">
+      <div class="flex items-center gap-4">
+        <a href="#" class="text-2xl font-bold tracking-widest uppercase">Bespoke</a>
+        <div class="h-6 w-px bg-white/20 ml-4"></div>
+        <span class="ml-4 text-gray-400 text-sm font-medium tracking-widest uppercase hidden md:inline">Custom Ring Studio</span>
+      </div>
+      
+      <div class="flex items-center gap-8">
+        <a href="#" onclick="showStudioModal('Bespoke Dossier Saved', 'Your configuration (Setting: ' + currentSetting.name + ', Metal: ' + currentMetal.name + ', Stone: ' + currentStone.name + ') has been saved to your private digital archive.'); return false;" class="text-sm font-medium hover:text-brand-primary transition hidden md:inline">Save Design</a>
+        <div class="text-right">
+          <p class="text-xs text-gray-500 uppercase tracking-wider mb-1">Total Price</p>
+          <p class="text-lg font-bold text-brand-primary" id="price-display">$3,250</p>
+        </div>
+        <button onclick="showStudioModal('Masterpiece Added to Bag', 'Your bespoke specification (' + currentSetting.name + ' in ' + currentMetal.name + ' with ' + currentStone.name + ' — $' + window.totalPrice.toLocaleString() + ') is secured in your private bag. Our Master Concierge is ready to finalize your ring fabrication.')" class="bg-brand-primary text-brand-dark px-6 py-2.5 rounded font-bold hover:bg-white transition uppercase tracking-widest text-sm shadow-[0_0_15px_rgba(212,175,55,0.3)]">Add to Bag</button>
+      </div>
+    </nav>
+
+    <!-- Main Configurator -->
+    <main class="flex-grow flex flex-col lg:flex-row overflow-hidden relative">
+      
+      <!-- 3D Viewport Area -->
+      <section class="flex-grow bg-brand-panel relative flex items-center justify-center viewport-grid h-[50vh] lg:h-auto z-10">
+        
+        <!-- Viewport Controls -->
+        <div class="absolute top-6 left-6 flex gap-4">
+          <button onclick="rotateViewport(-45)" class="w-10 h-10 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-primary transition" title="Rotate Left">
+            <i class="fas fa-undo"></i>
+          </button>
+          <button onclick="rotateViewport(45)" class="w-10 h-10 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-primary transition" title="Rotate Right">
+            <i class="fas fa-redo"></i>
+          </button>
+        </div>
+
+        <div class="absolute top-6 right-6 flex gap-4">
+          <button onclick="zoomViewport(0.2)" class="w-10 h-10 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-primary transition" title="Zoom In">
+            <i class="fas fa-search-plus"></i>
+          </button>
+          <button onclick="zoomViewport(-0.2)" class="w-10 h-10 rounded-full bg-brand-dark border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:border-brand-primary transition" title="Zoom Out">
+            <i class="fas fa-search-minus"></i>
+          </button>
+        </div>
+
+        <!-- Rendered Image Mock (Would be WebGL in prod) -->
+        <div id="viewport-box" class="relative w-[300px] h-[300px] md:w-[500px] md:h-[500px] transition-transform duration-500 flex items-center justify-center">
+           <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80" alt="Ring Render" class="absolute inset-0 w-full h-full object-cover mix-blend-screen opacity-90 transition-opacity duration-500 rounded-full shadow-2xl border border-brand-primary/20" id="render-metal" />
+        </div>
+
+        <!-- Bottom Specs -->
+        <div class="absolute bottom-6 left-6 right-6 flex justify-center gap-12 text-center border-t border-white/10 pt-4 bg-brand-panel/80 backdrop-blur-md pb-2 rounded-xl">
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Setting</p>
+            <p class="text-sm font-bold text-white" id="spec-setting">Classic Solitaire</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Metal</p>
+            <p class="text-sm font-bold text-white" id="spec-metal">18k Yellow Gold</p>
+          </div>
+          <div>
+            <p class="text-[10px] uppercase tracking-widest text-gray-500 mb-1">Stone</p>
+            <p class="text-sm font-bold text-white" id="spec-stone">Round, 1.5 Carat</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sidebar Controls -->
+      <aside class="w-full lg:w-[450px] bg-brand-dark border-l border-white/10 flex flex-col h-[50vh] lg:h-auto flex-shrink-0 z-20">
+        
+        <!-- Step Navigation -->
+        <div class="flex border-b border-white/10">
+          <button onclick="switchTab('setting')" class="flex-1 py-4 text-center border-b-2 border-brand-primary text-brand-primary font-bold text-xs uppercase tracking-widest transition" id="tab-setting">1. Setting</button>
+          <button onclick="switchTab('metal')" class="flex-1 py-4 text-center border-b-2 border-transparent text-gray-500 hover:text-white text-xs uppercase tracking-widest transition" id="tab-metal">2. Metal</button>
+          <button onclick="switchTab('stone')" class="flex-1 py-4 text-center border-b-2 border-transparent text-gray-500 hover:text-white text-xs uppercase tracking-widest transition" id="tab-stone">3. Stone</button>
+        </div>
+
+        <!-- Scrollable Options -->
+        <div class="flex-grow overflow-y-auto p-6 scroll-smooth">
+          
+          <!-- Step 1: Settings Panel -->
+          <div id="panel-setting" class="space-y-6 block">
+            <h2 class="text-xl font-bold mb-4">Choose Your Setting</h2>
+            
+            <div class="grid grid-cols-2 gap-4">
+              <!-- Option 1 -->
+              <div onclick="selectSetting('Classic Solitaire', 0, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80', this)" class="config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5">
+                <div class="w-16 h-16 bg-white/5 rounded-full mb-3 flex items-center justify-center">
+                  <i class="fas fa-ring text-2xl text-brand-primary"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Classic Solitaire</h3>
+                <p class="text-xs text-gray-400">Timeless elegance</p>
+              </div>
+              
+              <!-- Option 2 -->
+              <div onclick="selectSetting('Pavé Band', 450, 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=1000&q=80', this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-16 h-16 bg-white/5 rounded-full mb-3 flex items-center justify-center">
+                  <i class="far fa-circle text-2xl text-white"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Pavé Band</h3>
+                <p class="text-xs text-gray-400">Extra brilliance</p>
+                <p class="text-xs text-brand-primary mt-2">+$450</p>
+              </div>
+
+              <!-- Option 3 -->
+              <div onclick="selectSetting('Halo Setting', 600, 'https://images.unsplash.com/photo-1598560917505-59a3655c1592?auto=format&fit=crop&w=1000&q=80', this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-16 h-16 bg-white/5 rounded-full mb-3 flex items-center justify-center">
+                  <i class="fas fa-gem text-2xl text-white"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Halo Setting</h3>
+                <p class="text-xs text-gray-400">Maximum impact</p>
+                <p class="text-xs text-brand-primary mt-2">+$600</p>
+              </div>
+
+              <!-- Option 4 -->
+              <div onclick="selectSetting('Twisted Vine', 350, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=1000&q=80', this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-16 h-16 bg-white/5 rounded-full mb-3 flex items-center justify-center">
+                  <i class="fas fa-infinity text-2xl text-white"></i>
+                </div>
+                <h3 class="font-bold text-sm mb-1">Twisted Vine</h3>
+                <p class="text-xs text-gray-400">Nature inspired</p>
+                <p class="text-xs text-brand-primary mt-2">+$350</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: Metal Panel -->
+          <div id="panel-metal" class="space-y-6 hidden">
+            <h2 class="text-xl font-bold mb-4">Select Precious Metal</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div onclick="selectMetal('18k Yellow Gold', 0, this)" class="config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5">
+                <div class="w-12 h-12 rounded-full mb-3 bg-[#e6ca65] shadow-inner"></div>
+                <h3 class="font-bold text-sm mb-1">18k Yellow Gold</h3>
+                <p class="text-xs text-gray-400">Traditional warm tone</p>
+              </div>
+              <div onclick="selectMetal('18k White Gold', 150, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-12 h-12 rounded-full mb-3 bg-[#e0e4e8] shadow-inner"></div>
+                <h3 class="font-bold text-sm mb-1">18k White Gold</h3>
+                <p class="text-xs text-gray-400">Sleek mirror sheen</p>
+                <p class="text-xs text-brand-primary mt-2">+$150</p>
+              </div>
+              <div onclick="selectMetal('18k Rose Gold', 150, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-12 h-12 rounded-full mb-3 bg-[#e8a39b] shadow-inner"></div>
+                <h3 class="font-bold text-sm mb-1">18k Rose Gold</h3>
+                <p class="text-xs text-gray-400">Romantic blush hue</p>
+                <p class="text-xs text-brand-primary mt-2">+$150</p>
+              </div>
+              <div onclick="selectMetal('950 Platinum', 500, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <div class="w-12 h-12 rounded-full mb-3 bg-[#cfd3d6] border border-white shadow-inner"></div>
+                <h3 class="font-bold text-sm mb-1">950 Platinum</h3>
+                <p class="text-xs text-gray-400">Maximum durability</p>
+                <p class="text-xs text-brand-primary mt-2">+$500</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 3: Stone Panel -->
+          <div id="panel-stone" class="space-y-6 hidden">
+            <h2 class="text-xl font-bold mb-4">Choose Center Stone</h2>
+            <div class="grid grid-cols-2 gap-4">
+              <div onclick="selectStone('Round, 1.5 Carat', 0, this)" class="config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5">
+                <i class="fas fa-gem text-3xl text-blue-200 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Round Brilliant (1.5ct)</h3>
+                <p class="text-xs text-gray-400">GIA Certified F/VS1</p>
+              </div>
+              <div onclick="selectStone('Oval Cut, 2.0 Carat', 1800, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <i class="fas fa-gem text-3xl text-purple-200 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Oval Cut (2.0ct)</h3>
+                <p class="text-xs text-gray-400">Elongated fire</p>
+                <p class="text-xs text-brand-primary mt-2">+$1,800</p>
+              </div>
+              <div onclick="selectStone('Emerald Cut, 2.2 Carat', 2200, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <i class="fas fa-gem text-3xl text-green-200 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Emerald Cut (2.2ct)</h3>
+                <p class="text-xs text-gray-400">Step-cut clarity</p>
+                <p class="text-xs text-brand-primary mt-2">+$2,200</p>
+              </div>
+              <div onclick="selectStone('Royal Sapphire, 2.5 Carat', 1200, this)" class="config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50">
+                <i class="fas fa-gem text-3xl text-blue-500 mb-3"></i>
+                <h3 class="font-bold text-sm mb-1">Royal Blue Sapphire</h3>
+                <p class="text-xs text-gray-400">Natural Sri Lankan</p>
+                <p class="text-xs text-brand-primary mt-2">+$1,200</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </aside>
+
+    </main>
+
+    <script>
+      let basePrice = 3250;
+      let currentSetting = { name: 'Classic Solitaire', price: 0 };
+      let currentMetal = { name: '18k Yellow Gold', price: 0 };
+      let currentStone = { name: 'Round, 1.5 Carat', price: 0 };
+      let currentRotation = 0;
+      let currentScale = 1;
+
+      function updatePriceAndSpecs() {
+        const totalPrice = basePrice + currentSetting.price + currentMetal.price + currentStone.price;
+        document.getElementById('price-display').innerText = '$' + totalPrice.toLocaleString();
+        document.getElementById('spec-setting').innerText = currentSetting.name;
+        document.getElementById('spec-metal').innerText = currentMetal.name;
+        document.getElementById('spec-stone').innerText = currentStone.name;
+        window.totalPrice = totalPrice;
+      }
+
+      function switchTab(tab) {
+        ['setting', 'metal', 'stone'].forEach(t => {
+          const btn = document.getElementById(`tab-${t}`);
+          const panel = document.getElementById(`panel-${t}`);
+          if (t === tab) {
+            btn.className = 'flex-1 py-4 text-center border-b-2 border-brand-primary text-brand-primary font-bold text-xs uppercase tracking-widest transition';
+            panel.classList.remove('hidden');
+            panel.classList.add('block');
+          } else {
+            btn.className = 'flex-1 py-4 text-center border-b-2 border-transparent text-gray-500 hover:text-white text-xs uppercase tracking-widest transition';
+            panel.classList.add('hidden');
+            panel.classList.remove('block');
+          }
+        });
+      }
+
+      function selectSetting(name, price, imgUrl, elem) {
+        currentSetting = { name, price };
+        document.querySelectorAll('#panel-setting .config-btn').forEach(el => {
+          el.className = 'config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50';
+        });
+        elem.className = 'config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5';
+        if (imgUrl) document.getElementById('render-metal').src = imgUrl;
+        updatePriceAndSpecs();
+      }
+
+      function selectMetal(name, price, elem) {
+        currentMetal = { name, price };
+        document.querySelectorAll('#panel-metal .config-btn').forEach(el => {
+          el.className = 'config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50';
+        });
+        elem.className = 'config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5';
+        updatePriceAndSpecs();
+      }
+
+      function selectStone(name, price, elem) {
+        currentStone = { name, price };
+        document.querySelectorAll('#panel-stone .config-btn').forEach(el => {
+          el.className = 'config-btn cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border border-white/10 hover:border-brand-primary/50';
+        });
+        elem.className = 'config-btn active cursor-pointer rounded-xl p-4 flex flex-col items-center text-center border-2 border-brand-primary bg-white/5';
+        updatePriceAndSpecs();
+      }
+
+      function rotateViewport(deg) {
+        currentRotation += deg;
+        const box = document.getElementById('viewport-box');
+        box.style.transform = `scale(${currentScale}) rotate(${currentRotation}deg)`;
+      }
+
+      function zoomViewport(step) {
+        currentScale = Math.max(0.6, Math.min(1.8, currentScale + step));
+        const box = document.getElementById('viewport-box');
+        box.style.transform = `scale(${currentScale}) rotate(${currentRotation}deg)`;
+      }
+
+      function showStudioModal(title, message) {
+        let modal = document.getElementById('studioInfoModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'studioInfoModal';
+          modal.className = 'fixed inset-0 bg-black/85 backdrop-blur-md z-[120] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-brand-dark border-2 border-brand-primary p-8 max-w-md w-full text-center shadow-2xl relative animate-fade-in rounded-2xl">
+            <button onclick="document.getElementById('studioInfoModal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-primary text-xl">&times;</button>
+            <div class="text-brand-primary text-3xl mb-3"><i class="fas fa-gem"></i></div>
+            <h4 class="font-outfit text-2xl text-white font-bold mb-3">${title}</h4>
+            <p class="text-xs text-gray-300 font-light leading-relaxed mb-6">${message}</p>
+            <button onclick="document.getElementById('studioInfoModal').remove()" class="w-full bg-brand-primary text-brand-dark py-3.5 text-xs uppercase tracking-widest font-bold hover:bg-white transition rounded-lg">Proceed in Studio</button>
+          </div>
+        `;
+      }
+
+      updatePriceAndSpecs();
+    </script>
+  </body>
+</html>

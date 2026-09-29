@@ -1,0 +1,3902 @@
+[
+  {
+    "id": "paheli_001",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Hands But No Clap",
+    "question": "I have hands but cannot clap. What am I?",
+    "answer": "Clock",
+    "acceptableAnswers": [
+      "clock",
+      "a clock",
+      "the clock"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You use it to know the time.",
+      "It may hang on a wall or sit on a table."
+    ],
+    "explanation": "A clock has hands that show time, but they cannot clap.",
+    "tags": [
+      "classic",
+      "object",
+      "time"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_002",
+    "shop": "paheli_dukaan",
+    "subtype": "nature",
+    "title": "Runs Without Walking",
+    "question": "I run but never walk. What am I?",
+    "answer": "River",
+    "acceptableAnswers": [
+      "river",
+      "a river",
+      "the river"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It moves naturally.",
+      "You may see water flowing in it."
+    ],
+    "explanation": "A river is often described as running because its water flows continuously.",
+    "tags": [
+      "classic",
+      "nature",
+      "water"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_003",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Teeth But No Bite",
+    "question": "I have teeth but cannot bite. What am I?",
+    "answer": "Comb",
+    "acceptableAnswers": [
+      "comb",
+      "a comb",
+      "hair comb"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is used for hair.",
+      "Its teeth are not real teeth."
+    ],
+    "explanation": "A comb has tooth-like parts, but it cannot bite.",
+    "tags": [
+      "classic",
+      "object",
+      "household"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_004",
+    "shop": "paheli_dukaan",
+    "subtype": "trick",
+    "title": "More You Take",
+    "question": "The more you take, the more you leave behind. What are they?",
+    "answer": "Footsteps",
+    "acceptableAnswers": [
+      "footsteps",
+      "steps",
+      "foot prints",
+      "footprints"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Think about walking.",
+      "Every step creates one."
+    ],
+    "explanation": "When you take more steps, you leave more footsteps behind.",
+    "tags": [
+      "classic",
+      "trick",
+      "movement"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_005",
+    "shop": "paheli_dukaan",
+    "subtype": "household",
+    "title": "Smaller After Bath",
+    "question": "I get smaller every time I take a bath. What am I?",
+    "answer": "Soap",
+    "acceptableAnswers": [
+      "soap",
+      "a soap",
+      "soap bar",
+      "bar of soap"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You use it while bathing.",
+      "It slowly dissolves with use."
+    ],
+    "explanation": "Soap becomes smaller as it is used during washing or bathing.",
+    "tags": [
+      "classic",
+      "household",
+      "bath"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_006",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Neck But No Head",
+    "question": "I have a neck but no head. What am I?",
+    "answer": "Bottle",
+    "acceptableAnswers": [
+      "bottle",
+      "a bottle",
+      "the bottle"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You may use it to hold water.",
+      "Its narrow top is called a neck."
+    ],
+    "explanation": "A bottle has a neck-like narrow part, but it has no head.",
+    "tags": [
+      "classic",
+      "object",
+      "household"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_007",
+    "shop": "paheli_dukaan",
+    "subtype": "nature",
+    "title": "Flies And Cries",
+    "question": "I fly without wings and cry without eyes. What am I?",
+    "answer": "Cloud",
+    "acceptableAnswers": [
+      "cloud",
+      "a cloud",
+      "clouds"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Look up at the sky.",
+      "Its crying can become rain."
+    ],
+    "explanation": "Clouds move through the sky without wings and can produce rain, poetically described as crying.",
+    "tags": [
+      "classic",
+      "nature",
+      "sky",
+      "rain"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_008",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Cities Without People",
+    "question": "I have cities, roads, and rivers, but no people. What am I?",
+    "answer": "Map",
+    "acceptableAnswers": [
+      "map",
+      "a map",
+      "the map"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You use it to find places.",
+      "It shows places without actually containing them."
+    ],
+    "explanation": "A map can show cities, roads, and rivers as representations.",
+    "tags": [
+      "classic",
+      "object",
+      "geography"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_009",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Keys Without Locks",
+    "question": "I am full of keys, but I open no locks. What am I?",
+    "answer": "Keyboard",
+    "acceptableAnswers": [
+      "keyboard",
+      "piano",
+      "a keyboard",
+      "a piano",
+      "musical keyboard"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The keys are pressed.",
+      "It may be used for typing or music."
+    ],
+    "explanation": "A keyboard or piano has keys, but those keys do not open locks.",
+    "tags": [
+      "classic",
+      "object",
+      "music",
+      "computer"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_010",
+    "shop": "paheli_dukaan",
+    "subtype": "time",
+    "title": "Always Ahead",
+    "question": "I am always in front of you, but you cannot see me. What am I?",
+    "answer": "Future",
+    "acceptableAnswers": [
+      "future",
+      "the future"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It has not happened yet.",
+      "Tomorrow is part of it."
+    ],
+    "explanation": "The future lies ahead of us, but we cannot directly see it.",
+    "tags": [
+      "classic",
+      "abstract",
+      "time"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_011",
+    "shop": "paheli_dukaan",
+    "subtype": "household",
+    "title": "Wet While Drying",
+    "question": "I get wet while drying you. What am I?",
+    "answer": "Towel",
+    "acceptableAnswers": [
+      "towel",
+      "a towel",
+      "bath towel"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You use it after a bath.",
+      "It absorbs water from your body."
+    ],
+    "explanation": "A towel becomes wet as it dries a person or object.",
+    "tags": [
+      "classic",
+      "household",
+      "bath"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_012",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "One Eye No Sight",
+    "question": "I have one eye but cannot see. What am I?",
+    "answer": "Needle",
+    "acceptableAnswers": [
+      "needle",
+      "a needle",
+      "sewing needle"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is used with thread.",
+      "The thread passes through its eye."
+    ],
+    "explanation": "A needle has a hole called an eye, but it cannot see.",
+    "tags": [
+      "classic",
+      "object",
+      "sewing"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_013",
+    "shop": "paheli_dukaan",
+    "subtype": "nature",
+    "title": "Bed But No Sleep",
+    "question": "I have a bed but never sleep. What am I?",
+    "answer": "River",
+    "acceptableAnswers": [
+      "river",
+      "a river",
+      "river bed",
+      "riverbed"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is connected to flowing water.",
+      "The bottom of it is called a bed."
+    ],
+    "explanation": "A river has a riverbed, but it does not sleep.",
+    "tags": [
+      "classic",
+      "nature",
+      "water"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_014",
+    "shop": "paheli_dukaan",
+    "subtype": "abstract",
+    "title": "Fills A Room",
+    "question": "I can fill a room but take no space. What am I?",
+    "answer": "Light",
+    "acceptableAnswers": [
+      "light",
+      "a light"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It helps you see.",
+      "A lamp can create it."
+    ],
+    "explanation": "Light can fill a room visually, but it does not occupy space like a solid object.",
+    "tags": [
+      "classic",
+      "abstract",
+      "light"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_015",
+    "shop": "paheli_dukaan",
+    "subtype": "time",
+    "title": "Only Goes Up",
+    "question": "I only go up and never come down. What am I?",
+    "answer": "Age",
+    "acceptableAnswers": [
+      "age",
+      "your age",
+      "my age"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Everyone has it.",
+      "It increases every birthday."
+    ],
+    "explanation": "A person’s age increases over time and does not decrease.",
+    "tags": [
+      "classic",
+      "time",
+      "life"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_016",
+    "shop": "paheli_dukaan",
+    "subtype": "school",
+    "title": "Black When Clean",
+    "question": "I am black when clean and white when used. What am I?",
+    "answer": "Blackboard",
+    "acceptableAnswers": [
+      "blackboard",
+      "chalkboard",
+      "board",
+      "a blackboard",
+      "a chalkboard"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You may see it in a classroom.",
+      "Chalk makes it white when used."
+    ],
+    "explanation": "A blackboard is black when clean, and chalk marks make it appear white when used.",
+    "tags": [
+      "classic",
+      "school",
+      "classroom"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_017",
+    "shop": "paheli_dukaan",
+    "subtype": "food_nature",
+    "title": "Ears But No Hearing",
+    "question": "I have ears but cannot hear. What am I?",
+    "answer": "Corn",
+    "acceptableAnswers": [
+      "corn",
+      "ear of corn",
+      "maize",
+      "bhutta"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is something you can eat.",
+      "People say “ear of corn”."
+    ],
+    "explanation": "Corn can grow as an ear of corn, but it cannot hear.",
+    "tags": [
+      "classic",
+      "food",
+      "nature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_018",
+    "shop": "paheli_dukaan",
+    "subtype": "abstract",
+    "title": "Breaks When Spoken",
+    "question": "I break when you speak. What am I?",
+    "answer": "Silence",
+    "acceptableAnswers": [
+      "silence",
+      "the silence",
+      "quiet"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It exists when nobody is talking.",
+      "Speaking ends it."
+    ],
+    "explanation": "Silence is broken when someone speaks.",
+    "tags": [
+      "classic",
+      "abstract",
+      "sound"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_019",
+    "shop": "paheli_dukaan",
+    "subtype": "object",
+    "title": "Spine But No Bones",
+    "question": "I have a spine but no bones. What am I?",
+    "answer": "Book",
+    "acceptableAnswers": [
+      "book",
+      "a book",
+      "notebook"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You read it.",
+      "The bound edge is called a spine."
+    ],
+    "explanation": "A book has a spine, which is the bound edge, but it has no bones.",
+    "tags": [
+      "classic",
+      "object",
+      "reading"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "paheli_020",
+    "shop": "paheli_dukaan",
+    "subtype": "trick",
+    "title": "Others Use It More",
+    "question": "I belong to you, but others use me more than you do. What am I?",
+    "answer": "Your name",
+    "acceptableAnswers": [
+      "name",
+      "your name",
+      "my name"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It identifies you.",
+      "Other people say it when calling you."
+    ],
+    "explanation": "Your name belongs to you, but other people usually say it more often than you do.",
+    "tags": [
+      "classic",
+      "identity",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_001",
+    "shop": "emoji_puzzle",
+    "subtype": "animal_phrase",
+    "title": "Jungle Royalty",
+    "question": "Decode this: 🦁👑",
+    "answer": "Lion king",
+    "acceptableAnswers": [
+      "lion king",
+      "king of the jungle",
+      "lion",
+      "the lion king"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The first emoji is an animal.",
+      "The crown means king."
+    ],
+    "explanation": "The emojis show a lion and a crown, suggesting lion king or king of the jungle.",
+    "tags": [
+      "emoji",
+      "animal",
+      "phrase"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_002",
+    "shop": "emoji_puzzle",
+    "subtype": "vibe",
+    "title": "Monsoon Mood",
+    "question": "Decode this: 🌧️☕📖",
+    "answer": "Rainy day reading",
+    "acceptableAnswers": [
+      "rainy day reading",
+      "chai and book",
+      "reading with chai",
+      "monsoon reading",
+      "rain tea book",
+      "rainy reading"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "It shows rain, a hot drink, and a book.",
+      "Think of a cozy monsoon activity."
+    ],
+    "explanation": "The emojis suggest reading with tea or chai on a rainy day.",
+    "tags": [
+      "emoji",
+      "vibe",
+      "monsoon",
+      "reading"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_003",
+    "shop": "emoji_puzzle",
+    "subtype": "festival",
+    "title": "Lights And Sweets",
+    "question": "Decode this: 🪔🎆🍬",
+    "answer": "Diwali",
+    "acceptableAnswers": [
+      "diwali",
+      "deepavali"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is a festival of lights.",
+      "Diyas and sweets are common during it."
+    ],
+    "explanation": "Diyas, fireworks, and sweets are commonly associated with Diwali.",
+    "tags": [
+      "emoji",
+      "festival",
+      "india"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_004",
+    "shop": "emoji_puzzle",
+    "subtype": "school",
+    "title": "Morning Rush",
+    "question": "Decode this: 🚌🎒📚",
+    "answer": "Going to school",
+    "acceptableAnswers": [
+      "going to school",
+      "school",
+      "school trip",
+      "school bus",
+      "going for school"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The bag and books are clues.",
+      "The bus may take children there."
+    ],
+    "explanation": "The bus, bag, and books suggest going to school or a school trip.",
+    "tags": [
+      "emoji",
+      "school",
+      "daily-life"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_005",
+    "shop": "emoji_puzzle",
+    "subtype": "food",
+    "title": "Street Corner Snack",
+    "question": "Decode this: 🌽🔥🧂",
+    "answer": "Roasted corn",
+    "acceptableAnswers": [
+      "roasted corn",
+      "bhutta",
+      "corn",
+      "grilled corn",
+      "roasted bhutta"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is often eaten hot.",
+      "Salt may be rubbed on it."
+    ],
+    "explanation": "Corn, fire, and salt suggest roasted corn or bhutta.",
+    "tags": [
+      "emoji",
+      "food",
+      "street-food"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_006",
+    "shop": "emoji_puzzle",
+    "subtype": "drink",
+    "title": "Summer Cooler",
+    "question": "Decode this: 🍋🥤🧊",
+    "answer": "Lemonade",
+    "acceptableAnswers": [
+      "lemonade",
+      "nimbu pani",
+      "lemon drink",
+      "cold lemonade"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It uses lemon.",
+      "It is usually served cold."
+    ],
+    "explanation": "Lemon, a drink cup, and ice suggest lemonade or nimbu pani.",
+    "tags": [
+      "emoji",
+      "drink",
+      "summer"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_007",
+    "shop": "emoji_puzzle",
+    "subtype": "activity",
+    "title": "Match Day",
+    "question": "Decode this: 🏏🇮🇳👏",
+    "answer": "Cricket match",
+    "acceptableAnswers": [
+      "cricket match",
+      "cricket",
+      "india cricket",
+      "watching cricket"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The bat is the main clue.",
+      "The clapping suggests watching or cheering."
+    ],
+    "explanation": "The emojis suggest an Indian cricket match or cheering for cricket.",
+    "tags": [
+      "emoji",
+      "sport",
+      "india"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_008",
+    "shop": "emoji_puzzle",
+    "subtype": "nature",
+    "title": "Mango Time",
+    "question": "Decode this: 🌞🥭😎",
+    "answer": "Summer mango season",
+    "acceptableAnswers": [
+      "summer mango season",
+      "mango season",
+      "summer mango",
+      "mango summer",
+      "mango time"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The sun suggests summer.",
+      "The fruit is the main clue."
+    ],
+    "explanation": "The emojis suggest sunny summer days and mango season.",
+    "tags": [
+      "emoji",
+      "summer",
+      "food",
+      "india"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_009",
+    "shop": "emoji_puzzle",
+    "subtype": "game",
+    "title": "Board Game Classic",
+    "question": "Decode this: 🐍🪜🎲",
+    "answer": "Snakes and ladders",
+    "acceptableAnswers": [
+      "snakes and ladders",
+      "snake and ladder",
+      "snakes ladders",
+      "snake ladder"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is a board game.",
+      "The snake and ladder are both in the name."
+    ],
+    "explanation": "The snake, ladder, and dice point to Snakes and Ladders.",
+    "tags": [
+      "emoji",
+      "game",
+      "board-game"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_010",
+    "shop": "emoji_puzzle",
+    "subtype": "space",
+    "title": "Moon Mission",
+    "question": "Decode this: 🚀🌕🇮🇳",
+    "answer": "Moon mission",
+    "acceptableAnswers": [
+      "moon mission",
+      "space mission",
+      "india moon mission",
+      "chandrayaan",
+      "rocket to moon"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The rocket and moon are the main clues.",
+      "The flag points to India."
+    ],
+    "explanation": "The emojis suggest an Indian space or moon mission.",
+    "tags": [
+      "emoji",
+      "space",
+      "india",
+      "science"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_011",
+    "shop": "emoji_puzzle",
+    "subtype": "food",
+    "title": "Hot Aloo",
+    "question": "Decode this: 🥔🔥🍽️",
+    "answer": "Roasted potato",
+    "acceptableAnswers": [
+      "roasted potato",
+      "baked potato",
+      "hot potato",
+      "aloo snack",
+      "potato snack"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The first emoji is potato.",
+      "The fire suggests roasting or cooking."
+    ],
+    "explanation": "Potato, fire, and a plate suggest a cooked or roasted potato snack.",
+    "tags": [
+      "emoji",
+      "food",
+      "snack"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_012",
+    "shop": "emoji_puzzle",
+    "subtype": "home",
+    "title": "Phone Laughs",
+    "question": "Decode this: 📱💬😂",
+    "answer": "Funny chat",
+    "acceptableAnswers": [
+      "funny chat",
+      "chat joke",
+      "whatsapp joke",
+      "joking on phone",
+      "funny message"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "It happens on a phone.",
+      "The laughing face means the message is funny."
+    ],
+    "explanation": "The phone, chat bubble, and laughing face suggest a funny chat or joke message.",
+    "tags": [
+      "emoji",
+      "chat",
+      "daily-life"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_013",
+    "shop": "emoji_puzzle",
+    "subtype": "place",
+    "title": "Sea Side",
+    "question": "Decode this: 🌊🏖️🐚",
+    "answer": "Beach",
+    "acceptableAnswers": [
+      "beach",
+      "sea beach",
+      "seaside",
+      "sea side",
+      "beach trip"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "There is water and sand.",
+      "People may find shells there."
+    ],
+    "explanation": "Waves, a beach umbrella, and a shell suggest the beach.",
+    "tags": [
+      "emoji",
+      "place",
+      "travel"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_014",
+    "shop": "emoji_puzzle",
+    "subtype": "study",
+    "title": "Sleepy Study",
+    "question": "Decode this: 📖💤😴",
+    "answer": "Sleepy studying",
+    "acceptableAnswers": [
+      "sleepy studying",
+      "sleeping while studying",
+      "sleepy reading",
+      "tired studying",
+      "study sleep"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The book is the activity.",
+      "The sleepy face shows how the person feels."
+    ],
+    "explanation": "The emojis suggest someone getting sleepy while reading or studying.",
+    "tags": [
+      "emoji",
+      "school",
+      "study",
+      "funny"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_015",
+    "shop": "emoji_puzzle",
+    "subtype": "weather",
+    "title": "Rain Walk",
+    "question": "Decode this: ☔🌧️👟",
+    "answer": "Walking in rain",
+    "acceptableAnswers": [
+      "walking in rain",
+      "rain walk",
+      "walk in rain",
+      "rainy walk",
+      "walking during rain"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The umbrella and rain are important.",
+      "The shoe suggests walking."
+    ],
+    "explanation": "The umbrella, rain, and shoe suggest walking in the rain.",
+    "tags": [
+      "emoji",
+      "weather",
+      "monsoon"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_016",
+    "shop": "emoji_puzzle",
+    "subtype": "food",
+    "title": "Simple Meal",
+    "question": "Decode this: 🍚🥄😋",
+    "answer": "Rice meal",
+    "acceptableAnswers": [
+      "rice meal",
+      "rice",
+      "eating rice",
+      "rice food",
+      "tasty rice"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The bowl has rice.",
+      "The spoon and face show eating happily."
+    ],
+    "explanation": "The emojis suggest eating a tasty rice meal.",
+    "tags": [
+      "emoji",
+      "food",
+      "daily-life"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_017",
+    "shop": "emoji_puzzle",
+    "subtype": "animal_food",
+    "title": "Dairy Clue",
+    "question": "Decode this: 🐄🥛🥛",
+    "answer": "Cow milk",
+    "acceptableAnswers": [
+      "cow milk",
+      "milk",
+      "dairy milk",
+      "milk from cow"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The animal is the source.",
+      "The glass shows the product."
+    ],
+    "explanation": "The cow and milk glasses suggest cow milk.",
+    "tags": [
+      "emoji",
+      "animal",
+      "food",
+      "daily-life"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_018",
+    "shop": "emoji_puzzle",
+    "subtype": "travel",
+    "title": "Window Seat",
+    "question": "Decode this: 🚂☕🪟",
+    "answer": "Train journey with chai",
+    "acceptableAnswers": [
+      "train journey with chai",
+      "train journey",
+      "chai in train",
+      "train travel",
+      "train ride with tea"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The train is the main setting.",
+      "The tea and window suggest a travel mood."
+    ],
+    "explanation": "The emojis suggest a train journey, possibly with chai by the window.",
+    "tags": [
+      "emoji",
+      "travel",
+      "india",
+      "vibe"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_019",
+    "shop": "emoji_puzzle",
+    "subtype": "festival",
+    "title": "Color Splash",
+    "question": "Decode this: 🎨💦😄",
+    "answer": "Holi",
+    "acceptableAnswers": [
+      "holi",
+      "festival of colors",
+      "festival of colours",
+      "color festival",
+      "colour festival"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is linked with colors.",
+      "People often play with water and colors during it."
+    ],
+    "explanation": "Colors, water, and celebration suggest Holi.",
+    "tags": [
+      "emoji",
+      "festival",
+      "india"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "emoji_020",
+    "shop": "emoji_puzzle",
+    "subtype": "puzzle",
+    "title": "Unlock The Brain",
+    "question": "Decode this: 🧠🔒🔑",
+    "answer": "Brain puzzle",
+    "acceptableAnswers": [
+      "brain puzzle",
+      "unlock the answer",
+      "unlock brain",
+      "mind puzzle",
+      "puzzle solving"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "The brain is locked.",
+      "The key suggests solving or unlocking."
+    ],
+    "explanation": "The emojis suggest using your brain to unlock a puzzle or answer.",
+    "tags": [
+      "emoji",
+      "puzzle",
+      "brain"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_001",
+    "shop": "logic_laddoo",
+    "subtype": "trick",
+    "title": "Taken Mangoes",
+    "question": "A basket has 6 mangoes. You take away 2. How many do you have?",
+    "answer": "2",
+    "acceptableAnswers": [
+      "2",
+      "two",
+      "two mangoes",
+      "2 mangoes"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Read carefully: it asks how many you have.",
+      "You took 2 mangoes."
+    ],
+    "explanation": "You have the 2 mangoes that you took away.",
+    "tags": [
+      "logic",
+      "trick",
+      "counting"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_002",
+    "shop": "logic_laddoo",
+    "subtype": "trick",
+    "title": "Dry Umbrella",
+    "question": "Three friends walk under one umbrella. None of them gets wet. Why?",
+    "answer": "It was not raining",
+    "acceptableAnswers": [
+      "it was not raining",
+      "no rain",
+      "there was no rain",
+      "it did not rain",
+      "not raining"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Think about the weather.",
+      "The umbrella may not be needed."
+    ],
+    "explanation": "They did not get wet because it was not raining.",
+    "tags": [
+      "logic",
+      "trick",
+      "weather"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_003",
+    "shop": "logic_laddoo",
+    "subtype": "comparison",
+    "title": "Cotton Or Iron",
+    "question": "Which is heavier: 1 kg cotton or 1 kg iron?",
+    "answer": "Same weight",
+    "acceptableAnswers": [
+      "same",
+      "same weight",
+      "both same",
+      "equal",
+      "equal weight",
+      "neither"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Look at the unit.",
+      "Both are 1 kg."
+    ],
+    "explanation": "Both weigh 1 kg, so they are equal in weight.",
+    "tags": [
+      "logic",
+      "comparison",
+      "weight"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_004",
+    "shop": "logic_laddoo",
+    "subtype": "sequence",
+    "title": "Double It",
+    "question": "What comes next: 2, 4, 8, 16, ?",
+    "answer": "32",
+    "acceptableAnswers": [
+      "32",
+      "thirty two",
+      "thirty-two"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Each number is double the previous one.",
+      "Double 16."
+    ],
+    "explanation": "The sequence doubles each time: 2, 4, 8, 16, 32.",
+    "tags": [
+      "logic",
+      "sequence",
+      "math"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_005",
+    "shop": "logic_laddoo",
+    "subtype": "sequence",
+    "title": "Growing Sum",
+    "question": "What comes next: 1, 1, 2, 3, 5, ?",
+    "answer": "8",
+    "acceptableAnswers": [
+      "8",
+      "eight"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Each number is made by adding the previous two.",
+      "3 + 5 gives the next number."
+    ],
+    "explanation": "This is the Fibonacci pattern. 3 + 5 = 8.",
+    "tags": [
+      "logic",
+      "sequence",
+      "math"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_006",
+    "shop": "logic_laddoo",
+    "subtype": "family_logic",
+    "title": "Three Daughters",
+    "question": "Riya’s father has three daughters: Siya, Piya, and __?",
+    "answer": "Riya",
+    "acceptableAnswers": [
+      "riya"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Read the first two words again.",
+      "It says Riya’s father."
+    ],
+    "explanation": "The question says Riya’s father, so the third daughter is Riya.",
+    "tags": [
+      "logic",
+      "family",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_007",
+    "shop": "logic_laddoo",
+    "subtype": "counting",
+    "title": "Three Laddoos",
+    "question": "Two mothers and two daughters eat 3 laddoos. Each gets one. How is this possible?",
+    "answer": "Grandmother, mother, and daughter",
+    "acceptableAnswers": [
+      "grandmother mother daughter",
+      "grandmother mother and daughter",
+      "nani mother daughter",
+      "dadi mother daughter",
+      "three people",
+      "one is both mother and daughter"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "There may be only three people.",
+      "One person can be both a mother and a daughter."
+    ],
+    "explanation": "A grandmother, her daughter, and granddaughter make two mothers and two daughters, but only three people.",
+    "tags": [
+      "logic",
+      "family",
+      "counting",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_008",
+    "shop": "logic_laddoo",
+    "subtype": "calendar",
+    "title": "Twenty Eight Days",
+    "question": "Which month has 28 days?",
+    "answer": "All months",
+    "acceptableAnswers": [
+      "all months",
+      "every month",
+      "all",
+      "each month"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Do not think only of February.",
+      "Every month has at least 28 days."
+    ],
+    "explanation": "All months have at least 28 days.",
+    "tags": [
+      "logic",
+      "calendar",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_009",
+    "shop": "logic_laddoo",
+    "subtype": "animal_logic",
+    "title": "Cats And Rats",
+    "question": "Five cats catch five rats in five minutes. How long does one cat take to catch one rat?",
+    "answer": "Five minutes",
+    "acceptableAnswers": [
+      "five minutes",
+      "5 minutes",
+      "5 min",
+      "five min"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Each cat catches one rat.",
+      "The time stays the same."
+    ],
+    "explanation": "Each cat catches one rat in five minutes.",
+    "tags": [
+      "logic",
+      "ratio",
+      "animals"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_010",
+    "shop": "logic_laddoo",
+    "subtype": "trick",
+    "title": "Electric Train",
+    "question": "An electric train moves east. Which way does the smoke go?",
+    "answer": "No smoke",
+    "acceptableAnswers": [
+      "no smoke",
+      "there is no smoke",
+      "electric train has no smoke",
+      "none"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Notice what kind of train it is.",
+      "Electric trains do not produce smoke like steam trains."
+    ],
+    "explanation": "An electric train does not produce smoke.",
+    "tags": [
+      "logic",
+      "trick",
+      "transport"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_011",
+    "shop": "logic_laddoo",
+    "subtype": "number_trick",
+    "title": "Subtracting Ten",
+    "question": "How many times can you subtract 10 from 100?",
+    "answer": "Once",
+    "acceptableAnswers": [
+      "once",
+      "one time",
+      "1",
+      "1 time"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "After the first subtraction, the number is no longer 100.",
+      "Then you are subtracting from 90, not 100."
+    ],
+    "explanation": "You can subtract 10 from 100 only once. After that, the number becomes 90.",
+    "tags": [
+      "logic",
+      "math",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_012",
+    "shop": "logic_laddoo",
+    "subtype": "weight",
+    "title": "Rice Or Iron",
+    "question": "Which weighs more: 2 kg rice or 1 kg iron?",
+    "answer": "2 kg rice",
+    "acceptableAnswers": [
+      "2 kg rice",
+      "rice",
+      "two kg rice",
+      "2 kilogram rice",
+      "2 kilograms rice"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Compare the numbers first.",
+      "2 kg is heavier than 1 kg."
+    ],
+    "explanation": "2 kg of rice weighs more than 1 kg of iron.",
+    "tags": [
+      "logic",
+      "comparison",
+      "weight"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_013",
+    "shop": "logic_laddoo",
+    "subtype": "pattern",
+    "title": "Add Three",
+    "question": "What comes next: 3, 6, 9, 12, ?",
+    "answer": "15",
+    "acceptableAnswers": [
+      "15",
+      "fifteen"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Each number increases by 3.",
+      "12 + 3 gives the next number."
+    ],
+    "explanation": "The sequence increases by 3 each time, so the next number is 15.",
+    "tags": [
+      "logic",
+      "pattern",
+      "math"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_014",
+    "shop": "logic_laddoo",
+    "subtype": "odd_one_out",
+    "title": "Not Prime",
+    "question": "Odd one out: 2, 3, 5, 7, 9",
+    "answer": "9",
+    "acceptableAnswers": [
+      "9",
+      "nine"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Most numbers in the list are prime.",
+      "9 can be divided by 3."
+    ],
+    "explanation": "2, 3, 5, and 7 are prime numbers. 9 is not prime.",
+    "tags": [
+      "logic",
+      "math",
+      "prime",
+      "odd-one-out"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_015",
+    "shop": "logic_laddoo",
+    "subtype": "date_logic",
+    "title": "Yesterday Was Monday",
+    "question": "If yesterday was Monday, what is tomorrow?",
+    "answer": "Wednesday",
+    "acceptableAnswers": [
+      "wednesday"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "If yesterday was Monday, today is Tuesday.",
+      "The day after Tuesday is Wednesday."
+    ],
+    "explanation": "If yesterday was Monday, today is Tuesday, so tomorrow is Wednesday.",
+    "tags": [
+      "logic",
+      "calendar",
+      "days"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_016",
+    "shop": "logic_laddoo",
+    "subtype": "letter_logic",
+    "title": "Minute And Moment",
+    "question": "What comes once in a minute, twice in a moment, but never in a thousand years?",
+    "answer": "Letter M",
+    "acceptableAnswers": [
+      "m",
+      "letter m",
+      "the letter m"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Think about letters, not time.",
+      "Count the letter M in the words."
+    ],
+    "explanation": "The letter M appears once in minute, twice in moment, and not at all in a thousand years.",
+    "tags": [
+      "logic",
+      "letters",
+      "wordplay",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_017",
+    "shop": "logic_laddoo",
+    "subtype": "shop_math",
+    "title": "Laddoo Budget",
+    "question": "A laddoo costs ₹5. How many laddoos can you buy for ₹20?",
+    "answer": "4",
+    "acceptableAnswers": [
+      "4",
+      "four",
+      "4 laddoos",
+      "four laddoos"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Divide 20 by 5.",
+      "₹20 can buy four items of ₹5 each."
+    ],
+    "explanation": "₹20 ÷ ₹5 = 4.",
+    "tags": [
+      "logic",
+      "money",
+      "math",
+      "bazaar"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_018",
+    "shop": "logic_laddoo",
+    "subtype": "counting",
+    "title": "Birds On Tree",
+    "question": "Ten birds sit on a tree. Two fly away. How many remain?",
+    "answer": "8",
+    "acceptableAnswers": [
+      "8",
+      "eight",
+      "8 birds",
+      "eight birds"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Start with 10 birds.",
+      "Subtract the 2 that fly away."
+    ],
+    "explanation": "10 - 2 = 8.",
+    "tags": [
+      "logic",
+      "counting",
+      "animals"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_019",
+    "shop": "logic_laddoo",
+    "subtype": "common_sense",
+    "title": "Lighter Cup",
+    "question": "A cup is full of water. How can you make it lighter without touching it?",
+    "answer": "Wait for the water to evaporate",
+    "acceptableAnswers": [
+      "wait for water to evaporate",
+      "evaporation",
+      "let it evaporate",
+      "wait",
+      "wait for evaporation"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "Do not touch the cup.",
+      "Water can slowly leave as vapor."
+    ],
+    "explanation": "If you wait, some water can evaporate, making the cup lighter without touching it.",
+    "tags": [
+      "logic",
+      "science",
+      "common-sense",
+      "trick"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "logic_020",
+    "shop": "logic_laddoo",
+    "subtype": "direction",
+    "title": "Turn Twice",
+    "question": "You face north, turn right, then right again. Which direction are you facing?",
+    "answer": "South",
+    "acceptableAnswers": [
+      "south"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Facing north, a right turn makes you face east.",
+      "From east, another right turn makes you face south."
+    ],
+    "explanation": "North → east → south.",
+    "tags": [
+      "logic",
+      "direction",
+      "spatial-thinking"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_001",
+    "shop": "word_jumble_paan",
+    "subtype": "jumble",
+    "title": "Water Twist",
+    "question": "Unscramble this word: TAREW",
+    "answer": "WATER",
+    "acceptableAnswers": [
+      "water"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You drink it.",
+      "It starts with W."
+    ],
+    "explanation": "TAREW can be rearranged to make WATER.",
+    "tags": [
+      "word",
+      "jumble",
+      "basic-vocabulary"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_002",
+    "shop": "word_jumble_paan",
+    "subtype": "jumble",
+    "title": "Fruit Shuffle",
+    "question": "Unscramble this word: LPEAP",
+    "answer": "APPLE",
+    "acceptableAnswers": [
+      "apple"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is a fruit.",
+      "It starts with A."
+    ],
+    "explanation": "LPEAP can be rearranged to make APPLE.",
+    "tags": [
+      "word",
+      "jumble",
+      "fruit"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_003",
+    "shop": "word_jumble_paan",
+    "subtype": "jumble",
+    "title": "Classroom Mix",
+    "question": "Unscramble this word: LPOHCS",
+    "answer": "SCHOOL",
+    "acceptableAnswers": [
+      "school"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Children go there to learn.",
+      "It starts with S."
+    ],
+    "explanation": "LPOHCS can be rearranged to make SCHOOL.",
+    "tags": [
+      "word",
+      "jumble",
+      "school"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_004",
+    "shop": "word_jumble_paan",
+    "subtype": "jumble",
+    "title": "Buddy Letters",
+    "question": "Unscramble this word: NEIRFD",
+    "answer": "FRIEND",
+    "acceptableAnswers": [
+      "friend"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Someone you like spending time with.",
+      "It starts with F."
+    ],
+    "explanation": "NEIRFD can be rearranged to make FRIEND.",
+    "tags": [
+      "word",
+      "jumble",
+      "relationship"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_005",
+    "shop": "word_jumble_paan",
+    "subtype": "jumble",
+    "title": "Move With Music",
+    "question": "Unscramble this word: NACED",
+    "answer": "DANCE",
+    "acceptableAnswers": [
+      "dance"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You may do it with music.",
+      "It starts with D."
+    ],
+    "explanation": "NACED can be rearranged to make DANCE.",
+    "tags": [
+      "word",
+      "jumble",
+      "activity"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_006",
+    "shop": "word_jumble_paan",
+    "subtype": "hidden_word",
+    "title": "Rainbow Secret",
+    "question": "Find one hidden word inside RAINBOW.",
+    "answer": "RAIN",
+    "acceptableAnswers": [
+      "rain",
+      "bow"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Look at the first four letters.",
+      "There is also a word at the end."
+    ],
+    "explanation": "RAINBOW contains the hidden words RAIN and BOW.",
+    "tags": [
+      "word",
+      "hidden-word",
+      "nature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_007",
+    "shop": "word_jumble_paan",
+    "subtype": "hidden_word",
+    "title": "Starfish Secret",
+    "question": "Find one hidden word inside STARFISH.",
+    "answer": "STAR",
+    "acceptableAnswers": [
+      "star",
+      "fish"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Look at the beginning.",
+      "There is another word at the end."
+    ],
+    "explanation": "STARFISH contains the hidden words STAR and FISH.",
+    "tags": [
+      "word",
+      "hidden-word",
+      "animal",
+      "space"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_008",
+    "shop": "word_jumble_paan",
+    "subtype": "hidden_word",
+    "title": "Notebook Secret",
+    "question": "Find one hidden word inside NOTEBOOK.",
+    "answer": "NOTE",
+    "acceptableAnswers": [
+      "note",
+      "book"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The word has two smaller words.",
+      "One is something you read."
+    ],
+    "explanation": "NOTEBOOK contains NOTE and BOOK.",
+    "tags": [
+      "word",
+      "hidden-word",
+      "school"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_009",
+    "shop": "word_jumble_paan",
+    "subtype": "hidden_word",
+    "title": "Butterfly Secret",
+    "question": "Find one hidden word inside BUTTERFLY.",
+    "answer": "FLY",
+    "acceptableAnswers": [
+      "butter",
+      "fly"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Look at the end.",
+      "It is something an insect can do."
+    ],
+    "explanation": "BUTTERFLY contains BUTTER and FLY.",
+    "tags": [
+      "word",
+      "hidden-word",
+      "animal"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_010",
+    "shop": "word_jumble_paan",
+    "subtype": "missing_letter",
+    "title": "Sun Gap",
+    "question": "Complete the word: S_N",
+    "answer": "SUN",
+    "acceptableAnswers": [
+      "sun"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You see it during the day.",
+      "The missing letter is U."
+    ],
+    "explanation": "S_N becomes SUN when U is added.",
+    "tags": [
+      "word",
+      "missing-letter",
+      "space"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_011",
+    "shop": "word_jumble_paan",
+    "subtype": "missing_letter",
+    "title": "Plant Gap",
+    "question": "Complete the word: PLA_T",
+    "answer": "PLANT",
+    "acceptableAnswers": [
+      "plant"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It grows in soil.",
+      "The missing letter is N."
+    ],
+    "explanation": "PLA_T becomes PLANT when N is added.",
+    "tags": [
+      "word",
+      "missing-letter",
+      "nature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_012",
+    "shop": "word_jumble_paan",
+    "subtype": "missing_letter",
+    "title": "Brain Gap",
+    "question": "Complete the word: B_AIN",
+    "answer": "BRAIN",
+    "acceptableAnswers": [
+      "brain"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You use it for thinking.",
+      "The missing letter is R."
+    ],
+    "explanation": "B_AIN becomes BRAIN when R is added.",
+    "tags": [
+      "word",
+      "missing-letter",
+      "body"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_013",
+    "shop": "word_jumble_paan",
+    "subtype": "rhyme",
+    "title": "Moon Rhyme",
+    "question": "Complete the rhyme: moon, spoon, ___.",
+    "answer": "Soon",
+    "acceptableAnswers": [
+      "soon",
+      "noon",
+      "boon"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The answer should sound like moon.",
+      "A common answer is SOON."
+    ],
+    "explanation": "Soon, noon, and boon all rhyme with moon and spoon.",
+    "tags": [
+      "word",
+      "rhyme",
+      "sound"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_014",
+    "shop": "word_jumble_paan",
+    "subtype": "rhyme",
+    "title": "Rain Rhyme",
+    "question": "Complete the rhyme: rain, train, ___.",
+    "answer": "Brain",
+    "acceptableAnswers": [
+      "brain",
+      "chain",
+      "plain",
+      "grain"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The answer should sound like rain.",
+      "Brain, chain, and plain all work."
+    ],
+    "explanation": "Brain, chain, plain, and grain rhyme with rain and train.",
+    "tags": [
+      "word",
+      "rhyme",
+      "sound"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_015",
+    "shop": "word_jumble_paan",
+    "subtype": "association",
+    "title": "Animal Babies",
+    "question": "Cat is to kitten as dog is to ___.",
+    "answer": "Puppy",
+    "acceptableAnswers": [
+      "puppy",
+      "pup"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "A kitten is a baby cat.",
+      "A puppy is a baby dog."
+    ],
+    "explanation": "A kitten is a young cat, and a puppy is a young dog.",
+    "tags": [
+      "word",
+      "association",
+      "animals"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_016",
+    "shop": "word_jumble_paan",
+    "subtype": "association",
+    "title": "Opposite Pair",
+    "question": "Day is to night as hot is to ___.",
+    "answer": "Cold",
+    "acceptableAnswers": [
+      "cold"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Day and night are opposites.",
+      "The opposite of hot is cold."
+    ],
+    "explanation": "The relationship is based on opposites: day/night and hot/cold.",
+    "tags": [
+      "word",
+      "association",
+      "opposites"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_017",
+    "shop": "word_jumble_paan",
+    "subtype": "word_trick",
+    "title": "Shorter Word",
+    "question": "What five-letter word becomes shorter when you add two letters?",
+    "answer": "Short",
+    "acceptableAnswers": [
+      "short"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Think about the word itself.",
+      "Add E and R to the word."
+    ],
+    "explanation": "The word SHORT becomes SHORTER when you add E and R.",
+    "tags": [
+      "word",
+      "trick",
+      "letters"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_018",
+    "shop": "word_jumble_paan",
+    "subtype": "reverse",
+    "title": "Stressed Sweetness",
+    "question": "What is STRESSED backwards?",
+    "answer": "DESSERTS",
+    "acceptableAnswers": [
+      "desserts"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Read the letters from right to left.",
+      "The answer is something sweet."
+    ],
+    "explanation": "STRESSED spelled backwards becomes DESSERTS.",
+    "tags": [
+      "word",
+      "reverse",
+      "spelling"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_019",
+    "shop": "word_jumble_paan",
+    "subtype": "letter_removal",
+    "title": "Plant To Clothing",
+    "question": "Remove one letter from PLANT to make something you wear.",
+    "answer": "Pant",
+    "acceptableAnswers": [
+      "pant",
+      "pants"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Remove the letter L.",
+      "The answer is worn on the lower body."
+    ],
+    "explanation": "Removing L from PLANT gives PANT.",
+    "tags": [
+      "word",
+      "letter-removal",
+      "clothing"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "word_020",
+    "shop": "word_jumble_paan",
+    "subtype": "word_meaning",
+    "title": "Puzzle Word",
+    "question": "I am a word for a small story clue. I also mean a puzzle question. What am I?",
+    "answer": "Riddle",
+    "acceptableAnswers": [
+      "riddle",
+      "paheli"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "This whole app is full of them.",
+      "In Hindi, you may call it paheli."
+    ],
+    "explanation": "A riddle is a puzzle question that gives clues toward an answer.",
+    "tags": [
+      "word",
+      "meaning",
+      "paheli"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_001",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "New Beginnings",
+    "question": "I have an elephant head and am remembered before many new beginnings. Who am I?",
+    "answer": "Ganesha",
+    "acceptableAnswers": [
+      "ganesha",
+      "ganesh",
+      "lord ganesha",
+      "ganapati",
+      "ganpati"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The elephant head is the key clue.",
+      "He is often linked with beginnings."
+    ],
+    "explanation": "Ganesha is commonly associated with an elephant head and new beginnings in many Indian cultural traditions.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_002",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "Mountain Carrier",
+    "question": "I am known for devotion to Rama and for carrying a mountain in a famous story. Who am I?",
+    "answer": "Hanuman",
+    "acceptableAnswers": [
+      "hanuman",
+      "hanuman ji",
+      "lord hanuman"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He appears in the Ramayana.",
+      "He is often linked with strength and devotion."
+    ],
+    "explanation": "Hanuman is widely known from the Ramayana tradition and is associated with carrying a mountain in a famous story episode.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_003",
+    "shop": "mythology_clue",
+    "subtype": "symbol",
+    "title": "Peacock Feather",
+    "question": "A peacock feather is commonly associated with which figure?",
+    "answer": "Krishna",
+    "acceptableAnswers": [
+      "krishna",
+      "lord krishna",
+      "kanha"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is often shown with a flute.",
+      "He is also commonly shown with a peacock feather."
+    ],
+    "explanation": "Krishna is commonly represented in Indian art and stories with a peacock feather.",
+    "tags": [
+      "mythology",
+      "culture",
+      "symbol"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_004",
+    "shop": "mythology_clue",
+    "subtype": "festival",
+    "title": "Festival Of Lights",
+    "question": "Diyas, sweets, and lights are linked with which festival?",
+    "answer": "Diwali",
+    "acceptableAnswers": [
+      "diwali",
+      "deepavali"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is often called the festival of lights.",
+      "Diyas are a major clue."
+    ],
+    "explanation": "Diwali, also called Deepavali, is widely associated with lights, diyas, and sweets.",
+    "tags": [
+      "mythology",
+      "culture",
+      "festival"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_005",
+    "shop": "mythology_clue",
+    "subtype": "festival",
+    "title": "Festival Of Colors",
+    "question": "Colors, water, and playful celebration are linked with which festival?",
+    "answer": "Holi",
+    "acceptableAnswers": [
+      "holi",
+      "festival of colors",
+      "festival of colours"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "People often play with colors during it.",
+      "It is commonly called the festival of colors."
+    ],
+    "explanation": "Holi is widely known as a festival of colors.",
+    "tags": [
+      "mythology",
+      "culture",
+      "festival"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_006",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "Ayodhya Return",
+    "question": "A bow, exile, and return to Ayodhya are associated with whom?",
+    "answer": "Rama",
+    "acceptableAnswers": [
+      "rama",
+      "ram",
+      "lord rama",
+      "shri ram",
+      "sri rama"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is a central figure in the Ramayana.",
+      "Ayodhya is a major clue."
+    ],
+    "explanation": "Rama is a central figure in the Ramayana tradition, where exile and return to Ayodhya are major story elements.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_007",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "Veena And Learning",
+    "question": "In many stories and images, she is linked with learning, music, and the veena. Who is she?",
+    "answer": "Saraswati",
+    "acceptableAnswers": [
+      "saraswati",
+      "maa saraswati",
+      "goddess saraswati"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The veena is a major clue.",
+      "She is commonly associated with knowledge."
+    ],
+    "explanation": "Saraswati is commonly associated with learning, music, and the veena.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_008",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "Lotus And Prosperity",
+    "question": "Lotus and prosperity are commonly associated with which goddess?",
+    "answer": "Lakshmi",
+    "acceptableAnswers": [
+      "lakshmi",
+      "maa lakshmi",
+      "goddess lakshmi",
+      "laxmi"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "She is commonly associated with prosperity.",
+      "A lotus is often shown with her."
+    ],
+    "explanation": "Lakshmi is commonly associated with prosperity and lotuses in Indian cultural imagery.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_009",
+    "shop": "mythology_clue",
+    "subtype": "symbol",
+    "title": "Trident And Damaru",
+    "question": "Trident and damaru are commonly associated with whom?",
+    "answer": "Shiva",
+    "acceptableAnswers": [
+      "shiva",
+      "lord shiva",
+      "mahadev"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The trident is also called trishul.",
+      "Mahadev is another common name."
+    ],
+    "explanation": "Shiva is commonly represented with a trident and damaru.",
+    "tags": [
+      "mythology",
+      "culture",
+      "symbol"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_010",
+    "shop": "mythology_clue",
+    "subtype": "vehicle",
+    "title": "Garuda Clue",
+    "question": "The eagle-like Garuda is commonly associated with which deity?",
+    "answer": "Vishnu",
+    "acceptableAnswers": [
+      "vishnu",
+      "lord vishnu"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Garuda is commonly described as a mount or vehicle.",
+      "Think of the deity often associated with preservation in many traditions."
+    ],
+    "explanation": "Garuda is commonly associated with Vishnu in Indian mythology.",
+    "tags": [
+      "mythology",
+      "culture",
+      "vehicle"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_011",
+    "shop": "mythology_clue",
+    "subtype": "vehicle",
+    "title": "Nandi Clue",
+    "question": "Nandi the bull is commonly associated with whom?",
+    "answer": "Shiva",
+    "acceptableAnswers": [
+      "shiva",
+      "lord shiva",
+      "mahadev"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Nandi is often shown near Shiva temples.",
+      "The answer is also associated with the trident."
+    ],
+    "explanation": "Nandi the bull is commonly associated with Shiva.",
+    "tags": [
+      "mythology",
+      "culture",
+      "vehicle"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_012",
+    "shop": "mythology_clue",
+    "subtype": "epic",
+    "title": "Archer Pandava",
+    "question": "The Pandava known especially for archery skill is who?",
+    "answer": "Arjuna",
+    "acceptableAnswers": [
+      "arjuna",
+      "arjun"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is a major figure in the Mahabharata.",
+      "His bow and archery skill are major clues."
+    ],
+    "explanation": "Arjuna is one of the Pandavas and is especially known for archery.",
+    "tags": [
+      "mythology",
+      "culture",
+      "epic"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_013",
+    "shop": "mythology_clue",
+    "subtype": "epic",
+    "title": "Strong Pandava",
+    "question": "The Pandava often known for great physical strength is who?",
+    "answer": "Bhima",
+    "acceptableAnswers": [
+      "bhima",
+      "bheem",
+      "bhim"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is one of the Pandavas.",
+      "Strength is the main clue."
+    ],
+    "explanation": "Bhima is one of the Pandavas and is commonly known for great physical strength.",
+    "tags": [
+      "mythology",
+      "culture",
+      "epic"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_014",
+    "shop": "mythology_clue",
+    "subtype": "story_figure",
+    "title": "Travelling Sage",
+    "question": "A travelling sage with a veena, often appearing across stories, is who?",
+    "answer": "Narada",
+    "acceptableAnswers": [
+      "narada",
+      "narad",
+      "narada muni",
+      "narad muni"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is often shown carrying a veena.",
+      "He appears in many stories as a messenger-like sage."
+    ],
+    "explanation": "Narada is often described as a travelling sage associated with the veena.",
+    "tags": [
+      "mythology",
+      "culture",
+      "story_figure"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_015",
+    "shop": "mythology_clue",
+    "subtype": "story_figure",
+    "title": "Ten-Headed Figure",
+    "question": "The ten-headed figure in the Ramayana story is who?",
+    "answer": "Ravana",
+    "acceptableAnswers": [
+      "ravana",
+      "ravan"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "He is a major figure in the Ramayana.",
+      "The ten heads are the main clue."
+    ],
+    "explanation": "Ravana is commonly described as a ten-headed figure in the Ramayana tradition.",
+    "tags": [
+      "mythology",
+      "culture",
+      "story_figure"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_016",
+    "shop": "mythology_clue",
+    "subtype": "festival",
+    "title": "Ravana Effigy",
+    "question": "Effigies of Ravana are burned in many celebrations of which festival?",
+    "answer": "Dussehra",
+    "acceptableAnswers": [
+      "dussehra",
+      "dashami",
+      "vijayadashami",
+      "vijaya dashami"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is also called Vijayadashami.",
+      "It is linked with the Ramayana in many regions."
+    ],
+    "explanation": "In many places, Dussehra or Vijayadashami includes the burning of Ravana effigies.",
+    "tags": [
+      "mythology",
+      "culture",
+      "festival"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_017",
+    "shop": "mythology_clue",
+    "subtype": "river_story",
+    "title": "Sacred River",
+    "question": "The river Ganga is often personified as which goddess?",
+    "answer": "Ganga",
+    "acceptableAnswers": [
+      "ganga",
+      "goddess ganga",
+      "maa ganga"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The answer has the same name as the river.",
+      "She is often represented as a goddess."
+    ],
+    "explanation": "The Ganga river is often personified as Goddess Ganga in Indian cultural traditions.",
+    "tags": [
+      "mythology",
+      "culture",
+      "river_story"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_018",
+    "shop": "mythology_clue",
+    "subtype": "character",
+    "title": "Mahishasura Story",
+    "question": "The goddess often shown fighting Mahishasura is who?",
+    "answer": "Durga",
+    "acceptableAnswers": [
+      "durga",
+      "maa durga",
+      "goddess durga"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "She is central to many Navaratri and Durga Puja traditions.",
+      "She is often shown riding a lion or tiger."
+    ],
+    "explanation": "Durga is commonly associated with the story of fighting Mahishasura.",
+    "tags": [
+      "mythology",
+      "culture",
+      "character"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_019",
+    "shop": "mythology_clue",
+    "subtype": "symbol",
+    "title": "Conch Shell",
+    "question": "The conch shell used in many stories and rituals is called what?",
+    "answer": "Shankha",
+    "acceptableAnswers": [
+      "shankha",
+      "shankh",
+      "conch",
+      "conch shell"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is often blown to make a sound.",
+      "The Sanskrit/Hindi word sounds like shankh."
+    ],
+    "explanation": "A conch shell is commonly called shankha or shankh in Indian cultural contexts.",
+    "tags": [
+      "mythology",
+      "culture",
+      "symbol"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "myth_020",
+    "shop": "mythology_clue",
+    "subtype": "object",
+    "title": "Krishna’s Music",
+    "question": "Krishna is often shown playing which musical instrument?",
+    "answer": "Flute",
+    "acceptableAnswers": [
+      "flute",
+      "bansuri"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is a wind instrument.",
+      "It is also called bansuri."
+    ],
+    "explanation": "Krishna is commonly shown playing the flute or bansuri in Indian art and stories.",
+    "tags": [
+      "mythology",
+      "culture",
+      "object"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_001",
+    "shop": "science_magic",
+    "subtype": "light",
+    "title": "Sunlight Companion",
+    "question": "I follow you in sunlight but disappear in darkness. What am I?",
+    "answer": "Shadow",
+    "acceptableAnswers": [
+      "shadow",
+      "a shadow",
+      "my shadow"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It appears when light is blocked.",
+      "You can see it on the ground in sunlight."
+    ],
+    "explanation": "A shadow forms when an object blocks light.",
+    "tags": [
+      "science",
+      "light",
+      "shadow"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_002",
+    "shop": "science_magic",
+    "subtype": "body_nature",
+    "title": "Invisible Breathing Helper",
+    "question": "I am invisible, but humans need me to breathe. What am I?",
+    "answer": "Oxygen",
+    "acceptableAnswers": [
+      "oxygen",
+      "o2"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is a gas in air.",
+      "Your lungs take it in when you breathe."
+    ],
+    "explanation": "Humans need oxygen from the air for respiration.",
+    "tags": [
+      "science",
+      "air",
+      "body",
+      "oxygen"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_003",
+    "shop": "science_magic",
+    "subtype": "force",
+    "title": "Invisible Pull",
+    "question": "I pull things down, but you cannot see me. What am I?",
+    "answer": "Gravity",
+    "acceptableAnswers": [
+      "gravity",
+      "gravitational force"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It keeps us on Earth.",
+      "It makes dropped objects fall."
+    ],
+    "explanation": "Gravity is the force that pulls objects toward Earth.",
+    "tags": [
+      "science",
+      "force",
+      "gravity"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_004",
+    "shop": "science_magic",
+    "subtype": "space",
+    "title": "Closest Star",
+    "question": "I am the closest star to Earth. What am I?",
+    "answer": "Sun",
+    "acceptableAnswers": [
+      "sun",
+      "the sun",
+      "surya"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You see it during the day.",
+      "It gives Earth heat and light."
+    ],
+    "explanation": "The Sun is the closest star to Earth and gives us heat and light.",
+    "tags": [
+      "science",
+      "space",
+      "sun"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_005",
+    "shop": "science_magic",
+    "subtype": "plants",
+    "title": "Plant Food Magic",
+    "question": "Plants use sunlight to make food. What is this process called?",
+    "answer": "Photosynthesis",
+    "acceptableAnswers": [
+      "photosynthesis"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It starts with photo.",
+      "Green plants make food using sunlight."
+    ],
+    "explanation": "Photosynthesis is the process by which green plants use sunlight, water, and carbon dioxide to make food.",
+    "tags": [
+      "science",
+      "plants",
+      "photosynthesis"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_006",
+    "shop": "science_magic",
+    "subtype": "water_cycle",
+    "title": "Water To Vapor",
+    "question": "When water turns into vapor, what is it called?",
+    "answer": "Evaporation",
+    "acceptableAnswers": [
+      "evaporation",
+      "evaporating"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It can happen when water is heated.",
+      "Water changes from liquid to gas."
+    ],
+    "explanation": "Evaporation is the process where liquid water changes into water vapor.",
+    "tags": [
+      "science",
+      "water-cycle",
+      "evaporation"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_007",
+    "shop": "science_magic",
+    "subtype": "water_cycle",
+    "title": "Vapor To Drops",
+    "question": "When water vapor cools and becomes tiny drops, what is it called?",
+    "answer": "Condensation",
+    "acceptableAnswers": [
+      "condensation",
+      "condensing"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It often helps form clouds.",
+      "Gas changes back into liquid droplets."
+    ],
+    "explanation": "Condensation happens when water vapor cools and changes into liquid droplets.",
+    "tags": [
+      "science",
+      "water-cycle",
+      "condensation"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_008",
+    "shop": "science_magic",
+    "subtype": "light",
+    "title": "Rain And Sun Colors",
+    "question": "I appear when sunlight meets rain droplets. What am I?",
+    "answer": "Rainbow",
+    "acceptableAnswers": [
+      "rainbow",
+      "a rainbow"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It has many colors.",
+      "It often appears after or during rain when sunlight is present."
+    ],
+    "explanation": "A rainbow can appear when sunlight interacts with water droplets.",
+    "tags": [
+      "science",
+      "light",
+      "rainbow",
+      "weather"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_009",
+    "shop": "science_magic",
+    "subtype": "sound",
+    "title": "Sound Source",
+    "question": "Sound is made when things do what?",
+    "answer": "Vibrate",
+    "acceptableAnswers": [
+      "vibrate",
+      "vibrates",
+      "vibration",
+      "make vibrations"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "A guitar string does it when plucked.",
+      "The word starts with V."
+    ],
+    "explanation": "Sound is produced by vibrations.",
+    "tags": [
+      "science",
+      "sound",
+      "vibration"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_010",
+    "shop": "science_magic",
+    "subtype": "magnetism",
+    "title": "Magnet Metal",
+    "question": "Magnets strongly attract which common metal?",
+    "answer": "Iron",
+    "acceptableAnswers": [
+      "iron",
+      "loha"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is used in many tools and structures.",
+      "In Hindi, it is called loha."
+    ],
+    "explanation": "Magnets strongly attract iron and some iron-containing materials.",
+    "tags": [
+      "science",
+      "magnetism",
+      "metal"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_011",
+    "shop": "science_magic",
+    "subtype": "water",
+    "title": "Freezing Point",
+    "question": "Pure water freezes at about what temperature?",
+    "answer": "0°C",
+    "acceptableAnswers": [
+      "0",
+      "0 c",
+      "0c",
+      "0°c",
+      "zero degrees celsius",
+      "0 degrees celsius"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is measured in degrees Celsius.",
+      "It is zero on the Celsius scale."
+    ],
+    "explanation": "Pure water freezes at about 0°C under standard conditions.",
+    "tags": [
+      "science",
+      "water",
+      "temperature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_012",
+    "shop": "science_magic",
+    "subtype": "earth",
+    "title": "Day And Night",
+    "question": "Day and night happen because Earth does what?",
+    "answer": "Rotates",
+    "acceptableAnswers": [
+      "rotates",
+      "rotation",
+      "earth rotates",
+      "spins",
+      "earth spins"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "Earth turns around its own axis.",
+      "This motion is called rotation."
+    ],
+    "explanation": "Day and night happen because Earth rotates on its axis.",
+    "tags": [
+      "science",
+      "earth",
+      "space",
+      "rotation"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_013",
+    "shop": "science_magic",
+    "subtype": "moon",
+    "title": "Moonlight Source",
+    "question": "The Moon shines because it reflects light from what?",
+    "answer": "Sun",
+    "acceptableAnswers": [
+      "sun",
+      "the sun",
+      "sunlight"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "The Moon does not make its own light.",
+      "It reflects light from the nearest star."
+    ],
+    "explanation": "The Moon appears bright because it reflects sunlight.",
+    "tags": [
+      "science",
+      "space",
+      "moon",
+      "light"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_014",
+    "shop": "science_magic",
+    "subtype": "body",
+    "title": "Blood Pump",
+    "question": "Which organ pumps blood through the body?",
+    "answer": "Heart",
+    "acceptableAnswers": [
+      "heart",
+      "the heart"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You can feel its beat.",
+      "It is in your chest."
+    ],
+    "explanation": "The heart pumps blood through the body.",
+    "tags": [
+      "science",
+      "body",
+      "heart"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_015",
+    "shop": "science_magic",
+    "subtype": "body",
+    "title": "Breathing Organs",
+    "question": "Which organs help us breathe?",
+    "answer": "Lungs",
+    "acceptableAnswers": [
+      "lungs",
+      "the lungs"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "They are inside your chest.",
+      "They take in air."
+    ],
+    "explanation": "The lungs help us breathe by taking in oxygen and removing carbon dioxide.",
+    "tags": [
+      "science",
+      "body",
+      "lungs",
+      "breathing"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_016",
+    "shop": "science_magic",
+    "subtype": "plants",
+    "title": "Water Absorber",
+    "question": "Which part of a plant usually absorbs water from soil?",
+    "answer": "Roots",
+    "acceptableAnswers": [
+      "roots",
+      "root",
+      "the roots"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "This part is usually under the ground.",
+      "It holds the plant in the soil."
+    ],
+    "explanation": "Roots usually absorb water and minerals from the soil.",
+    "tags": [
+      "science",
+      "plants",
+      "roots"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_017",
+    "shop": "science_magic",
+    "subtype": "air",
+    "title": "Moving Invisible Thing",
+    "question": "I am all around you, invisible, and you feel me when I move. What am I?",
+    "answer": "Air",
+    "acceptableAnswers": [
+      "air",
+      "wind"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "You breathe it.",
+      "When it moves, we call it wind."
+    ],
+    "explanation": "Air is around us and is usually invisible. Moving air is felt as wind.",
+    "tags": [
+      "science",
+      "air",
+      "wind"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_018",
+    "shop": "science_magic",
+    "subtype": "weather",
+    "title": "Lightning First",
+    "question": "Why do we see lightning before hearing thunder?",
+    "answer": "Light travels faster than sound",
+    "acceptableAnswers": [
+      "light travels faster than sound",
+      "light is faster than sound",
+      "because light travels faster",
+      "light faster than sound"
+    ],
+    "difficulty": "tricky",
+    "ageLevel": "all",
+    "inputType": "flexible_text",
+    "hints": [
+      "It is about speed.",
+      "Light reaches us faster than sound."
+    ],
+    "explanation": "We see lightning before hearing thunder because light travels much faster than sound.",
+    "tags": [
+      "science",
+      "weather",
+      "light",
+      "sound"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_019",
+    "shop": "science_magic",
+    "subtype": "force",
+    "title": "Rubbing Slowdown",
+    "question": "What force slows objects when surfaces rub against each other?",
+    "answer": "Friction",
+    "acceptableAnswers": [
+      "friction",
+      "friction force"
+    ],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It happens between touching surfaces.",
+      "It can slow moving objects."
+    ],
+    "explanation": "Friction is a force that opposes motion when surfaces rub against each other.",
+    "tags": [
+      "science",
+      "force",
+      "friction"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "science_020",
+    "shop": "science_magic",
+    "subtype": "body",
+    "title": "Body Support",
+    "question": "What body system gives shape and support to us?",
+    "answer": "Skeleton",
+    "acceptableAnswers": [
+      "skeleton",
+      "skeletal system",
+      "bones",
+      "bone system"
+    ],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "text",
+    "hints": [
+      "It is made of bones.",
+      "It gives the body structure."
+    ],
+    "explanation": "The skeleton, made of bones, gives the body shape and support.",
+    "tags": [
+      "science",
+      "body",
+      "skeleton",
+      "bones"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_001",
+    "shop": "wrong_answer",
+    "subtype": "nature_nonsense",
+    "title": "Moon Follower",
+    "question": "Why does the moon follow us at night? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend the moon has a funny personality.",
+      "Make it silly, not scientific."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "moon",
+      "nature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_002",
+    "shop": "wrong_answer",
+    "subtype": "weather_nonsense",
+    "title": "Thunder Drama",
+    "question": "Why do clouds make thunder? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine clouds doing something noisy.",
+      "Make the sky sound funny."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "weather",
+      "clouds"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_003",
+    "shop": "wrong_answer",
+    "subtype": "school_nonsense",
+    "title": "Homework Mystery",
+    "question": "Why do teachers give homework? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Do not blame anyone harshly.",
+      "Make it playful and absurd."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "school"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_004",
+    "shop": "wrong_answer",
+    "subtype": "food_nonsense",
+    "title": "Pani Puri Roundness",
+    "question": "Why is pani puri round? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine pani puri has a secret reason.",
+      "Food logic is banned here."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "food",
+      "india"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_005",
+    "shop": "wrong_answer",
+    "subtype": "animal_nonsense",
+    "title": "Cat Boss",
+    "question": "Why do cats behave like house owners? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend cats secretly run the house.",
+      "Give them a funny royal reason."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "animals",
+      "cats"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_006",
+    "shop": "wrong_answer",
+    "subtype": "space_nonsense",
+    "title": "Sun Alarm",
+    "question": "Why does the Sun wake up every morning? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine the Sun has a daily routine.",
+      "Make it sound like a sleepy character."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "sun",
+      "space"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_007",
+    "shop": "wrong_answer",
+    "subtype": "home_nonsense",
+    "title": "Missing Socks",
+    "question": "Why do socks disappear after washing? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine socks have a secret life.",
+      "The washing machine may be involved."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "home",
+      "socks"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_008",
+    "shop": "wrong_answer",
+    "subtype": "food_nonsense",
+    "title": "Crispy Dosa",
+    "question": "Why does dosa become crispy? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend dosa goes to a gym.",
+      "Make the answer crunchy and silly."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "food",
+      "dosa"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_009",
+    "shop": "wrong_answer",
+    "subtype": "animal_nonsense",
+    "title": "Dogs And Bikes",
+    "question": "Why do dogs bark at bikes? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine bikes did something to dogs.",
+      "Keep it harmless and funny."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "animals",
+      "dogs"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_010",
+    "shop": "wrong_answer",
+    "subtype": "festival_nonsense",
+    "title": "Diya Glow",
+    "question": "Why do diyas glow during Diwali? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Give diyas a funny job.",
+      "Make it festive but respectful."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "festival",
+      "diwali"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_011",
+    "shop": "wrong_answer",
+    "subtype": "school_nonsense",
+    "title": "Short Pencil",
+    "question": "Why do pencils become short? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine pencils are tired.",
+      "Make the answer school-safe and silly."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "school",
+      "pencil"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_012",
+    "shop": "wrong_answer",
+    "subtype": "nature_nonsense",
+    "title": "Standing Trees",
+    "question": "Why do trees stand in one place all day? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend trees are making a choice.",
+      "Make them sound lazy, serious, or dramatic."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "trees",
+      "nature"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_013",
+    "shop": "wrong_answer",
+    "subtype": "food_nonsense",
+    "title": "Melting Ice Cream",
+    "question": "Why does ice cream melt? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine ice cream is emotional.",
+      "Make it dramatic and harmless."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "food",
+      "ice-cream"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_014",
+    "shop": "wrong_answer",
+    "subtype": "space_nonsense",
+    "title": "Twinkling Stars",
+    "question": "Why do stars twinkle? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend stars are sending signals.",
+      "Make the sky playful."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "stars",
+      "space"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_015",
+    "shop": "wrong_answer",
+    "subtype": "family_home_nonsense",
+    "title": "Remote Hiding",
+    "question": "Why does the TV remote hide under cushions? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend the remote is playing a game.",
+      "Make it like a tiny household villain."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "home",
+      "remote"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_016",
+    "shop": "wrong_answer",
+    "subtype": "animal_nonsense",
+    "title": "Monkey Banana Logic",
+    "question": "Why do monkeys love bananas? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine bananas have a secret reputation.",
+      "Make the monkey sound like a food critic."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "animals",
+      "banana"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_017",
+    "shop": "wrong_answer",
+    "subtype": "weather_nonsense",
+    "title": "Upside-Down Rain",
+    "question": "Why does rain fall down instead of up? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "medium",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Ignore gravity completely.",
+      "Give rain a silly reason for choosing down."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "weather",
+      "rain"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_018",
+    "shop": "wrong_answer",
+    "subtype": "school_nonsense",
+    "title": "School Bell",
+    "question": "Why do school bells ring? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Pretend the bell wants attention.",
+      "Make the school day sound funny."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "school",
+      "bell"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_019",
+    "shop": "wrong_answer",
+    "subtype": "festival_nonsense",
+    "title": "Holi Colors",
+    "question": "Why do people throw colors during Holi? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Keep it festive and respectful.",
+      "Make the colors behave like characters."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "festival",
+      "holi"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  },
+  {
+    "id": "wrong_020",
+    "shop": "wrong_answer",
+    "subtype": "bazaar_nonsense",
+    "title": "Bazaar Volume",
+    "question": "Why do shopkeepers shout loudly in a bazaar? Wrong answers only.",
+    "answer": null,
+    "acceptableAnswers": [],
+    "difficulty": "easy",
+    "ageLevel": "all",
+    "inputType": "creative",
+    "hints": [
+      "Imagine the vegetables are hard of hearing.",
+      "Make the whole bazaar sound dramatic."
+    ],
+    "explanation": "This is a comedy prompt. There is no correct answer.",
+    "tags": [
+      "wrong-answer-only",
+      "comedy",
+      "bazaar",
+      "shopkeeper"
+    ],
+    "safeForKids": true,
+    "replayWeight": 1
+  }
+]

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Feliciano - Culinary Excellence</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .hero-overlay {
+        background: linear-gradient(to bottom, rgba(26,26,26,0.3) 0%, rgba(26,26,26,0.8) 100%);
+      }
+      .hover-zoom {
+        overflow: hidden;
+      }
+      .hover-zoom img {
+        transition: transform 0.5s ease;
+      }
+      .hover-zoom:hover img {
+        transform: scale(1.05);
+      }
+      .card-lift {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .card-lift:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+      /* Sticky Header Transition */
+      .navbar {
+        transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      }
+      .navbar.scrolled {
+        background-color: var(--color-brand-primary);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+      .top-bar {
+        transition: max-height 0.3s ease, padding 0.3s ease, opacity 0.3s ease;
+        max-height: 50px;
+        opacity: 1;
+        overflow: hidden;
+      }
+      .navbar.scrolled .top-bar {
+        max-height: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+        opacity: 0;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="navbar fixed top-0 w-full z-50 bg-transparent text-brand-light">
+      <!-- Top Bar -->
+      <div class="top-bar border-b border-white/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 flex justify-between items-center text-sm">
+          <div class="flex items-center space-x-6">
+            <span><i class="fas fa-phone mr-2 text-brand-accent"></i> +91 12345 67890</span>
+            <span class="hidden md:inline"><i class="fas fa-clock mr-2 text-brand-accent"></i> Mon - Sun: 11:00 AM - 11:00 PM</span>
+          </div>
+          <div class="flex items-center space-x-4">
+            <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-facebook-f"></i></a>
+            <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-twitter"></i></a>
+          </div>
+        </div>
+      </div>
+      <!-- Main Nav -->
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+          <!-- Desktop Menu -->
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="text-brand-accent border-b-2 border-brand-accent pb-1">Home</a>
+            <a href="menu.html" class="hover:text-brand-accent transition">Menu</a>
+            <a href="about.html" class="hover:text-brand-accent transition">About</a>
+            <a href="gallery.html" class="hover:text-brand-accent transition">Gallery</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <a href="reserve.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2 rounded-sm transition shadow-lg">Reserve a Table</a>
+          </nav>
+          <!-- Mobile Menu Button -->
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-btn" class="text-white hover:text-brand-accent focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- Mobile Menu Dropdown -->
+      <div id="mobile-menu" class="hidden md:hidden bg-brand-primary/95 backdrop-blur-md absolute w-full left-0 top-full">
+        <div class="px-4 pt-2 pb-6 space-y-4 shadow-xl">
+          <a href="index.html" class="block text-brand-accent font-medium">Home</a>
+          <a href="menu.html" class="block text-white hover:text-brand-accent">Menu</a>
+          <a href="about.html" class="block text-white hover:text-brand-accent">About</a>
+          <a href="gallery.html" class="block text-white hover:text-brand-accent">Gallery</a>
+          <a href="contact.html" class="block text-white hover:text-brand-accent">Contact</a>
+          <a href="reserve.html" class="block bg-brand-accent text-center text-white px-6 py-3 rounded-sm">Reserve a Table</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex flex-col justify-center items-center text-center pb-24 pt-32">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1920&q=80" alt="Restaurant Interior" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 hero-overlay"></div>
+      </div>
+      <div class="relative z-10 max-w-4xl px-4 my-auto" data-aos="fade-up" data-aos-duration="1000">
+        <span class="inline-flex items-center px-4 py-1.5 rounded-full bg-black/50 border border-brand-accent/60 text-brand-accent text-sm tracking-widest font-serif uppercase mb-6 backdrop-blur-md shadow-[0_0_20px_rgba(196,154,99,0.4)]">
+          <i class="fas fa-sparkles mr-2 text-brand-accent"></i> Award-Winning Fine Dining & Private Events
+        </span>
+        <h1 class="text-5xl md:text-7xl font-serif text-white font-bold mb-6 leading-tight drop-shadow-lg">Experience Culinary <br/><span class="text-brand-accent">Excellence</span></h1>
+        <p class="text-lg md:text-xl text-gray-200 mb-10 font-light max-w-2xl mx-auto drop-shadow">Savor the taste of authentic cuisine crafted with passion, precision, and the freshest seasonal ingredients.</p>
+        <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6 mb-12">
+          <a href="reserve.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-8 py-4 rounded-sm text-lg font-medium transition duration-300 shadow-[0_4px_20px_0_rgba(196,154,99,0.5)] transform hover:-translate-y-1">Book Your Table</a>
+          <a href="menu.html" class="bg-black/30 backdrop-blur-md border border-white/60 text-white hover:bg-white hover:text-brand-primary px-8 py-4 rounded-sm text-lg font-medium transition duration-300 transform hover:-translate-y-1">View Full Menu</a>
+        </div>
+      </div>
+
+      <!-- Glassmorphic Quick-Book Bar -->
+      <div class="relative z-20 w-full max-w-5xl mx-auto px-4 -mb-36 mt-8" data-aos="fade-up" data-aos-delay="300">
+        <div class="bg-brand-primary/90 backdrop-blur-xl border border-brand-accent/40 p-6 sm:p-8 rounded-sm shadow-2xl">
+          <form id="quickReserveForm" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+            <div class="text-left">
+              <label class="block text-xs uppercase tracking-widest text-brand-accent font-serif mb-1"><i class="fas fa-calendar-alt mr-1"></i> Date</label>
+              <input type="date" id="resDate" class="w-full bg-black/40 border border-white/20 rounded-sm py-2.5 px-3 text-white text-sm focus:outline-none focus:border-brand-accent transition" required />
+            </div>
+            <div class="text-left">
+              <label class="block text-xs uppercase tracking-widest text-brand-accent font-serif mb-1"><i class="fas fa-clock mr-1"></i> Time</label>
+              <select id="resTime" class="w-full bg-black/40 border border-white/20 rounded-sm py-2.5 px-3 text-white text-sm focus:outline-none focus:border-brand-accent transition">
+                <option value="18:00" class="text-black">6:00 PM (Dinner)</option>
+                <option value="19:00" class="text-black" selected>7:00 PM (Dinner)</option>
+                <option value="20:00" class="text-black">8:00 PM (Dinner)</option>
+                <option value="21:00" class="text-black">9:00 PM (Dinner)</option>
+              </select>
+            </div>
+            <div class="text-left">
+              <label class="block text-xs uppercase tracking-widest text-brand-accent font-serif mb-1"><i class="fas fa-users mr-1"></i> Guests</label>
+              <select id="resGuests" class="w-full bg-black/40 border border-white/20 rounded-sm py-2.5 px-3 text-white text-sm focus:outline-none focus:border-brand-accent transition">
+                <option value="2 Guests" class="text-black" selected>2 Guests</option>
+                <option value="4 Guests" class="text-black">4 Guests</option>
+                <option value="6 Guests" class="text-black">6 Guests</option>
+                <option value="8+ Private Dining" class="text-black">8+ Private Dining</option>
+              </select>
+            </div>
+            <div class="pt-2 sm:pt-5">
+              <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-serif uppercase tracking-widest text-sm py-3 px-6 rounded-sm transition duration-300 shadow-lg transform hover:scale-105">
+                Check Availability &rarr;
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-brand-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div class="hover-zoom rounded-sm overflow-hidden shadow-2xl" data-aos="fade-right">
+            <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80" alt="Chef preparing meal" class="w-full h-auto object-cover aspect-[4/5]" />
+          </div>
+          <div data-aos="fade-left">
+            <h4 class="font-serif italic text-brand-accent text-xl mb-2">Our Story</h4>
+            <h2 class="text-4xl md:text-5xl font-serif text-brand-primary mb-6">A Tradition of <br/>Taste</h2>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+              Founded in 2010, Feliciano has become a culinary destination known for its warm hospitality and exquisite dishes. Our master chefs source only the finest, freshest ingredients from local farmers and markets to create a menu that celebrates traditional recipes with a modern twist.
+            </p>
+            <p class="text-gray-600 mb-8 leading-relaxed">
+              Every dish that leaves our kitchen is a masterpiece, crafted with passion and designed to provide you with an unforgettable dining experience in a truly elegant setting.
+            </p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Signature_placeholder.svg" alt="Chef Signature" class="h-16 opacity-70" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Chef's Recommendations Section -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <h4 class="font-serif italic text-brand-accent text-xl mb-2">Discover</h4>
+          <h2 class="text-4xl md:text-5xl font-serif text-brand-primary mb-8">Chef's Recommendations</h2>
+          <!-- Course Category Filter -->
+          <div class="flex flex-wrap justify-center gap-3 mb-4">
+            <button class="course-tab active px-6 py-2 border border-brand-accent bg-brand-accent text-white font-serif text-sm rounded-sm transition shadow" data-course="all">All Courses</button>
+            <button class="course-tab px-6 py-2 border border-gray-300 hover:border-brand-accent text-brand-primary font-serif text-sm rounded-sm transition" data-course="mains">Main Entrées</button>
+            <button class="course-tab px-6 py-2 border border-gray-300 hover:border-brand-accent text-brand-primary font-serif text-sm rounded-sm transition" data-course="seafood">Seafood</button>
+            <button class="course-tab px-6 py-2 border border-gray-300 hover:border-brand-accent text-brand-primary font-serif text-sm rounded-sm transition" data-course="dessert">Dessert & Sommelier</button>
+          </div>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" id="menuCardsGrid">
+          <!-- Dish 1 -->
+          <div class="dish-card bg-brand-light rounded-sm overflow-hidden card-lift border border-brand-accent/30 hover:border-brand-accent transition-all duration-500 shadow-xl group" data-course="mains" data-aos="fade-up" data-aos-delay="100">
+            <div class="hover-zoom h-64">
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Signature Steak" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+            </div>
+            <div class="p-8 text-center relative">
+              <span class="absolute -top-5 right-6 bg-brand-accent text-white font-serif italic px-4 py-1 rounded-sm shadow-md group-hover:bg-brand-accent-hover transition">$45</span>
+              <h3 class="text-2xl mb-3 font-serif">Signature Wagyu Tenderloin</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-6">Juicy and tender A5 Japanese Wagyu cut cooked to your exact preference, served with seasonal truffle vegetables and our rich signature demi-glace.</p>
+            </div>
+          </div>
+          <!-- Dish 2 -->
+          <div class="dish-card bg-brand-light rounded-sm overflow-hidden card-lift border border-brand-accent/30 hover:border-brand-accent transition-all duration-500 shadow-xl group" data-course="seafood" data-aos="fade-up" data-aos-delay="200">
+            <div class="hover-zoom h-64">
+              <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=800&q=80" alt="Seafood Platter" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+            </div>
+            <div class="p-8 text-center relative">
+              <span class="absolute -top-5 right-6 bg-brand-accent text-white font-serif italic px-4 py-1 rounded-sm shadow-md group-hover:bg-brand-accent-hover transition">$55</span>
+              <h3 class="text-2xl mb-3 font-serif">Royal Seafood Symphony</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-6">A delightful assortment of fresh ocean catch, including grilled Mediterranean prawns, calamari, and line-caught wild sea bass with saffron aioli.</p>
+            </div>
+          </div>
+          <!-- Dish 3 -->
+          <div class="dish-card bg-brand-light rounded-sm overflow-hidden card-lift border border-brand-accent/30 hover:border-brand-accent transition-all duration-500 shadow-xl group" data-course="dessert" data-aos="fade-up" data-aos-delay="300">
+            <div class="hover-zoom h-64">
+              <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=800&q=80" alt="Decadent Dessert" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" />
+            </div>
+            <div class="p-8 text-center relative">
+              <span class="absolute -top-5 right-6 bg-brand-accent text-white font-serif italic px-4 py-1 rounded-sm shadow-md group-hover:bg-brand-accent-hover transition">$18</span>
+              <h3 class="text-2xl mb-3 font-serif">Valrhona Gold Ganache</h3>
+              <p class="text-gray-600 text-sm leading-relaxed mb-6">A rich dark chocolate delight layered with velvety ganache, topped with fresh seasonal blackberries, Madagascar vanilla bean gelato, and edible 24k gold leaf.</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="text-center mt-12">
+          <a href="menu.html" class="inline-block border-2 border-brand-primary text-brand-primary hover:bg-brand-primary hover:text-white px-8 py-3 transition duration-300">View Complete Menu</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Info Cards -->
+    <section class="py-20 bg-brand-primary text-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center border-y border-white/10 py-16">
+          <div data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-map-marker-alt text-4xl text-brand-accent mb-6"></i>
+            <h3 class="text-2xl font-serif mb-4">Location</h3>
+            <p class="text-gray-400">456 Culinary Street<br/>Bengaluru, Karnataka, India</p>
+          </div>
+          <div class="md:border-x md:border-white/10" data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-clock text-4xl text-brand-accent mb-6"></i>
+            <h3 class="text-2xl font-serif mb-4">Opening Hours</h3>
+            <p class="text-gray-400">Mon - Fri: 11:00 AM - 11:00 PM<br/>Sat - Sun: 9:00 AM - 11:00 PM</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-calendar-check text-4xl text-brand-accent mb-6"></i>
+            <h3 class="text-2xl font-serif mb-4">Reservations</h3>
+            <p class="text-gray-400">Call: +91 12345 67890<br/>hello@feliciano.com</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+        </div>
+        <div class="flex space-x-6 mb-6 md:mb-0">
+          <a href="#" class="hover:text-white transition"><i class="fab fa-facebook-f text-xl"></i></a>
+          <a href="#" class="hover:text-white transition"><i class="fab fa-twitter text-xl"></i></a>
+          <a href="#" class="hover:text-white transition"><i class="fab fa-instagram text-xl"></i></a>
+          <a href="#" class="hover:text-white transition"><i class="fab fa-tripadvisor text-xl"></i></a>
+        </div>
+        <div class="text-sm">
+          &copy; 2026 Feliciano Restaurant. Built by <a href="#" class="text-brand-accent hover:text-white transition">Annapurna Agentic Solutions</a>.
+        </div>
+      </div>
+    </footer>
+
+    <!-- WhatsApp Floating Button -->
+    <a href="https://wa.me/911234567890" target="_blank" class="fixed bottom-6 right-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-lg hover:scale-110 transition duration-300 z-50 animate-pulse" aria-label="Chat on WhatsApp">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init({
+        once: true,
+        offset: 50,
+      });
+
+      // Sticky Header & Scroll Behavior
+      const navbar = document.querySelector('.navbar');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+          navbar.classList.add('scrolled');
+          navbar.classList.remove('bg-transparent');
+        } else {
+          navbar.classList.remove('scrolled');
+          navbar.classList.add('bg-transparent');
+        }
+      });
+
+      // Mobile Menu Toggle
+      const mobileBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (mobileBtn && mobileMenu) {
+        mobileBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden');
+        });
+      }
+
+      // Course Tab Filtering Logic
+      const courseTabs = document.querySelectorAll('.course-tab');
+      const dishCards = document.querySelectorAll('.dish-card');
+      courseTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+          courseTabs.forEach(t => {
+            t.classList.remove('active', 'bg-brand-accent', 'text-white');
+            t.classList.add('border-gray-300', 'text-brand-primary');
+          });
+          tab.classList.add('active', 'bg-brand-accent', 'text-white');
+          tab.classList.remove('border-gray-300', 'text-brand-primary');
+          
+          const course = tab.getAttribute('data-course');
+          dishCards.forEach(card => {
+            if (course === 'all' || card.getAttribute('data-course') === course) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      // Quick Table Reservation VIP Confirmation Toast/Modal
+      const quickForm = document.getElementById('quickReserveForm');
+      if (quickForm) {
+        quickForm.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const date = document.getElementById('resDate').value || 'This Friday';
+          const time = document.getElementById('resTime').value || '7:00 PM';
+          const guests = document.getElementById('resGuests').value || '2 Guests';
+
+          // Create dynamic VIP confirmation toast
+          const toast = document.createElement('div');
+          toast.className = 'fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-brand-primary border-2 border-brand-accent text-white px-8 py-5 rounded-sm shadow-2xl flex items-center space-x-4 animate-bounce';
+          toast.innerHTML = `
+            <div class="text-brand-accent text-3xl"><i class="fas fa-check-circle"></i></div>
+            <div>
+              <h4 class="font-serif text-lg font-bold text-white">Table Availability Confirmed!</h4>
+              <p class="text-sm text-gray-300">Reserved for <strong class="text-brand-accent">${guests}</strong> on <strong class="text-white">${date}</strong> at <strong class="text-white">${time}</strong>. Redirecting to table selection...</p>
+            </div>
+          `;
+          document.body.appendChild(toast);
+          setTimeout(() => {
+            window.location.href = `reserve.html?date=${encodeURIComponent(date)}&time=${encodeURIComponent(time)}&guests=${encodeURIComponent(guests)}`;
+          }, 2200);
+        });
+      }
+    </script>
+  </body>
+</html>

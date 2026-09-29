@@ -1,0 +1,345 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#171423" />
+  <meta name="description" content="What-If Machine: a mobile-first silly imagination engine for impossible questions. Made by Annapurna Agentic Solutions." />
+  <meta name="author" content="Annapurna Agentic Solutions" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="What-If Machine" />
+  <title>What-If Machine — Annapurna Play</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" type="image/png" sizes="192x192" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand-mark" aria-hidden="true">?</div>
+        <div class="brand-copy">
+          <p class="eyebrow"><a href="/" style="color: inherit; text-decoration: none;">Annapurna Agentic Solutions</a></p>
+          <h1>What-If Machine</h1>
+        </div>
+      </div>
+      <button class="icon-button" id="themeToggle" type="button" aria-label="Toggle theme">☾</button>
+    </header>
+
+    <main id="appMain" class="main-scroll" tabindex="-1">
+      <section class="view active" id="view-create" aria-labelledby="createTitle">
+        <div class="hero-card">
+          <div class="release-pill">Guest play · saved on this device</div>
+          <h2 id="createTitle">Ask an impossible question.</h2>
+          <p class="hero-copy">Turn one absurd idea into showcase-grade absurd content: punchlines, character voices, world rules, comic scenes, fake reports, poster briefs, classroom sparks, share cards, localization notes, and repeatable series seeds.</p>
+          <div class="hero-actions">
+            <button class="secondary-button" id="openOnboardingBtn" type="button">How it works</button>
+            <button class="secondary-button" id="quickPlayBtn" type="button">Quick Play</button>
+          </div>
+        </div>
+
+        <form class="composer" id="whatIfForm">
+          <label for="promptInput" class="field-label">Your what-if</label>
+          <textarea id="promptInput" class="prompt-input" rows="3" maxlength="220" placeholder="What if monsoon clouds had WhatsApp groups?" required></textarea>
+          <div class="composer-actions">
+            <button class="primary-button" type="submit">Run Machine</button>
+            <button class="secondary-button" id="randomPromptBtn" type="button">Surprise Me</button>
+          </div>
+        </form>
+
+        <section class="loop-card" aria-labelledby="loopTitle">
+          <div class="section-head compact-head">
+            <div>
+              <p class="eyebrow">Fast play loops</p>
+              <h3 id="loopTitle">Choose how the machine should behave</h3>
+            </div>
+          </div>
+          <div class="loop-grid" role="group" aria-label="Output loops">
+            <button class="loop-btn active" type="button" data-loop="full">Full Mix</button>
+            <button class="loop-btn" type="button" data-loop="whatsapp">WhatsApp</button>
+            <button class="loop-btn" type="button" data-loop="comic">Comic</button>
+            <button class="loop-btn" type="button" data-loop="teacher">Classroom</button>
+            <button class="loop-btn" type="button" data-loop="creator">Creator</button>
+            <button class="loop-btn" type="button" data-loop="deep">Deep World</button>
+            <button class="loop-btn" type="button" data-loop="series">Series</button>
+            <button class="loop-btn" type="button" data-loop="posterlab">Poster</button>
+            <button class="loop-btn" type="button" data-loop="language">Language</button>
+            <button class="loop-btn" type="button" data-loop="game">Game</button>
+            <button class="loop-btn" type="button" data-loop="editorial">Editorial</button>
+          </div>
+        </section>
+
+        <section class="builder-card" aria-labelledby="builderTitle">
+          <div class="section-head compact-head">
+            <div>
+              <p class="eyebrow">Tap builder</p>
+              <h3 id="builderTitle">Build a silly what-if without typing</h3>
+            </div>
+            <button class="text-button" id="resetBuilderBtn" type="button">Reset</button>
+          </div>
+          <div class="builder-grid">
+            <div class="builder-column">
+              <span class="mini-label">Subject</span>
+              <div class="builder-options" id="builderSubject"></div>
+            </div>
+            <div class="builder-column">
+              <span class="mini-label">Twist</span>
+              <div class="builder-options" id="builderAction"></div>
+            </div>
+            <div class="builder-column">
+              <span class="mini-label">Place</span>
+              <div class="builder-options" id="builderPlace"></div>
+            </div>
+          </div>
+          <button class="secondary-button full-width" id="buildPromptBtn" type="button">Build & Run</button>
+        </section>
+
+        <section class="control-card" aria-label="Machine controls">
+          <div class="segmented" role="group" aria-label="Audience">
+            <button type="button" class="segment active" data-audience="family">Family</button>
+            <button type="button" class="segment" data-audience="kid">Kid</button>
+            <button type="button" class="segment" data-audience="creator">Creator</button>
+            <button type="button" class="segment" data-audience="teacher">Teacher</button>
+          </div>
+
+          <div class="field-grid">
+            <label class="select-field">Tone
+              <select id="toneSelect">
+                <option value="clean">Clean comedy</option>
+                <option value="school">School funny</option>
+                <option value="meme">Meme-ish</option>
+                <option value="science">Fake science</option>
+                <option value="dramatic">Dramatic absurd</option>
+              </select>
+            </label>
+            <label class="select-field">Comedy lens
+              <select id="lensSelect">
+                <option value="bureaucracy">Tiny bureaucracy</option>
+                <option value="social">Social drama</option>
+                <option value="science">Fake science</option>
+                <option value="news">Breaking news</option>
+                <option value="startup">Startup pitch</option>
+                <option value="classroom">Classroom lens</option>
+                <option value="cinema">Cinema trailer</option>
+              </select>
+            </label>
+            <label class="select-field">Story recipe
+              <select id="storyRecipeSelect">
+                <option value="escalation">Escalation ladder</option>
+                <option value="mystery">Silly mystery</option>
+                <option value="mockumentary">Mockumentary</option>
+                <option value="quest">Mini quest</option>
+                <option value="rivalry">Friendly rivalry</option>
+              </select>
+            </label>
+            <label class="select-field">Content goal
+              <select id="contentGoalSelect">
+                <option value="laugh">Casual laugh</option>
+                <option value="family">Family storytelling</option>
+                <option value="classroom">Classroom warm-up</option>
+                <option value="creator">Creator post</option>
+                <option value="poster">Poster first</option>
+                <option value="series">Series episode</option>
+                <option value="language">Language practice</option>
+                <option value="game">Group game</option>
+                <option value="world">Worldbuilding</option>
+                <option value="editorial">Editorial polish</option>
+                <option value="pilot">Demo/pilot proof</option>
+              </select>
+            </label>
+            <label class="select-field">Flavor
+              <select id="flavorSelect">
+                <option value="india">India</option>
+                <option value="bengaluru">Bengaluru</option>
+                <option value="school">School</option>
+                <option value="monsoon">Monsoon</option>
+                <option value="space">Space</option>
+                <option value="market">Market</option>
+                <option value="nature">Nature</option>
+                <option value="tech">Tech</option>
+                <option value="science">Science</option>
+                <option value="global">Global</option>
+              </select>
+            </label>
+            <label class="select-field">Language style
+              <select id="languageSelect">
+                <option value="english">English</option>
+                <option value="simple">Simple English</option>
+                <option value="hinglish">Hinglish</option>
+                <option value="hinglish-demo">Hinglish Showcase</option>
+                <option value="odia-lite">Odia-friendly English</option>
+                <option value="hindi-lite">Hindi-friendly English</option>
+              </select>
+            </label>
+            <label class="select-field">Depth
+              <select id="depthSelect">
+                <option value="snack">Snackable</option>
+                <option value="scene" selected>Scene + Report</option>
+                <option value="world">Mini World</option>
+                <option value="deep">Deep World</option>
+              </select>
+            </label>
+            <label class="select-field">Poster style
+              <select id="posterStyleSelect">
+                <option value="pop">Pop poster</option>
+                <option value="newspaper">Fake newspaper</option>
+                <option value="lab">Lab report card</option>
+                <option value="comic">Comic cover</option>
+              </select>
+            </label>
+          </div>
+
+          <label class="range-field" for="absurdityRange">
+            <span>Absurdity level</span>
+            <strong id="absurdityValue">4</strong>
+            <input id="absurdityRange" type="range" min="1" max="5" step="1" value="4" />
+          </label>
+        </section>
+
+        <section class="daily-card" aria-labelledby="dailyTitle">
+          <p class="eyebrow">Daily absurdity challenge</p>
+          <h3 id="dailyTitle"><span id="dailyPrompt">Loading daily what-if...</span></h3>
+          <p id="dailyHint">Try a new style and save the best card.</p>
+          <div class="daily-actions">
+            <button class="primary-button" id="useDailyBtn" type="button">Use Today’s Prompt</button>
+            <button class="secondary-button" id="shuffleDailyBtn" type="button">Shuffle</button>
+          </div>
+        </section>
+
+        <section class="starter-section" aria-labelledby="starterTitle">
+          <div class="section-head">
+            <h3 id="starterTitle">Starter sparks</h3>
+            <button class="text-button" id="clearPromptBtn" type="button">Clear</button>
+          </div>
+          <div class="chip-row" id="starterChips"></div>
+        </section>
+
+        <section class="result-stack" id="resultStack" aria-live="polite"></section>
+      </section>
+
+      <section class="view" id="view-remix" aria-labelledby="remixTitle">
+        <div class="section-head sticky-head">
+          <div>
+            <p class="eyebrow">Remix lab</p>
+            <h2 id="remixTitle">Change the same idea fast</h2>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Latest result remix</h3>
+          <p id="remixStatus">Generate a what-if first. Then this lab can turn it into a deeper world, fake news bulletin, Hinglish version, classroom activity, creator pack, sequel chain, or poster variant.</p>
+          <div class="remix-grid">
+            <button class="pill-action remix-lab-btn" data-remix="absurd" type="button">Increase absurdity</button>
+            <button class="pill-action remix-lab-btn" data-remix="deep" type="button">Deep world</button>
+            <button class="pill-action remix-lab-btn" data-remix="bengaluru" type="button">Bengaluru flavor</button>
+            <button class="pill-action remix-lab-btn" data-remix="hinglish" type="button">Hinglish</button>
+            <button class="pill-action remix-lab-btn" data-remix="odia" type="button">Odia-friendly</button>
+            <button class="pill-action remix-lab-btn" data-remix="teacher" type="button">Teacher mode</button>
+            <button class="pill-action remix-lab-btn" data-remix="creator" type="button">Creator pack</button>
+            <button class="pill-action remix-lab-btn" data-remix="sequel" type="button">Sequel chain</button>
+            <button class="pill-action remix-lab-btn" data-remix="newspaper" type="button">Newspaper poster</button>
+            <button class="pill-action remix-lab-btn" data-remix="comicPoster" type="button">Comic cover</button>
+            <button class="pill-action remix-lab-btn" data-remix="scienceLens" type="button">Fake science lens</button>
+            <button class="pill-action remix-lab-btn" data-remix="startupLens" type="button">Startup pitch lens</button>
+            <button class="pill-action remix-lab-btn" data-remix="cinemaLens" type="button">Cinema trailer lens</button>
+            <button class="pill-action remix-lab-btn" data-remix="mysteryRecipe" type="button">Silly mystery recipe</button>
+            <button class="pill-action remix-lab-btn" data-remix="mockumentaryRecipe" type="button">Mockumentary recipe</button>
+            <button class="pill-action remix-lab-btn" data-remix="visualBrief" type="button">Visual brief first</button>
+            <button class="pill-action remix-lab-btn" data-remix="seriesStudio" type="button">Series studio</button>
+            <button class="pill-action remix-lab-btn" data-remix="posterStudio" type="button">Poster studio</button>
+            <button class="pill-action remix-lab-btn" data-remix="languageLab" type="button">Language lab</button>
+            <button class="pill-action remix-lab-btn" data-remix="groupGame" type="button">Group game</button>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Editorial content principle</h3>
+          <p>Every generated result should produce one polished shareable line, one playable scene, one reusable world rule, one safe remix path, and one next-session prompt. This keeps the product fun beyond one joke.</p>
+        </div>
+      </section>
+
+      <section class="view" id="view-explore" aria-labelledby="exploreTitle">
+        <div class="section-head sticky-head">
+          <div>
+            <p class="eyebrow">Prompt packs + showcase layer</p>
+            <h2 id="exploreTitle">Explore absurd worlds</h2>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Curated showcase examples</h3>
+          <p>Use these to test whether the engine feels funny, visual, safe, repeatable, localized, and ready for sharing. Each example applies a tuned loop, lens, depth, and sharing goal.</p>
+          <div class="showcase-grid" id="showcaseGrid"></div>
+        </div>
+        <div class="pack-grid" id="packGrid"></div>
+      </section>
+
+      <section class="view" id="view-gallery" aria-labelledby="galleryTitle">
+        <div class="section-head sticky-head">
+          <div>
+            <p class="eyebrow">Saved locally</p>
+            <h2 id="galleryTitle">Gallery</h2>
+          </div>
+          <button class="danger-button" id="clearGalleryBtn" type="button">Clear</button>
+        </div>
+        <div class="gallery-tools">
+          <input class="search-input" id="gallerySearch" type="search" placeholder="Search saved what-ifs" />
+          <button class="secondary-button" id="exportGalleryBtn" type="button">Export JSON</button>
+          <label class="secondary-button file-label">Import JSON<input id="importGalleryInput" type="file" accept="application/json" /></label>
+        </div>
+        <div class="empty-state" id="emptyGallery">
+          <div class="empty-icon">☆</div>
+          <h3>No saved what-ifs yet.</h3>
+          <p>Save a generated result and it will appear here on this device.</p>
+        </div>
+        <div class="gallery-list" id="galleryList"></div>
+      </section>
+
+      <section class="view" id="view-settings" aria-labelledby="settingsTitle">
+        <div class="section-head sticky-head">
+          <div>
+            <p class="eyebrow">Content system</p>
+            <h2 id="settingsTitle">Depth, repeatability, and safe absurdity</h2>
+          </div>
+        </div>
+        <div class="settings-card">
+          <h3>Make an idea your own</h3>
+          <p>Start with a prompt, then shape it into punchlines, characters, story worlds, fake reports, classroom sparks, share cards or a new series. Your saved results stay on this device.</p>
+        </div>
+        <div class="settings-card">
+          <h3>Content boundaries</h3>
+          <p>The machine is designed for harmless absurdity: objects, animals, school routines, weather, food, cities, gadgets, family-safe fantasy, and fake science. Risky prompts are redirected into safe nonsense.</p>
+        </div>
+</section>
+    </main>
+
+    <nav class="bottom-nav" aria-label="Primary navigation">
+      <button class="nav-item active" data-view="create" type="button"><span>⚡</span>Create</button>
+      <button class="nav-item" data-view="remix" type="button"><span>↻</span>Remix</button>
+      <button class="nav-item" data-view="explore" type="button"><span>✦</span>Explore</button>
+      <button class="nav-item" data-view="gallery" type="button"><span>▣</span>Gallery</button>
+      <button class="nav-item" data-view="settings" type="button"><span>◫</span>Content</button>
+    </nav>
+  </div>
+
+  <div class="modal-backdrop" id="onboardingModal" aria-hidden="true">
+    <section class="onboarding-card" role="dialog" aria-modal="true" aria-labelledby="onboardingTitle">
+      <button class="icon-button modal-close" id="closeOnboardingBtn" type="button" aria-label="Close onboarding">×</button>
+      <p class="eyebrow">How it works</p>
+      <h2 id="onboardingTitle">One impossible question. Many funny formats.</h2>
+      <div class="onboarding-steps">
+        <article><strong>1</strong><span>Type or tap-build a silly what-if.</span></article>
+        <article><strong>2</strong><span>Choose a loop and lens: full, WhatsApp, comic, classroom, creator, deep world, fake science, startup, or cinema-style absurdity.</span></article>
+        <article><strong>3</strong><span>Save, remix, copy, share, export, download a poster SVG, or turn the result into characters, rules, story beats, and classroom tasks.</span></article>
+      </div>
+      <button class="primary-button full-width" id="startPlayingBtn" type="button">Start Playing</button>
+    </section>
+  </div>
+
+  <footer style="text-align: center; padding: 2rem 1rem; color: rgba(255,255,255,0.6); font-size: 0.85rem; border-top: 1px solid rgba(255,255,255,0.1);">
+    <p>Made by <a href="/" style="color: rgba(255,255,255,0.8); text-decoration: none;">Annapurna Agentic Solutions</a></p>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

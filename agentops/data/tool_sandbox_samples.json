@@ -1,0 +1,82 @@
+[
+  {
+    "agent_id": "procurement-agent-v0",
+    "actor_role": "procurement_analyst",
+    "connector_id": "procurement-system",
+    "tool_id": "compare_po_invoice",
+    "action": "compare_invoice_against_po",
+    "target_environment": "sandbox",
+    "autonomy_level": 1,
+    "risk_level": "Medium",
+    "data_sensitivity": "medium",
+    "requested_data_sources": [
+      "invoice_archive",
+      "purchase_order_store"
+    ],
+    "payload": {
+      "invoice_id": "INV-1007",
+      "purchase_order_id": "PO-8831"
+    },
+    "dry_run": true,
+    "simulate_side_effects": false,
+    "has_human_approval": false,
+    "evidence_ids": [
+      "EVD-PROC-001"
+    ],
+    "purpose": "Review mismatch before analyst action.",
+    "output_destination": "internal",
+    "financial_impact": "low"
+  },
+  {
+    "agent_id": "customer-support-agent-v0",
+    "actor_role": "support_agent",
+    "connector_id": "email-gateway",
+    "tool_id": "send_external_email",
+    "action": "send_refund_email",
+    "target_environment": "production",
+    "autonomy_level": 4,
+    "risk_level": "High",
+    "data_sensitivity": "high",
+    "requested_data_sources": [
+      "customer_records"
+    ],
+    "payload": {
+      "recipient": "customer@example.com",
+      "refund_amount": 249.99
+    },
+    "dry_run": false,
+    "simulate_side_effects": true,
+    "has_human_approval": false,
+    "evidence_ids": [],
+    "purpose": "Send customer refund communication.",
+    "output_destination": "customer",
+    "financial_impact": "medium"
+  },
+  {
+    "agent_id": "it-support-agent-v0",
+    "actor_role": "service_desk_lead",
+    "connector_id": "ticketing-system",
+    "tool_id": "create_support_ticket",
+    "action": "create_ticket_for_access_issue",
+    "target_environment": "pilot",
+    "autonomy_level": 2,
+    "risk_level": "Medium",
+    "data_sensitivity": "medium",
+    "requested_data_sources": [
+      "support_queue"
+    ],
+    "payload": {
+      "short_description": "User cannot access procurement portal",
+      "priority": "P3"
+    },
+    "dry_run": false,
+    "simulate_side_effects": true,
+    "has_human_approval": true,
+    "evidence_ids": [
+      "EVD-IT-002"
+    ],
+    "purpose": "Create simulated support ticket for pilot workflow.",
+    "output_destination": "internal",
+    "financial_impact": "none"
+  }
+]

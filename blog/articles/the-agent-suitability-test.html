@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agent Suitability Test — When NOT to Build an Agent — The Agentic Edge</title>
+  <meta name="description" content="The Agent Suitability Test — When NOT to Build an Agent">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-agent-suitability-test.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Agent Suitability Test — When NOT to Build an Agent</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Practical — give people a framework</p>
+
+<hr>
+
+<p>The most important question in agentic AI isn't "how do we build this agent?"</p>
+
+<p>It's "should we build this agent at all?"</p>
+
+<p>We've seen teams spend months building agents for problems that a simple script could solve. Not because the agent was better — because "we need an AI agent" was the mandate from above.</p>
+
+<p>So here's a practical test. Before you build an agent, ask these five questions:</p>
+
+<h3>1. Does the task require reasoning?</h3>
+
+<p>If the task is "if X, then Y" — it's a rule. Use a rule engine. Don't build an agent.</p>
+
+<p>If the task is "given X, figure out Y based on context, partial information, and trade-offs" — that's reasoning. An agent might be appropriate.</p>
+
+<p><strong>Example:</strong> "Route this email to the right department based on keywords" → rules. "Understand this customer's complaint, determine if it's a billing issue or a product issue, and draft an appropriate response" → reasoning.</p>
+
+<h3>2. Does the task require adaptation?</h3>
+
+<p>If the task never changes — same inputs, same outputs, same context — automate it deterministically.</p>
+
+<p>If the task shifts based on context, user behavior, or external conditions — an agent can adapt.</p>
+
+<p><strong>Example:</strong> "Generate a monthly report from this database" → scheduled job. "Monitor this system, identify anomalies, investigate root causes, and recommend fixes" → adaptation.</p>
+
+<h3>3. Does the task require multi-step planning?</h3>
+
+<p>If it's a single step (input → output), use a function.</p>
+
+<p>If it requires breaking down a goal into sub-tasks, executing them in order, handling failures, and re-planning — that's planning. Agents excel here.</p>
+
+<p><strong>Example:</strong> "Summarize this document" → single step. "Research this topic: find sources, extract key claims, verify facts, synthesize findings, and produce a report" → multi-step planning.</p>
+
+<h3>4. Does the task require tool use?</h3>
+
+<p>If the task only needs text generation — use an LLM directly.</p>
+
+<p>If the task needs to interact with external systems (APIs, databases, file systems, other agents) — an agent that can call tools is appropriate.</p>
+
+<p><strong>Example:</strong> "Write a poem about cats" → LLM. "Check this customer's account status, review their payment history, determine if they qualify for a refund, and process it if they do" → tool use.</p>
+
+<h3>5. Does the task require judgment under uncertainty?</h3>
+
+<p>If there's a clear right answer — compute it.</p>
+
+<p>If the answer depends on context, trade-offs, and incomplete information — judgment is needed. Agents can reason under uncertainty.</p>
+
+<p><strong>Example:</strong> "Calculate 2+2" → compute. "Should we approve this loan application given the applicant's history, current market conditions, and risk appetite?" → judgment.</p>
+
+<h3>The Scoring</h3>
+
+<ul>
+<li><strong>0-1 Yes:</strong> Don't build an agent. Use rules, scripts, or direct LLM calls.</li>
+<li><strong>2-3 Yes:</strong> Maybe. Consider a simple agent with limited autonomy. Start with a proof of concept.</li>
+<li><strong>4-5 Yes:</strong> Build an agent. But govern it — intake, evaluation, approval, monitoring.</li>
+
+<h3>The Real Cost of Unnecessary Agents</h3>
+
+<p>Building an agent when you don't need one isn't just wasted effort. It's actively harmful:</p>
+
+<ul>
+<li><strong>Latency:</strong> Agents are slower than rules. Always.</li>
+<li><strong>Cost:</strong> Every agent call hits an LLM. Rules are free.</li>
+<li><strong>Reliability:</strong> Agents hallucinate. Rules don't.</li>
+<li><strong>Maintainability:</strong> Agent behavior is harder to debug than deterministic code.</li>
+<li><strong>Governance:</strong> Every agent needs governance overhead. Rules don't.</li>
+
+<p>The best agent is the one you didn't build.</p>
+
+<p>Before you reach for "let's build an agent," reach for "let's understand the problem." The problem will tell you what you need.</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

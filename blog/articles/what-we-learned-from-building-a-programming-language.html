@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What We Learned from Building a Programming Language for Agents — The Agentic Edge</title>
+  <meta name="description" content="What We Learned from Building a Programming Language for Agents">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/what-we-learned-from-building-a-programming-language.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>What We Learned from Building a Programming Language for Agents</h1>
+  <div class="article-meta">Annapurna Agentic Solutions · Archive</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Personal — share the journey and lessons</p>
+
+<hr>
+
+<p>We built a programming language for AI agents. Here's what we learned.</p>
+
+<p>Not the technical lessons (those are in the docs). The philosophical ones — the ones that changed how we think about software, agents, and the relationship between humans and machines.</p>
+
+<p><strong>Lesson 1: Frameworks are scaffolding. Languages are foundations.</strong></p>
+
+<p>Every agent framework today is a library sitting on top of a language that was never designed for agents. Python wasn't designed for agents. TypeScript wasn't designed for agents. They're general-purpose languages with agent frameworks bolted on top.</p>
+
+<p>This works the same way building a house on scaffolding works — temporarily. The scaffolding holds the structure up, but it's not the foundation. Eventually, you need to pour concrete.</p>
+
+<p>A language is concrete. When agents, tools, memory, RAG, and flows are first-class language constructs — not imported classes — the compiler can check things that frameworks can't. Type safety on tool signatures. Flow stage validation. Agent capability verification. All at compile time, not runtime.</p>
+
+<p>The lesson: when a domain gets complex enough, it needs its own language. SQL for data. HTML for web. Kubernetes YAML for infrastructure. And now, a DSL for agents.</p>
+
+<p><strong>Lesson 2: The compiler is your friend.</strong></p>
+
+<p>The biggest surprise: how much value the compiler provides. Not because the code generation is clever — because the type checking catches errors that would otherwise be runtime crashes.</p>
+
+<p>In a framework, if you pass the wrong type to a tool, you discover it when the agent calls the tool and crashes. In a language with a compiler, you discover it before the agent ever runs.</p>
+
+<p>This changes the development experience fundamentally. You're not debugging agent behavior — you're debugging agent definitions. The behavior follows from the definition. Get the definition right, and the behavior is correct by construction.</p>
+
+<p><strong>Lesson 3: Multi-target compilation changes the economics.</strong></p>
+
+<p>One of the biggest costs in agent development is the Python/TypeScript divide. Your backend is Python. Your frontend is TypeScript. Your agent needs to run on both. So you write it twice.</p>
+
+<p>When the compiler targets both Python and TypeScript from the same source, you write it once. This isn't a convenience — it's an economic shift. Half the development cost, half the maintenance cost, zero inconsistency risk.</p>
+
+<p><strong>Lesson 4: Mock mode is essential.</strong></p>
+
+<p>The single most useful feature we built: <code>--mock</code> mode. Run any agent without calling an LLM. No API key, no cost, no latency.</p>
+
+<p>Why is this essential? Because it changes who can try the language. A developer who doesn't have an OpenAI API key can still clone the repo, run the examples, and see the compiler work. A student can learn the syntax without spending money. A team can evaluate the language without procurement approval.</p>
+
+<p>The lesson: reduce the activation energy to try your tool. Every step between "we heard about this" and "we tried it" is a step where people drop off.</p>
+
+<p><strong>Lesson 5: Stories matter more than specs.</strong></p>
+
+<p>We wrote a fairytale about the language. A 16-page storybook about a kingdom where agents fill forms and a developer who creates a language to free them.</p>
+
+<p>The storybook got more engagement than the technical documentation. Not because the docs are bad — because stories are how humans understand new concepts.</p>
+
+<p>We've known this for millennia. Every culture teaches through stories. Every religion uses parables. Every great teacher uses analogies. Yet in technology, we default to specifications.</p>
+
+<p>The lesson: if you want people to understand your vision, tell a story. If you want them to evaluate your implementation, show them the specs. Do both. But start with the story.</p>
+
+<p><strong>Lesson 6: Open source is the only honest way to launch a language.</strong></p>
+
+<p>A programming language is a bet on the future. If you ask people to learn your language, you're asking them to invest time in something that might not exist in two years.</p>
+
+<p>Open source is the only way to make that promise credible. MIT licensed — the code is free to read, study, use, and modify. No restrictions, no royalty, no strings. If we disappear, you still have the compiler.</p>
+
+<p>The lesson: if you want people to trust your language, give them the compiler. No strings attached.</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

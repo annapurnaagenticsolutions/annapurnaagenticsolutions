@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #D4AF37; /* Metallic Gold */
+  --color-brand-secondary: #C0C0C0; /* Silver/Platinum */
+  --color-brand-dark: #0A0A0A; /* Deep Black */
+  --color-brand-panel: #141414; /* Dark Panel */
+  --color-brand-light: #F8F9FA; /* Off-White */
+  --font-family-sans: 'Outfit', sans-serif;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--color-brand-dark);
+  color: var(--color-brand-light);
+}
+
+.config-btn {
+  border: 1px solid rgba(255,255,255,0.1);
+  transition: all 0.3s;
+}
+.config-btn:hover {
+  border-color: rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.05);
+}
+.config-btn.active {
+  border-color: var(--color-brand-primary);
+  background: rgba(212, 175, 55, 0.1);
+}
+
+/* 3D Viewport Simulation Styles */
+.viewport-grid {
+  background-image: 
+    linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+  background-size: 20px 20px;
+}

@@ -4,7 +4,7 @@
 
 import type { MetaState, TotemConfig } from '../types';
 import { BALANCE } from '../data/balance';
-import { getTotemById } from '../data/totems';
+import { getTotemById, TOTEMS } from '../data/totems';
 
 const SAVE_KEY = 'oneiric_save';
 const SEED_SALT = 'oneiric-dream-salt-v1';
@@ -16,6 +16,20 @@ type UpgradeType =
   | 'lucidSurgeCooldown'
   | 'echoCapacity'
   | 'memoryCatalyst';
+
+const KNOWN_TOTEMS = new Set(TOTEMS.map(totem => totem.id));
+
+function isNaturalNumber(value: unknown): value is number {
+  return typeof value === 'number' && Number.isSafeInteger(value) && value >= 0;
+}
+
+function naturalNumber(value: unknown, fallback = 0): number {
+  return isNaturalNumber(value) ? value : fallback;
+}
+
+function isUpgradeType(value: string): value is UpgradeType {
+  return Object.prototype.hasOwnProperty.call(BALANCE.upgradeCosts, value);
+}
 
 /** Returns today's date as a YYYY-MM-DD string (local time). */
 function todayString(): string {
@@ -137,14 +151,21 @@ export class MetaProgression {
     meta: MetaState,
     upgradeType: UpgradeType,
   ): { success: boolean; newMeta: MetaState; error?: string } {
-    const currentLevel = meta.upgrades[upgradeType] ?? 0;
-
-    if (currentLevel >= 4) {
+    if (!isUpgradeType(upgradeType) || !isNaturalNumber(meta.totalFragments)) {
+      return { success: false, newMeta: meta, error: 'INVALID_STATE' };
+    }
+    const currentLevel = meta.upgrades[upgradeType];
+    const costs = BALANCE.upgradeCosts[upgradeType];
+    if (!isNaturalNumber(currentLevel) || currentLevel > costs.length) {
+      return { success: false, newMeta: meta, error: 'INVALID_STATE' };
+    }
+    if (currentLevel === costs.length) {
       return { success: false, newMeta: meta, error: 'MAXED' };
     }
-
-    const costs = BALANCE.upgradeCosts[upgradeType];
-    const cost = costs ? costs[currentLevel] : 999;
+    const cost = costs[currentLevel];
+    if (!isNaturalNumber(cost)) {
+      return { success: false, newMeta: meta, error: 'INVALID_STATE' };
+    }
 
     if (meta.totalFragments < cost) {
       return { success: false, newMeta: meta, error: 'INSUFFICIENT' };
@@ -162,14 +183,10 @@ export class MetaProgression {
   }
 
   static getUpgradeCost(meta: MetaState, upgradeType: string): number | null {
-    const level = meta.upgrades[upgradeType as keyof typeof meta.upgrades];
-    if (level === undefined || level >= 4) {
-      return null;
-    }
-    const costs = BALANCE.upgradeCosts[upgradeType as keyof typeof BALANCE.upgradeCosts];
-    if (!costs) {
-      return null;
-    }
+    if (!isUpgradeType(upgradeType)) return null;
+    const level = meta.upgrades[upgradeType];
+    const costs = BALANCE.upgradeCosts[upgradeType];
+    if (!isNaturalNumber(level) || level >= costs.length) return null;
     return costs[level];
   }
 
@@ -210,7 +227,7 @@ export class MetaProgression {
   // === Totem management ===
 
   static unlockTotem(meta: MetaState, totemId: string): MetaState {
-    if (meta.unlockedTotems.includes(totemId)) {
+    if (!KNOWN_TOTEMS.has(totemId) || meta.unlockedTotems.includes(totemId)) {
       return meta;
     }
     return {
@@ -221,7 +238,7 @@ export class MetaProgression {
   }
 
   static setActiveTotem(meta: MetaState, totemId: string): MetaState {
-    if (!meta.unlockedTotems.includes(totemId)) {
+    if (!KNOWN_TOTEMS.has(totemId) || !meta.unlockedTotems.includes(totemId)) {
       return meta;
     }
     return {
@@ -285,44 +302,27 @@ export class MetaProgression {
 
     const obj = parsed as Record<string, unknown>;
 
-    const totalFragments =
-      typeof obj.totalFragments === 'number' && Number.isFinite(obj.totalFragments)
-        ? obj.totalFragments
-        : defaults.totalFragments;
-
-    let upgrades = { ...defaults.upgrades };
-    if (obj.upgrades && typeof obj.upgrades === 'object') {
+    const totalFragments = naturalNumber(obj.totalFragments);
+    const upgrades = { ...defaults.upgrades };
+    if (obj.upgrades && typeof obj.upgrades === 'object' && !Array.isArray(obj.upgrades)) {
       const up = obj.upgrades as Record<string, unknown>;
-      if (typeof up.totemSpinSpeed === 'number') upgrades.totemSpinSpeed = up.totemSpinSpeed;
-      if (typeof up.startingStability === 'number') upgrades.startingStability = up.startingStability;
-      if (typeof up.kickZoneBonus === 'number') upgrades.kickZoneBonus = up.kickZoneBonus;
-      if (typeof up.lucidSurgeCooldown === 'number') upgrades.lucidSurgeCooldown = up.lucidSurgeCooldown;
-      if (typeof up.echoCapacity === 'number') upgrades.echoCapacity = up.echoCapacity;
-      if (typeof up.memoryCatalyst === 'number') upgrades.memoryCatalyst = up.memoryCatalyst;
+      for (const key of Object.keys(upgrades) as UpgradeType[]) {
+        const level = up[key];
+        if (isNaturalNumber(level) && level <= BALANCE.upgradeCosts[key].length) {
+          upgrades[key] = level;
+        }
+      }
     }
-
-    const unlockedTotems =
-      Array.isArray(obj.unlockedTotems) && obj.unlockedTotems.every((t) => typeof t === 'string')
-        ? (obj.unlockedTotems as string[])
-        : defaults.unlockedTotems;
-
-    const activeTotemId =
-      typeof obj.activeTotemId === 'string' ? obj.activeTotemId : defaults.activeTotemId;
-
-    const runsCompleted =
-      typeof obj.runsCompleted === 'number' && Number.isFinite(obj.runsCompleted)
-        ? obj.runsCompleted
-        : defaults.runsCompleted;
-
-    const bestDepth =
-      typeof obj.bestDepth === 'number' && Number.isFinite(obj.bestDepth)
-        ? obj.bestDepth
-        : defaults.bestDepth;
-
-    const bestFragments =
-      typeof obj.bestFragments === 'number' && Number.isFinite(obj.bestFragments)
-        ? obj.bestFragments
-        : defaults.bestFragments;
+    const savedTotems = Array.isArray(obj.unlockedTotems) ? obj.unlockedTotems : [];
+    const unlockedTotems = [...new Set([
+      ...defaults.unlockedTotems,
+      ...savedTotems.filter((id): id is string => typeof id === 'string' && KNOWN_TOTEMS.has(id)),
+    ])];
+    const activeTotemId = typeof obj.activeTotemId === 'string' && unlockedTotems.includes(obj.activeTotemId)
+      ? obj.activeTotemId : defaults.activeTotemId;
+    const runsCompleted = naturalNumber(obj.runsCompleted);
+    const bestDepth = naturalNumber(obj.bestDepth);
+    const bestFragments = naturalNumber(obj.bestFragments);
 
     const dailySeed =
       typeof obj.dailySeed === 'string' ? obj.dailySeed : defaults.dailySeed;

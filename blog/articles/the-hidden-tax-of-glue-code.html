@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Hidden Tax of Glue Code — Why Framework Stacking Kills Agent Projects — The Agentic Edge</title>
+  <meta name="description" content="The Hidden Tax of Glue Code — Why Framework Stacking Kills Agent Projects">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-hidden-tax-of-glue-code.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Hidden Tax of Glue Code — Why Framework Stacking Kills Agent Projects</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Analytical — expose the invisible cost everyone pays</p>
+
+<hr>
+
+<p>Here's something every team building AI agents has experienced but few talk about: the glue code tax.</p>
+
+<p>You start with a framework. LangChain, CrewAI, AutoGen — pick one. You write your first agent. It's 50 lines. It works. You're happy.</p>
+
+<p>Then you add a second agent. They need to communicate. You write 100 lines of glue code to connect them.</p>
+
+<p>Then you add tools. Each tool needs to be registered, typed, documented, and wired. Another 200 lines.</p>
+
+<p>Then you add memory. The framework's memory module doesn't quite fit your use case, so you write a custom adapter. 150 lines.</p>
+
+<p>Then you add RAG. The framework's RAG integration expects a specific vector store, but you're using a different one. Another 100 lines of adapter code.</p>
+
+<p>Then you add governance. The framework doesn't have governance, so you import a separate tool and wire it in. 200 lines.</p>
+
+<p>Then you add monitoring. Another library, another integration, another 100 lines.</p>
+
+<p>You started with 50 lines of agent logic. You now have 800 lines of agent logic and 1,200 lines of glue code. The glue code is 70% of your codebase.</p>
+
+<p><strong>The tax compounds.</strong></p>
+
+<p>The glue code doesn't just exist — it has to be maintained. Every framework update might break an adapter. Every new tool requires new wiring. Every change to the agent flow requires touching 5 files across 3 libraries.</p>
+
+<p>The tax shows up in ways that are hard to measure:</p>
+<ul>
+<li><strong>Onboarding time:</strong> A new developer needs to understand 3 frameworks, 2 adapters, and 1,200 lines of glue before they can change a single agent behavior.</li>
+<li><strong>Debugging time:</strong> When something breaks, you're debugging across framework boundaries. The error happens in LangChain but the cause is in your CrewAI adapter. The stack trace doesn't help.</li>
+<li><strong>Testing time:</strong> You can't unit test glue code easily. It's integration code by definition. So you test manually, which is slow and incomplete.</li>
+<li><strong>Upgrade risk:</strong> Upgrading any framework is a multi-day project because you need to verify that every adapter still works. So you delay upgrades. Now you're running outdated frameworks with known bugs.</li>
+
+<p><strong>Why this happens.</strong></p>
+
+<p>The root cause is simple: you're using general-purpose languages (Python, TypeScript) with agent frameworks bolted on top. The frameworks don't know about each other. The language doesn't know about agents. You're the bridge.</p>
+
+<p>In every other domain that got complex enough, the solution was the same: a domain-specific language.</p>
+
+<p>SQL solved the glue code problem for data queries. Before SQL, you wrote imperative code to traverse databases. After SQL, you declared what you wanted and the engine figured out how.</p>
+
+<p>HTML solved the glue code problem for web pages. Before HTML, you wrote imperative code to render text and images. After HTML, you declared the structure and the browser figured out how.</p>
+
+<p>Kubernetes YAML solved the glue code problem for infrastructure. Before Kubernetes, you wrote imperative scripts to deploy and configure services. After Kubernetes, you declared the desired state and the controller figured out how.</p>
+
+<p>Agents are at the same inflection point. The domain is complex enough. The glue code is painful enough. The solution is the same: a declarative language where agents, tools, memory, RAG, and flows are first-class constructs — not imported classes wired together with boilerplate.</p>
+
+<p><strong>What the alternative looks like.</strong></p>
+
+<p>Instead of 1,200 lines of glue code, you write 50 lines of declaration:</p>
+
+<pre><code>agent ResearchBot {
+  model: @anthropic/claude-4
+  tools: [WebSearch, DocStore.retrieve]
+  memory: episodic
+  fn run(query: Str) -&gt; Result&lt;Report, AgentError&gt; {
+    let plan = await spawn Planner().plan(query)?
+    let results = await pool(size: 3, target: Worker).investigate(plan)?
+    Ok(await spawn Summarizer().summarize(results)?)
+  }
+}</code></pre>
+
+<p>The compiler handles the wiring. The type checker catches errors before runtime. The codegen produces Python or TypeScript. No adapters. No glue. No tax.</p>
+
+<p><strong>The bigger point.</strong></p>
+
+<p>Glue code isn't just ugly. It's the reason agent projects become unmaintainable. It's the reason teams spend 70% of their time on infrastructure and 30% on agent behavior. It's the reason upgrades are terrifying and onboarding is slow.</p>
+
+<p>When a domain gets complex enough, you stop writing glue and start writing declarations. Agents have reached that point.</p>
+
+<p>How much of your agent codebase is glue — and what would you build if it was zero?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

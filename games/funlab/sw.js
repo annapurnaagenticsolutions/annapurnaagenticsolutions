@@ -1,4 +1,4 @@
-const CACHE='funlab-v0.6.0';
+const CACHE='funlab-cache-2026-09-29';
 const CORE=['./','./index.html','./styles.css','./manifest.webmanifest','./assets/icon.svg','./src/app.js','./src/core/storage.js','./src/core/share.js','./src/core/random.js','./src/core/rooms.js','./src/core/ai-adapter.js','./src/core/audio.js','./src/core/analytics.js','./src/core/play-systems.js','./src/core/progression.js','./src/games/who-wins.js','./src/games/convince.js','./src/games/jugaad.js','./src/games/what-next.js','./src/games/human-ai.js','./src/games/do-not-press.js','./src/games/fusion-lab.js','./src/games/ai-court.js','./src/games/odd-signal.js','./src/games/orbit-panic.js','./src/games/micro-garden.js'];
 self.addEventListener('install',event=>event.waitUntil(caches.open(CACHE).then(c=>c.addAll(CORE)).then(()=>self.skipWaiting())));
 self.addEventListener('activate',event=>event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(k=>k!==CACHE).map(k=>caches.delete(k)))).then(()=>self.clients.claim())));

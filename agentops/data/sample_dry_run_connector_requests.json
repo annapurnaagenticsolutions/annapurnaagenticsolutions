@@ -1,0 +1,44 @@
+[
+  {
+    "tenant_id": "tenant-procurement",
+    "agent_id": "procurement-agent-001",
+    "actor_id": "user-proc-analyst-01",
+    "actor_role": "procurement_analyst",
+    "identity_id": "svc-procurement-agent-runtime",
+    "secret_ref": "secretref-procurement-erp-readonly",
+    "adapter_id": "adapter-procurement-system-dry-run",
+    "connector_id": "procurement_system_mock",
+    "operation_id": "compare_invoice_to_po",
+    "target_environment": "pilot",
+    "approval_id": "apr-proc-001",
+    "evidence_ids": [
+      "ev-proc-001"
+    ],
+    "payload": {
+      "po_number": "PO-2026-001",
+      "invoice_number": "INV-2026-001",
+      "invoice_amount": 125000
+    },
+    "purpose": "Validate invoice variance before human review."
+  },
+  {
+    "tenant_id": "tenant-hr",
+    "agent_id": "hr-policy-agent-001",
+    "actor_id": "user-hr-analyst-01",
+    "actor_role": "hr_analyst",
+    "identity_id": "svc-hr-policy-agent-runtime",
+    "secret_ref": "secretref-hr-policy-readonly",
+    "adapter_id": "adapter-hr-policy-repository-dry-run",
+    "connector_id": "hr_policy_repository_mock",
+    "operation_id": "search_policy_documents",
+    "target_environment": "sandbox",
+    "approval_id": "",
+    "evidence_ids": [
+      "ev-hr-001"
+    ],
+    "payload": {
+      "query": "leave encashment policy"
+    },
+    "purpose": "Search approved HR policy context in dry-run mode."
+  }
+]

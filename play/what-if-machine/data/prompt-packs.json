@@ -1,0 +1,2123 @@
+[
+  {
+    "id": "animals-in-charge",
+    "title": "Animals in charge",
+    "description": "Animals become officials, teachers, CEOs, traffic bosses, and city planners.",
+    "prompts": [
+      "What if crows ran Bengaluru traffic?",
+      "What if goats became school inspectors?",
+      "What if street dogs opened a bank?",
+      "What if pigeons controlled airport announcements?",
+      "What if cows reviewed restaurant menus?",
+      "What if monkeys became apartment security guards?",
+      "What if ants ran a logistics ministry?",
+      "What if buffaloes became fitness influencers?",
+      "What if squirrels ran the electricity board?",
+      "What if parrots became news editors?"
+    ]
+  },
+  {
+    "id": "school-objects-talk",
+    "title": "School objects talk",
+    "description": "Bags, pencils, tiffins, benches, and blackboards finally complain back.",
+    "prompts": [
+      "What if your school bag could complain?",
+      "What if pencils refused exams?",
+      "What if the blackboard started giving attendance?",
+      "What if lunch boxes formed a secret union?",
+      "What if erasers started a memory-loss clinic?",
+      "What if report cards started giving marks to teachers?",
+      "What if school bells demanded work-life balance?",
+      "What if homework diaries became detectives?",
+      "What if sharpeners opened a career counselling desk?",
+      "What if water bottles started giving exam tips?"
+    ]
+  },
+  {
+    "id": "food-society",
+    "title": "Food society",
+    "description": "Vegetables, snacks, and breakfast items create governments, startups, courts, and family drama.",
+    "prompts": [
+      "What if vegetables had elections?",
+      "What if idlis started a startup?",
+      "What if samosas ran a detective agency?",
+      "What if laddus became gym trainers?",
+      "What if pani puri opened a court of justice?",
+      "What if dosas launched a space mission?",
+      "What if biryani had a passport office?",
+      "What if chutney became a celebrity manager?",
+      "What if rotis held a round-table conference?",
+      "What if mangoes opened a summer parliament?"
+    ]
+  },
+  {
+    "id": "weather-drama",
+    "title": "Weather drama",
+    "description": "Clouds, rain, wind, and sunshine behave like chaotic group members.",
+    "prompts": [
+      "What if monsoon clouds had WhatsApp groups?",
+      "What if rain drops took attendance before falling?",
+      "What if umbrellas went on strike?",
+      "What if thunder became a motivational speaker?",
+      "What if fog opened a mystery school?",
+      "What if sunshine charged a subscription fee?",
+      "What if rainbows started a colour consultancy?",
+      "What if wind became a gossip reporter?",
+      "What if clouds started performance appraisals?",
+      "What if winter sweaters became climate advisors?"
+    ]
+  },
+  {
+    "id": "space-local",
+    "title": "Space gets local",
+    "description": "The moon, planets, stars, satellites, and aliens suddenly behave like local institutions.",
+    "prompts": [
+      "What if the moon opened a coaching center?",
+      "What if Mars had a chai stall?",
+      "What if satellites started gossiping?",
+      "What if gravity took a holiday?",
+      "What if stars started parent-teacher meetings?",
+      "What if aliens came only to compare school marks?",
+      "What if comets needed traffic permits?",
+      "What if black holes opened storage lockers?",
+      "What if the sun needed an alarm clock?",
+      "What if planets opened a group tuition batch?"
+    ]
+  },
+  {
+    "id": "city-objects",
+    "title": "City objects rebel",
+    "description": "Traffic signals, lifts, chargers, dustbins, and roads develop opinions.",
+    "prompts": [
+      "What if traffic signals started giving life advice?",
+      "What if elevators chose passengers by mood?",
+      "What if phone chargers formed a missing persons bureau?",
+      "What if dustbins started customer support?",
+      "What if potholes opened a tourism department?",
+      "What if metro cards became relationship counselors?",
+      "What if parking cones started a discipline academy?",
+      "What if speed breakers demanded respect?",
+      "What if streetlights became night-shift supervisors?",
+      "What if zebra crossings started checking confidence levels?"
+    ]
+  },
+  {
+    "id": "tiny-bureaucracy",
+    "title": "Tiny bureaucracy",
+    "description": "Absurd committees, forms, approvals, and emergency meetings for tiny problems.",
+    "prompts": [
+      "What if ants created a passport office?",
+      "What if coconuts built a consulting firm?",
+      "What if chalk pieces became motivational speakers?",
+      "What if slippers required driving licenses?",
+      "What if water bottles started issuing warnings?",
+      "What if ceiling fans formed a review board?",
+      "What if teaspoons needed appointment slots?",
+      "What if cushions created a grievance portal?",
+      "What if matchboxes required fire-safety PowerPoints?",
+      "What if bookmarks created a reading approval board?"
+    ]
+  },
+  {
+    "id": "home-chaos",
+    "title": "Home chaos",
+    "description": "Everyday household items act like emotional professionals.",
+    "prompts": [
+      "What if remote controls hired bodyguards?",
+      "What if curtains started weather forecasting?",
+      "What if pressure cookers became news anchors?",
+      "What if socks held a missing partner summit?",
+      "What if fridge magnets started giving career advice?",
+      "What if pillows demanded weekend overtime?",
+      "What if buckets opened a rainwater bank?",
+      "What if mirrors started annual appraisal meetings?",
+      "What if washing machines became relationship therapists for socks?",
+      "What if doorbells started background verification?"
+    ]
+  },
+  {
+    "id": "festival-chaos",
+    "title": "Festival chaos",
+    "description": "Festivals, decorations, sweets, queues, and relatives become miniature systems.",
+    "prompts": [
+      "What if Diwali diyas formed a power company?",
+      "What if Holi colours started a diplomatic mission?",
+      "What if festival sweets demanded quality reviews?",
+      "What if puja flowers opened a complaint desk?",
+      "What if wedding chairs started seat allocation?",
+      "What if crackers attended a noise-control workshop?",
+      "What if rangoli patterns held a design award?",
+      "What if gift boxes started emotional blackmail?",
+      "What if fairy lights created a startup for brightness?",
+      "What if invitation cards started ranking guests by punctuality?"
+    ]
+  },
+  {
+    "id": "tiny-startups",
+    "title": "Tiny startups",
+    "description": "Absurd startup ideas run by snacks, animals, planets, and stationery.",
+    "prompts": [
+      "What if ants launched a logistics startup?",
+      "What if coconuts built a consulting company?",
+      "What if dust particles opened a cleaning app?",
+      "What if bananas created a fitness wearable?",
+      "What if notebooks ran a productivity platform?",
+      "What if clouds sold subscription rain?",
+      "What if slippers built a navigation app?",
+      "What if pencils launched an exam-prep platform?",
+      "What if mosquitoes launched a reminder app?",
+      "What if paper clips built an office productivity SaaS?"
+    ]
+  },
+  {
+    "id": "india-daily-life",
+    "title": "Indian daily life",
+    "description": "Autos, tea stalls, tuition classes, apartments, trains, and monsoon days become absurd systems.",
+    "prompts": [
+      "What if autos had board meetings before accepting rides?",
+      "What if tea stalls issued weather forecasts?",
+      "What if apartment lifts started judging punctuality?",
+      "What if tuition benches formed a ranking committee?",
+      "What if railway announcements became poets?",
+      "What if grocery bags demanded performance reviews?",
+      "What if society gates hosted talent auditions?",
+      "What if milk packets formed a morning union?",
+      "What if chai cups became morning consultants?",
+      "What if apartment notice boards started giving life updates?"
+    ]
+  },
+  {
+    "id": "micro-science",
+    "title": "Silly science lab",
+    "description": "Fake experiments, impossible observations, and harmless nonsense reports.",
+    "prompts": [
+      "What if gravity took a tea break?",
+      "What if shadows demanded salaries?",
+      "What if mirrors started giving honest feedback?",
+      "What if magnets opened a friendship bureau?",
+      "What if echoes filed noise complaints?",
+      "What if time tables controlled actual time?",
+      "What if soap bubbles became weather balloons?",
+      "What if yawns were contagious Wi-Fi signals?",
+      "What if pencils discovered the law of exam gravity?",
+      "What if dust particles ran a visibility experiment?"
+    ]
+  },
+  {
+    "id": "classroom-absurdity",
+    "title": "Classroom absurdity",
+    "description": "School routines become comedy systems without mocking students or teachers.",
+    "prompts": [
+      "What if attendance registers took attendance of humans?",
+      "What if the last bench became principal for one day?",
+      "What if maths problems started negotiating marks?",
+      "What if science diagrams escaped the notebook?",
+      "What if exam halls played suspense music?",
+      "What if library books started recommending students?",
+      "What if school corridors had traffic police?",
+      "What if project charts asked for presentation practice?",
+      "What if answer sheets demanded better handwriting rights?",
+      "What if school shoes started a punctuality podcast?"
+    ]
+  },
+  {
+    "id": "tech-gadgets",
+    "title": "Tech and gadgets",
+    "description": "Phones, apps, passwords, keyboards, and notifications behave like dramatic citizens.",
+    "prompts": [
+      "What if phone notifications formed a choir?",
+      "What if passwords started interviewing users?",
+      "What if keyboards refused spelling mistakes?",
+      "What if Wi-Fi routers became mood readers?",
+      "What if screenshots opened a memory museum?",
+      "What if autocorrect became a strict English teacher?",
+      "What if headphones started judging playlists?",
+      "What if low battery alerts became life coaches?",
+      "What if QR codes started asking personal questions?",
+      "What if browser tabs formed a support group?"
+    ]
+  },
+  {
+    "id": "nature-parliament",
+    "title": "Nature parliament",
+    "description": "Trees, rivers, insects, flowers, and mountains hold harmless meetings and debates.",
+    "prompts": [
+      "What if trees held a parliament session?",
+      "What if rivers started sending invoices?",
+      "What if flowers opened a perfume court?",
+      "What if mountains gave public speeches?",
+      "What if bees started a productivity podcast?",
+      "What if leaves filed seasonal transfer requests?",
+      "What if rocks formed a patience club?",
+      "What if coconuts held safety inspections?",
+      "What if clouds and trees negotiated shade-sharing rules?",
+      "What if flowers created a bee appointment system?"
+    ]
+  },
+  {
+    "id": "market-madness",
+    "title": "Market madness",
+    "description": "Markets, bargaining, street food, queues, bags, and bills become miniature dramas.",
+    "prompts": [
+      "What if shopping bags had bargaining skills?",
+      "What if vegetable vendors used weather satellites?",
+      "What if price tags became motivational speakers?",
+      "What if queues elected a line leader?",
+      "What if receipts started telling emotional stories?",
+      "What if weighing scales became judges?",
+      "What if street food carts issued loyalty certificates?",
+      "What if coins started a nostalgia channel?",
+      "What if bargain prices had mood swings?",
+      "What if shopping carts started route optimization?"
+    ]
+  },
+  {
+    "id": "sports-playground",
+    "title": "Sports and playground",
+    "description": "Games, balls, bats, whistles, and playground objects create absurd tournaments.",
+    "prompts": [
+      "What if footballs selected their own teams?",
+      "What if cricket bats demanded rest days?",
+      "What if whistles became match commentators?",
+      "What if playground slides ran a transport company?",
+      "What if badminton shuttles held a flight school?",
+      "What if scoreboards became motivational gurus?",
+      "What if water breaks needed sponsorship deals?",
+      "What if trophies became career counselors?",
+      "What if boundary ropes became cricket analysts?",
+      "What if skipping ropes opened a fitness academy?"
+    ]
+  },
+  {
+    "id": "exam-season-comedy",
+    "title": "Exam season comedy",
+    "description": "Exams, marks, revision plans, answer sheets, and study tables become harmless comedy systems.",
+    "prompts": [
+      "What if revision notes started motivational speeches?",
+      "What if exam clocks slowed down for dramatic effect?",
+      "What if answer sheets hired handwriting translators?",
+      "What if calculators formed an ethics committee?",
+      "What if marksheets started giving feedback to questions?",
+      "What if study tables demanded silence from students?",
+      "What if admit cards became security officers?",
+      "What if sample papers opened a prediction market?",
+      "What if exam invigilators were replaced by sleepy pillows?",
+      "What if toppers' pens held a press conference?"
+    ]
+  },
+  {
+    "id": "transport-tales",
+    "title": "Transport tales",
+    "description": "Buses, autos, trains, signals, platforms, helmets, and tickets behave like tiny public systems.",
+    "prompts": [
+      "What if buses chose routes based on mood?",
+      "What if auto meters started giving philosophy lessons?",
+      "What if train tickets formed a travel club?",
+      "What if helmets opened a safety coaching center?",
+      "What if bus stops became gossip editors?",
+      "What if metro doors started judging running skills?",
+      "What if railway platforms held talent shows?",
+      "What if seat belts started career counselling?",
+      "What if scooters formed a monsoon support group?",
+      "What if traffic cones became motivational speakers?"
+    ]
+  },
+  {
+    "id": "family-object-drama",
+    "title": "Family object drama",
+    "description": "Household items behave like dramatic relatives while staying clean, gentle, and family-safe.",
+    "prompts": [
+      "What if sofa cushions started family meetings?",
+      "What if TV remotes became household celebrities?",
+      "What if dining tables demanded better conversations?",
+      "What if ceiling fans became emotional weather reporters?",
+      "What if pressure cookers hosted breaking news?",
+      "What if slippers opened a lost-and-found court?",
+      "What if curtains started privacy negotiations?",
+      "What if photo frames gave advice to visitors?",
+      "What if refrigerators became secret keepers?",
+      "What if lunch plates started appreciating chefs?"
+    ]
+  },
+  {
+    "id": "robots-and-ai-silly",
+    "title": "Robots and AI silly",
+    "description": "Robots, AI helpers, assistants, and smart devices misunderstand everyday life in funny, safe ways.",
+    "prompts": [
+      "What if robots joined a school annual day?",
+      "What if an AI assistant became a tiffin planner?",
+      "What if smart speakers started overacting?",
+      "What if robot sweepers formed a dust detective squad?",
+      "What if chatbots opened a chai shop?",
+      "What if smart watches became strict grandparents?",
+      "What if drones started delivering compliments?",
+      "What if AI cameras became wildlife photographers for ants?",
+      "What if robots tried to understand Indian weddings?",
+      "What if a smart fridge launched a diet rebellion?"
+    ]
+  },
+  {
+    "id": "tiny-kingdoms",
+    "title": "Tiny kingdoms",
+    "description": "Harmless fantasy kingdoms for pencils, clouds, snacks, insects, and forgotten objects.",
+    "prompts": [
+      "What if a kingdom existed inside a pencil box?",
+      "What if ants built a royal metro system?",
+      "What if socks ruled two separate kingdoms?",
+      "What if clouds elected a drizzle king?",
+      "What if biscuits formed a crumb empire?",
+      "What if paper boats had a navy academy?",
+      "What if marbles became palace guards?",
+      "What if buttons created a tiny fashion court?",
+      "What if matchsticks opened a drama academy?",
+      "What if soap bubbles became floating diplomats?"
+    ]
+  },
+  {
+    "id": "office-but-silly",
+    "title": "Office but silly",
+    "description": "Meetings, spreadsheets, badges, chairs, coffee machines, and calendars become low-risk workplace comedy.",
+    "prompts": [
+      "What if spreadsheets started refusing boring numbers?",
+      "What if office chairs gave productivity reviews?",
+      "What if coffee machines became project managers?",
+      "What if meeting rooms demanded fewer meetings?",
+      "What if ID cards started checking confidence?",
+      "What if calendars formed a stress union?",
+      "What if sticky notes opened a memory clinic?",
+      "What if printers became drama queens?",
+      "What if office plants started approving leave requests?",
+      "What if laptops demanded snack breaks?"
+    ]
+  },
+  {
+    "id": "bedtime-absurdity",
+    "title": "Bedtime absurdity",
+    "description": "Gentler, cozy what-ifs for bedtime stories, younger children, and calm family entertainment.",
+    "prompts": [
+      "What if stars whispered bedtime reminders?",
+      "What if pillows collected dreams like postcards?",
+      "What if blankets opened a comfort school?",
+      "What if night lamps became tiny moon assistants?",
+      "What if yawns travelled by train?",
+      "What if teddy bears ran a sleep committee?",
+      "What if dreams needed tickets?",
+      "What if moonlight painted quiet roads?",
+      "What if beds became boats for sleepy islands?",
+      "What if alarm clocks learned kindness?"
+    ]
+  },
+  {
+    "id": "eco-inventions",
+    "title": "Eco inventions",
+    "description": "Nature-friendly absurd ideas that can also become classroom prompts without pretending to be real science.",
+    "prompts": [
+      "What if dustbins gave points for cleanliness?",
+      "What if trees sent thank-you notes for shade?",
+      "What if rainwater tanks became town bankers?",
+      "What if bicycles opened a clean-air club?",
+      "What if old newspapers became historians?",
+      "What if compost bins started cooking shows?",
+      "What if reusable bags had superhero badges?",
+      "What if lakes hired cleanliness ambassadors?",
+      "What if solar panels became sun poets?",
+      "What if gardens hosted recycling festivals?"
+    ]
+  },
+  {
+    "id": "travel-ticket-chaos",
+    "title": "Travel and ticket chaos",
+    "description": "Tickets, trains, buses, luggage, queues, and announcements create tiny travel comedies.",
+    "prompts": [
+      "What if train tickets started checking passengers?",
+      "What if luggage bags opened a complaint desk?",
+      "What if bus stops started giving career advice?",
+      "What if railway platforms became talent judges?",
+      "What if boarding passes started gossiping?",
+      "What if seat numbers refused to stay in order?",
+      "What if rickshaw meters became philosophers?",
+      "What if travel pillows formed a sleep union?",
+      "What if station clocks ran on chai time?",
+      "What if GPS maps started giving sarcastic directions?",
+      "What if toll gates hosted quiz competitions?",
+      "What if suitcases demanded vacation photos?"
+    ]
+  },
+  {
+    "id": "library-book-worlds",
+    "title": "Library and book worlds",
+    "description": "Books, shelves, bookmarks, pages, and librarians become tiny fantasy systems.",
+    "prompts": [
+      "What if library books held secret night meetings?",
+      "What if bookmarks started judging readers?",
+      "What if pages escaped during exams?",
+      "What if dictionaries became debate champions?",
+      "What if novels opened a travel agency?",
+      "What if library shelves started arranging humans?",
+      "What if book covers demanded better acting roles?",
+      "What if footnotes became breaking news anchors?",
+      "What if index pages started giving life shortcuts?",
+      "What if storybooks complained about spoilers?",
+      "What if textbooks started a comedy club?",
+      "What if library silence became a security guard?"
+    ]
+  },
+  {
+    "id": "village-small-town",
+    "title": "Village and small-town comedy",
+    "description": "Hand pumps, ponds, bicycles, banyan trees, tea corners, and local notice boards create gentle local absurdity.",
+    "prompts": [
+      "What if the village hand pump became mayor for a day?",
+      "What if bicycles formed a traffic union?",
+      "What if the banyan tree opened a counseling center?",
+      "What if the pond started issuing weather permits?",
+      "What if tea corner benches became news channels?",
+      "What if street goats managed parking rules?",
+      "What if notice boards started fact-checking gossip?",
+      "What if kites delivered official letters?",
+      "What if lanterns demanded night-shift allowance?",
+      "What if clay pots became water ministers?",
+      "What if village lanes started naming humans?",
+      "What if market baskets held annual elections?"
+    ]
+  },
+  {
+    "id": "notification-drama",
+    "title": "Notification drama",
+    "description": "Apps, alerts, passwords, screenshots, groups, emojis, and battery warnings become emotional characters.",
+    "prompts": [
+      "What if notifications had a family group?",
+      "What if passwords opened a memory clinic?",
+      "What if emojis started a court case?",
+      "What if screenshots became private detectives?",
+      "What if phone batteries gave motivational speeches?",
+      "What if Wi-Fi signals started charging rent?",
+      "What if app updates needed emotional consent?",
+      "What if autocorrect became a school teacher?",
+      "What if voice notes formed a drama club?",
+      "What if unread messages started a protest march?",
+      "What if airplane mode opened a meditation retreat?",
+      "What if chargers started a lost-and-found bureau?"
+    ]
+  },
+  {
+    "id": "tiny-courts-complaints",
+    "title": "Tiny courts and complaints",
+    "description": "Harmless everyday conflicts become courts, hearings, evidence files, and formal verdicts.",
+    "prompts": [
+      "What if socks took washing machines to court?",
+      "What if umbrellas filed complaints against rain?",
+      "What if spoons sued noisy plates?",
+      "What if homework filed a case against weekends?",
+      "What if slippers accused humans of disappearing them?",
+      "What if pillows demanded justice for late sleeping?",
+      "What if traffic cones held public hearings?",
+      "What if lunch boxes sued boring vegetables?",
+      "What if alarms appealed against the snooze button?",
+      "What if dustbins judged snack wrappers?",
+      "What if chalk dust opened an inquiry commission?",
+      "What if ceiling fans investigated missing cool air?"
+    ]
+  },
+  {
+    "id": "reel-caption-sparks",
+    "title": "Creator reel sparks",
+    "description": "What-if ideas designed for short captions, reels, posters, hooks, and status updates.",
+    "prompts": [
+      "What if Monday had a customer care number?",
+      "What if deadlines needed permission to enter the room?",
+      "What if confidence came with a low-battery warning?",
+      "What if coffee cups hosted morning interviews?",
+      "What if meetings had trailer music?",
+      "What if to-do lists started giving resignation letters?",
+      "What if weekend plans hired bodyguards?",
+      "What if chairs rated human productivity?",
+      "What if calendars started hiding difficult days?",
+      "What if lunch breaks became national festivals?",
+      "What if office plants became HR managers?",
+      "What if keyboards judged typing speed silently?"
+    ]
+  },
+  {
+    "id": "science-concepts-silly",
+    "title": "Science concepts, silly edition",
+    "description": "Gravity, friction, light, sound, magnets, energy, and circuits become playful characters without becoming incorrect lessons.",
+    "prompts": [
+      "What if friction started charging service tax?",
+      "What if light rays needed road maps?",
+      "What if sound waves started a podcast?",
+      "What if magnets ran a friendship bureau?",
+      "What if circuits held a family meeting?",
+      "What if evaporation opened a disappearing academy?",
+      "What if photosynthesis started a restaurant?",
+      "What if atoms formed apartment societies?",
+      "What if electricity had traffic rules?",
+      "What if shadows took a holiday?",
+      "What if pulleys opened a lifting consultancy?",
+      "What if thermometers became mood readers?"
+    ]
+  },
+  {
+    "id": "career-office-satire-lite",
+    "title": "Office satire, clean edition",
+    "description": "Meetings, slides, emails, chairs, coffee, and office plants become absurd but safe workplace comedy.",
+    "prompts": [
+      "What if PowerPoint slides started refusing bullet points?",
+      "What if office chairs demanded promotion letters?",
+      "What if emails formed a traffic jam?",
+      "What if coffee machines became project managers?",
+      "What if sticky notes opened a strategy firm?",
+      "What if keyboards started annual performance reviews?",
+      "What if spreadsheets hired emotional support cells?",
+      "What if meeting rooms charged entry fees?",
+      "What if office plants became silent auditors?",
+      "What if status reports started writing poetry?",
+      "What if calendars blocked time for daydreaming?",
+      "What if headphones opened a peace committee?"
+    ]
+  },
+  {
+    "id": "bedtime-gentle-absurdity",
+    "title": "Bedtime gentle absurdity",
+    "description": "Soft, child-friendly what-ifs for calm stories, tiny quests, and non-scary night imagination.",
+    "prompts": [
+      "What if stars took attendance before bedtime?",
+      "What if pillows guarded dreams like tiny soldiers?",
+      "What if blankets became cloud boats?",
+      "What if the moon told very short jokes?",
+      "What if sleepy socks walked to dream school?",
+      "What if night lamps opened a comfort shop?",
+      "What if teddy bears had a whisper parliament?",
+      "What if bedtime stories chose their own endings?",
+      "What if yawns became tiny butterflies?",
+      "What if dreams had a lost-and-found counter?",
+      "What if alarm clocks went to sleep early?",
+      "What if slippers guided children to dreamland?"
+    ]
+  },
+  {
+    "id": "parent-family-sparks",
+    "title": "Family-friendly sparks",
+    "description": "Safe prompts for parents, children, siblings, grandparents, and family storytelling sessions.",
+    "prompts": [
+      "What if the dining table hosted family debates?",
+      "What if TV remotes created a peace treaty?",
+      "What if grandparents' glasses became detectives?",
+      "What if family photo frames started giving advice?",
+      "What if the doorbell became a guest manager?",
+      "What if dinner plates voted on the menu?",
+      "What if shoe racks arranged family meetings?",
+      "What if cushions became secret keepers?",
+      "What if water filters gave health lectures?",
+      "What if curtains chose the weather mood?",
+      "What if the clock started asking everyone to slow down?",
+      "What if house keys opened only funny stories?"
+    ]
+  },
+  {
+    "id": "visual-poster-prompts",
+    "title": "Visual poster prompts",
+    "description": "Prompts selected because they naturally create strong poster/comic imagery.",
+    "prompts": [
+      "What if a samosa wore a superhero cape?",
+      "What if a traffic signal became a school principal?",
+      "What if the moon sold coaching notes from a balcony?",
+      "What if a cloud carried an umbrella?",
+      "What if a pencil led an exam protest with a tiny flag?",
+      "What if an idli launched from a space center?",
+      "What if a crow wore a traffic police cap?",
+      "What if a slipper opened a navigation desk?",
+      "What if a book shelf became a railway station?",
+      "What if a tea cup became a morning news anchor?",
+      "What if a mosquito started a reminder app?",
+      "What if a lunch box became a judge?"
+    ]
+  },
+  {
+    "id": "mythical-modern",
+    "title": "Mythical but modern",
+    "description": "Harmless myth-like creatures dealing with modern offices, schools, apps, and queues.",
+    "prompts": [
+      "What if a tiny dragon became a school bus conductor?",
+      "What if a friendly giant opened a photocopy shop?",
+      "What if a mermaid joined an online tuition class?",
+      "What if a wizard became society maintenance manager?",
+      "What if a talking tree ran a mobile recharge counter?",
+      "What if a fairy started a lost-and-found department?",
+      "What if a mountain spirit had to update its address proof?",
+      "What if a magic carpet needed parking permission?",
+      "What if a sleepy dragon worked as a library assistant?",
+      "What if a cloud fairy became a rainwater consultant?",
+      "What if a tiny genie opened a customer support desk?",
+      "What if a unicorn had to pass a traffic test?"
+    ]
+  },
+  {
+    "id": "history-but-silly",
+    "title": "History but silly",
+    "description": "Non-political, classroom-safe historical imagination using objects, museums, maps, and old inventions.",
+    "prompts": [
+      "What if ancient maps started giving live traffic updates?",
+      "What if museum statues formed a night committee?",
+      "What if old coins opened a nostalgia bank?",
+      "What if cave paintings became social media influencers?",
+      "What if sundials complained about smartphones?",
+      "What if ancient scrolls started sending notifications?",
+      "What if old forts started hosting orientation sessions?",
+      "What if clay pots created a storage startup?",
+      "What if quills refused to write boring homework?",
+      "What if fossils started a memory club?",
+      "What if old calendars predicted exam holidays?",
+      "What if history textbooks interviewed their own chapters?"
+    ]
+  },
+  {
+    "id": "maths-but-masti",
+    "title": "Maths but masti",
+    "description": "Numbers, shapes, graphs, and equations become characters without making learning stressful.",
+    "prompts": [
+      "What if zero became the class monitor?",
+      "What if triangles opened a security agency?",
+      "What if fractions started a sharing consultancy?",
+      "What if multiplication tables formed a choir?",
+      "What if graphs became weather reporters?",
+      "What if circles demanded corner rights?",
+      "What if rulers started measuring confidence?",
+      "What if decimals opened a tiny bank?",
+      "What if equations started negotiating both sides?",
+      "What if angles hosted a dance competition?",
+      "What if percentages became discount detectives?",
+      "What if geometry boxes became city planners?"
+    ]
+  },
+  {
+    "id": "festival-family",
+    "title": "Festival family comedy",
+    "description": "Gentle family-safe festival chaos around food, decoration, relatives, and preparation.",
+    "prompts": [
+      "What if diyas held a brightness competition?",
+      "What if ladoos audited festival happiness?",
+      "What if garlands started seating arrangements?",
+      "What if gift wrappers became secret agents?",
+      "What if festival shoes formed a lost-and-found union?",
+      "What if rangoli colors opened a design school?",
+      "What if sweet boxes started ranking compliments?",
+      "What if invitation cards gave punctuality scores?",
+      "What if festival drums became announcement managers?",
+      "What if new clothes demanded a launch ceremony?",
+      "What if house decorations held a review meeting?",
+      "What if relatives' tea cups started recording gossip?"
+    ]
+  },
+  {
+    "id": "kids-bedroom-worlds",
+    "title": "Kids bedroom worlds",
+    "description": "Gentle bedtime and room-object imagination with pillows, toys, lamps, and blankets.",
+    "prompts": [
+      "What if pillows opened a dream cinema?",
+      "What if blankets became night security guards?",
+      "What if toys held a midnight assembly?",
+      "What if bedside lamps told tiny jokes?",
+      "What if storybooks chose their own readers?",
+      "What if teddy bears ran a kindness school?",
+      "What if alarm clocks became sleep coaches?",
+      "What if crayons painted secret maps at night?",
+      "What if socks created a rescue mission?",
+      "What if curtains negotiated with moonlight?",
+      "What if toy cars opened a traffic school?",
+      "What if wardrobes hosted costume elections?"
+    ]
+  },
+  {
+    "id": "public-transport-comedy",
+    "title": "Public transport comedy",
+    "description": "Buses, trains, tickets, queues, seats, and announcements become playful characters.",
+    "prompts": [
+      "What if bus tickets became travel reviewers?",
+      "What if train seats started reservation interviews?",
+      "What if metro announcements became poets?",
+      "What if luggage bags demanded passenger ratings?",
+      "What if platform numbers played hide and seek?",
+      "What if bus conductors had cloud-based whistles?",
+      "What if railway clocks became suspense directors?",
+      "What if auto meters gave life lessons?",
+      "What if boarding passes started checking confidence?",
+      "What if traffic cones hosted a transport summit?",
+      "What if seat belts became motivational speakers?",
+      "What if travel pillows opened a comfort consultancy?"
+    ]
+  },
+  {
+    "id": "creator-trend-sparks",
+    "title": "Creator trend sparks",
+    "description": "Short-form friendly absurd prompts for reels, statuses, thumbnails, and carousel posts.",
+    "prompts": [
+      "What if notifications had a family group?",
+      "What if captions started rejecting boring posts?",
+      "What if hashtags opened a coaching class?",
+      "What if thumbnails formed a drama club?",
+      "What if reels had traffic police?",
+      "What if comments hired emotional translators?",
+      "What if profile pictures ran a confidence workshop?",
+      "What if likes demanded annual leave?",
+      "What if shares became gossip pigeons?",
+      "What if filters became fashion consultants?",
+      "What if drafts escaped and posted themselves?",
+      "What if mute buttons started a peace movement?"
+    ]
+  },
+  {
+    "id": "language-mix-play",
+    "title": "Language mix play",
+    "description": "Prompts designed for English, Simple English, Hinglish, and translation-friendly variants.",
+    "prompts": [
+      "What if English words and Hindi words shared a tiffin?",
+      "What if Hinglish opened a translation cafe?",
+      "What if commas became conversation police?",
+      "What if emojis became language teachers?",
+      "What if dictionaries started telling jokes?",
+      "What if subtitles had stage fright?",
+      "What if spellcheck moved to a village school?",
+      "What if full stops demanded dramatic endings?",
+      "What if question marks became detectives?",
+      "What if vowels formed a singing group?",
+      "What if grammar books started a comedy club?",
+      "What if voice notes needed subtitles for themselves?"
+    ]
+  },
+  {
+    "id": "eco-friendly-absurdity",
+    "title": "Eco-friendly absurdity",
+    "description": "Safe climate/nature imagination without fear: reuse, water, trees, and clean habits made funny.",
+    "prompts": [
+      "What if dustbins gave recycling report cards?",
+      "What if trees started a shade subscription?",
+      "What if water bottles opened a refill movement?",
+      "What if bicycles became city ambassadors?",
+      "What if solar panels started sun negotiations?",
+      "What if compost bins became kitchen scientists?",
+      "What if leaves organized a cleanliness parade?",
+      "What if rainwater tanks became cloud accountants?",
+      "What if paper bags opened a respect campaign?",
+      "What if garden worms became soil engineers?",
+      "What if reusable boxes had loyalty points?",
+      "What if streetlights asked for energy-saving holidays?"
+    ]
+  },
+  {
+    "id": "tiny-professions",
+    "title": "Tiny professions",
+    "description": "Objects and animals take harmless professional roles: auditor, coach, reporter, guide, inspector.",
+    "prompts": [
+      "What if teaspoons became quality auditors?",
+      "What if slippers became navigation coaches?",
+      "What if erasers became memory consultants?",
+      "What if pigeons became city reporters?",
+      "What if cushions became comfort inspectors?",
+      "What if ceiling fans became weather analysts?",
+      "What if umbrellas became risk managers?",
+      "What if bookmarks became reading coaches?",
+      "What if lunch boxes became nutrition anchors?",
+      "What if dusters became classroom historians?",
+      "What if staplers became office therapists?",
+      "What if paper clips became teamwork trainers?"
+    ]
+  },
+  {
+    "id": "mini-mystery-cases",
+    "title": "Mini mystery cases",
+    "description": "Harmless detective prompts with clues, witnesses, and funny reveals.",
+    "prompts": [
+      "What if the missing homework was hiding in the lunch box?",
+      "What if the last samosa left a clue?",
+      "What if the umbrella knew who moved the shoes?",
+      "What if the classroom clock solved a mystery?",
+      "What if the tea cup witnessed a biscuit robbery?",
+      "What if the library shelf found a secret note?",
+      "What if the metro card exposed a travel mystery?",
+      "What if the remote control ran away with evidence?",
+      "What if the school bell knew the real timetable?",
+      "What if the balcony plant saw everything?",
+      "What if the pencil box became a detective bureau?",
+      "What if the missing charger left dramatic footprints?"
+    ]
+  },
+  {
+    "id": "sports-commentary-absurd",
+    "title": "Sports commentary absurdity",
+    "description": "Playground events narrated like major tournaments while staying silly and safe.",
+    "prompts": [
+      "What if marbles had a world cup?",
+      "What if cricket stumps started reviewing decisions?",
+      "What if badminton nets gave tactical advice?",
+      "What if whistles became celebrity commentators?",
+      "What if water bottles managed team strategy?",
+      "What if football boots demanded sponsorship deals?",
+      "What if chess pieces hosted a press conference?",
+      "What if carrom coins opened a training academy?",
+      "What if skipping ropes became fitness judges?",
+      "What if playground dust became match referee?",
+      "What if scoreboards started motivating losing teams?",
+      "What if trophies gave career guidance?"
+    ]
+  },
+  {
+    "id": "poster-first-hooks",
+    "title": "Poster-first hooks",
+    "description": "Inputs optimized for vertical posters, thumbnails, and one-line punchlines.",
+    "prompts": [
+      "What if the moon charged tuition fees?",
+      "What if potholes became tourist attractions?",
+      "What if clouds muted the rain group?",
+      "What if pencils resigned before exams?",
+      "What if onions won by emotional campaigning?",
+      "What if alarm clocks needed motivation?",
+      "What if traffic signals gave therapy?",
+      "What if chai cups became morning CEOs?",
+      "What if bananas launched a gym app?",
+      "What if shoes checked attendance?",
+      "What if passwords forgot humans?",
+      "What if shadows demanded credit?"
+    ]
+  },
+  {
+    "id": "super-short-status",
+    "title": "Super-short status prompts",
+    "description": "Ultra-compact what-ifs designed for status posts, quick jokes, and rapid replay.",
+    "prompts": [
+      "What if mirrors charged honesty tax?",
+      "What if tea spoons had ambition?",
+      "What if windows opened opinions?",
+      "What if sandals hated meetings?",
+      "What if snacks took attendance?",
+      "What if rain had a manager?",
+      "What if buses kept secrets?",
+      "What if notebooks felt pressure?",
+      "What if coins missed pockets?",
+      "What if laddus gave gym advice?",
+      "What if batteries needed holidays?",
+      "What if stars sold night tickets?"
+    ]
+  },
+  {
+    "id": "best-share-card-sparks",
+    "title": "Best share-card sparks",
+    "description": "Short, poster-friendly what-ifs designed for instant sharing.",
+    "prompts": [
+      "What if slippers had GPS tracking?",
+      "What if chai cups reviewed mornings?",
+      "What if school bells asked for overtime?",
+      "What if potholes had tourist guides?",
+      "What if shadows formed a dance team?",
+      "What if umbrellas became weather influencers?",
+      "What if dustbins gave civic lectures?",
+      "What if lunch boxes had secret ratings?",
+      "What if lift buttons voted on passengers?",
+      "What if pillows wrote sleep reports?",
+      "What if Wi-Fi signals had mood swings?",
+      "What if notebooks leaked exam gossip?"
+    ]
+  },
+  {
+    "id": "serial-absurd-worlds",
+    "title": "Serial absurd worlds",
+    "description": "Prompts that can become recurring episode universes.",
+    "prompts": [
+      "What if the last bench ran a secret kingdom?",
+      "What if a tea stall became the city parliament?",
+      "What if a pencil detective solved school mysteries?",
+      "What if clouds ran a rain subscription service?",
+      "What if bus tickets opened a travel court?",
+      "What if vegetables built a weekly cabinet?",
+      "What if a ceiling fan became a weather god?",
+      "What if phone chargers formed a rescue squad?",
+      "What if the moon hosted parent-teacher meetings?",
+      "What if a village notice board became a news channel?",
+      "What if tiffin boxes ran a food federation?",
+      "What if railway platforms had celebrity gossip columns?"
+    ]
+  },
+  {
+    "id": "classroom-warmup-bank",
+    "title": "Classroom warmup bank",
+    "description": "Safe prompts for discussion, vocabulary, drawing, and creative writing.",
+    "prompts": [
+      "What if fractions opened a pizza shop?",
+      "What if verbs went on strike?",
+      "What if maps refused to show shortcuts?",
+      "What if plants held morning assembly?",
+      "What if magnets became friendship coaches?",
+      "What if water cycles had travel diaries?",
+      "What if multiplication tables formed a band?",
+      "What if punctuation marks started a court case?",
+      "What if planets created seating arrangements?",
+      "What if the periodic table hosted a talent show?",
+      "What if history dates complained about memorization?",
+      "What if triangles ran a construction company?"
+    ]
+  },
+  {
+    "id": "family-dinner-absurdity",
+    "title": "Family dinner absurdity",
+    "description": "Gentle, family-safe comedy around home, food, and daily routines.",
+    "prompts": [
+      "What if dinner plates gave feedback?",
+      "What if the remote control chose the family leader?",
+      "What if the fridge held a midnight meeting?",
+      "What if curtains started giving privacy advice?",
+      "What if pressure cookers hosted a news debate?",
+      "What if spoons ran a kitchen election?",
+      "What if socks wrote missing-person reports?",
+      "What if balcony plants became neighbors?",
+      "What if door mats judged visitors politely?",
+      "What if water filters became health coaches?",
+      "What if fans complained about summer workload?",
+      "What if bedsheets started a comfort committee?"
+    ]
+  },
+  {
+    "id": "creator-reel-hooks",
+    "title": "Creator reel hooks",
+    "description": "Absurd ideas optimized for reels, shorts, captions, and status posts.",
+    "prompts": [
+      "What if notifications had a complaint department?",
+      "What if reels started judging humans?",
+      "What if hashtags formed a union?",
+      "What if emojis gave performance reviews?",
+      "What if selfies attended confidence training?",
+      "What if captions refused to be relatable?",
+      "What if comment sections had traffic police?",
+      "What if trending sounds demanded royalties?",
+      "What if filters told the truth politely?",
+      "What if group chats elected a prime admin?",
+      "What if status updates had expiry interviews?",
+      "What if memes opened a coaching class?"
+    ]
+  },
+  {
+    "id": "poster-headline-bank",
+    "title": "Poster headline bank",
+    "description": "High-contrast what-ifs that produce clean visual posters.",
+    "prompts": [
+      "What if the moon sold night tickets?",
+      "What if rain had a customer-care number?",
+      "What if roads took revenge on bad parking?",
+      "What if trees issued oxygen invoices?",
+      "What if stars needed attendance cards?",
+      "What if shoes had annual appraisals?",
+      "What if traffic cones became life coaches?",
+      "What if calculators hid during exams?",
+      "What if clouds wore office ID cards?",
+      "What if alarm clocks needed motivation?",
+      "What if notebooks became memory banks?",
+      "What if tea kettles ran crisis meetings?"
+    ]
+  },
+  {
+    "id": "language-practice-sparks",
+    "title": "Language practice sparks",
+    "description": "Simple prompts that are easy to convert into Hinglish, Hindi-friendly, and Odia-friendly versions.",
+    "prompts": [
+      "What if mangoes opened a school?",
+      "What if a bus became a storyteller?",
+      "What if rain wrote letters?",
+      "What if a kite gave flying lessons?",
+      "What if a river learned singing?",
+      "What if a bicycle became a teacher?",
+      "What if a lamp told bedtime jokes?",
+      "What if a tree kept a diary?",
+      "What if a spoon became a hero?",
+      "What if a shoe lost its twin?",
+      "What if a book became a friend?",
+      "What if a small cloud wanted a big job?"
+    ]
+  },
+  {
+    "id": "friendly-science-whatifs",
+    "title": "Friendly science what-ifs",
+    "description": "Science-adjacent absurdity without fake claims or unsafe advice.",
+    "prompts": [
+      "What if gravity asked for weekly leave?",
+      "What if sound waves became gossip carriers?",
+      "What if light rays used traffic signals?",
+      "What if electricity attended safety training?",
+      "What if magnets opened a match-making desk?",
+      "What if shadows needed permission slips?",
+      "What if echoes took repeat exams?",
+      "What if plants negotiated sunlight timings?",
+      "What if clouds filed evaporation reports?",
+      "What if friction started a complaint cell?",
+      "What if thermometers became weather poets?",
+      "What if batteries held energy budgets?"
+    ]
+  },
+  {
+    "id": "small-town-serials",
+    "title": "Small-town serials",
+    "description": "Local, warm, recurring comedy around notice boards, buses, markets, and festivals.",
+    "prompts": [
+      "What if the weekly market had a mayor?",
+      "What if a village bus became a radio host?",
+      "What if the temple bell started scheduling meetings?",
+      "What if the water pump gave speeches?",
+      "What if the post office delivered dreams?",
+      "What if the town clock ran late on purpose?",
+      "What if shop shutters held night meetings?",
+      "What if the school veranda became a court?",
+      "What if goats managed traffic near the market?",
+      "What if the barber shop became a news studio?",
+      "What if kites governed the festival sky?",
+      "What if benches reserved people instead of seats?"
+    ]
+  },
+  {
+    "id": "bengaluru-specific-sparks",
+    "title": "Bengaluru specific sparks",
+    "description": "Local prompts around traffic, cafes, tech parks, rain, and apartments.",
+    "prompts": [
+      "What if Silk Board signal became a philosopher?",
+      "What if filter coffee ran a productivity seminar?",
+      "What if office shuttles had emotional support groups?",
+      "What if apartment gates became startup founders?",
+      "What if rain clouds joined a tech sprint?",
+      "What if potholes held a hackathon?",
+      "What if metro tokens became city guides?",
+      "What if traffic apps started telling bedtime stories?",
+      "What if Koramangala cafes had secret councils?",
+      "What if Whitefield signals demanded work from home?",
+      "What if delivery bags became weather experts?",
+      "What if auto meters became motivational speakers?"
+    ]
+  },
+  {
+    "id": "gentle-bedtime-absurdity-plus",
+    "title": "Gentle bedtime absurdity plus",
+    "description": "Soft, low-noise prompts suitable for children and family storytelling.",
+    "prompts": [
+      "What if the moon tucked clouds into bed?",
+      "What if pillows guarded dreams?",
+      "What if stars counted sleepy children?",
+      "What if blankets had tiny libraries?",
+      "What if night lamps whispered stories?",
+      "What if teddy bears ran a dream school?",
+      "What if yawns rode bicycles?",
+      "What if slippers parked themselves quietly?",
+      "What if curtains became sleep musicians?",
+      "What if the fan sang a slow lullaby?",
+      "What if books closed themselves politely?",
+      "What if dreams wrote postcards home?"
+    ]
+  },
+  {
+    "id": "festival-shareables-plus",
+    "title": "Festival shareables plus",
+    "description": "Festival comedy designed for social sharing without religious mockery.",
+    "prompts": [
+      "What if fairy lights had performance targets?",
+      "What if sweets gave guest ratings?",
+      "What if rangoli colors opened a design studio?",
+      "What if gift wrappers became detectives?",
+      "What if wedding chairs negotiated seat plans?",
+      "What if invitation cards had attendance trackers?",
+      "What if balloons joined event management?",
+      "What if flower garlands became fashion critics?",
+      "What if festival queues had commentators?",
+      "What if shopping lists became project managers?",
+      "What if family photos elected a pose captain?",
+      "What if festive discounts started giving interviews?"
+    ]
+  },
+  {
+    "id": "sports-playground-worlds",
+    "title": "Sports playground worlds",
+    "description": "Playground, cricket, games, and sports objects with clean absurdity.",
+    "prompts": [
+      "What if cricket balls gave match analysis?",
+      "What if goalposts became referees?",
+      "What if skipping ropes opened a fitness academy?",
+      "What if chess pieces formed a family drama?",
+      "What if carrom coins ran a bank?",
+      "What if whistles demanded silence?",
+      "What if playground slides became travel agents?",
+      "What if scoreboards started poetry?",
+      "What if badminton shuttlecocks had passports?",
+      "What if footballs chose teams by kindness?",
+      "What if medals held motivational talks?",
+      "What if water breaks became official festivals?"
+    ]
+  },
+  {
+    "id": "office-safe-satire-plus",
+    "title": "Office safe satire plus",
+    "description": "Clean workplace absurdity without targeting real people or companies.",
+    "prompts": [
+      "What if calendars rejected unnecessary meetings?",
+      "What if keyboards demanded typing breaks?",
+      "What if coffee mugs became managers?",
+      "What if spreadsheets started emotional counselling?",
+      "What if chairs reviewed posture discipline?",
+      "What if printers needed appreciation emails?",
+      "What if ID cards formed a security union?",
+      "What if meeting rooms hid during peak hours?",
+      "What if office plants became HR advisors?",
+      "What if sticky notes held strategy sessions?",
+      "What if headphones filed noise complaints?",
+      "What if laptops asked for holiday leave?"
+    ]
+  },
+  {
+    "id": "mystery-case-bank",
+    "title": "Mystery case bank",
+    "description": "Silly mysteries that produce detective-style tiny stories.",
+    "prompts": [
+      "What if the missing chalk became a celebrity?",
+      "What if the last samosa vanished from the plate?",
+      "What if the umbrella thief was a cloud?",
+      "What if the school bell rang five minutes early?",
+      "What if the fridge light knew a secret?",
+      "What if the homework diary disappeared before Monday?",
+      "What if the traffic cone moved by itself?",
+      "What if the moon lost its attendance register?",
+      "What if the market scale started lying politely?",
+      "What if the classroom map changed overnight?",
+      "What if the garden gnome solved neighborhood cases?",
+      "What if the lost sock sent clues?"
+    ]
+  },
+  {
+    "id": "future-but-silly",
+    "title": "Future but silly",
+    "description": "Friendly future, robots, gadgets, and AI prompts with harmless comedy.",
+    "prompts": [
+      "What if robots opened a manners school?",
+      "What if AI assistants needed chai breaks?",
+      "What if smart fridges became diet philosophers?",
+      "What if drones delivered excuses instead of parcels?",
+      "What if calendars predicted mood swings?",
+      "What if smartwatches gave gossip alerts?",
+      "What if vacuum robots formed a cleaning orchestra?",
+      "What if keyboards auto-corrected emotions?",
+      "What if traffic lights used artificial patience?",
+      "What if holograms attended tuition classes?",
+      "What if robots learned bargaining at the market?",
+      "What if smart homes held family meetings?"
+    ]
+  },
+  {
+    "id": "eco-humor-deep",
+    "title": "Eco humor deep",
+    "description": "Nature and sustainability prompts that stay positive and action-friendly.",
+    "prompts": [
+      "What if trees hosted oxygen appreciation day?",
+      "What if dustbins gave recycling awards?",
+      "What if rainwater tanks became savings banks?",
+      "What if solar panels ran a sunshine club?",
+      "What if bicycles became city ambassadors?",
+      "What if rivers wrote clean-up invitations?",
+      "What if leaves started a compost cafe?",
+      "What if sparrows became balcony inspectors?",
+      "What if gardens opened a kindness office?",
+      "What if plastic bags attended responsibility school?",
+      "What if clouds reviewed water usage?",
+      "What if streetlights learned energy saving jokes?"
+    ]
+  },
+  {
+    "id": "mini-business-absurdity",
+    "title": "Mini business absurdity",
+    "description": "Playful non-serious business pitches for absurd objects and animals.",
+    "prompts": [
+      "What if coconuts launched a consulting firm?",
+      "What if slippers built a navigation startup?",
+      "What if ants opened a same-day delivery company?",
+      "What if pencils sold exam confidence plans?",
+      "What if clouds created rain-as-a-service?",
+      "What if tea cups launched morning analytics?",
+      "What if dust particles sold visibility reports?",
+      "What if laddus built a fitness brand?",
+      "What if bookmarks opened a reading SaaS?",
+      "What if umbrellas sold monsoon insurance?",
+      "What if chairs launched posture coaching?",
+      "What if autos opened a ride-acceptance academy?"
+    ]
+  },
+  {
+    "id": "micro-drama-dialogues",
+    "title": "Micro drama dialogues",
+    "description": "Prompts designed to generate strong character quotes and short scenes.",
+    "prompts": [
+      "What if the spoon accused the fork?",
+      "What if the traffic signal lost patience?",
+      "What if the exam paper gave a speech?",
+      "What if the umbrella refused one more rain?",
+      "What if the pillow confronted the alarm clock?",
+      "What if the tiffin scolded the chips packet?",
+      "What if the charging cable gave a farewell note?",
+      "What if the bus stop asked why everyone was late?",
+      "What if the school bag demanded respect?",
+      "What if the fan debated the summer heat?",
+      "What if the moon complained to the sun?",
+      "What if the chalk objected to being underestimated?"
+    ]
+  },
+  {
+    "id": "one-line-status-bank",
+    "title": "One-line status bank",
+    "description": "Compact prompts for quick status, caption, and WhatsApp sharing.",
+    "prompts": [
+      "What if Monday had a customer-care number?",
+      "What if naps issued certificates?",
+      "What if chai solved traffic?",
+      "What if homework had feelings?",
+      "What if rain had office timing?",
+      "What if snacks ran meetings?",
+      "What if clouds muted humans?",
+      "What if Wi-Fi judged productivity?",
+      "What if slippers took attendance?",
+      "What if traffic lights needed therapy?",
+      "What if notebooks kept secrets?",
+      "What if idlis became influencers?"
+    ]
+  },
+  {
+    "id": "best-share-card-seeds",
+    "title": "Best share card seeds",
+    "description": "High-impact prompts designed for short poster cards, WhatsApp jokes, and quick social sharing.",
+    "prompts": [
+      "What if Monday had a resignation letter?",
+      "What if chai became the prime minister of mornings?",
+      "What if traffic jams started charging rent?",
+      "What if umbrellas demanded monsoon allowance?",
+      "What if Wi-Fi gave performance feedback?",
+      "What if snacks held emergency meetings?",
+      "What if alarm clocks needed counselling?",
+      "What if slippers started GPS tracking humans?",
+      "What if lunch breaks became national festivals?",
+      "What if pillows issued sleep certificates?",
+      "What if clouds sold premium drizzle plans?",
+      "What if dustbins reviewed human discipline?"
+    ]
+  },
+  {
+    "id": "family-table-fun",
+    "title": "Family table fun",
+    "description": "Clean prompts for parents, children, and family dinner-time imagination games.",
+    "prompts": [
+      "What if the dining table could announce family news?",
+      "What if chapatis told bedtime stories?",
+      "What if the TV remote chose the most patient person?",
+      "What if the water filter became a wise uncle?",
+      "What if the sofa kept attendance of lazy Sundays?",
+      "What if the pressure cooker hosted a talent show?",
+      "What if the fridge formed a midnight snack police?",
+      "What if the shoe rack started judging punctuality?",
+      "What if the ceiling fan became family referee?",
+      "What if the rice cooker gave motivational speeches?",
+      "What if the balcony plants hosted morning meetings?",
+      "What if the door mat started rating guests?"
+    ]
+  },
+  {
+    "id": "morning-assembly-warmups",
+    "title": "Morning assembly warmups",
+    "description": "School-safe prompts for quick speaking, creative writing, and classroom warm-up activities.",
+    "prompts": [
+      "What if the school bell had to give a speech?",
+      "What if the attendance register became class monitor?",
+      "What if the timetable swapped Monday with Sunday?",
+      "What if the library books held an assembly?",
+      "What if the science lab created a tiny cloud?",
+      "What if the school bus started giving geography quizzes?",
+      "What if the playground elected a captain from the footballs?",
+      "What if the pencil box opened a lost-and-found court?",
+      "What if the notice board started asking questions?",
+      "What if the blackboard wrote back politely?",
+      "What if the exam paper requested feedback?",
+      "What if the water bottle became sports coach?"
+    ]
+  },
+  {
+    "id": "micro-comic-hooks",
+    "title": "Micro comic hooks",
+    "description": "Prompts with immediate visual contrast for tiny comic scenes and panel-based stories.",
+    "prompts": [
+      "What if an auto argued with a traffic signal?",
+      "What if a pencil interviewed an eraser?",
+      "What if a samosa chased a fitness trainer?",
+      "What if the moon wore exam spectacles?",
+      "What if a cloud entered a tea shop?",
+      "What if a book complained to a bookmark?",
+      "What if a dustbin gave a cleanliness lecture?",
+      "What if a sock searched for its missing partner?",
+      "What if a phone charger became a detective?",
+      "What if a spoon accused the bowl of laziness?",
+      "What if a traffic cone opened a discipline school?",
+      "What if a mosquito attended a manners class?"
+    ]
+  },
+  {
+    "id": "poster-hook-bank",
+    "title": "Poster hook bank",
+    "description": "Short, punchy prompts that can become vertical poster cards without needing long explanation.",
+    "prompts": [
+      "What if gravity took casual leave?",
+      "What if rain had office timing?",
+      "What if homework sent reminders?",
+      "What if stars needed electricity bills?",
+      "What if laddus joined the gym?",
+      "What if idlis became influencers?",
+      "What if bags demanded weekly offs?",
+      "What if traffic lights became philosophers?",
+      "What if clouds created status updates?",
+      "What if benches charged sitting fees?",
+      "What if doors asked security questions?",
+      "What if mirrors gave annual appraisals?"
+    ]
+  },
+  {
+    "id": "series-seed-worlds",
+    "title": "Series seed worlds",
+    "description": "Prompts designed for recurring characters, running jokes, episode arcs, and serial absurd worlds.",
+    "prompts": [
+      "What if a tiny council of pencils ran a school city?",
+      "What if monsoon clouds formed a drama club?",
+      "What if vegetables built their own parliament of snacks?",
+      "What if metro stations became personality types?",
+      "What if planets opened a tuition chain?",
+      "What if apartment objects formed a secret society?",
+      "What if traffic signals started a detective bureau?",
+      "What if school bags created a backpack kingdom?",
+      "What if kitchen utensils started a daily newspaper?",
+      "What if library books created a night-time city?",
+      "What if pillows ran a dream management office?",
+      "What if garden insects built a miniature republic?"
+    ]
+  },
+  {
+    "id": "language-practice-sparks",
+    "title": "Language practice sparks",
+    "description": "Simple prompts that can be rewritten in English, Hinglish, Hindi-friendly English, or Odia-friendly English.",
+    "prompts": [
+      "What if rain drops learned polite greetings?",
+      "What if the moon asked for directions?",
+      "What if a mango wrote a postcard?",
+      "What if a crow opened a help desk?",
+      "What if a school bag said sorry?",
+      "What if an umbrella thanked the clouds?",
+      "What if a train ticket told its journey?",
+      "What if a pencil asked one simple question?",
+      "What if a tea cup described the morning?",
+      "What if a streetlight welcomed the night?",
+      "What if a bus stop told a short story?",
+      "What if a notebook learned a new word?"
+    ]
+  },
+  {
+    "id": "safe-satire-everyday-systems",
+    "title": "Safe everyday satire",
+    "description": "Non-political satire about forms, queues, customer support, approvals, and tiny official systems.",
+    "prompts": [
+      "What if a queue issued queue numbers to itself?",
+      "What if a form asked humans to fill their feelings?",
+      "What if a help desk needed help from another help desk?",
+      "What if a token machine became a motivational speaker?",
+      "What if a photocopy shop started a memory clinic?",
+      "What if a stamp pad demanded artistic credit?",
+      "What if a receipt asked for emotional reimbursement?",
+      "What if a complaint box started giving advice?",
+      "What if an office file refused to move without snacks?",
+      "What if a chair required booking approval?",
+      "What if a waiting room hosted a patience Olympics?",
+      "What if a signature became a celebrity?"
+    ]
+  },
+  {
+    "id": "indian-city-slice-of-life",
+    "title": "Indian city slice-of-life",
+    "description": "Local but broad Indian city prompts: autos, metro, apartments, chai, tuition, markets, and monsoon.",
+    "prompts": [
+      "What if auto meters started telling the truth emotionally?",
+      "What if apartment lifts formed a gossip network?",
+      "What if chai stalls became weather departments?",
+      "What if tuition classes opened on the moon?",
+      "What if metro cards stored human moods?",
+      "What if vegetable markets had sports commentary?",
+      "What if street dogs reviewed traffic rules?",
+      "What if rainwater puddles created tourist maps?",
+      "What if apartment security gates wrote novels?",
+      "What if mobile recharge shops became philosophers?",
+      "What if city buses ran a poetry club?",
+      "What if potholes applied for heritage status?"
+    ]
+  },
+  {
+    "id": "science-concept-comedy",
+    "title": "Science concept comedy",
+    "description": "Harmless science-adjacent prompts that can lead to fake reports while keeping real science separate from nonsense.",
+    "prompts": [
+      "What if friction opened a complaint office?",
+      "What if evaporation forgot its timetable?",
+      "What if magnets became friendship experts?",
+      "What if shadows demanded proof of identity?",
+      "What if plants held a photosynthesis press meet?",
+      "What if sound waves formed a music band?",
+      "What if planets debated gravity rules?",
+      "What if acids and bases attended mediation?",
+      "What if atoms tried to organize a family photo?",
+      "What if light rays needed traffic lanes?",
+      "What if simple machines opened a gym?",
+      "What if electricity requested a holiday letter?"
+    ]
+  },
+  {
+    "id": "maths-masti-curated",
+    "title": "Maths masti curated",
+    "description": "Math-flavored absurdity for jokes, warmups, and concept bridges without claiming formal instruction.",
+    "prompts": [
+      "What if zero became a celebrity?",
+      "What if fractions opened a pizza court?",
+      "What if multiplication tables started singing?",
+      "What if geometry shapes formed a dance group?",
+      "What if decimals demanded exact respect?",
+      "What if division became a fairness officer?",
+      "What if the number line became a railway platform?",
+      "What if angles started giving directions?",
+      "What if word problems became detectives?",
+      "What if square roots opened a mystery club?",
+      "What if percentages started negotiating discounts?",
+      "What if graphs began telling stories?"
+    ]
+  },
+  {
+    "id": "creator-reel-ready",
+    "title": "Creator reel ready",
+    "description": "Prompts suited for short video scripts, hooks, captions, and visual comedy briefs.",
+    "prompts": [
+      "What if your alarm clock made a morning vlog?",
+      "What if a samosa gave startup advice in 30 seconds?",
+      "What if Bengaluru traffic had a trailer voiceover?",
+      "What if a school bag did a day-in-my-life reel?",
+      "What if clouds reacted to weather apps?",
+      "What if a pencil gave exam survival tips?",
+      "What if idlis reviewed fancy restaurants?",
+      "What if a metro card explained office life?",
+      "What if a chai cup ranked Monday moods?",
+      "What if a pothole gave a TED-style talk?",
+      "What if a phone battery became a life coach?",
+      "What if a dustbin made a cleanliness influencer reel?"
+    ]
+  },
+  {
+    "id": "bedtime-gentle-worlds-plus",
+    "title": "Bedtime gentle worlds plus",
+    "description": "Soft, low-conflict absurd prompts for children, calm storytelling, and gentle imagination.",
+    "prompts": [
+      "What if the moon tucked clouds into bed?",
+      "What if pillows collected sleepy wishes?",
+      "What if stars opened a quiet library?",
+      "What if the night breeze delivered dreams?",
+      "What if blankets had tiny maps of comfort?",
+      "What if fireflies became bedtime lanterns?",
+      "What if a sleepy train carried yawns?",
+      "What if clouds learned lullabies?",
+      "What if a teddy bear ran a kindness school?",
+      "What if slippers guarded dreams at the door?",
+      "What if the ceiling fan hummed stories?",
+      "What if the window watched the moon politely?"
+    ]
+  },
+  {
+    "id": "group-game-prompts",
+    "title": "Group game prompts",
+    "description": "Prompts that work well when friends, families, or classrooms add rules one by one.",
+    "prompts": [
+      "What if everyone had to obey one rule made by a banana?",
+      "What if the room became a tiny country for five minutes?",
+      "What if each person represented one vegetable in an election?",
+      "What if the group had to design a cloud school?",
+      "What if every object in the room got one vote?",
+      "What if a chair became the judge of today?",
+      "What if the team had to invent a new festival for socks?",
+      "What if one pencil became mayor and made three rules?",
+      "What if everyone had to pitch a startup for a spoon?",
+      "What if the group created a new planet for snacks?",
+      "What if the floor became lava but very polite?",
+      "What if the team had to solve a missing umbrella case?"
+    ]
+  },
+  {
+    "id": "quality-test-prompts",
+    "title": "Quality test prompts",
+    "description": "Prompts selected to test whether the engine can create explanation, quotes, scene, report, poster, and next prompts well.",
+    "prompts": [
+      "What if the moon opened a coaching center?",
+      "What if vegetables had elections?",
+      "What if crows ran Bengaluru traffic?",
+      "What if your school bag could complain?",
+      "What if monsoon clouds had WhatsApp groups?",
+      "What if idlis started a startup?",
+      "What if gravity took a tea break?",
+      "What if umbrellas went on strike?",
+      "What if pencils refused exams?",
+      "What if traffic signals gave life advice?",
+      "What if the blackboard started giving attendance?",
+      "What if the sun needed an alarm clock?"
+    ]
+  },
+  {
+    "id": "poster-first-indian-hooks",
+    "title": "Poster-first Indian hooks",
+    "description": "Indian-context poster prompts with one strong visual, one object, and one obvious punchline direction.",
+    "prompts": [
+      "What if chai solved Monday?",
+      "What if an auto became a philosopher?",
+      "What if a tiffin box ran a secret mission?",
+      "What if monsoon clouds became admins?",
+      "What if a traffic signal lost patience?",
+      "What if a school bag resigned?",
+      "What if idli opened a gym?",
+      "What if samosa became a detective?",
+      "What if a pothole became famous?",
+      "What if an umbrella demanded respect?",
+      "What if a metro card knew too much?",
+      "What if a pressure cooker became anchor?"
+    ]
+  },
+  {
+    "id": "character-voice-tests",
+    "title": "Character voice tests",
+    "description": "Prompts built to produce distinct voices: serious object, confused assistant, dramatic witness, and tiny expert.",
+    "prompts": [
+      "What if the chalk became a courtroom witness?",
+      "What if the fan became a tired philosopher?",
+      "What if the spoon became a strict principal?",
+      "What if the umbrella became a dramatic hero?",
+      "What if the school bell became a punctuality coach?",
+      "What if the moon became a confused teacher?",
+      "What if the traffic cone became a safety expert?",
+      "What if the notebook became a secret keeper?",
+      "What if the dustbin became a public speaker?",
+      "What if the fridge became a midnight security guard?",
+      "What if the pencil became a nervous reporter?",
+      "What if the bus ticket became a travel poet?"
+    ]
+  },
+  {
+    "id": "story-expansion-tests",
+    "title": "Story expansion tests",
+    "description": "Prompts that can scale from one joke to scene, quest, mystery, and serial world.",
+    "prompts": [
+      "What if a lost umbrella became a city hero?",
+      "What if a tiffin box had to save lunch time?",
+      "What if a pencil had to recover missing marks?",
+      "What if a cloud forgot where to rain?",
+      "What if a samosa had to solve a kitchen mystery?",
+      "What if the moon had to pass an exam?",
+      "What if a book escaped from the library at night?",
+      "What if a traffic signal had one day off?",
+      "What if a pillow had to protect dreams?",
+      "What if a metro card lost its memory?",
+      "What if a mango had to become king for a day?",
+      "What if a small ant ran a huge delivery mission?"
+    ]
+  },
+  {
+    "id": "editorial-gold-sparks",
+    "title": "Editorial gold sparks",
+    "description": "Prompts selected for strong punchline, visual clarity, safe absurdity, and repeat value.",
+    "prompts": [
+      "What if traffic signals started giving life advice?",
+      "What if slippers filed a missing-foot complaint?",
+      "What if tea cups became weather reporters?",
+      "What if ceiling fans opened a calmness academy?",
+      "What if lunch plates started a review channel?",
+      "What if bus stops formed a patience club?",
+      "What if keys became escape artists?",
+      "What if curtains joined a drama school?",
+      "What if doorbells became neighborhood journalists?",
+      "What if socks demanded equal partnership?"
+    ]
+  },
+  {
+    "id": "best-whatsapp-status",
+    "title": "Best WhatsApp status hooks",
+    "description": "Short ideas that can become funny status lines, family shares, and quick forwards.",
+    "prompts": [
+      "What if Monday asked for sick leave?",
+      "What if Wi-Fi became a moody family member?",
+      "What if alarms started negotiating with sleep?",
+      "What if tea stalls became parliaments of opinion?",
+      "What if grocery lists started judging shoppers?",
+      "What if umbrellas charged surge pricing?",
+      "What if charging cables started giving lectures?",
+      "What if lunch breaks formed a political party?",
+      "What if traffic jams started yoga classes?",
+      "What if notification sounds became gossip aunties?"
+    ]
+  },
+  {
+    "id": "classroom-five-minute-warmups",
+    "title": "Classroom five-minute warmups",
+    "description": "Teacher-safe prompts that support imagination, vocabulary, speaking, drawing, and quick group discussion.",
+    "prompts": [
+      "What if the classroom clock became the class monitor?",
+      "What if chalk pieces opened a tiny library?",
+      "What if multiplication tables formed a cricket team?",
+      "What if maps started correcting tourists?",
+      "What if science diagrams came alive during revision?",
+      "What if grammar rules held a complaint meeting?",
+      "What if water bottles taught evaporation?",
+      "What if geometry boxes opened an architecture firm?",
+      "What if planets attended morning assembly?",
+      "What if the attendance register became a detective?"
+    ]
+  },
+  {
+    "id": "family-evening-play",
+    "title": "Family evening play",
+    "description": "Gentle prompts for parents, kids, siblings, grandparents, and dinner-table storytelling.",
+    "prompts": [
+      "What if the dining table started family meetings?",
+      "What if the TV remote became a peace negotiator?",
+      "What if grandparents' spectacles could replay memories?",
+      "What if the pressure cooker became a singer?",
+      "What if the sofa started charging rent?",
+      "What if the fridge became a midnight guard?",
+      "What if the washing machine became a dance teacher?",
+      "What if the balcony plants started giving advice?",
+      "What if the house keys started a secret club?",
+      "What if the family calendar became a strict principal?"
+    ]
+  },
+  {
+    "id": "poster-one-line-hooks",
+    "title": "Poster one-line hooks",
+    "description": "Prompts with a clean visual headline and one strong poster joke.",
+    "prompts": [
+      "What if the moon offered crash courses?",
+      "What if rain clouds muted the group chat?",
+      "What if crows issued traffic challans?",
+      "What if vegetables promised free chutney for votes?",
+      "What if gravity went on annual leave?",
+      "What if pencils launched an exam boycott?",
+      "What if samosas solved crimes after tea?",
+      "What if autos used rocket fuel for short trips?",
+      "What if idlis pitched to investors?",
+      "What if shoes demanded travel allowance?"
+    ]
+  },
+  {
+    "id": "serial-episode-starters",
+    "title": "Serial episode starters",
+    "description": "Ideas that can grow into recurring characters, running gags, and weekly absurd episodes.",
+    "prompts": [
+      "What if a tiny complaint office opened inside every school bag?",
+      "What if a crow commissioner solved one city problem every Friday?",
+      "What if a cloud admin mismanaged monsoon every week?",
+      "What if a vegetable cabinet ran a tiny country?",
+      "What if a school bench recorded classroom secrets?",
+      "What if a tea cup detective investigated missing biscuits?",
+      "What if a metro card became a time traveler?",
+      "What if a pencil reporter covered exam season news?",
+      "What if an umbrella union negotiated rainy-day rights?",
+      "What if a moon tutor opened branches across the solar system?"
+    ]
+  },
+  {
+    "id": "language-practice-clean-lines",
+    "title": "Language practice clean lines",
+    "description": "Prompts designed to create simple lines that translate well into Hindi, Odia, Hinglish, and other Indian-language packs.",
+    "prompts": [
+      "What if the sun forgot its morning duty?",
+      "What if a mango wanted to become a teacher?",
+      "What if a book asked for a holiday?",
+      "What if rain drops stood in a queue?",
+      "What if a chair wanted respect?",
+      "What if a pencil wanted a new job?",
+      "What if a cloud lost its address?",
+      "What if a bus ticket told stories?",
+      "What if a flower opened a small school?",
+      "What if a spoon became the kitchen captain?"
+    ]
+  },
+  {
+    "id": "visual-comic-ready",
+    "title": "Visual comic ready",
+    "description": "Prompts with clear characters, settings, expressions, and three-panel comic potential.",
+    "prompts": [
+      "What if a traffic cone became a strict principal?",
+      "What if two umbrellas argued at a bus stop?",
+      "What if a tiffin box escaped during lunch break?",
+      "What if a pillow interviewed dreams?",
+      "What if a dustbin became a motivational speaker?",
+      "What if a laptop charger opened emergency services?",
+      "What if a blackboard blinked during exams?",
+      "What if a tomato gave a campaign speech?",
+      "What if a cloud wore sunglasses to avoid raining?",
+      "What if a shoe got lost and became a travel guide?"
+    ]
+  },
+  {
+    "id": "safe-satire-everyday",
+    "title": "Safe satire everyday",
+    "description": "Non-political, non-targeted satire about ordinary systems, tiny rules, committees, and over-serious procedures.",
+    "prompts": [
+      "What if lift buttons required application forms?",
+      "What if apartment notices started poetry competitions?",
+      "What if queue tokens became VIP celebrities?",
+      "What if office staplers formed a productivity task force?",
+      "What if billing counters held talent shows?",
+      "What if parking slots became courtroom judges?",
+      "What if ID cards started performance reviews?",
+      "What if waiting rooms became philosophical clubs?",
+      "What if feedback forms gave feedback to customers?",
+      "What if photocopy machines opened a truth commission?"
+    ]
+  },
+  {
+    "id": "indian-childhood-nostalgia",
+    "title": "Indian childhood nostalgia",
+    "description": "School, summer, cousins, tuition, exams, tiffin, games, and harmless childhood imagination.",
+    "prompts": [
+      "What if summer holidays had a complaint box?",
+      "What if tuition benches wrote secret diaries?",
+      "What if cricket balls returned with travel stories?",
+      "What if tiffin spoons organized a lunch orchestra?",
+      "What if report cards became emotional counsellors?",
+      "What if school shoes planned escape routes?",
+      "What if cousin groups elected a mango captain?",
+      "What if homework hid under the bed?",
+      "What if exam halls had weather forecasts?",
+      "What if cycle bells became neighborhood announcers?"
+    ]
+  },
+  {
+    "id": "science-without-confusion",
+    "title": "Science without confusion",
+    "description": "Absurd prompts that can be funny while keeping real concepts clearly separate from fake science.",
+    "prompts": [
+      "What if atoms had apartment meetings?",
+      "What if shadows submitted attendance?",
+      "What if magnets started friendship clubs?",
+      "What if plants used solar panels for extra snacks?",
+      "What if the water cycle hired a manager?",
+      "What if friction became a traffic police officer?",
+      "What if sound waves opened a music school?",
+      "What if light rays started a delivery service?",
+      "What if bacteria opened a cleanliness workshop?",
+      "What if gravity wrote a leave application?"
+    ]
+  },
+  {
+    "id": "best-demo-prompts",
+    "title": "Best demo prompts",
+    "description": "High-confidence prompts for showing the product to someone for the first time.",
+    "prompts": [
+      "What if monsoon clouds had WhatsApp groups?",
+      "What if crows ran Bengaluru traffic?",
+      "What if the moon opened a coaching center?",
+      "What if your school bag could complain?",
+      "What if vegetables had elections?",
+      "What if gravity took a tea break?",
+      "What if idlis started a startup?",
+      "What if pencils refused exams?",
+      "What if umbrellas went on strike?",
+      "What if tea cups became news anchors?"
+    ]
+  },
+  {
+    "id": "group-game-rounds",
+    "title": "Group game rounds",
+    "description": "Prompts built for turn-taking, voting, team writing, and quick family/classroom games.",
+    "prompts": [
+      "What if everyone had to invent one rule for a potato kingdom?",
+      "What if each team had to defend one talking object?",
+      "What if clouds voted on where to rain next?",
+      "What if shoes ran a travel quiz show?",
+      "What if lunch boxes competed in a talent round?",
+      "What if pencils held a press conference?",
+      "What if each vegetable gave one campaign promise?",
+      "What if the moon asked students for homework excuses?",
+      "What if every chair had to tell one secret?",
+      "What if a crow court judged traffic mistakes?"
+    ]
+  },
+  {
+    "id": "creator-reel-polished",
+    "title": "Creator reel polished",
+    "description": "Prompts structured for hooks, beats, punchlines, and short-form captions.",
+    "prompts": [
+      "What if your phone battery had trust issues?",
+      "What if rain clouds posted daily vlogs?",
+      "What if traffic jams gave productivity tips?",
+      "What if coffee cups exposed office secrets?",
+      "What if school bags had podcast episodes?",
+      "What if vegetables reacted to election results?",
+      "What if the moon reviewed coaching centers?",
+      "What if umbrellas made influencer reels?",
+      "What if auto meters became motivational gurus?",
+      "What if notebooks leaked behind-the-scenes footage?"
+    ]
+  },
+  {
+    "id": "locality-agnostic-sparks",
+    "title": "Locality-agnostic sparks",
+    "description": "Prompts that work in India, global contexts, schools, homes, markets, and generic cities.",
+    "prompts": [
+      "What if streetlights had opinions?",
+      "What if notebooks changed their own titles?",
+      "What if buses chose scenic routes for fun?",
+      "What if parks held secret meetings at dawn?",
+      "What if vending machines became life coaches?",
+      "What if stairs complained about elevators?",
+      "What if benches became interviewers?",
+      "What if newspapers asked follow-up questions?",
+      "What if windows became weather critics?",
+      "What if calendars started negotiating deadlines?"
+    ]
+  },
+  {
+    "id": "character-voice-anchors",
+    "title": "Character voice anchors",
+    "description": "Prompts for testing whether the engine creates distinct, playable character voices.",
+    "prompts": [
+      "What if a strict potato became the principal?",
+      "What if a nervous pencil became a reporter?",
+      "What if a dramatic cloud became a film star?",
+      "What if a practical lunch box became the hero?",
+      "What if a confused crow became commissioner?",
+      "What if a wise old umbrella became a mentor?",
+      "What if a tiny ant became operations manager?",
+      "What if a sarcastic spoon became kitchen auditor?",
+      "What if a sleepy moon became a tutor?",
+      "What if a cheerful slipper became tour guide?"
+    ]
+  },
+  {
+    "id": "high-retention-followups",
+    "title": "High-retention followups",
+    "description": "Prompts that naturally produce sequels, spin-offs, alternate endings, and repeated play.",
+    "prompts": [
+      "What if the first absurd rule worked too well?",
+      "What if the sidekick accidentally became famous?",
+      "What if the villain was only looking for snacks?",
+      "What if the city copied the silly idea everywhere?",
+      "What if the tiny committee had to face an audit?",
+      "What if the poster became more popular than the event?",
+      "What if the assistant knew the real secret?",
+      "What if the next day made the problem even funnier?",
+      "What if a rival group copied the same nonsense?",
+      "What if the final rule created a new mystery?"
+    ]
+  },
+  {
+    "id": "quality-control-tests",
+    "title": "Quality control tests",
+    "description": "Stress-test prompts for clarity, safety, localization, poster-readiness, and non-confusing fake science.",
+    "prompts": [
+      "What if gravity submitted a leave application?",
+      "What if a real-looking news desk reported a clearly fake pencil strike?",
+      "What if a vegetable election needed to stay non-political?",
+      "What if a classroom joke needed to be safe for Class 3?",
+      "What if a Hinglish line needed to stay understandable to grandparents?",
+      "What if a poster had only six words for the punchline?",
+      "What if a science joke needed a clear fake label?",
+      "What if a group game needed no props?",
+      "What if a bedtime version needed no loud chaos?",
+      "What if a sequel needed the same running gag?"
+    ]
+  },
+  {
+    "id": "regional-flavour-seeds",
+    "title": "Regional flavour seeds",
+    "description": "Prompts that invite local details without depending on stereotypes or sensitive identity jokes.",
+    "prompts": [
+      "What if a coastal breeze opened a fish-free weather office?",
+      "What if a hill road became a travel storyteller?",
+      "What if a weekly haat started a comedy club?",
+      "What if a temple bell became a timekeeper without giving sermons?",
+      "What if a village pond appointed a cleanliness captain?",
+      "What if a city metro card became a polite guide?",
+      "What if a tea stall became a weather control room?",
+      "What if a market lane started giving directions in rhymes?",
+      "What if a school veranda became a debate hall?",
+      "What if a local bus became a memory museum?"
+    ]
+  },
+  {
+    "id": "stable-showcase-best-100",
+    "title": "Stable showcase best 100",
+    "description": "Hand-curated prompts for demos, WhatsApp cards, classroom warmups, family play, posters, and series seeds.",
+    "prompts": [
+      "What if crows ran Bengaluru traffic?",
+      "What if the moon opened a coaching center?",
+      "What if monsoon clouds had WhatsApp groups?",
+      "What if vegetables had elections?",
+      "What if your school bag could complain?",
+      "What if gravity took a tea break?",
+      "What if idlis started a startup?",
+      "What if pencils refused exams?",
+      "What if umbrellas charged surge pricing?",
+      "What if the TV remote became a peace negotiator?",
+      "What if multiplication tables formed a cricket team?",
+      "What if your phone battery had trust issues?",
+      "What if a crow commissioner solved one city problem every Friday?",
+      "What if traffic signals started giving life advice?",
+      "What if phone chargers formed a missing persons bureau?",
+      "What if rain drops took attendance before falling?",
+      "What if samosas ran a detective agency?",
+      "What if homework diaries became detectives?",
+      "What if the sun needed an alarm clock?",
+      "What if potholes opened a tourism department?",
+      "What if goats became school inspectors?",
+      "What if street dogs opened a bank?",
+      "What if pigeons controlled airport announcements?",
+      "What if cows reviewed restaurant menus?",
+      "What if monkeys became apartment security guards?",
+      "What if ants ran a logistics ministry?",
+      "What if buffaloes became fitness influencers?",
+      "What if squirrels ran the electricity board?",
+      "What if parrots became news editors?",
+      "What if the blackboard started giving attendance?",
+      "What if lunch boxes formed a secret union?",
+      "What if erasers started a memory-loss clinic?",
+      "What if report cards started giving marks to teachers?",
+      "What if school bells demanded work-life balance?",
+      "What if sharpeners opened a career counselling desk?",
+      "What if water bottles started giving exam tips?",
+      "What if laddus became gym trainers?",
+      "What if pani puri opened a court of justice?",
+      "What if dosas launched a space mission?",
+      "What if biryani had a passport office?",
+      "What if chutney became a celebrity manager?",
+      "What if rotis held a round-table conference?",
+      "What if mangoes opened a summer parliament?",
+      "What if umbrellas went on strike?",
+      "What if thunder became a motivational speaker?",
+      "What if fog opened a mystery school?",
+      "What if sunshine charged a subscription fee?",
+      "What if rainbows started a colour consultancy?",
+      "What if wind became a gossip reporter?",
+      "What if clouds started performance appraisals?",
+      "What if winter sweaters became climate advisors?",
+      "What if Mars had a chai stall?",
+      "What if satellites started gossiping?",
+      "What if gravity took a holiday?",
+      "What if stars started parent-teacher meetings?",
+      "What if aliens came only to compare school marks?",
+      "What if comets needed traffic permits?",
+      "What if black holes opened storage lockers?",
+      "What if planets opened a group tuition batch?",
+      "What if elevators chose passengers by mood?",
+      "What if dustbins started customer support?",
+      "What if metro cards became relationship counselors?",
+      "What if parking cones started a discipline academy?",
+      "What if speed breakers demanded respect?",
+      "What if streetlights became night-shift supervisors?",
+      "What if zebra crossings started checking confidence levels?",
+      "What if ants created a passport office?",
+      "What if coconuts built a consulting firm?",
+      "What if chalk pieces became motivational speakers?",
+      "What if slippers required driving licenses?",
+      "What if water bottles started issuing warnings?",
+      "What if ceiling fans formed a review board?",
+      "What if teaspoons needed appointment slots?",
+      "What if cushions created a grievance portal?",
+      "What if matchboxes required fire-safety PowerPoints?",
+      "What if bookmarks created a reading approval board?",
+      "What if remote controls hired bodyguards?",
+      "What if curtains started weather forecasting?",
+      "What if pressure cookers became news anchors?",
+      "What if socks held a missing partner summit?",
+      "What if fridge magnets started giving career advice?",
+      "What if pillows demanded weekend overtime?",
+      "What if buckets opened a rainwater bank?",
+      "What if mirrors started annual appraisal meetings?",
+      "What if washing machines became relationship therapists for socks?",
+      "What if doorbells started background verification?",
+      "What if Diwali diyas formed a power company?",
+      "What if Holi colours started a diplomatic mission?",
+      "What if festival sweets demanded quality reviews?",
+      "What if puja flowers opened a complaint desk?",
+      "What if wedding chairs started seat allocation?",
+      "What if crackers attended a noise-control workshop?",
+      "What if rangoli patterns held a design award?",
+      "What if gift boxes started emotional blackmail?",
+      "What if fairy lights created a startup for brightness?",
+      "What if invitation cards started ranking guests by punctuality?",
+      "What if ants launched a logistics startup?",
+      "What if coconuts built a consulting company?",
+      "What if dust particles opened a cleaning app?",
+      "What if bananas created a fitness wearable?"
+    ]
+  },
+  {
+    "id": "recurring-character-universe",
+    "title": "Recurring character universe",
+    "description": "Named recurring characters that make the product feel like an absurd world, not only random jokes.",
+    "prompts": [
+      "What if Crow Commissioner Cawdesh inspected every traffic signal?",
+      "What if Professor Moonlal opened a night-school coaching center?",
+      "What if Bagamma the School Bag filed a daily complaint report?",
+      "What if Onion Minister Netranath won every vegetable debate by emotional strategy?",
+      "What if Cloud Admin 108 muted the monsoon group at the worst time?",
+      "What if Inspector Pencil refused to write during surprise tests?",
+      "What if Idli Founder Idlix pitched breakfast-as-a-service?",
+      "What if Gravity Uncle took one disciplined tea break every afternoon?",
+      "What if Remote Rani negotiated peace between TV channels?",
+      "What if Battery Babu started asking for emotional recharge?",
+      "What if Umbrella Devi launched rain-protection surge pricing?",
+      "What if Metro Card Mohan started giving life advice at the gate?",
+      "What if Traffic Signal Tara began judging everyone by patience level?",
+      "What if Tiffin Captain opened a lunchbox parliament?",
+      "What if Pothole Prasad became a local tourism guide?",
+      "What if Blackboard Bindu started grading handwriting confidence?"
+    ]
+  },
+  {
+    "id": "share-card-ready-final",
+    "title": "Share-card ready final prompts",
+    "description": "Short, visual prompts designed for WhatsApp status, poster cards, and quick creator use.",
+    "prompts": [
+      "What if clouds needed admin approval before raining?",
+      "What if school bells demanded work-life balance?",
+      "What if lunch boxes formed a secret union?",
+      "What if metro cards became relationship counselors?",
+      "What if report cards started giving marks to teachers?",
+      "What if traffic cones opened a discipline academy?",
+      "What if slippers required driving licenses?",
+      "What if umbrellas filed rain overtime claims?",
+      "What if Wi-Fi routers became family counselors?",
+      "What if exam papers started asking students for feedback?",
+      "What if pencils opened a silent protest desk?",
+      "What if the moon sold tuition batches by phase?",
+      "What if dustbins started customer support?",
+      "What if auto meters started telling bedtime stories?",
+      "What if rainbows started a colour consultancy?",
+      "What if a tea stall became a weather control room?",
+      "What if vegetables formed coalition governments without politics?",
+      "What if gravity submitted a leave application?",
+      "What if shadows refused to follow lazy people?",
+      "What if calendar dates started taking casual leave?"
+    ]
+  },
+  {
+    "id": "hinglish-showcase-samples",
+    "title": "Hinglish showcase samples",
+    "description": "Human-tuned Hinglish-friendly prompts for status lines, reels, and family comedy.",
+    "prompts": [
+      "What if monsoon clouds said, “Admin approval ke bina rain nahi hoga”?",
+      "What if school bags said, “Boss, homework ka weight emotional hai”?",
+      "What if crows at Silk Board said, “Signal hum sambhal lenge, tum peanuts lao”?",
+      "What if idlis pitched, “Breakfast ko scalable banana padega”?",
+      "What if pencils said, “Exam ke time network issue aa gaya”?",
+      "What if umbrellas said, “Rain protection ab premium feature hai”?",
+      "What if traffic signals said, “Patience dikhao, green light milega”?",
+      "What if phone batteries said, “Low battery nahi, low trust hai”?",
+      "What if vegetables said, “Sabzi cabinet meeting abhi start hogi”?",
+      "What if moon tuition said, “Full-moon batch already full hai”?",
+      "What if remote control said, “Channel change se pehle peace treaty sign karo”?",
+      "What if homework diary said, “Mere paas sab evidence hai”?"
+    ]
+  }
+]

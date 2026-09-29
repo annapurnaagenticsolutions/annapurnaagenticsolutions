@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Cost of Getting It Wrong — Failure Economics for AI Agents — The Agentic Edge</title>
+  <meta name="description" content="The Cost of Getting It Wrong — Failure Economics for AI Agents">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/the-cost-of-getting-it-wrong.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>The Cost of Getting It Wrong — Failure Economics for AI Agents</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Analytical — put real numbers on agent failures</p>
+
+<hr>
+
+<p>When software fails, the cost is usually measurable: downtime, lost transactions, SLA penalties. We've gotten good at calculating this.</p>
+
+<p>When agents fail, the cost is harder to measure — and often much higher. Let's break down the failure economics.</p>
+
+<p><strong>Direct costs: the money the agent spends being wrong.</strong></p>
+
+<p>Every agent action has a cost. The LLM call to reason about the action. The tool call to execute it. The follow-up call to verify the result. If the agent makes the wrong decision, you pay for all of that — plus the cost of undoing the damage.</p>
+
+<p>Example: An agent that processes refund requests decides to refund $500 to a customer who wasn't eligible. The costs:</p>
+<ul>
+<li>LLM call to reason about the request: $0.02</li>
+<li>Tool call to check eligibility: $0.001</li>
+<li>Tool call to process refund: $0.001</li>
+<li>The refund itself: $500</li>
+<li>Customer service time to reverse it: $15</li>
+<li>Total cost of being wrong: ~$515</li>
+<li>Total cost of being right: ~$0.02</li>
+
+<p>The failure cost is 25,000x the success cost. This ratio doesn't exist in traditional software.</p>
+
+<p><strong>Indirect costs: the trust you lose.</strong></p>
+
+<p>When a microservice returns a 500 error, users retry. They're annoyed but they understand. Software fails. It's expected.</p>
+
+<p>When an agent does something wrong — sends an inappropriate email, makes a poor recommendation, accesses the wrong data — users don't just retry. They lose trust. And trust, once lost, is expensive to rebuild.</p>
+
+<p>A customer who receives a hallucinated refund confirmation that gets reversed doesn't think "the agent had a bug." They think "this company can't handle my money." The trust cost is invisible on the balance sheet but visible in churn.</p>
+
+<p><strong>Compounding costs: the cascade effect.</strong></p>
+
+<p>Agents often work in chains. Agent A produces output that Agent B uses. If Agent A is wrong, Agent B builds on the wrong foundation. The error compounds.</p>
+
+<p>In a multi-agent research pipeline:</p>
+<ul>
+<li>Agent A finds sources (10 sources, 2 are wrong)</li>
+<li>Agent B extracts claims (20 claims, 4 are based on wrong sources)</li>
+<li>Agent C synthesizes a report (the report has 4 incorrect claims)</li>
+<li>Agent D sends the report to a client (the client acts on incorrect information)</li>
+
+<p>The cost of the error at Agent A is small. The cost at Agent D is a damaged client relationship. Each step amplifies the error.</p>
+
+<p><strong>The framework: cost of failure x probability of failure x frequency.</strong></p>
+
+<p>To evaluate whether an agent is safe for production, multiply three numbers:</p>
+
+<ol>
+<li><strong>Cost of failure:</strong> What's the worst-case outcome if this agent is wrong? ($10? $10,000? Reputational damage?)</li>
+
+<ol>
+<li><strong>Probability of failure:</strong> How often does this agent produce wrong outputs? (1%? 10%? 30%?)</li>
+
+<ol>
+<li><strong>Frequency:</strong> How often does this agent act? (Once a day? 1,000 times a day?)</li>
+
+<p>An agent that costs $100 per failure, fails 5% of the time, and runs 1,000 times a day: $100 x 0.05 x 1,000 = $5,000/day in expected failure costs. That's $1.8M/year.</p>
+
+<p>An agent that costs $10 per failure, fails 1% of the time, and runs 100 times a day: $10 x 0.01 x 100 = $10/day. That's $3,650/year. Probably acceptable.</p>
+
+<p><strong>What this changes about how you build.</strong></p>
+
+<p>If you're not calculating failure economics, you're flying blind. You don't know which agents need human-in-the-loop, which need more evaluation, which need policy gates, and which are safe to let run.</p>
+
+<p>The framework tells you:</p>
+<ul>
+<li>High cost + high probability -> human approval required before every action</li>
+<li>High cost + low probability -> policy gates + audit trail + alerting</li>
+<li>Low cost + high probability -> evaluation framework + improvement cycle</li>
+<li>Low cost + low probability -> monitor and ship</li>
+
+<p>Every agent in production should have this calculation documented. Not as a formality — as a decision tool.</p>
+
+<p>What's the most expensive agent failure you've seen — and was anyone calculating the cost beforehand?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

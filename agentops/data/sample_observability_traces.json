@@ -1,0 +1,102 @@
+[
+  {
+    "request_id": "rt-sample-001",
+    "agent_id": "procurement-agent-v0",
+    "action": "summarize_vendor_invoice_discrepancy",
+    "target_environment": "sandbox",
+    "execution_decision": "executed",
+    "allowed": true,
+    "policy_decision": "allow",
+    "provider_name": "Mock Safe Local Provider",
+    "model_name": "mock-governed-small",
+    "token_estimate": 52,
+    "estimated_cost_usd": 0.0,
+    "blocked_reason": "",
+    "required_controls": [
+      "basic audit log"
+    ],
+    "required_evidence": [],
+    "evidence_ids": [
+      "EVD-PROC-001"
+    ],
+    "audit_trace": [
+      {
+        "stage": "request_received",
+        "status": "ok",
+        "summary": "Request accepted by runtime boundary.",
+        "details": {}
+      },
+      {
+        "stage": "policy_evaluated",
+        "status": "ok",
+        "summary": "Policy decision: allow.",
+        "details": {}
+      },
+      {
+        "stage": "runtime_completed",
+        "status": "ok",
+        "summary": "Runtime execution completed.",
+        "details": {
+          "token_estimate": 52,
+          "estimated_cost_usd": 0.0
+        }
+      }
+    ],
+    "created_at": "2026-06-08T00:00:00+00:00",
+    "tags": [
+      "sample",
+      "procurement"
+    ]
+  },
+  {
+    "request_id": "rt-sample-002",
+    "agent_id": "customer-support-agent-v0",
+    "action": "send_external_customer_response",
+    "target_environment": "production",
+    "execution_decision": "blocked",
+    "allowed": false,
+    "policy_decision": "deny",
+    "provider_name": null,
+    "model_name": null,
+    "token_estimate": 0,
+    "estimated_cost_usd": 0.0,
+    "blocked_reason": "Sensitive external production action blocked without approval.",
+    "required_controls": [
+      "DLP review",
+      "security review",
+      "legal/compliance approval"
+    ],
+    "required_evidence": [
+      "security_review",
+      "human_approval_record"
+    ],
+    "evidence_ids": [],
+    "audit_trace": [
+      {
+        "stage": "request_received",
+        "status": "ok",
+        "summary": "Request accepted by runtime boundary.",
+        "details": {}
+      },
+      {
+        "stage": "policy_evaluated",
+        "status": "blocked",
+        "summary": "Policy decision: deny.",
+        "details": {
+          "severity": "critical"
+        }
+      },
+      {
+        "stage": "provider_selection",
+        "status": "skipped",
+        "summary": "Provider selection skipped.",
+        "details": {}
+      }
+    ],
+    "created_at": "2026-06-08T00:05:00+00:00",
+    "tags": [
+      "sample",
+      "blocked"
+    ]
+  }
+]

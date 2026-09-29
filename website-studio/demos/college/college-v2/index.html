@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Institute of Art & Design | V2</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syncopate:wght@400;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="antialiased overflow-x-hidden selection:bg-brand-primary selection:text-white">
+    
+    <!-- Custom Cursor (managed via JS) -->
+    <div class="custom-cursor hidden md:block" id="cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 p-6 mix-blend-difference text-white flex justify-between items-start pointer-events-none">
+      <div class="pointer-events-auto">
+        <a href="#" class="font-display font-bold text-2xl tracking-widest hover:italic transition-all">I.A.D.</a>
+      </div>
+      <div class="pointer-events-auto flex flex-col items-end gap-2 text-sm uppercase tracking-widest">
+        <a href="exhibitions.html" class="hover-target hover:text-brand-primary transition">Exhibitions</a>
+        <a href="admissions.html" class="hover-target hover:text-brand-primary transition">Admissions</a>
+        <a href="manifesto.html" class="hover-target hover:text-brand-primary transition">Manifesto</a>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex items-center justify-center relative p-6">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?auto=format&fit=crop&w=1920&q=80" alt="Art Installation" class="w-full h-full object-cover filter grayscale opacity-20" />
+      </div>
+      
+      <div class="relative z-10 w-full max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
+        <div class="md:col-span-8">
+          <h1 class="text-6xl md:text-[8rem] font-display font-bold text-brand-dark tracking-tighter mix-blend-multiply" data-aos="fade-up">
+            Define<br>
+            <span class="text-transparent" style="-webkit-text-stroke: 2px var(--color-brand-dark);">Nothing.</span><br>
+            Create<br>
+            <span class="text-brand-primary">Everything.</span>
+          </h1>
+        </div>
+        <div class="md:col-span-4 pb-4" data-aos="fade-left" data-aos-delay="200">
+          <p class="text-sm font-bold uppercase tracking-widest border-l-4 border-brand-primary pl-4 mb-8">
+            The Institute of Art & Design is a radical incubator for the creative avant-garde. We do not teach rules; we teach you how to break them.
+          </p>
+          <button onclick="openApplyModal()" class="hover-target inline-block brutalist-border px-8 py-4 font-display font-bold hover:bg-brand-dark hover:text-white transition-all w-full text-center">
+            APPLY FALL '26
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="bg-brand-primary text-white py-4 overflow-hidden brutalist-border border-l-0 border-r-0">
+      <div class="marquee-text font-display font-bold text-3xl uppercase tracking-widest flex gap-8">
+        <span>Radical Creativity</span>
+        <span>•</span>
+        <span>Avant-Garde Design</span>
+        <span>•</span>
+        <span>Unbound Expression</span>
+        <span>•</span>
+        <span>Radical Creativity</span>
+        <span>•</span>
+        <span>Avant-Garde Design</span>
+        <span>•</span>
+        <span>Unbound Expression</span>
+      </div>
+    </div>
+
+    <!-- Student Exhibition (Horizontal Scroll) -->
+    <section class="py-32 pl-6 md:pl-24">
+      <div class="mb-16 flex items-end gap-12" data-aos="fade-up">
+        <h2 class="text-5xl md:text-7xl font-display font-bold">2026<br>Exhibition</h2>
+        <p class="uppercase tracking-widest text-xs font-bold max-w-xs mb-2">Scroll horizontally to explore the graduating class portfolio.</p>
+      </div>
+
+      <div class="scroll-x-container gap-12 pb-12 pr-24">
+        
+        <!-- Project 1 -->
+        <div class="min-w-[80vw] md:min-w-[45vw] group relative">
+          <div class="aspect-[3/4] brutalist-border overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=800&q=80" alt="Art" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-brand-primary mix-blend-multiply opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+          </div>
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <h3 class="font-display font-bold text-2xl uppercase">Digital<br>Brutalism</h3>
+            <div class="text-xs uppercase font-bold text-right flex flex-col justify-end">
+              <span>By Elena Rostova</span>
+              <span class="text-brand-primary">MFA Interaction Design</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="min-w-[80vw] md:min-w-[45vw] group relative md:-translate-y-24">
+          <div class="aspect-square brutalist-border overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?auto=format&fit=crop&w=800&q=80" alt="Art" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-brand-secondary mix-blend-multiply opacity-0 group-hover:opacity-40 transition-opacity duration-700"></div>
+          </div>
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <h3 class="font-display font-bold text-2xl uppercase">Synthetic<br>Flora</h3>
+            <div class="text-xs uppercase font-bold text-right flex flex-col justify-end">
+              <span>By Marcus Chen</span>
+              <span class="text-brand-secondary">BFA Industrial Design</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="min-w-[80vw] md:min-w-[45vw] group relative">
+          <div class="aspect-[4/3] brutalist-border overflow-hidden relative">
+            <img src="https://images.unsplash.com/photo-1518640467707-6811f4a6ab73?auto=format&fit=crop&w=800&q=80" alt="Art" class="w-full h-full object-cover filter grayscale group-hover:grayscale-0 transition-all duration-700" />
+            <div class="absolute inset-0 bg-brand-dark mix-blend-multiply opacity-0 group-hover:opacity-60 transition-opacity duration-700"></div>
+          </div>
+          <div class="mt-6 grid grid-cols-2 gap-4">
+            <h3 class="font-display font-bold text-2xl uppercase">Void<br>Architecture</h3>
+            <div class="text-xs uppercase font-bold text-right flex flex-col justify-end">
+              <span>By Sarah Jenkins</span>
+              <span class="text-gray-500">MArch Architecture</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t-4 border-brand-dark p-6 md:p-12 bg-white">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-4xl md:text-6xl font-display font-bold uppercase tracking-tighter mb-8">Contact<br>The Studio</h2>
+          <p class="font-bold uppercase tracking-widest text-sm mb-2">Admissions@IAD.edu</p>
+          <p class="font-bold uppercase tracking-widest text-sm">1-800-CREATE-00</p>
+        </div>
+        <div class="flex flex-col justify-between items-start md:items-end">
+          <div class="flex gap-6 font-display font-bold uppercase text-2xl mb-8">
+            <a href="#" class="hover-target hover:text-brand-primary">IG</a>
+            <a href="#" class="hover-target hover:text-brand-primary">TW</a>
+            <a href="#" class="hover-target hover:text-brand-primary">BE</a>
+          </div>
+          <p class="text-xs font-bold uppercase tracking-widest text-gray-400">&copy; 2026 Institute of Art & Design. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      // Custom Cursor Logic
+      const cursor = document.getElementById('cursor');
+      const hoverTargets = document.querySelectorAll('.hover-target, a, button, img');
+
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+      });
+
+      hoverTargets.forEach(target => {
+        target.addEventListener('mouseenter', () => {
+          cursor.classList.add('hover');
+        });
+        target.addEventListener('mouseleave', () => {
+          cursor.classList.remove('hover');
+        });
+      });
+
+      function openApplyModal() {
+        showIADModal('PORTFOLIO CRITIQUE INITIATED', 'Your portfolio dossier has been logged into the IAD Fall 2026 review queue. Our avant-garde faculty jury will evaluate your work and issue a studio critique invitation within 48 hours.');
+      }
+
+      function showIADModal(title, message) {
+        let modal = document.getElementById('iadModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'iadModal';
+          modal.className = 'fixed inset-0 bg-brand-dark/95 z-[120] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-white border-4 border-brand-dark p-8 max-w-md w-full text-left shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] relative animate-fadeIn">
+            <button onclick="document.getElementById('iadModal').remove()" class="absolute top-4 right-4 text-brand-dark font-display font-bold text-2xl uppercase hover:text-brand-primary">&times;</button>
+            <div class="inline-block bg-brand-primary text-white font-display font-bold px-3 py-1 uppercase text-xs tracking-widest mb-4">I.A.D. ADMISSIONS</div>
+            <h4 class="font-display text-2xl text-brand-dark font-extrabold uppercase mb-3 leading-tight tracking-tight">${title}</h4>
+            <p class="text-xs text-brand-dark font-mono leading-relaxed mb-8 border-l-2 border-brand-dark pl-3">${message}</p>
+            <button onclick="document.getElementById('iadModal').remove()" class="w-full bg-brand-dark text-white py-4 text-xs font-display font-bold uppercase tracking-widest hover:bg-brand-primary transition shadow-[4px_4px_0px_0px_rgba(255,51,102,1)]">Acknowledge & Return</button>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>

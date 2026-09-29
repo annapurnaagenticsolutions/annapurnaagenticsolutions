@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Agentic Edge — What the AI Agent Hype Won't Tell You</title>
+  <meta name="description" content="The gaps in agentic AI nobody talks about — governance, RAG, SLMs, failure economics, and the engineering that makes agents work in production.">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/">
+<link rel="stylesheet" href="assets/style.css">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/" aria-current="page">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/" aria-current="page">Blog</a><a href="../contact/">Contact</a></nav></div></header>
+
+<section class="hero">
+  <h1>What the agentic AI hype<br>won't tell you.</h1>
+  <p>The gaps in governance. The limits of RAG. Why SLMs matter. The failure economics nobody calculates. The unglamorous engineering that makes agents work in production. We write about all of it — from a small team in India, building in the open.</p>
+  <div class="hero-cta">
+    <a href="#subscribe" class="btn-primary">Subscribe — it's free</a>
+    <a href="about.html" class="btn-secondary">Learn more</a>
+  </div>
+</section>
+
+<div class="article-list">
+  <h2 class="section-title">Ideas &amp; Views</h2>
+  <p style="color:var(--text-secondary);font-size:15px;margin-bottom:32px;margin-top:-16px;">The gaps in agentic AI — governance, failure economics, RAG limits, SLMs, and what the hype misses.</p>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Shift</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/agents-are-not-microservices.html">Agents Are Not Microservices — Stop Treating Them Like They Are</a></h2>
+    <p class="excerpt">The microservices playbook — retry, circuit breaker, saga, graceful degradation — assumes deterministic services. Agents are non-deterministic autonomous actors. Here's why the patterns we know don't transfer.</p>
+    <a href="articles/agents-are-not-microservices.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-cost-of-getting-it-wrong.html">The Cost of Getting It Wrong — Failure Economics for AI Agents</a></h2>
+    <p class="excerpt">When a microservice fails, you lose uptime. When an agent fails, the failure cost can be 25,000x the success cost. An agent that costs $0.02 to run correctly can cost $515 when it's wrong.</p>
+    <a href="articles/the-cost-of-getting-it-wrong.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/what-an-agent-audit-trail-looks-like.html">What an Agent Audit Trail Actually Looks Like — Not Theory, Fields</a></h2>
+    <p class="excerpt">Logs tell you what happened. Audit trails tell you why, whether it was allowed, who's responsible, and whether you can prove it. If your audit trail doesn't include perception, reasoning, and policy checks — you have logs.</p>
+    <a href="articles/what-an-agent-audit-trail-looks-like.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Shift</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/what-if-every-employee-had-100-agents.html">What If Every Employee Had 100 AI Agents? Rethinking Organizational Design</a></h2>
+    <p class="excerpt">At current LLM prices, running 100 agents per employee costs $2-5/day. Less than coffee. A 10,000-person company would have 1,000,000 agents. Without governance, this is a nightmare. With governance, it's a superpower.</p>
+    <a href="articles/what-if-every-employee-had-100-agents.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-agent-maturity-model.html">The Agent Maturity Model — From Demo to Production in 5 Levels</a></h2>
+    <p class="excerpt">Most teams jump from Prototype straight to Production. They skip the evaluation suite, the governance gates, and the launch readiness review. Then they're surprised when the agent does something wrong.</p>
+    <a href="articles/the-agent-maturity-model.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-hidden-tax-of-glue-code.html">The Hidden Tax of Glue Code — Why Framework Stacking Kills Agent Projects</a></h2>
+    <p class="excerpt">You start with 50 lines of agent logic. You end up with 800 lines of agent logic and 1,200 lines of glue code. The glue code is 70% of your codebase — and 70% of your maintenance burden.</p>
+    <a href="articles/the-hidden-tax-of-glue-code.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-evaluation-problem.html">The Evaluation Problem — Why "It Works" Isn't Good Enough for Agents</a></h2>
+    <p class="excerpt">"It works" is the most dangerous phrase in agent engineering. It works for what inputs? Under what conditions? For how long? Against what adversarial prompts? Without an evaluation suite, you don't have a product.</p>
+    <a href="articles/the-evaluation-problem.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Philosophy</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-india-advantage.html">The India Advantage — Building AI Tools Outside Silicon Valley</a></h2>
+    <p class="excerpt">Silicon Valley assumes fiber, $20/month, English, iPhone. India assumes 2G, $2/month, 22 languages, shared devices. Different constraints produce different technology — and better products.</p>
+    <a href="articles/the-india-advantage.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/policy-as-code-vs-ai-judging-ai.html">Policy-as-Code vs AI Judging AI — Why Determinism Matters for Governance</a></h2>
+    <p class="excerpt">Using an AI model to govern another AI model is like using a security camera that only detects intruders 92% of the time. Governance should be deterministic. AI detects, rules decide.</p>
+    <a href="articles/policy-as-code-vs-ai-judging-ai.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-multi-agent-coordination-problem.html">The Multi-Agent Coordination Problem — Why More Agents Isn't Always Better</a></h2>
+    <p class="excerpt">Before you build a multi-agent system, ask: can a single agent with good tools do the job? Multi-agent systems add coordination overhead, communication failures, and cascading errors.</p>
+    <a href="articles/the-multi-agent-coordination-problem.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-agent-incident-response-plan.html">The Agent Incident Response Plan — What to Do When Your Agent Breaks Something</a></h2>
+    <p class="excerpt">Your agent will break something. Not "might." Will. The question is: when it happens, will you know what to do? Detect, contain, assess, remediate, prevent, communicate.</p>
+    <a href="articles/the-agent-incident-response-plan.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Philosophy</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-long-game.html">The Long Game — Why We're Building for 10 Years, Not 10 Months</a></h2>
+    <p class="excerpt">Before you build something, ask: will this matter in 10 years? The 10-year filter eliminates features that are impressive but ephemeral. What remains is the work that matters.</p>
+    <a href="articles/the-long-game.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Philosophy</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/why-we-wrote-a-fairytale.html">Why We Wrote a Fairytale About a Programming Language</a></h2>
+    <p class="excerpt">We wrote a 16-page fairytale about our programming language. It got more engagement than the technical documentation. Stories are how humans understand new concepts.</p>
+    <a href="articles/why-we-wrote-a-fairytale.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Shift</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/were-building-agents-wrong.html">We're Building Agents Wrong</a></h2>
+    <p class="excerpt">We're repeating the same mistake from every technology shift — taking old paradigms, adding "AI agent," and shipping it. Here are the 5 mistakes teams make when building agents.</p>
+    <a href="articles/were-building-agents-wrong.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/the-agent-suitability-test.html">The Agent Suitability Test — When NOT to Build an Agent</a></h2>
+    <p class="excerpt">Before you build an agent, ask five questions. If you can't answer all five, you don't need an agent — you need a simpler solution.</p>
+    <a href="articles/the-agent-suitability-test.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Shift</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/the-three-eras-of-computing.html">The Three Eras of Computing — And Why Agents Are Different</a></h2>
+    <p class="excerpt">Each era of computing introduced a new relationship between human and machine. Agents are the fourth era — and they're fundamentally different from everything that came before.</p>
+    <a href="articles/the-three-eras-of-computing.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/the-trust-equation-for-ai-agents.html">The Trust Equation for AI Agents</a></h2>
+    <p class="excerpt">Trust in AI agents isn't a feeling. It's an equation: Trust = Transparency × Accountability × Predictability. It's multiplicative — if any factor is zero, trust is zero.</p>
+    <a href="articles/the-trust-equation-for-ai-agents.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/what-we-learned-from-building-a-programming-language.html">What We Learned from Building a Programming Language for Agents</a></h2>
+    <p class="excerpt">Building a DSL for AI agents taught us about type systems, compiler design, and why declarative beats imperative when the domain gets complex enough.</p>
+    <a href="articles/what-we-learned-from-building-a-programming-language.html" class="read-more">Read more →</a>
+  </article>
+
+</div>
+
+<div class="article-list">
+  <h2 class="section-title">Open Source &amp; Building</h2>
+  <p style="color:var(--text-secondary);font-size:15px;margin-bottom:32px;margin-top:-16px;">The engineering behind agentic solutions — what we built, what broke, and what we open-sourced.</p>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 10, 2026</span>
+    </div>
+    <h2><a href="articles/we-open-sourced-axon-and-agentops-mesh.html">We Open-Sourced AXON and AgentOps Mesh — A Typed DSL and Governance Pipeline for AI Agents</a></h2>
+    <p class="excerpt">We open-sourced two projects that work as a pipeline: AXON (a typed DSL for defining agents) and AgentOps Mesh (a governance control plane). MIT licensed, no paid tier, no signup. Browser playground included.</p>
+    <a href="articles/we-open-sourced-axon-and-agentops-mesh.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/write-the-agent-govern-the-agent.html">Write the Agent, Govern the Agent — Why We Built Both Sides</a></h2>
+    <p class="excerpt">Every team building AI agents hits the same wall: the agent works in the demo, but "is it safe to deploy?" has no answer. We built both sides of the equation — and made them work together in the browser.</p>
+    <a href="articles/write-the-agent-govern-the-agent.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Jul 8, 2026</span>
+    </div>
+    <h2><a href="articles/the-browser-first-philosophy.html">The Browser-First Philosophy — Why We Built an Agent Playground</a></h2>
+    <p class="excerpt">70% of developers who star your repo never actually try it. They fall off in the install funnel. We built a playground where you open a URL and try everything. Zero activation energy.</p>
+    <a href="articles/the-browser-first-philosophy.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Philosophy</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/why-we-open-source-the-infrastructure-layer.html">Why We Open Source the Infrastructure Layer</a></h2>
+    <p class="excerpt">Open-sourcing infrastructure isn't charity. It's strategy. The infrastructure builds the audience. The intelligence builds the business.</p>
+    <a href="articles/why-we-open-source-the-infrastructure-layer.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Craft</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/why-we-built-axon-and-agentops-mesh.html">Why We Built AXON and AgentOps Mesh — and Why They're Better Together</a></h2>
+    <p class="excerpt">AXON defines agents. AgentOps Mesh governs them. Together they create a pipeline where the agent definition is the governance contract.</p>
+    <a href="articles/why-we-built-axon-and-agentops-mesh.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Responsibility</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/open-sourcing-agentops-mesh.html">Open-Sourcing AgentOps Mesh — Why Governance Is the Missing Layer</a></h2>
+    <p class="excerpt">Governance is the layer everyone knows is missing but no one wants to build. We built it and open-sourced it. Here's why.</p>
+    <a href="articles/open-sourcing-agentops-mesh.html" class="read-more">Read more →</a>
+  </article>
+
+</div>
+
+<div class="article-list">
+  <h2 class="section-title">Education &amp; STEM</h2>
+  <p style="color:var(--text-secondary);font-size:15px;margin-bottom:32px;margin-top:-16px;">AI literacy, science education, and building tools that work for the next generation.</p>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Philosophy</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/the-stories-we-tell-our-children.html">The Stories We Tell Our Children Shape the Technology They Build</a></h2>
+    <p class="excerpt">Stories are how humans understand new concepts. Every culture teaches through stories. Yet in technology, we default to specifications. Start with the story.</p>
+    <a href="articles/the-stories-we-tell-our-children.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Education</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/ai-education-should-work-offline.html">AI Education Should Work Offline</a></h2>
+    <p class="excerpt">Half the world doesn't have reliable internet. But AI education assumes everyone is online. We built educational platforms that work offline — and the constraint produced better design.</p>
+    <a href="articles/ai-education-should-work-offline.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Education</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/we-built-a-free-education-platform.html">We Built a Free Education Platform for India. Here's What We Learned.</a></h2>
+    <p class="excerpt">Free forever is a design constraint, not a pricing strategy. When you can't rely on subscription revenue, every decision changes — and the constraints produce better design.</p>
+    <a href="articles/we-built-a-free-education-platform.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Education</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/stem-ai-culture-play.html">STEM + AI + Culture + Play — Why Indian Education Needs All Four</a></h2>
+    <p class="excerpt">STEM without culture produces technicians, not thinkers. Culture without STEM produces nostalgia, not progress. We need all four — in 22 languages, free forever.</p>
+    <a href="articles/stem-ai-culture-play.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Education</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/why-were-teaching-ai-to-10-year-olds.html">Why We're Teaching AI to 10-Year-Olds — and Why It's Not About Coding</a></h2>
+    <p class="excerpt">AI literacy isn't coding. It's understanding that AI isn't magic, AI can be wrong, AI has biases, and AI raises ethical questions. Start at 10. Start with intuition.</p>
+    <a href="articles/why-were-teaching-ai-to-10-year-olds.html" class="read-more">Read more →</a>
+  </article>
+
+  <article class="article-card">
+    <div class="meta">
+      <span class="tag">The Education</span>
+      <span>Archive</span>
+    </div>
+    <h2><a href="articles/science-should-be-felt-not-memorized.html">Science Should Be Felt, Not Memorized — Why We Built 5 Interactive Science Labs</a></h2>
+    <p class="excerpt">Science education in India is memorization-first. We built 5 interactive science labs that let children feel physics, chemistry, and biology — not just memorize formulas.</p>
+    <a href="articles/science-should-be-felt-not-memorized.html" class="read-more">Read more →</a>
+  </article>
+
+</div>
+
+<div class="newsletter-box" id="subscribe">
+  <h3>Subscribe to The Agentic Edge</h3>
+  <p>Get new articles and short posts delivered to your inbox. No spam, unsubscribe anytime.</p>
+  <p class="newsletter-privacy">The subscription form is provided by Zoho. Your email is used for article updates; see our <a href="../privacy/">privacy notice</a>.</p>
+  <iframe id="ziframe_709223" aria-label="The Agentic Edge — Subscribe" frameborder="0" referrerpolicy="no-referrer" style="height:420px;width:100%;max-width:500px;border:none;" src="https://forms.zohopublic.in/sarangiamiyagm1/form/TheAgenticEdgeSubscribe/formperma/Ho6Yi2DACXvvL7kFsYDM3Wolv_imi9cc9fFklSzccT0"></iframe>
+</div>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="index.html">Articles</a>
+    <a href="posts.html">Short Posts</a>
+    <a href="about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+    <a href="https://annapurnaagenticsolutions.com/axon/playground.html">AXON Playground</a>
+    <a href="https://annapurnaagenticsolutions.com/agentops/">AgentOps Mesh</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../assets/site.js"></script>
+</body>
+</html>

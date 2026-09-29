@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aura Fine Jewellery</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+    <style>
+      .hover-reveal-container {
+        position: relative;
+        overflow: hidden;
+      }
+      .hover-reveal-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(253,251,247, 0.85); /* Pearl slightly transparent */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .hover-reveal-container:hover .hover-reveal-overlay {
+        opacity: 1;
+      }
+      .infinite-scroll-wrapper {
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      .infinite-scroll {
+        display: inline-block;
+        animation: scroll 20s linear infinite;
+      }
+      @keyframes scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .modal {
+        display: none;
+      }
+      .modal.active {
+        display: flex;
+      }
+    </style>
+  </head>
+  <body class="antialiased font-sans text-brand-primary">
+
+    <!-- Minimal Header -->
+    <header class="bg-brand-light sticky top-0 z-50 border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-24">
+          <!-- Left Nav -->
+          <nav class="hidden md:flex space-x-10 text-sm tracking-widest uppercase">
+            <a href="collections.html" class="hover:text-brand-accent transition">Collections</a>
+            <a href="high-jewellery.html" class="hover:text-brand-accent transition">High Jewellery</a>
+          </nav>
+          
+          <!-- Logo -->
+          <a href="index.html" class="font-serif text-3xl tracking-[0.2em] uppercase text-center flex-grow md:flex-grow-0">
+            A U R A
+          </a>
+          
+          <!-- Right Nav -->
+          <nav class="hidden md:flex space-x-8 items-center text-sm tracking-widest uppercase">
+            <a href="maison.html" class="hover:text-brand-accent transition">Maison</a>
+            <button onclick="document.getElementById('appointmentModal').classList.add('active')" class="border border-brand-primary px-6 py-2 hover:bg-brand-primary hover:text-white transition">Bespoke</button>
+            <button onclick="showLuxuryModal('VIP Archive Bag Empty', 'Your private archive collection bag is currently empty. Click Discover or Bespoke to inquire about our GIA-certified diamond masterpieces.')" class="text-lg hover:text-brand-accent transition"><i class="fas fa-shopping-bag"></i></button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Video/Image -->
+    <section class="h-[80vh] relative overflow-hidden">
+      <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=1920&q=80" alt="Aura Collection" class="w-full h-full object-cover scale-105 animate-pulse duration-[10000ms]" />
+      <div class="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-center p-4">
+        <span class="text-xs uppercase tracking-[0.4em] text-[#fcf6ba] mb-3 font-semibold border border-[#d4af37]/40 px-4 py-1.5 backdrop-blur-sm bg-black/30">Haute Joaillerie Maison</span>
+        <h2 class="font-serif text-5xl md:text-7xl mb-6 tracking-wide drop-shadow-2xl bg-gradient-to-r from-[#d4af37] via-[#fcf6ba] to-[#aa771c] bg-clip-text text-transparent font-medium" data-aos="fade-up">The Lumière Collection</h2>
+        <a href="#" class="bg-gradient-to-r from-[#bf953f] to-[#b38728] text-white text-xs uppercase tracking-[0.3em] font-semibold px-10 py-4 hover:opacity-90 transition duration-300 shadow-xl border border-[#fcf6ba]/30" data-aos="fade-up" data-aos-delay="200">Discover Masterpieces</a>
+      </div>
+    </section>
+
+    <!-- Infinite Scroll Banner -->
+    <div class="bg-brand-primary text-[#fcf6ba] py-4 text-xs tracking-[0.3em] uppercase infinite-scroll-wrapper border-y border-[#bf953f]/40 font-light">
+      <div class="infinite-scroll">
+        <span class="mx-8"><i class="fas fa-gem text-brand-accent mr-2"></i> Complimentary Global Armored Shipping</span> • 
+        <span class="mx-8"><i class="fas fa-crown text-brand-accent mr-2"></i> Private Bespoke Salons</span> • 
+        <span class="mx-8"><i class="fas fa-check-circle text-brand-accent mr-2"></i> GIA Certified Conflict-Free Diamonds</span> • 
+        <span class="mx-8"><i class="fas fa-gem text-brand-accent mr-2"></i> Complimentary Global Armored Shipping</span> • 
+        <span class="mx-8"><i class="fas fa-crown text-brand-accent mr-2"></i> Private Bespoke Salons</span> • 
+        <span class="mx-8"><i class="fas fa-check-circle text-brand-accent mr-2"></i> GIA Certified Conflict-Free Diamonds</span>
+      </div>
+    </div>
+
+    <!-- Product Highlights (Hover Reveal) -->
+    <section class="py-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h3 class="font-serif text-4xl mb-4 bg-gradient-to-r from-brand-primary via-[#b38728] to-brand-primary bg-clip-text text-transparent">Curated Selection</h3>
+        <p class="text-gray-500 font-light max-w-xl mx-auto text-sm leading-relaxed">Masterpieces crafted by our Parisian artisans, blending timeless elegance with uncompromising purity and brilliance.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Item 1 -->
+        <div class="hover-reveal-container border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="100">
+          <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80" alt="Solitaire Ring" class="w-full aspect-[4/5] object-cover" />
+          <div class="hover-reveal-overlay p-6 text-center">
+            <h4 class="font-serif text-2xl mb-2 text-brand-primary">Eternity Solitaire</h4>
+            <p class="text-xs text-brand-accent mb-6 font-semibold uppercase tracking-widest">18k Rose Gold & 2.5ct Diamond</p>
+            <p class="font-serif text-xl mb-6 text-brand-primary font-bold">$4,500</p>
+            <button onclick="openSpecModal('Eternity Solitaire Ring', '$4,500', '18k Rose Gold', 'VVS1 Clarity / D Color', '2.5 Carat Round Brilliant Cut', 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80')" class="border border-brand-primary text-xs uppercase tracking-widest px-8 py-3 bg-brand-primary text-white hover:bg-brand-accent transition shadow-md font-semibold">View Specifications</button>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="hover-reveal-container border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="200">
+          <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80" alt="Diamond Necklace" class="w-full aspect-[4/5] object-cover" />
+          <div class="hover-reveal-overlay p-6 text-center">
+            <h4 class="font-serif text-2xl mb-2 text-brand-primary">Lumière Pendant</h4>
+            <p class="text-xs text-brand-accent mb-6 font-semibold uppercase tracking-widest">Platinum & 4.0ct Pavé Diamonds</p>
+            <p class="font-serif text-xl mb-6 text-brand-primary font-bold">$8,200</p>
+            <button onclick="openSpecModal('Lumière Diamond Pendant', '$8,200', '950 Platinum', 'FL Flawless / E Color', '4.0 Total Carat Weight Pavé', 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80')" class="border border-brand-primary text-xs uppercase tracking-widest px-8 py-3 bg-brand-primary text-white hover:bg-brand-accent transition shadow-md font-semibold">View Specifications</button>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="hover-reveal-container border border-gray-200 shadow-sm" data-aos="fade-up" data-aos-delay="300">
+          <img src="https://images.unsplash.com/photo-1611591471465-4f35e6831d10?auto=format&fit=crop&w=800&q=80" alt="Tennis Bracelet" class="w-full aspect-[4/5] object-cover" />
+          <div class="hover-reveal-overlay p-6 text-center">
+            <h4 class="font-serif text-2xl mb-2 text-brand-primary">Classic Tennis</h4>
+            <p class="text-xs text-brand-accent mb-6 font-semibold uppercase tracking-widest">18k White Gold & 6.2ct Diamonds</p>
+            <p class="font-serif text-xl mb-6 text-brand-primary font-bold">$12,000</p>
+            <button onclick="openSpecModal('Classic Diamond Tennis Bracelet', '$12,000', '18k White Gold', 'VVS2 Clarity / F Color', '6.2 Total Carat Weight', 'https://images.unsplash.com/photo-1611591471465-4f35e6831d10?auto=format&fit=crop&w=800&q=80')" class="border border-brand-primary text-xs uppercase tracking-widest px-8 py-3 bg-brand-primary text-white hover:bg-brand-accent transition shadow-md font-semibold">View Specifications</button>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-16">
+        <a href="#" class="text-xs font-semibold uppercase tracking-[0.25em] border-b-2 border-brand-primary pb-1.5 hover:text-brand-accent hover:border-brand-accent transition">Explore Complete Archive &rarr;</a>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-primary text-white py-20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 text-sm font-light tracking-wide">
+          <div class="col-span-1 md:col-span-1">
+            <a href="#" class="font-serif text-2xl tracking-[0.2em] uppercase mb-6 block">A U R A</a>
+            <p class="text-gray-400 mb-6 leading-relaxed">Defining luxury through exceptional craftsmanship and ethically sourced materials.</p>
+          </div>
+          <div>
+            <h5 class="font-serif text-lg mb-6 tracking-widest">Client Services</h5>
+            <ul class="space-y-3 text-gray-400">
+              <li><a href="#" class="hover:text-brand-accent transition">Contact Us</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Shipping & Returns</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Care & Repair</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Size Guide</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-serif text-lg mb-6 tracking-widest">The Maison</h5>
+            <ul class="space-y-3 text-gray-400">
+              <li><a href="#" class="hover:text-brand-accent transition">Our Story</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Sustainability</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Careers</a></li>
+              <li><a href="#" class="hover:text-brand-accent transition">Boutiques</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-serif text-lg mb-6 tracking-widest">Newsletter</h5>
+            <p class="text-gray-400 mb-4 leading-relaxed">Subscribe to receive updates on new collections and exclusive invitations.</p>
+            <form onSubmit="event.preventDefault(); showLuxuryModal('Aura Inner Circle Invitation', 'Welcome to the Aura Inner Circle. Your private salon invitation and digital lookbook will be sent to your inbox shortly.');" class="flex border-b border-gray-500 pb-2">
+              <input type="email" required placeholder="Email Address" class="bg-transparent outline-none flex-grow text-white placeholder-gray-500" />
+              <button type="submit" class="text-gray-300 hover:text-brand-accent"><i class="fas fa-arrow-right"></i></button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Book Appointment Modal -->
+    <div id="appointmentModal" class="modal fixed inset-0 z-[100] bg-black/70 flex items-center justify-center p-4 backdrop-blur-sm">
+      <div class="bg-brand-light p-10 max-w-md w-full relative">
+        <button onclick="document.getElementById('appointmentModal').classList.remove('active')" class="absolute top-4 right-4 text-gray-500 hover:text-brand-primary text-xl"><i class="fas fa-times"></i></button>
+        <h3 class="font-serif text-3xl mb-2 text-center">Bespoke Consultation</h3>
+        <p class="text-center text-gray-500 text-sm mb-8 font-light">Schedule a private viewing with our experts.</p>
+        <form onSubmit="event.preventDefault(); document.getElementById('appointmentModal').classList.remove('active'); showLuxuryModal('Private Consultation Confirmed', 'Your Bespoke Consultation request has been received. Our Master Concierge will contact you within two hours to finalize your private salon appointment.');">
+          <div class="space-y-4">
+            <input type="text" required placeholder="Full Name" class="w-full border border-gray-300 p-3 bg-transparent outline-none focus:border-brand-primary text-sm" />
+            <input type="email" required placeholder="Email Address" class="w-full border border-gray-300 p-3 bg-transparent outline-none focus:border-brand-primary text-sm" />
+            <input type="tel" required placeholder="Phone Number" class="w-full border border-gray-300 p-3 bg-transparent outline-none focus:border-brand-primary text-sm" />
+            <select class="w-full border border-gray-300 p-3 bg-transparent outline-none focus:border-brand-primary text-sm text-gray-600">
+              <option>Engagement & Wedding</option>
+              <option>High Jewellery</option>
+              <option>Gift Consultation</option>
+            </select>
+            <button type="submit" class="w-full bg-brand-primary text-white p-4 text-sm uppercase tracking-widest hover:bg-brand-accent transition mt-4">Request Appointment</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Specification & Dossier Modal -->
+    <div id="specModal" class="modal fixed inset-0 z-[110] bg-black/80 flex items-center justify-center p-4 backdrop-blur-md">
+      <div class="bg-[#fcfbf7] border border-[#bf953f]/40 p-8 md:p-12 max-w-2xl w-full relative shadow-2xl overflow-hidden">
+        <button onclick="document.getElementById('specModal').classList.remove('active')" class="absolute top-6 right-6 text-gray-500 hover:text-brand-primary text-2xl"><i class="fas fa-times"></i></button>
+        
+        <div class="flex flex-col md:flex-row gap-8 items-center">
+          <div class="w-full md:w-1/2 overflow-hidden border border-gray-200 aspect-[4/5] bg-white flex items-center justify-center shadow-inner">
+            <img id="spec-img" src="assets/images/ring1.jpg" alt="Jewellery Piece" class="w-full h-full object-cover" />
+          </div>
+          <div class="w-full md:w-1/2">
+            <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-brand-accent border-b border-brand-accent/30 pb-1">GIA Certified Masterpiece</span>
+            <h3 id="spec-title" class="font-serif text-3xl mt-3 mb-2 text-brand-primary">Eternity Solitaire</h3>
+            <p id="spec-price" class="font-serif text-2xl text-[#b38728] font-bold mb-6">$4,500</p>
+            
+            <div class="space-y-3 border-t border-b border-gray-200 py-5 my-4 text-xs tracking-wider">
+              <div class="flex justify-between font-light">
+                <span class="text-gray-500 uppercase">Precious Metal:</span>
+                <span id="spec-metal" class="font-semibold text-brand-primary">18k Rose Gold</span>
+              </div>
+              <div class="flex justify-between font-light">
+                <span class="text-gray-500 uppercase">Clarity & Color:</span>
+                <span id="spec-purity" class="font-semibold text-brand-primary">VVS1 / D Color</span>
+              </div>
+              <div class="flex justify-between font-light">
+                <span class="text-gray-500 uppercase">Center Stone Cut:</span>
+                <span id="spec-gem" class="font-semibold text-brand-primary">2.5ct Round Brilliant</span>
+              </div>
+            </div>
+
+            <p class="text-[11px] text-gray-500 leading-relaxed font-light mb-6">Each creation is numbered, hallmarked by the Parisian assay office, and accompanied by a private GIA diamond dossier and velvet presentation box.</p>
+
+            <button onclick="document.getElementById('specModal').classList.remove('active'); document.getElementById('appointmentModal').classList.add('active');" class="w-full bg-gradient-to-r from-[#bf953f] to-[#b38728] text-white py-3.5 text-xs uppercase tracking-[0.25em] font-semibold hover:opacity-90 transition shadow-lg block text-center">Inquire For Bespoke Sizing</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      function openSpecModal(title, price, metal, purity, gem, imgUrl) {
+        document.getElementById('spec-title').innerText = title;
+        document.getElementById('spec-price').innerText = price;
+        document.getElementById('spec-metal').innerText = metal;
+        document.getElementById('spec-purity').innerText = purity;
+        document.getElementById('spec-gem').innerText = gem;
+        document.getElementById('spec-img').src = imgUrl;
+        document.getElementById('specModal').classList.add('active');
+      }
+
+      function showLuxuryModal(title, message) {
+        let modal = document.getElementById('luxuryInfoModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'luxuryInfoModal';
+          modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-md z-[120] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-[#fcfbf7] border-2 border-[#bf953f] p-8 max-w-md w-full text-center shadow-2xl relative animate-fade-in">
+            <button onclick="document.getElementById('luxuryInfoModal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-primary text-xl">&times;</button>
+            <div class="text-[#b38728] text-3xl mb-3"><i class="fas fa-gem"></i></div>
+            <h4 class="font-serif text-2xl tracking-wide text-brand-primary mb-3">${title}</h4>
+            <p class="text-xs text-gray-600 font-light leading-relaxed mb-6">${message}</p>
+            <button onclick="document.getElementById('luxuryInfoModal').remove()" class="w-full bg-gradient-to-r from-[#bf953f] to-[#b38728] text-white py-3 text-xs uppercase tracking-[0.25em] font-semibold hover:opacity-90 transition">Confirm Dossier</button>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>

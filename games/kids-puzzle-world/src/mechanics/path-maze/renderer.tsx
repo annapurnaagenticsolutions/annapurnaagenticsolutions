@@ -15,10 +15,10 @@ export default function PathMazeRenderer({ runtime }: PathMazeRendererProps) {
   const handleRequestHint = () => {
     const nextLevel = Math.min(hintLevel + 1, 3)
     setHintLevel(nextLevel)
-    runtime.requestHint(nextLevel as any)
+    runtime.requestHint(nextLevel as 1 | 2 | 3)
   }
 
-  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as any) as { hint: string }) : null
+  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as 1 | 2 | 3) as { hint: string }) : null
 
   const cellSize = 30
   const handleKeyDown = (e: React.KeyboardEvent) => {

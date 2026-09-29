@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We Open-Sourced AXON and AgentOps Mesh — A Typed DSL and Governance Pipeline for AI Agents — The Agentic Edge</title>
+  <meta name="description" content="We Open-Sourced AXON and AgentOps Mesh — A Typed DSL and Governance Pipeline for AI Agents">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/we-open-sourced-axon-and-agentops-mesh.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>We Open-Sourced AXON and AgentOps Mesh — A Typed DSL and Governance Pipeline for AI Agents</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Craft</p>
+<p><strong>Length:</strong> ~700 words</p>
+<p><strong>Hook:</strong> Launch announcement — direct, technical, honest about what's ready and what's not</p>
+
+<hr>
+
+<p>We open-sourced two projects that work as a pipeline: AXON and AgentOps Mesh.</p>
+
+<p>AXON is a typed domain-specific language for defining AI agents. You write a <code>.ax</code> file, and the compiler produces Python, TypeScript, Go, Rust, or an MCP server. AgentOps Mesh is a governance control plane that evaluates whether an agent should be allowed in production — 9 gates, deterministic policies, tamper-evident audit trails.</p>
+
+<p>Both are MIT licensed. No paid tier. No signup. No account needed.</p>
+
+<p><strong>Why build another agent framework in 2026?</strong></p>
+
+<p>We kept running into the same pattern. Teams build agents in Python or TypeScript using framework SDKs. The agent logic is 50 lines. The glue code connecting frameworks, tools, adapters, and configs is 500 lines. The glue code is 70% of the codebase, 70% of the bugs, and 70% of the maintenance burden.</p>
+
+<p>When a domain gets complex enough, you stop writing glue and start writing declarations. Agents have reached that point.</p>
+
+<p>On the governance side, we saw the same gap. Teams build agents, then someone asks "is this safe to deploy?" and the answer is a Slack thread and a checklist in a Google Doc. There's no contract, no automated evaluation, no audit trail. It's not governance — it's hope.</p>
+
+<p>We wanted something typed, inspectable, and fully open. So we built both sides of the pipeline.</p>
+
+<p><strong>A few implementation details:</strong></p>
+
+<ul>
+<li>AXON compiler core is Python stdlib-only — zero runtime dependencies</li>
+<li>Parser also compiled to WASM via Rust + wasm-pack, runs in the browser</li>
+<li>Typed syntax: <code>agent</code>, <code>tool</code>, <code>flow</code>, <code>rag</code>, <code>memory</code>, <code>spawn</code>, <code>pool</code> are first-class keywords</li>
+<li>Static type system: <code>Result<T, E></code>, <code>Option<T></code>, <code>List<T></code>, union types, generics</li>
+<li>Code generation to 5 targets: TypeScript, Python, Go, Rust, MCP server</li>
+<li>CLI with 40+ commands: parse, validate, compile, run, test, format, repl, lsp, govern, deploy</li>
+<li>Mock mode — run agents without an LLM API key</li>
+<li>AgentOps Mesh: 9 governance gates — intake, suitability, data, evaluation, policy, approval, runtime, deployment, launch readiness</li>
+<li>Policy-as-code, not AI judging AI — deterministic rules evaluate the agent contract</li>
+<li>Tamper-evident audit trail with SHA-256 hashing</li>
+<li>Browser playground — write, parse, compile, and submit for governance without installing anything</li>
+
+<p><strong>The playground is the part we're most proud of.</strong></p>
+
+<p>Open a URL. You get a code editor with an example agent. Click Parse to see the intermediate representation. Click TypeScript to see compiled output. Click Govern to submit the agent to AgentOps Mesh for governance review.</p>
+
+<p>No Python. No API key. No Docker. No virtual environment. 60 seconds from "I've never heard of agent governance" to "I just submitted an agent for governance review."</p>
+
+<p>The WASM parser runs in the browser. If WASM isn't available, it falls back to a server endpoint. Either way, the user experience is the same: open, type, click.</p>
+
+<p><strong>What it is not.</strong></p>
+
+<p>AXON is not a runtime. It's a compiler and a language. The generated code uses your existing framework — LangChain, Anthropic SDK, OpenAI SDK, whatever you choose.</p>
+
+<p>AgentOps Mesh is not a production enforcement engine. It's a governance template. The gates are defined, the policies are written, the audit trail works — but there's no database, no authentication, no multi-tenancy. You'd add those before production use.</p>
+
+<p>The playground runs in mock mode by default. No real LLM calls unless you configure a provider key. The examples are designed to work without one.</p>
+
+<p><strong>We still have a lot of work to do.</strong></p>
+
+<p>The language spec is stable but the compiler doesn't implement everything yet. Not all codegen targets produce equally polished output. The governance gates are templates, not production-tested enforcement. The docs are growing but not complete.</p>
+
+<p>We'd love the community to test it, break it, report issues, and tell us where it falls short. PRs for language features, codegen targets, governance policies, examples, and docs are all welcome.</p>
+
+<p><strong>Try it:</strong></p>
+
+<ul>
+<li>Playground (no install): https://annapurnaagenticsolutions.com/axon/playground.html</li>
+<li>AXON docs: https://annapurnaagenticsolutions.com/axon/playground/docs.html</li>
+<li>AgentOps Mesh: https://annapurnaagenticsolutions.com/agentops/</li>
+<li>AXON repo: https://github.com/annapurnaagenticsolutions/axon</li>
+<li>Mesh repo: https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh</li>
+
+<hr>
+
+<h2>Posting Schedule</h2>
+
+<p>| Week | Article | Theme |</p>
+<p>|------|---------|-------|</p>
+<p>| 1 | Agents Are Not Microservices | The Shift |</p>
+<p>| 2 | The Cost of Getting It Wrong — Failure Economics | The Craft |</p>
+<p>| 3 | What an Agent Audit Trail Actually Looks Like | The Responsibility |</p>
+<p>| 4 | What If Every Employee Had 100 AI Agents? | The Shift |</p>
+<p>| 5 | The Agent Maturity Model — 5 Levels | The Responsibility |</p>
+<p>| 6 | The Hidden Tax of Glue Code | The Craft |</p>
+<p>| 7 | The Browser-First Philosophy — Why We Built a Playground | The Craft |</p>
+<p>| 8 | The Evaluation Problem — Why "It Works" Isn't Good Enough | The Responsibility |</p>
+<p>| 9 | The India Advantage — Building Outside Silicon Valley | The Philosophy |</p>
+<p>| 10 | Policy-as-Code vs AI Judging AI | The Responsibility |</p>
+<p>| 11 | The Multi-Agent Coordination Problem | The Craft |</p>
+<p>| 12 | Why We Wrote a Fairytale About a Programming Language | The Philosophy |</p>
+<p>| 13 | The Agent Incident Response Plan | The Responsibility |</p>
+<p>| 14 | The Long Game — Building for 10 Years | The Philosophy |</p>
+<p>| 15 | Write the Agent, Govern the Agent — Why We Built Both Sides | The Craft |</p>
+<p>| 16 | We Open-Sourced AXON and AgentOps Mesh — A Typed DSL and Governance Pipeline | The Craft |</p>
+
+<p><strong>After week 16, cycle back to theme 1 with fresh articles.</strong></p>
+
+<h2>Guidelines for Annapurna LinkedIn Voice</h2>
+
+<ul>
+<li><strong>First person plural, not singular.</strong> "We learned" not "I learned." We are a small family business. People connect with people, not companies, but our voice is collective.</li>
+<li><strong>Opinionated but not dogmatic.</strong> Share views, acknowledge alternatives, invite disagreement.</li>
+<li><strong>Concrete examples, not abstract theory.</strong> Every claim should have an example.</li>
+<li><strong>End with a question.</strong> Every article ends by inviting the reader to share their experience.</li>
+<li><strong>No product pitches.</strong> Products are mentioned only when they're the example, not the message.</li>
+<li><strong>Short paragraphs.</strong> LinkedIn reading is mobile-first. 2-3 sentences per paragraph max.</li>
+<li><strong>No buzzwords without definition.</strong> If you say "agentic," explain what you mean by it.</li>
+<li><strong>Diverse content mix.</strong> Not every post should be about our products. Include thought experiments, questions, frameworks, and perspectives that showcase our thinking process and knowledge.</li>
+
+<hr>
+
+<h2>Short Posts</h2>
+
+<p><strong>Posting cadence:</strong> 2-3 short posts per week between long-form articles. Each post is 2-4 sentences, one idea, ends with a question or bold statement.</p>
+
+<hr>
+
+<h3>Short Post 1: The Retry Trap</h3>
+
+<p>You can't retry a wrong decision. You can retry a failed API call, but when an agent makes a bad judgment call, retrying just gives you a different bad call.</p>
+
+<p>The microservices playbook assumes deterministic failure. Agents are non-deterministic. We need a new playbook.</p>
+
+<p>What's your agent failure strategy?</p>
+
+<p class="hashtags">#AIAgents #AgentOps #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 2: The 25,000x Ratio</h3>
+
+<p>When a microservice fails, you lose uptime. When an agent fails, the failure cost can be 25,000x the success cost.</p>
+
+<p>An agent that costs $0.02 to run correctly can cost $515 when it's wrong — the wrong refund, the wrong email, the wrong data access.</p>
+
+<p>Are you calculating failure economics for your agents?</p>
+
+<p class="hashtags">#AIAgents #AIGovernance #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 3: Logs vs Audit Trails</h3>
+
+<p>Logs tell you what happened. Audit trails tell you why, whether it was allowed, who's responsible, and whether you can prove it.</p>
+
+<p>If your agent audit trail doesn't include perception, reasoning, alternatives considered, policy checks, approval provenance, cost tracking, and tamper-evident hashing — you don't have an audit trail. You have logs.</p>
+
+<p>Which do you have?</p>
+
+<p class="hashtags">#AIGovernance #AgentOps #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 4: The 70% Drop-Off</h3>
+
+<p>70% of developers who star your repo never actually try it. They fall off in the install funnel: Python version, virtual env, API key, dependencies, config.</p>
+
+<p>We built a playground where you open a URL and try everything in the browser. No install. No API key. Zero activation energy.</p>
+
+<p>What's the activation energy to try your tool?</p>
+
+<p class="hashtags">#BuildInPublic #OpenSource #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 5: What If 100 Agents Per Employee?</h3>
+
+<p>At current LLM prices, running 100 agents per employee costs $2-5/day. Less than coffee.</p>
+
+<p>A 10,000-person company would have 1,000,000 agents. Each calling tools, accessing data, making decisions.</p>
+
+<p>Without governance, this is a nightmare. With governance, it's a superpower. Which will it be?</p>
+
+<p class="hashtags">#AIAgents #FutureOfWork #AgentOps</p>
+
+<hr>
+
+<h3>Short Post 6: Most Teams Skip Level 3</h3>
+
+<p>The agent maturity model: Demo -> Prototype -> Pilot -> Staging -> Production.</p>
+
+<p>Most teams jump from Prototype straight to Production. They skip the evaluation suite, the governance gates, and the launch readiness review.</p>
+
+<p>Then they're surprised when the agent does something wrong and they can't explain why.</p>
+
+<p>What level is your most advanced agent at?</p>
+
+<p class="hashtags">#AIAgents #AIGovernance #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 7: 70% Glue Code</h3>
+
+<p>You start with 50 lines of agent logic. You end up with 800 lines of agent logic and 1,200 lines of glue code connecting frameworks, tools, and adapters.</p>
+
+<p>The glue code is 70% of your codebase. It's also 70% of your maintenance burden, 70% of your bugs, and 70% of your onboarding time.</p>
+
+<p>When a domain gets complex enough, you stop writing glue and start writing declarations. Agents have reached that point.</p>
+
+<p class="hashtags">#AIAgents #OpenSource #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 8: AI Judging AI</h3>
+
+<p>Using an AI model to govern another AI model is like using a security camera that only detects intruders 92% of the time.</p>
+
+<p>Governance should be deterministic — rules, policies, and code. Not probabilistic.</p>
+
+<p>AI detects, rules decide. The AI is a sensor, not a judge.</p>
+
+<p>What's your governance approach?</p>
+
+<p class="hashtags">#AIGovernance #AgentOps #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 9: One Agent, Many Tools</h3>
+
+<p>Before you build a multi-agent system, ask: can a single agent with good tools do the job?</p>
+
+<p>Multi-agent systems add coordination overhead, communication failures, and cascading errors. A single agent with specialized tools achieves most of the same capability at 1/3 the cost.</p>
+
+<p>Sometimes the best multi-agent system is a single agent with great tools.</p>
+
+<p class="hashtags">#AIAgents #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 10: The Playground as Documentation</h3>
+
+<p>The most unexpected thing about building the AXON playground: it's not just for trying the language. It's for understanding the ecosystem.</p>
+
+<p>You open a URL and see tabs: Parse, Validate, Codegen, Govern. In 10 seconds, you understand the full agent lifecycle. No docs to read. No video to watch. The UI teaches you.</p>
+
+<p>The playground is documentation that you can interact with. It's a README that runs itself.</p>
+
+<p class="hashtags">#BuildInPublic #OpenSource #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 11: From Zero to Governance in 60 Seconds</h3>
+
+<p>A developer opens the playground, writes an agent definition, clicks "Submit to Governance," and the agent is sent to AgentOps Mesh for policy evaluation.</p>
+
+<p>No install. No API key. No backend setup. 60 seconds from "I've never heard of agent governance" to "I just submitted an agent for governance review."</p>
+
+<p>That's the activation energy we want. What's yours?</p>
+
+<p class="hashtags">#AIAgents #AgentOps #OpenSource #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 12: The India Constraint</h3>
+
+<p>Silicon Valley assumes fiber, $20/month, English, iPhone, millions of users.</p>
+
+<p>India assumes 2G, $2/month, 22 languages, shared devices, hundreds of millions of users.</p>
+
+<p>Different constraints produce different technology. The India perspective produces tools that are more accessible, more efficient, and more global.</p>
+
+<p>Build where the constraints are hardest. The products will be better.</p>
+
+<p class="hashtags">#BuildInPublic #India #OpenSource</p>
+
+<hr>
+
+<h3>Short Post 13: Write the Story First</h3>
+
+<p>We wrote a 16-page fairytale about our programming language. It got more engagement than the technical documentation.</p>
+
+<p>Not because the docs are bad. Because stories are how humans understand new concepts.</p>
+
+<p>The story is the top of the funnel. The docs are the bottom. Most technical teams start at the bottom and wonder why no one reads.</p>
+
+<p>What's the story of your product?</p>
+
+<p class="hashtags">#BuildInPublic #Storytelling #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 14: Your Agent Will Break Something</h3>
+
+<p>Not "might." Will. The question is: when it happens, will you know what to do?</p>
+
+<p>Detect -> Contain -> Assess -> Remediate -> Prevent -> Communicate.</p>
+
+<p>If you don't have an incident response plan for agent failures, the first incident will be chaotic. Chaos extends the damage. Chaos destroys trust.</p>
+
+<p>Does your team have a plan?</p>
+
+<p class="hashtags">#AIGovernance #AgentOps #AIAgents</p>
+
+<hr>
+
+<h3>Short Post 15: The 10-Year Filter</h3>
+
+<p>Before you build something, ask: will this matter in 10 years?</p>
+
+<p>If the answer is no, why are you building it?</p>
+
+<p>The 10-year filter eliminates features that are impressive but ephemeral. What remains is the work that matters: foundations, community, trust, and impact.</p>
+
+<p>We're playing the long game. Not because we're patient — because it's the only game worth playing.</p>
+
+<p class="hashtags">#BuildInPublic #OpenSource #LongTermThinking</p>
+
+<hr>
+
+<h3>Short Post 16: 30 Lines Instead of 500</h3>
+
+<p>We wrote a research agent in 30 lines of AXON. The same agent in Python with LangChain was 500 lines — and most of those 500 lines were glue code connecting frameworks, not agent logic.</p>
+
+<p>AXON compiles those 30 lines to Python, TypeScript, Go, Rust, and MCP servers. One source, five targets. The compiler catches type errors before runtime.</p>
+
+<p>You can try it in the browser — no install, no API key. Open the playground, edit the example, click compile.</p>
+
+<p>What would your agent look like in 30 lines?</p>
+
+<p class="hashtags">#AIAgents #OpenSource #BuildInPublic #AXON</p>
+
+<hr>
+
+<h3>Short Post 17: The Govern Button</h3>
+
+<p>There's a button in the AXON playground labeled "Govern."</p>
+
+<p>You click it, and your agent definition is submitted to AgentOps Mesh — a governance control plane that evaluates whether the agent should be allowed in production. 9 gates: intake, suitability, data, evaluation, policy, approval, runtime, deployment, launch readiness.</p>
+
+<p>No install. No API key. No backend setup. You go from "I've never heard of agent governance" to "I just submitted an agent for governance review" in under 60 seconds.</p>
+
+<p>The button is the point. Governance shouldn't be a separate tool you buy after you've built agents. It should be a button next to "Compile."</p>
+
+<p>Try it: open the playground, write an agent, click Govern.</p>
+
+<p class="hashtags">#AIAgents #AgentOps #AIGovernance #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 18: One File, Five Languages</h3>
+
+<p>We wrote an agent definition in AXON — 20 lines. Then we clicked through the tabs in the playground:</p>
+
+<p>→ TypeScript: typed ES module with interfaces</p>
+<p>→ Go: package with interfaces</p>
+<p>→ Rust: module with traits</p>
+<p>→ Python: module with type hints</p>
+<p>→ MCP: FastMCP server ready to deploy</p>
+
+<p>Same 20 lines. Five compiled outputs. Zero manual porting.</p>
+
+<p>If you've ever maintained the same agent in three languages across web, backend, and CI — you know why this matters.</p>
+
+<p>The playground is live. No install. Try it.</p>
+
+<p class="hashtags">#AIAgents #OpenSource #BuildInPublic #AXON</p>
+
+<hr>
+
+<h3>Short Post 19: The Contract Is the Governance</h3>
+
+<p>Here's an idea we've been building toward: the agent definition should be the governance contract.</p>
+
+<p>When you write an agent in AXON, you declare its tools, its model, its memory, its permissions. That declaration is machine-readable. Which means a governance system can evaluate it automatically — without reading your code, without guessing your intent.</p>
+
+<p>AgentOps Mesh takes that declaration and runs it through 9 governance gates. Does the agent have the right permissions? Is the cost ceiling set? Is there an evaluation suite? Has a human approved it?</p>
+
+<p>The definition and the governance are not separate documents. They're the same document. That's the whole point.</p>
+
+<p class="hashtags">#AIAgents #AIGovernance #AgentOps #BuildInPublic</p>
+
+<hr>
+
+<h3>Short Post 20: Zero to Agent in 60 Seconds</h3>
+
+<p>Open a URL. See a code editor with an example agent. Click Parse — see the intermediate representation. Click TypeScript — see compiled code. Click Govern — submit to governance review.</p>
+
+<p>60 seconds. No Python. No API key. No Docker. No virtual environment. No framework install.</p>
+
+<p>We built this because we watched too many developers star a repo and never try it. The install funnel kills curiosity. So we removed the funnel.</p>
+
+<p>The playground is the README that runs itself. The playground is the docs you can interact with. The playground is the demo that doesn't need a calendar invite.</p>
+
+<p>What's the activation energy to try your tool?</p>
+
+<p class="hashtags">#BuildInPublic #OpenSource #AIAgents #AXON #AgentOps</p>
+
+<hr>
+
+<h3>Short Post 21: We Open-Sourced AXON and AgentOps Mesh (Launch Post)</h3>
+
+<p>🚀 We open-sourced AXON and AgentOps Mesh today.</p>
+
+<p>AXON is a typed domain-specific language for defining AI agents. You write a .ax file, and the compiler produces Python, TypeScript, Go, Rust, or an MCP server. AgentOps Mesh is a governance control plane that evaluates whether an agent should be allowed in production — 9 gates, deterministic policies, tamper-evident audit trails.</p>
+
+<p>Both are MIT licensed with all rulesets and governance policies included. No paid tier, no signup, no account needed.</p>
+
+<p>Why build another agent framework in 2026?</p>
+
+<p>We kept running into the same pattern. The agent logic is 50 lines. The glue code connecting frameworks, tools, and adapters is 500 lines. That glue code is 70% of the codebase, 70% of the bugs, and 70% of the maintenance burden. On the governance side, "is this safe to deploy?" was answered with a Slack thread and a Google Doc checklist. Not governance — hope.</p>
+
+<p>We wanted something typed, inspectable, and fully open. So we built both sides of the pipeline.</p>
+
+<p>A few implementation details:</p>
+<ul>
+<li>AXON compiler core is Python stdlib-only — zero runtime dependencies</li>
+<li>Parser compiled to WASM via Rust + wasm-pack, runs in the browser</li>
+<li>Typed syntax: agent, tool, flow, rag, memory, spawn, pool as first-class keywords</li>
+<li>Static type system: Result<T, E>, Option<T>, List<T>, union types, generics</li>
+<li>Code generation to 5 targets: TypeScript, Python, Go, Rust, MCP server</li>
+<li>CLI with 40+ commands including parse, validate, compile, run, test, govern, deploy</li>
+<li>Mock mode — run agents without an LLM API key</li>
+<li>AgentOps Mesh: 9 governance gates from intake through launch readiness</li>
+<li>Policy-as-code, not AI judging AI — deterministic rules evaluate the agent contract</li>
+<li>Tamper-evident audit trail with SHA-256 hashing</li>
+<li>Browser playground — write, parse, compile, and submit for governance without installing anything</li>
+
+<p>The playground is the part we're most proud of. Open a URL, get a code editor with an example agent. Click Parse to see the IR. Click TypeScript to see compiled output. Click Govern to submit to AgentOps Mesh. No Python, no API key, no Docker. 60 seconds from "I've never heard of agent governance" to "I just submitted an agent for governance review."</p>
+
+<p>What it is not: AXON is a compiler, not a runtime — the generated code uses your existing framework. AgentOps Mesh is a governance template, not a production enforcement engine — no database, no auth, no multi-tenancy. The playground runs in mock mode by default.</p>
+
+<p>We still have a lot of work to do. The language spec is stable but the compiler doesn't implement everything yet. Not all codegen targets produce equally polished output. The governance gates are templates, not production-tested enforcement.</p>
+
+<p>We'd love the community to test it, break it, report issues, and tell us where it falls short. PRs for language features, codegen targets, governance policies, examples, and docs are very welcome.</p>
+
+<p>Try it (no install):</p>
+<p>🔗 Playground: https://annapurnaagenticsolutions.com/axon/playground.html</p>
+<p>🔗 AXON docs: https://annapurnaagenticsolutions.com/axon/playground/docs.html</p>
+<p>🔗 AgentOps Mesh: https://annapurnaagenticsolutions.com/agentops/</p>
+<p>🔗 AXON repo: https://github.com/annapurnaagenticsolutions/axon</p>
+<p>🔗 Mesh repo: https://github.com/annapurnaagenticsolutions/open-enterprise-agentops-mesh</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

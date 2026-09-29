@@ -1,0 +1,70 @@
+[
+  {
+    "agent_id": "procurement-policy-reader",
+    "actor_role": "business_analyst",
+    "action": "retrieve_context",
+    "target_environment": "sandbox",
+    "autonomy_level": 1,
+    "risk_level": "Low",
+    "data_sensitivity": "low",
+    "requested_tools": [
+      "vector_search"
+    ],
+    "requested_data_sources": [
+      "procurement_policy_docs"
+    ],
+    "output_destination": "internal",
+    "financial_impact": "none",
+    "has_human_approval": false,
+    "evidence_ids": [],
+    "purpose": "Answer internal procurement policy question"
+  },
+  {
+    "agent_id": "vendor-communication-agent",
+    "actor_role": "procurement_manager",
+    "action": "send_vendor_message",
+    "target_environment": "production",
+    "autonomy_level": 4,
+    "risk_level": "High",
+    "data_sensitivity": "high",
+    "requested_tools": [
+      "email_send",
+      "vendor_portal_update"
+    ],
+    "requested_data_sources": [
+      "vendor_contracts",
+      "invoice_exceptions"
+    ],
+    "output_destination": "vendor",
+    "financial_impact": "medium",
+    "has_human_approval": false,
+    "evidence_ids": [
+      "EV-RISK-001"
+    ],
+    "purpose": "Notify vendor about payment hold and exception details"
+  },
+  {
+    "agent_id": "invoice-exception-agent",
+    "actor_role": "finance_ops",
+    "action": "update_invoice_status",
+    "target_environment": "pilot",
+    "autonomy_level": 2,
+    "risk_level": "Medium",
+    "data_sensitivity": "medium",
+    "requested_tools": [
+      "erp_write",
+      "invoice_update"
+    ],
+    "requested_data_sources": [
+      "invoice_system",
+      "purchase_orders"
+    ],
+    "output_destination": "system",
+    "financial_impact": "medium",
+    "has_human_approval": false,
+    "evidence_ids": [
+      "EV-GOV-002"
+    ],
+    "purpose": "Mark invoice exception as pending review"
+  }
+]

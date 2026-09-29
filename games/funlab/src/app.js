@@ -30,7 +30,7 @@ function sharedInbound(){
   const p=new URLSearchParams(location.search);const text=[p.get('title'),p.get('text'),p.get('url')].filter(Boolean).join('\n').trim();return text?text.slice(0,800):null;
 }
 function shell(content){
-  app.innerHTML=`<header class="topbar"><button class="brand" id="home" aria-label="FunLab home"><span>◉</span> FunLab <em>v0.6</em></button><nav><span class="tiny-stat">${state.stats.plays||0} plays</span><button class="icon-btn" id="insightsBtn" aria-label="Local insights">↗</button><button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button></nav></header>
+  app.innerHTML=`<header class="topbar"><a class="funlab-brand" href="https://annapurnaagenticsolutions.com/" aria-label="Annapurna Agentic Solutions home"><img src="https://annapurnaagenticsolutions.com/assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav><a class="funlab-back" href="https://annapurnaagenticsolutions.com/play/">Annapurna Play</a><button class="icon-btn" id="settingsBtn" aria-label="Settings">⚙</button></nav></header>
   <main id="main">${content}</main>
   <dialog id="settings"><form method="dialog"><div class="dialog-head"><div><span class="eyebrow">Preferences</span><h2>Keep the chaos comfortable</h2></div><button class="icon-btn" value="cancel" aria-label="Close">×</button></div>
   <label class="toggle"><span>Sound <small>Off by default</small></span><input id="sound" type="checkbox" ${state.settings.sound?'checked':''}></label>
@@ -38,8 +38,6 @@ function shell(content){
   <label class="toggle"><span>Higher contrast</span><input id="contrast" type="checkbox" ${state.settings.highContrast?'checked':''}></label>
   <label class="quality-row"><span>Visual quality <small>Used by richer Canvas/WebGL activities</small></span><select id="quality"><option value="low" ${state.settings.quality==='low'?'selected':''}>Low</option><option value="balanced" ${state.settings.quality==='balanced'?'selected':''}>Balanced</option><option value="high" ${state.settings.quality==='high'?'selected':''}>High</option></select></label>
   <button class="danger secondary" type="button" id="reset">Reset local history</button></form></dialog>`;
-  document.querySelector('#home').onclick=()=>{location.hash='';};
-  document.querySelector('#insightsBtn').onclick=()=>{location.hash='#/insights';};
   const d=document.querySelector('#settings');document.querySelector('#settingsBtn').onclick=()=>d.showModal();
   const bind=(id,key)=>document.querySelector(id).onchange=e=>{updateSetting(state,key,e.target.checked);applySettings();track('setting_changed',{key,value:e.target.checked});};
   bind('#sound','sound');bind('#motion','reducedMotion');bind('#contrast','highContrast');document.querySelector('#quality').onchange=e=>{updateSetting(state,'quality',e.target.value);applySettings();track('setting_changed',{key:'quality',value:e.target.value});};
@@ -48,14 +46,15 @@ function shell(content){
 function applySettings(){document.documentElement.classList.toggle('reduce-motion',!!state.settings.reducedMotion);document.documentElement.classList.toggle('high-contrast',!!state.settings.highContrast);window.dispatchEvent(new CustomEvent('funlab:settings',{detail:{...state.settings}}));}
 
 function home(){
+  document.body.classList.add('funlab-home');
   const day=localDayKey(),daily=pick(games,day+'daily'),inbound=sharedInbound();
-  shell(`<section class="hero"><div><span class="eyebrow">Tiny games · zero signup</span><h1>Quick chaos.<br>Now with deeper play.</h1><p>Eleven browser-first activities. v0.5 deepens the strongest loops with earned unlocks, target simulation, persistent adventure inventory and richer arena/reactor presentation.</p>
+  shell(`<section class="hero"><div><span class="eyebrow">Tiny games · no signup</span><h1>Quick chaos.<br>Room to explore.</h1><p>Eleven browser-first games built around a simple loop: try an idea, see what happens, and play again a little differently.</p>
   <div class="hero-actions"><button class="primary" id="random">Surprise me</button><button class="secondary" id="install" hidden>Install app</button></div></div>
   <aside class="daily"><span>Mechanic achievements</span><strong>${achievementCount(state)} / ${Object.keys(ACHIEVEMENTS).length}</strong><p>Unlocks come from meaningful play, not generic points.</p><span class="daily-sub">Active-day streak</span><strong>${state.daily?.currentStreak||0} day${state.daily?.currentStreak===1?'':'s'}</strong><p>Best ${state.daily?.bestStreak||0}. Skipping a day has no penalty; this only records consecutive active days.</p></aside></section>
   ${inbound?`<section class="inbound-card"><div><span class="eyebrow">Shared into FunLab</span><p>${esc(inbound)}</p></div><button class="primary" id="courtInbound">Take to AI Court</button></section>`:''}
   <section class="daily-pick"><div><span class="eyebrow">Today's shared starting point</span><h2>${daily.meta.emoji} ${daily.meta.title}</h2><p>${daily.meta.tagline}</p></div><button class="secondary" id="dailyPlay">Play today's pick</button></section>
   <section class="game-grid" aria-label="Games">${games.map((g,i)=>`<button class="game-tile t${i}" data-game="${g.meta.id}"><span class="tile-emoji">${g.meta.emoji}</span><span class="tile-copy"><b>${g.meta.title}</b><small>${g.meta.tagline}</small></span><span class="tile-arrow">↗</span></button>`).join('')}</section>
-  <section class="principles"><span>v0.5 depth upgrade</span><p>Mechanic-earned unlocks · scenario-specific Jugaad simulation · carryable adventure inventory · richer arena worlds · optional earned Three.js reactor · backend frozen.</p></section>`);
+  <section class="principles"><span>Play at your pace</span><p>Short rounds, earned discoveries, local progress and optional sharing. Start anywhere and return whenever you like.</p></section>`);
   document.querySelectorAll('[data-game]').forEach(b=>b.onclick=()=>{track('game_open',{gameId:b.dataset.game,source:'home'});location.hash=`#/${b.dataset.game}`;});
   document.querySelector('#random').onclick=()=>{const g=games[Math.floor(Math.random()*games.length)];track('game_open',{gameId:g.meta.id,source:'surprise'});location.hash=`#/${g.meta.id}`;};
   document.querySelector('#dailyPlay').onclick=()=>{track('game_open',{gameId:daily.meta.id,source:'daily'});location.hash=`#/${daily.meta.id}`;};
@@ -94,6 +93,6 @@ function insightsView(){
   <article class="play-card insights-table"><h2>By activity</h2>${rows.length?`<table><thead><tr><th>Game</th><th>Open</th><th>Complete</th><th>Share</th><th>Replay</th></tr></thead><tbody>${rows.map(([id,x])=>`<tr><td>${esc(games.find(g=>g.meta.id===id)?.meta.title||id)}</td><td>${x.opens}</td><td>${x.completes}</td><td>${x.shares}</td><td>${x.replays}</td></tr>`).join('')}</tbody></table>`:'<p>No events yet. Play a game first.</p>'}</article></section>`);document.querySelector('#back').onclick=()=>location.hash='';
 }
 function toast(text){let t=document.querySelector('.toast');if(!t){t=document.createElement('div');t.className='toast';document.body.append(t);}t.textContent=text;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),1600);}
-function render(){if(activeCleanup){try{activeCleanup();}catch(e){console.warn('Game cleanup failed',e);}activeCleanup=null;}const r=parseRoute();if(r.id==='room')return roomView(r.challenge);if(r.id==='insights')return insightsView();const g=games.find(x=>x.meta.id===r.id);g?gameView(g,r.challenge):home();}
+function render(){if(activeCleanup){try{activeCleanup();}catch(e){console.warn('Game cleanup failed',e);}activeCleanup=null;}const r=parseRoute();document.body.classList.toggle('funlab-home',!r.id);if(r.id==='room')return roomView(r.challenge);if(r.id==='insights')return insightsView();const g=games.find(x=>x.meta.id===r.id);g?gameView(g,r.challenge):home();}
 window.addEventListener('hashchange',render);window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();installPrompt=e;if(!parseRoute().id)render();});
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));render();

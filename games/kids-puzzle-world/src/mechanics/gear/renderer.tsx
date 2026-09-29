@@ -37,10 +37,10 @@ export default function GearRenderer({ runtime }: GearRendererProps) {
   const handleRequestHint = () => {
     const nextLevel = Math.min(hintLevel + 1, 3)
     setHintLevel(nextLevel)
-    runtime.requestHint(nextLevel as any)
+    runtime.requestHint(nextLevel as 1 | 2 | 3)
   }
 
-  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as any) as { hint: string; highlightGearIds?: string[] }) : null
+  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as 1 | 2 | 3) as { hint: string; highlightGearIds?: string[] }) : null
 
   const targetsWithGears = state.targets
     .map((t) => ({ target: t, gear: state.gears.find((g) => g.id === t.gearId) }))

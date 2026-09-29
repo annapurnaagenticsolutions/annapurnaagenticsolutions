@@ -25,3 +25,9 @@ The world map is the signature surface. Each region has its own visual material 
 ## Platform contract
 
 The game can build standalone with `/` as its base or be mounted below a platform path with `VITE_BASE_PATH`, for example `/games/kids-puzzle-world/`. The router uses the same base at runtime, so deep links remain valid in either mode.
+
+## Pattern Forest interaction
+
+Rotation patterns use directional arrows with named touch/keyboard choices. Number patterns retain explicitly labelled numeric fields. Entering an answer never awards completion: the player chooses **Check Pattern**, receives recoverable feedback, and can reset the puzzle. Puzzle controls use the forest-moss token for contrast and visible keyboard focus; layouts wrap and scroll at narrow widths.
+
+Pattern generation must expose enough examples before hiding answers: at least three arithmetic/scaling terms, one full cycle plus a repeated first term for direction/alternating rules, and two terms from each compound sequence. Preserve the requested hidden-answer count by extending the sequence when necessary.

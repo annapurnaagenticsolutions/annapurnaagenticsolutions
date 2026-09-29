@@ -14,7 +14,7 @@ export interface BalanceAction {
 export type BalanceHintState = { hint: string; highlightId?: string }
 
 const PIVOT_X = 220
-const PIVOT_Y = 300 + 30
+export const PIVOT_Y = 300 + 30
 
 export const balancePuzzleDefinition: PuzzleDefinition<BalanceState, BalanceAction, BalanceHintState> = {
   metadata: {
@@ -132,18 +132,18 @@ export const balancePuzzleDefinition: PuzzleDefinition<BalanceState, BalanceActi
   },
 
   checkWin: (state) => {
-    const torque = calculateTorque(state.bodies, PIVOT_X, PIVOT_Y)
+    const torque = calculateTorque(state.bodies, PIVOT_X)
     return Math.abs(torque) <= state.targetTorqueTolerance && state.isSettled
   },
 
   checkFailSafe: (state) => {
-    const torque = calculateTorque(state.bodies, PIVOT_X, PIVOT_Y)
+    const torque = calculateTorque(state.bodies, PIVOT_X)
     const balanced = Math.abs(torque) <= state.targetTorqueTolerance && state.isSettled
     return !balanced && state.movesUsed >= state.maxMoves
   },
 
   getHintState: (state, tier: HintTier): BalanceHintState => {
-    const torque = calculateTorque(state.bodies, PIVOT_X, PIVOT_Y)
+    const torque = calculateTorque(state.bodies, PIVOT_X)
     const movable = state.bodies.filter((b) => !b.isStatic)
     // Heaviest object farthest from the overloaded side is the most effective one to move.
     const heavySide = torque > 0 ? 1 : -1

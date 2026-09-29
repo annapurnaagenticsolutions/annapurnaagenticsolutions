@@ -64,15 +64,15 @@ export default function BalanceRenderer({ runtime }: BalanceRendererProps) {
   const handleRequestHint = () => {
     const nextLevel = Math.min(hintLevel + 1, 4)
     setHintLevel(nextLevel)
-    runtime.requestHint(nextLevel as any)
+    runtime.requestHint(nextLevel as 1 | 2 | 3 | 4)
   }
 
-  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as any) as { hint: string; highlightId?: string }) : null
+  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as 1 | 2 | 3 | 4) as { hint: string; highlightId?: string }) : null
 
   // Live visual feedback: the platform actually tilts in proportion to the
   // current torque, so dragging visibly does something on every frame
   // instead of only reacting once you happen to land on the exact answer.
-  const torque = calculateTorque(state.bodies, PIVOT_X, PIVOT_Y)
+  const torque = calculateTorque(state.bodies, PIVOT_X)
   const tiltAngle = Math.max(-14, Math.min(14, torque / 20))
   const isBalanced = Math.abs(torque) <= state.targetTorqueTolerance
   const movesLeft = state.maxMoves - state.movesUsed

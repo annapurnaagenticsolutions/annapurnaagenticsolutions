@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>./index.html</loc></url>
+  <url><loc>./interactive_demo_path.html</loc></url>
+  <url><loc>./launch_candidate_console.html</loc></url>
+  <url><loc>./release_evidence_console.html</loc></url>
+  <url><loc>./api_catalog.html</loc></url>
+</urlset>

@@ -1,0 +1,109 @@
+[
+  {
+    "evidence_id": "EV-PROC-001",
+    "agent_id": "PROC-AGENT-001",
+    "artifact_type": "use_case_canvas",
+    "title": "Procurement Agent Use Case Canvas",
+    "summary": "Defines scope, users, non-goals, human approvals, and expected business outcomes for the procurement assistant.",
+    "source_uri": "templates/agent_use_case_canvas.md",
+    "owner": "Procurement Operations Lead",
+    "review_status": "approved",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "procurement",
+      "scope",
+      "approved"
+    ]
+  },
+  {
+    "evidence_id": "EV-PROC-002",
+    "agent_id": "PROC-AGENT-001",
+    "artifact_type": "data_inventory",
+    "title": "Procurement Data Inventory",
+    "summary": "Lists policy documents, invoice templates, vendor master fields, retention constraints, and access limitations.",
+    "source_uri": "templates/data_readiness_checklist.md",
+    "owner": "Data Governance Lead",
+    "review_status": "submitted",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "data-readiness",
+      "procurement"
+    ]
+  },
+  {
+    "evidence_id": "EV-PROC-003",
+    "agent_id": "PROC-AGENT-001",
+    "artifact_type": "evaluation_report",
+    "title": "Procurement Pilot Evaluation Report",
+    "summary": "Baseline evaluation for answer quality, citation grounding, extraction correctness, and human escalation behavior.",
+    "source_uri": "lab/sample_scenarios.json",
+    "owner": "AI Evaluation Lead",
+    "review_status": "submitted",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "evaluation",
+      "pilot"
+    ]
+  },
+  {
+    "evidence_id": "EV-HR-001",
+    "agent_id": "HR-AGENT-001",
+    "artifact_type": "risk_assessment",
+    "title": "HR Policy Assistant Risk Assessment",
+    "summary": "Identifies sensitive employee-impact topics and requires escalation for ambiguous eligibility questions.",
+    "source_uri": "templates/governance_gate_checklist.md",
+    "owner": "HR Governance Lead",
+    "review_status": "draft",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "hr",
+      "risk"
+    ]
+  },
+  {
+    "evidence_id": "EV-DOC-001",
+    "agent_id": "DOC-AGENT-001",
+    "artifact_type": "evaluation_report",
+    "title": "Documentation Intelligence Evaluation Report",
+    "summary": "Evaluates citation quality, document freshness warnings, summarization precision, and gap detection usefulness.",
+    "source_uri": "lab/sample_scenarios.json",
+    "owner": "AI Evaluation Lead",
+    "review_status": "approved",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "documentation",
+      "evaluation",
+      "approved"
+    ]
+  },
+  {
+    "evidence_id": "EV-DOC-002",
+    "agent_id": "DOC-AGENT-001",
+    "artifact_type": "monitoring_plan",
+    "title": "Documentation Monitoring Plan",
+    "summary": "Defines citation drift checks, stale source alerts, answer quality sampling, and incident escalation.",
+    "source_uri": "templates/pilot_readiness_report.md",
+    "owner": "Knowledge Management Lead",
+    "review_status": "approved",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "monitoring",
+      "production-readiness"
+    ]
+  },
+  {
+    "evidence_id": "EV-DOC-003",
+    "agent_id": "DOC-AGENT-001",
+    "artifact_type": "production_runbook",
+    "title": "Documentation Agent Production Runbook",
+    "summary": "Operational runbook for user support, incident triage, source refresh, rollback, and approval contacts.",
+    "source_uri": "templates/pilot_readiness_report.md",
+    "owner": "AI Platform Lead",
+    "review_status": "submitted",
+    "created_at": "2026-06-08T00:00:00+05:30",
+    "tags": [
+      "runbook",
+      "production-candidate"
+    ]
+  }
+]

@@ -1,4 +1,4 @@
-import { createSeededRNG } from '@/shared/rng'
+import { createSeededRNG, SeededRNG } from '@/shared/rng'
 import { PathMazeState, createEmptyGrid, GridCell, Gate, Door } from './state'
 
 interface GeneratorParams {
@@ -19,7 +19,7 @@ const DIRS = [
   [1, 0],
 ] as const
 
-function carvePath(grid: GridCell[][], x: number, y: number, rng: any, visited: Set<string>): void {
+function carvePath(grid: GridCell[][], x: number, y: number, rng: SeededRNG, visited: Set<string>): void {
   const key = `${x},${y}`
   if (visited.has(key)) return
 
@@ -53,7 +53,7 @@ function carvePath(grid: GridCell[][], x: number, y: number, rng: any, visited: 
 // Knocking down a fraction of the remaining walls that separate two floor
 // cells creates loops and false shortcuts — genuinely harder to navigate by
 // eye, while only ever ADDING routes, so it can never break solvability.
-function braidMaze(grid: GridCell[][], rng: any, braidFactor: number): void {
+function braidMaze(grid: GridCell[][], rng: SeededRNG, braidFactor: number): void {
   if (braidFactor <= 0) return
   const height = grid.length
   const width = grid[0].length
@@ -319,7 +319,7 @@ export function generatePathMazePuzzle(seed: number, params: Partial<GeneratorPa
     // fixes: every gate/door must be mandatory, not decorative. Shortest-path
     // cells are tried first since they're overwhelmingly more likely to
     // qualify than a random floor cell, keeping this fast even on big mazes.
-    function pickMandatoryCell(candidates: GridCell[]): GridCell | null {
+    const pickMandatoryCell = (candidates: GridCell[]): GridCell | null => {
       const onPath: GridCell[] = []
       const offPath: GridCell[] = []
       for (const c of candidates) (pathCellKeys.includes(`${c.x},${c.y}`) ? onPath : offPath).push(c)

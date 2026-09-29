@@ -1,0 +1,702 @@
+[
+  {
+    "rank": 1,
+    "prompt": "What if crows ran Bengaluru traffic?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 2,
+    "prompt": "What if the moon opened a coaching center?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 3,
+    "prompt": "What if monsoon clouds had WhatsApp groups?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 4,
+    "prompt": "What if vegetables had elections?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 5,
+    "prompt": "What if your school bag could complain?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 6,
+    "prompt": "What if gravity took a tea break?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 7,
+    "prompt": "What if idlis started a startup?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 8,
+    "prompt": "What if pencils refused exams?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 9,
+    "prompt": "What if umbrellas charged surge pricing?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 10,
+    "prompt": "What if the TV remote became a peace negotiator?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 11,
+    "prompt": "What if multiplication tables formed a cricket team?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 12,
+    "prompt": "What if your phone battery had trust issues?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 13,
+    "prompt": "What if a crow commissioner solved one city problem every Friday?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 14,
+    "prompt": "What if traffic signals started giving life advice?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 15,
+    "prompt": "What if phone chargers formed a missing persons bureau?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 16,
+    "prompt": "What if rain drops took attendance before falling?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 17,
+    "prompt": "What if samosas ran a detective agency?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 18,
+    "prompt": "What if homework diaries became detectives?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 19,
+    "prompt": "What if the sun needed an alarm clock?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 20,
+    "prompt": "What if potholes opened a tourism department?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 21,
+    "prompt": "What if goats became school inspectors?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 22,
+    "prompt": "What if street dogs opened a bank?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 23,
+    "prompt": "What if pigeons controlled airport announcements?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 24,
+    "prompt": "What if cows reviewed restaurant menus?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 25,
+    "prompt": "What if monkeys became apartment security guards?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 26,
+    "prompt": "What if ants ran a logistics ministry?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 27,
+    "prompt": "What if buffaloes became fitness influencers?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 28,
+    "prompt": "What if squirrels ran the electricity board?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 29,
+    "prompt": "What if parrots became news editors?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 30,
+    "prompt": "What if the blackboard started giving attendance?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 31,
+    "prompt": "What if lunch boxes formed a secret union?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 32,
+    "prompt": "What if erasers started a memory-loss clinic?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 33,
+    "prompt": "What if report cards started giving marks to teachers?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 34,
+    "prompt": "What if school bells demanded work-life balance?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 35,
+    "prompt": "What if sharpeners opened a career counselling desk?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 36,
+    "prompt": "What if water bottles started giving exam tips?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 37,
+    "prompt": "What if laddus became gym trainers?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 38,
+    "prompt": "What if pani puri opened a court of justice?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 39,
+    "prompt": "What if dosas launched a space mission?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 40,
+    "prompt": "What if biryani had a passport office?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 41,
+    "prompt": "What if chutney became a celebrity manager?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 42,
+    "prompt": "What if rotis held a round-table conference?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 43,
+    "prompt": "What if mangoes opened a summer parliament?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 44,
+    "prompt": "What if umbrellas went on strike?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 45,
+    "prompt": "What if thunder became a motivational speaker?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 46,
+    "prompt": "What if fog opened a mystery school?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 47,
+    "prompt": "What if sunshine charged a subscription fee?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 48,
+    "prompt": "What if rainbows started a colour consultancy?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 49,
+    "prompt": "What if wind became a gossip reporter?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 50,
+    "prompt": "What if clouds started performance appraisals?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 51,
+    "prompt": "What if winter sweaters became climate advisors?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 52,
+    "prompt": "What if Mars had a chai stall?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 53,
+    "prompt": "What if satellites started gossiping?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 54,
+    "prompt": "What if gravity took a holiday?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 55,
+    "prompt": "What if stars started parent-teacher meetings?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 56,
+    "prompt": "What if aliens came only to compare school marks?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 57,
+    "prompt": "What if comets needed traffic permits?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 58,
+    "prompt": "What if black holes opened storage lockers?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 59,
+    "prompt": "What if planets opened a group tuition batch?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 60,
+    "prompt": "What if elevators chose passengers by mood?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 61,
+    "prompt": "What if dustbins started customer support?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 62,
+    "prompt": "What if metro cards became relationship counselors?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 63,
+    "prompt": "What if parking cones started a discipline academy?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 64,
+    "prompt": "What if speed breakers demanded respect?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 65,
+    "prompt": "What if streetlights became night-shift supervisors?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 66,
+    "prompt": "What if zebra crossings started checking confidence levels?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 67,
+    "prompt": "What if ants created a passport office?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 68,
+    "prompt": "What if coconuts built a consulting firm?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 69,
+    "prompt": "What if chalk pieces became motivational speakers?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 70,
+    "prompt": "What if slippers required driving licenses?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 71,
+    "prompt": "What if water bottles started issuing warnings?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 72,
+    "prompt": "What if ceiling fans formed a review board?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 73,
+    "prompt": "What if teaspoons needed appointment slots?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 74,
+    "prompt": "What if cushions created a grievance portal?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 75,
+    "prompt": "What if matchboxes required fire-safety PowerPoints?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 76,
+    "prompt": "What if bookmarks created a reading approval board?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 77,
+    "prompt": "What if remote controls hired bodyguards?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 78,
+    "prompt": "What if curtains started weather forecasting?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 79,
+    "prompt": "What if pressure cookers became news anchors?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 80,
+    "prompt": "What if socks held a missing partner summit?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 81,
+    "prompt": "What if fridge magnets started giving career advice?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 82,
+    "prompt": "What if pillows demanded weekend overtime?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 83,
+    "prompt": "What if buckets opened a rainwater bank?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 84,
+    "prompt": "What if mirrors started annual appraisal meetings?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 85,
+    "prompt": "What if washing machines became relationship therapists for socks?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 86,
+    "prompt": "What if doorbells started background verification?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 87,
+    "prompt": "What if Diwali diyas formed a power company?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 88,
+    "prompt": "What if Holi colours started a diplomatic mission?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 89,
+    "prompt": "What if festival sweets demanded quality reviews?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 90,
+    "prompt": "What if puja flowers opened a complaint desk?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 91,
+    "prompt": "What if wedding chairs started seat allocation?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 92,
+    "prompt": "What if crackers attended a noise-control workshop?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  },
+  {
+    "rank": 93,
+    "prompt": "What if rangoli patterns held a design award?",
+    "primary_use_case": "Creator",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "creator"
+  },
+  {
+    "rank": 94,
+    "prompt": "What if gift boxes started emotional blackmail?",
+    "primary_use_case": "Series",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "series"
+  },
+  {
+    "rank": 95,
+    "prompt": "What if fairy lights created a startup for brightness?",
+    "primary_use_case": "Language",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "language"
+  },
+  {
+    "rank": 96,
+    "prompt": "What if invitation cards started ranking guests by punctuality?",
+    "primary_use_case": "Group Game",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "game"
+  },
+  {
+    "rank": 97,
+    "prompt": "What if ants launched a logistics startup?",
+    "primary_use_case": "Poster",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "posterlab"
+  },
+  {
+    "rank": 98,
+    "prompt": "What if coconuts built a consulting company?",
+    "primary_use_case": "WhatsApp",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "whatsapp"
+  },
+  {
+    "rank": 99,
+    "prompt": "What if dust particles opened a cleaning app?",
+    "primary_use_case": "Classroom",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "teacher"
+  },
+  {
+    "rank": 100,
+    "prompt": "What if bananas created a fitness wearable?",
+    "primary_use_case": "Family",
+    "why_it_works": "Specific, visual, harmless, and easy to expand into a rule, character quote, comic panel, fake report, or share card.",
+    "recommended_loop": "comic"
+  }
+]

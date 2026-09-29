@@ -1,0 +1,8 @@
+.company-header{z-index:100;background:rgba(255,255,255,.94)!important;border-bottom:1px solid #e7eaf0;backdrop-filter:blur(16px)}
+.company-header .nav-links{display:flex;align-items:center;gap:clamp(12px,1.8vw,24px);font-size:13px}
+.company-header .nav-actions{display:flex;align-items:center;gap:9px}
+.company-header .mobile-nav{display:none}
+.company-header .brand-mark{flex:none}
+.company-header .brand{font-family:Inter,ui-sans-serif,system-ui,sans-serif!important;font-size:15px!important;color:#111827!important}
+@media(max-width:960px){.company-header .nav-links{gap:12px;font-size:12px}.company-header .brand{font-size:13px!important}}
+@media(max-width:720px){.company-header .nav-links,.company-header .nav-actions .btn-soft{display:none}.company-header .menu-toggle{display:block}.company-header .mobile-nav.open{display:flex;position:absolute;top:62px;left:0;right:0;z-index:110;background:#fff;border-bottom:1px solid #e7eaf0;padding:16px 20px;flex-direction:column;gap:0;font-size:14px}.company-header .mobile-nav.open a{min-height:44px;display:flex;align-items:center;color:#475467}.company-header .brand{font-size:13px!important}}

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>What an Agent Audit Trail Actually Looks Like — Not Theory, Fields — The Agentic Edge</title>
+  <meta name="description" content="What an Agent Audit Trail Actually Looks Like — Not Theory, Fields">
+  <link rel="canonical" href="https://annapurnaagenticsolutions.com/blog/articles/what-an-agent-audit-trail-looks-like.html">
+<link rel="stylesheet" href="../assets/style.css">
+  <link rel="stylesheet" href="../../assets/site.css">
+  <link rel="stylesheet" href="../../blog/assets/company-shell.css">
+</head>
+<body>
+
+<header class="site-header company-header"><div class="wrap nav"><a class="brand" aria-label="Annapurna Agentic Solutions home" href="../../"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a><nav aria-label="Primary" class="nav-links"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../evidence.html">Evidence</a><a href="../../about/">About</a></nav><div class="nav-actions"><a class="btn btn-soft" href="../../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div><nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../../pramana/">Pramana</a><a href="../../products.html">Products</a><a href="../../play/">Play</a><a href="../../explore.html">Explore</a><a href="../../lab.html">Interactive Lab</a><a href="../../blog/" aria-current="page">Blog</a><a href="../../contact/">Contact</a></nav></div></header>
+
+<article class="article-page">
+  <a href="../index.html" class="back-link">← All articles</a>
+  <span class="tag">The Craft</span>
+  <h1>What an Agent Audit Trail Actually Looks Like — Not Theory, Fields</h1>
+  <div class="article-meta">Annapurna Agentic Solutions</div>
+  <div class="article-body">
+<p><strong>Theme:</strong> The Responsibility</p>
+<p><strong>Length:</strong> ~800 words</p>
+<p><strong>Hook:</strong> Practical — show the actual structure, not abstract concepts</p>
+
+<hr>
+
+<p>Everyone talks about agent audit trails. Almost nobody shows what one actually looks like.</p>
+
+<p>So here's a concrete audit trail from an agent that processes customer support tickets. Not abstract concepts — the actual fields, the actual structure, the actual questions it answers.</p>
+
+<p><strong>The scenario:</strong> A customer submits a complaint about a double charge. An agent investigates, determines it's a billing error, and issues a refund.</p>
+
+<p><strong>The audit trail:</strong></p>
+
+<pre><code>{
+  &quot;trace_id&quot;: &quot;trc_8f3a2b1c&quot;,
+  &quot;timestamp&quot;: &quot;2026-06-30T10:14:32Z&quot;,
+  &quot;agent_id&quot;: &quot;agt_support_resolver_v3&quot;,
+  &quot;agent_version&quot;: &quot;3.2.1&quot;,
+  &quot;sponsor&quot;: &quot;priya.m@company.com&quot;,
+  &quot;session_id&quot;: &quot;ses_4d2e1f&quot;,
+  &quot;goal&quot;: &quot;Investigate customer complaint about double charge&quot;,
+  &quot;perception&quot;: {
+    &quot;input&quot;: &quot;Customer reports $49.99 charged twice on June 28&quot;,
+    &quot;context&quot;: {
+      &quot;customer_id&quot;: &quot;cust_8842&quot;,
+      &quot;account_tier&quot;: &quot;premium&quot;,
+      &quot;history&quot;: &quot;3 prior complaints, all resolved&quot;
+    }
+  },
+  &quot;reasoning&quot;: {
+    &quot;model&quot;: &quot;claude-4-sonnet&quot;,
+    &quot;prompt_hash&quot;: &quot;sha256:a1b2c3...&quot;,
+    &quot;decision&quot;: &quot;Check billing system for duplicate charges, then issue refund if confirmed&quot;,
+    &quot;alternatives_considered&quot;: [
+      &quot;Escalate to human agent&quot;,
+      &quot;Check payment processor directly&quot;
+    ],
+    &quot;confidence&quot;: 0.92
+  },
+  &quot;actions&quot;: [
+    {
+      &quot;step&quot;: 1,
+      &quot;tool&quot;: &quot;BillingAPI.lookup&quot;,
+      &quot;parameters&quot;: {&quot;customer_id&quot;: &quot;cust_8842&quot;, &quot;date_range&quot;: &quot;2026-06-27 to 2026-06-29&quot;},
+      &quot;result&quot;: &quot;Two charges of $49.99 on June 28&quot;,
+      &quot;policy_check&quot;: &quot;allowed&quot;,
+      &quot;timestamp&quot;: &quot;2026-06-30T10:14:35Z&quot;
+    },
+    {
+      &quot;step&quot;: 2,
+      &quot;tool&quot;: &quot;BillingAPI.refund&quot;,
+      &quot;parameters&quot;: {&quot;charge_id&quot;: &quot;ch_7721&quot;, &quot;amount&quot;: 49.99},
+      &quot;result&quot;: &quot;Refund processed, ref_3341&quot;,
+      &quot;policy_check&quot;: &quot;require_approval&quot;,
+      &quot;approval&quot;: {
+        &quot;approved_by&quot;: &quot;auto-approval-rule:refund_under_100&quot;,
+        &quot;rule_id&quot;: &quot;pol_refund_auto_100&quot;
+      },
+      &quot;timestamp&quot;: &quot;2026-06-30T10:14:38Z&quot;
+    },
+    {
+      &quot;step&quot;: 3,
+      &quot;tool&quot;: &quot;NotificationAPI.send&quot;,
+      &quot;parameters&quot;: {&quot;channel&quot;: &quot;email&quot;, &quot;template&quot;: &quot;refund_confirmed&quot;},
+      &quot;result&quot;: &quot;Email sent&quot;,
+      &quot;policy_check&quot;: &quot;allowed&quot;,
+      &quot;timestamp&quot;: &quot;2026-06-30T10:14:40Z&quot;
+    }
+  ],
+  &quot;outcome&quot;: {
+    &quot;status&quot;: &quot;success&quot;,
+    &quot;cost_usd&quot;: 0.034,
+    &quot;duration_seconds&quot;: 8,
+    &quot;tokens&quot;: {&quot;input&quot;: 1240, &quot;output&quot;: 380}
+  },
+  &quot;hash&quot;: &quot;sha256:f4e5d6...&quot;,
+  &quot;previous_hash&quot;: &quot;sha256:c3b4a5...&quot;
+}</code></pre>
+
+<p><strong>What this audit trail answers:</strong></p>
+
+<p><strong>"What happened?"</strong> The agent received a complaint about a double charge, looked up the billing system, confirmed the duplicate, issued a refund, and notified the customer. Three tool calls, eight seconds, $0.034 in LLM costs.</p>
+
+<p><strong>"Why did it make this decision?"</strong> The reasoning block shows the model used, the decision made, alternatives considered (escalate to human, check payment processor), and confidence level (92%). The prompt hash lets you verify the exact prompt that produced this reasoning.</p>
+
+<p><strong>"Was it allowed to do this?"</strong> Each action has a policy check. The billing lookup was allowed. The refund required approval — and the approval is logged with the rule that authorized it. The notification was allowed. No action was taken without a policy check.</p>
+
+<p><strong>"Who is responsible?"</strong> The sponsor field identifies the human who approved this agent's deployment. If something goes wrong, Priya is the accountable human. Not "the AI did it."</p>
+
+<p><strong>"Can I verify this wasn't tampered with?"</strong> Each trace has a hash, and each hash includes the previous trace's hash. This is a tamper-evident chain — the same technique blockchains use. If someone modifies a trace, the hash breaks.</p>
+
+<p><strong>"How much did this cost?"</strong> The outcome block shows $0.034 in LLM costs, 1,620 tokens, 8 seconds duration. You can aggregate this across all traces to calculate total agent spend.</p>
+
+<p><strong>What most teams have today vs. what they need:</strong></p>
+
+<p>Most teams have: LLM call logs (input, output, tokens). Maybe some tool call logs. Maybe some error logs.</p>
+
+<p>What they need: the full trace above. Perception (what the agent saw), reasoning (what it thought), actions (what it did), policy checks (was it allowed), outcome (what happened), and tamper-evidence (can you prove it wasn't altered).</p>
+
+<p>The gap between "we have logs" and "we have an audit trail" is the gap between "we can debug" and "we can defend."</p>
+
+<p><strong>The practical takeaway:</strong></p>
+
+<p>If your agent audit trail doesn't include: perception, reasoning, alternatives considered, policy checks per action, approval provenance, cost tracking, and tamper-evident hashing — you don't have an audit trail. You have logs.</p>
+
+<p>Logs tell you what happened. Audit trails tell you why, whether it was allowed, who's responsible, and whether you can prove it.</p>
+
+<p>What does your current agent audit trail look like — and does it answer all seven questions?</p>
+  </div>
+  <div class="article-footer">
+    <p>Enjoyed this? Subscribe for more.</p>
+    <a href="../index.html#subscribe" class="btn-primary" style="display:inline-block;background:var(--accent);color:#fff;padding:10px 24px;border-radius:6px;font-size:15px;font-weight:600;">Subscribe — it's free</a>
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="footer-links">
+    <a href="../index.html">Articles</a>
+    <a href="../posts.html">Short Posts</a>
+    <a href="../about.html">About</a>
+    <a href="https://github.com/annapurnaagenticsolutions">GitHub</a>
+  </div>
+  <p>© 2026 Annapurna Agentic Solutions. Built in India.</p>
+</footer>
+
+  <script defer src="../../assets/site.js"></script>
+</body>
+</html>

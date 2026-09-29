@@ -79,3 +79,23 @@ dialog{width:min(520px,calc(100% - 28px));background:var(--panel);color:var(--te
 
 @media(max-width:720px){.combat-actions{grid-template-columns:1fr}.combat-action{min-height:58px}.bench-top{flex-direction:column}.bench-top>span:last-child{max-width:none;text-align:left}.bench-grid{grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(3,58px);gap:3px}.bench-piece i{width:26px;height:26px}.bench-piece small{font-size:7px}.bench-links{display:none}.lineage-node{width:96px}.scene-object,.scene-actor{font-size:24px}}
 @media(prefers-reduced-motion:reduce){.scene-actor{animation:none!important}.scene-object,.scene-actor{transition:none!important}.telegraph-timer span{transition:none!important}}
+
+/* Shared Annapurna shell and light catalogue presentation. The game scenes retain their own dark play palette. */
+.topbar{position:sticky;top:0;z-index:50;width:100%;max-width:none;height:68px;padding:0 max(24px,calc((100vw - 1132px)/2));border-bottom:1px solid #e7eaf0;background:rgba(255,255,255,.94);color:#111827;backdrop-filter:blur(16px)}
+.funlab-brand{display:flex;align-items:center;gap:10px;color:#111827;font-size:15px;font-weight:760;letter-spacing:-.02em;text-decoration:none}
+.funlab-brand img{width:28px;height:28px;object-fit:cover;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.22)}
+.topbar nav{gap:12px}.funlab-back{color:#475467;font-size:13px;font-weight:650}.funlab-back:hover{color:#111827}
+.topbar .icon-btn{background:#fff;color:#344054;border-color:#e7eaf0}.topbar .icon-btn:hover{border-color:#cbd5e1}
+.funlab-home{--bg:#fff;--panel:#fff;--panel2:#f1f5f9;--text:#111827;--muted:#667085;--line:#e7eaf0;--warm:#2563eb;--mint:#16825d;--pink:#d94670;background:#fff;color:#111827}
+.funlab-home, .funlab-home #app, .funlab-home #main{background:#fff;color:#111827}
+.funlab-home .hero{padding-top:74px}.funlab-home .eyebrow,.funlab-home .result-kicker{color:#2563eb}
+.funlab-home .hero h1{line-height:1.02;letter-spacing:-.055em}.funlab-home .hero p{color:#536070}
+.funlab-home .primary{background:#111827;color:#fff}.funlab-home .secondary{background:#fff;border-color:#dce3ec;color:#111827}
+.funlab-home .daily{border-color:#2563eb}.funlab-home .daily span,.funlab-home .daily p{color:#667085}
+.funlab-home .game-tile{background:linear-gradient(145deg,#fff,#f8fafc);box-shadow:0 10px 30px rgba(15,23,42,.045)}
+.funlab-home .tile-copy small,.funlab-home .tile-arrow{color:#667085}
+.funlab-home .daily-pick,.funlab-home .inbound-card{background:#fff;border-color:#e7eaf0}
+.funlab-home .principles{color:#667085}.funlab-home .principles span{color:#344054}
+.funlab-footer{padding:20px 24px;border-top:1px solid #e7eaf0;color:#667085;text-align:center;font-size:13px}
+.funlab-footer p{margin:0}.funlab-footer a{color:#344054;font-weight:650}
+@media(max-width:720px){.topbar{height:64px;padding:0 16px}.funlab-brand{font-size:13px}.funlab-back{font-size:12px}.funlab-home .hero{padding:46px 16px 28px}}

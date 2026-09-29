@@ -12,7 +12,7 @@
       "id": "ai",
       "name": "AI Solutions",
       "stage": "live",
-      "detail": "2 tools listed live; additional tools developing"
+      "detail": "2 public reference surfaces; additional tools developing"
     },
     {
       "id": "wonder",
@@ -58,7 +58,7 @@
     },
     {
       "type": "AI",
-      "value": "2 tools listed Live",
+      "value": "2 public reference surfaces",
       "source": "AI Solutions (source-local)"
     },
     {

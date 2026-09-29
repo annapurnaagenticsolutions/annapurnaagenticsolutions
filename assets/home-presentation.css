@@ -1,0 +1,30 @@
+.v3-home .depth-headline .headline-line{display:block;white-space:nowrap}
+.v3-home[data-intent="explore"] .v3-beat-establish .hero-actions{gap:7px;flex-wrap:nowrap}
+.v3-home .home-method,.v3-home .home-scenarios{position:relative;padding:112px 0;border-top:1px solid #edf0f4;background:linear-gradient(180deg,rgba(248,251,255,.64),rgba(255,255,255,.92))}
+.v3-home .home-section-intro{max-width:720px;margin-bottom:38px}
+.v3-home .home-section-intro h2{max-width:720px;margin:10px 0 14px;font-size:clamp(34px,3.2vw,46px);line-height:1.08;letter-spacing:-.044em}
+.v3-home .home-section-intro p{max-width:650px;color:#687386;font-size:16px;line-height:1.7;margin:0}
+.v3-home .home-method-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin:0;padding:0;list-style:none}
+.v3-home .home-method-grid li{min-height:206px;padding:20px 18px;border:1px solid rgba(207,217,231,.82);border-radius:20px;background:linear-gradient(145deg,rgba(255,255,255,.88),rgba(248,251,255,.68));box-shadow:0 12px 34px rgba(15,23,42,.045),inset 0 1px 0 rgba(255,255,255,.96)}
+.v3-home .home-method-grid li>span{display:block;color:#0e7490;font-size:11px;letter-spacing:.12em;font-weight:760;margin-bottom:28px}
+.v3-home .home-method-grid strong{display:block;font-size:16px;line-height:1.2;letter-spacing:-.018em;color:#182230}
+.v3-home .home-method-grid p{margin:10px 0 0;color:#687386;font-size:13px;line-height:1.55}
+.v3-home .home-scenarios{background:#fff}
+.v3-home .home-scenario-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.v3-home .home-scenario-card{display:flex;flex-direction:column;min-height:238px;padding:22px 20px;border:1px solid rgba(207,217,231,.82);border-radius:22px;background:#fff;box-shadow:0 12px 34px rgba(15,23,42,.04);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.v3-home .home-scenario-card:hover{transform:translateY(-3px);border-color:rgba(14,116,144,.34);box-shadow:0 20px 46px rgba(15,23,42,.08)}
+.v3-home .scenario-kicker{display:block;color:#0e7490;text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:760;margin-bottom:24px}
+.v3-home .home-scenario-card strong{display:block;color:#182230;font-size:18px;line-height:1.18;letter-spacing:-.025em}
+.v3-home .home-scenario-card p{margin:11px 0 18px;color:#687386;font-size:13px;line-height:1.58}
+.v3-home .home-scenario-card .text-link{margin-top:auto;color:#0e7490;font-size:13px;font-weight:720}
+.v3-home .home-evidence{position:relative;padding:112px 0;border-top:1px solid #edf0f4;background:linear-gradient(180deg,rgba(246,250,253,.72),rgba(255,255,255,.96))}
+.v3-home .home-evidence-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.v3-home .home-evidence-card{display:flex;flex-direction:column;min-height:226px;padding:22px 20px;border:1px solid rgba(207,217,231,.82);border-radius:22px;background:rgba(255,255,255,.9);box-shadow:0 12px 34px rgba(15,23,42,.04);transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease}
+.v3-home .home-evidence-card:hover{transform:translateY(-3px);border-color:rgba(14,116,144,.34);box-shadow:0 20px 46px rgba(15,23,42,.08)}
+.v3-home .evidence-status{display:inline-flex;align-self:flex-start;margin-bottom:24px;padding:5px 9px;border-radius:999px;font-size:10px;font-weight:760;letter-spacing:.08em;text-transform:uppercase}
+.v3-home .evidence-now{color:#087443;background:#e9f8ef}.v3-home .evidence-open{color:#2457a6;background:#edf4ff}.v3-home .evidence-growing{color:#855d13;background:#fff6df}
+.v3-home .home-evidence-card strong{display:block;color:#182230;font-size:19px;line-height:1.18;letter-spacing:-.025em}.v3-home .home-evidence-card p{margin:11px 0 18px;color:#687386;font-size:13px;line-height:1.58}.v3-home .home-evidence-card .text-link{margin-top:auto;color:#0e7490;font-size:13px;font-weight:720}
+@media(max-width:1080px){.v3-home .home-method-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.v3-home .home-scenario-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:1080px){.v3-home .home-evidence-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:760px){.v3-home .depth-headline .headline-line{white-space:normal}}
+@media(max-width:760px){.v3-home .home-method,.v3-home .home-scenarios,.v3-home .home-evidence{padding:72px 0}.v3-home .home-method-grid,.v3-home .home-scenario-grid,.v3-home .home-evidence-grid{grid-template-columns:1fr}.v3-home .home-method-grid li{min-height:0}.v3-home .home-method-grid li>span{margin-bottom:18px}.v3-home .home-section-intro h2{font-size:32px}}

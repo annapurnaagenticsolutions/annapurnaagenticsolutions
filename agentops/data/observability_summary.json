@@ -1,0 +1,21 @@
+{
+  "total_traces": 2,
+  "executed_count": 1,
+  "executed_with_controls_count": 0,
+  "blocked_count": 1,
+  "blocked_pending_approval_count": 0,
+  "total_token_estimate": 52,
+  "total_estimated_cost_usd": 0.0,
+  "agents_observed": [
+    "customer-support-agent-v0",
+    "procurement-agent-v0"
+  ],
+  "provider_usage": {
+    "Mock Safe Local Provider": 1,
+    "not_selected": 1
+  },
+  "policy_decisions": {
+    "allow": 1,
+    "deny": 1
+  }
+}

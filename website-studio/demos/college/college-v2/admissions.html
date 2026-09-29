@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admissions | I.A.D.</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+    <style>
+      .brutalist-border { border: 3px solid var(--color-brand-dark); }
+    </style>
+  </head>
+  <body class="antialiased bg-brand-light font-body text-brand-dark">
+    <nav class="p-6 bg-brand-dark text-white flex justify-between items-center">
+      <a href="index.html" class="font-display font-bold text-2xl tracking-widest">I.A.D.</a>
+      <div class="flex gap-6 text-sm uppercase tracking-widest font-bold">
+        <a href="exhibitions.html" class="hover:text-brand-primary transition">Exhibitions</a>
+        <a href="admissions.html" class="text-brand-primary underline">Admissions</a>
+        <a href="manifesto.html" class="hover:text-brand-primary transition">Manifesto</a>
+        <a href="index.html" class="border border-white px-3 py-1 hover:bg-brand-primary transition">&larr; Back</a>
+      </div>
+    </nav>
+
+    <div class="py-20 px-6 border-b-4 border-brand-dark bg-white">
+      <div class="max-w-7xl mx-auto">
+        <h1 class="text-6xl md:text-8xl font-display font-bold uppercase tracking-tighter">Portfolio Review &<br/><span class="text-brand-primary">Admissions</span></h1>
+      </div>
+    </div>
+
+    <section class="max-w-3xl mx-auto px-6 py-16">
+      <div class="brutalist-border p-8 bg-white">
+        <h2 class="font-display font-bold text-3xl uppercase mb-4">Application Requirements</h2>
+        <p class="font-bold mb-6 leading-relaxed">We do not look at standardized test scores. We select candidates purely based on the intensity, originality, and conceptual rigor of their digital and physical portfolios.</p>
+
+        <form onsubmit="event.preventDefault(); alert('Application & Portfolio URL submitted! Our Faculty Review Committee will contact you.'); window.location.href='index.html';" class="space-y-6">
+          <div>
+            <label class="block font-display font-bold uppercase text-sm mb-2">Full Legal Name</label>
+            <input type="text" required placeholder="Elena Rostova" class="w-full brutalist-border p-3 font-bold focus:outline-none focus:bg-brand-secondary" />
+          </div>
+          <div>
+            <label class="block font-display font-bold uppercase text-sm mb-2">Preferred Program</label>
+            <select class="w-full brutalist-border p-3 font-bold focus:outline-none focus:bg-brand-secondary">
+              <option>MFA - Experimental Architecture & Spatial Media</option>
+              <option>BFA - Algorithmic Sculpture & Computational Arts</option>
+              <option>Fellowship - Avant-Garde Sound & Industrial Design</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-display font-bold uppercase text-sm mb-2">Portfolio Web Link (Behance / GitHub / Drive)</label>
+            <input type="url" required placeholder="https://" class="w-full brutalist-border p-3 font-bold focus:outline-none focus:bg-brand-secondary" />
+          </div>
+          <button type="submit" class="w-full brutalist-border bg-brand-dark text-white py-4 font-display font-bold uppercase hover:bg-brand-primary transition">Submit Candidacy &rarr;</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="p-8 bg-brand-dark text-white border-t-4 border-brand-primary text-center font-display uppercase font-bold text-sm">
+      &copy; 2026 Institute of Art & Design. <a href="index.html" class="text-brand-primary underline ml-2">Return Home</a>
+    </footer>
+  </body>
+</html>

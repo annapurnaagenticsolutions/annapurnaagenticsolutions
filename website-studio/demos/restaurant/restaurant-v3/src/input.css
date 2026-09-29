@@ -1,0 +1,24 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #FF5A5F; /* Appetizing Coral/Red */
+  --color-brand-secondary: #00A699; /* Fresh Teal */
+  --color-brand-dark: #2B2B2B; /* Soft Black */
+  --color-brand-light: #F7F7F9; /* Off-White App Background */
+  --font-family-sans: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--color-brand-light);
+  color: var(--color-brand-dark);
+}
+
+/* Hide scrollbar for category filters */
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

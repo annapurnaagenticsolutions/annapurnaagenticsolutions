@@ -1,0 +1,58 @@
+[
+  {
+    "id": "whatsapp-status",
+    "name": "WhatsApp Status Card",
+    "structure": "Big title + one line punchline + tiny footer",
+    "best_for": "family and casual sharing",
+    "word_limit": "12–18 words"
+  },
+  {
+    "id": "poster-headline",
+    "name": "Poster Headline Card",
+    "structure": "Bold impossible question + visual subject + absurd rule",
+    "best_for": "Instagram story or school board",
+    "word_limit": "6–12 words"
+  },
+  {
+    "id": "fake-report",
+    "name": "Silly Science Report Card",
+    "structure": "Observation + problem + ridiculous metric + conclusion",
+    "best_for": "fake science mode",
+    "word_limit": "30–55 words"
+  },
+  {
+    "id": "comic-cover",
+    "name": "Comic Cover Card",
+    "structure": "Main character vs tiny problem + speech bubble",
+    "best_for": "comic-first loop",
+    "word_limit": "8–16 words"
+  },
+  {
+    "id": "classroom-spark",
+    "name": "Classroom Spark Card",
+    "structure": "Prompt + task + harmless rule challenge",
+    "best_for": "5-minute warmups",
+    "word_limit": "25–45 words"
+  },
+  {
+    "id": "family-game",
+    "name": "Family Game Card",
+    "structure": "Prompt + roles + one rule each",
+    "best_for": "dinner table play",
+    "word_limit": "25–40 words"
+  },
+  {
+    "id": "creator-reel",
+    "name": "Creator Reel Card",
+    "structure": "Hook + scene beat + punchline + comment question",
+    "best_for": "short video ideation",
+    "word_limit": "30–60 words"
+  },
+  {
+    "id": "series-seed",
+    "name": "Series Seed Card",
+    "structure": "Recurring cast + location + running gag + episode 2 hook",
+    "best_for": "repeat play",
+    "word_limit": "35–60 words"
+  }
+]

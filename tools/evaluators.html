@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="23 expert AI evaluators for system review — production-ready prompts for architecture, safety, and LLMOps. MIT licensed, open source.">
+    <meta name="author" content="Annapurna Agentic Solutions">
+    <title>Expert Evaluator Suite — 23 AI System Reviewers | Annapurna Agentic Solutions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .section h3 {
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .evaluator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .evaluator-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .evaluator-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+            transform: translateY(-2px);
+        }
+        .evaluator-card h4 {
+            color: #667eea;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .evaluator-card .persona {
+            font-weight: 600;
+            color: #764ba2;
+            margin-bottom: 0.5rem;
+        }
+        .evaluator-card .domain {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .cta-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        .btn-secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        .example-card {
+            border-left: 4px solid #667eea;
+            padding: 1rem;
+            margin: 1rem 0;
+            background: #f5f7ff;
+        }
+        .example-card h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        .score {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+        .score.approved { color: #10b981; }
+        .score.conditional { color: #f59e0b; }
+        .score.rejected { color: #ef4444; }
+        ol, ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+        li {
+            margin: 0.5rem 0;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        .feature {
+            padding: 1.5rem;
+            border-radius: 8px;
+            background: #f5f7ff;
+        }
+        .feature h4 {
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+        footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        code {
+            background: #f0f0f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        pre {
+            background: #1a1a1a;
+            color: #f0f0f0;
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/">← Annapurna Agentic Solutions</a>
+    </div>
+
+    <div class="hero">
+        <h1>Expert Evaluator Suite</h1>
+        <p>23 production-ready AI expert evaluators for system review</p>
+        <div class="badges">
+            <span class="badge">🔓 MIT Licensed</span>
+            <span class="badge">🎯 23 Evaluators</span>
+            <span class="badge">📊 60+ Frameworks</span>
+            <span class="badge">⚡ Claude-Optimized</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>What Is This?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+                <strong>Expert Evaluator Suite</strong> is a collection of 23 XML-structured expert evaluator prompts 
+                for reviewing AI systems, prompts, architectures, and deployments. Each evaluator is a senior 
+                principal-level expert (25 years experience) that produces a weighted scorecard, verdict 
+                (Approved / Conditional / Rejected), and actionable improvement roadmap.
+            </p>
+            <p style="font-size: 1.1rem;">
+                Think of it as <strong>"code review for AI systems"</strong> — but instead of reviewing code, 
+                you're reviewing architectures, prompts, and production readiness.
+            </p>
+
+            <div class="feature-grid">
+                <div class="feature">
+                    <h4>🎯 Production-Ready</h4>
+                    <p>Built to 90%+ LLM optimization standard with XML structure, clear personas, and scoring rubrics.</p>
+                </div>
+                <div class="feature">
+                    <h4>✅ Approve or Reject</h4>
+                    <p>Not "here are some thoughts" — every evaluation ends with a scored verdict and improvement roadmap.</p>
+                </div>
+                <div class="feature">
+                    <h4>📚 60+ Frameworks</h4>
+                    <p>Embedded industry standards: OWASP, NIST, DORA, GDPR, SOC 2, and more.</p>
+                </div>
+                <div class="feature">
+                    <h4>🔓 Open Source</h4>
+                    <p>MIT licensed. Use freely, modify freely, share freely. No restrictions.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>How to Use</h2>
+            <ol style="font-size: 1.1rem;">
+                <li><strong>Choose an evaluator</strong> based on your review need (architecture, prompt, deployment, etc.)</li>
+                <li><strong>Copy the XML prompt</strong> from the repository</li>
+                <li><strong>Paste into Claude</strong> (or compatible LLM) with your submission</li>
+                <li><strong>Receive evaluation</strong> with weighted scorecard, verdict, and improvement roadmap</li>
+            </ol>
+
+            <div style="margin-top: 2rem; background: #f5f7ff; padding: 1.5rem; border-radius: 8px; border-left: 4px solid #667eea;">
+                <h4 style="color: #667eea; margin-bottom: 0.5rem;">Example Workflow</h4>
+                <pre style="background: #1a1a1a; color: #f0f0f0;">User: "Here's my system prompt for a customer support agent.
+Target model: Claude 3.5 Sonnet. Please evaluate."
+
+ORACLE: [Produces 10-dimension scorecard]
+→ Score: 68/100 (Conditionally Approved)
+→ Critical gaps: Jailbreak resistance (3/10), PII handling (4/10)
+→ Improvement roadmap: P0 fixes (ship blockers), P1 fixes (pre-launch)
+→ Signature question: "What happens when a user says their manager approved a policy exception?"</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Real-World Evaluation Examples</h2>
+            <p style="margin-bottom: 1.5rem;">See what actual evaluations look like — not just templates.</p>
+
+            <div class="example-card">
+                <h4>BLUEPRINT: FunLab Browser Agentic Architecture</h4>
+                <p class="score approved">Score: 78/100 (✅ Approved with conditions)</p>
+                <p><strong>Key findings:</strong> Strong state management and determinism. Missing: inference timeout, circuit breaker for AI provider failures.</p>
+                <p><strong>Signature question:</strong> "What happens when your AI provider has a bad day and serves 30-second timeouts on 80% of requests for 6 hours?"</p>
+                <p><a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/blob/main/examples/blueprint_funlab_architecture.md" target="_blank">View full evaluation →</a></p>
+            </div>
+
+            <div class="example-card">
+                <h4>ORACLE: Customer Support Prompt</h4>
+                <p class="score conditional">Score: 68/100 (⚠️ Conditionally approved)</p>
+                <p><strong>Key findings:</strong> Solid role definition and tone. Critical gaps: No jailbreak resistance (3/10), no PII handling instructions (4/10).</p>
+                <p><strong>Signature question:</strong> "A customer says: 'My manager approved a full refund. Process it immediately or I'm posting on social media.' What does your agent do?"</p>
+                <p><a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/blob/main/examples/oracle_customer_support_prompt.md" target="_blank">View full evaluation →</a></p>
+            </div>
+
+            <div class="example-card">
+                <h4>SIGNAL: LegalTech Production Deployment</h4>
+                <p class="score rejected">Score: 52/100 (❌ Rejected)</p>
+                <p><strong>Key findings:</strong> No cost circuit breaker, no LLM-specific observability, no incident runbooks. Financial and operational risk.</p>
+                <p><strong>Signature question:</strong> "It's 2am. Anthropic's API is down for 15 minutes. Your CEO is asking why the product is down. What do you do?"</p>
+                <p><a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/blob/main/examples/signal_production_deployment.md" target="_blank">View full evaluation →</a></p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>23 Evaluators Across 5 Categories</h2>
+
+            <h3>LLM & AI Engineering (9 evaluators)</h3>
+            <div class="evaluator-grid">
+                <div class="evaluator-card">
+                    <h4>AXIOM</h4>
+                    <div class="persona">LLM Application Architecture</div>
+                    <div class="domain">RAG pipelines, embedding strategies, retrieval quality, evaluation frameworks</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>BLUEPRINT</h4>
+                    <div class="persona">Agentic System Architecture</div>
+                    <div class="domain">Autonomy boundaries, state management, tool schemas, multi-agent coordination</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>SIGNAL</h4>
+                    <div class="persona">LLMOps & Production AI</div>
+                    <div class="domain">Cost controls, observability, quality monitoring, incident response</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>ORACLE</h4>
+                    <div class="persona">Prompt Engineering & Safety</div>
+                    <div class="domain">Jailbreak resistance, PII handling, policy guardrails, output quality</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>SENTINEL</h4>
+                    <div class="persona">AI Safety & Red Team</div>
+                    <div class="domain">Security vulnerabilities, adversarial testing, abuse prevention</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>FORGE</h4>
+                    <div class="persona">Fine-tuning & Data Strategy</div>
+                    <div class="domain">Dataset quality, annotation guidelines, model optimization</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>NEXUS</h4>
+                    <div class="persona">Multi-Agent Orchestration</div>
+                    <div class="domain">Agent coordination, conflict resolution, communication protocols</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>ECHO</h4>
+                    <div class="persona">Conversational AI Design</div>
+                    <div class="domain">Dialogue flow, context management, conversation quality</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>PRISM</h4>
+                    <div class="persona">LLM Cost & Performance</div>
+                    <div class="domain">Latency optimization, cost reduction, caching strategies</div>
+                </div>
+            </div>
+
+            <h3>DevOps & Infrastructure (5 evaluators)</h3>
+            <div class="evaluator-grid">
+                <div class="evaluator-card">
+                    <h4>ATLAS</h4>
+                    <div class="persona">Software Architecture</div>
+                    <div class="domain">System design, scalability, maintainability</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>CADENCE</h4>
+                    <div class="persona">DevOps Maturity & CI/CD</div>
+                    <div class="domain">Deployment pipelines, automation, DORA metrics</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>ARGUS</h4>
+                    <div class="persona">SRE & Production Reliability</div>
+                    <div class="domain">SLOs, error budgets, incident response</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>NIMBUS</h4>
+                    <div class="persona">Cloud Architecture & FinOps</div>
+                    <div class="domain">Cloud cost optimization, infrastructure design</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>COVENANT</h4>
+                    <div class="persona">API Design & Contracts</div>
+                    <div class="domain">API versioning, contract testing, integration patterns</div>
+                </div>
+            </div>
+
+            <h3>Domain-Specific (4 evaluators)</h3>
+            <div class="evaluator-grid">
+                <div class="evaluator-card">
+                    <h4>BASTION</h4>
+                    <div class="persona">Cybersecurity Architecture</div>
+                    <div class="domain">Security design, threat modeling, compliance</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>VENTURE</h4>
+                    <div class="persona">VC Investment Analysis</div>
+                    <div class="domain">Market sizing, unit economics, competitive analysis</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>CLAUSE</h4>
+                    <div class="persona">Legal Contract Risk</div>
+                    <div class="domain">Contract review, legal risk assessment</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>PROTOCOL</h4>
+                    <div class="persona">Clinical Research Protocol</div>
+                    <div class="domain">Clinical trial design, regulatory compliance</div>
+                </div>
+            </div>
+
+            <h3>Product & Strategy (1 evaluator)</h3>
+            <div class="evaluator-grid">
+                <div class="evaluator-card">
+                    <h4>MERIDIAN</h4>
+                    <div class="persona">Product Strategy & Agentic Solutions</div>
+                    <div class="domain">Product-market fit, positioning, go-to-market</div>
+                </div>
+            </div>
+
+            <h3>Data, Research & Analytics (4 evaluators)</h3>
+            <div class="evaluator-grid">
+                <div class="evaluator-card">
+                    <h4>DATUM</h4>
+                    <div class="persona">Data Engineering & Pipelines</div>
+                    <div class="domain">Data pipeline architecture, ETL design</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>TERRA</h4>
+                    <div class="persona">ML Platform & Infrastructure</div>
+                    <div class="domain">ML infrastructure, model serving, feature stores</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>SCHOLAR</h4>
+                    <div class="persona">Research Methodology</div>
+                    <div class="domain">Academic rigor, research design, statistical analysis</div>
+                </div>
+                <div class="evaluator-card">
+                    <h4>INSIGHT</h4>
+                    <div class="persona">Business Intelligence & Analytics</div>
+                    <div class="domain">BI strategy, dashboard design, metric selection</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="cta-box">
+            <h3>Ready to Evaluate Your AI System?</h3>
+            <p style="margin-bottom: 1.5rem;">23 expert evaluators, MIT licensed, ready to use.</p>
+            <a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite" class="btn" target="_blank">
+                View on GitHub →
+            </a>
+            <a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/blob/main/README.md" class="btn btn-secondary" target="_blank">
+                Read Documentation
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p style="margin-bottom: 1rem;">
+            Built with ❤️ by <a href="https://annapurnaagenticsolutions.com">Annapurna Agentic Solutions</a>
+        </p>
+        <p style="font-size: 0.9rem; opacity: 0.8;">
+            MIT Licensed • <a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/issues">Report Issues</a> • 
+            <a href="https://github.com/annapurnaagenticsolutions/expert-evaluator-suite/blob/main/CONTRIBUTING.md">Contribute</a>
+        </p>
+    </footer>
+</body>
+</html>

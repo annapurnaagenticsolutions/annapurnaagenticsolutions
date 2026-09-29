@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Courses | NexEdu Dashboard</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+      body { background-color: #0A0D14; }
+      .panel { background-color: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); }
+    </style>
+  </head>
+  <body class="antialiased text-gray-300 font-sans min-h-screen flex">
+    <!-- Sidebar -->
+    <aside class="w-20 lg:w-64 bg-[#0F131D] border-r border-white/5 flex flex-col justify-between flex-shrink-0">
+      <div>
+        <div class="h-20 flex items-center justify-center lg:justify-start lg:px-6 border-b border-white/5">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-primary to-brand-secondary flex items-center justify-center text-brand-dark font-bold text-xl">N</div>
+          <span class="hidden lg:block ml-3 font-bold text-lg tracking-wide text-white">NexEdu</span>
+        </div>
+        <nav class="mt-8 space-y-2 px-2 lg:px-4">
+          <a href="index.html" class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fas fa-home text-lg w-6 text-center"></i>
+            <span class="hidden lg:block font-medium">Dashboard</span>
+          </a>
+          <a href="courses.html" class="flex items-center gap-4 px-4 py-3 rounded-xl bg-brand-primary/10 text-brand-primary font-medium">
+            <i class="fas fa-book-open text-lg w-6 text-center"></i>
+            <span class="hidden lg:block font-medium">My Courses</span>
+          </a>
+          <a href="schedule.html" class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fas fa-calendar-alt text-lg w-6 text-center"></i>
+            <span class="hidden lg:block font-medium">Schedule</span>
+          </a>
+          <a href="analytics.html" class="flex items-center gap-4 px-4 py-3 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition">
+            <i class="fas fa-chart-line text-lg w-6 text-center"></i>
+            <span class="hidden lg:block font-medium">Analytics</span>
+          </a>
+        </nav>
+      </div>
+    </aside>
+
+    <main class="flex-grow p-8">
+      <div class="flex justify-between items-center mb-8 border-b border-white/10 pb-6">
+        <h1 class="text-3xl font-extrabold text-white">Enrolled Courses (Fall Semester)</h1>
+        <a href="index.html" class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-xl text-sm font-semibold transition">&larr; Back to Dashboard</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div onclick="alert('Resuming Computer Science Course...')" class="panel rounded-3xl p-6 cursor-pointer hover:border-brand-primary transition">
+          <span class="bg-brand-primary/20 text-brand-primary text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 inline-block">In Progress</span>
+          <h3 class="text-xl font-bold text-white mb-2">Machine Learning & Neural Nets</h3>
+          <p class="text-sm text-gray-400 mb-6">Instructor: Dr. Aris Thorne • 12 Modules</p>
+          <div class="w-full bg-white/10 h-2 rounded-full mb-2"><div class="bg-brand-primary h-full rounded-full" style="width: 75%"></div></div>
+          <span class="text-xs text-brand-primary font-bold">75% Completed</span>
+        </div>
+
+        <div onclick="alert('Resuming UI/UX Design Course...')" class="panel rounded-3xl p-6 cursor-pointer hover:border-brand-primary transition">
+          <span class="bg-pink-500/20 text-pink-400 text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 inline-block">In Progress</span>
+          <h3 class="text-xl font-bold text-white mb-2">Figma Prototyping & Motion</h3>
+          <p class="text-sm text-gray-400 mb-6">Instructor: Elena Rostova • 8 Modules</p>
+          <div class="w-full bg-white/10 h-2 rounded-full mb-2"><div class="bg-pink-400 h-full rounded-full" style="width: 30%"></div></div>
+          <span class="text-xs text-pink-400 font-bold">30% Completed</span>
+        </div>
+
+        <div onclick="alert('Launching Quantum Physics Simulation Lab...')" class="panel rounded-3xl p-6 cursor-pointer hover:border-brand-primary transition">
+          <span class="bg-blue-500/20 text-blue-400 text-xs font-bold px-3 py-1 rounded-full uppercase mb-4 inline-block">New Lab</span>
+          <h3 class="text-xl font-bold text-white mb-2">Quantum Computation Basics</h3>
+          <p class="text-sm text-gray-400 mb-6">Instructor: Dr. H. Vance • 6 Modules</p>
+          <div class="w-full bg-white/10 h-2 rounded-full mb-2"><div class="bg-blue-400 h-full rounded-full" style="width: 5%"></div></div>
+          <span class="text-xs text-blue-400 font-bold">5% Completed</span>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

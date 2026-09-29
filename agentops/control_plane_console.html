@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Enterprise AgentOps Mesh —  Control Plane Console</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .muted{color:var(--muted)}
+    .warning{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.35);border-radius:14px;padding:14px;color:var(--text)}
+    .warning strong{color:var(--warn)}
+  </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
+</head>
+<body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
+  <main class="container">
+    <section class="hero">
+      <p class="pill">Public reference</p>
+      <h1>Open Enterprise AgentOps Control Plane</h1>
+      <p class="lead">Govern, evaluate, operate, and audit enterprise AI agents before production.</p>
+      <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="procurement_accelerator.html">Procurement Demo</a>
+        <a href="provider_gateway.html">Provider Gateway</a>
+        <a href="model_safety_console.html">Model Safety</a>
+        <a href="audit_console.html">Audit</a>
+      </div>
+    </section>
+
+    <section class="warning">
+      <strong>Demo boundary:</strong> This reference uses sample data. Live connector execution, live model provider calls, raw secrets, production IAM, and enterprise write-back are not connected.
+    </section>
+
+    <section>
+      <h2>Demo Scope</h2>
+      <div class="grid">
+        <article class="card"><h3>Sample data</h3><p>Examples on this page use local reference data.</p></article>
+        <article class="card"><h3>Live connections</h3><p>Providers, connectors, production IAM, and enterprise write-back are not connected.</p></article>
+        <article class="card"><h3>Next step</h3><p>Follow the <a href="interactive_demo_path.html">guided reference demo</a> to explore the workflow.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Capability Map</h2>
+      <div id="capabilities" class="grid"></div>
+    </section>
+
+    <section>
+      <h2>End-to-End Demo Flow</h2>
+      <div id="demo"></div>
+    </section>
+
+    <section>
+      <h2>API Surface</h2>
+      <p class="muted">Illustrative endpoint map only. This static reference does not expose or process these API routes.</p>
+      <div id="apis" class="grid"></div>
+    </section>
+  </main>
+<script>
+async function loadJson(path){ const r = await fetch(path); return r.json(); }
+function el(tag, cls, html){ const n=document.createElement(tag); if(cls)n.className=cls; n.innerHTML=html; return n; }
+(async()=>{
+  const caps = await loadJson('data/control_plane_capability_map.json');
+  const demo = await loadJson('data/end_to_end_demo_flow.json');
+  const api = await loadJson('data/api_surface_summary.json');
+  document.getElementById('apis').setAttribute('aria-label', `${api.groups.length} API groups`);
+  const capRoot=document.getElementById('capabilities');
+  caps.capabilities.forEach(c=>{
+    const card=document.createElement('article'); card.className='card';
+    const title=document.createElement('h3'); title.textContent=c.name || 'Capability'; card.append(title);
+    const category=document.createElement('p'); category.className='muted'; category.textContent=(c.category || 'Platform').replaceAll('_',' '); card.append(category);
+    const purpose=document.createElement('p'); purpose.textContent=c.purpose || 'Explore this part of the reference experience.'; card.append(purpose);
+    if(typeof c.site_page==='string' && /^[a-z0-9_-]+\.html$/i.test(c.site_page)){
+      const link=document.createElement('a'); link.href=c.site_page; link.textContent='Open page'; card.append(link);
+    }
+    capRoot.append(card);
+  });
+  const demoRoot=document.getElementById('demo');
+  demo.steps.forEach(s=>demoRoot.append(el('div','step',`<h3>${s.step}. ${s.name}</h3><p><strong>${s.endpoint}</strong></p><p class="muted">${s.output}</p>`)));
+  const apiRoot=document.getElementById('apis');
+  api.groups.forEach(g=>apiRoot.append(el('div','card',`<h3>${g.group}</h3>${g.endpoints.map(e=>`<span class="pill">${e}</span>`).join('')}`)));
+})();
+</script>
+</body>
+</html>
+
+

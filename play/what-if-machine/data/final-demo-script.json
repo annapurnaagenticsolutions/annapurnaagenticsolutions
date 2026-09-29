@@ -1,0 +1,35 @@
+{
+  "title": "What-If Machine Showcase Demo Script",
+  "flow": [
+    {
+      "step": 1,
+      "screen": "Create",
+      "action": "Run “What if crows ran Bengaluru traffic?” in Poster loop",
+      "proof": "Shows instant local visual comedy and share-card readiness."
+    },
+    {
+      "step": 2,
+      "screen": "Explore",
+      "action": "Open Stable Showcase Best 100",
+      "proof": "Shows curation layer instead of random prompt dumping."
+    },
+    {
+      "step": 3,
+      "screen": "Remix",
+      "action": "Apply Hinglish or Series Studio",
+      "proof": "Shows repeatability, localization direction, and creator utility."
+    },
+    {
+      "step": 4,
+      "screen": "Result tabs",
+      "action": "Show Voice Kit, Poster Briefs, Quality, and Content Ladder",
+      "proof": "Shows content depth beyond one joke."
+    },
+    {
+      "step": 5,
+      "screen": "Gallery",
+      "action": "Save one result, export JSON",
+      "proof": "Shows APK-friendly local persistence and share workflow."
+    }
+  ]
+}

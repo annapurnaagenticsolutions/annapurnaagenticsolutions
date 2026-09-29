@@ -56,10 +56,10 @@ export default function AssemblyRenderer({ runtime }: AssemblyRendererProps) {
   const handleRequestHint = () => {
     const nextLevel = Math.min(hintLevel + 1, 3)
     setHintLevel(nextLevel)
-    runtime.requestHint(nextLevel as any)
+    runtime.requestHint(nextLevel as 1 | 2 | 3)
   }
 
-  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as any) as { hint: string; highlightPieceIds?: string[] }) : null
+  const hint = hintLevel > 0 ? (runtime.getHintState(hintLevel as 1 | 2 | 3) as { hint: string; highlightPieceIds?: string[] }) : null
 
   const getPieceColor = (index: number): string => {
     const colors = ['#ff6b6b', '#ffd93d', '#6bcf7f', '#4d96ff']

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>FreshBite | Delivery</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="antialiased pb-24 md:pb-0 bg-brand-light">
+
+    <!-- Top Navigation / Search -->
+    <div class="bg-white sticky top-0 z-40 shadow-sm px-4 pt-6 pb-4">
+      <div class="max-w-3xl mx-auto flex flex-col gap-4">
+        <div class="flex justify-between items-center">
+          <div>
+            <p class="text-xs text-gray-500 font-medium">Delivering to</p>
+            <h1 class="text-brand-dark font-bold text-base flex items-center gap-1">
+              Home - 123 Tech Avenue <i class="fas fa-chevron-down text-xs text-brand-primary"></i>
+            </h1>
+          </div>
+          <button class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center text-gray-600 relative">
+            <i class="far fa-bell"></i>
+            <span class="absolute top-2 right-2 w-2 h-2 bg-brand-primary rounded-full"></span>
+          </button>
+        </div>
+
+        <!-- Search Bar -->
+        <div class="relative">
+          <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+          <input type="text" placeholder="Search for dishes, chefs..." class="w-full bg-gray-100 rounded-2xl py-3 pl-10 pr-4 outline-none focus:ring-2 focus:ring-brand-primary/50 text-sm font-medium transition" />
+        </div>
+      </div>
+    </div>
+
+    <main class="max-w-3xl mx-auto px-4 mt-6">
+      <!-- Promo Banner -->
+      <div class="bg-brand-primary rounded-3xl p-6 text-white mb-8 relative overflow-hidden shadow-lg shadow-brand-primary/30" data-aos="fade-up">
+        <div class="relative z-10 w-2/3">
+          <span class="bg-white/20 px-2 py-1 rounded-md text-xs font-bold uppercase tracking-wider">Limited Offer</span>
+          <h2 class="text-2xl font-bold mt-2 mb-1">Free Delivery!</h2>
+          <p class="text-sm opacity-90 mb-4">On all orders above $30 today.</p>
+          <button class="bg-white text-brand-primary px-4 py-2 rounded-xl text-sm font-bold shadow-sm">Order Now</button>
+        </div>
+        <i class="fas fa-motorcycle absolute -bottom-4 -right-4 text-8xl text-white/20 transform -rotate-12"></i>
+      </div>
+
+      <!-- Categories Horizontal Scroll -->
+      <div class="flex overflow-x-auto gap-3 pb-4 mb-4 hide-scrollbar" id="categoryFilterBar">
+        <button class="cat-btn active flex flex-col items-center gap-2 min-w-[72px]" data-cat="all" data-aos="fade-up" data-aos-delay="50">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl border-2 border-brand-primary text-brand-primary transition">🔥</div>
+          <span class="text-xs font-semibold text-brand-primary">All</span>
+        </button>
+        <button class="cat-btn flex flex-col items-center gap-2 min-w-[72px]" data-cat="burgers" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl text-gray-600 border-2 border-transparent transition">🍔</div>
+          <span class="text-xs font-medium text-gray-500">Burgers</span>
+        </button>
+        <button class="cat-btn flex flex-col items-center gap-2 min-w-[72px]" data-cat="healthy" data-aos="fade-up" data-aos-delay="150">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl text-gray-600 border-2 border-transparent transition">🥗</div>
+          <span class="text-xs font-medium text-gray-500">Healthy</span>
+        </button>
+        <button class="cat-btn flex flex-col items-center gap-2 min-w-[72px]" data-cat="pasta" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl text-gray-600 border-2 border-transparent transition">🍝</div>
+          <span class="text-xs font-medium text-gray-500">Pasta</span>
+        </button>
+        <button class="cat-btn flex flex-col items-center gap-2 min-w-[72px]" data-cat="sushi" data-aos="fade-up" data-aos-delay="250">
+          <div class="w-16 h-16 rounded-2xl bg-white shadow-sm flex items-center justify-center text-2xl text-gray-600 border-2 border-transparent transition">🍣</div>
+          <span class="text-xs font-medium text-gray-500">Sushi</span>
+        </button>
+      </div>
+
+      <!-- Section Title -->
+      <div class="flex justify-between items-end mb-4">
+        <h3 class="text-xl font-bold text-brand-dark">Popular Near You</h3>
+        <a href="#" class="text-sm font-semibold text-brand-primary">See All</a>
+      </div>
+
+      <!-- Menu Items List -->
+      <div class="space-y-4" id="deliveryCardsList">
+        <!-- Item 1 -->
+        <div class="delivery-item bg-white rounded-2xl p-3 flex gap-4 shadow-sm relative overflow-hidden group" data-cat="burgers" data-aos="fade-up" data-aos-delay="100">
+          <div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Burger" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="flex flex-col justify-center flex-grow">
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-brand-dark text-base">Truffle Smash Burger</h4>
+              <button onclick="addToCart(18.99)" class="w-8 h-8 rounded-full bg-brand-light text-brand-primary flex items-center justify-center font-bold hover:bg-brand-primary hover:text-white transition group-hover:scale-110 shadow-sm">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 line-clamp-2 mt-1 mb-2">Double beef patty, truffle mayo, caramelized onions, brioche bun.</p>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-brand-dark">$18.99</span>
+              <span class="text-[10px] text-gray-400 font-medium flex items-center gap-1"><i class="fas fa-star text-yellow-400"></i> 4.8</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="delivery-item bg-white rounded-2xl p-3 flex gap-4 shadow-sm relative overflow-hidden group" data-cat="healthy" data-aos="fade-up" data-aos-delay="150">
+          <div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80" alt="Salmon" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="flex flex-col justify-center flex-grow">
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-brand-dark text-base">Grilled Salmon Bowl</h4>
+              <button onclick="addToCart(22.50)" class="w-8 h-8 rounded-full bg-brand-light text-brand-primary flex items-center justify-center font-bold hover:bg-brand-primary hover:text-white transition group-hover:scale-110 shadow-sm">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 line-clamp-2 mt-1 mb-2">Wild caught salmon, quinoa, avocado, edamame, sesame dressing.</p>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-brand-dark">$22.50</span>
+              <span class="text-[10px] text-gray-400 font-medium flex items-center gap-1"><i class="fas fa-star text-yellow-400"></i> 4.9</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="delivery-item bg-white rounded-2xl p-3 flex gap-4 shadow-sm relative overflow-hidden group" data-cat="pasta" data-aos="fade-up" data-aos-delay="200">
+          <div class="w-24 h-24 rounded-xl overflow-hidden flex-shrink-0">
+            <img src="https://images.unsplash.com/photo-1563379091339-03b21ab4a4f8?auto=format&fit=crop&w=800&q=80" alt="Pasta" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" />
+          </div>
+          <div class="flex flex-col justify-center flex-grow">
+            <div class="flex justify-between items-start">
+              <h4 class="font-bold text-brand-dark text-base">Spicy Rigatoni</h4>
+              <button onclick="addToCart(16.00)" class="w-8 h-8 rounded-full bg-brand-light text-brand-primary flex items-center justify-center font-bold hover:bg-brand-primary hover:text-white transition group-hover:scale-110 shadow-sm">
+                <i class="fas fa-plus"></i>
+              </button>
+            </div>
+            <p class="text-xs text-gray-500 line-clamp-2 mt-1 mb-2">Vodka sauce, Calabrian chilies, fresh basil, parmigiano.</p>
+            <div class="flex items-center gap-3">
+              <span class="font-bold text-brand-dark">$16.00</span>
+              <span class="text-[10px] text-gray-400 font-medium flex items-center gap-1"><i class="fas fa-star text-yellow-400"></i> 4.7</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Mobile Sticky Bottom Nav / Floating Cart -->
+    <div class="fixed bottom-0 left-0 right-0 p-4 z-50 md:hidden bg-gradient-to-t from-white via-white to-transparent pt-10">
+      <div id="cart-float" class="bg-brand-dark text-white rounded-2xl p-4 flex justify-between items-center shadow-xl shadow-brand-dark/20 transform transition translate-y-24 opacity-0">
+        <div class="flex gap-3 items-center">
+          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold" id="cart-count">1</div>
+          <div class="font-bold text-lg" id="cart-total">$18.99</div>
+        </div>
+        <button onclick="checkout()" class="font-bold flex items-center gap-2 text-sm bg-brand-primary px-4 py-2 rounded-xl">View Cart <i class="fas fa-shopping-bag"></i></button>
+      </div>
+    </div>
+
+    <!-- Desktop Floating Cart -->
+    <div class="hidden md:block fixed bottom-8 right-8 z-50">
+      <div id="desktop-cart-float" class="bg-brand-dark text-white rounded-2xl p-4 flex gap-6 items-center shadow-2xl shadow-brand-dark/20 transform transition translate-y-24 opacity-0 cursor-pointer hover:scale-105">
+        <div class="flex gap-3 items-center">
+          <div class="w-10 h-10 bg-white/20 rounded-full flex items-center justify-center font-bold" id="d-cart-count">1</div>
+          <div class="font-bold text-lg" id="d-cart-total">$18.99</div>
+        </div>
+        <div onclick="checkout()" class="font-bold flex items-center gap-2 text-sm bg-brand-primary px-4 py-2 rounded-xl">Checkout <i class="fas fa-shopping-bag"></i></div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 20 });
+
+      let cartCount = 0;
+      let cartTotal = 0;
+
+      function addToCart(price) {
+        cartCount++;
+        cartTotal += price;
+        
+        // Update Mobile
+        document.getElementById('cart-count').innerText = cartCount;
+        document.getElementById('cart-total').innerText = '$' + cartTotal.toFixed(2);
+        const mobileFloat = document.getElementById('cart-float');
+        mobileFloat.classList.remove('translate-y-24', 'opacity-0');
+        
+        // Update Desktop
+        document.getElementById('d-cart-count').innerText = cartCount;
+        document.getElementById('d-cart-total').innerText = '$' + cartTotal.toFixed(2);
+        const desktopFloat = document.getElementById('desktop-cart-float');
+        desktopFloat.classList.remove('translate-y-24', 'opacity-0');
+
+        // Animation bump
+        mobileFloat.classList.add('scale-95');
+        setTimeout(() => mobileFloat.classList.remove('scale-95'), 150);
+      }
+
+      function checkout() {
+        if (cartCount === 0) return;
+        showDeliveryTrackerModal(cartTotal.toFixed(2));
+        cartCount = 0;
+        cartTotal = 0;
+        document.getElementById('cart-float').classList.add('translate-y-24', 'opacity-0');
+        document.getElementById('desktop-cart-float').classList.add('translate-y-24', 'opacity-0');
+      }
+
+      // Category Filter Logic
+      const catBtns = document.querySelectorAll('.cat-btn');
+      const deliveryItems = document.querySelectorAll('.delivery-item');
+      catBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          catBtns.forEach(b => {
+            b.classList.remove('active');
+            b.querySelector('div').classList.remove('border-brand-primary');
+            b.querySelector('div').classList.add('border-transparent');
+            b.querySelector('span').classList.remove('font-semibold', 'text-brand-primary');
+            b.querySelector('span').classList.add('font-medium', 'text-gray-500');
+          });
+          btn.classList.add('active');
+          btn.querySelector('div').classList.add('border-brand-primary');
+          btn.querySelector('div').classList.remove('border-transparent');
+          btn.querySelector('span').classList.add('font-semibold', 'text-brand-primary');
+          btn.querySelector('span').classList.remove('font-medium', 'text-gray-500');
+
+          const cat = btn.getAttribute('data-cat');
+          deliveryItems.forEach(item => {
+            if (cat === 'all' || item.getAttribute('data-cat') === cat) {
+              item.style.display = 'flex';
+            } else {
+              item.style.display = 'none';
+            }
+          });
+        });
+      });
+
+      function showDeliveryTrackerModal(amount) {
+        let modal = document.getElementById('trackerModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'trackerModal';
+          modal.className = 'fixed inset-0 bg-brand-dark/70 backdrop-blur-md z-[100] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-white rounded-3xl max-w-md w-full p-6 text-brand-dark shadow-2xl relative overflow-hidden animate-fade-in">
+            <div class="flex justify-between items-center mb-4 border-b pb-3">
+              <span class="bg-green-100 text-green-700 font-bold px-3 py-1 rounded-full text-xs uppercase tracking-wider flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-green-500 animate-ping"></span> Live Order Tracking</span>
+              <button onclick="document.getElementById('trackerModal').remove()" class="text-gray-400 hover:text-gray-600 font-bold text-xl">&times;</button>
+            </div>
+            <div class="text-center py-4">
+              <div class="w-20 h-20 bg-brand-light text-brand-primary rounded-full flex items-center justify-center text-4xl mx-auto mb-3 shadow-sm">
+                🛵
+              </div>
+              <h3 class="text-xl font-bold text-brand-dark mb-1">Rider Assigned: Marcus T.</h3>
+              <p class="text-sm text-gray-500 mb-4">Your order ($${amount}) is being prepared by the FreshBite kitchen. Estimated delivery in <strong class="text-brand-primary">18 mins</strong> to 123 Tech Avenue.</p>
+              
+              <div class="bg-gray-50 rounded-2xl p-4 text-left text-xs text-gray-600 mb-6 space-y-2 border">
+                <div class="flex items-center gap-2 font-semibold text-brand-dark"><i class="fas fa-check-circle text-green-500"></i> Order Placed & Confirmed</div>
+                <div class="flex items-center gap-2 font-semibold text-brand-primary animate-pulse"><i class="fas fa-utensils"></i> Kitchen Preparing Sizzling Dishes</div>
+                <div class="flex items-center gap-2 text-gray-400"><i class="fas fa-motorcycle"></i> Out for Delivery</div>
+              </div>
+
+              <button onclick="document.getElementById('trackerModal').remove()" class="w-full bg-brand-primary hover:bg-brand-primary/90 text-white font-bold py-3.5 rounded-2xl shadow-lg transition">Track on Live Map &rarr;</button>
+            </div>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>

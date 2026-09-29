@@ -1,0 +1,31 @@
+{
+  "voice": "precise, enterprise, audit-aware, practical",
+  "hero": {
+    "headline": "Govern enterprise AI agents before they reach production.",
+    "subheadline": "Open Enterprise AgentOps Mesh is an open-source control plane for evaluating, approving, tracing, and operating AI agents with deterministic governance boundaries.",
+    "primary_cta": "Start guided demo",
+    "secondary_cta": "Review architecture"
+  },
+  "empty_states": [
+    {
+      "surface": "benchmark_runs",
+      "message": "This static reference does not run or retain benchmark results."
+    },
+    {
+      "surface": "community_feedback",
+      "message": "Feedback submissions are not connected here. Use the contact page to start a conversation."
+    },
+    {
+      "surface": "approval_queue",
+      "message": "No approval requests are pending. Create one when an agent action requires human review before sandbox execution."
+    }
+  ],
+  "boundary_banner": "Live providers, live connectors, raw secrets, and production IAM are not connected to this reference experience.",
+  "section_labels": {
+    "why": "Why this exists",
+    "how": "How the control plane works",
+    "demo": "Guided demo path",
+    "proof": "Demo scope",
+    "contribute": "How to contribute"
+  }
+}
