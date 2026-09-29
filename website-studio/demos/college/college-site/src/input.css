@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #1e3a8a; /* Deep Blue */
+  --color-brand-secondary: #0f172a; /* Slate */
+  --color-brand-light: #f8fafc; /* Very light slate */
+  --color-brand-accent: #10b981; /* Emerald */
+  --color-brand-accent-hover: #059669;
+  --font-serif: "Merriweather", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-brand-light text-slate-800;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brand-primary;
+  }
+}

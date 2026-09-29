@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Procurement Agent Accelerator",
+    "score": 91,
+    "risk": "High",
+    "autonomy": "Level 3: Human-Approved Action Agent",
+    "value": "Document extraction, PO/invoice/challan matching, vendor validation, approval routing, audit summary",
+    "metrics": ["Extraction accuracy", "Cycle time reduction", "Exception detection", "Audit completeness"]
+  },
+  {
+    "name": "HR Policy Agent",
+    "score": 86,
+    "risk": "High",
+    "autonomy": "Level 1-2: Guided Advisor / Drafting Agent",
+    "value": "Policy Q&A, eligibility explanation, location-specific policy retrieval, escalation",
+    "metrics": ["Citation accuracy", "Policy version correctness", "Escalation correctness", "Access-control compliance"]
+  },
+  {
+    "name": "IT Support Agent",
+    "score": 84,
+    "risk": "Moderate",
+    "autonomy": "Level 2-3: Drafting / Human-Approved Action Agent",
+    "value": "Ticket triage, known-resolution retrieval, clarification, escalation",
+    "metrics": ["Classification accuracy", "Resolution time", "Escalation precision", "User satisfaction"]
+  },
+  {
+    "name": "Documentation Intelligence Agent",
+    "score": 83,
+    "risk": "Moderate",
+    "autonomy": "Level 1-2: Guided Advisor / Drafting Agent",
+    "value": "Summarization, conflict detection, decision extraction, freshness review",
+    "metrics": ["Summary quality", "Source traceability", "Conflict detection", "Decision extraction accuracy"]
+  },
+  {
+    "name": "Customer Support Agent",
+    "score": 82,
+    "risk": "High",
+    "autonomy": "Level 2-3: Drafting / Human-Approved Action Agent",
+    "value": "Response drafting, case summarization, policy retrieval, escalation risk detection",
+    "metrics": ["Resolution rate", "Policy compliance", "Customer satisfaction", "Cost per case"]
+  }
+]

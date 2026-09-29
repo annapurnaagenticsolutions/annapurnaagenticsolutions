@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentOps Guided Simulator</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav class="nav">
+    <div class="container nav-inner">
+      <div class="brand">AgentOps Guided Simulator</div>
+      <div>
+        <a href="index.html">Home</a>
+        <a href="../docs/04_agent_evaluation_scorecard.md">Scorecard</a>
+        <a href="../docs/03_agent_governance_framework.md">Governance</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container sim-layout">
+    <aside class="sim-sidebar card compact">
+      <div class="kicker">Choose use case</div>
+      <button class="option active" data-case="Procurement Agent Accelerator">Procurement Agent</button>
+      <button class="option" data-case="HR Policy Agent">HR Policy Agent</button>
+      <button class="option" data-case="IT Support Agent">IT Support Agent</button>
+      <button class="option" data-case="Documentation Intelligence Agent">Documentation Intelligence</button>
+      <button class="option" data-case="Customer Support Agent">Customer Support</button>
+      <div class="controls">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn" class="primary">Next Step</button>
+        <button id="resetBtn">Reset</button>
+      </div>
+    </aside>
+
+    <section class="sim-stage">
+      <div class="card">
+        <span id="stagePill" class="status-pill ok">Step 1 of 6</span>
+        <h1 id="stageTitle">Use-case selection</h1>
+        <p id="stageText" class="lead"></p>
+        <div id="stageBody"></div>
+      </div>
+    </section>
+  </main>
+
+  <script src="assets/simulator.js"></script>
+</body>
+</html>
+
+

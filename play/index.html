@@ -11,6 +11,7 @@
     <link rel="canonical" href="https://play.annapurnaagenticsolutions.com/" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d1b2a'/%3E%3Cpath d='M32 12 48 44H16L32 12Z' fill='none' stroke='%23f1c76b' stroke-width='4'/%3E%3Ccircle cx='32' cy='34' r='4' fill='%2388d4c0'/%3E%3C/svg%3E" />
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../assets/subscription.css" />
     <title>Annapurna Play — Games &amp; learning worlds</title>
   </head>
   <body>
@@ -132,6 +133,27 @@
         </div>
       </section>
 
+      <section class="shell play-subscription" id="stay-in-loop" aria-labelledby="play-updates-title">
+        <div class="subscription-panel" data-subscription-form data-api-base="https://annapurnaagenticsolutions.com" data-source="play" data-interest="play">
+          <span class="eyebrow">Optional play notes</span>
+          <h2 id="play-updates-title">Hear when a new world is ready to enter.</h2>
+          <p>Leave a verified email if you want occasional Play updates and invitations to try a game or learning world. You can play without subscribing, and you can ask us to stop through the <a href="../contact/">contact page</a>.</p>
+          <form class="subscription-form" novalidate>
+            <div class="subscription-request" data-subscription-request>
+              <label>Email address <input name="email" type="email" autocomplete="email" maxlength="254" required></label>
+              <label class="subscription-consent"><input name="consent" type="checkbox" required> <span>I agree to receive occasional Play updates and feedback invitations. <a href="../privacy/">Read the privacy notice</a>.</span></label>
+              <label class="subscription-honeypot" aria-hidden="true">Website <input name="website" tabindex="-1" autocomplete="off"></label>
+              <button type="submit" data-subscription-submit>Send me a verification code</button>
+            </div>
+            <div class="subscription-verify" data-subscription-verify hidden>
+              <label>Six-digit code <input name="code" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{6}" maxlength="6" required></label>
+              <button type="submit">Confirm subscription</button>
+            </div>
+            <p class="subscription-status" data-subscription-status role="status" aria-live="polite"></p>
+          </form>
+        </div>
+      </section>
+
       <section class="closing-section shell" aria-labelledby="closing-title">
         <div class="closing-card">
           <div><span class="eyebrow">A connected field</span><h2 id="closing-title">Come for one world. Leave with a question.</h2></div>
@@ -144,5 +166,6 @@
     <footer class="site-footer">
       <div class="shell footer-row"><span>© 2026 Annapurna Agentic Solutions</span><div><a href="../">Main site</a><a href="../pramana/">Pramana</a><a href="https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions/tree/main/games">Source &amp; release notes ↗</a></div></div>
     </footer>
+    <script defer src="../assets/subscription.js"></script>
   </body>
 </html>

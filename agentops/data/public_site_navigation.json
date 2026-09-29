@@ -1,0 +1,65 @@
+{
+  "release": "v2.6",
+  "title": "Public site navigation model",
+  "primary_paths": [
+    {
+      "path_id": "executive",
+      "label": "Executive overview",
+      "entry_page": "index.html",
+      "goal": "Understand why AgentOps control planes matter and what business risk they reduce.",
+      "recommended_pages": [
+        "public_launch_console.html",
+        "interactive_demo_path.html",
+        "procurement_accelerator.html"
+      ]
+    },
+    {
+      "path_id": "architect",
+      "label": "Architecture review",
+      "entry_page": "control_plane_console.html",
+      "goal": "Inspect control-plane capabilities, boundaries, API surface, and deployment profiles.",
+      "recommended_pages": [
+        "control_plane_console.html",
+        "api_catalog.html",
+        "deployment_console.html",
+        "model_safety_console.html"
+      ]
+    },
+    {
+      "path_id": "governance",
+      "label": "Governance and risk review",
+      "entry_page": "governance_workflow.html",
+      "goal": "Review how agents are evaluated, approved, traced, and blocked when needed.",
+      "recommended_pages": [
+        "governance_workflow.html",
+        "policy_workbench.html",
+        "approval_console.html",
+        "audit_console.html"
+      ]
+    },
+    {
+      "path_id": "contributor",
+      "label": "Contributor path",
+      "entry_page": "contributor_console.html",
+      "goal": "Find where to contribute: scenarios, docs, adapters, benchmarks, and UX feedback.",
+      "recommended_pages": [
+        "contributor_console.html",
+        "community_intake_console.html",
+        "benchmark_console.html",
+        "api_catalog.html"
+      ]
+    }
+  ],
+  "navigation_principles": [
+    "One visible path for each major audience.",
+    "No page should require understanding the whole repository before it creates value.",
+    "Every static console should state live-execution boundaries clearly.",
+    "Demo flow should explain business consequence, not only technical sequence."
+  ],
+  "boundaries": {
+    "live_model_provider_calls": false,
+    "live_connector_execution": false,
+    "raw_secret_storage": false,
+    "production_iam": false
+  }
+}

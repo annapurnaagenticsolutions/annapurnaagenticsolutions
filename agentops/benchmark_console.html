@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentOps Benchmark Console</title>
+  <style>
+    body{font-family:Inter,system-ui,Arial,sans-serif;margin:0;background:#0f172a;color:#e5e7eb}header{padding:42px 7vw;background:linear-gradient(135deg,#111827,#1e293b)}main{padding:28px 7vw}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.card{background:#111827;border:1px solid #334155;border-radius:18px;padding:20px;box-shadow:0 20px 50px rgba(0,0,0,.25)}h1{margin:0;font-size:36px}h2{color:#93c5fd}.badge{display:inline-block;border:1px solid #38bdf8;border-radius:999px;padding:6px 10px;color:#bae6fd;font-size:13px}.metric{font-size:32px;font-weight:800}.muted{color:#94a3b8}.flow{line-height:1.8}.warn{color:#fde68a}.ok{color:#86efac}code{background:#020617;padding:3px 6px;border-radius:6px}</style>
+</head>
+<body>
+<header>
+  <span class="badge">v2.3 · Scenario Library and Benchmark Harness</span>
+  <h1>AgentOps Benchmark Console</h1>
+  <p class="muted">Reusable deterministic scenarios for governance, policy, runtime, routing, safety, and accelerator control-plane behavior.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <div class="card"><div class="metric">8</div><p>Packaged scenarios</p></div>
+    <div class="card"><div class="metric">3</div><p>Benchmark suites</p></div>
+    <div class="card"><div class="metric ok">0</div><p>Live providers/connectors enabled</p></div>
+  </section>
+  <section class="grid" style="margin-top:18px">
+    <div class="card"><h2>Core Flow</h2><p class="flow">Scenario → simulated result → decision alignment → runtime alignment → safety alignment → control coverage → evidence coverage → benchmark report.</p></div>
+    <div class="card"><h2>API</h2><p><code>GET /benchmarks/scenarios</code></p><p><code>GET /benchmarks/suites</code></p><p><code>POST /benchmarks/run</code></p><p><code>GET /benchmarks/summary</code></p></div>
+    <div class="card"><h2>Boundary</h2><p class="warn">Benchmarks are simulation-only. They validate control-plane behavior, not live LLM quality or live enterprise connector execution.</p></div>
+  </section>
+</main>
+</body>
+</html>
+

@@ -1,0 +1,58 @@
+{
+  "version": "1.1.0",
+  "requests": [
+    {
+      "tenant_id": "tenant-demo-enterprise",
+      "actor_id": "user-operator-001",
+      "actor_role": "agent_operator",
+      "capability": "runtime:execute",
+      "target_environment": "pilot",
+      "risk_level": "High",
+      "autonomy_level": 3,
+      "agent_id": "procurement-agent-demo",
+      "domain": "procurement",
+      "requested_data_sources": [
+        "purchase_orders",
+        "invoices",
+        "goods_receipts"
+      ],
+      "requested_tools": [
+        "mock-erp-read",
+        "mock-exception-draft"
+      ],
+      "purpose": "Run governed procurement comparison in pilot mode."
+    },
+    {
+      "tenant_id": "tenant-regulated-finance",
+      "actor_id": "user-dev-007",
+      "actor_role": "developer",
+      "capability": "runtime:execute",
+      "target_environment": "production",
+      "risk_level": "High",
+      "autonomy_level": 4,
+      "agent_id": "finance-agent-draft",
+      "domain": "procurement",
+      "requested_data_sources": [
+        "vendor_bank_accounts"
+      ],
+      "requested_tools": [
+        "payment-release"
+      ],
+      "purpose": "Unsafe example that should be blocked by tenant and RBAC controls."
+    },
+    {
+      "tenant_id": "tenant-demo-enterprise",
+      "actor_id": "user-auditor-010",
+      "actor_role": "auditor",
+      "capability": "observability:read",
+      "target_environment": "production",
+      "risk_level": "Critical",
+      "autonomy_level": 0,
+      "agent_id": "all",
+      "domain": "platform",
+      "requested_data_sources": [],
+      "requested_tools": [],
+      "purpose": "Audit read access to trace ledger and blocked-action reports."
+    }
+  ]
+}

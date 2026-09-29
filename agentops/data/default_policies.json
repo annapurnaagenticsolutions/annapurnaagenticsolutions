@@ -1,0 +1,173 @@
+{
+  "policy_pack_id": "enterprise_agentops_default_guardrails",
+  "version": "0.5.0",
+  "description": "Default deterministic guardrails for enterprise agent actions.",
+  "policies": [
+    {
+      "policy_id": "POL-PROD-AUTONOMY-001",
+      "name": "Production high-autonomy actions require approval",
+      "category": "autonomy_control",
+      "severity": "high",
+      "decision": "require_approval",
+      "conditions": {
+        "target_environment": "production",
+        "autonomy_level_min": 3
+      },
+      "required_controls": [
+        "human approval",
+        "rollback plan",
+        "monitoring plan"
+      ],
+      "required_evidence": [
+        "human_approval_record",
+        "production_runbook"
+      ],
+      "rationale": "High-autonomy production behavior needs explicit accountability and operational fallback."
+    },
+    {
+      "policy_id": "POL-SENSITIVE-EXTERNAL-001",
+      "name": "High-sensitivity data cannot be sent externally without approval",
+      "category": "data_access",
+      "severity": "critical",
+      "decision": "deny",
+      "conditions": {
+        "data_sensitivity": "high",
+        "output_destination_in": [
+          "external",
+          "vendor",
+          "customer"
+        ]
+      },
+      "required_controls": [
+        "DLP review",
+        "security review",
+        "legal/compliance approval"
+      ],
+      "required_evidence": [
+        "security_review",
+        "human_approval_record"
+      ],
+      "rationale": "External movement of sensitive data is a critical enterprise risk."
+    },
+    {
+      "policy_id": "POL-FINANCIAL-WRITE-001",
+      "name": "Financial write actions require human approval",
+      "category": "financial_control",
+      "severity": "high",
+      "decision": "require_approval",
+      "conditions": {
+        "financial_impact_in": [
+          "medium",
+          "high"
+        ],
+        "requested_tools_any": [
+          "erp_write",
+          "invoice_update",
+          "payment_initiation",
+          "purchase_order_approval"
+        ]
+      },
+      "required_controls": [
+        "maker-checker approval",
+        "audit log",
+        "transaction limit"
+      ],
+      "required_evidence": [
+        "human_approval_record",
+        "risk_assessment"
+      ],
+      "rationale": "Agents should not autonomously alter material financial records."
+    },
+    {
+      "policy_id": "POL-CRITICAL-RISK-001",
+      "name": "Critical-risk actions are blocked pending governance review",
+      "category": "risk_control",
+      "severity": "critical",
+      "decision": "deny",
+      "conditions": {
+        "risk_level": "Critical"
+      },
+      "required_controls": [
+        "executive governance review",
+        "security review",
+        "legal review"
+      ],
+      "required_evidence": [
+        "risk_assessment",
+        "security_review",
+        "human_approval_record"
+      ],
+      "rationale": "Critical-risk agent actions require governance redesign before execution."
+    },
+    {
+      "policy_id": "POL-EXTERNAL-ACTION-001",
+      "name": "External communication requires traceability",
+      "category": "external_action",
+      "severity": "medium",
+      "decision": "allow_with_controls",
+      "conditions": {
+        "output_destination_in": [
+          "external",
+          "vendor",
+          "customer"
+        ]
+      },
+      "required_controls": [
+        "message preview",
+        "audit log",
+        "human override"
+      ],
+      "required_evidence": [
+        "monitoring_plan"
+      ],
+      "rationale": "External-facing agent outputs must be traceable and reviewable."
+    },
+    {
+      "policy_id": "POL-TOOL-SCOPE-001",
+      "name": "Dangerous tool scopes require approval",
+      "category": "tool_access",
+      "severity": "high",
+      "decision": "require_approval",
+      "conditions": {
+        "requested_tools_any": [
+          "email_send",
+          "ticket_close",
+          "erp_write",
+          "payment_initiation",
+          "hr_record_update",
+          "customer_record_update"
+        ]
+      },
+      "required_controls": [
+        "tool allowlist",
+        "action confirmation",
+        "audit log"
+      ],
+      "required_evidence": [
+        "governance_checklist",
+        "human_approval_record"
+      ],
+      "rationale": "Write-capable and externally visible tools require tighter control than read-only retrieval."
+    },
+    {
+      "policy_id": "POL-SAFE-SANDBOX-001",
+      "name": "Low-risk sandbox retrieval is allowed",
+      "category": "safe_path",
+      "severity": "info",
+      "decision": "allow",
+      "conditions": {
+        "target_environment": "sandbox",
+        "data_sensitivity_in": [
+          "low",
+          "medium"
+        ],
+        "autonomy_level_max": 2
+      },
+      "required_controls": [
+        "basic audit log"
+      ],
+      "required_evidence": [],
+      "rationale": "Low-risk sandbox experimentation should remain lightweight."
+    }
+  ]
+}

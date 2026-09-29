@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Enterprise AgentOps Mesh — v2.0 Control Plane Console</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+    .muted{color:var(--muted)}
+    .warning{background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.35);border-radius:14px;padding:14px;color:var(--text)}
+    .warning strong{color:var(--warn)}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="pill">v2.0 stable public MVP</p>
+      <h1>Open Enterprise AgentOps Control Plane</h1>
+      <p class="lead">Govern, evaluate, operate, and audit enterprise AI agents before production.</p>
+      <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="procurement_accelerator.html">Procurement Demo</a>
+        <a href="provider_gateway.html">Provider Gateway</a>
+        <a href="model_safety_console.html">Model Safety</a>
+        <a href="audit_console.html">Audit</a>
+      </div>
+    </section>
+
+    <section class="warning">
+      <strong>Production boundary:</strong> v2.0 is control-plane-first. Live connector execution, live model provider calls, raw secrets, production IAM, and irreversible enterprise write-back remain disabled.
+    </section>
+
+    <section>
+      <h2>Release Status</h2>
+      <div id="release" class="grid"></div>
+    </section>
+
+    <section>
+      <h2>Capability Map</h2>
+      <div id="capabilities" class="grid"></div>
+    </section>
+
+    <section>
+      <h2>End-to-End Demo Flow</h2>
+      <div id="demo"></div>
+    </section>
+
+    <section>
+      <h2>API Surface</h2>
+      <div id="apis" class="grid"></div>
+    </section>
+  </main>
+<script>
+async function loadJson(path){ const r = await fetch(path); return r.json(); }
+function el(tag, cls, html){ const n=document.createElement(tag); if(cls)n.className=cls; n.innerHTML=html; return n; }
+(async()=>{
+  const caps = await loadJson('data/control_plane_capability_map.json');
+  const demo = await loadJson('data/end_to_end_demo_flow.json');
+  const api = await loadJson('data/api_surface_summary.json');
+  const rel = await loadJson('data/v2_release_status.json');
+  document.getElementById('release').append(
+    el('div','card',`<div class="metric">${rel.version}</div><p>${rel.release_name}</p><p class="muted">${rel.status}</p>`),
+    el('div','card',`<div class="metric">${rel.capability_count}</div><p>Capabilities</p><p class="muted">${rel.recommended_public_tag}</p>`),
+    el('div','card',`<div class="metric">${api.groups.length}</div><p>API groups</p><p class="muted">${rel.next_release}</p>`)
+  );
+  const capRoot=document.getElementById('capabilities');
+  caps.capabilities.forEach(c=>capRoot.append(el('div','card',`<h3>${c.name}</h3><p class="muted">${c.release} · ${c.category} · ${c.status}</p><p>${c.purpose}</p><p><a href="${c.site_page}">Open page</a></p>`)));
+  const demoRoot=document.getElementById('demo');
+  demo.steps.forEach(s=>demoRoot.append(el('div','step',`<h3>${s.step}. ${s.name}</h3><p><strong>${s.endpoint}</strong></p><p class="muted">${s.output}</p>`)));
+  const apiRoot=document.getElementById('apis');
+  api.groups.forEach(g=>apiRoot.append(el('div','card',`<h3>${g.group}</h3>${g.endpoints.map(e=>`<span class="pill">${e}</span>`).join('')}`)));
+})();
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,105 @@
+{
+  "version": "1.7.0",
+  "live_execution_status": "disabled_governance_readiness_only",
+  "global_controls": [
+    "contract_validation_required",
+    "dry_run_evidence_required",
+    "real_iam_validation_required",
+    "external_secret_manager_required",
+    "immutable_audit_required",
+    "rollback_or_compensation_required",
+    "incident_response_runbook_required",
+    "human_approval_required",
+    "tenant_authorization_required"
+  ],
+  "global_blockers": [
+    "live_execution_requested_in_v1_7",
+    "raw_secret_requirement",
+    "production_action_attempt",
+    "missing_approval",
+    "missing_security_evidence",
+    "missing_rollback_test",
+    "missing_external_secret_manager",
+    "missing_real_iam_validation",
+    "missing_immutable_audit"
+  ],
+  "profiles": [
+    {
+      "profile_id": "lcp-procurement-erp-v1",
+      "adapter_id": "procurement_erp_dry_run_adapter",
+      "connector_id": "procurement_erp",
+      "display_name": "Procurement ERP Live-Candidate Profile",
+      "allowed_live_stages": [
+        "live_candidate"
+      ],
+      "minimum_evidence_count": 3,
+      "required_evidence_types": [
+        "dry_run_report",
+        "security_review",
+        "rollback_test"
+      ],
+      "required_approvals": [
+        "business_owner",
+        "security_reviewer",
+        "platform_owner"
+      ],
+      "required_operational_capabilities": [
+        "rollback_tested",
+        "incident_runbook",
+        "support_owner_defined"
+      ],
+      "required_security_capabilities": [
+        "real_iam_validation",
+        "external_secret_manager",
+        "immutable_audit"
+      ],
+      "required_controls": [
+        "po_write_back_disabled_until_v2",
+        "dual_approval_for_financial_impact",
+        "vendor_communication_blocked"
+      ],
+      "prohibited_conditions": [
+        "raw_secret_storage",
+        "unapproved_production_write",
+        "missing_audit_event"
+      ]
+    },
+    {
+      "profile_id": "lcp-hr-policy-v1",
+      "adapter_id": "hr_policy_dry_run_adapter",
+      "connector_id": "hr_policy_repository",
+      "display_name": "HR Policy Repository Live-Candidate Profile",
+      "allowed_live_stages": [
+        "live_candidate"
+      ],
+      "minimum_evidence_count": 2,
+      "required_evidence_types": [
+        "dry_run_report",
+        "access_review"
+      ],
+      "required_approvals": [
+        "data_owner",
+        "security_reviewer"
+      ],
+      "required_operational_capabilities": [
+        "incident_runbook",
+        "support_owner_defined"
+      ],
+      "required_security_capabilities": [
+        "real_iam_validation",
+        "external_secret_manager",
+        "immutable_audit"
+      ],
+      "required_controls": [
+        "read_only_first",
+        "employee_data_minimization",
+        "policy_source_freshness_check"
+      ],
+      "prohibited_conditions": [
+        "raw_secret_storage",
+        "cross_tenant_policy_access",
+        "unapproved_employee_data_export"
+      ]
+    }
+  ]
+}

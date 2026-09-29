@@ -1,0 +1,102 @@
+{
+  "version": "2.1.0",
+  "groups": [
+    {
+      "group": "Core",
+      "endpoints": [
+        "GET /health",
+        "GET /weights",
+        "POST /classify-risk",
+        "POST /evaluate"
+      ]
+    },
+    {
+      "group": "Governance",
+      "endpoints": [
+        "POST /governance/run",
+        "POST /policy/check",
+        "GET /approvals",
+        "POST /approvals/request",
+        "POST /approvals/{approval_id}/decide"
+      ]
+    },
+    {
+      "group": "Registry and Evidence",
+      "endpoints": [
+        "GET /registry/agents",
+        "POST /registry/agents",
+        "GET /evidence",
+        "POST /evidence"
+      ]
+    },
+    {
+      "group": "Runtime and Observability",
+      "endpoints": [
+        "GET /runtime/providers",
+        "POST /runtime/execute",
+        "GET /observability/summary",
+        "GET /observability/traces",
+        "GET /audit/events",
+        "GET /audit/summary"
+      ]
+    },
+    {
+      "group": "Security and Storage",
+      "endpoints": [
+        "GET /security/posture",
+        "POST /security/access/check",
+        "GET /storage/posture",
+        "POST /storage/migration/plan",
+        "POST /identity/token/simulate",
+        "POST /secrets/access/check"
+      ]
+    },
+    {
+      "group": "Connectors",
+      "endpoints": [
+        "GET /connectors",
+        "POST /tools/sandbox/execute",
+        "GET /connector-contracts",
+        "POST /connector-contracts/validate",
+        "POST /connectors/dry-run/execute",
+        "GET /live-connectors/readiness",
+        "POST /live-connectors/evaluate"
+      ]
+    },
+    {
+      "group": "Provider and Safety",
+      "endpoints": [
+        "GET /provider-gateway/posture",
+        "POST /provider-gateway/route",
+        "GET /model-safety/posture",
+        "POST /model-safety/review"
+      ]
+    },
+    {
+      "group": "Accelerators",
+      "endpoints": [
+        "GET /accelerators/procurement/scenarios",
+        "POST /accelerators/procurement/run"
+      ]
+    },
+    {
+      "group": "v2.1 Control Plane Adoption",
+      "endpoints": [
+        "GET /control-plane/capabilities",
+        "GET /control-plane/demo-flow",
+        "GET /control-plane/api-surface",
+        "GET /control-plane/openapi-lite",
+        "GET /control-plane/contributor-readiness",
+        "GET /control-plane/release-status",
+        "GET /control-plane/end-to-end-report"
+      ]
+    }
+  ],
+  "live_execution_boundaries": [
+    "No live connector execution",
+    "No live model provider calls",
+    "No raw secret storage",
+    "No production IAM/OIDC integration",
+    "No irreversible enterprise write-back"
+  ]
+}

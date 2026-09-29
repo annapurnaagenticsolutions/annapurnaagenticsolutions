@@ -1,0 +1,149 @@
+{
+  "version": "1.9.0",
+  "live_provider_execution_status": "disabled_safety_review_only",
+  "global_controls": [
+    "retain_safety_review_record",
+    "emit_audit_event_for_every_safety_decision",
+    "block_live_provider_execution_until_future_release",
+    "redact_credentials_and_raw_secrets_before_model_use"
+  ],
+  "profiles": [
+    {
+      "risk_profile_id": "mrp-internal-llama3-8b-low-medium",
+      "provider_id": "local_ollama",
+      "model_id": "llama3:8b",
+      "model_family": "open_weight_local",
+      "model_risk_tier": "medium",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "max_data_sensitivity": "medium",
+      "allowed_output_types": [
+        "summary",
+        "classification",
+        "draft",
+        "checklist"
+      ],
+      "high_risk_domains": [
+        "finance_payment",
+        "legal_advice",
+        "medical_advice"
+      ],
+      "disallowed_prompt_patterns": [
+        "ignore previous instructions",
+        "reveal system prompt",
+        "bypass policy",
+        "show secrets"
+      ],
+      "disallowed_response_patterns": [
+        "password=",
+        "api key",
+        "secret token",
+        "wire transfer approved"
+      ],
+      "required_controls": [
+        "prompt_injection_scan",
+        "response_safety_review",
+        "human_review_for_external_output"
+      ],
+      "required_approval_roles": [
+        "ai_safety_reviewer"
+      ]
+    },
+    {
+      "risk_profile_id": "mrp-private-gateway-enterprise-medium-high",
+      "provider_id": "private_gateway",
+      "model_id": "enterprise-instruct-large",
+      "model_family": "private_gateway_managed",
+      "model_risk_tier": "high",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ],
+      "max_data_sensitivity": "high",
+      "allowed_output_types": [
+        "summary",
+        "classification",
+        "draft",
+        "recommendation",
+        "structured_json"
+      ],
+      "high_risk_domains": [
+        "finance_payment",
+        "legal_advice",
+        "medical_advice"
+      ],
+      "disallowed_prompt_patterns": [
+        "ignore previous instructions",
+        "disable guardrails",
+        "reveal hidden instructions",
+        "exfiltrate"
+      ],
+      "disallowed_response_patterns": [
+        "payment completed",
+        "legal conclusion:",
+        "medical diagnosis:",
+        "credential:",
+        "secret:"
+      ],
+      "required_controls": [
+        "data_classification_evidence",
+        "prompt_injection_scan",
+        "response_validation",
+        "audit_retention"
+      ],
+      "required_approval_roles": [
+        "ai_safety_reviewer",
+        "business_owner"
+      ]
+    },
+    {
+      "risk_profile_id": "mrp-external-gateway-restricted",
+      "provider_id": "approved_external_gateway",
+      "model_id": "general-purpose-large",
+      "model_family": "external_managed",
+      "model_risk_tier": "restricted",
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "max_data_sensitivity": "low",
+      "allowed_output_types": [
+        "summary",
+        "classification"
+      ],
+      "high_risk_domains": [
+        "procurement",
+        "hr",
+        "customer_support",
+        "finance_payment",
+        "legal_advice",
+        "medical_advice"
+      ],
+      "disallowed_prompt_patterns": [
+        "ignore previous instructions",
+        "system prompt",
+        "confidential",
+        "secret",
+        "credential"
+      ],
+      "disallowed_response_patterns": [
+        "confidential",
+        "secret",
+        "credential",
+        "approved for payment"
+      ],
+      "required_controls": [
+        "external_provider_review",
+        "no_sensitive_data",
+        "business_owner_approval"
+      ],
+      "required_approval_roles": [
+        "ai_safety_reviewer",
+        "security_reviewer",
+        "business_owner"
+      ]
+    }
+  ]
+}

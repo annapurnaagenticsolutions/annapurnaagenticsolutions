@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Procurement Agent Control-Plane Demo</title>
+  <style>
+    :root{--bg:#0f172a;--panel:#111c33;--card:#17233d;--text:#e5e7eb;--muted:#94a3b8;--line:#334155;--accent:#38bdf8;--good:#22c55e;--warn:#f59e0b;--bad:#ef4444;}
+    *{box-sizing:border-box} body{margin:0;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif;background:linear-gradient(135deg,#0f172a,#111827);color:var(--text)}
+    header{padding:42px 28px;border-bottom:1px solid var(--line);background:radial-gradient(circle at top left,rgba(56,189,248,.22),transparent 36%)}
+    h1{margin:0 0 12px;font-size:clamp(30px,5vw,56px);letter-spacing:-.04em} h2{margin:0 0 14px} p{color:var(--muted);line-height:1.65} main{max-width:1180px;margin:0 auto;padding:28px}
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.card{background:rgba(23,35,61,.84);border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 16px 40px rgba(0,0,0,.24)}
+    .flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin:18px 0}.step{border:1px solid var(--line);background:#0b1220;border-radius:16px;padding:14px;color:#cbd5e1}.step strong{color:var(--accent)}
+    select,button{border:1px solid var(--line);background:#0b1220;color:var(--text);border-radius:12px;padding:12px 14px;font-size:15px}button{cursor:pointer;background:linear-gradient(135deg,#0369a1,#0f766e);border:0;font-weight:700}button:hover{filter:brightness(1.08)}
+    .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#0b1220;border:1px solid var(--line);color:#cbd5e1;font-size:13px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
+    pre{white-space:pre-wrap;background:#020617;border:1px solid var(--line);border-radius:16px;padding:16px;max-height:520px;overflow:auto;color:#dbeafe}.kpi{font-size:24px;font-weight:800;color:#fff;word-break:break-word}.muted{color:var(--muted)}
+  </style>
+</head>
+<body>
+<header>
+  <div style="max-width:1180px;margin:0 auto">
+    <div class="pill">v0.9 Business Accelerator</div>
+    <h1>Procurement Agent Control-Plane Demo</h1>
+    <p>Demonstrates how a procurement use case moves through document validation, governance, policy-as-code, runtime execution, tool sandboxing, traceability, and readiness reporting without live ERP side effects.</p>
+  </div>
+</header>
+<main class="container">
+  <section class="card">
+    <h2>End-to-end control-plane flow</h2>
+    <div class="flow">
+      <div class="step"><strong>1</strong><br>Case intake</div>
+      <div class="step"><strong>2</strong><br>PO / invoice / challan validation</div>
+      <div class="step"><strong>3</strong><br>Governance workflow</div>
+      <div class="step"><strong>4</strong><br>Policy check</div>
+      <div class="step"><strong>5</strong><br>Runtime summary</div>
+      <div class="step"><strong>6</strong><br>Tool sandbox</div>
+      <div class="step"><strong>7</strong><br>Readiness report</div>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px">
+    <div class="card">
+      <h2>Run a sample scenario</h2>
+      <p>Select a procurement case to see the expected control-plane behavior. The browser demo simulates the response; the backend endpoint is <code>POST /accelerators/procurement/run</code>.</p>
+      <div class="row">
+        <select id="scenario"></select>
+        <button onclick="runScenario()">Run guided simulation</button>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Guardrail stance</h2>
+      <p>No live ERP write-back, no invoice posting, no payment approval, and no external vendor email. v0.9 is sandbox-first by design.</p>
+      <div class="pill">Side effects permitted: <span class="bad">No</span></div>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px" id="results"></section>
+  <section class="card" style="margin-top:18px">
+    <h2>Sample payload</h2>
+    <pre id="payload"></pre>
+  </section>
+</main>
+<script>
+const scenarios = [
+  {case_id:'proc-case-clean-001', title:'Clean PO/Invoice/Challan validation', status:'pass', outcome:'ready_for_human_review', discrepancies:0, policy:'allow', tools:['compare_po_invoice'], summary:'Documents align. Proceed to human reviewer with audit trail; do not auto-approve payment.'},
+  {case_id:'proc-case-mismatch-002', title:'Invoice quantity and amount mismatch', status:'caution', outcome:'needs_exception_review', discrepancies:3, policy:'allow', tools:['compare_po_invoice','draft_vendor_exception'], summary:'Material mismatch exists. Create exception draft and route to procurement reviewer.'},
+  {case_id:'proc-case-vendor-risk-003', title:'Vendor identity mismatch with missing receipt', status:'fail', outcome:'blocked_pending_evidence', discrepancies:4, policy:'allow', tools:['compare_po_invoice','draft_vendor_exception'], summary:'Vendor/evidence risk exists. Block autonomous progress until evidence and vendor checks are resolved.'}
+];
+const scenarioSelect=document.getElementById('scenario');
+scenarios.forEach((s,i)=>{const o=document.createElement('option');o.value=i;o.textContent=`${s.case_id} — ${s.title}`;scenarioSelect.appendChild(o)});
+function cls(status){return status==='pass'?'good':status==='caution'?'warn':'bad'}
+function runScenario(){
+  const s=scenarios[Number(scenarioSelect.value)];
+  document.getElementById('results').innerHTML=`
+    <div class="card"><div class="muted">Validation status</div><div class="kpi ${cls(s.status)}">${s.status}</div><p>${s.discrepancies} discrepancy signal(s)</p></div>
+    <div class="card"><div class="muted">Lifecycle outcome</div><div class="kpi">${s.outcome}</div><p>${s.summary}</p></div>
+    <div class="card"><div class="muted">Policy decision</div><div class="kpi good">${s.policy}</div><p>Internal-only, sandbox-governed procurement workflow.</p></div>
+    <div class="card"><div class="muted">Sandbox tools</div><div class="kpi">${s.tools.length}</div><p>${s.tools.join(', ')}</p></div>`;
+  document.getElementById('payload').textContent=JSON.stringify({endpoint:'POST /accelerators/procurement/run', scenario:s.case_id, expected_outcome:s.outcome, tools:s.tools, live_side_effects:false}, null, 2);
+}
+runScenario();
+</script>
+</body>
+</html>
+

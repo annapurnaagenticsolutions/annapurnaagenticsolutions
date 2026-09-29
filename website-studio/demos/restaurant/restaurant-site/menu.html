@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Menu - Feliciano</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Dotted Leader Line for Menu */
+      .menu-item-title {
+        position: relative;
+        overflow: hidden;
+      }
+      .menu-item-title::after {
+        content: "........................................................................................................................................";
+        position: absolute;
+        bottom: 4px;
+        margin-left: 8px;
+        letter-spacing: 2px;
+        color: #e5e7eb;
+        white-space: nowrap;
+      }
+      /* Simple sticky header styling */
+      .navbar.scrolled {
+        background-color: var(--color-brand-primary);
+        box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+
+    <!-- Header & Navigation -->
+    <header class="navbar fixed top-0 w-full z-50 bg-brand-primary text-brand-light shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="menu.html" class="text-brand-accent border-b-2 border-brand-accent pb-1">Menu</a>
+            <a href="about.html" class="hover:text-brand-accent transition">About</a>
+            <a href="gallery.html" class="hover:text-brand-accent transition">Gallery</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <a href="reserve.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2 rounded-sm transition">Reserve a Table</a>
+          </nav>
+          <div class="md:hidden flex items-center">
+            <button id="mobile-menu-btn" class="text-white hover:text-brand-accent focus:outline-none">
+              <i class="fas fa-bars text-2xl"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div id="mobile-menu" class="hidden md:hidden bg-brand-primary/95 backdrop-blur-md absolute w-full left-0 top-full shadow-xl">
+        <div class="px-4 pt-2 pb-6 space-y-4">
+          <a href="index.html" class="block text-white hover:text-brand-accent">Home</a>
+          <a href="menu.html" class="block text-brand-accent font-medium">Menu</a>
+          <a href="about.html" class="block text-white hover:text-brand-accent">About</a>
+          <a href="gallery.html" class="block text-white hover:text-brand-accent">Gallery</a>
+          <a href="contact.html" class="block text-white hover:text-brand-accent">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 bg-brand-light text-center border-b border-gray-200">
+      <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+        <h4 class="font-serif italic text-brand-accent text-xl mb-2">Discover</h4>
+        <h1 class="text-5xl font-serif text-brand-primary mb-6">Our Menu</h1>
+        <p class="text-gray-600 max-w-2xl mx-auto">Explore our carefully curated selection of dishes, featuring the finest seasonal ingredients prepared by our master chefs.</p>
+      </div>
+    </section>
+
+    <!-- Menu Content -->
+    <section class="py-20 bg-white">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <!-- Starters -->
+        <div class="mb-20" id="starters" data-aos="fade-up">
+          <h2 class="text-4xl font-serif text-brand-primary mb-10 text-center">Starters</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+            <!-- Item 1 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Roasted Tomato Soup</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$12</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Oven-roasted plum tomatoes, fresh basil, garlic croutons</p>
+            </div>
+            <!-- Item 2 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Beef Carpaccio</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$18</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Thinly sliced tenderloin, arugula, shaved parmesan, truffle oil</p>
+            </div>
+            <!-- Item 3 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Crispy Calamari</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$16</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Lightly dusted squid, lemon zest, smoked paprika aioli</p>
+            </div>
+            <!-- Item 4 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Burrata Caprese</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$19</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Fresh burrata, heirloom tomatoes, balsamic glaze, pine nuts</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mains -->
+        <div class="mb-20" id="mains" data-aos="fade-up">
+          <h2 class="text-4xl font-serif text-brand-primary mb-10 text-center">Main Courses</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+            <!-- Item 1 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Signature Steak</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$45</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Premium 12oz ribeye, roasted fingerling potatoes, asparagus, red wine jus</p>
+            </div>
+            <!-- Item 2 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Pan-Seared Salmon</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$36</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Wild-caught salmon, quinoa pilaf, baby spinach, lemon butter caper sauce</p>
+            </div>
+            <!-- Item 3 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Wild Mushroom Risotto</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$28</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Arborio rice, porcini and cremini mushrooms, parmesan crisps, truffle essence</p>
+            </div>
+            <!-- Item 4 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Duck Confit</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$39</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Slow-cooked duck leg, sweet potato purée, haricots verts, cherry gastrique</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Desserts -->
+        <div id="desserts" data-aos="fade-up">
+          <h2 class="text-4xl font-serif text-brand-primary mb-10 text-center">Desserts</h2>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-10">
+            <!-- Item 1 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Classic Tiramisu</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$12</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Espresso-soaked ladyfingers, mascarpone cream, cocoa powder</p>
+            </div>
+            <!-- Item 2 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Decadent Chocolate Tart</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$14</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Valrhona chocolate ganache, buttery crust, raspberry coulis, gold leaf</p>
+            </div>
+            <!-- Item 3 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Lemon Panna Cotta</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$11</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Silky Italian custard, lemon curd, mixed berry compote</p>
+            </div>
+            <!-- Item 4 -->
+            <div>
+              <div class="flex justify-between items-baseline mb-2">
+                <h3 class="text-xl font-serif text-brand-primary font-medium menu-item-title flex-grow">Artisan Cheese Board</h3>
+                <span class="text-brand-accent font-serif italic text-xl ml-4 bg-white z-10 pl-2">$22</span>
+              </div>
+              <p class="text-sm text-gray-500 pr-12">Chef's selection of local and imported cheeses, honeycomb, candied walnuts</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary text-gray-400 py-12 border-t border-white/10">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-6 md:mb-0">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+        </div>
+        <div class="text-sm">
+          &copy; 2026 Feliciano Restaurant. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+      document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+        document.getElementById('mobile-menu').classList.toggle('hidden');
+      });
+    </script>
+  </body>
+</html>

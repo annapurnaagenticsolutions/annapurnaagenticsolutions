@@ -1,0 +1,104 @@
+{
+  "release": "v2.6",
+  "title": "Interactive demo path library",
+  "default_path_id": "procurement-governed-agent-demo",
+  "paths": [
+    {
+      "path_id": "procurement-governed-agent-demo",
+      "persona": "enterprise_ai_leader",
+      "title": "Govern a procurement agent before production",
+      "estimated_minutes": 7,
+      "business_question": "Can this procurement agent compare PO, invoice, challan, and vendor evidence safely before production?",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Start with business intent",
+          "page": "index.html",
+          "what_user_sees": "Problem framing and control-plane positioning.",
+          "why_it_matters": "Prevents the project from being perceived as another chatbot demo."
+        },
+        {
+          "step": 2,
+          "title": "Run governance classification",
+          "page": "governance_workflow.html",
+          "what_user_sees": "Suitability, risk, data readiness, and production gates.",
+          "why_it_matters": "Shows that agent adoption is gated by risk and evidence."
+        },
+        {
+          "step": 3,
+          "title": "Apply policy-as-code",
+          "page": "policy_workbench.html",
+          "what_user_sees": "Tool/data/environment policy decisions.",
+          "why_it_matters": "Demonstrates deterministic controls before runtime."
+        },
+        {
+          "step": 4,
+          "title": "Check approval and evidence",
+          "page": "approval_console.html",
+          "what_user_sees": "Reviewer decision, required evidence, and approval state.",
+          "why_it_matters": "Makes human accountability explicit."
+        },
+        {
+          "step": 5,
+          "title": "Execute only in sandbox",
+          "page": "tool_sandbox.html",
+          "what_user_sees": "Dry-run connector behavior and tool run ledger.",
+          "why_it_matters": "Shows safe enterprise-system interaction without side effects."
+        },
+        {
+          "step": 6,
+          "title": "Review trace and audit history",
+          "page": "audit_console.html",
+          "what_user_sees": "Who requested what, what policy decided, and what happened next.",
+          "why_it_matters": "Turns governance into inspectable operating evidence."
+        },
+        {
+          "step": 7,
+          "title": "Close with readiness report",
+          "page": "procurement_accelerator.html",
+          "what_user_sees": "Procurement control-plane case outcome and next actions.",
+          "why_it_matters": "Connects technical controls to business readiness."
+        }
+      ],
+      "success_signal": "A non-technical executive can explain the control-plane lifecycle after one walkthrough."
+    },
+    {
+      "path_id": "architect-control-plane-review",
+      "persona": "enterprise_architect",
+      "title": "Review the control-plane architecture",
+      "estimated_minutes": 10,
+      "business_question": "Is this architecture bounded, auditable, provider-neutral, and ready for non-production evaluation?",
+      "steps": [
+        {
+          "step": 1,
+          "title": "Open capability map",
+          "page": "control_plane_console.html",
+          "what_user_sees": "Capability groups and status.",
+          "why_it_matters": "Frames the platform boundary."
+        },
+        {
+          "step": 2,
+          "title": "Inspect API surface",
+          "page": "api_catalog.html",
+          "what_user_sees": "OpenAPI-lite catalog and endpoint groups.",
+          "why_it_matters": "Makes backend capabilities discoverable."
+        },
+        {
+          "step": 3,
+          "title": "Inspect deployment profiles",
+          "page": "deployment_console.html",
+          "what_user_sees": "Local, Docker, public demo, and enterprise reference profiles.",
+          "why_it_matters": "Shows runnable adoption paths."
+        },
+        {
+          "step": 4,
+          "title": "Review safety boundaries",
+          "page": "model_safety_console.html",
+          "what_user_sees": "Model risk register and prompt/response safety review.",
+          "why_it_matters": "Confirms provider execution remains controlled."
+        }
+      ],
+      "success_signal": "An architect can identify the safe next integration point without reading every doc."
+    }
+  ]
+}

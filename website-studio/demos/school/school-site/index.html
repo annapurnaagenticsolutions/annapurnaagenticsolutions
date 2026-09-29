@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kingston Academy - Education Redefined</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <style>
+      .hero-overlay {
+        background: linear-gradient(to right, rgba(26,54,93,0.85) 0%, rgba(26,54,93,0.4) 100%);
+      }
+      .card-hover:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      }
+      .date-badge {
+        position: absolute;
+        top: -15px;
+        right: 20px;
+      }
+      .stat-counter {
+        background: url('https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1920&q=80') center/cover fixed;
+        position: relative;
+      }
+      .stat-counter::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: rgba(26,54,93,0.9);
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+
+    <!-- Top Bar -->
+    <div class="bg-brand-primary text-white text-sm py-2">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+        <div class="flex space-x-4">
+          <span><i class="fas fa-envelope text-brand-accent mr-2"></i> info@kingstonacademy.edu</span>
+          <span class="hidden md:inline"><i class="fas fa-phone text-brand-accent mr-2"></i> +1 (800) 123-4567</span>
+        </div>
+        <div class="flex space-x-3">
+          <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-twitter"></i></a>
+          <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="hover:text-brand-accent transition"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="#" class="font-serif text-2xl font-bold text-brand-primary flex items-center">
+            <i class="fas fa-graduation-cap text-brand-accent mr-2 text-3xl"></i>
+            Kingston <span class="font-light ml-1 text-gray-500">Academy</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="text-brand-accent">Home</a>
+            <a href="academics.html" class="hover:text-brand-accent transition">Academics</a>
+            <a href="admissions.html" class="hover:text-brand-accent transition">Admissions</a>
+            <a href="campus-life.html" class="hover:text-brand-accent transition">Campus Life</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <button onclick="openApplyModal()" class="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2 rounded-sm transition">Apply Now</button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative h-[85vh] flex items-center">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1920&q=80" alt="Campus View" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 hero-overlay"></div>
+      </div>
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full" data-aos="fade-up">
+        <div class="max-w-2xl text-white">
+          <span class="inline-block py-1 px-3 rounded-full bg-brand-accent text-white text-sm font-bold mb-4 uppercase tracking-wider">Fall 2026 Admissions Open</span>
+          <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight">Empowering Minds,<br/>Shaping the Future.</h1>
+          <p class="text-lg text-gray-200 mb-8 max-w-xl">Join a community of forward-thinkers. Kingston Academy provides world-class education with a focus on holistic development and academic excellence.</p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <button onclick="openTourModal()" class="bg-brand-accent hover:bg-brand-accent-hover text-white text-center font-medium px-8 py-3 rounded-sm transition">Book a Tour</button>
+            <a href="academics.html" class="bg-white text-brand-primary hover:bg-gray-100 text-center font-medium px-8 py-3 rounded-sm transition">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stat Counters (Parallax) -->
+    <section class="stat-counter py-20">
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+          <div data-aos="fade-up" data-aos-delay="100">
+            <i class="fas fa-user-graduate text-4xl text-brand-accent mb-4"></i>
+            <h3 class="text-5xl font-bold mb-2 counter" data-target="2500">0</h3>
+            <p class="text-gray-300 font-medium">Active Students</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200">
+            <i class="fas fa-chalkboard-teacher text-4xl text-brand-accent mb-4"></i>
+            <h3 class="text-5xl font-bold mb-2 counter" data-target="150">0</h3>
+            <p class="text-gray-300 font-medium">Expert Teachers</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="300">
+            <i class="fas fa-book-open text-4xl text-brand-accent mb-4"></i>
+            <h3 class="text-5xl font-bold mb-2 counter" data-target="64">0</h3>
+            <p class="text-gray-300 font-medium">Diverse Courses</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="400">
+            <i class="fas fa-award text-4xl text-brand-accent mb-4"></i>
+            <h3 class="text-5xl font-bold mb-2 counter" data-target="45">0</h3>
+            <p class="text-gray-300 font-medium">Years of Excellence</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Curriculum & Programs -->
+    <section class="py-24 bg-brand-light relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12" data-aos="fade-up">
+          <span class="text-brand-accent font-bold tracking-widest uppercase text-xs px-3 py-1 bg-brand-accent/10 rounded-full border border-brand-accent/20">Academics & Pathways</span>
+          <h2 class="text-4xl md:text-5xl font-serif mt-3 text-brand-primary font-bold">Curriculum & Grade Divisions</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto mt-4">Explore our tailored educational stages designed to nurture curiosity, resilience, and academic distinction from early childhood to university prep.</p>
+        </div>
+
+        <!-- Tab Controls -->
+        <div class="flex justify-center mb-12" data-aos="fade-up" data-aos-delay="100">
+          <div class="bg-white p-1.5 rounded-full shadow-md border border-gray-200 inline-flex space-x-2">
+            <button onclick="switchSchoolTab('elem')" id="tab-btn-elem" class="px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-brand-primary text-white shadow-md">Elementary (Grades K-5)</button>
+            <button onclick="switchSchoolTab('mid')" id="tab-btn-mid" class="px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 text-gray-600 hover:text-brand-primary">Middle School (Grades 6-8)</button>
+            <button onclick="switchSchoolTab('high')" id="tab-btn-high" class="px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 text-gray-600 hover:text-brand-primary">High School (Grades 9-12)</button>
+          </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div id="tab-content-elem" class="grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-500">
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-primary">
+            <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-brand-primary">
+              <i class="fas fa-shapes text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Foundational Literacy & Math</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Building core numeracy and reading fluency through hands-on discovery and interactive storytelling.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Ages 5 - 10</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-accent">
+            <div class="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center mb-6 text-brand-accent">
+              <i class="fas fa-flask text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Junior STEM Labs</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Introducing basic scientific inquiry, nature exploration, and introductory coding with child-friendly robotics.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Hands-On Learning</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-emerald-600">
+            <div class="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-6 text-emerald-600">
+              <i class="fas fa-paint-brush text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Creative Arts & Music</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Encouraging self-expression via painting, chorus, theater games, and multi-cultural appreciation.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Expressive Growth</span>
+          </div>
+        </div>
+
+        <div id="tab-content-mid" class="hidden grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-500">
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-primary">
+            <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-brand-primary">
+              <i class="fas fa-microscope text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Advanced Lab Sciences</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Deep-dive biology, chemistry fundamentals, and experimental methodology in modern lab facilities.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Grades 6 - 8</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-accent">
+            <div class="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center mb-6 text-brand-accent">
+              <i class="fas fa-laptop-code text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Computer Science & AI</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Python programming, algorithmic thinking, and understanding ethical AI literacy for young developers.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Tech Leadership</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-emerald-600">
+            <div class="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-6 text-emerald-600">
+              <i class="fas fa-comments text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Debate & Humanities</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Developing public speaking, rhetoric, world history mastery, and critical analysis of current affairs.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">Oratory Skills</span>
+          </div>
+        </div>
+
+        <div id="tab-content-high" class="hidden grid grid-cols-1 md:grid-cols-3 gap-8 transition-opacity duration-500">
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-primary">
+            <div class="w-14 h-14 bg-blue-50 rounded-full flex items-center justify-center mb-6 text-brand-primary">
+              <i class="fas fa-university text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">AP & Honors Tracks</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">College-credit courses in Calculus, Physics C, Macroeconomics, and Literature with rigorous exam prep.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">University Prep</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-brand-accent">
+            <div class="w-14 h-14 bg-amber-50 rounded-full flex items-center justify-center mb-6 text-brand-accent">
+              <i class="fas fa-rocket text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Innovation Incubator</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Student-led startup projects, engineering capstones, and mentorship from industry executives.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-brand-accent">Future Founders</span>
+          </div>
+          <div class="bg-white p-8 rounded-sm shadow-md card-hover border-t-4 border-emerald-600">
+            <div class="w-14 h-14 bg-emerald-50 rounded-full flex items-center justify-center mb-6 text-emerald-600">
+              <i class="fas fa-globe-americas text-2xl"></i>
+            </div>
+            <h3 class="text-2xl font-serif mb-3 text-brand-primary">Global Leadership & Model UN</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">International diplomacy competitions, community service initiatives, and global exchange opportunities.</p>
+            <span class="text-xs font-bold uppercase tracking-wider text-emerald-600">World Citizens</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Faculty & Events Split -->
+    <section class="py-24 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          
+          <!-- Faculty Profiles -->
+          <div>
+            <div class="mb-10" data-aos="fade-right">
+              <span class="text-brand-accent font-bold tracking-wider uppercase text-sm">Leadership</span>
+              <h2 class="text-4xl mt-2 text-brand-primary">Our Faculty</h2>
+            </div>
+            <div class="space-y-6">
+              <div class="flex bg-brand-light rounded-sm overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="100">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Teacher" class="w-32 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-xl mb-1 text-brand-primary">Dr. Sarah Jenkins</h3>
+                  <p class="text-brand-accent text-sm font-medium mb-3">Head of Science Dept.</p>
+                  <p class="text-gray-600 text-sm">Ph.D. from MIT, passionate about making quantum physics accessible to high schoolers.</p>
+                </div>
+              </div>
+              <div class="flex bg-brand-light rounded-sm overflow-hidden card-hover" data-aos="fade-up" data-aos-delay="200">
+                <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" alt="Teacher" class="w-32 object-cover" />
+                <div class="p-6">
+                  <h3 class="text-xl mb-1 text-brand-primary">Mr. David Chen</h3>
+                  <p class="text-brand-accent text-sm font-medium mb-3">Director of Arts</p>
+                  <p class="text-gray-600 text-sm">Award-winning composer and former conductor of the City Symphony Orchestra.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Upcoming Events -->
+          <div>
+            <div class="mb-10" data-aos="fade-left">
+              <span class="text-brand-accent font-bold tracking-wider uppercase text-sm">Calendar</span>
+              <h2 class="text-4xl mt-2 text-brand-primary">Upcoming Events</h2>
+            </div>
+            <div class="space-y-8 mt-12">
+              <div class="relative bg-brand-light p-6 pt-8 rounded-sm card-hover border border-gray-100" data-aos="fade-up" data-aos-delay="100">
+                <div class="date-badge bg-brand-primary text-white text-center rounded-sm overflow-hidden w-16 shadow-md">
+                  <div class="bg-brand-accent py-1 text-xs font-bold">OCT</div>
+                  <div class="py-2 text-xl font-bold">15</div>
+                </div>
+                <h3 class="text-xl text-brand-primary mb-2 mt-2">Fall Science Fair</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fas fa-clock mr-2"></i> 9:00 AM - 3:00 PM &nbsp;&nbsp; <i class="fas fa-map-marker-alt mr-2"></i> Main Hall</p>
+                <p class="text-gray-600 text-sm">Join us as our senior students present their year-long research projects to industry judges.</p>
+              </div>
+              <div class="relative bg-brand-light p-6 pt-8 rounded-sm card-hover border border-gray-100" data-aos="fade-up" data-aos-delay="200">
+                <div class="date-badge bg-brand-primary text-white text-center rounded-sm overflow-hidden w-16 shadow-md">
+                  <div class="bg-brand-accent py-1 text-xs font-bold">OCT</div>
+                  <div class="py-2 text-xl font-bold">22</div>
+                </div>
+                <h3 class="text-xl text-brand-primary mb-2 mt-2">Parent-Teacher Conferences</h3>
+                <p class="text-sm text-gray-500 mb-3"><i class="fas fa-clock mr-2"></i> 4:00 PM - 8:00 PM &nbsp;&nbsp; <i class="fas fa-map-marker-alt mr-2"></i> Campus Classrooms</p>
+                <p class="text-gray-600 text-sm">An opportunity to discuss student progress, goals, and upcoming academic milestones.</p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- Interactive Tuition & Scholarship Estimator -->
+    <section class="py-20 bg-[#f8fafc] border-y border-gray-200">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-10" data-aos="fade-up">
+          <span class="text-brand-accent font-bold tracking-widest uppercase text-xs px-3 py-1 bg-brand-accent/10 rounded-full">Financial Planning</span>
+          <h2 class="text-3xl md:text-4xl font-serif text-brand-primary font-bold mt-2">Interactive Tuition & Scholarship Estimator</h2>
+          <p class="text-gray-600 text-sm mt-2">Instantly calculate estimated net tuition after applying our merit and academic distinction scholarships.</p>
+        </div>
+
+        <div class="bg-white p-8 rounded-lg shadow-lg border border-gray-200 grid grid-cols-1 md:grid-cols-2 gap-8 items-center" data-aos="fade-up" data-aos-delay="100">
+          <div class="space-y-5">
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Select Division</label>
+              <select id="calc-grade" onchange="calculateTuition()" class="w-full border border-gray-300 p-3 rounded text-sm bg-gray-50 focus:border-brand-primary outline-none font-medium">
+                <option value="18500">Elementary School ($18,500 / yr)</option>
+                <option value="21000">Middle School ($21,000 / yr)</option>
+                <option value="24500">High School / AP Prep ($24,500 / yr)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Estimated Merit / Academic Distinction</label>
+              <select id="calc-merit" onchange="calculateTuition()" class="w-full border border-gray-300 p-3 rounded text-sm bg-gray-50 focus:border-brand-primary outline-none font-medium">
+                <option value="0">Standard Tuition (No Scholarship Selected)</option>
+                <option value="3000">President's Honor Roll (-$3,000 / yr)</option>
+                <option value="6000">STEM / Arts Excellence Award (-$6,000 / yr)</option>
+                <option value="10000">Kingston Merit Scholar (-$10,000 / yr)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-bold uppercase text-gray-700 mb-2">Sibling Enrollment Discount</label>
+              <select id="calc-sibling" onchange="calculateTuition()" class="w-full border border-gray-300 p-3 rounded text-sm bg-gray-50 focus:border-brand-primary outline-none font-medium">
+                <option value="0">1 Student Enrolled (Standard)</option>
+                <option value="1500">2 Siblings Enrolled (-$1,500 per sibling)</option>
+                <option value="3000">3+ Siblings Enrolled (-$3,000 per sibling)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="bg-brand-primary text-white p-6 rounded-lg text-center flex flex-col justify-center h-full border border-brand-primary/20 shadow-inner">
+            <span class="text-xs uppercase tracking-widest text-brand-accent font-bold mb-1">Estimated Net Annual Tuition</span>
+            <div id="calc-total" class="text-4xl md:text-5xl font-serif font-bold text-white my-4">$18,500</div>
+            <p class="text-xs text-gray-300 leading-relaxed mb-6 font-light">Includes all core textbooks, technology lab fees, and access to campus athletic centers.</p>
+            <button onclick="openApplyModal()" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white py-3 rounded text-xs uppercase tracking-widest font-bold shadow-md transition">Lock In Rate & Apply</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Admission CTA Banner -->
+    <section class="py-20 bg-brand-primary text-white text-center">
+      <div class="max-w-4xl mx-auto px-4" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">Ready to join Kingston Academy?</h2>
+        <p class="text-xl text-gray-300 mb-10">Applications for the upcoming academic year are now open. Secure your child's future today.</p>
+        <button onclick="openApplyModal()" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-10 py-4 rounded-sm font-bold text-lg shadow-lg inline-block transition">Apply Now for Fall 2026</button>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#112543] text-gray-300 py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+          <div class="col-span-1 md:col-span-1">
+            <a href="#" class="font-serif text-2xl font-bold text-white flex items-center mb-6">
+              <i class="fas fa-graduation-cap text-brand-accent mr-2"></i>
+              Kingston
+            </a>
+            <p class="text-sm text-gray-400 mb-6">Empowering minds and shaping the future since 1981. A beacon of academic excellence.</p>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-white transition"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Quick Links</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="index.html" class="hover:text-brand-accent transition">About Us</a></li>
+              <li><a href="admissions.html" class="hover:text-brand-accent transition">Admissions</a></li>
+              <li><a href="academics.html" class="hover:text-brand-accent transition">Academics</a></li>
+              <li><a href="campus-life.html" class="hover:text-brand-accent transition">Campus Life</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Resources</h4>
+            <ul class="space-y-3 text-sm">
+              <li><a href="contact.html" class="hover:text-brand-accent transition">Student Portal</a></li>
+              <li><a href="contact.html" class="hover:text-brand-accent transition">Parent Portal</a></li>
+              <li><a href="academics.html" class="hover:text-brand-accent transition">Library</a></li>
+              <li><a href="contact.html" class="hover:text-brand-accent transition">Careers</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white font-bold mb-6 uppercase tracking-wider text-sm">Contact</h4>
+            <ul class="space-y-4 text-sm text-gray-400">
+              <li class="flex items-start"><i class="fas fa-map-marker-alt mt-1 mr-3 text-brand-accent"></i> 123 Education Blvd, Cityville, State 12345</li>
+              <li class="flex items-center"><i class="fas fa-phone mr-3 text-brand-accent"></i> +1 (800) 123-4567</li>
+              <li class="flex items-center"><i class="fas fa-envelope mr-3 text-brand-accent"></i> info@kingstonacademy.edu</li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-gray-700 mt-12 pt-8 text-sm text-center text-gray-500">
+          &copy; 2026 Kingston Academy. All rights reserved. Built by Annapurna Agentic Solutions.
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      // Vanilla JS Counter Animation
+      const counters = document.querySelectorAll('.counter');
+      const speed = 200;
+
+      const animateCounters = () => {
+        counters.forEach(counter => {
+          const updateCount = () => {
+            const target = +counter.getAttribute('data-target');
+            const count = +counter.innerText;
+            const inc = target / speed;
+
+            if (count < target) {
+              counter.innerText = Math.ceil(count + inc);
+              setTimeout(updateCount, 20);
+            } else {
+              counter.innerText = target + (target > 1000 ? '+' : '');
+            }
+          };
+          updateCount();
+        });
+      };
+
+      // Intersection Observer for Counters
+      const observer = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if(entry.isIntersecting) {
+            animateCounters();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.5 });
+
+      document.querySelector('.stat-counter') && observer.observe(document.querySelector('.stat-counter'));
+
+      // Curriculum Tab Switching Logic
+      function switchSchoolTab(tab) {
+        ['elem', 'mid', 'high'].forEach(t => {
+          const content = document.getElementById(`tab-content-${t}`);
+          const btn = document.getElementById(`tab-btn-${t}`);
+          if (t === tab) {
+            content.classList.remove('hidden');
+            btn.className = 'px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 bg-brand-primary text-white shadow-md';
+          } else {
+            content.classList.add('hidden');
+            btn.className = 'px-6 py-2.5 rounded-full font-medium text-sm transition-all duration-300 text-gray-600 hover:text-brand-primary';
+          }
+        });
+      }
+
+      // Interactive Modals Logic
+      function openApplyModal() {
+        document.getElementById('applyModal').classList.remove('hidden');
+        document.getElementById('applyModal').classList.add('flex');
+      }
+      function closeApplyModal() {
+        document.getElementById('applyModal').classList.add('hidden');
+        document.getElementById('applyModal').classList.remove('flex');
+      }
+      function openTourModal() {
+        document.getElementById('tourModal').classList.remove('hidden');
+        document.getElementById('tourModal').classList.add('flex');
+      }
+      function closeTourModal() {
+        document.getElementById('tourModal').classList.add('hidden');
+        document.getElementById('tourModal').classList.remove('flex');
+      }
+        function handleModalSubmit(event, modalType) {
+          event.preventDefault();
+          closeApplyModal();
+          closeTourModal();
+          showSchoolNotification(modalType + ' Confirmed', `Thank you for your ${modalType} request! Our admissions director has received your profile and will schedule a personal phone consultation within 24 business hours.`);
+        }
+
+        function calculateTuition() {
+          const gradePrice = parseFloat(document.getElementById('calc-grade').value);
+          const meritDiscount = parseFloat(document.getElementById('calc-merit').value);
+          const siblingDiscount = parseFloat(document.getElementById('calc-sibling').value);
+          const netPrice = Math.max(0, gradePrice - meritDiscount - siblingDiscount);
+          document.getElementById('calc-total').innerText = '$' + netPrice.toLocaleString();
+        }
+
+        function showSchoolNotification(title, message) {
+          let modal = document.getElementById('schoolNotifyModal');
+          if (!modal) {
+            modal = document.createElement('div');
+            modal.id = 'schoolNotifyModal';
+            modal.className = 'fixed inset-0 bg-black/80 backdrop-blur-md z-[120] flex items-center justify-center p-4';
+            document.body.appendChild(modal);
+          }
+          modal.innerHTML = `
+            <div class="bg-white border-t-4 border-brand-primary p-8 max-w-md w-full text-center shadow-2xl relative animate-fade-in rounded-lg">
+              <button onclick="document.getElementById('schoolNotifyModal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-primary text-xl">&times;</button>
+              <div class="text-brand-primary text-4xl mb-3"><i class="fas fa-check-circle"></i></div>
+              <h4 class="font-serif text-2xl text-brand-primary font-bold mb-3">${title}</h4>
+              <p class="text-xs text-gray-600 font-medium leading-relaxed mb-6">${message}</p>
+              <button onclick="document.getElementById('schoolNotifyModal').remove()" class="w-full bg-brand-primary text-white py-3 text-xs uppercase tracking-widest font-bold hover:bg-brand-secondary transition rounded">Done</button>
+            </div>
+          `;
+        }
+    </script>
+
+    <!-- Apply Modal -->
+    <div id="applyModal" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+      <div class="bg-white rounded-lg max-w-md w-full p-6 relative shadow-2xl">
+        <button onclick="closeApplyModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        <h3 class="text-2xl font-serif font-bold text-brand-primary mb-2">Apply for Admission</h3>
+        <p class="text-sm text-gray-600 mb-4">Complete this quick inquiry to initiate the Fall 2026 admission process.</p>
+        <form onSubmit="handleModalSubmit(event, 'Admission Application')" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Student Full Name</label>
+            <input type="text" required placeholder="e.g. Alexander Hamilton" class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Grade Level Applying For</label>
+            <select class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none">
+              <option>Kindergarten - Grade 5 (Elementary)</option>
+              <option>Grade 6 - Grade 8 (Middle School)</option>
+              <option>Grade 9 - Grade 12 (High School)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Parent Email</label>
+            <input type="email" required placeholder="parent@example.com" class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none" />
+          </div>
+          <button type="submit" class="w-full bg-brand-primary hover:bg-brand-secondary text-white font-bold py-3 rounded transition">Submit Application Inquiry &rarr;</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Tour Modal -->
+    <div id="tourModal" class="fixed inset-0 bg-black/70 z-50 hidden items-center justify-center p-4">
+      <div class="bg-white rounded-lg max-w-md w-full p-6 relative shadow-2xl">
+        <button onclick="closeTourModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-xl">&times;</button>
+        <h3 class="text-2xl font-serif font-bold text-brand-primary mb-2">Book a Campus Tour</h3>
+        <p class="text-sm text-gray-600 mb-4">Experience Kingston Academy firsthand with a private student-led tour.</p>
+        <form onSubmit="handleModalSubmit(event, 'Campus Tour Booking')" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Parent Name</label>
+            <input type="text" required placeholder="Full Name" class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Preferred Date</label>
+            <input type="date" required class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-gray-700 uppercase mb-1">Time Slot</label>
+            <select class="w-full border border-gray-300 p-2 rounded text-sm focus:border-brand-primary outline-none">
+              <option>Morning (9:00 AM - 11:00 AM)</option>
+              <option>Afternoon (1:30 PM - 3:30 PM)</option>
+            </select>
+          </div>
+          <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3 rounded transition">Confirm Tour Booking &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

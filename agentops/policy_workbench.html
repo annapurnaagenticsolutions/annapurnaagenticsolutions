@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Policy-as-Code Workbench | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid-two { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    textarea { width: 100%; min-height: 360px; border-radius: 14px; border: 1px solid #d7dce8; padding: 14px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; }
+    .decision { padding: 14px 16px; border-radius: 14px; background:#f5f7fb;color:#0f172a; border: 1px solid #d9e1f2; margin-bottom: 12px; }
+    .decision strong { display: block; font-size: 20px; margin-bottom: 4px; }
+    .pill { display: inline-block; border-radius: 999px; padding: 4px 10px; margin: 3px; background: #eef2ff; font-size: 12px; }
+    .danger { background:#fff1f2;color:#9f1239; border-color: #fecdd3; }
+    .warn { background:#fffbeb;color:#92400e; border-color: #fde68a; }
+    .ok { background:#ecfdf5;color:#065f46; border-color: #bbf7d0; }
+    @media (max-width: 900px) { .grid-two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero small-hero">
+    <nav class="nav">
+      <div class="brand">Open Enterprise AgentOps Mesh</div>
+      <a href="index.html">Home</a>
+      <a href="evaluation_lab.html">Evaluation Lab</a>
+      <a href="governance_workflow.html">Governance Workflow</a>
+      <a href="registry_browser.html">Registry</a>
+    </nav>
+    <section class="hero-content">
+      <p class="eyebrow">v0.5 Module</p>
+      <h1>Policy-as-Code Workbench</h1>
+      <p>Simulate deterministic guardrail decisions before an agent accesses tools, data, external channels, or production workflows.</p>
+    </section>
+  </header>
+
+  <main class="container">
+    <section class="card">
+      <h2>Why this matters</h2>
+      <p>Enterprise agentic systems need enforceable controls outside the prompt. This workbench demonstrates how a policy layer can allow safe paths, require approval for risky actions, or deny unsafe requests.</p>
+      <div class="metric-row">
+        <div class="metric"><span>4</span><label>Decision states</label></div>
+        <div class="metric"><span>7</span><label>Default policies</label></div>
+        <div class="metric"><span>0</span><label>Model calls needed</label></div>
+      </div>
+    </section>
+
+    <section class="grid-two">
+      <div class="card">
+        <h2>Sample request</h2>
+        <p>Select a sample or edit the JSON directly.</p>
+        <select id="sampleSelect"></select>
+        <textarea id="requestBox"></textarea>
+        <button onclick="runPolicyCheck()">Run policy check</button>
+      </div>
+      <div class="card">
+        <h2>Policy decision</h2>
+        <div id="resultBox" class="decision">Select a sample and run the policy check.</div>
+        <h3>Required controls</h3>
+        <div id="controls"></div>
+        <h3>Required evidence</h3>
+        <div id="evidence"></div>
+        <h3>Triggered policies</h3>
+        <div id="violations"></div>
+      </div>
+    </section>
+  </main>
+
+<script>
+let samples = [];
+const dangerousTools = new Set(['email_send','ticket_close','erp_write','payment_initiation','purchase_order_approval','invoice_update','hr_record_update','customer_record_update']);
+const externalDestinations = new Set(['external','vendor','customer']);
+const severityRank = {info:0, low:1, medium:2, high:3, critical:4};
+const decisionRank = {allow:0, allow_with_controls:1, require_approval:2, deny:3};
+
+fetch('data/policy_samples.json')
+  .then(r => r.json())
+  .then(data => {
+    samples = data;
+    const select = document.getElementById('sampleSelect');
+    samples.forEach((s, i) => {
+      const opt = document.createElement('option');
+      opt.value = i;
+      opt.textContent = `${s.agent_id} — ${s.action}`;
+      select.appendChild(opt);
+    });
+    select.onchange = () => loadSample(select.value);
+    loadSample(0);
+  });
+
+function loadSample(index) {
+  document.getElementById('requestBox').value = JSON.stringify(samples[index], null, 2);
+}
+
+function uniq(items) { return [...new Set(items.filter(Boolean))]; }
+function highestDecision(vs) { return vs.map(v => v.decision).sort((a,b) => decisionRank[b] - decisionRank[a])[0] || 'allow'; }
+function highestSeverity(vs) { return vs.map(v => v.severity).sort((a,b) => severityRank[b] - severityRank[a])[0] || 'info'; }
+function violation(policy_id, name, category, severity, decision, rationale, controls, evidence) {
+  return {policy_id, name, category, severity, decision, rationale, controls, evidence};
+}
+
+function runPolicyCheck() {
+  let req;
+  try { req = JSON.parse(document.getElementById('requestBox').value); }
+  catch(e) { alert('Invalid JSON'); return; }
+  const tools = new Set(req.requested_tools || []);
+  const violations = [];
+  const destination = (req.output_destination || 'internal').toLowerCase();
+
+  if (req.risk_level === 'Critical') {
+    violations.push(violation('POL-CRITICAL-RISK-001','Critical-risk actions are blocked pending governance review','risk_control','critical','deny','Critical-risk agent actions require redesign before execution.',['executive governance review','security review','legal review'],['risk_assessment','security_review','human_approval_record']));
+  }
+  if (req.data_sensitivity === 'high' && externalDestinations.has(destination) && !req.has_human_approval) {
+    violations.push(violation('POL-SENSITIVE-EXTERNAL-001','High-sensitivity data cannot be sent externally without approval','data_access','critical','deny','External movement of sensitive data is a critical enterprise risk.',['DLP review','security review','legal/compliance approval'],['security_review','human_approval_record']));
+  }
+  if (req.target_environment === 'production' && req.autonomy_level >= 3 && !req.has_human_approval) {
+    violations.push(violation('POL-PROD-AUTONOMY-001','Production high-autonomy actions require approval','autonomy_control','high','require_approval','High-autonomy production behavior needs explicit accountability.',['human approval','rollback plan','monitoring plan'],['human_approval_record','production_runbook']));
+  }
+  const dangerous = [...tools].filter(t => dangerousTools.has(t));
+  if (dangerous.length && !req.has_human_approval) {
+    violations.push(violation('POL-TOOL-SCOPE-001','Dangerous tool scopes require approval','tool_access','high','require_approval',`Dangerous tools requested: ${dangerous.join(', ')}`,['tool allowlist','action confirmation','audit log'],['governance_checklist','human_approval_record']));
+  }
+  const financeTools = ['erp_write','invoice_update','payment_initiation','purchase_order_approval'];
+  if (['medium','high'].includes(req.financial_impact) && financeTools.some(t => tools.has(t)) && !req.has_human_approval) {
+    violations.push(violation('POL-FINANCIAL-WRITE-001','Financial write actions require human approval','financial_control','high','require_approval','Agents should not autonomously alter material financial records.',['maker-checker approval','audit log','transaction limit'],['human_approval_record','risk_assessment']));
+  }
+  if (externalDestinations.has(destination)) {
+    violations.push(violation('POL-EXTERNAL-ACTION-001','External communication requires traceability','external_action','medium','allow_with_controls','External-facing outputs must be traceable.',['message preview','audit log','human override'],['monitoring_plan']));
+  }
+
+  let decision = violations.length ? highestDecision(violations) : 'allow';
+  let severity = violations.length ? highestSeverity(violations) : 'info';
+  let allowed = decision === 'allow' || decision === 'allow_with_controls';
+  let controls = violations.length ? uniq(violations.flatMap(v => v.controls)) : ['basic audit log'];
+  let evidence = violations.length ? uniq(violations.flatMap(v => v.evidence)) : [];
+
+  const result = document.getElementById('resultBox');
+  result.className = 'decision ' + (decision === 'deny' ? 'danger' : decision === 'require_approval' ? 'warn' : 'ok');
+  result.innerHTML = `<strong>${decision}</strong><p>Allowed: ${allowed}. Severity: ${severity}.</p><p>Agent <b>${req.agent_id}</b> requested <b>${req.action}</b> in <b>${req.target_environment}</b>.</p>`;
+  document.getElementById('controls').innerHTML = controls.map(x => `<span class="pill">${x}</span>`).join('');
+  document.getElementById('evidence').innerHTML = evidence.length ? evidence.map(x => `<span class="pill">${x}</span>`).join('') : '<span class="pill">none</span>';
+  document.getElementById('violations').innerHTML = violations.length ? violations.map(v => `<div class="decision"><b>${v.policy_id}</b><br>${v.name}<br><small>${v.rationale}</small></div>`).join('') : '<p>No policy violations. Safe-path controls apply.</p>';
+}
+</script>
+</body>
+</html>
+
+

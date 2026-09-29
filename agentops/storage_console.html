@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>v1.2 Storage Console | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <nav class="nav"><div class="container nav-inner"><div class="brand">AgentOps Storage Console</div><div><a href="index.html">Home</a><a href="security_console.html">Security</a><a href="procurement_accelerator.html">Procurement</a></div></div></nav>
+  <header class="hero"><div class="container"><span class="badge">v1.2 Persistence Upgrade</span><h1>Tenant-scoped storage before production connectors.</h1><p class="lead">Review tenant datasets, local record counts, isolation controls, and the migration path from demo storage to production-ready persistence.</p></div></header>
+  <main class="container section"><div class="container">
+    <div id="summary" class="grid cols-3"></div>
+    <section class="card" style="margin-top:18px"><h2>Tenant datasets</h2><table class="table"><thead><tr><th>Tenant</th><th>Dataset</th><th>File</th><th>Records</th><th>Isolation</th></tr></thead><tbody id="datasets"></tbody></table></section>
+    <section class="grid cols-2" style="margin-top:18px"><div class="card"><h2>Findings</h2><ul id="findings"></ul></div><div class="card"><h2>Migration recommendations</h2><ul id="migrations"></ul></div></section>
+    <section class="card" style="margin-top:18px"><h2>Required controls</h2><div id="controls" class="pill-row"></div></section>
+  </div></main>
+  <footer class="footer"><div class="container">v1.2 keeps storage inspectable while making tenant boundaries explicit.</div></footer>
+  <script>
+    fetch('data/storage_posture.json').then(r => r.json()).then(data => {
+      document.getElementById('summary').innerHTML = [
+        ['Storage mode', data.storage_mode], ['Tenants', data.tenant_count], ['Total records', data.total_records]
+      ].map(([k,v]) => `<div class="card"><div class="kicker">${k}</div><div class="metric">${v}</div></div>`).join('');
+      document.getElementById('datasets').innerHTML = data.datasets.map(d => `<tr><td>${d.tenant_id}</td><td>${d.dataset}</td><td>${d.filename}</td><td>${d.record_count}</td><td>${d.isolation_status}</td></tr>`).join('');
+      document.getElementById('findings').innerHTML = data.findings.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('migrations').innerHTML = data.recommended_migrations.map(x => `<li>${x}</li>`).join('');
+      document.getElementById('controls').innerHTML = data.required_controls.map(x => `<span class="pill">${x}</span>`).join('');
+    });
+  </script>
+</body>
+</html>
+
+

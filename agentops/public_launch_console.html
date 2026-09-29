@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Enterprise AgentOps Mesh — Public Launch Console</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f8fafc; color: #0f172a; }
+    header { padding: 56px 8vw 36px; background: linear-gradient(135deg, #0f172a, #334155); color: white; }
+    header h1 { font-size: clamp(2rem, 5vw, 4.25rem); margin: 0 0 12px; letter-spacing: -0.04em; }
+    header p { font-size: 1.15rem; line-height: 1.6; max-width: 980px; color: #e2e8f0; }
+    main { padding: 32px 8vw 64px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e2e8f0; border-radius: 18px; padding: 22px; box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06); }
+    .card h2, .card h3 { margin-top: 0; }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #e0f2fe; color: #075985; font-weight: 700; font-size: .8rem; }
+    .score { font-size: 3rem; font-weight: 800; letter-spacing: -0.06em; }
+    ul { padding-left: 1.2rem; line-height: 1.7; }
+    .flow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .step { background: #f1f5f9; border: 1px solid #cbd5e1; border-radius: 12px; padding: 10px 12px; font-weight: 600; }
+    code { background: #e2e8f0; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+<header>
+  <span class="badge">v2.4 public launch assets</span>
+  <h1>AgentOps Control Plane, explained for industry presence.</h1>
+  <p>v2.4 turns the technical MVP into a public launch package: executive narrative, demo story, messaging, LinkedIn article drafts, GitHub publication checklist, and launch readiness endpoints.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <article class="card">
+      <h2>Launch readiness</h2>
+      <div class="score">92</div>
+      <p>Ready for public launch preparation after manual repository review.</p>
+    </article>
+    <article class="card">
+      <h2>Positioning</h2>
+      <p><strong>Open-source AgentOps control plane</strong> for governing, evaluating, operating, and auditing enterprise AI agents before production.</p>
+    </article>
+    <article class="card">
+      <h2>Boundaries</h2>
+      <ul>
+        <li>No live model-provider calls</li>
+        <li>No live connector execution</li>
+        <li>No raw secrets</li>
+        <li>No production IAM claim</li>
+      </ul>
+    </article>
+  </section>
+
+  <section class="card" style="margin-top:18px">
+    <h2>Five-minute demo arc</h2>
+    <div class="flow">
+      <span class="step">Problem</span>
+      <span class="step">Control plane</span>
+      <span class="step">Governance</span>
+      <span class="step">Policy</span>
+      <span class="step">Procurement proof point</span>
+      <span class="step">Audit</span>
+      <span class="step">Open-source invitation</span>
+    </div>
+  </section>
+
+  <section class="grid" style="margin-top:18px">
+    <article class="card">
+      <h3>Launch assets</h3>
+      <ul>
+        <li><code>docs/121_executive_demo_narrative.md</code></li>
+        <li><code>docs/122_public_launch_playbook.md</code></li>
+        <li><code>docs/124_linkedin_article_series.md</code></li>
+        <li><code>docs/125_five_minute_demo_script.md</code></li>
+        <li><code>launch/public_messaging_matrix.json</code></li>
+      </ul>
+    </article>
+    <article class="card">
+      <h3>API endpoints</h3>
+      <ul>
+        <li><code>GET /launch/readiness</code></li>
+        <li><code>GET /launch/assets</code></li>
+        <li><code>GET /launch/storyboard</code></li>
+        <li><code>GET /launch/messaging</code></li>
+        <li><code>GET /launch/linkedin-drafts</code></li>
+      </ul>
+    </article>
+  </section>
+</main>
+</body>
+</html>
+

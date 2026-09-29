@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Community Intake Console — Open Enterprise AgentOps Mesh</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f7f7f8; color: #202124; }
+    header { background: #101828; color: white; padding: 36px 48px; }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 24px 64px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 22px; box-shadow: 0 10px 30px rgba(16,24,40,.06); }
+    .metric { font-size: 34px; font-weight: 800; margin: 0; }
+    .label { color: #667085; font-size: 14px; margin-top: 6px; }
+    .tag { display: inline-block; border-radius: 999px; padding: 6px 10px; background: #eef2ff; color: #3730a3; font-size: 12px; margin: 4px 6px 4px 0; }
+    table { width:100%; border-collapse: collapse; background:white; border-radius: 12px; overflow: hidden; }
+    th, td { text-align: left; border-bottom: 1px solid #e5e7eb; padding: 12px; vertical-align: top; }
+    th { background:#f2f4f7; font-size: 13px; color:#475467; }
+    code { background: #f2f4f7; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Community Intake Console</h1>
+  <p>Structured feedback loop for use-case submissions, architecture critique, adoption feedback, and roadmap signal.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <div class="card"><p class="metric">94</p><div class="label">Community readiness score</div></div>
+    <div class="card"><p class="metric">4</p><div class="label">Intake channels</div></div>
+    <div class="card"><p class="metric">2</p><div class="label">Sample use cases</div></div>
+    <div class="card"><p class="metric">2</p><div class="label">Sample architecture critiques</div></div>
+  </section>
+
+  <section class="card" style="margin-top:24px">
+    <h2>Intake channels</h2>
+    <span class="tag">Use-case submission</span>
+    <span class="tag">Architecture critique</span>
+    <span class="tag">Adoption feedback</span>
+    <span class="tag">Roadmap feedback</span>
+    <p>The goal is to collect structured signal without expanding the project into a generic chatbot framework or live connector marketplace.</p>
+  </section>
+
+  <section style="margin-top:24px">
+    <h2>Maintainer triage model</h2>
+    <table>
+      <thead><tr><th>Priority</th><th>Meaning</th><th>Response</th></tr></thead>
+      <tbody>
+        <tr><td>P0</td><td>Security issue, secret exposure, unsafe live-execution suggestion, license issue</td><td>Block and review</td></tr>
+        <tr><td>P1</td><td>Architecture flaw, governance gap, broken install path, benchmark inconsistency</td><td>Review for next patch</td></tr>
+        <tr><td>P2</td><td>Missing scenario, unclear documentation, accelerator candidate</td><td>Triage into backlog</td></tr>
+        <tr><td>P3</td><td>UI polish, wording improvement, additional examples</td><td>Batch with adoption polish</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section class="card" style="margin-top:24px">
+    <h2>API entry points</h2>
+    <p><code>GET /community/readiness</code> · <code>GET /community/intake-summary</code> · <code>POST /community/use-case-submissions</code> · <code>POST /community/architecture-critiques</code></p>
+  </section>
+</main>
+</body>
+</html>
+

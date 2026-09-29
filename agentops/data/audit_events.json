@@ -1,0 +1,195 @@
+[
+  {
+    "event_id": "aud-evt-001",
+    "tenant_id": "tenant-procurement",
+    "actor_id": "user-proc-analyst-01",
+    "actor_role": "procurement_analyst",
+    "agent_id": "procurement-agent-001",
+    "event_type": "governance_decision",
+    "source_system": "governance_workflow",
+    "capability": "governance.run",
+    "action": "evaluate_procurement_agent_for_pilot",
+    "target_environment": "pilot",
+    "decision_outcome": "allow_with_controls",
+    "allowed": true,
+    "risk_level": "High",
+    "autonomy_level": 3,
+    "subject_type": "use_case",
+    "subject_id": "procurement-agent-001",
+    "related_case_id": "proc-case-001",
+    "related_request_ids": [
+      "gov-proc-001"
+    ],
+    "evidence_ids": [
+      "ev-proc-001",
+      "ev-proc-002"
+    ],
+    "rationale": "Pilot can proceed only with human approval, dry-run connector execution, and evidence-backed exception workflow.",
+    "required_controls": [
+      "human_approval_required",
+      "dry_run_only",
+      "trace_ledger_required"
+    ],
+    "next_actions": [
+      "Complete pilot monitoring plan",
+      "Review blocked action patterns weekly"
+    ],
+    "created_at": "2026-06-08T12:05:00Z",
+    "metadata": {
+      "release": "v1.3",
+      "control_plane_stage": "pilot_readiness"
+    }
+  },
+  {
+    "event_id": "aud-evt-002",
+    "tenant_id": "tenant-procurement",
+    "actor_id": "user-proc-analyst-01",
+    "actor_role": "procurement_analyst",
+    "agent_id": "procurement-agent-001",
+    "event_type": "policy_decision",
+    "source_system": "policy_guardrail",
+    "capability": "policy.check",
+    "action": "draft_vendor_exception",
+    "target_environment": "pilot",
+    "decision_outcome": "require_approval",
+    "allowed": false,
+    "policy_decision": "require_approval",
+    "risk_level": "High",
+    "autonomy_level": 3,
+    "subject_type": "tool_action",
+    "subject_id": "vendor_exception_draft",
+    "related_case_id": "proc-case-001",
+    "related_request_ids": [
+      "pol-proc-001"
+    ],
+    "evidence_ids": [
+      "ev-proc-001"
+    ],
+    "rationale": "Vendor-facing draft requires explicit human approval and reviewed exception evidence.",
+    "required_controls": [
+      "human_approval_required",
+      "vendor_communication_review"
+    ],
+    "next_actions": [
+      "Attach approval evidence",
+      "Run tool sandbox in dry-run mode"
+    ],
+    "created_at": "2026-06-08T12:07:00Z",
+    "metadata": {
+      "blocked_reason": "approval_missing"
+    }
+  },
+  {
+    "event_id": "aud-evt-003",
+    "tenant_id": "tenant-procurement",
+    "actor_id": "runtime-system",
+    "actor_role": "system",
+    "agent_id": "procurement-agent-001",
+    "event_type": "runtime_execution",
+    "source_system": "runtime_enforcer",
+    "capability": "runtime.execute",
+    "action": "summarize_invoice_exception",
+    "target_environment": "pilot",
+    "decision_outcome": "allow_with_controls",
+    "allowed": true,
+    "policy_decision": "allow_with_controls",
+    "risk_level": "Medium",
+    "autonomy_level": 2,
+    "subject_type": "runtime_request",
+    "subject_id": "rt-proc-001",
+    "related_case_id": "proc-case-001",
+    "related_request_ids": [
+      "rt-proc-001"
+    ],
+    "evidence_ids": [
+      "ev-proc-001",
+      "ev-proc-002"
+    ],
+    "rationale": "Internal summary permitted with no external system write-back.",
+    "required_controls": [
+      "internal_output_only",
+      "trace_ledger_required"
+    ],
+    "next_actions": [
+      "Review response quality before vendor-facing action"
+    ],
+    "created_at": "2026-06-08T12:09:00Z",
+    "metadata": {
+      "provider": "mock_local",
+      "estimated_cost_usd": 0.0,
+      "token_estimate": 860
+    }
+  },
+  {
+    "event_id": "aud-evt-004",
+    "tenant_id": "tenant-hr",
+    "actor_id": "user-hr-reviewer-01",
+    "actor_role": "governance_reviewer",
+    "agent_id": "hr-policy-agent-001",
+    "event_type": "access_decision",
+    "source_system": "security_rbac",
+    "capability": "evidence.read",
+    "action": "read_sensitive_hr_policy_evidence",
+    "target_environment": "sandbox",
+    "decision_outcome": "deny",
+    "allowed": false,
+    "risk_level": "High",
+    "autonomy_level": 1,
+    "subject_type": "evidence",
+    "subject_id": "ev-hr-sensitive-001",
+    "related_case_id": "",
+    "related_request_ids": [
+      "sec-hr-001"
+    ],
+    "evidence_ids": [],
+    "rationale": "Actor role lacks permission for sensitive HR evidence in this tenant boundary.",
+    "required_controls": [
+      "role_upgrade_review",
+      "tenant_boundary_review"
+    ],
+    "next_actions": [
+      "Request tenant-specific approval",
+      "Validate least-privilege assignment"
+    ],
+    "created_at": "2026-06-08T12:11:00Z",
+    "metadata": {
+      "boundary_violation": "role_permission_missing"
+    }
+  },
+  {
+    "event_id": "aud-evt-005",
+    "tenant_id": "tenant-procurement",
+    "actor_id": "user-platform-admin-01",
+    "actor_role": "platform_admin",
+    "agent_id": "procurement-agent-001",
+    "event_type": "storage_write",
+    "source_system": "tenant_storage",
+    "capability": "storage.upsert",
+    "action": "upsert_procurement_case_record",
+    "target_environment": "sandbox",
+    "decision_outcome": "allow",
+    "allowed": true,
+    "risk_level": "Low",
+    "autonomy_level": 0,
+    "subject_type": "storage_record",
+    "subject_id": "proc-case-001",
+    "related_case_id": "proc-case-001",
+    "related_request_ids": [
+      "store-proc-001"
+    ],
+    "evidence_ids": [],
+    "rationale": "Tenant-scoped write accepted to local JSON dataset.",
+    "required_controls": [
+      "tenant_id_on_record",
+      "storage_write_audit_required"
+    ],
+    "next_actions": [
+      "Include record in migration-readiness validation"
+    ],
+    "created_at": "2026-06-08T12:13:00Z",
+    "metadata": {
+      "dataset": "procurement_cases",
+      "storage_mode": "tenant_scoped_local_json"
+    }
+  }
+]

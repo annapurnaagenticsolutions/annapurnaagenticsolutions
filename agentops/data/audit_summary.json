@@ -1,0 +1,61 @@
+{
+  "version": "1.3.0",
+  "total_events": 5,
+  "tenant_count": 2,
+  "agent_count": 2,
+  "event_type_counts": {
+    "governance_decision": 1,
+    "policy_decision": 1,
+    "runtime_execution": 1,
+    "access_decision": 1,
+    "storage_write": 1
+  },
+  "decision_outcome_counts": {
+    "allow": 1,
+    "allow_with_controls": 2,
+    "require_approval": 1,
+    "deny": 1
+  },
+  "recent_denials": [
+    {
+      "event_id": "aud-evt-004",
+      "tenant_id": "tenant-hr",
+      "actor_id": "user-hr-reviewer-01",
+      "actor_role": "governance_reviewer",
+      "agent_id": "hr-policy-agent-001",
+      "event_type": "access_decision",
+      "source_system": "security_rbac",
+      "capability": "evidence.read",
+      "action": "read_sensitive_hr_policy_evidence",
+      "target_environment": "sandbox",
+      "decision_outcome": "deny",
+      "allowed": false,
+      "risk_level": "High",
+      "autonomy_level": 1,
+      "subject_type": "evidence",
+      "subject_id": "ev-hr-sensitive-001",
+      "related_case_id": "",
+      "related_request_ids": [
+        "sec-hr-001"
+      ],
+      "evidence_ids": [],
+      "rationale": "Actor role lacks permission for sensitive HR evidence in this tenant boundary.",
+      "required_controls": [
+        "role_upgrade_review",
+        "tenant_boundary_review"
+      ],
+      "next_actions": [
+        "Request tenant-specific approval",
+        "Validate least-privilege assignment"
+      ],
+      "created_at": "2026-06-08T12:11:00Z",
+      "metadata": {
+        "boundary_violation": "role_permission_missing"
+      }
+    }
+  ],
+  "control_findings": [
+    "Policy decisions, runtime executions, tool actions, access checks, storage writes, and accelerator case decisions should emit normalized audit events.",
+    "v1.3 consolidates decision history before live connector execution or real provider calls are enabled."
+  ]
+}

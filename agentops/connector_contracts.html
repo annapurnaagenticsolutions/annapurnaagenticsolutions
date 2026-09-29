@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Connector Contract SDK | Open Enterprise AgentOps Mesh</title>
+  <style>
+    body { font-family: Inter, Arial, sans-serif; margin: 0; background: #f6f7fb; color: #172033; }
+    header { background: #101827; color: white; padding: 32px; }
+    main { padding: 28px; max-width: 1180px; margin: auto; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #dde2ee; border-radius: 14px; padding: 18px; box-shadow: 0 8px 24px rgba(16,24,39,.06); }
+    .pill { display:inline-block; padding: 4px 10px; border-radius: 999px; background:#e8eefc; color:#263f7c; font-size:12px; margin:3px; }
+    pre { white-space: pre-wrap; background:#0f172a; color:#dbeafe; padding:14px; border-radius:12px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Connector Contract SDK and Dry-Run Adapters</h1>
+    <p>Review connector operation contracts before any live enterprise-system execution is allowed.</p>
+  </header>
+  <main class="container">
+    <section class="card">
+      <h2>v1.6 Boundary</h2>
+      <p>This release is dry-run only. It models adapter contracts, identity/secret boundaries, and simulated execution results. No live connector calls are performed.</p>
+    </section>
+    <section class="grid" id="contracts"></section>
+    <section class="card">
+      <h2>Execution Pattern</h2>
+      <pre>Request → Contract Lookup → Identity/Secret Boundary → Approval Check → Simulated Adapter Result → Audit Event</pre>
+    </section>
+  </main>
+  <script>
+    async function load() {
+      const res = await fetch('data/connector_contracts.json');
+      const data = await res.json();
+      const root = document.getElementById('contracts');
+      root.innerHTML = data.adapters.map(a => `
+        <article class="card">
+          <h3>${a.display_name}</h3>
+          <p><b>Adapter:</b> ${a.adapter_id}</p>
+          <p><b>Connector:</b> ${a.connector_id}</p>
+          <p><b>Status:</b> ${a.implementation_status}</p>
+          <p>${a.operations.map(o => `<span class="pill">${o.operation_id}: ${o.side_effect_class}</span>`).join('')}</p>
+        </article>
+      `).join('');
+    }
+    load();
+  </script>
+</body>
+</html>
+

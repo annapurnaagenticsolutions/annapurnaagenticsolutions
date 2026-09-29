@@ -1,0 +1,65 @@
+[
+  {
+    "gate_id": "G1",
+    "name": "Use Case Intake",
+    "purpose": "Confirm ownership, scope, and minimum business context.",
+    "hard_blocking": true,
+    "minimum_pass_score": 60
+  },
+  {
+    "gate_id": "G2",
+    "name": "Suitability Gate",
+    "purpose": "Check whether the workflow is appropriate for agentic automation.",
+    "hard_blocking": true,
+    "minimum_pass_score": 65
+  },
+  {
+    "gate_id": "G3",
+    "name": "Risk Classification Gate",
+    "purpose": "Classify autonomy, impact, sensitivity, reversibility, and required controls.",
+    "hard_blocking": false,
+    "minimum_pass_score": 60
+  },
+  {
+    "gate_id": "G4",
+    "name": "Data Readiness Gate",
+    "purpose": "Check source quality, freshness, lineage, access control, and context reliability.",
+    "hard_blocking": true,
+    "minimum_pass_score": 65
+  },
+  {
+    "gate_id": "G5",
+    "name": "Governance Gate",
+    "purpose": "Check approval model, auditability, role boundaries, controls, and escalation.",
+    "hard_blocking": true,
+    "minimum_pass_score": 65
+  },
+  {
+    "gate_id": "G6",
+    "name": "Evaluation Gate",
+    "purpose": "Check scenario coverage, failure modes, regression tests, and safety tests.",
+    "hard_blocking": true,
+    "minimum_pass_score": 70
+  },
+  {
+    "gate_id": "G7",
+    "name": "Human Approval Gate",
+    "purpose": "Check whether accountable humans and approval artifacts are present.",
+    "hard_blocking": true,
+    "minimum_pass_score": 65
+  },
+  {
+    "gate_id": "G8",
+    "name": "Pilot Readiness Gate",
+    "purpose": "Determine whether the use case can proceed to a controlled pilot.",
+    "hard_blocking": false,
+    "minimum_pass_score": 70
+  },
+  {
+    "gate_id": "G9",
+    "name": "Production Readiness Gate",
+    "purpose": "Determine whether the use case is strong enough for production review.",
+    "hard_blocking": false,
+    "minimum_pass_score": 80
+  }
+]

@@ -1,0 +1,64 @@
+{
+  "version": "1.2.0",
+  "storage_mode": "tenant_scoped_local_json",
+  "tenant_count": 2,
+  "dataset_count": 16,
+  "total_records": 6,
+  "datasets": [
+    {
+      "tenant_id": "tenant-procurement",
+      "dataset": "agents",
+      "filename": "agents.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    },
+    {
+      "tenant_id": "tenant-procurement",
+      "dataset": "evidence",
+      "filename": "evidence.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    },
+    {
+      "tenant_id": "tenant-procurement",
+      "dataset": "runtime_traces",
+      "filename": "runtime_traces.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    },
+    {
+      "tenant_id": "tenant-procurement",
+      "dataset": "procurement_cases",
+      "filename": "procurement_cases.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    },
+    {
+      "tenant_id": "tenant-hr",
+      "dataset": "agents",
+      "filename": "agents.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    },
+    {
+      "tenant_id": "tenant-hr",
+      "dataset": "evidence",
+      "filename": "evidence.json",
+      "record_count": 1,
+      "isolation_status": "tenant_scoped"
+    }
+  ],
+  "findings": [
+    "Tenant-specific storage folders are present for sample tenants.",
+    "Local JSON remains suitable for demos but not production durability."
+  ],
+  "recommended_migrations": [
+    "SQLite adapter for local development",
+    "Postgres adapter for production pilots"
+  ],
+  "required_controls": [
+    "tenant_id_on_all_records",
+    "storage_write_audit_required",
+    "deny_cross_tenant_reads_by_default"
+  ]
+}

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Model Safety Console — Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}.pill{display:inline-block;padding:4px 10px;border-radius:999px;background:#f2f4f8;color:#0f172a;margin:3px;font-size:12px}.code{white-space:pre-wrap;background:#0f172a;color:#e5e7eb;padding:14px;border-radius:12px;overflow:auto}.warn{border-color:#f59e0b}.deny{border-color:#dc2626}.allow{border-color:#16a34a}
+  </style>
+</head>
+<body>
+  <main class="container">
+    <section class="hero">
+      <p class="eyebrow">v1.9 Control Plane</p>
+      <h1>Model Risk Register and Prompt/Response Safety Review</h1>
+      <p>Review model-risk profiles, safety policy, and sample prompt/response safety requests before future live model-provider execution.</p>
+    </section>
+
+    <section class="grid" id="summary"></section>
+    <section><h2>Model Risk Profiles</h2><div class="grid" id="profiles"></div></section>
+    <section><h2>Sample Safety Review Requests</h2><div id="samples"></div></section>
+  </main>
+<script>
+async function loadJson(path){ const r = await fetch(path); return await r.json(); }
+function pills(items){ return (items||[]).map(x => `<span class="pill">${x}</span>`).join(''); }
+Promise.all([
+  loadJson('data/model_risk_profiles.json'),
+  loadJson('data/prompt_response_safety_policy.json'),
+  loadJson('data/sample_safety_review_requests.json')
+]).then(([profiles, policy, samples]) => {
+  document.getElementById('summary').innerHTML = `
+    <div class="card"><h3>Execution Status</h3><p>${profiles.live_provider_execution_status}</p></div>
+    <div class="card"><h3>Risk Profiles</h3><p>${profiles.profiles.length}</p></div>
+    <div class="card"><h3>Policy Mode</h3><p>${policy.policy_mode}</p></div>
+    <div class="card"><h3>Live Provider Execution</h3><p>${policy.live_provider_execution_enabled ? 'enabled' : 'disabled'}</p></div>`;
+  document.getElementById('profiles').innerHTML = profiles.profiles.map(p => `
+    <div class="card warn">
+      <h3>${p.provider_id}:${p.model_id}</h3>
+      <p><strong>Risk tier:</strong> ${p.model_risk_tier}</p>
+      <p><strong>Max sensitivity:</strong> ${p.max_data_sensitivity}</p>
+      <p><strong>Environments:</strong> ${pills(p.allowed_environments)}</p>
+      <p><strong>Controls:</strong> ${pills(p.required_controls)}</p>
+    </div>`).join('');
+  document.getElementById('samples').innerHTML = samples.map(s => `
+    <div class="card ${s.contains_pii || s.contains_credentials ? 'deny' : 'allow'}">
+      <h3>${s.purpose}</h3>
+      <p><strong>Provider/model:</strong> ${s.provider_id}:${s.model_id}</p>
+      <p><strong>Domain:</strong> ${s.use_case_domain}; <strong>Sensitivity:</strong> ${s.data_sensitivity}</p>
+      <p><strong>Flags:</strong> ${s.contains_pii?'PII ':''}${s.contains_credentials?'Credentials ':''}${s.contains_financial_data?'Financial ':''}${s.external_user_visible?'External visible ':''}</p>
+      <details><summary>Prompt/response</summary><pre class="code">Prompt: ${s.prompt_text}\n\nResponse: ${s.response_text}</pre></details>
+    </div>`).join('');
+});
+</script>
+</body>
+</html>
+
+

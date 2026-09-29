@@ -1,0 +1,231 @@
+{
+  "version": "0.8.0",
+  "connectors": [
+    {
+      "connector_id": "knowledge-base",
+      "display_name": "Enterprise Knowledge Base",
+      "connector_type": "document_repository",
+      "deployment_mode": "mock_local",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ],
+      "data_classes": [
+        "policies",
+        "procedures",
+        "product_docs",
+        "procurement_docs"
+      ],
+      "restrictions": [
+        "read-only in v0.8",
+        "source attribution required for production use"
+      ],
+      "tools": [
+        {
+          "tool_id": "knowledge_base_read",
+          "display_name": "Search Knowledge Base",
+          "description": "Search governed documents and return summarized context.",
+          "risk_level": "Low",
+          "side_effect_class": "read_only",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot",
+            "production"
+          ],
+          "required_controls": [
+            "source logging",
+            "data scope check"
+          ]
+        }
+      ]
+    },
+    {
+      "connector_id": "procurement-system",
+      "display_name": "Procurement System Sandbox",
+      "connector_type": "business_system",
+      "deployment_mode": "mock_local",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "data_classes": [
+        "purchase_orders",
+        "invoices",
+        "vendor_records",
+        "approval_workflows"
+      ],
+      "restrictions": [
+        "no live PO or invoice updates in v0.8",
+        "financial actions require approval"
+      ],
+      "tools": [
+        {
+          "tool_id": "compare_po_invoice",
+          "display_name": "Compare PO and Invoice",
+          "description": "Compare purchase order and invoice fields and produce discrepancy summary.",
+          "risk_level": "Medium",
+          "side_effect_class": "read_only",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "required_controls": [
+            "invoice source validation",
+            "vendor record scope check"
+          ]
+        },
+        {
+          "tool_id": "draft_vendor_exception",
+          "display_name": "Draft Vendor Exception",
+          "description": "Draft an exception note for vendor or procurement reviewer.",
+          "risk_level": "High",
+          "side_effect_class": "draft_only",
+          "requires_human_approval": true,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "required_controls": [
+            "human approval",
+            "financial threshold check",
+            "evidence linkage"
+          ]
+        }
+      ]
+    },
+    {
+      "connector_id": "ticketing-system",
+      "display_name": "Enterprise Ticketing Sandbox",
+      "connector_type": "workflow_system",
+      "deployment_mode": "mock_local",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ],
+      "data_classes": [
+        "support_tickets",
+        "incident_records",
+        "work_notes"
+      ],
+      "restrictions": [
+        "ticket creation simulated in v0.8"
+      ],
+      "tools": [
+        {
+          "tool_id": "create_support_ticket",
+          "display_name": "Create Support Ticket",
+          "description": "Create a simulated support ticket record.",
+          "risk_level": "Medium",
+          "side_effect_class": "reversible_write",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "required_controls": [
+            "deduplication check",
+            "owner assignment"
+          ]
+        }
+      ]
+    },
+    {
+      "connector_id": "email-gateway",
+      "display_name": "Governed Email Gateway",
+      "connector_type": "communication_channel",
+      "deployment_mode": "mock_local",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "data_classes": [
+        "internal_email",
+        "vendor_email",
+        "customer_email"
+      ],
+      "restrictions": [
+        "external send is never live in v0.8",
+        "production external send requires future exception workflow"
+      ],
+      "tools": [
+        {
+          "tool_id": "draft_email",
+          "display_name": "Draft Email",
+          "description": "Create a simulated email draft for review.",
+          "risk_level": "Medium",
+          "side_effect_class": "draft_only",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "required_controls": [
+            "review before send",
+            "recipient validation"
+          ]
+        },
+        {
+          "tool_id": "send_external_email",
+          "display_name": "Send External Email",
+          "description": "Represents external email sending. Blocked or approval-gated in v0.8.",
+          "risk_level": "Critical",
+          "side_effect_class": "irreversible_action",
+          "requires_human_approval": true,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "required_controls": [
+            "human approval",
+            "recipient validation",
+            "PII redaction",
+            "audit record"
+          ]
+        }
+      ]
+    },
+    {
+      "connector_id": "hr-policy-repository",
+      "display_name": "HR Policy Repository",
+      "connector_type": "document_repository",
+      "deployment_mode": "mock_local",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ],
+      "data_classes": [
+        "hr_policies",
+        "benefits_docs",
+        "employee_guidance"
+      ],
+      "restrictions": [
+        "policy retrieval only",
+        "no employee record modification"
+      ],
+      "tools": [
+        {
+          "tool_id": "retrieve_policy_section",
+          "display_name": "Retrieve Policy Section",
+          "description": "Retrieve a policy section and return a grounded summary.",
+          "risk_level": "Low",
+          "side_effect_class": "read_only",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot",
+            "production"
+          ],
+          "required_controls": [
+            "source logging",
+            "policy version check"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "version": "2.1.0",
+  "report_type": "contributor_readiness",
+  "decision": "ready_for_public_contribution_after_human_repo_review",
+  "scores": {
+    "readme_clarity": 92,
+    "docs_navigation": 91,
+    "api_discoverability": 90,
+    "local_run_confidence": 88,
+    "test_coverage_confidence": 86,
+    "issue_template_readiness": 90,
+    "security_boundary_clarity": 93,
+    "live_execution_boundary_clarity": 95
+  },
+  "required_before_public_announcement": [
+    "Review README wording for final public tone",
+    "Confirm repository license and organization naming",
+    "Enable GitHub Pages from /site",
+    "Run pytest, smoke tests, and public repo validation",
+    "Remove any local cache artifacts before publishing"
+  ],
+  "good_first_contributions": [
+    "Add more governance scenarios",
+    "Improve static console copy",
+    "Add schema examples",
+    "Improve API descriptions",
+    "Add another control-plane business accelerator demo"
+  ],
+  "blocked_contribution_types": [
+    "Live connector execution without release charter",
+    "Raw secret handling",
+    "Real customer data samples",
+    "Irreversible enterprise write-back actions",
+    "Provider credential storage"
+  ]
+}

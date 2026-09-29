@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "release_type": "public_stable_mvp",
+  "decision": "release",
+  "quality_gates": [
+    {
+      "gate": "public_narrative",
+      "status": "pass"
+    },
+    {
+      "gate": "backend_tests",
+      "status": "pass"
+    },
+    {
+      "gate": "api_smoke_tests",
+      "status": "pass"
+    },
+    {
+      "gate": "static_site",
+      "status": "pass"
+    },
+    {
+      "gate": "sandbox_first_connectors",
+      "status": "pass"
+    },
+    {
+      "gate": "procurement_accelerator",
+      "status": "pass"
+    },
+    {
+      "gate": "rbac",
+      "status": "deferred_to_v1_1"
+    },
+    {
+      "gate": "live_connectors",
+      "status": "deferred"
+    }
+  ],
+  "next_recommended_release": "v1.1 Security, RBAC, and Multi-Tenant Readiness"
+}

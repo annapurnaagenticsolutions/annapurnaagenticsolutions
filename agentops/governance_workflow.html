@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Governance Workflow Engine | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .workflow-shell { display:grid; grid-template-columns: 320px 1fr; gap: 22px; align-items:start; }
+    .scenario-list { display:flex; flex-direction:column; gap:10px; }
+    .scenario-button { text-align:left; padding:14px; border:1px solid rgba(255,255,255,.14); border-radius:16px; background:rgba(255,255,255,.05); color:inherit; cursor:pointer; }
+    .scenario-button.active { border-color:rgba(125,211,252,.85); background:rgba(125,211,252,.12); }
+    .gate-grid { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px; }
+    .gate-card { padding:16px; border-radius:18px; border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.05); }
+    .status-pass { color:#86efac; }
+    .status-caution { color:#fde68a; }
+    .status-fail { color:#fca5a5; }
+    .decision-strip { display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:12px; margin:18px 0; }
+    .metric { padding:14px; border-radius:16px; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.10); }
+    .metric strong { display:block; font-size:1.35rem; margin-top:4px; }
+    @media (max-width: 900px) { .workflow-shell, .gate-grid, .decision-strip { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header class="hero compact">
+    <nav class="top-nav">
+      <a href="index.html">Overview</a>
+      <a href="evaluation_lab.html">Evaluation Lab</a>
+      <a href="governance_workflow.html">Governance Workflow</a>
+      <a href="agentops_simulator.html">Simulator</a>
+    </nav>
+    <div class="hero-content">
+      <p class="eyebrow">v0.3</p>
+      <h1>Governance Workflow Engine</h1>
+      <p>Move agent use cases through intake, suitability, risk, data, governance, evaluation, approval, pilot, and production readiness gates.</p>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="workflow-shell">
+      <aside class="panel">
+        <h2>Sample candidates</h2>
+        <p>Select a candidate use case to simulate gate-by-gate governance review.</p>
+        <div id="scenarioList" class="scenario-list"></div>
+      </aside>
+
+      <section>
+        <div class="panel">
+          <h2 id="caseName">Loading...</h2>
+          <p id="caseDescription"></p>
+          <div class="decision-strip">
+            <div class="metric">Decision<strong id="decision">-</strong></div>
+            <div class="metric">Readiness<strong id="readiness">-</strong></div>
+            <div class="metric">Risk<strong id="risk">-</strong></div>
+            <div class="metric">Stage<strong id="stage">-</strong></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h2>Gate results</h2>
+          <div id="gateGrid" class="gate-grid"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Next actions</h2>
+          <ul id="nextActions"></ul>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const weights = {
+      business_value: 15,
+      task_suitability: 10,
+      data_readiness: 15,
+      governance_readiness: 15,
+      evaluation_coverage: 10,
+      safety_security: 10,
+      human_in_loop: 10,
+      operational_readiness: 10,
+      open_architecture_fit: 5
+    };
+
+    function weightedScore(scores) {
+      return Object.entries(weights).reduce((total, [key, weight]) => total + scores[key] * weight / 100, 0);
+    }
+
+    function riskScore(item) {
+      const r = item.risk_factors;
+      let score = item.autonomy_level * 8;
+      if (r.data_sensitivity === 'medium') score += 10;
+      if (r.data_sensitivity === 'high') score += 20;
+      if (r.external_action) score += 15;
+      if (r.financial_impact === 'low') score += 5;
+      if (r.financial_impact === 'medium') score += 12;
+      if (r.financial_impact === 'high') score += 20;
+      if (r.reversibility === 'moderate') score += 8;
+      if (r.reversibility === 'hard') score += 16;
+      if (r.customer_or_employee_impact === 'low') score += 5;
+      if (r.customer_or_employee_impact === 'medium') score += 12;
+      if (r.customer_or_employee_impact === 'high') score += 20;
+      return Math.min(100, score);
+    }
+
+    function riskLevel(score) {
+      if (score >= 75) return 'Critical';
+      if (score >= 55) return 'High';
+      if (score >= 30) return 'Medium';
+      return 'Low';
+    }
+
+    function status(score, pass, caution) {
+      if (score >= pass) return 'pass';
+      if (score >= caution) return 'caution';
+      return 'fail';
+    }
+
+    function gateResults(item) {
+      const s = item.scores;
+      const total = weightedScore(s);
+      const rs = riskScore(item);
+      const rl = riskLevel(rs);
+      const intake = 100 - (!item.description ? 20 : 0) - (!item.submitted_artifacts.includes('use_case_canvas') ? 15 : 0);
+      const suitability = s.business_value * .45 + s.task_suitability * .55 - (item.autonomy_level >= 4 && s.task_suitability < 80 ? 10 : 0);
+      const data = s.data_readiness - (!item.submitted_artifacts.includes('data_inventory') ? 10 : 0);
+      const gov = s.governance_readiness * .65 + s.human_in_loop * .35 - (!item.submitted_artifacts.includes('governance_checklist') ? 8 : 0);
+      const evalScore = s.evaluation_coverage * .6 + s.safety_security * .4 - (!item.submitted_artifacts.includes('evaluation_plan') ? 10 : 0);
+      const human = s.human_in_loop - ((rl === 'High' || rl === 'Critical') && s.human_in_loop < 85 ? 15 : 0);
+      const pilot = Math.min(total, s.data_readiness, s.governance_readiness, s.evaluation_coverage + 5, s.operational_readiness + 5);
+      const prod = Math.min(total, s.data_readiness, s.governance_readiness, s.evaluation_coverage, s.safety_security, s.operational_readiness) - ((rl === 'High' || rl === 'Critical') ? 10 : 0);
+      const gates = [
+        ['G1','Use Case Intake', intake,80,60,true],
+        ['G2','Suitability Gate', suitability,70,55,true],
+        ['G3','Risk Classification Gate', 100-rs,65,40,false],
+        ['G4','Data Readiness Gate', data,70,55,true],
+        ['G5','Governance Gate', gov,70,55,true],
+        ['G6','Evaluation Gate', evalScore,72,58,true],
+        ['G7','Human Approval Gate', human,72,55,true],
+        ['G8','Pilot Readiness Gate', pilot,70,60,false],
+        ['G9','Production Readiness Gate', prod,82,70,false]
+      ];
+      return { total, rs, rl, gates: gates.map(g => ({ id:g[0], name:g[1], score:Math.round(g[2]), status:status(g[2],g[3],g[4]), hard:g[5] })) };
+    }
+
+    function render(item, index) {
+      document.querySelectorAll('.scenario-button').forEach((btn, i) => btn.classList.toggle('active', i === index));
+      const result = gateResults(item);
+      const hardFail = result.gates.some(g => g.hard && g.status === 'fail');
+      const prodPass = result.gates.find(g => g.id === 'G9').status === 'pass';
+      const pilotPass = result.gates.find(g => g.id === 'G8').status === 'pass';
+      const decision = hardFail ? 'blocked' : prodPass ? 'production_candidate' : pilotPass ? 'pilot_candidate' : 'remediate_before_pilot';
+      const current = result.gates.find(g => g.status === 'fail') || result.gates.find(g => g.status === 'caution') || {name:'Production Review'};
+      document.getElementById('caseName').textContent = item.name;
+      document.getElementById('caseDescription').textContent = item.description;
+      document.getElementById('decision').textContent = decision;
+      document.getElementById('readiness').textContent = Math.round(result.total);
+      document.getElementById('risk').textContent = `${result.rl} (${result.rs})`;
+      document.getElementById('stage').textContent = current.name;
+      document.getElementById('gateGrid').innerHTML = result.gates.map(g => `
+        <article class="gate-card">
+          <small>${g.id}</small>
+          <h3>${g.name}</h3>
+          <p class="status-${g.status}">${g.status.toUpperCase()}</p>
+          <p>Score: <strong>${g.score}</strong></p>
+        </article>
+      `).join('');
+      const actions = result.gates.filter(g => g.status !== 'pass').map(g => `Remediate ${g.name} before broader rollout.`);
+      document.getElementById('nextActions').innerHTML = (actions.length ? actions : ['Candidate is ready for governance board production review.']).map(a => `<li>${a}</li>`).join('');
+    }
+
+    fetch('data/governance_sample_requests.json')
+      .then(r => r.json())
+      .then(items => {
+        document.getElementById('scenarioList').innerHTML = items.map((item, i) => `<button class="scenario-button" data-index="${i}"><strong>${item.name}</strong><br><span>${item.domain}</span></button>`).join('');
+        document.querySelectorAll('.scenario-button').forEach(btn => btn.addEventListener('click', e => render(items[Number(btn.dataset.index)], Number(btn.dataset.index))));
+        render(items[0], 0);
+      });
+  </script>
+</body>
+</html>
+
+

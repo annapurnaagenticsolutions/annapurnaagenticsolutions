@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Live Connector Governance | Open Enterprise AgentOps Mesh</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #0f172a; color: #e5e7eb; }
+    header { padding: 42px; background: linear-gradient(135deg, #111827, #1e293b); }
+    main { max-width: 1100px; margin: auto; padding: 32px; }
+    h1 { margin: 0 0 10px; font-size: 36px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; }
+    .card { background: #111827; border: 1px solid #334155; border-radius: 16px; padding: 18px; box-shadow: 0 10px 30px rgba(0,0,0,.22); }
+    .badge { display:inline-block; padding: 6px 10px; border-radius: 999px; background: #7f1d1d; color: #fecaca; font-size: 12px; font-weight: 700; }
+    .ok { background: #14532d; color: #bbf7d0; }
+    .warn { background: #78350f; color: #fde68a; }
+    code, pre { background: #020617; border: 1px solid #334155; border-radius: 10px; padding: 12px; overflow: auto; color: #bfdbfe; }
+    table { width:100%; border-collapse: collapse; margin-top: 10px; }
+    th, td { border-bottom: 1px solid #334155; text-align:left; padding: 10px; vertical-align: top; }
+    th { color: #93c5fd; }
+  </style>
+</head>
+<body>
+  <header>
+    <span class="badge">Live execution disabled</span>
+    <h1>Live Connector Governance</h1>
+    <p>v1.7 evaluates whether a dry-run connector can become live-candidate-ready. It does not execute live enterprise actions.</p>
+  </header>
+  <main class="container">
+    <section class="grid">
+      <div class="card"><h2>Control objective</h2><p>Verify IAM, secret boundary, audit, rollback, approval, and evidence before live integration is considered.</p></div>
+      <div class="card"><h2>Decision model</h2><p><span class="badge ok">live_candidate_ready</span> <span class="badge warn">not_ready</span> <span class="badge">blocked</span></p></div>
+      <div class="card"><h2>Safety boundary</h2><p>Live execution remains disabled. Production write actions remain prohibited in this release.</p></div>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>Promotion lifecycle</h2>
+      <pre>Connector contract → Dry-run adapter → Evidence → Live-candidate evaluation → Audit event → Reviewer decision</pre>
+    </section>
+
+    <section class="card" style="margin-top:18px">
+      <h2>Readiness profiles</h2>
+      <table>
+        <thead><tr><th>Profile</th><th>Connector</th><th>Minimum evidence</th><th>Required security capabilities</th></tr></thead>
+        <tbody id="profiles"></tbody>
+      </table>
+    </section>
+  </main>
+  <script>
+    fetch('data/live_connector_readiness.json').then(r => r.json()).then(data => {
+      const body = document.getElementById('profiles');
+      data.profiles.forEach(p => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${p.display_name}<br><code>${p.profile_id}</code></td><td>${p.connector_id}</td><td>${p.minimum_evidence_count}</td><td>${p.required_security_capabilities.join(', ')}</td>`;
+        body.appendChild(tr);
+      });
+    });
+  </script>
+</body>
+</html>
+

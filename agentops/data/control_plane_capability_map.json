@@ -1,0 +1,247 @@
+{
+  "version": "2.1.0",
+  "capabilities": [
+    {
+      "id": "evaluation_lab",
+      "name": "Evaluation Lab",
+      "release": "v0.2",
+      "category": "evaluation",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /weights",
+        "POST /evaluate",
+        "POST /classify-risk"
+      ],
+      "site_page": "evaluation_lab.html",
+      "purpose": "Score use cases and agents for value, suitability, data readiness, governance, safety, HITL, operational readiness, and open architecture fit."
+    },
+    {
+      "id": "governance_workflow",
+      "name": "Governance Workflow Engine",
+      "release": "v0.3",
+      "category": "governance",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "POST /governance/run"
+      ],
+      "site_page": "governance_workflow.html",
+      "purpose": "Run intake, suitability, data readiness, governance, evaluation, approval, pilot, and production gates."
+    },
+    {
+      "id": "registry_evidence",
+      "name": "Agent Registry + Evidence Vault",
+      "release": "v0.4",
+      "category": "registry",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /registry/agents",
+        "GET /evidence"
+      ],
+      "site_page": "registry_browser.html",
+      "purpose": "Track agents, versions, owners, lifecycle status, and evidence artifacts."
+    },
+    {
+      "id": "policy_guardrails",
+      "name": "Policy-as-Code Guardrails",
+      "release": "v0.5",
+      "category": "policy",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "POST /policy/check"
+      ],
+      "site_page": "policy_workbench.html",
+      "purpose": "Deterministically allow, control, require approval, or deny risky agent actions."
+    },
+    {
+      "id": "runtime_enforcement",
+      "name": "Runtime Enforcement Hooks",
+      "release": "v0.6",
+      "category": "runtime",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /runtime/providers",
+        "POST /runtime/execute"
+      ],
+      "site_page": "runtime_console.html",
+      "purpose": "Bind policy checks to provider/model execution flow using provider-neutral mock adapters."
+    },
+    {
+      "id": "observability",
+      "name": "Observability, Cost, and Trace Ledger",
+      "release": "v0.7",
+      "category": "observability",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /observability/summary",
+        "GET /observability/traces"
+      ],
+      "site_page": "observability_console.html",
+      "purpose": "Capture execution and blocked-action traces, cost estimates, and agent-level runtime reports."
+    },
+    {
+      "id": "tool_sandbox",
+      "name": "Connector and Tool Sandbox",
+      "release": "v0.8",
+      "category": "connectors",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /connectors",
+        "POST /tools/sandbox/execute"
+      ],
+      "site_page": "tool_sandbox.html",
+      "purpose": "Evaluate and simulate enterprise tool execution without live side effects."
+    },
+    {
+      "id": "procurement_accelerator",
+      "name": "Procurement Agent Accelerator",
+      "release": "v0.9",
+      "category": "accelerator",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "POST /accelerators/procurement/run"
+      ],
+      "site_page": "procurement_accelerator.html",
+      "purpose": "Demonstrate the full control-plane lifecycle using PO, invoice, challan, vendor, and exception-review flows."
+    },
+    {
+      "id": "security_rbac",
+      "name": "Security, RBAC, and Tenant Readiness",
+      "release": "v1.1",
+      "category": "security",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /security/posture",
+        "POST /security/access/check"
+      ],
+      "site_page": "security_console.html",
+      "purpose": "Check role, tenant, capability, environment, autonomy, and risk-ceiling boundaries."
+    },
+    {
+      "id": "tenant_storage",
+      "name": "Tenant-Scoped Storage",
+      "release": "v1.2",
+      "category": "storage",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /storage/posture",
+        "GET /storage/tenants/{tenant_id}/datasets"
+      ],
+      "site_page": "storage_console.html",
+      "purpose": "Provide tenant-scoped local JSON storage as a migration-ready persistence boundary."
+    },
+    {
+      "id": "audit_bus",
+      "name": "Audit Event Bus and Decision History",
+      "release": "v1.3",
+      "category": "audit",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /audit/events",
+        "GET /audit/summary"
+      ],
+      "site_page": "audit_console.html",
+      "purpose": "Normalize governance, policy, runtime, tool, security, storage, approval, provider, and safety events into one audit backbone."
+    },
+    {
+      "id": "approvals",
+      "name": "Approval Workflow",
+      "release": "v1.4",
+      "category": "approvals",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "POST /approvals/request",
+        "POST /approvals/{approval_id}/decide"
+      ],
+      "site_page": "approval_console.html",
+      "purpose": "Manage human approval requests, reviewer decisions, evidence linkage, and audit events."
+    },
+    {
+      "id": "identity_secrets",
+      "name": "OIDC/IAM Simulation and Secrets Boundary",
+      "release": "v1.5",
+      "category": "security",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "POST /identity/token/simulate",
+        "POST /secrets/access/check"
+      ],
+      "site_page": "identity_secrets_console.html",
+      "purpose": "Model identity providers, service identities, secret references, deny-by-default secret access, and no-raw-secret policy."
+    },
+    {
+      "id": "connector_contracts",
+      "name": "Connector Contract SDK and Dry-Run Adapters",
+      "release": "v1.6",
+      "category": "connectors",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /connector-contracts",
+        "POST /connectors/dry-run/execute"
+      ],
+      "site_page": "connector_contracts.html",
+      "purpose": "Define connector contracts with identity, secret, approval, schema, side-effect, and dry-run behavior."
+    },
+    {
+      "id": "live_connector_governance",
+      "name": "Live Connector Governance Pack",
+      "release": "v1.7",
+      "category": "connectors",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /live-connectors/readiness",
+        "POST /live-connectors/evaluate"
+      ],
+      "site_page": "live_connector_governance.html",
+      "purpose": "Evaluate whether a dry-run connector can become live-candidate-ready without enabling live execution."
+    },
+    {
+      "id": "provider_gateway",
+      "name": "Provider Gateway Governance",
+      "release": "v1.8",
+      "category": "provider_gateway",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /provider-gateway/posture",
+        "POST /provider-gateway/route"
+      ],
+      "site_page": "provider_gateway.html",
+      "purpose": "Govern model/provider route decisions by sensitivity, region, environment, capabilities, fallback, cost, approval, and evidence."
+    },
+    {
+      "id": "model_safety",
+      "name": "Model Risk and Prompt/Response Safety",
+      "release": "v1.9",
+      "category": "model_safety",
+      "status": "stable_mvp",
+      "api_endpoints": [
+        "GET /model-safety/posture",
+        "POST /model-safety/review"
+      ],
+      "site_page": "model_safety_console.html",
+      "purpose": "Review prompt/response interactions against model risk profiles before future live provider execution."
+    },
+    {
+      "id": "control_plane_stabilization",
+      "name": "Control Plane Stabilization",
+      "release": "v2.0",
+      "category": "platform",
+      "status": "stable_release",
+      "api_endpoints": [
+        "GET /control-plane/capabilities",
+        "GET /control-plane/demo-flow",
+        "GET /control-plane/api-surface",
+        "GET /control-plane/release-status",
+        "GET /control-plane/end-to-end-report"
+      ],
+      "site_page": "control_plane_console.html",
+      "purpose": "Unify navigation, demo flow, API surface, release status, and public narrative for a stable v2.0 release."
+    },
+    {
+      "id": "contributor_readiness",
+      "name": "Documentation Pruning, OpenAPI Polish, and Contributor Readiness",
+      "status": "stable_release",
+      "release": "v2.1",
+      "purpose": "Improve public adoption through curated docs, API catalog, repo validation, and contributor workflow."
+    }
+  ]
+}

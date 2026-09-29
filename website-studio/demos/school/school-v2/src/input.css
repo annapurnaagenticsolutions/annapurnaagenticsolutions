@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #7C3AED; /* Vibrant Purple */
+  --color-brand-secondary: #F472B6; /* Bright Pink */
+  --color-brand-accent: #34D399; /* Mint Green */
+  --color-brand-yellow: #FBBF24; /* Warm Yellow */
+  --color-brand-light: #F8FAFC; /* Slate 50 */
+  --color-brand-dark: #0F172A; /* Slate 900 */
+  --font-family-sans: 'Outfit', sans-serif;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--color-brand-light);
+  color: var(--color-brand-dark);
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+.floating-shape {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}

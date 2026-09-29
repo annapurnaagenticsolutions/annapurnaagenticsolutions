@@ -1,0 +1,129 @@
+{
+  "version": "1.8.0",
+  "live_provider_execution_status": "disabled_route_governance_only",
+  "global_controls": [
+    "route_decision_must_be_audited",
+    "high_sensitivity_requires_approval",
+    "fallback_must_be_explicitly_allowed",
+    "cost_ceiling_must_be_checked",
+    "live_provider_execution_disabled_in_v1_8"
+  ],
+  "cost_policy": {
+    "currency": "USD",
+    "default_max_estimated_cost_usd": 0.25,
+    "production_max_estimated_cost_usd": 0.1
+  },
+  "profiles": [
+    {
+      "profile_id": "pgw-internal-llama-v1",
+      "provider_id": "internal_vllm",
+      "model_id": "llama-3-8b-instruct-internal",
+      "display_name": "Internal vLLM Llama 3 8B Instruct",
+      "provider_trust_tier": "internal",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "allowed_regions": [
+        "in-south-1",
+        "us-east-1"
+      ],
+      "max_data_sensitivity": "high",
+      "supports_tool_use": false,
+      "capabilities": [
+        "summarization",
+        "classification",
+        "structured_output",
+        "rag_answering"
+      ],
+      "allowed_fallbacks": [
+        "internal_vllm:llama-3-8b-instruct-internal"
+      ],
+      "input_cost_per_1k_tokens": 0.0,
+      "output_cost_per_1k_tokens": 0.0,
+      "max_estimated_cost_usd": 0.05,
+      "required_controls": [
+        "internal_network_only",
+        "tenant_context_required",
+        "audit_trace_required"
+      ],
+      "required_approval_roles": [
+        "platform_owner"
+      ],
+      "notes": "Default safest profile for sensitive internal workflows."
+    },
+    {
+      "profile_id": "pgw-openai-compatible-approved-v1",
+      "provider_id": "openai_compatible_gateway",
+      "model_id": "approved-frontier-reasoning-model",
+      "display_name": "Approved OpenAI-Compatible Frontier Model via Enterprise Gateway",
+      "provider_trust_tier": "approved_external_gateway",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "allowed_regions": [
+        "us-east-1",
+        "eu-west-1"
+      ],
+      "max_data_sensitivity": "medium",
+      "supports_tool_use": true,
+      "capabilities": [
+        "reasoning",
+        "tool_use",
+        "structured_output",
+        "summarization",
+        "classification"
+      ],
+      "allowed_fallbacks": [
+        "internal_vllm:llama-3-8b-instruct-internal"
+      ],
+      "input_cost_per_1k_tokens": 0.005,
+      "output_cost_per_1k_tokens": 0.015,
+      "max_estimated_cost_usd": 0.2,
+      "required_controls": [
+        "enterprise_gateway_required",
+        "data_minimization_required",
+        "audit_trace_required"
+      ],
+      "required_approval_roles": [
+        "platform_owner",
+        "security_reviewer"
+      ],
+      "notes": "External gateway route for medium-sensitivity work where advanced reasoning is needed."
+    },
+    {
+      "profile_id": "pgw-local-ollama-v1",
+      "provider_id": "local_ollama",
+      "model_id": "llama3:8b",
+      "display_name": "Local Ollama Llama3 8B",
+      "provider_trust_tier": "local_developer",
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "allowed_regions": [
+        "local"
+      ],
+      "max_data_sensitivity": "medium",
+      "supports_tool_use": false,
+      "capabilities": [
+        "summarization",
+        "classification",
+        "drafting"
+      ],
+      "allowed_fallbacks": [
+        "local_ollama:llama3:8b"
+      ],
+      "input_cost_per_1k_tokens": 0.0,
+      "output_cost_per_1k_tokens": 0.0,
+      "max_estimated_cost_usd": 0.01,
+      "required_controls": [
+        "developer_sandbox_only",
+        "no_production_data",
+        "audit_trace_required"
+      ],
+      "required_approval_roles": [],
+      "notes": "Local sandbox experimentation only."
+    }
+  ]
+}

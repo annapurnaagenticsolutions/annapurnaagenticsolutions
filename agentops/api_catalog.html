@@ -1,0 +1,11 @@
+<!doctype html><html><head><meta charset="utf-8"><title>AgentOps API Catalog</title><style>
+body{font-family:Arial,Helvetica,sans-serif;margin:0;background:#f7f8fb;color:#1f2937}.wrap{max-width:1120px;margin:0 auto;padding:32px}.hero{background:#111827;color:white;padding:32px;border-radius:20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:22px}.card{background:white;border:1px solid #e5e7eb;border-radius:16px;padding:18px;box-shadow:0 8px 20px rgba(15,23,42,.06)}.tag{display:inline-block;background:#eef2ff;color:#3730a3;border-radius:999px;padding:4px 10px;font-size:12px;margin:3px}table{border-collapse:collapse;width:100%;background:white;border-radius:14px;overflow:hidden}td,th{border:1px solid #e5e7eb;padding:10px;text-align:left}a{color:#2563eb}.good{color:#047857;font-weight:bold}.warn{color:#b45309;font-weight:bold}code{background:#eef2f7;padding:2px 5px;border-radius:5px}</style></head><body><div class="wrap"><div class="hero"><h1>v2.1 API Catalog</h1><p>Curated OpenAPI-lite view for the Open Enterprise AgentOps Control Plane.</p></div><div id="content" class="grid"></div></div><script>
+fetch('data/openapi_lite_catalog.json').then(r=>r.json()).then(data=>{
+ const c=document.getElementById('content');
+ data.groups.forEach(g=>{
+  const div=document.createElement('div');div.className='card';
+  div.innerHTML=`<h2>${g.group}</h2><p>${g.purpose}</p>`+g.endpoints.map(e=>`<div><span class="tag">${e.method}</span><code>${e.path}</code><br><small>${e.stability} · ${e.side_effects}</small></div>`).join('<hr>');
+  c.appendChild(div);
+ });
+});
+</script></body></html>

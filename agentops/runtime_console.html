@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Runtime Console — Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid-two { display:grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    textarea { width:100%; min-height: 360px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .9rem; }
+    pre { white-space: pre-wrap; overflow:auto; }
+    .pill { display:inline-block; padding:.25rem .55rem; border-radius:999px; background:#eef2ff;color:#0f172a; margin:.15rem; }
+    @media (max-width: 900px) { .grid-two { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="container page-shell">
+    <section class="hero-card">
+      <p class="eyebrow">v0.6 Runtime Enforcement</p>
+      <h1>Runtime Console</h1>
+      <p class="hero-copy">Simulate how an enterprise agent request flows through policy checks, provider/model selection, mock execution, and audit trace generation.</p>
+      <div class="hero-actions">
+        <a href="index.html">Home</a>
+        <a href="policy_workbench.html">Policy Workbench</a>
+        <a href="registry_browser.html">Registry Browser</a>
+      </div>
+    </section>
+
+    <section class="content-card">
+      <h2>Provider Registry</h2>
+      <div id="providers"></div>
+    </section>
+
+    <section class="content-card grid-two">
+      <div>
+        <h2>Runtime Request</h2>
+        <p>Select or edit a sample request.</p>
+        <select id="sampleSelect"></select>
+        <textarea id="requestBox"></textarea>
+        <button id="runBtn">Simulate Runtime Execution</button>
+      </div>
+      <div>
+        <h2>Runtime Response</h2>
+        <pre id="resultBox">Run a sample to see policy decision, provider selection, mock response, and trace.</pre>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    let samples = [];
+    let providers = {};
+
+    async function loadData() {
+      samples = await fetch('data/runtime_samples.json').then(r => r.json());
+      providers = await fetch('data/provider_registry.json').then(r => r.json());
+      renderProviders();
+      const select = document.getElementById('sampleSelect');
+      samples.forEach((s, i) => {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = `${s.agent_id} — ${s.action}`;
+        select.appendChild(opt);
+      });
+      select.addEventListener('change', () => showSample(Number(select.value)));
+      showSample(0);
+    }
+
+    function renderProviders() {
+      const el = document.getElementById('providers');
+      el.innerHTML = providers.providers.map(p => `
+        <div class="mini-card">
+          <h3>${p.display_name}</h3>
+          <p>${p.provider_type} · ${p.deployment_mode} · ${p.data_residency}</p>
+          <p>${p.capabilities.map(c => `<span class="pill">${c}</span>`).join('')}</p>
+        </div>
+      `).join('');
+    }
+
+    function showSample(index) {
+      document.getElementById('requestBox').value = JSON.stringify(samples[index], null, 2);
+    }
+
+    function simulatePolicy(req) {
+      const violations = [];
+      const dangerous = ['email_send','erp_write','payment_initiation','purchase_order_approval','invoice_update','hr_record_update','customer_record_update'];
+      const dest = String(req.output_destination || 'internal').toLowerCase();
+      const requested = req.requested_tools || [];
+      if (req.risk_level === 'Critical') violations.push('Critical risk requires governance redesign.');
+      if (req.data_sensitivity === 'high' && ['external','vendor','customer'].includes(dest) && !req.has_human_approval) violations.push('High-sensitivity data cannot be sent externally without approval.');
+      if (req.target_environment === 'production' && req.autonomy_level >= 3 && !req.has_human_approval) violations.push('Production high-autonomy action requires approval.');
+      if (requested.some(t => dangerous.includes(t)) && !req.has_human_approval) violations.push('Dangerous tool scope requires approval.');
+      if (violations.some(v => v.includes('cannot') || v.includes('Critical'))) return { decision:'deny', allowed:false, violations };
+      if (violations.length) return { decision:'require_approval', allowed:false, violations };
+      if (['external','vendor','customer'].includes(dest)) return { decision:'allow_with_controls', allowed:true, violations:['External communication requires traceability controls.'] };
+      return { decision:'allow', allowed:true, violations:[] };
+    }
+
+    function routeProvider(req) {
+      const providerId = req.preferred_provider || 'mock-safe-local';
+      const provider = providers.providers.find(p => p.provider_id === providerId) || providers.providers[0];
+      const modelId = req.preferred_model || provider.models[0].model_id;
+      return { provider_id: provider.provider_id, provider_name: provider.display_name, model_id: modelId };
+    }
+
+    function runSimulation() {
+      const req = JSON.parse(document.getElementById('requestBox').value);
+      const policy = simulatePolicy(req);
+      const route = policy.allowed ? routeProvider(req) : { provider_id:null, provider_name:null, model_id:null };
+      const decision = policy.allowed ? (policy.decision === 'allow_with_controls' ? 'executed_with_controls' : 'executed') : (policy.decision === 'require_approval' ? 'blocked_pending_approval' : 'blocked');
+      const response = {
+        request_id: 'sim-' + Date.now(),
+        agent_id: req.agent_id,
+        execution_decision: decision,
+        policy_decision: policy.decision,
+        allowed: policy.allowed,
+        provider_name: route.provider_name,
+        model_name: route.model_id,
+        response_text: policy.allowed ? `Mock governed response for action: ${req.action}` : '',
+        blocked_reason: policy.allowed ? '' : policy.violations.join(' '),
+        required_controls: policy.decision === 'allow_with_controls' ? ['audit log','message preview','human override'] : [],
+        audit_trace: [
+          { stage:'request_received', status:'ok', summary:'Runtime request accepted by console.' },
+          { stage:'policy_evaluated', status: policy.allowed ? 'ok' : 'blocked', summary:`Policy decision: ${policy.decision}` },
+          { stage:'provider_selected', status: policy.allowed ? 'ok' : 'skipped', summary: policy.allowed ? `Selected ${route.provider_name}` : 'Skipped because policy blocked execution.' },
+          { stage:'model_invocation', status: policy.allowed ? 'ok' : 'skipped', summary: policy.allowed ? 'Mock provider generated deterministic response.' : 'No model call made.' }
+        ]
+      };
+      document.getElementById('resultBox').textContent = JSON.stringify(response, null, 2);
+    }
+
+    document.getElementById('runBtn').addEventListener('click', runSimulation);
+    loadData();
+  </script>
+</body>
+</html>
+
+

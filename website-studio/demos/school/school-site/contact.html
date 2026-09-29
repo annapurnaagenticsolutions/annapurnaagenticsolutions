@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us | Kingston Academy</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  </head>
+  <body class="bg-brand-light text-brand-text font-sans antialiased">
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold text-brand-primary flex items-center">
+            <i class="fas fa-graduation-cap text-brand-accent mr-2 text-3xl"></i>
+            Kingston <span class="font-light ml-1 text-gray-500">Academy</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="academics.html" class="hover:text-brand-accent transition">Academics</a>
+            <a href="admissions.html" class="hover:text-brand-accent transition">Admissions</a>
+            <a href="campus-life.html" class="hover:text-brand-accent transition">Campus Life</a>
+            <a href="contact.html" class="text-brand-accent">Contact</a>
+            <a href="admissions.html" class="bg-brand-primary hover:bg-brand-secondary text-white px-6 py-2 rounded-sm transition">Apply Now</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <div class="bg-brand-primary py-16 text-white text-center">
+      <h1 class="text-4xl md:text-5xl font-serif font-bold mb-4">Contact Our Office</h1>
+      <p class="text-lg text-gray-300 max-w-2xl mx-auto">Have questions? We are here to assist parents, students, and educators.</p>
+    </div>
+
+    <section class="max-w-5xl mx-auto px-4 py-16 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <h2 class="text-2xl font-serif font-bold text-brand-primary mb-6">School Directory</h2>
+        <div class="space-y-6 text-gray-600">
+          <div>
+            <strong class="block text-brand-primary">Admissions Office</strong>
+            <span>+1 (800) 123-4567 ext. 101 | admissions@kingstonacademy.edu</span>
+          </div>
+          <div>
+            <strong class="block text-brand-primary">Main Administration Desk</strong>
+            <span>+1 (800) 123-4567 ext. 100 | info@kingstonacademy.edu</span>
+          </div>
+          <div>
+            <strong class="block text-brand-primary">Campus Address</strong>
+            <span>123 Education Blvd, Cityville, State 12345</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-white p-6 rounded shadow-md">
+        <h3 class="text-xl font-serif font-bold text-brand-primary mb-4">Send Us a Message</h3>
+        <form onSubmit="event.preventDefault(); alert('Message sent! An administrative assistant will respond shortly.');" class="space-y-4">
+          <input type="text" required placeholder="Your Name" class="w-full border p-3 rounded text-sm focus:border-brand-primary outline-none" />
+          <input type="email" required placeholder="Your Email" class="w-full border p-3 rounded text-sm focus:border-brand-primary outline-none" />
+          <textarea rows="4" required placeholder="How can we help you?" class="w-full border p-3 rounded text-sm focus:border-brand-primary outline-none"></textarea>
+          <button type="submit" class="w-full bg-brand-primary text-white font-bold py-3 rounded transition hover:bg-brand-secondary">Send Message &rarr;</button>
+        </form>
+      </div>
+    </section>
+
+    <footer class="bg-[#112543] text-gray-300 py-12 text-center text-sm">
+      <p>&copy; 2026 Kingston Academy. All rights reserved. <a href="index.html" class="text-brand-accent underline">Return Home</a></p>
+    </footer>
+  </body>
+</html>

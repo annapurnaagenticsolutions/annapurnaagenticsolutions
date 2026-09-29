@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Release Evidence Console | Open Enterprise AgentOps Mesh</title>
+  <style>
+    body { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; margin: 0; background: #f7f8fb; color: #172033; }
+    header { padding: 48px 56px; background: linear-gradient(135deg, #172033, #35415f); color: white; }
+    header p { max-width: 900px; line-height: 1.6; }
+    main { padding: 32px 56px 64px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e4e7ef; border-radius: 16px; padding: 22px; box-shadow: 0 10px 24px rgba(23,32,51,0.06); }
+    .label { text-transform: uppercase; font-size: 12px; letter-spacing: .08em; color: #667085; font-weight: 700; }
+    .score { font-size: 42px; font-weight: 800; margin: 8px 0; }
+    .pill { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eef4ff; color: #2146a0; font-weight: 700; font-size: 12px; }
+    ul { padding-left: 20px; line-height: 1.7; }
+    code { background: #eef1f6; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="pill">v2.7 Release Evidence</div>
+    <h1>Release Evidence Pack and Demo Recording Readiness</h1>
+    <p>This console summarizes the proof assets needed for a public walkthrough: validation status, benchmark evidence, demo storyboard, screenshot plan, and explicit safety boundaries.</p>
+  </header>
+  <main class="container">
+    <section class="grid">
+      <article class="card"><div class="label">Readiness score</div><div class="score">96</div><p>Evidence package is ready for public demo recording after local validation.</p></article>
+      <article class="card"><div class="label">Benchmark score</div><div class="score">96.83</div><p>Deterministic benchmark suite remains passing with 8 scenarios.</p></article>
+      <article class="card"><div class="label">Boundary</div><h2>Live execution disabled</h2><p>No live providers, live connectors, raw secrets, production IAM, or external API calls.</p></article>
+    </section>
+    <section class="card" style="margin-top:20px">
+      <h2>Demo recording flow</h2>
+      <ol>
+        <li>Problem setup: why enterprises need an AgentOps control plane.</li>
+        <li>Public-site orientation and control-plane positioning.</li>
+        <li>Interactive procurement governed-agent demo path.</li>
+        <li>Validation, benchmark, and release evidence proof.</li>
+        <li>Contributor and community intake path.</li>
+        <li>Clear boundary statement: no live execution in this release.</li>
+      </ol>
+    </section>
+    <section class="grid" style="margin-top:20px">
+      <article class="card"><h3>Evidence files</h3><ul><li><code>release_evidence/evidence_manifest.json</code></li><li><code>release_evidence/validation_snapshot.json</code></li><li><code>release_evidence/public_proof_bundle.json</code></li></ul></article>
+      <article class="card"><h3>Recording files</h3><ul><li><code>docs/148_demo_recording_script.md</code></li><li><code>release_evidence/demo_recording_storyboard.json</code></li><li><code>release_evidence/demo_recording_checklist.json</code></li></ul></article>
+    </section>
+  </main>
+</body>
+</html>
+

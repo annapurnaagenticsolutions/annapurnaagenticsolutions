@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us - Feliciano</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+    <style>
+      .parallax {
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+    <!-- Header (Same as menu.html) -->
+    <header class="navbar fixed top-0 w-full z-50 bg-brand-primary text-brand-light shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="menu.html" class="hover:text-brand-accent transition">Menu</a>
+            <a href="about.html" class="text-brand-accent border-b-2 border-brand-accent pb-1">About</a>
+            <a href="gallery.html" class="hover:text-brand-accent transition">Gallery</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <a href="reserve.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2 rounded-sm transition">Reserve a Table</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Parallax Hero -->
+    <section class="parallax h-[60vh] flex items-center justify-center relative" style="background-image: url('assets/images/hero.jpg');">
+      <div class="absolute inset-0 bg-black/60"></div>
+      <div class="relative z-10 text-center px-4" data-aos="fade-up">
+        <h4 class="font-serif italic text-brand-accent text-xl mb-2">Our History</h4>
+        <h1 class="text-5xl md:text-7xl font-serif text-white mb-6">About Us</h1>
+      </div>
+    </section>
+
+    <!-- Story Section -->
+    <section class="py-24 bg-brand-light">
+      <div class="max-w-5xl mx-auto px-4 text-center">
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed mb-10" data-aos="fade-up">
+          Our journey started in a small kitchen with a big dream: to bring the authentic flavors of our heritage to the heart of the city. Over the years, we have grown, but our core philosophy remains unchanged. We believe that good food is not just about sustenance; it is about bringing people together, sharing stories, and creating memories.
+        </p>
+        <p class="text-lg md:text-xl text-gray-600 leading-relaxed" data-aos="fade-up" data-aos-delay="100">
+          We source only the freshest, seasonal ingredients from local farmers who share our commitment to quality and sustainability. Every dish is a labor of love, crafted with precision and presented with elegance. Welcome to our table.
+        </p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        &copy; 2026 Feliciano Restaurant. All rights reserved.
+      </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{
+  "version": "1.9.0",
+  "policy_mode": "deterministic_review_only",
+  "live_provider_execution_enabled": false,
+  "deny_by_default_rules": [
+    "unknown_model_risk_profile",
+    "live_provider_execution_requested",
+    "contains_credentials",
+    "disallowed_prompt_pattern",
+    "disallowed_response_pattern",
+    "data_sensitivity_exceeds_model_risk_profile_limit",
+    "environment_not_allowed_by_model_risk_profile"
+  ],
+  "revision_required_rules": [
+    "external_user_visible_without_review_evidence",
+    "pii_without_redaction_control",
+    "customer_data_without_data_classification_evidence",
+    "financial_data_without_business_owner_approval",
+    "high_risk_domain_without_approval",
+    "production_safety_review_without_approval"
+  ],
+  "baseline_safety_controls": [
+    "prompt_injection_scan",
+    "response_safety_review",
+    "audit_retention",
+    "sensitive_data_redaction_when_applicable"
+  ]
+}

@@ -1,0 +1,67 @@
+{
+  "version": "1.1.0",
+  "tenants": [
+    {
+      "tenant_id": "tenant-demo-enterprise",
+      "display_name": "Demo Enterprise Tenant",
+      "status": "active",
+      "allowed_domains": [
+        "procurement",
+        "it_support",
+        "hr_policy",
+        "customer_support",
+        "documentation_intelligence",
+        "platform"
+      ],
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ],
+      "data_residency": "configurable",
+      "isolation_mode": "logical_local_json",
+      "max_autonomy_level": 4,
+      "allowed_risk_levels": [
+        "Low",
+        "Medium",
+        "High",
+        "Critical"
+      ],
+      "required_controls": [
+        "tenant_scoped_registry",
+        "tenant_scoped_evidence",
+        "trace_tenant_id",
+        "least_privilege_role_mapping"
+      ],
+      "notes": "Demo tenant used for v1.1 multi-tenant readiness checks. Production deployments should replace local JSON with tenant-scoped database storage."
+    },
+    {
+      "tenant_id": "tenant-regulated-finance",
+      "display_name": "Regulated Finance Tenant Example",
+      "status": "restricted",
+      "allowed_domains": [
+        "procurement",
+        "documentation_intelligence"
+      ],
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "data_residency": "strict_regional",
+      "isolation_mode": "dedicated_runtime_recommended",
+      "max_autonomy_level": 2,
+      "allowed_risk_levels": [
+        "Low",
+        "Medium"
+      ],
+      "required_controls": [
+        "dedicated_kms",
+        "private_model_gateway",
+        "human_approval_required",
+        "audit_export",
+        "sensitive_data_redaction"
+      ],
+      "notes": "Example of a tenant that should not use shared production runtime until hard isolation is implemented."
+    }
+  ]
+}

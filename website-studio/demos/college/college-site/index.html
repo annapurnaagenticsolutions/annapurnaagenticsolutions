@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global Tech University</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet" />
+    <style>
+      .hero-overlay {
+        background: linear-gradient(135deg, rgba(30,58,138,0.95) 0%, rgba(30,58,138,0.7) 100%);
+      }
+      .split-bg {
+        background: linear-gradient(to right, var(--color-brand-primary) 50%, var(--color-brand-light) 50%);
+      }
+      @media (max-width: 768px) {
+        .split-bg { background: var(--color-brand-primary); }
+      }
+    </style>
+  </head>
+  <body class="antialiased">
+
+    <!-- Header -->
+    <header class="absolute w-full z-50 top-0 border-b border-white/20">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-24 items-center">
+          <a href="#" class="font-serif text-3xl font-bold text-white flex items-center">
+            <i class="fas fa-university text-brand-accent mr-3"></i>
+            GTU
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium text-white/90">
+            <a href="study.html" class="hover:text-brand-accent transition">Study</a>
+            <a href="research.html" class="hover:text-brand-accent transition">Research</a>
+            <a href="campus.html" class="hover:text-brand-accent transition">Campus</a>
+            <a href="about.html" class="hover:text-brand-accent transition">About</a>
+            <button onclick="openApplyModal()" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2 rounded-sm transition text-sm uppercase tracking-wider font-bold">Apply</button>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Split Screen Hero -->
+    <section class="relative h-screen flex">
+      <div class="w-full md:w-1/2 bg-brand-primary flex items-center relative z-10 pt-24">
+        <div class="pl-4 pr-4 md:pl-20 md:pr-10 max-w-xl" data-aos="fade-right">
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">Define Your <br/><span class="text-brand-accent">Future.</span></h1>
+          <p class="text-lg text-white/80 mb-10 leading-relaxed">Join a top-tier research university dedicated to pushing the boundaries of knowledge and technology.</p>
+          <div class="flex space-x-4">
+            <a href="study.html" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-8 py-4 rounded-sm font-bold transition">Explore Programs</a>
+            <button onclick="openTourModal()" class="border border-white/30 hover:border-white text-white px-8 py-4 rounded-sm font-medium transition flex items-center">
+              <i class="fas fa-play mr-2"></i> Virtual Tour
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="hidden md:block w-1/2 relative">
+        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1920&q=80" alt="University" class="w-full h-full object-cover" />
+        <div class="absolute inset-0 bg-brand-primary/20"></div>
+      </div>
+    </section>
+
+    <!-- Quick Stats -->
+    <section class="bg-brand-secondary py-12 border-b-4 border-brand-accent">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white">
+          <div data-aos="fade-up" data-aos-delay="100">
+            <h3 class="text-4xl font-bold text-brand-accent mb-2">Top 50</h3>
+            <p class="text-sm uppercase tracking-widest text-gray-400">Global Ranking</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="200">
+            <h3 class="text-4xl font-bold text-brand-accent mb-2">94%</h3>
+            <p class="text-sm uppercase tracking-widest text-gray-400">Employment Rate</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="300">
+            <h3 class="text-4xl font-bold text-brand-accent mb-2">120+</h3>
+            <p class="text-sm uppercase tracking-widest text-gray-400">Nationalities</p>
+          </div>
+          <div data-aos="fade-up" data-aos-delay="400">
+            <h3 class="text-4xl font-bold text-brand-accent mb-2">300+</h3>
+            <p class="text-sm uppercase tracking-widest text-gray-400">Research Labs</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Popular Programs -->
+    <section class="py-24 bg-brand-light">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-end mb-12" data-aos="fade-up">
+          <div>
+            <h2 class="text-4xl font-bold mb-4">Discover Your Path</h2>
+            <p class="text-gray-600 max-w-2xl">From engineering to humanities, find the degree that aligns with your passion.</p>
+          </div>
+          <a href="#" class="hidden md:inline-block text-brand-primary font-bold hover:text-brand-accent transition">View All Programs <i class="fas fa-arrow-right ml-1"></i></a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <!-- Card 1 -->
+          <div class="bg-white rounded-sm shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="100">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Computer Science" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <div class="absolute inset-0 bg-brand-primary/20"></div>
+            </div>
+            <div class="p-8">
+              <div class="text-sm text-brand-accent font-bold tracking-wider mb-2">Undergraduate</div>
+              <h3 class="text-2xl font-bold mb-4">Computer Science, B.S.</h3>
+              <p class="text-gray-600 mb-6 text-sm">Focus on AI, cybersecurity, and software engineering with hands-on lab experience.</p>
+              <a href="#" class="border border-brand-primary text-brand-primary px-6 py-2 rounded-sm hover:bg-brand-primary hover:text-white transition w-full block text-center">Learn More</a>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="bg-white rounded-sm shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="200">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=80" alt="Business" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <div class="absolute inset-0 bg-brand-primary/20"></div>
+            </div>
+            <div class="p-8">
+              <div class="text-sm text-brand-accent font-bold tracking-wider mb-2">Graduate</div>
+              <h3 class="text-2xl font-bold mb-4">MBA Program</h3>
+              <p class="text-gray-600 mb-6 text-sm">Develop global leadership skills and strategic thinking in our top-ranked business school.</p>
+              <a href="#" class="border border-brand-primary text-brand-primary px-6 py-2 rounded-sm hover:bg-brand-primary hover:text-white transition w-full block text-center">Learn More</a>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="bg-white rounded-sm shadow-sm overflow-hidden group" data-aos="fade-up" data-aos-delay="300">
+            <div class="h-48 overflow-hidden relative">
+              <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" alt="Bio" class="w-full h-full object-cover group-hover:scale-110 transition duration-500" />
+              <div class="absolute inset-0 bg-brand-primary/20"></div>
+            </div>
+            <div class="p-8">
+              <div class="text-sm text-brand-accent font-bold tracking-wider mb-2">Undergraduate</div>
+              <h3 class="text-2xl font-bold mb-4">Biomedical Engineering</h3>
+              <p class="text-gray-600 mb-6 text-sm">Merge biology and engineering to solve pressing healthcare challenges.</p>
+              <a href="#" class="border border-brand-primary text-brand-primary px-6 py-2 rounded-sm hover:bg-brand-primary hover:text-white transition w-full block text-center">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Research & Innovation Accordion -->
+    <section class="py-24 bg-white border-t border-gray-100">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16" data-aos="fade-up">
+          <span class="text-brand-accent font-bold tracking-widest uppercase text-xs px-3 py-1 bg-brand-accent/10 rounded-full border border-brand-accent/20">Pioneering Discovery</span>
+          <h2 class="text-4xl md:text-5xl font-bold mt-3 text-brand-primary">Research & Innovation Hubs</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto mt-4">Discover our state-of-the-art research centers where faculty and students collaborate on world-changing technological advancements.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up" data-aos-delay="100">
+          <div class="border border-gray-200 rounded-sm p-8 hover:border-brand-accent transition duration-300 shadow-sm bg-brand-light">
+            <div class="w-12 h-12 bg-brand-primary text-brand-accent rounded-full flex items-center justify-center text-xl mb-6 font-bold shadow-md"><i class="fas fa-brain"></i></div>
+            <h3 class="text-2xl font-bold mb-3 text-brand-primary">Quantum AI Lab</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Investigating neural network architectures, quantum computing algorithms, and ethical AI governance models.</p>
+            <div class="flex items-center justify-between border-t border-gray-200 pt-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span>Grant: $14M NSF</span>
+              <span class="text-brand-accent">Active &rarr;</span>
+            </div>
+          </div>
+          <div class="border border-gray-200 rounded-sm p-8 hover:border-brand-accent transition duration-300 shadow-sm bg-brand-light">
+            <div class="w-12 h-12 bg-brand-primary text-brand-accent rounded-full flex items-center justify-center text-xl mb-6 font-bold shadow-md"><i class="fas fa-robot"></i></div>
+            <h3 class="text-2xl font-bold mb-3 text-brand-primary">Autonomous Systems Center</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Developing next-generation robotic mobility, drone navigation, and automated industrial logistics technology.</p>
+            <div class="flex items-center justify-between border-t border-gray-200 pt-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span>Patents: 38 Issued</span>
+              <span class="text-brand-accent">Active &rarr;</span>
+            </div>
+          </div>
+          <div class="border border-gray-200 rounded-sm p-8 hover:border-brand-accent transition duration-300 shadow-sm bg-brand-light">
+            <div class="w-12 h-12 bg-brand-primary text-brand-accent rounded-full flex items-center justify-center text-xl mb-6 font-bold shadow-md"><i class="fas fa-seedling"></i></div>
+            <h3 class="text-2xl font-bold mb-3 text-brand-primary">CleanTech & Energy Institute</h3>
+            <p class="text-gray-600 text-sm leading-relaxed mb-6">Pioneering sustainable battery storage, solar cell efficiency advancements, and carbon capture engineering.</p>
+            <div class="flex items-center justify-between border-t border-gray-200 pt-4 text-xs font-bold text-gray-500 uppercase tracking-wider">
+              <span>Partners: 20+ Corps</span>
+              <span class="text-brand-accent">Active &rarr;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Virtual Tour Section with Modal Trigger -->
+    <section id="tour" class="py-24 bg-brand-light border-t border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+        <h2 class="text-4xl font-bold mb-4">Experience Our Campus</h2>
+        <p class="text-gray-600 mb-12 max-w-2xl mx-auto">Take an interactive 360° virtual tour of our high-tech laboratories, architectural landmarks, and student commons.</p>
+        <div onclick="openTourModal()" class="relative w-full max-w-4xl mx-auto rounded-sm overflow-hidden shadow-2xl aspect-video bg-brand-primary flex items-center justify-center cursor-pointer group">
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=80" alt="Tour" class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:scale-105 transition duration-700" />
+          <div class="absolute inset-0 bg-brand-primary/40 group-hover:bg-brand-primary/20 transition"></div>
+          <div class="relative z-10 w-24 h-24 bg-brand-accent rounded-full flex items-center justify-center text-white text-3xl shadow-2xl transform group-hover:scale-110 transition duration-300">
+            <i class="fas fa-play ml-1"></i>
+          </div>
+          <span class="absolute bottom-6 left-6 text-white font-bold tracking-wider text-sm bg-black/60 backdrop-blur-md px-4 py-2 rounded-full border border-white/20"><i class="fas fa-vr-cardboard mr-2 text-brand-accent"></i> Launch 360° Interactive Preview</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Virtual Tour Modal -->
+    <div id="tour-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+      <div class="bg-brand-primary max-w-3xl w-full rounded-sm border border-brand-accent/40 overflow-hidden shadow-2xl relative animate-fadeIn">
+        <div class="p-6 flex justify-between items-center border-b border-white/10">
+          <h3 class="text-xl font-bold text-white"><i class="fas fa-vr-cardboard text-brand-accent mr-2"></i> GTU Campus Interactive Tour</h3>
+          <button onclick="closeTourModal()" class="text-white/60 hover:text-white text-2xl focus:outline-none">&times;</button>
+        </div>
+        <div class="aspect-video bg-black relative flex items-center justify-center overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1920&q=80" alt="Virtual Campus" class="w-full h-full object-cover opacity-80" />
+          <div class="absolute inset-0 bg-gradient-to-t from-brand-primary via-transparent to-transparent"></div>
+          <div class="absolute text-center p-8">
+            <span class="inline-block px-3 py-1 bg-brand-accent text-white text-xs font-bold uppercase rounded-full mb-3">Live Interactive Simulation</span>
+            <h4 class="text-2xl md:text-3xl font-bold text-white mb-2">Welcome to Main Quad & Innovation Center</h4>
+            <p class="text-white/80 text-sm max-w-md mx-auto">Use drag-and-zoom controls in the full interactive experience or schedule an on-campus VIP tour with an admissions guide.</p>
+            <button onclick="closeTourModal()" class="mt-6 bg-brand-accent hover:bg-brand-accent-hover text-white px-6 py-2.5 rounded-sm font-bold text-sm shadow-lg transition">Continue Exploring Campus &rarr;</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Testimonial -->
+    <section class="py-24 bg-brand-primary text-white">
+      <div class="max-w-4xl mx-auto px-4 text-center" data-aos="zoom-in">
+        <i class="fas fa-quote-left text-5xl text-brand-accent mb-8 opacity-50"></i>
+        <h3 class="text-2xl md:text-4xl font-serif leading-relaxed mb-10 text-white font-light">"GTU didn't just give me a degree; it gave me the network, skills, and confidence to launch my own startup right after graduation."</h3>
+        <p class="font-bold text-brand-accent text-lg">Elena Rostova</p>
+        <p class="text-white/60">B.S. Computer Science, Class of '24</p>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary pt-20 pb-10 text-gray-400">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-gray-800 pb-16">
+          <div class="col-span-1 md:col-span-1">
+            <h4 class="text-white text-2xl font-serif font-bold mb-6"><i class="fas fa-university text-brand-accent mr-2"></i> GTU</h4>
+            <p class="text-sm mb-6 leading-relaxed">Global Tech University is a leading academic institution fostering innovation, research, and global leadership.</p>
+          </div>
+          <div>
+            <h5 class="text-white font-bold mb-6 tracking-wider uppercase text-sm">Admissions</h5>
+            <ul class="space-y-3 text-sm">
+              <li><a href="#" class="hover:text-white transition">Undergraduate</a></li>
+              <li><a href="#" class="hover:text-white transition">Graduate</a></li>
+              <li><a href="#" class="hover:text-white transition">Financial Aid</a></li>
+              <li><a href="#" class="hover:text-white transition">International Students</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-white font-bold mb-6 tracking-wider uppercase text-sm">Academics</h5>
+            <ul class="space-y-3 text-sm">
+              <li><a href="#" class="hover:text-white transition">Colleges & Schools</a></li>
+              <li><a href="#" class="hover:text-white transition">Programs & Degrees</a></li>
+              <li><a href="#" class="hover:text-white transition">Libraries</a></li>
+              <li><a href="#" class="hover:text-white transition">Research</a></li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="text-white font-bold mb-6 tracking-wider uppercase text-sm">Connect</h5>
+            <ul class="space-y-3 text-sm">
+              <li><a href="#" class="hover:text-white transition">Contact Us</a></li>
+              <li><a href="#" class="hover:text-white transition">Directory</a></li>
+              <li><a href="#" class="hover:text-white transition">News & Events</a></li>
+            </ul>
+            <div class="flex space-x-4 mt-6">
+              <a href="#" class="text-gray-400 hover:text-white text-lg"><i class="fab fa-linkedin"></i></a>
+              <a href="#" class="text-gray-400 hover:text-white text-lg"><i class="fab fa-twitter"></i></a>
+              <a href="#" class="text-gray-400 hover:text-white text-lg"><i class="fab fa-instagram"></i></a>
+            </div>
+          </div>
+        </div>
+        <div class="pt-8 text-center text-sm text-gray-500">
+          &copy; 2026 Global Tech University. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Floating Apply Button for Mobile -->
+    <button onclick="openApplyModal()" class="md:hidden fixed bottom-6 right-6 bg-brand-accent text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl z-50">
+      <i class="fas fa-paper-plane text-xl"></i>
+    </button>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      function openTourModal() {
+        document.getElementById('tour-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeTourModal() {
+        document.getElementById('tour-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      function openApplyModal() {
+        document.getElementById('apply-modal').classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeApplyModal() {
+        document.getElementById('apply-modal').classList.add('hidden');
+        document.body.style.overflow = 'auto';
+      }
+
+      function showGTUModal(title, message) {
+        let modal = document.getElementById('gtuModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'gtuModal';
+          modal.className = 'fixed inset-0 bg-black/85 backdrop-blur-md z-[120] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-[#0c182b] border-2 border-brand-accent p-8 max-w-md w-full text-center shadow-2xl relative animate-fadeIn rounded-lg">
+            <button onclick="document.getElementById('gtuModal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl">&times;</button>
+            <div class="w-14 h-14 rounded-full bg-brand-accent/20 border border-brand-accent text-brand-accent text-2xl flex items-center justify-center mx-auto mb-4 shadow-lg"><i class="fas fa-graduation-cap"></i></div>
+            <h4 class="font-serif text-2xl text-white font-bold mb-3">${title}</h4>
+            <p class="text-xs text-gray-300 font-normal leading-relaxed mb-6">${message}</p>
+            <button onclick="document.getElementById('gtuModal').remove()" class="w-full bg-brand-accent text-white py-3.5 text-xs uppercase tracking-widest font-bold hover:bg-brand-accent-hover transition rounded shadow-md">Enter Applicant Portal</button>
+          </div>
+        `;
+      }
+    </script>
+
+    <!-- University Apply Modal -->
+    <div id="apply-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+      <div class="bg-[#0c182b] max-w-xl w-full rounded border border-brand-accent/40 overflow-hidden shadow-2xl relative p-6 text-white animate-fadeIn">
+        <div class="flex justify-between items-center border-b border-white/10 pb-4 mb-4">
+          <h3 class="text-2xl font-bold text-white"><i class="fas fa-user-graduate text-brand-accent mr-2"></i> GTU Application Portal</h3>
+          <button onclick="closeApplyModal()" class="text-white/60 hover:text-white text-2xl">&times;</button>
+        </div>
+        <form onSubmit="event.preventDefault(); closeApplyModal(); showGTUModal('Application Dossier Created', 'Welcome to Global Tech University! We have generated your applicant ID and dispatched secure portal verification links to your email.');" class="space-y-4">
+          <div>
+            <label class="block text-xs uppercase font-bold text-gray-400 mb-1">Full Legal Name</label>
+            <input type="text" required placeholder="Dr. / Mr. / Ms." class="w-full bg-black/40 border border-white/20 p-2.5 rounded text-sm focus:border-brand-accent outline-none text-white" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-gray-400 mb-1">Email Address</label>
+            <input type="email" required placeholder="applicant@university.edu" class="w-full bg-black/40 border border-white/20 p-2.5 rounded text-sm focus:border-brand-accent outline-none text-white" />
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-gray-400 mb-1">Degree Program Interest</label>
+            <select class="w-full bg-black/40 border border-white/20 p-2.5 rounded text-sm focus:border-brand-accent outline-none text-white">
+              <option>B.S. in Artificial Intelligence & Robotics</option>
+              <option>B.S. in Bio-Engineering & Genetics</option>
+              <option>M.S. in Quantum Computing</option>
+              <option>Ph.D. in Theoretical Astrophysics</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs uppercase font-bold text-gray-400 mb-1">Term</label>
+            <select class="w-full bg-black/40 border border-white/20 p-2.5 rounded text-sm focus:border-brand-accent outline-none text-white">
+              <option>Fall Semester 2026</option>
+              <option>Spring Semester 2027</option>
+            </select>
+          </div>
+          <button type="submit" class="w-full bg-brand-accent hover:bg-brand-accent-hover text-white font-bold py-3.5 rounded transition shadow-lg mt-2">Start Online Application &rarr;</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

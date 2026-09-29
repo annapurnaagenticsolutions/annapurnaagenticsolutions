@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0d1117" />
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <meta name="description" content="100 Python mini-projects using interesting, lesser-known, and powerful packages from PyPI. The hidden gems that solve real problems elegantly but rarely get attention." />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Python Hidden Gems — 100 Projects Using Packages You've Never Heard Of" />
+  <meta property="og:description" content="100 Python mini-projects using interesting, lesser-known, and powerful packages from PyPI." />
+  <meta property="og:url" content="https://annapurnaagenticsolutions.github.io/annapurna-portal/software-lab/python-hidden-gems/" />
+  <meta property="og:site_name" content="Annapurna Agentic Solutions" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Python Hidden Gems — 100 Projects" />
+  <meta name="twitter:description" content="100 Python mini-projects using packages you've never heard of." />
+  <title>Python Hidden Gems — 100 Projects Using Packages You've Never Heard Of</title>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LearningResource",
+    "name": "Python Hidden Gems",
+    "url": "https://annapurnaagenticsolutions.github.io/annapurna-portal/software-lab/python-hidden-gems/",
+    "description": "100 Python mini-projects using interesting, lesser-known, and powerful packages from PyPI.",
+    "educationalLevel": "Intermediate",
+    "learningResourceType": "Code Project Collection",
+    "inLanguage": "en",
+    "isAccessibleForFree": true,
+    "publisher": {
+      "@type": "Organization",
+      "name": "Annapurna Agentic Solutions",
+      "url": "https://annapurna.ai"
+    },
+    "about": [
+      {"@type": "Thing", "name": "Python"},
+      {"@type": "Thing", "name": "PyPI"},
+      {"@type": "Thing", "name": "Open Source"}
+    ]
+  }
+  </script>
+  <style>
+    :root {
+      --bg: #0d1117;
+      --panel: #161b22;
+      --border: #30363d;
+      --ink: #e6edf3;
+      --muted: #8b949e;
+      --accent: #3fb950;
+      --link: #58a6ff;
+      --tag: #1f6feb;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--ink); line-height: 1.6; }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .hero { text-align: center; padding: 60px 20px 40px; border-bottom: 1px solid var(--border); }
+    .hero h1 { font-size: 2.5em; margin-bottom: 10px; }
+    .hero h1 .gem { color: var(--accent); }
+    .hero p { color: var(--muted); font-size: 1.15em; max-width: 600px; margin: 0 auto 20px; }
+    .badges { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .badge { background: var(--panel); border: 1px solid var(--border); padding: 4px 12px; border-radius: 20px; font-size: 0.85em; color: var(--muted); }
+    .badge .dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .dot-green { background: var(--accent); }
+    .dot-orange { background: #d29922; }
+    .dot-blue { background: var(--tag); }
+    .container { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+    .section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .section-head h2 { font-size: 1.4em; }
+    .section-head .count { background: var(--tag); color: #fff; padding: 2px 10px; border-radius: 12px; font-size: 0.8em; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; transition: border-color 0.2s; }
+    .card:hover { border-color: var(--accent); }
+    .card .num { color: var(--muted); font-size: 0.8em; font-weight: 600; }
+    .card h3 { font-size: 1.05em; margin: 4px 0 8px; }
+    .card .pkg { display: inline-block; background: #1c2128; border: 1px solid var(--border); padding: 2px 8px; border-radius: 6px; font-family: 'SF Mono', Consolas, monospace; font-size: 0.8em; color: var(--accent); margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 0.9em; }
+    .card .status { display: inline-block; margin-top: 8px; font-size: 0.75em; padding: 2px 8px; border-radius: 10px; }
+    .status-done { background: rgba(63,185,80,0.15); color: var(--accent); }
+    .status-wip { background: rgba(210,153,34,0.15); color: #d29922; }
+    .footer { text-align: center; padding: 30px 20px; border-top: 1px solid var(--border); color: var(--muted); font-size: 0.9em; }
+    .footer a { color: var(--link); }
+    .filter-bar { display: flex; gap: 8px; margin-bottom: 24px; flex-wrap: wrap; }
+    .filter-btn { background: var(--panel); border: 1px solid var(--border); color: var(--muted); padding: 6px 14px; border-radius: 20px; cursor: pointer; font-size: 0.85em; }
+    .filter-btn.active { background: var(--tag); color: #fff; border-color: var(--tag); }
+    @media (max-width: 600px) { .hero h1 { font-size: 1.8em; } .grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <div class="hero">
+    <h1>Python <span class="gem">Hidden Gems</span></h1>
+    <p>100 Python mini-projects using interesting, lesser-known, and powerful packages from PyPI. The hidden gems that solve real problems elegantly but rarely get attention.</p>
+    <div class="badges">
+      <span class="badge"><span class="dot dot-green"></span>MIT Licensed</span>
+      <span class="badge"><span class="dot dot-green"></span>20 Working</span>
+      <span class="badge"><span class="dot dot-orange"></span>80 WIP — Good First Issues</span>
+      <span class="badge"><span class="dot dot-blue"></span>100 Projects</span>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="filter-bar">
+      <button class="filter-btn active" onclick="filterProjects('all')">All</button>
+      <button class="filter-btn" onclick="filterProjects('done')">Working</button>
+      <button class="filter-btn" onclick="filterProjects('wip')">WIP</button>
+      <button class="filter-btn" onclick="filterProjects('ai')">AI / LLM</button>
+      <button class="filter-btn" onclick="filterProjects('data')">Data / ETL</button>
+      <button class="filter-btn" onclick="filterProjects('devops')">DevOps / Infra</button>
+      <button class="filter-btn" onclick="filterProjects('media')">Media / Multimodal</button>
+    </div>
+
+    <div class="section-head">
+      <h2>Phase 1 — Working Now</h2>
+      <span class="count">20 done</span>
+    </div>
+    <div class="grid" id="phase1">
+      <div class="card" data-cat="media" data-status="done"><span class="num">01</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/01_the-glitch-art-generator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">The Glitch Art Generator</a></h3><span class="pkg">pillow, numpy</span><p>Corrupts image channels & spatial warps to create glitch art</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="media" data-status="done"><span class="num">02</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/02_audio-reactive-terminal" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Audio-Reactive Terminal</a></h3><span class="pkg">soundcard, rich</span><p>Real-time audio visualization in your terminal</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="media" data-status="done"><span class="num">03</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/03_automated-youtube-shorts" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Automated YouTube Shorts</a></h3><span class="pkg">yt-dlp, moviepy</span><p>Downloads videos and extracts short clips automatically</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="media" data-status="done"><span class="num">04</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/04_facial-recognition-security-cam" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Facial Recognition Security Cam</a></h3><span class="pkg">face-recognition</span><p>Webcam face detection with logging and alerts</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">05</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/05_pdf-presentation-maker" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">PDF Presentation Maker</a></h3><span class="pkg">fpdf2</span><p>Generates PDF slide decks from markdown-ish input</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">06</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/06_qr-code-art" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">QR Code Art</a></h3><span class="pkg">qrcode, pillow</span><p>Generates stylized QR codes with embedded images</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="ai" data-status="done"><span class="num">07</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/07_the-structured-output-enforcer" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Structured Output Enforcer</a></h3><span class="pkg">pydantic, instructor</span><p>Forces LLM outputs into validated JSON schemas</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="ai" data-status="done"><span class="num">08</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/08_local-vector-brain" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Local Vector Brain</a></h3><span class="pkg">chromadb</span><p>In-memory vector search without a server</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">09</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/09_codebase-interrogator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Codebase Interrogator</a></h3><span class="pkg">radon, ast</span><p>Analyzes Python codebases for complexity & maintainability</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">10</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/10_the-aggressive-linter-ai" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">The Aggressive Linter AI</a></h3><span class="pkg">ruff</span><p>Runs ruff with custom rules and AI-suggested fixes</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">11</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/11_self-healing-web-scraper" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Self-Healing Web Scraper</a></h3><span class="pkg">httpx, tenacity, selectolax</span><p>Scrapes with retry, fallback, and auto-repair</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="media" data-status="done"><span class="num">12</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/12_the-local-audio-transcriber" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Local Audio Transcriber</a></h3><span class="pkg">faster-whisper</span><p>Offline speech-to-text using Whisper models</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">13</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/13_billion-row-cruncher" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Billion-Row Cruncher</a></h3><span class="pkg">polars</span><p>Processes 1M+ rows in seconds using Polars</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">14</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/14_the-ultimate-json-parser" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">The Ultimate JSON Parser</a></h3><span class="pkg">orjson, msgspec</span><p>Parses & validates JSON 10x faster than stdlib</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">15</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/15_async-network-scanner" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Async Network Scanner</a></h3><span class="pkg">asyncio</span><p>Concurrent port scanner using raw asyncio</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">16</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/16_log-anomaly-detector" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Log Anomaly Detector</a></h3><span class="pkg">glom, regex</span><p>Extracts & detects anomalies in structured logs</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">17</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/17_memory-leak-hunter" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Memory Leak Hunter</a></h3><span class="pkg">pympler, tracemalloc</span><p>Tracks Python memory allocations & finds leaks</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="devops" data-status="done"><span class="num">18</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/18_the-immutable-cache" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">The Immutable Cache</a></h3><span class="pkg">diskcache</span><p>Persistent, fast, file-backed cache that survives restarts</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">19</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/19_resilient-data-miner" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Resilient Data Miner</a></h3><span class="pkg">httpx, parsel</span><p>Mines data from multiple sources with XPath resilience</p><span class="status status-done">Working</span></div>
+      <div class="card" data-cat="data" data-status="done"><span class="num">20</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/20_dark-web-rss-feed" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Dark Web RSS Feed</a></h3><span class="pkg">feedparser, httpx</span><p>Aggregates RSS feeds from any source with filtering</p><span class="status status-done">Working</span></div>
+    </div>
+
+    <div class="section-head">
+      <h2>Phase 2 — Agentic AI & Data Engineering</h2>
+      <span class="count">21-40</span>
+    </div>
+    <div class="grid" id="phase2">
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">21</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/21_api-wrapper-generator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">API Wrapper Generator</a></h3><span class="pkg">datamodel-code-generator</span><p>Auto-generates Python API clients from OpenAPI specs</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">22</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/22_the-god-mode-shell" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">The God Mode Shell</a></h3><span class="pkg">prompt_toolkit</span><p>AI-enhanced shell with command suggestions and history search</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">23</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/23_folder-guardian" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Folder Guardian</a></h3><span class="pkg">watchdog</span><p>Monitors directories and triggers actions on file changes</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="data" data-status="wip"><span class="num">24</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/24_interactive-db-explorer" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Interactive DB Explorer</a></h3><span class="pkg">textual</span><p>TUI for browsing SQLite/Postgres with rich rendering</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">25</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/25_the-universal-converter-cli" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Universal Converter CLI</a></h3><span class="pkg">pint, pandas</span><p>Converts between units, currencies, and data formats</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">31</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/31_agentic-knowledge-graph-builder" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Agentic Knowledge Graph Builder</a></h3><span class="pkg">networkx, spacy</span><p>Builds knowledge graphs from unstructured text</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">34</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/34_multi-agent-debate-arbitrator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Multi-Agent Debate Arbitrator</a></h3><span class="pkg">autogen</span><p>Multiple AI agents debate and reach consensus</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">35</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/35_llm-cost-token-router" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">LLM Cost Token Router</a></h3><span class="pkg">litellm</span><p>Routes LLM calls by cost, latency, and token budget</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">37</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/37_semantic-codebase-search" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Semantic Codebase Search</a></h3><span class="pkg">chromadb, tree-sitter</span><p>Search code by meaning, not just text</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="data" data-status="wip"><span class="num">40</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/40_synthetic-test-data-factory" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Synthetic Test Data Factory</a></h3><span class="pkg">faker, mimesis</span><p>Generates realistic test data for any schema</p><span class="status status-wip">WIP</span></div>
+    </div>
+
+    <div class="section-head">
+      <h2>Phase 3 — DevOps, Infrastructure & Security</h2>
+      <span class="count">41-80</span>
+    </div>
+    <div class="grid" id="phase3">
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">62</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/62_zero-day-vulnerability-scanner" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Zero-Day Vulnerability Scanner</a></h3><span class="pkg">pip-audit, safety</span><p>Scans dependencies for known CVEs</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">65</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/65_agentic-cloud-cost-optimizer" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Agentic Cloud Cost Optimizer</a></h3><span class="pkg">boto3, rich</span><p>Analyzes cloud spend and suggests savings</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">68</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/68_self-healing-docker-orchestrator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Self-Healing Docker Orchestrator</a></h3><span class="pkg">docker, tenacity</span><p>Auto-restarts unhealthy containers with diagnostics</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="devops" data-status="wip"><span class="num">73</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/73_zombie-process-hunter" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Zombie Process Hunter</a></h3><span class="pkg">psutil</span><p>Finds and kills orphaned processes consuming resources</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">76</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/76_agentic-prompt-optimizer" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Agentic Prompt Optimizer</a></h3><span class="pkg">dspy</span><p>Automatically optimizes LLM prompts for better outputs</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="ai" data-status="wip"><span class="num">78</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/78_rag-hallucination-detector" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">RAG Hallucination Detector</a></h3><span class="pkg">guardrails-ai</span><p>Detects when RAG systems hallucinate beyond sources</p><span class="status status-wip">WIP</span></div>
+    </div>
+
+    <div class="section-head">
+      <h2>Phase 4 — Media, Multimodal & Generative</h2>
+      <span class="count">81-100</span>
+    </div>
+    <div class="grid" id="phase4">
+      <div class="card" data-cat="media" data-status="wip"><span class="num">86</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/86_autonomous-video-highlight-editor" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Autonomous Video Highlight Editor</a></h3><span class="pkg">opencv, moviepy</span><p>AI detects and extracts highlights from long videos</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="media" data-status="wip"><span class="num">89</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/89_multimodal-document-parser" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Multimodal Document Parser</a></h3><span class="pkg">unstructured, pytesseract</span><p>Parses PDFs with text, tables, images, and charts</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="media" data-status="wip"><span class="num">92</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/92_autonomous-meme-generator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Autonomous Meme Generator</a></h3><span class="pkg">pillow, openai</span><p>AI generates memes from text prompts</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="media" data-status="wip"><span class="num">95</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/95_autonomous-slide-deck-generator" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Autonomous Slide Deck Generator</a></h3><span class="pkg">python-pptx, openai</span><p>AI creates presentation slides from a topic</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="media" data-status="wip"><span class="num">98</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/98_audio-deepfake-detector" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Audio Deepfake Detector</a></h3><span class="pkg">librosa, sklearn</span><p>Detects AI-generated audio with spectral analysis</p><span class="status status-wip">WIP</span></div>
+      <div class="card" data-cat="media" data-status="wip"><span class="num">100</span><h3><a href="https://github.com/annapurnaagenticsolutions/annapurna-portal/tree/main/software-lab/python-hidden-gems/100_universal-media-transmuter" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: none;" onmouseover="this.style.color='var(--link)'" onmouseout="this.style.color='inherit'">Universal Media Transmuter</a></h3><span class="pkg">ffmpeg-python</span><p>Converts any media format to any other format</p><span class="status status-wip">WIP</span></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>Python Hidden Gems by <a href="https://annapurna.ai">Annapurna Agentic Solutions</a> — MIT Licensed</p>
+    <p style="margin-top:8px"><a href="https://github.com/annapurna-agentics/python-hidden-gems">View on GitHub</a></p>
+  </div>
+
+  <script>
+    function filterProjects(cat) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      document.querySelectorAll('.card').forEach(c => {
+        if (cat === 'all' || c.dataset.cat === cat || (cat === 'done' && c.dataset.status === 'done') || (cat === 'wip' && c.dataset.status === 'wip')) {
+          c.style.display = '';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

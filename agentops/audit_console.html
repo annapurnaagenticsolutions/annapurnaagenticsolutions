@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Audit Event Bus | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <main class="container">
+    <section class="hero compact">
+      <p class="eyebrow">v1.3 Control Plane</p>
+      <h1>Audit Event Bus and Decision History</h1>
+      <p class="lead">A normalized audit backbone for governance, policy, runtime, sandbox, security, storage, and accelerator decisions.</p>
+      <div class="hero-actions">
+        <a class="button" href="index.html">Home</a>
+        <a class="button secondary" href="storage_console.html">Storage Console</a>
+      </div>
+    </section>
+
+    <section class="grid cols-3" id="summary"></section>
+
+    <section class="panel">
+      <div class="section-heading">
+        <p class="eyebrow">Decision history</p>
+        <h2>Recent normalized audit events</h2>
+      </div>
+      <div id="events" class="stack"></div>
+    </section>
+  </main>
+  <script>
+    async function loadJson(path){ const res = await fetch(path); return res.json(); }
+    function pill(value){ return `<span class="pill">${value}</span>`; }
+    async function render(){
+      const [events, summary] = await Promise.all([loadJson('data/audit_events.json'), loadJson('data/audit_summary.json')]);
+      document.getElementById('summary').innerHTML = `
+        <article class="card"><h3>Total Events</h3><p class="metric">${summary.total_events}</p><p>Normalized control-plane decisions.</p></article>
+        <article class="card"><h3>Tenants</h3><p class="metric">${summary.tenant_count}</p><p>Tenant-aware audit inspection.</p></article>
+        <article class="card"><h3>Decision Outcomes</h3><p>${Object.entries(summary.decision_outcome_counts).map(([k,v]) => `${pill(k)} ${v}`).join('<br/>')}</p></article>`;
+      document.getElementById('events').innerHTML = events.map(ev => `
+        <article class="card wide">
+          <div class="row between"><h3>${ev.action}</h3>${pill(ev.decision_outcome)}</div>
+          <p><strong>Tenant:</strong> ${ev.tenant_id} · <strong>Agent:</strong> ${ev.agent_id} · <strong>Source:</strong> ${ev.source_system}</p>
+          <p>${ev.rationale}</p>
+          <p><strong>Controls:</strong> ${ev.required_controls.map(pill).join(' ') || 'None'}</p>
+          <p class="muted">${ev.created_at} · ${ev.event_type} · ${ev.subject_type}:${ev.subject_id}</p>
+        </article>`).join('');
+    }
+    render();
+  </script>
+</body>
+</html>
+
+

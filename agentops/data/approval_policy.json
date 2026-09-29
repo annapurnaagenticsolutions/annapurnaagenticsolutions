@@ -1,0 +1,33 @@
+{
+  "version": "1.4.0",
+  "reviewer_roles": [
+    "business_owner",
+    "governance_reviewer",
+    "security_reviewer",
+    "platform_admin"
+  ],
+  "self_approval_policy": "requester_cannot_self_approve_except_platform_admin_breakglass",
+  "approval_required_when": [
+    "target_environment is production",
+    "tool side_effect_class is reversible_write, irreversible_action, or system_of_record_update",
+    "tool risk level is High or Critical",
+    "financial impact is medium or high",
+    "output destination is external",
+    "requested action touches system-of-record data"
+  ],
+  "live_connector_readiness_gates": [
+    "approval_workflow_enabled",
+    "audit_event_bus_enabled",
+    "tenant_scoped_storage_enabled",
+    "policy_as_code_enforced",
+    "sandbox_dry_run_passed",
+    "rollback_or_compensation_plan_defined",
+    "production_secrets_not_stored_in_repo"
+  ],
+  "default_conditions_for_approval": [
+    "dry_run_before_live_execution",
+    "trace_ledger_required",
+    "human_final_review_required_for_external_action",
+    "evidence_ids_must_be_linked"
+  ]
+}

@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Public Site UX Console | Open Enterprise AgentOps Mesh</title>
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, sans-serif; margin: 0; background: #f8fafc; color: #111827; }
+    header { padding: 44px 6vw; background: #0f172a; color: white; }
+    main { padding: 32px 6vw 64px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e5e7eb; border-radius: 16px; padding: 18px; }
+    code { background: #eef2ff; padding: 2px 6px; border-radius: 6px; }
+    .score { font-size: 42px; font-weight: 800; }
+  </style>
+</head>
+<body>
+<header>
+  <p>v2.6 adoption release</p>
+  <h1>Public Site UX Console</h1>
+  <p>Audience routing, demo-path readiness, UX copy, page inventory, and public navigation evidence.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <div class="card"><h2>UX readiness</h2><div class="score">95</div><p>Decision: public_site_ux_ready</p></div>
+    <div class="card"><h2>Primary demo</h2><p><strong>Procurement governed-agent demo</strong></p><p>7-step journey from business intent to readiness report.</p></div>
+    <div class="card"><h2>Audience paths</h2><p>Executive, architect, governance owner, contributor.</p></div>
+    <div class="card"><h2>Boundary</h2><p>Live providers, live connectors, raw secrets, and production IAM remain disabled.</p></div>
+  </section>
+  <section class="card" style="margin-top:24px">
+    <h2>API endpoints</h2>
+    <p><code>GET /public-site/readiness</code></p>
+    <p><code>GET /public-site/navigation</code></p>
+    <p><code>GET /public-site/demo-paths</code></p>
+    <p><code>GET /public-site/interactive-report</code></p>
+  </section>
+</main>
+</body>
+</html>
+

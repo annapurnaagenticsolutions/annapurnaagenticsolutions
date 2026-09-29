@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deployment Profiles Console | Open Enterprise AgentOps Mesh</title>
+  <style>
+    body{font-family:Inter,Segoe UI,Arial,sans-serif;margin:0;background:#0f172a;color:#e5e7eb}header{padding:34px 44px;background:linear-gradient(135deg,#111827,#1e293b)}main{padding:28px 44px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}.card{background:#111827;border:1px solid #334155;border-radius:16px;padding:20px;box-shadow:0 16px 45px rgba(0,0,0,.18)}.pill{display:inline-block;padding:5px 10px;border-radius:999px;background:#1f2937;color:#93c5fd;font-size:12px}.warn{color:#fbbf24}.ok{color:#86efac}code{background:#020617;padding:2px 6px;border-radius:6px}.muted{color:#94a3b8}.bar{height:8px;background:#1f2937;border-radius:999px;overflow:hidden}.fill{height:8px;background:#93c5fd;width:85%}a{color:#93c5fd}</style>
+</head>
+<body>
+<header>
+  <span class="pill">v2.3 deployment readiness</span>
+  <h1>Reference Deployment Profiles</h1>
+  <p class="muted">Local dev, Docker Compose, GitHub Pages, and enterprise non-production reference profiles. Live connectors and live providers remain disabled.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <div class="card"><h2>Local Dev</h2><p>Python/FastAPI, static site, local JSON persistence.</p><p class="ok">Ready for contributor onboarding</p></div>
+    <div class="card"><h2>Docker Compose</h2><p>Repeatable local demo using <code>agentops-api</code> and <code>agentops-site</code>.</p><p class="ok">Reference profile ready</p></div>
+    <div class="card"><h2>GitHub Pages</h2><p>Static-only public demo for industry presence.</p><p class="ok">Public demo ready</p></div>
+    <div class="card"><h2>Enterprise Non-Prod</h2><p>Architecture guidance for pilot planning with IAM, vault, database, and audit sink.</p><p class="warn">Reference only, not certified</p></div>
+  </section>
+  <section class="card" style="margin-top:22px">
+    <h2>Safety boundary</h2>
+    <ul>
+      <li>Live connectors disabled</li>
+      <li>Live model providers disabled</li>
+      <li>Raw secrets forbidden</li>
+      <li>Docker Compose is local-demo only</li>
+    </ul>
+  </section>
+</main>
+</body>
+</html>
+

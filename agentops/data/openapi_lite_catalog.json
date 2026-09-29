@@ -1,0 +1,296 @@
+{
+  "version": "2.1.0",
+  "catalog_type": "openapi_lite",
+  "source": "curated_from_fastapi_routes",
+  "groups": [
+    {
+      "group": "Core",
+      "purpose": "Health, weights, risk, and evaluation",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/health",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/weights",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/classify-risk",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/evaluate",
+          "stability": "stable",
+          "side_effects": "none"
+        }
+      ]
+    },
+    {
+      "group": "Governance and policy",
+      "purpose": "Use-case lifecycle, policy decisions, and approvals",
+      "endpoints": [
+        {
+          "method": "POST",
+          "path": "/governance/run",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        },
+        {
+          "method": "POST",
+          "path": "/policy/check",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        },
+        {
+          "method": "GET",
+          "path": "/approvals",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/approvals/request",
+          "stability": "stable",
+          "side_effects": "local_json_write"
+        },
+        {
+          "method": "POST",
+          "path": "/approvals/{approval_id}/decide",
+          "stability": "stable",
+          "side_effects": "local_json_write"
+        }
+      ]
+    },
+    {
+      "group": "Registry, evidence, audit",
+      "purpose": "Agent records, evidence, audit events, and decision history",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/registry/agents",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/registry/agents",
+          "stability": "stable",
+          "side_effects": "local_json_write"
+        },
+        {
+          "method": "GET",
+          "path": "/evidence",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/evidence",
+          "stability": "stable",
+          "side_effects": "local_json_write"
+        },
+        {
+          "method": "GET",
+          "path": "/audit/events",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/audit/events",
+          "stability": "stable",
+          "side_effects": "local_json_write"
+        },
+        {
+          "method": "GET",
+          "path": "/audit/summary",
+          "stability": "stable",
+          "side_effects": "none"
+        }
+      ]
+    },
+    {
+      "group": "Runtime and observability",
+      "purpose": "Mock runtime enforcement, provider registry, and trace ledger",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/runtime/providers",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/runtime/execute",
+          "stability": "stable",
+          "side_effects": "mock_execution_and_trace"
+        },
+        {
+          "method": "GET",
+          "path": "/observability/summary",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/observability/traces",
+          "stability": "stable",
+          "side_effects": "none"
+        }
+      ]
+    },
+    {
+      "group": "Security, identity, storage",
+      "purpose": "RBAC, tenant storage, identity simulation, and secret references",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/security/posture",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/security/access/check",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        },
+        {
+          "method": "GET",
+          "path": "/storage/posture",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/storage/migration/plan",
+          "stability": "stable",
+          "side_effects": "plan_only"
+        },
+        {
+          "method": "POST",
+          "path": "/identity/token/simulate",
+          "stability": "stable",
+          "side_effects": "simulated_token_only"
+        },
+        {
+          "method": "POST",
+          "path": "/secrets/access/check",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        }
+      ]
+    },
+    {
+      "group": "Connectors and providers",
+      "purpose": "Sandboxed/dry-run connector contracts and provider/model routing governance",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/connectors",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/tools/sandbox/execute",
+          "stability": "stable",
+          "side_effects": "simulated_tool_run"
+        },
+        {
+          "method": "GET",
+          "path": "/connector-contracts",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "POST",
+          "path": "/connectors/dry-run/execute",
+          "stability": "stable",
+          "side_effects": "dry_run_only"
+        },
+        {
+          "method": "POST",
+          "path": "/live-connectors/evaluate",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        },
+        {
+          "method": "POST",
+          "path": "/provider-gateway/route",
+          "stability": "stable",
+          "side_effects": "decision_only"
+        },
+        {
+          "method": "POST",
+          "path": "/model-safety/review",
+          "stability": "stable",
+          "side_effects": "local_review_record"
+        }
+      ]
+    },
+    {
+      "group": "Control plane",
+      "purpose": "Capability map, demo flow, API catalog, and release/adoption status",
+      "endpoints": [
+        {
+          "method": "GET",
+          "path": "/control-plane/capabilities",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/demo-flow",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/api-surface",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/openapi-lite",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/contributor-readiness",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/release-status",
+          "stability": "stable",
+          "side_effects": "none"
+        },
+        {
+          "method": "GET",
+          "path": "/control-plane/end-to-end-report",
+          "stability": "stable",
+          "side_effects": "none"
+        }
+      ]
+    }
+  ],
+  "live_execution_boundaries": [
+    "No live connector execution",
+    "No live model provider calls",
+    "No raw secret storage",
+    "No production IAM/OIDC integration",
+    "No irreversible enterprise write-back"
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "version": "2.1.0",
+  "release_name": "Documentation Pruning, OpenAPI Polish, and Contributor Readiness",
+  "status": "stable_public_mvp_adoption_ready",
+  "capability_count": 18,
+  "api_group_count": 9,
+  "test_target": "90+ backend tests including v2.0 control-plane smoke tests",
+  "positioning": "Open-source AgentOps control plane for governing, evaluating, operating, and auditing enterprise AI agents before production.",
+  "recommended_public_tag": "v2.0.0-control-plane-stable",
+  "next_release": "v2.1 \u2014 OpenAPI polish, CLI demos, documentation pruning, and contributor-ready issues",
+  "production_boundary": "The release is a control-plane reference implementation. Live providers, live connectors, raw secrets, production IAM, and irreversible write-back remain disabled.",
+  "recommended_next_release": "v2.3 \u2014 Scenario Library and Benchmark Harness"
+}

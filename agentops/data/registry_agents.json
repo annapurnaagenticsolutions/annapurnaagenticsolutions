@@ -1,0 +1,151 @@
+[
+  {
+    "agent_id": "PROC-AGENT-001",
+    "name": "Procurement Policy and Invoice Assistant",
+    "domain": "Procurement",
+    "business_process": "Vendor, invoice, challan, and procurement policy support",
+    "description": "Assists procurement users with policy lookup, invoice/challan information extraction, vendor query routing, and exception triage. Financial approvals remain human-owned.",
+    "business_owner": "Procurement Operations Lead",
+    "technical_owner": "AI Platform Lead",
+    "status": "pilot_candidate",
+    "autonomy_level": 2,
+    "risk_level": "Medium",
+    "target_environment": "pilot",
+    "model_strategy": {
+      "routing": "vendor_neutral",
+      "preferred_open_models": [
+        "Llama-family instruct model",
+        "Mistral-family instruct model"
+      ],
+      "fallback": "human_review"
+    },
+    "data_sources": [
+      "procurement policies",
+      "invoice templates",
+      "challan templates",
+      "vendor master extract"
+    ],
+    "tool_scopes": [
+      "document_search",
+      "field_extraction",
+      "case_summary"
+    ],
+    "required_controls": [
+      "human approval for payment action",
+      "PII redaction",
+      "retrieval citation requirement"
+    ],
+    "linked_evidence_ids": [
+      "EV-PROC-001",
+      "EV-PROC-002",
+      "EV-PROC-003"
+    ],
+    "versions": [
+      {
+        "version": "0.1.0",
+        "change_summary": "Initial pilot candidate registration with RAG-only behavior and no external write actions.",
+        "evaluation_score": 78.4,
+        "changed_by": "AI Platform Lead",
+        "changed_at": "2026-06-08T00:00:00+05:30"
+      }
+    ],
+    "tags": [
+      "procurement",
+      "rag",
+      "human-in-loop",
+      "pilot"
+    ]
+  },
+  {
+    "agent_id": "HR-AGENT-001",
+    "name": "HR Policy Assistant",
+    "domain": "Human Resources",
+    "business_process": "Employee policy search and eligibility explanation",
+    "description": "Answers employee policy questions with source-grounded responses and escalation for sensitive cases.",
+    "business_owner": "HR Operations Lead",
+    "technical_owner": "Enterprise AI Lead",
+    "status": "intake_review",
+    "autonomy_level": 1,
+    "risk_level": "Medium",
+    "target_environment": "sandbox",
+    "model_strategy": {
+      "routing": "open_model_first",
+      "fallback": "approved_cloud_model"
+    },
+    "data_sources": [
+      "employee handbook",
+      "leave policy",
+      "benefits policy"
+    ],
+    "tool_scopes": [
+      "policy_search",
+      "answer_draft"
+    ],
+    "required_controls": [
+      "sensitive-topic escalation",
+      "source citations",
+      "no eligibility decision without HR validation"
+    ],
+    "linked_evidence_ids": [
+      "EV-HR-001"
+    ],
+    "versions": [],
+    "tags": [
+      "hr",
+      "policy",
+      "low-autonomy"
+    ]
+  },
+  {
+    "agent_id": "DOC-AGENT-001",
+    "name": "Documentation Intelligence Agent",
+    "domain": "Knowledge Management",
+    "business_process": "Enterprise documentation search, summarization, and gap detection",
+    "description": "Helps teams find, summarize, compare, and improve enterprise documentation with evidence-backed answers.",
+    "business_owner": "Knowledge Management Lead",
+    "technical_owner": "AI Platform Lead",
+    "status": "production_candidate",
+    "autonomy_level": 2,
+    "risk_level": "Medium",
+    "target_environment": "production",
+    "model_strategy": {
+      "routing": "vendor_neutral",
+      "fallback": "human_review"
+    },
+    "data_sources": [
+      "architecture docs",
+      "runbooks",
+      "release notes",
+      "SOPs"
+    ],
+    "tool_scopes": [
+      "document_search",
+      "summary_generation",
+      "gap_report"
+    ],
+    "required_controls": [
+      "document permission inheritance",
+      "citation enforcement",
+      "document freshness warning"
+    ],
+    "linked_evidence_ids": [
+      "EV-DOC-001",
+      "EV-DOC-002",
+      "EV-DOC-003"
+    ],
+    "versions": [
+      {
+        "version": "0.2.0",
+        "change_summary": "Added freshness scoring and citation validation before production review.",
+        "evaluation_score": 86.1,
+        "changed_by": "AI Platform Lead",
+        "changed_at": "2026-06-08T00:00:00+05:30"
+      }
+    ],
+    "tags": [
+      "knowledge-management",
+      "documentation",
+      "production-candidate"
+    ]
+  }
+]

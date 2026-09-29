@@ -1,0 +1,91 @@
+{
+  "version": "1.5.0",
+  "identities": [
+    {
+      "identity_id": "svc-procurement-agent-runtime",
+      "tenant_id": "tenant-procurement",
+      "display_name": "Procurement Agent Runtime Identity",
+      "principal_type": "agent_runtime",
+      "roles": [
+        "agent_runtime",
+        "procurement_analyst"
+      ],
+      "allowed_capabilities": [
+        "runtime:execute",
+        "tools:sandbox_execute",
+        "approvals:request",
+        "audit:write"
+      ],
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "allowed_secret_refs": [
+        "secretref-procurement-erp-readonly"
+      ],
+      "allowed_connector_ids": [
+        "procurement_system_mock"
+      ],
+      "max_autonomy_level": 3,
+      "required_controls": [
+        "tenant_context_required",
+        "trace_ledger_required",
+        "no_raw_secret_material"
+      ]
+    },
+    {
+      "identity_id": "svc-hr-policy-agent-runtime",
+      "tenant_id": "tenant-hr",
+      "display_name": "HR Policy Agent Runtime Identity",
+      "principal_type": "agent_runtime",
+      "roles": [
+        "agent_runtime",
+        "hr_analyst"
+      ],
+      "allowed_capabilities": [
+        "runtime:execute",
+        "tools:sandbox_execute",
+        "audit:write"
+      ],
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "allowed_secret_refs": [
+        "secretref-hr-policy-readonly"
+      ],
+      "allowed_connector_ids": [
+        "hr_policy_repository_mock"
+      ],
+      "max_autonomy_level": 2,
+      "required_controls": [
+        "tenant_context_required",
+        "source_scope_review",
+        "no_raw_secret_material"
+      ]
+    },
+    {
+      "identity_id": "svc-breakglass-platform-admin",
+      "tenant_id": "platform",
+      "display_name": "Breakglass Platform Admin Simulation Identity",
+      "principal_type": "service_account",
+      "roles": [
+        "platform_admin"
+      ],
+      "allowed_capabilities": [
+        "*"
+      ],
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "allowed_secret_refs": [],
+      "allowed_connector_ids": [],
+      "max_autonomy_level": 5,
+      "required_controls": [
+        "breakglass_reason_required",
+        "audit_event_required",
+        "time_bound_access_required"
+      ]
+    }
+  ]
+}

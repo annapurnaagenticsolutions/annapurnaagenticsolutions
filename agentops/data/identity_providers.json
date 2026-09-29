@@ -1,0 +1,52 @@
+{
+  "version": "1.5.0",
+  "providers": [
+    {
+      "provider_id": "local-oidc-sim",
+      "display_name": "Local OIDC Simulation Provider",
+      "issuer": "https://agentops.local/oidc-sim",
+      "mode": "oidc_simulated",
+      "status": "enabled_simulation_only",
+      "trust_level": "oidc_simulated",
+      "allowed_tenants": [
+        "tenant-procurement",
+        "tenant-hr"
+      ],
+      "supported_flows": [
+        "authorization_code_simulated",
+        "client_credentials_simulated"
+      ],
+      "required_claims": [
+        "sub",
+        "tenant_id",
+        "roles",
+        "aud",
+        "exp"
+      ],
+      "notes": "No real tokens are issued. Responses are deterministic simulation objects for local control-plane testing."
+    },
+    {
+      "provider_id": "enterprise-idp-placeholder",
+      "display_name": "Enterprise IdP Placeholder",
+      "issuer": "https://idp.example.enterprise",
+      "mode": "configuration_placeholder",
+      "status": "not_connected",
+      "trust_level": "enterprise_verified",
+      "allowed_tenants": [],
+      "supported_flows": [
+        "authorization_code",
+        "client_credentials"
+      ],
+      "required_claims": [
+        "sub",
+        "tenant_id",
+        "groups",
+        "roles",
+        "aud",
+        "exp",
+        "iss"
+      ],
+      "notes": "Design placeholder only. Do not use for authentication until real OIDC validation is implemented."
+    }
+  ]
+}

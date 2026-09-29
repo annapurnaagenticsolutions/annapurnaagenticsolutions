@@ -25,13 +25,13 @@
     },
     {
       "id": "ai-two-listed-live",
-      "statement": "The AI Solutions page currently lists AgentOps Mesh and AXON in its Live section.",
+      "statement": "An earlier AI Solutions source snapshot listed AgentOps Mesh and AXON in its Live section; the migrated primary page now uses Reference and Prototype labels.",
       "status": "source_local",
       "evidenceClass": "public_page",
       "sourceName": "AI Solutions",
       "sourceUrl": "https://annapurnaagenticsolutions.github.io/annapurna-portal/ai-solutions/",
-      "scope": "Available Tools / Live",
-      "note": "This is preserved as a source-local portfolio claim rather than treated as the final maturity verdict for AXON.",
+      "scope": "Historical Available Tools / Live snapshot",
+      "note": "This preserves the earlier source-local wording for traceability. The current primary page uses conservative maturity labels and keeps this historical record separate from current product posture.",
       "conflictsWith": [
         "axon-preproduction"
       ]

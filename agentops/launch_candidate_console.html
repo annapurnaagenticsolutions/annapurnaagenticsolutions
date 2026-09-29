@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Open Enterprise AgentOps Mesh — Launch Candidate Console</title>
+  <style>
+    :root { font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #172033; background: #f7f8fb; }
+    body { margin: 0; }
+    header { padding: 48px 7vw 34px; background: linear-gradient(135deg, #111827, #263852); color: white; }
+    h1 { margin: 0 0 12px; font-size: clamp(2rem, 4vw, 4rem); letter-spacing: -0.04em; }
+    h2 { margin-top: 0; }
+    p { line-height: 1.6; }
+    main { padding: 34px 7vw 60px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 18px; }
+    .card { background: white; border: 1px solid #e4e7ee; border-radius: 18px; padding: 22px; box-shadow: 0 12px 30px rgba(15, 23, 42, 0.06); }
+    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; background: #eef2ff; color: #283593; font-size: 0.82rem; font-weight: 700; }
+    .status { font-size: 2.5rem; font-weight: 800; letter-spacing: -0.05em; }
+    code { background: #f1f5f9; padding: 2px 6px; border-radius: 6px; }
+    ul { padding-left: 1.2rem; }
+    footer { padding: 28px 7vw; color: #526070; }
+  </style>
+</head>
+<body>
+<header>
+  <span class="badge">v2.8 Launch Candidate</span>
+  <h1>Public Launch Candidate Console</h1>
+  <p>GitHub Pages finalization, release-candidate evidence, publication sequence, and public launch copy for Open Enterprise AgentOps Mesh.</p>
+</header>
+<main class="container">
+  <section class="grid">
+    <article class="card"><h2>Decision</h2><div class="status">Ready</div><p>Launch-candidate score: <strong>97</strong>. Live providers and live connectors remain disabled.</p></article>
+    <article class="card"><h2>Pages Source</h2><p>Use <code>/site</code> as the GitHub Pages source. Entry point: <code>index.html</code>.</p></article>
+    <article class="card"><h2>Core Demo</h2><p>Start with <code>interactive_demo_path.html</code>, then move to the release evidence and API catalog pages.</p></article>
+  </section>
+  <section class="grid" style="margin-top:18px;">
+    <article class="card"><h2>Launch Steps</h2><ul><li>Run tests and smoke checks.</li><li>Run public repo validation.</li><li>Run benchmark and evidence reports.</li><li>Enable GitHub Pages from <code>/site</code>.</li><li>Publish launch post and invite feedback.</li></ul></article>
+    <article class="card"><h2>Boundaries</h2><ul><li>No live model-provider calls.</li><li>No live connector execution.</li><li>No raw secrets.</li><li>No production IAM.</li><li>No cloud provisioning.</li></ul></article>
+    <article class="card"><h2>Useful APIs</h2><ul><li><code>/launch-candidate/readiness</code></li><li><code>/launch-candidate/public-report</code></li><li><code>/launch-candidate/github-pages</code></li><li><code>/launch-candidate/social-copy</code></li></ul></article>
+  </section>
+</main>
+<footer>Open Enterprise AgentOps Mesh — public launch candidate package.</footer>
+</body>
+</html>
+

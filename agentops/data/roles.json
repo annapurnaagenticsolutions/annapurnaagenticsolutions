@@ -1,0 +1,111 @@
+{
+  "version": "1.1.0",
+  "roles": [
+    {
+      "role_id": "platform_admin",
+      "display_name": "Platform Administrator",
+      "description": "Owns platform configuration, tenant setup, registry administration, and emergency break-glass review.",
+      "permissions": [
+        "*"
+      ],
+      "risk_ceiling": "Critical",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ]
+    },
+    {
+      "role_id": "governance_reviewer",
+      "display_name": "Governance Reviewer",
+      "description": "Reviews governance workflow results, readiness gates, evidence, and production approval artifacts.",
+      "permissions": [
+        "governance:run",
+        "evaluation:run",
+        "registry:read",
+        "evidence:read",
+        "evidence:write",
+        "observability:read",
+        "security:read"
+      ],
+      "risk_ceiling": "Critical",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ]
+    },
+    {
+      "role_id": "agent_operator",
+      "display_name": "Agent Operator",
+      "description": "Runs controlled runtime and sandbox operations for approved agents.",
+      "permissions": [
+        "evaluation:run",
+        "registry:read",
+        "evidence:read",
+        "policy:check",
+        "runtime:execute",
+        "tools:sandbox_execute",
+        "observability:read",
+        "procurement:run"
+      ],
+      "risk_ceiling": "High",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ]
+    },
+    {
+      "role_id": "business_owner",
+      "display_name": "Business Owner",
+      "description": "Submits use cases, reviews business outcomes, and approves pilot-readiness artifacts.",
+      "permissions": [
+        "evaluation:run",
+        "governance:run",
+        "registry:read",
+        "evidence:read",
+        "evidence:write",
+        "procurement:run"
+      ],
+      "risk_ceiling": "Medium",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ]
+    },
+    {
+      "role_id": "auditor",
+      "display_name": "Auditor",
+      "description": "Read-only inspection of registry, evidence, policy decisions, traces, and security posture.",
+      "permissions": [
+        "registry:read",
+        "evidence:read",
+        "observability:read",
+        "security:read",
+        "policy:check"
+      ],
+      "risk_ceiling": "Critical",
+      "allowed_environments": [
+        "sandbox",
+        "pilot",
+        "production"
+      ]
+    },
+    {
+      "role_id": "developer",
+      "display_name": "Developer",
+      "description": "Builds and tests agents in sandbox with no production write authority.",
+      "permissions": [
+        "evaluation:run",
+        "registry:read",
+        "policy:check",
+        "runtime:execute",
+        "tools:sandbox_execute"
+      ],
+      "risk_ceiling": "Medium",
+      "allowed_environments": [
+        "sandbox"
+      ]
+    }
+  ]
+}

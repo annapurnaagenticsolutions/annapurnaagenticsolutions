@@ -1,0 +1,1489 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Website Studio | The Versatility Vault | Annapurna Agentic Solutions</title>
+  <meta name="description" content="Explore our Versatility Vault: 12 distinct, fully functional, multi-page client website variations across 4 major industries." />
+  <meta name="theme-color" content="#0a0f1d" />
+  <meta name="theme-color" content="#ffffff" />
+  <link rel="stylesheet" href="../assets/portal.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --vault-bg: #ffffff;
+      --vault-soft: #f8fafc;
+      --vault-card: #ffffff;
+      --vault-card-hover: #ffffff;
+      --vault-border: #e2e8f0;
+      --vault-border-hover: #cbd5e1;
+      --vault-text-primary: #0f172a;
+      --vault-text-secondary: #475569;
+      --vault-text-muted: #64748b;
+      --vault-accent: #6366f1;
+      --vault-accent-hover: #4f46e5;
+      --vault-accent-soft: #e0e7ff;
+      --vault-accent-glow: rgba(99, 102, 241, 0.15);
+      --vault-emerald: #10b981;
+      --vault-emerald-soft: #d1fae5;
+      --vault-rose: #f43f5e;
+      --vault-rose-soft: #ffe4e6;
+      --vault-amber: #f59e0b;
+      --vault-amber-soft: #fef3c7;
+      --vault-cyan: #06b6d4;
+      --vault-cyan-soft: #cffafe;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: var(--vault-bg);
+      color: var(--vault-text-primary);
+      overflow-x: hidden;
+      margin: 0;
+    }
+
+    h1, h2, h3, h4, .brand strong {
+      font-family: 'Outfit', sans-serif;
+      color: var(--vault-text-primary);
+    }
+
+    /* Vault Header Override */
+    .vault-header {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--vault-border);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .vault-hero {
+      position: relative;
+      padding: 6rem 1.5rem 4rem;
+      background: radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.08) 0%, rgba(255, 255, 255, 0) 70%),
+                  radial-gradient(circle at 85% 30%, rgba(6, 182, 212, 0.06) 0%, rgba(255, 255, 255, 0) 60%),
+                  linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+      border-bottom: 1px solid var(--vault-border);
+    }
+
+    .vault-hero-content {
+      max-width: 1340px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .vault-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1.1rem;
+      border-radius: 9999px;
+      background: var(--vault-accent-soft);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      color: var(--vault-accent-hover);
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 4px 12px var(--vault-accent-glow);
+    }
+
+    .vault-hero h1 {
+      font-size: clamp(2.6rem, 5.2vw, 4.4rem);
+      font-weight: 800;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--vault-text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .vault-hero p {
+      font-size: 1.2rem;
+      color: var(--vault-text-secondary);
+      max-width: 780px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.65;
+    }
+
+    .vault-metrics {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 3rem auto 0;
+    }
+
+    .metric-box {
+      background: #ffffff;
+      border: 1px solid var(--vault-border);
+      border-radius: 16px;
+      padding: 1.75rem 1.5rem;
+      text-align: center;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 16px -4px rgba(15, 23, 42, 0.04);
+    }
+
+    .metric-box:hover {
+      transform: translateY(-4px);
+      border-color: var(--vault-accent);
+      box-shadow: 0 12px 24px -6px var(--vault-accent-glow);
+    }
+
+    .metric-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--vault-text-primary);
+      display: block;
+      margin-bottom: 0.25rem;
+      letter-spacing: -0.03em;
+    }
+
+    .metric-label {
+      font-size: 0.92rem;
+      color: var(--vault-text-secondary);
+      font-weight: 600;
+    }
+
+    /* Philosophy Matrix Section Styles */
+    .philosophy-matrix {
+      max-width: 1000px;
+      margin: 3.5rem auto 0;
+      background: #ffffff;
+      border: 1px solid var(--vault-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.05);
+      text-align: left;
+    }
+
+    .matrix-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: var(--vault-soft);
+      padding: 0.5rem;
+      border-radius: 14px;
+      border: 1px solid var(--vault-border);
+      margin-bottom: 1.5rem;
+    }
+
+    .matrix-tab {
+      flex: 1;
+      min-width: 200px;
+      background: transparent;
+      border: none;
+      padding: 0.75rem 1.25rem;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--vault-text-secondary);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: center;
+    }
+
+    .matrix-tab:hover {
+      color: var(--vault-text-primary);
+      background: rgba(255, 255, 255, 0.6);
+    }
+
+    .matrix-tab.active {
+      background: #ffffff;
+      color: var(--vault-accent-hover);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      border: 1px solid var(--vault-border);
+    }
+
+    .matrix-content-box {
+      padding: 1rem 0.5rem 0.5rem;
+      transition: opacity 0.2s ease;
+    }
+
+    .matrix-title {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--vault-text-primary);
+      margin-bottom: 0.75rem;
+    }
+
+    .matrix-badge {
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+      background: var(--vault-soft);
+      border: 1px solid var(--vault-border);
+      color: var(--vault-text-primary);
+    }
+
+    .matrix-desc {
+      color: var(--vault-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+      font-size: 1rem;
+    }
+
+    .matrix-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+    }
+
+    /* Interactive Client Persona Finder Component */
+    .persona-quiz {
+      max-width: 1340px;
+      margin: 3.5rem auto;
+      padding: 3rem 2.5rem;
+      background: var(--vault-soft);
+      border: 1px solid var(--vault-border);
+      border-radius: 28px;
+      position: relative;
+    }
+
+    .persona-quiz-header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .persona-quiz h2 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: var(--vault-text-primary);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    .persona-quiz p {
+      font-size: 1.1rem;
+      color: var(--vault-text-secondary);
+      margin: 0;
+    }
+
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .persona-card {
+      background: #ffffff;
+      border: 2px solid var(--vault-border);
+      border-radius: 20px;
+      padding: 1.75rem;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    .persona-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--vault-accent);
+      box-shadow: 0 16px 32px -8px rgba(99, 102, 241, 0.12);
+    }
+
+    .persona-card.active {
+      border-color: var(--vault-accent);
+      background: #fdfeff;
+      box-shadow: 0 12px 28px -6px rgba(99, 102, 241, 0.18);
+    }
+
+    .persona-card.active::after {
+      content: '✓ Selected';
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      font-size: 0.75rem;
+      font-weight: 700;
+      background: var(--vault-accent);
+      color: white;
+      padding: 0.25rem 0.6rem;
+      border-radius: 6px;
+    }
+
+    .persona-card-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .persona-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 14px;
+      background: var(--vault-soft);
+      border: 1px solid var(--vault-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      transition: background 0.2s;
+    }
+
+    .persona-card:hover .persona-icon, .persona-card.active .persona-icon {
+      background: var(--vault-accent-soft);
+      border-color: rgba(99, 102, 241, 0.3);
+    }
+
+    .persona-card-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--vault-text-primary);
+      margin: 0;
+      font-family: 'Outfit', sans-serif;
+    }
+
+    .persona-card-subtitle {
+      font-size: 0.92rem;
+      color: var(--vault-text-secondary);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    /* Controls & Filtering */
+    .vault-controls {
+      max-width: 1340px;
+      margin: 3rem auto 2.5rem;
+      padding: 0 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.25rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .filter-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      background: var(--vault-soft);
+      padding: 0.45rem;
+      border-radius: 14px;
+      border: 1px solid var(--vault-border);
+    }
+
+    .filter-btn {
+      background: transparent;
+      border: none;
+      color: var(--vault-text-secondary);
+      padding: 0.65rem 1.3rem;
+      border-radius: 10px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .filter-btn:hover {
+      color: var(--vault-text-primary);
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    .filter-btn.active {
+      background: var(--vault-accent);
+      color: #ffffff;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+    }
+
+    .search-box {
+      position: relative;
+      flex: 1;
+      min-width: 280px;
+      max-width: 380px;
+    }
+
+    .search-input {
+      width: 100%;
+      background: #ffffff;
+      border: 1px solid var(--vault-border);
+      border-radius: 12px;
+      padding: 0.75rem 1rem 0.75rem 2.6rem;
+      color: var(--vault-text-primary);
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.92rem;
+      outline: none;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.02);
+    }
+
+    .search-input:focus {
+      border-color: var(--vault-accent);
+      background: #ffffff;
+      box-shadow: 0 0 0 4px var(--vault-accent-glow);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--vault-text-muted);
+      font-size: 0.95rem;
+    }
+
+    /* Grid & Cards */
+    .vault-grid {
+      max-width: 1340px;
+      margin: 0 auto 6rem;
+      padding: 0 1.5rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+      gap: 2.5rem;
+    }
+
+    .vault-card {
+      background: #ffffff;
+      border: 1px solid var(--vault-border);
+      border-radius: 22px;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.06);
+    }
+
+    .vault-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--vault-accent), var(--vault-cyan));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .vault-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--vault-border-hover);
+      box-shadow: 0 20px 40px -12px rgba(15, 23, 42, 0.12), 0 0 24px rgba(99, 102, 241, 0.08);
+    }
+
+    .vault-card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 1.25rem;
+    }
+
+    .industry-badge {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.35rem 0.8rem;
+      border-radius: 8px;
+    }
+
+    .version-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 0.3rem 0.7rem;
+      border-radius: 8px;
+      background: var(--vault-accent-soft);
+      color: var(--vault-accent-hover);
+      border: 1px solid rgba(99, 102, 241, 0.25);
+    }
+
+    .card-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: var(--vault-text-primary);
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 0.96rem;
+      color: var(--vault-text-secondary);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+      flex-grow: 1;
+    }
+
+    .card-specs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      background: var(--vault-soft);
+      padding: 1rem;
+      border-radius: 14px;
+      border: 1px solid var(--vault-border);
+      margin-bottom: 1.5rem;
+    }
+
+    .spec-item span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--vault-text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .spec-item strong {
+      font-size: 0.9rem;
+      color: var(--vault-text-primary);
+      font-weight: 700;
+    }
+
+    .card-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      color: var(--vault-text-secondary);
+      background: var(--vault-soft);
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid var(--vault-border);
+      font-weight: 500;
+    }
+
+    .card-footer {
+      display: flex;
+      gap: 0.85rem;
+      align-items: center;
+    }
+
+    .btn-launch {
+      flex: 1;
+      background: linear-gradient(135deg, var(--vault-accent) 0%, #4f46e5 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 0.85rem 1.3rem;
+      border-radius: 12px;
+      text-align: center;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(79, 70, 229, 0.25);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .btn-launch:hover {
+      background: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+      box-shadow: 0 6px 18px rgba(79, 70, 229, 0.4);
+      transform: translateY(-1px);
+    }
+
+    .btn-insights {
+      background: var(--vault-soft);
+      color: var(--vault-text-primary);
+      border: 1px solid var(--vault-border);
+      padding: 0.85rem 1.15rem;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.88rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-insights:hover {
+      background: #f1f5f9;
+      border-color: var(--vault-border-hover);
+    }
+
+    /* Interactive Insight Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-content {
+      background: #ffffff;
+      border: 1px solid var(--vault-border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 650px;
+      padding: 2.5rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+    }
+
+    .modal-overlay.active .modal-content {
+      transform: translateY(0);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--vault-soft);
+      border: 1px solid var(--vault-border);
+      color: var(--vault-text-muted);
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+      color: var(--vault-text-primary);
+    }
+
+    .modal-title {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--vault-text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: var(--vault-accent);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+    }
+
+    .modal-body p {
+      color: var(--vault-text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .modal-highlight-box {
+      background: var(--vault-accent-soft);
+      border-left: 4px solid var(--vault-accent);
+      padding: 1.25rem 1.5rem;
+      border-radius: 12px;
+      margin-top: 1.5rem;
+    }
+
+    .modal-highlight-box strong {
+      color: var(--vault-text-primary);
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .modal-highlight-box span {
+      color: #3730a3;
+      font-size: 0.92rem;
+      line-height: 1.55;
+      display: block;
+    }
+  </style>
+</head>
+<body id="top">
+  <header class="site-header vault-header">
+    <nav class="nav-shell" style="max-width: 1340px; width: calc(100% - 3rem);">
+      <a class="brand" href="../" aria-label="Annapurna home">
+        <span class="brand-mark" style="background: var(--vault-accent); color: white; border-radius: 10px; padding: 0.25rem 0.65rem; font-weight: 800; font-size: 1.1rem;">A</span>
+        <span>
+          <strong style="color: var(--vault-text-primary); font-size: 1.15rem;">Website Studio</strong>
+          <small style="color: var(--vault-text-muted); font-size: 0.8rem;">The Versatility Vault</small>
+        </span>
+      </a>
+      <div class="nav-actions">
+        <a href="#demos" style="color: var(--vault-text-primary); font-weight: 600;">12 Demos</a>
+        <a href="../about/">About</a>
+        <a href="../contact/">Contact</a>
+        <a href="../" style="border: 1px solid var(--vault-border); padding: 0.45rem 0.9rem; border-radius: 10px; background: var(--vault-soft); font-weight: 600; color: var(--vault-text-primary); margin-left: 0.5rem;">&larr; Portal Root</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="vault-hero">
+      <div class="vault-hero-content">
+        <div class="vault-badge">
+          <span>⚡ Architectural UI/UX Showcase</span>
+        </div>
+        <h1>The Versatility Vault</h1>
+        <p>
+          Why settle for one template when your client demands tailored excellence? We built <strong>12 fully functional, interactive client websites</strong> across 4 high-demand industries. Every button works, every page navigates, and every UI/UX decision is crafted for specific user personas.
+        </p>
+
+        <div class="vault-metrics" id="metricsContainer">
+          <div class="metric-box">
+            <span class="metric-number" data-target="12" data-suffix="">0</span>
+            <span class="metric-label">Interactive Live Websites</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-number" data-target="4" data-suffix="">0</span>
+            <span class="metric-label">High-Impact Industries</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-number" data-target="100" data-suffix="%">0%</span>
+            <span class="metric-label">Functional Multi-Page & JS</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-number" data-target="0" data-suffix="s">0s</span>
+            <span class="metric-label">Build Complexity (Pure Static)</span>
+          </div>
+        </div>
+
+        <div class="philosophy-matrix">
+          <div class="matrix-tabs">
+            <button class="matrix-tab active" onclick="switchMatrix('v1', this)">👑 V1: Classic & Trusted</button>
+            <button class="matrix-tab" onclick="switchMatrix('v2', this)">⚡ V2: Bold & Brutalist</button>
+            <button class="matrix-tab" onclick="switchMatrix('v3', this)">🚀 V3: High-Tech & Futuristic</button>
+          </div>
+          <div class="matrix-content-box" id="matrixContent">
+            <div class="matrix-title">
+              <span>Classic Heritage & Institutional Authority</span>
+              <span class="matrix-badge" style="color: #38bdf8;">Ideal for: Established Brands, Luxury, Traditional K-12</span>
+            </div>
+            <p class="matrix-desc" id="matrixDesc">
+              Our Version 1 architecture leverages timeless typographic hierarchies, multi-page deep navigation, warm editorial layouts, and high-trust booking/inquiry workflows. Designed to convey prestige, stability, and premium craftsmanship without overwhelming first-time visitors.
+            </p>
+            <div class="matrix-features" id="matrixFeatures">
+              <span class="matrix-badge">✨ Full-Screen Storytelling</span>
+              <span class="matrix-badge">✨ Formal Multi-Page Structure</span>
+              <span class="matrix-badge">✨ Interactive Modal Reservations</span>
+              <span class="matrix-badge">✨ Curated Editorial Grids</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="persona-quiz">
+      <div class="persona-quiz-header">
+        <h2>💡 Interactive Client Persona Finder</h2>
+        <p>Select your client's architectural profile below to instantly filter and highlight our 12 tailored website variations across specific design systems and user flows.</p>
+      </div>
+      <div class="persona-grid">
+        <!-- Card 1: Fine Dining -->
+        <div class="persona-card" onclick="personaSelect('fine dining', 'restaurant', this)">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #f43f5e; background: #ffe4e6;">🍽️</div>
+              <h3 class="persona-card-title">Upscale Michelin Restaurant</h3>
+            </div>
+            <p class="persona-card-subtitle">For fine dining & heritage venues requiring immersive visual storytelling, parallax imagery, and formal table reservation workflows.</p>
+          </div>
+        </div>
+
+        <!-- Card 2: Smash Burger -->
+        <div class="persona-card" onclick="personaSelect('smash', 'restaurant', this)">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #f59e0b; background: #fef3c7;">🍔</div>
+              <h3 class="persona-card-title">Fast-Casual Smash Brand</h3>
+            </div>
+            <p class="persona-card-subtitle">For trendy food trucks and quick-service joints needing bold neo-brutalist energy, instant category filters, and slide-out order drawers.</p>
+          </div>
+        </div>
+
+        <!-- Card 3: Charter School -->
+        <div class="persona-card" onclick="personaSelect('charter', 'school', this)">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #10b981; background: #d1fae5;">🎓</div>
+              <h3 class="persona-card-title">Next-Gen STEM Charter</h3>
+            </div>
+            <p class="persona-card-subtitle">For progressive K-12 academies seeking glassmorphic student portals, interactive curriculum switchers, and campus tour scheduling.</p>
+          </div>
+        </div>
+
+        <!-- Card 4: University LMS -->
+        <div class="persona-card" onclick="personaSelect('online', 'college', this)">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #06b6d4; background: #cffafe;">🌐</div>
+              <h3 class="persona-card-title">Global University LMS</h3>
+            </div>
+            <p class="persona-card-subtitle">For higher education and e-learning portals demanding real-time program search, SaaS tuition pricing toggles, and multi-page research directories.</p>
+          </div>
+        </div>
+
+        <!-- Card 5: Bespoke Ring Designer -->
+        <div class="persona-card" onclick="personaSelect('bespoke', 'jewellery', this)">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #8b5cf6; background: #ede9fe;">💍</div>
+              <h3 class="persona-card-title">Luxury Bespoke Jewellery</h3>
+            </div>
+            <p class="persona-card-subtitle">For haute joaillerie boutiques requiring a 3-step interactive ring configurator, live price calculations, and VIP salon consultation booking.</p>
+          </div>
+        </div>
+
+        <!-- Card 6: Reset / Show All -->
+        <div class="persona-card" onclick="personaSelect('all', 'all', this)" style="border-color: #cbd5e1; background: #f8fafc;">
+          <div>
+            <div class="persona-card-header">
+              <div class="persona-icon" style="color: #6366f1; background: #e0e7ff;">⚡</div>
+              <h3 class="persona-card-title">Explore All 12 Variations</h3>
+            </div>
+            <p class="persona-card-subtitle">Reset all active persona filters and explore our complete architectural matrix across all 4 industries and 3 distinct philosophy tiers.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section id="demos">
+      <div class="vault-controls">
+        <div class="filter-tabs">
+          <button class="filter-btn active" data-filter="all">✨ All (12)</button>
+          <button class="filter-btn" data-filter="restaurant">🍽️ Restaurant (3)</button>
+          <button class="filter-btn" data-filter="school">🎓 K-12 School (3)</button>
+          <button class="filter-btn" data-filter="college">🏛️ Higher Ed (3)</button>
+          <button class="filter-btn" data-filter="jewellery">💎 Jewellery (3)</button>
+        </div>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" id="searchInput" class="search-input" placeholder="Search style, tech, or features..." aria-label="Search demos" />
+        </div>
+      </div>
+
+      <div class="vault-grid" id="demosGrid">
+        <!-- RESTAURANT V1 -->
+        <article class="vault-card" data-category="restaurant" data-tags="fine dining parallax reservations multi-page hospitality">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;">Restaurant & Hospitality</span>
+              <span class="version-badge">Version 1.0</span>
+            </div>
+            <h3 class="card-title">Fine Dining Experience</h3>
+            <p class="card-desc">An appetizing, warm experience for upscale fine dining. Features full-screen parallax storytelling, elegant dotted leader line menus, and multi-page reservation flows.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Architecture</span>
+                <strong>8 HTML Pages</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Parallax & Warmth</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Multi-page</span>
+              <span class="tag">Table Reservations</span>
+              <span class="tag">Gallery Grid</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/restaurant/restaurant-site/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Fine Dining V1', 'Upscale Hospitality Architecture', 'Designed specifically for high-end restaurants where visual storytelling and brand prestige drive bookings. Instead of overwhelming the user with immediate ordering, V1 uses immersive full-width culinary imagery and multi-page separation (Menu, Gallery, About, Reserve) to build trust and appetite.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- RESTAURANT V2 -->
+        <article class="vault-card" data-category="restaurant" data-tags="food truck brutalism neon horizontal scroll fast casual">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;">Restaurant & Hospitality</span>
+              <span class="version-badge">Version 2.0</span>
+            </div>
+            <h3 class="card-title">Neon Brutalist Food Truck</h3>
+            <p class="card-desc">A high-energy, vibrant street food aesthetic with brutalist typography. Features interactive category filtering, horizontal scrolling highlights, and instant order drawer.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Neon Brutalism</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Interactive Filter</span>
+              <span class="tag">Slide-out Cart</span>
+              <span class="tag">Gen-Z UI</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/restaurant/restaurant-v2/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Food Truck V2', 'Street Food & Fast Casual UX', 'Targeted at younger demographics, pop-ups, and street vendors where speed and bold personality are paramount. V2 abandons traditional multi-page navigation in favor of high-impact brutalism, instant category filters, and immediate interactive ordering right on the main feed.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- RESTAURANT V3 -->
+        <article class="vault-card" data-category="restaurant" data-tags="delivery app ordering cart checkout mobile first">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(244, 63, 94, 0.15); color: #fb7185;">Restaurant & Hospitality</span>
+              <span class="version-badge">Version 3.0</span>
+            </div>
+            <h3 class="card-title">Mobile-First Delivery App</h3>
+            <p class="card-desc">A native app-like interface optimized for rapid online ordering. Features sticky category navigation, interactive item customization, plus a live floating checkout tray.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>App UI / Cart Bar</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Live Cart Logic</span>
+              <span class="tag">Tip Calculator</span>
+              <span class="tag">App Layout</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/restaurant/restaurant-v3/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Delivery App V3', 'Conversion-Optimized Ordering UX', 'Built for ghost kitchens, delivery franchises, and fast-paced takeout spots. V3 mimics a mobile food delivery app (like Swiggy or UberEats) on both desktop and mobile, keeping the cart sticky at the bottom and enabling frictionless one-click item additions.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- SCHOOL V1 -->
+        <article class="vault-card" data-category="school" data-tags="traditional academy k-12 admissions multi-page education">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">K-12 Education</span>
+              <span class="version-badge">Version 1.0</span>
+            </div>
+            <h3 class="card-title">Traditional Academy Portal</h3>
+            <p class="card-desc">A trustworthy, institutional web portal for parents and prospective students. Features multi-page navigation (Academics, Admissions, Campus Life) and interactive booking modals.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Architecture</span>
+                <strong>Multi-Page + Modals</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Corporate Navy & Gold</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Parent Portal</span>
+              <span class="tag">Admissions Modal</span>
+              <span class="tag">Campus Tour</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/school/school-site/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Traditional Academy V1', 'Institutional Trust & Clarity', 'Designed for established K-12 private academies and preparatory schools. Parents evaluate trust and academic rigor; therefore, V1 uses authoritative serif headings, structured multi-page deep-dives, and transparent tour booking workflows.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- SCHOOL V2 -->
+        <article class="vault-card" data-category="school" data-tags="charter progressive glassmorphism creative k-12">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">K-12 Education</span>
+              <span class="version-badge">Version 2.0</span>
+            </div>
+            <h3 class="card-title">Progressive Charter School</h3>
+            <p class="card-desc">A playful, vibrant design using organic blob shapes and glassmorphism. Features interactive curriculum tabs, arts integration spotlights, and live classroom tour scheduling.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Glassmorphism & Blob UI</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Interactive Curriculum</span>
+              <span class="tag">Creative Arts</span>
+              <span class="tag">Modern UI</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/school/school-v2/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Progressive Charter V2', 'Modern Creative Learning UX', 'Appeals to forward-thinking parents looking for STEM, Montessori, or arts-integrated charter schools. V2 replaces rigid boxes with fluid glassmorphic cards and interactive tab switchers to showcase holistic student development.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- SCHOOL V3 -->
+        <article class="vault-card" data-category="school" data-tags="edtech dashboard e-learning student portal dark mode">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399;">K-12 Education</span>
+              <span class="version-badge">Version 3.0</span>
+            </div>
+            <h3 class="card-title">E-Learning Student Dashboard</h3>
+            <p class="card-desc">A sleek dark-mode cyber portal for active students. Features interactive sidebar view switching (Courses, Assignments, Grades), real-time GPA tracking, and task checklists.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Dark Cyber Dashboard</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Interactive Sidebar</span>
+              <span class="tag">Task Checklists</span>
+              <span class="tag">LMS Simulation</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/school/school-v3/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('E-Learning Dashboard V3', 'EdTech LMS & Student Workspace', 'Shows your capability to build SaaS portals and LMS interfaces. Instead of a marketing brochure, V3 puts the user right inside a student’s daily command center with interactive course completion tracking and grading metrics.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- COLLEGE V1 -->
+        <article class="vault-card" data-category="college" data-tags="university research higher ed multi-page virtual tour">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">Higher Education</span>
+              <span class="version-badge">Version 1.0</span>
+            </div>
+            <h3 class="card-title">Global Research University</h3>
+            <p class="card-desc">A prestigious university portal built for global recruitment. Features a high-impact split hero, multi-page academic catalogs (Programs, Admissions, Research), and virtual inquiry form.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Architecture</span>
+                <strong>Multi-Page Portal</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Split-Screen Prestige</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Multi-Page Catalog</span>
+              <span class="tag">Research Grants</span>
+              <span class="tag">Admissions Inquiry</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/college/college-site/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Research University V1', 'Academic Prestige & Global Recruitment', 'Designed for major universities and higher-ed institutions. Prospective undergrads and postgrads need structured information on research output, faculty credentials, and degree pathways, delivered via clean multi-page architecture.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- COLLEGE V2 -->
+        <article class="vault-card" data-category="college" data-tags="art design institute brutalism asymmetrical custom cursor">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">Higher Education</span>
+              <span class="version-badge">Version 2.0</span>
+            </div>
+            <h3 class="card-title">Art & Design Institute</h3>
+            <p class="card-desc">An avant-garde brutalist showcase with asymmetrical grids and interactive category filters. Features live portfolio shuffling, exhibition modals, and bold typography.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Asymmetrical Brutalism</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Portfolio Shuffle</span>
+              <span class="tag">Exhibition Modal</span>
+              <span class="tag">Avant-Garde</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/college/college-v2/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Art & Design Institute V2', 'Creative Disruption Architecture', 'Built for design academies, architecture schools, and fine arts institutes where conventional layouts look boring. V2 utilizes asymmetrical grids, high-contrast typography, and live filtering to demonstrate creative mastery.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- COLLEGE V3 -->
+        <article class="vault-card" data-category="college" data-tags="online degrees saas directory distance education pricing toggle">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(6, 182, 212, 0.15); color: #22d3ee;">Higher Education</span>
+              <span class="version-badge">Version 3.0</span>
+            </div>
+            <h3 class="card-title">Distance Ed Program Finder</h3>
+            <p class="card-desc">A clean, SaaS-style searchable directory for online degrees. Features real-time keyword search, interactive sidebar facet filtering, and dynamic tuition pricing toggles.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>SaaS Directory UI</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Real-time Search</span>
+              <span class="tag">Pricing Toggle</span>
+              <span class="tag">Facet Filters</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/college/college-v3/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Distance Ed Search V3', 'SaaS Directory & Search UX', 'Engineered for online degree aggregators, continuing education portals, and university extension programs. V3 acts as a high-speed SaaS program finder with real-time filtering and dynamic tuition model calculators.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- JEWELLERY V1 -->
+        <article class="vault-card" data-category="jewellery" data-tags="high jewellery luxury retail diamonds multi-page consultation">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">Luxury Retail</span>
+              <span class="version-badge">Version 1.0</span>
+            </div>
+            <h3 class="card-title">High Jewellery Showcase</h3>
+            <p class="card-desc">An ultra-luxury, high-contrast dark salon for fine diamonds. Features multi-page collections (Necklaces, Rings, Bespoke), specification hover cards, and VIP consultation booking.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Architecture</span>
+                <strong>Multi-Page Salon</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Dark Elegance & Gold</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Multi-Page Salon</span>
+              <span class="tag">VIP Booking Modal</span>
+              <span class="tag">Specification Tables</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/jewellery/jewellery-site/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('High Jewellery V1', 'Ultra-Luxury Bespoke Architecture', 'Caters to haute joaillerie boutiques selling high-ticket diamonds and custom heritage pieces. V1 uses dark dramatic lighting, meticulous specification sheets, and private viewing appointments rather than generic shopping carts.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- JEWELLERY V2 -->
+        <article class="vault-card" data-category="jewellery" data-tags="dtc brand trendy earth tones slide cart quick add instagram">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">Luxury Retail</span>
+              <span class="version-badge">Version 2.0</span>
+            </div>
+            <h3 class="card-title">Trendy DTC Jewelry Brand</h3>
+            <p class="card-desc">A soft, earthy aesthetic for modern Instagram-friendly jewelry brands. Features interactive category pill filtering, instant Quick-Add logic, and an off-canvas slide-out shopping cart.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Warm Earth Tones</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Slide-out Cart</span>
+              <span class="tag">Category Pills</span>
+              <span class="tag">Free Shipping Bar</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/jewellery/jewellery-v2/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Trendy DTC Brand V2', 'Social-First E-Commerce UX', 'Designed for modern direct-to-consumer (DTC) brands optimized for Instagram and TikTok traffic. V2 prioritizes warm lifestyle aesthetics, instant category pill toggles, and frictionless off-canvas shopping carts.')">💡 UX Insights</button>
+          </div>
+        </article>
+
+        <!-- JEWELLERY V3 -->
+        <article class="vault-card" data-category="jewellery" data-tags="configurator custom ring builder 3-step interactive ui dark mode">
+          <div>
+            <div class="card-top-header">
+              <span class="industry-badge" style="background: rgba(245, 158, 11, 0.15); color: #fbbf24;">Luxury Retail</span>
+              <span class="version-badge">Version 3.0</span>
+            </div>
+            <h3 class="card-title">3-Step Custom Ring Builder</h3>
+            <p class="card-desc">A state-of-the-art interactive configurator for bespoke rings. Users live-select Setting, Metal (Gold/Platinum), and Stone size with real-time price updates and custom quote generation.</p>
+            <div class="card-specs">
+              <div class="spec-item">
+                <span>Tech Stack</span>
+                <strong>Tailwind v4 + JS</strong>
+              </div>
+              <div class="spec-item">
+                <span>Design System</span>
+                <strong>Configurator UI</strong>
+              </div>
+            </div>
+            <div class="card-tags">
+              <span class="tag">Live Ring Builder</span>
+              <span class="tag">Real-time Pricing</span>
+              <span class="tag">Step-by-Step UI</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <a class="btn-launch" href="demos/jewellery/jewellery-v3/index.html" target="_blank" rel="noopener noreferrer">Launch Demo &rarr;</a>
+            <button class="btn-insights" onclick="openInsight('Custom Ring Builder V3', 'Interactive Product Configurator', 'Demonstrates advanced frontend state management and gamified custom retail. Instead of browsing static items, V3 guides engagement ring shoppers through an interactive 3-step builder that dynamically recalculates totals and previews.')">💡 UX Insights</button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Modal Insight Overlay -->
+    <div class="modal-overlay" id="insightModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal-content">
+        <button class="modal-close" onclick="closeInsight()" aria-label="Close modal">&times;</button>
+        <h3 class="modal-title" id="modalTitle">UX Rationale</h3>
+        <p class="modal-subtitle" id="modalSubtitle">Why this architecture?</p>
+        <div class="modal-body">
+          <p id="modalDescription"></p>
+          <div class="modal-highlight-box">
+            <strong>Client Impact & ROI</strong>
+            <span id="modalImpact">Delivers tailored experiences that boost conversion rates and client engagement by aligning UI patterns with specific user expectations.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer" style="background: var(--vault-soft); border-top: 1px solid var(--vault-border); padding: 4.5rem 1.5rem;">
+    <div style="max-width: 1340px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2.5rem;">
+      <div>
+        <strong style="color: var(--vault-text-primary); font-size: 1.2rem; font-family: 'Outfit', sans-serif;">Website Studio — Annapurna Agentic Solutions</strong>
+        <p style="color: var(--vault-text-secondary); margin-top: 0.5rem; font-size: 0.95rem;">Static HTML & JS websites engineered for small businesses, educational institutes, and luxury enterprises.</p>
+        <p style="margin-top: 1.25rem; font-size: 0.88rem; color: var(--vault-text-muted);">
+          &copy; 2026 Annapurna Agentic Solutions. Bengaluru, Karnataka, India.<br />
+          <a href="mailto:annapurnaagenticsolutions@zohomail.in" style="color: var(--vault-accent); text-decoration: none; font-weight: 600;">annapurnaagenticsolutions@zohomail.in</a>
+        </p>
+      </div>
+      <div class="footer-links" style="display: flex; gap: 1.75rem; align-items: center; flex-wrap: wrap;">
+        <a href="../" style="color: var(--vault-text-secondary); text-decoration: none; font-weight: 600;">&larr; Portal Root</a>
+        <a href="../about/" style="color: var(--vault-text-secondary); text-decoration: none; font-weight: 600;">About</a>
+        <a href="../contact/" style="color: var(--vault-text-secondary); text-decoration: none; font-weight: 600;">Contact</a>
+        <a href="https://github.com/annapurnaagenticsolutions" target="_blank" rel="noopener noreferrer" style="color: var(--vault-text-secondary); text-decoration: none; font-weight: 600;">GitHub</a>
+        <a href="#top" style="color: var(--vault-accent); text-decoration: none; font-weight: 700;">Back to top &uarr;</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab & Search Filter Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchInput');
+    const cards = document.querySelectorAll('.vault-card');
+    const personaCards = document.querySelectorAll('.persona-card');
+
+    let currentCategory = 'all';
+    let currentSearch = '';
+
+    function filterCards() {
+      cards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const tags = (card.getAttribute('data-tags') || '') + ' ' + card.innerText.toLowerCase();
+        
+        const matchesCategory = currentCategory === 'all' || category === currentCategory;
+        const matchesSearch = !currentSearch || tags.includes(currentSearch);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'flex';
+          card.style.opacity = '1';
+        } else {
+          card.style.display = 'none';
+          card.style.opacity = '0';
+        }
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        personaCards.forEach(pc => pc.classList.remove('active'));
+        btn.classList.add('active');
+        currentCategory = btn.getAttribute('data-filter');
+        currentSearch = '';
+        if (searchInput) searchInput.value = '';
+        filterCards();
+      });
+    });
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.toLowerCase().trim();
+        filterCards();
+      });
+    }
+
+    // Persona Card Selection Handler with Visual Active State & Tab Sync
+    function personaSelect(keyword, category, cardElem) {
+      personaCards.forEach(c => c.classList.remove('active'));
+      filterBtns.forEach(b => b.classList.remove('active'));
+
+      if (keyword === 'all') {
+        currentCategory = 'all';
+        currentSearch = '';
+        if (searchInput) searchInput.value = '';
+        filterBtns[0].classList.add('active');
+        if (cardElem) cardElem.classList.add('active');
+        filterCards();
+        document.getElementById('demos').scrollIntoView({ behavior: 'smooth' });
+        return;
+      }
+
+      if (cardElem) cardElem.classList.add('active');
+      currentCategory = category;
+      currentSearch = keyword;
+      if (searchInput) searchInput.value = keyword;
+
+      // Sync active tab state
+      filterBtns.forEach(b => {
+        if (b.getAttribute('data-filter') === category) {
+          b.classList.add('active');
+        }
+      });
+
+      filterCards();
+      document.getElementById('demos').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Insight Modal Logic
+    const modal = document.getElementById('insightModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalSubtitle = document.getElementById('modalSubtitle');
+    const modalDescription = document.getElementById('modalDescription');
+
+    function openInsight(title, subtitle, description) {
+      if (modalTitle) modalTitle.innerText = title;
+      if (modalSubtitle) modalSubtitle.innerText = subtitle;
+      if (modalDescription) modalDescription.innerText = description;
+      if (modal) modal.classList.add('active');
+    }
+
+    function closeInsight() {
+      if (modal) modal.classList.remove('active');
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeInsight();
+      });
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeInsight();
+    });
+
+    // Philosophy Matrix Switcher
+    const matrixData = {
+      v1: {
+        title: "Classic Heritage & Institutional Authority",
+        ideal: "Ideal for: Established Brands, Luxury, Traditional K-12",
+        desc: "Our Version 1 architecture leverages timeless typographic hierarchies, multi-page deep navigation, warm editorial layouts, and high-trust booking/inquiry workflows. Designed to convey prestige, stability, and premium craftsmanship without overwhelming first-time visitors.",
+        features: ["✨ Full-Screen Storytelling", "✨ Formal Multi-Page Structure", "✨ Interactive Modal Reservations", "✨ Curated Editorial Grids"]
+      },
+      v2: {
+        title: "Bold, Brutalist & Street-Style Energy",
+        ideal: "Ideal for: Gen-Z Apparels, Smash Burger Joints, Creative Academies",
+        desc: "Version 2 breaks conventional grids with high-contrast neo-brutalist borders, vibrant offset drop shadows, dynamic marquee banners, and interactive shopping bags. Perfect for challenger brands and creative disruptors aiming to stand out instantly.",
+        features: ["⚡ Neo-Brutalist 4px Borders", "⚡ Dynamic Cart Subtotal Logic", "⚡ Interactive Custom Cursor", "⚡ Marquee Ticker Banners"]
+      },
+      v3: {
+        title: "High-Tech, Interactive & Gamified Applications",
+        ideal: "Ideal for: Bespoke Ring Configurators, AI EdTech, SaaS Dashboards",
+        desc: "Version 3 converts standard websites into full-blown interactive web applications. Features 3-step live product configurators with real-time price updates, dark-mode glassmorphic LMS dashboards, live Zoom classroom joins, and real-time category filtering.",
+        features: ["🚀 Live Ring 3D/Tab Configurator", "🚀 Real-Time Price Calculation", "🚀 Glassmorphic Dark Dashboards", "🚀 Interactive Order Carts"]
+      }
+    };
+
+    function switchMatrix(ver, btn) {
+      document.querySelectorAll('.matrix-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      const data = matrixData[ver];
+      const box = document.getElementById('matrixContent');
+      if (!box) return;
+      box.style.opacity = '0';
+      setTimeout(() => {
+        box.innerHTML = `
+          <div class="matrix-title">
+            <span>${data.title}</span>
+            <span class="matrix-badge" style="color: var(--vault-accent);">${data.ideal}</span>
+          </div>
+          <p class="matrix-desc">${data.desc}</p>
+          <div class="matrix-features">
+            ${data.features.map(f => `<span class="matrix-badge">${f}</span>`).join('')}
+          </div>
+        `;
+        box.style.opacity = '1';
+      }, 150);
+    }
+
+    // Animated Number Counter on Scroll
+    document.addEventListener('DOMContentLoaded', () => {
+      const counters = document.querySelectorAll('.metric-number');
+      if ('IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const el = entry.target;
+              const target = +el.getAttribute('data-target');
+              const suffix = el.getAttribute('data-suffix') || '';
+              if (target === 0) {
+                el.innerText = '0' + suffix;
+              } else {
+                let start = 0;
+                const duration = 1200;
+                const stepTime = Math.abs(Math.floor(duration / target));
+                const timer = setInterval(() => {
+                  start += 1;
+                  el.innerText = start + suffix;
+                  if (start >= target) {
+                    el.innerText = target + suffix;
+                    clearInterval(timer);
+                  }
+                }, stepTime);
+              }
+              obs.unobserve(el);
+            }
+          });
+        }, { threshold: 0.5 });
+        counters.forEach(c => observer.observe(c));
+      }
+    });
+  </script>
+</body>
+</html>

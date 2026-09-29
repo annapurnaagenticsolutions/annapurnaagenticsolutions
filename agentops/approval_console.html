@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Approval Workflow Console | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .status-pill {display:inline-block;padding:4px 10px;border-radius:999px;background:#eef2ff;color:#0f172a;font-weight:700;font-size:12px}
+    .grid-2 {display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+    .muted-small{opacity:.72;font-size:13px}
+  </style>
+</head>
+<body>
+  <main class="container shell">
+    <section class="hero">
+      <p class="eyebrow">v1.4 control-plane capability</p>
+      <h1>Approval Workflow Console</h1>
+      <p>Review connector/tool approval requests before simulated or future live execution. v1.4 remains sandbox-safe; approvals create audit history but do not enable live side effects.</p>
+      <div class="hero-actions">
+        <a class="button" href="index.html">Project Home</a>
+        <a class="button secondary" href="tool_sandbox.html">Tool Sandbox</a>
+        <a class="button secondary" href="audit_console.html">Audit Console</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Live connector readiness</h2>
+      <div id="readiness" class="grid-2"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Approval requests</h2>
+      <div id="approvals" class="card-grid"></div>
+    </section>
+  </main>
+
+<script>
+async function loadJson(path){ const r = await fetch(path); return r.json(); }
+function list(items){ return `<ul>${(items||[]).map(x=>`<li>${x}</li>`).join('')}</ul>`; }
+Promise.all([
+  loadJson('data/sample_approvals.json'),
+  loadJson('data/live_connector_readiness.json')
+]).then(([approvals, readiness]) => {
+  document.getElementById('readiness').innerHTML = `
+    <div class="card"><h3>${readiness.overall_readiness}</h3><p>${readiness.rationale}</p></div>
+    <div class="card"><h3>Remaining controls</h3>${list(readiness.remaining_controls)}</div>`;
+  document.getElementById('approvals').innerHTML = approvals.map(a => `
+    <article class="card">
+      <p class="eyebrow">${a.tenant_id} · ${a.agent_id}</p>
+      <h3>${a.action}</h3>
+      <p><span class="status-pill">${a.status}</span> <span class="muted-small">${a.connector_id}.${a.tool_id}</span></p>
+      <p>${a.reason}</p>
+      <p><strong>Risk:</strong> ${a.risk_level} · <strong>Environment:</strong> ${a.target_environment} · <strong>Side effect:</strong> ${a.side_effect_class}</p>
+      <p><strong>Reviewer:</strong> ${a.reviewer_id || 'pending'} ${a.reviewer_role ? '(' + a.reviewer_role + ')' : ''}</p>
+      <h4>Conditions</h4>${list(a.conditions)}
+      <h4>Evidence</h4>${list(a.evidence_ids)}
+    </article>
+  `).join('');
+});
+</script>
+</body>
+</html>
+
+

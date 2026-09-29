@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #1f2937; /* Charcoal */
+  --color-brand-secondary: #000000;
+  --color-brand-light: #fdfbf7; /* Pearl */
+  --color-brand-accent: #b76e79; /* Rose Gold */
+  --color-brand-accent-hover: #9c5c66;
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Lato", sans-serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-brand-light text-gray-800;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif text-brand-primary font-normal tracking-wide;
+  }
+}

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BURGER SMASH | Fast Casual</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;900&family=Oswald:wght@500;700&display=swap" rel="stylesheet" />
+    <style>
+      .marquee-wrapper {
+        overflow: hidden;
+        white-space: nowrap;
+        background-color: var(--color-brand-secondary);
+        color: var(--color-brand-dark);
+        font-family: var(--font-family-display);
+        font-weight: 700;
+        font-size: 1.5rem;
+        padding: 0.5rem 0;
+        border-top: 4px solid var(--color-brand-dark);
+        border-bottom: 4px solid var(--color-brand-dark);
+        transform: rotate(-2deg) scale(1.05);
+        margin: 2rem 0;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .marquee-content {
+        display: inline-block;
+        animation: marquee 15s linear infinite;
+      }
+      @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+      .brutalist-button {
+        background-color: var(--color-brand-primary);
+        color: var(--color-brand-dark);
+        border: 4px solid var(--color-brand-dark);
+        box-shadow: 6px 6px 0 var(--color-brand-dark);
+        font-family: var(--font-family-display);
+        text-transform: uppercase;
+        font-weight: 700;
+        transition: all 0.2s;
+      }
+      .brutalist-button:active {
+        box-shadow: 0 0 0 var(--color-brand-dark);
+        transform: translate(6px, 6px);
+      }
+      .brutalist-card {
+        background-color: #fff;
+        border: 4px solid var(--color-brand-dark);
+        box-shadow: 8px 8px 0 var(--color-brand-dark);
+        transition: transform 0.3s;
+      }
+      .brutalist-card:hover {
+        transform: translate(-4px, -4px);
+        box-shadow: 12px 12px 0 var(--color-brand-primary);
+      }
+      /* Custom Slide-Out Cart */
+      #cart-sidebar {
+        transform: translateX(100%);
+        transition: transform 0.3s ease-in-out;
+      }
+      #cart-sidebar.open {
+        transform: translateX(0);
+      }
+    </style>
+  </head>
+  <body class="antialiased overflow-x-hidden">
+
+    <!-- Header -->
+    <header class="bg-brand-light border-b-4 border-brand-dark sticky top-0 z-50">
+      <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+        <a href="#" class="text-4xl font-display font-bold tracking-tighter text-brand-dark">BURGER<span class="text-brand-primary">SMASH</span></a>
+        
+        <nav class="hidden md:flex space-x-8 font-display font-bold text-xl uppercase tracking-wide">
+          <a href="menu.html" class="hover:text-brand-primary transition">Menu</a>
+          <a href="locations.html" class="hover:text-brand-primary transition">Locations</a>
+          <a href="merch.html" class="hover:text-brand-primary transition">Merch</a>
+        </nav>
+
+        <button onclick="toggleCart()" class="text-2xl text-brand-dark hover:text-brand-primary relative">
+          <i class="fas fa-shopping-bag"></i>
+          <span id="cart-count" class="absolute -top-2 -right-2 bg-brand-secondary text-brand-dark text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full border-2 border-brand-dark">0</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Slide-Out Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-80 bg-brand-light border-l-4 border-brand-dark z-[60] flex flex-col shadow-2xl">
+      <div class="p-6 border-b-4 border-brand-dark flex justify-between items-center bg-brand-secondary">
+        <h2 class="text-2xl font-display font-bold">YOUR ORDER</h2>
+        <button onclick="toggleCart()" class="text-2xl text-brand-dark hover:text-brand-primary"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="cart-body" class="flex-grow p-6 flex flex-col justify-center items-center text-center opacity-50 overflow-y-auto">
+        <i class="fas fa-hamburger text-6xl mb-4 text-brand-primary"></i>
+        <p class="font-display text-xl uppercase font-bold">Your bag is empty.</p>
+        <p class="text-sm font-body font-bold mt-2">Smash something in there!</p>
+      </div>
+      <div class="p-6 border-t-4 border-brand-dark bg-white">
+        <div class="flex justify-between font-display font-bold text-xl mb-4">
+          <span>TOTAL</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+        <button onclick="checkout()" class="w-full brutalist-button py-4 text-xl">CHECKOUT</button>
+      </div>
+    </div>
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-brand-dark/50 z-[55] hidden backdrop-blur-sm"></div>
+
+    <!-- Hero Section -->
+    <section class="relative bg-brand-primary py-20 border-b-4 border-brand-dark overflow-hidden">
+      <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 items-center relative z-10">
+        <div data-aos="fade-right">
+          <div class="inline-block bg-brand-secondary text-brand-dark font-display font-bold px-4 py-1 border-4 border-brand-dark mb-6 text-xl transform -rotate-2">NEW DROP</div>
+          <h1 class="text-7xl md:text-8xl font-display font-bold text-brand-dark leading-none tracking-tighter mb-6 uppercase">
+            The<br/><span class="text-white drop-shadow-[4px_4px_0_rgba(17,17,17,1)]">Double</span><br/>Trouble.
+          </h1>
+          <p class="text-xl font-body font-bold text-brand-dark mb-8 max-w-md">Two 100% grass-fed smashed patties, triple American cheese, house-made smash sauce, piled high.</p>
+          <button onclick="toggleCart()" class="brutalist-button bg-white text-brand-dark px-10 py-5 text-2xl flex items-center gap-3">
+            ORDER NOW <i class="fas fa-arrow-right"></i>
+          </button>
+        </div>
+        <div class="relative" data-aos="zoom-in" data-aos-delay="200">
+          <div class="absolute inset-0 bg-brand-secondary rounded-full transform rotate-12 scale-90 blur-xl opacity-50"></div>
+          <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Double Smash Burger" class="relative z-10 w-full rounded-full border-8 border-brand-dark shadow-[20px_20px_0_rgba(17,17,17,1)] object-cover aspect-square" />
+        </div>
+      </div>
+      <!-- Background Graphic Text -->
+      <div class="absolute top-0 right-0 pointer-events-none opacity-10 font-display font-bold text-[20rem] leading-none transform translate-x-1/4 -translate-y-1/4 overflow-hidden text-brand-dark whitespace-nowrap">
+        SMASH
+      </div>
+    </section>
+
+    <!-- Marquee Banner -->
+    <div class="marquee-wrapper">
+      <div class="marquee-content">
+        <span class="mx-8">🍔 100% GRASS FED</span>
+        <span class="mx-8">🔥 SMASHED DAILY</span>
+        <span class="mx-8">⚡ FAST CASUAL</span>
+        <span class="mx-8">🥤 ICE COLD SHAKES</span>
+        <span class="mx-8">🍔 100% GRASS FED</span>
+        <span class="mx-8">🔥 SMASHED DAILY</span>
+        <span class="mx-8">⚡ FAST CASUAL</span>
+        <span class="mx-8">🥤 ICE COLD SHAKES</span>
+      </div>
+    </div>
+
+    <!-- Horizontal Menu Scroll -->
+    <section class="py-20 bg-brand-light">
+      <div class="max-w-7xl mx-auto px-4 mb-12 flex justify-between items-end" data-aos="fade-up">
+        <h2 class="text-6xl font-display font-bold text-brand-dark tracking-tighter uppercase">Our Menu</h2>
+        <div class="hidden md:flex gap-4">
+          <button class="w-12 h-12 bg-white border-4 border-brand-dark flex items-center justify-center text-xl hover:bg-brand-secondary transition" onclick="document.querySelector('.horizontal-scroll-container').scrollBy({left: -300, behavior: 'smooth'})"><i class="fas fa-arrow-left"></i></button>
+          <button class="w-12 h-12 bg-white border-4 border-brand-dark flex items-center justify-center text-xl hover:bg-brand-secondary transition" onclick="document.querySelector('.horizontal-scroll-container').scrollBy({left: 300, behavior: 'smooth'})"><i class="fas fa-arrow-right"></i></button>
+        </div>
+      </div>
+
+      <div class="horizontal-scroll-container pl-4 md:pl-8 gap-8 pb-12">
+        <!-- Item 1 -->
+        <div class="scroll-item brutalist-card flex flex-col h-full" data-aos="fade-up" data-aos-delay="100">
+          <div class="h-64 border-b-4 border-brand-dark bg-brand-primary p-4 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=800&q=80" alt="Classic Smash" class="w-48 h-48 rounded-full border-4 border-brand-dark object-cover shadow-lg" />
+          </div>
+          <div class="p-6 flex flex-col flex-grow bg-brand-secondary">
+            <h3 class="text-3xl font-display font-bold uppercase mb-2">Classic Smash</h3>
+            <p class="font-body font-bold text-sm opacity-80 mb-6 flex-grow">Single patty, American cheese, pickles, smash sauce, potato bun.</p>
+            <div class="flex justify-between items-center mt-auto">
+              <span class="text-2xl font-display font-bold bg-white px-3 py-1 border-2 border-brand-dark">$8.99</span>
+              <button onclick="addToCart('Classic Smash', 8.99)" class="bg-brand-dark text-white px-4 py-2 font-display font-bold uppercase hover:bg-brand-primary transition border-2 border-transparent">Add +</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 2 -->
+        <div class="scroll-item brutalist-card flex flex-col h-full" data-aos="fade-up" data-aos-delay="200">
+          <div class="h-64 border-b-4 border-brand-dark bg-green-500 p-4 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1586190848861-99aa4a171e90?auto=format&fit=crop&w=800&q=80" alt="Spicy Smash" class="w-48 h-48 rounded-full border-4 border-brand-dark object-cover shadow-lg" />
+          </div>
+          <div class="p-6 flex flex-col flex-grow bg-white">
+            <h3 class="text-3xl font-display font-bold uppercase mb-2">Spicy Smash</h3>
+            <p class="font-body font-bold text-sm opacity-80 mb-6 flex-grow">Double patty, pepper jack, jalapeños, spicy chipotle smash mayo.</p>
+            <div class="flex justify-between items-center mt-auto">
+              <span class="text-2xl font-display font-bold bg-brand-light px-3 py-1 border-2 border-brand-dark">$11.99</span>
+              <button onclick="addToCart('Spicy Smash', 11.99)" class="bg-brand-dark text-white px-4 py-2 font-display font-bold uppercase hover:bg-green-500 transition border-2 border-transparent">Add +</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 3 -->
+        <div class="scroll-item brutalist-card flex flex-col h-full" data-aos="fade-up" data-aos-delay="300">
+          <div class="h-64 border-b-4 border-brand-dark bg-purple-500 p-4 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1576107232684-1279f3908594?auto=format&fit=crop&w=800&q=80" alt="Truffle Fries" class="w-48 h-48 rounded-full border-4 border-brand-dark object-cover shadow-lg" />
+          </div>
+          <div class="p-6 flex flex-col flex-grow bg-brand-secondary">
+            <h3 class="text-3xl font-display font-bold uppercase mb-2">Truffle Fries</h3>
+            <p class="font-body font-bold text-sm opacity-80 mb-6 flex-grow">Crinkle cut fries, parmesan, white truffle oil, sea salt, parsley.</p>
+            <div class="flex justify-between items-center mt-auto">
+              <span class="text-2xl font-display font-bold bg-white px-3 py-1 border-2 border-brand-dark">$6.99</span>
+              <button onclick="addToCart('Truffle Fries', 6.99)" class="bg-brand-dark text-white px-4 py-2 font-display font-bold uppercase hover:bg-purple-500 transition border-2 border-transparent">Add +</button>
+            </div>
+          </div>
+        </div>
+        <!-- Item 4 -->
+        <div class="scroll-item brutalist-card flex flex-col h-full" data-aos="fade-up" data-aos-delay="400">
+          <div class="h-64 border-b-4 border-brand-dark bg-blue-500 p-4 flex items-center justify-center">
+            <img src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?auto=format&fit=crop&w=800&q=80" alt="Classic Shake" class="w-48 h-48 rounded-full border-4 border-brand-dark object-cover shadow-lg" />
+          </div>
+          <div class="p-6 flex flex-col flex-grow bg-white">
+            <h3 class="text-3xl font-display font-bold uppercase mb-2">Classic Shake</h3>
+            <p class="font-body font-bold text-sm opacity-80 mb-6 flex-grow">Vanilla bean, rich double chocolate, or strawberry hand-spun shake.</p>
+            <div class="flex justify-between items-center mt-auto">
+              <span class="text-2xl font-display font-bold bg-brand-light px-3 py-1 border-2 border-brand-dark">$5.49</span>
+              <button onclick="addToCart('Classic Shake', 5.49)" class="bg-brand-dark text-white px-4 py-2 font-display font-bold uppercase hover:bg-blue-500 transition border-2 border-transparent">Add +</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-white py-16 border-t-8 border-brand-primary">
+      <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12 text-center md:text-left">
+        <div>
+          <a href="#" class="text-6xl font-display font-bold tracking-tighter text-white mb-6 block">BURGER<span class="text-brand-primary">SMASH</span></a>
+          <p class="font-body font-bold max-w-sm mx-auto md:mx-0 opacity-80">Serving up the best smash burgers in the city. Fast, casual, and undeniably delicious.</p>
+        </div>
+        <div class="flex flex-col md:items-end justify-center">
+          <div class="flex gap-4 mb-6 justify-center md:justify-end">
+            <a href="#" class="w-12 h-12 bg-white text-brand-dark flex items-center justify-center text-2xl hover:bg-brand-primary transition"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="w-12 h-12 bg-white text-brand-dark flex items-center justify-center text-2xl hover:bg-brand-primary transition"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="w-12 h-12 bg-white text-brand-dark flex items-center justify-center text-2xl hover:bg-brand-primary transition"><i class="fab fa-twitter"></i></a>
+          </div>
+          <p class="font-display font-bold uppercase text-brand-secondary">&copy; 2026 Burger Smash. All Rights Reserved.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      let cart = [];
+      let total = 0;
+
+      function toggleCart() {
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('cart-overlay');
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+        document.body.style.overflow = sidebar.classList.contains('open') ? 'hidden' : 'auto';
+      }
+
+      function addToCart(name, price) {
+        cart.push({ name, price });
+        total += price;
+        updateCart();
+        if (!document.getElementById('cart-sidebar').classList.contains('open')) {
+          toggleCart();
+        }
+      }
+
+      function updateCart() {
+        document.getElementById('cart-count').innerText = cart.length;
+        document.getElementById('cart-total').innerText = '$' + total.toFixed(2);
+        const body = document.getElementById('cart-body');
+        if (cart.length === 0) {
+          body.className = 'flex-grow p-6 flex flex-col justify-center items-center text-center opacity-50 overflow-y-auto';
+          body.innerHTML = `
+            <i class="fas fa-hamburger text-6xl mb-4 text-brand-primary"></i>
+            <p class="font-display text-xl uppercase font-bold">Your bag is empty.</p>
+            <p class="text-sm font-body font-bold mt-2">Smash something in there!</p>
+          `;
+        } else {
+          body.className = 'flex-grow p-6 flex flex-col gap-4 overflow-y-auto text-left opacity-100';
+          body.innerHTML = cart.map((item, i) => `
+            <div class="border-2 border-brand-dark p-3 bg-brand-secondary flex justify-between items-center font-display font-bold">
+              <span>${item.name}</span>
+              <span>$${item.price.toFixed(2)}</span>
+            </div>
+          `).join('');
+        }
+      }
+
+      function checkout() {
+        if (cart.length === 0) {
+          // Custom Neo-Brutalist Warning Toast
+          showBrutalistModal('YOUR BAG IS EMPTY!', 'Smash some juicy burgers or shakes into your bag first before checking out.', 'bg-yellow-400');
+          return;
+        }
+        const orderNum = Math.floor(1000 + Math.random() * 9000);
+        showBrutalistModal(`BOOM! ORDER #SMASH-${orderNum} PLACED!`, `Total Charged: $${total.toFixed(2)}. Your grass-fed smash patties are sizzling on the griddle right now! Ready for pickup in ~12 minutes.`, 'bg-brand-primary');
+        cart = [];
+        total = 0;
+        updateCart();
+        toggleCart();
+      }
+
+      function showBrutalistModal(title, message, bgClass) {
+        let modal = document.getElementById('brutalistModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'brutalistModal';
+          modal.className = 'fixed inset-0 bg-brand-dark/80 backdrop-blur-md z-[100] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="${bgClass} border-8 border-brand-dark shadow-[16px_16px_0_rgba(17,17,17,1)] max-w-lg w-full p-8 text-brand-dark transform -rotate-1 relative">
+            <h3 class="text-4xl font-display font-bold tracking-tighter uppercase mb-4">${title}</h3>
+            <p class="font-body font-bold text-lg mb-8 leading-relaxed">${message}</p>
+            <button onclick="document.getElementById('brutalistModal').remove()" class="w-full bg-white text-brand-dark border-4 border-brand-dark py-4 font-display font-bold text-xl uppercase shadow-[6px_6px_0_rgba(17,17,17,1)] hover:bg-brand-secondary transition">AWESOME!</button>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>

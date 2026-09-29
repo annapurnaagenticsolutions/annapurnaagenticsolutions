@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Security & RBAC Console | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}.pill{display:inline-block;padding:4px 8px;border-radius:999px;background:#eef2ff;color:#0f172a;margin:2px}.decision{font-weight:700}.deny{color:#991b1b}.allow{color:#166534}.controls{color:#92400e}@media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <main class="container page-shell">
+    <section class="hero">
+      <p class="eyebrow">v1.1 Security, RBAC, and Multi-Tenant Readiness</p>
+      <h1>AgentOps Security Console</h1>
+      <p>Inspect roles, tenant boundaries, capabilities, and sample access decisions before wiring real enterprise IAM.</p>
+      <div class="hero-actions">
+        <a class="button" href="index.html">Home</a>
+        <a class="button secondary" href="v1_release_console.html">v1.0 Console</a>
+      </div>
+    </section>
+
+    <section class="grid-3" id="summary"></section>
+
+    <section class="panel">
+      <h2>Sample Access Decisions</h2>
+      <div id="decisions"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Roles</h2>
+      <div id="roles"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Tenants</h2>
+      <div id="tenants"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Capabilities</h2>
+      <div id="capabilities"></div>
+    </section>
+  </main>
+
+<script>
+const riskOrder = {Low:1, Medium:2, High:3, Critical:4};
+function hasPerm(perms, cap){return perms.includes('*') || perms.includes(cap)}
+function evaluate(req, roles, tenants){
+  const role = roles.find(r=>r.role_id===req.actor_role);
+  const tenant = tenants.find(t=>t.tenant_id===req.tenant_id);
+  let violations=[]; let controls=['security_context_logged','least_privilege_permission_check']; let reasons=[];
+  if(!role){violations.push('unknown_actor_role')} else {
+    if(!hasPerm(role.permissions, req.capability)) violations.push('permission_denied');
+    if(!role.allowed_environments.includes(req.target_environment)) violations.push('role_environment_denied');
+    if((riskOrder[req.risk_level]||99) > (riskOrder[role.risk_ceiling]||0)) violations.push('role_risk_ceiling_exceeded');
+  }
+  if(!tenant){violations.push('unknown_tenant')} else {
+    controls.push(...tenant.required_controls);
+    if(!tenant.allowed_environments.includes(req.target_environment)) violations.push('tenant_environment_denied');
+    if(req.domain && !tenant.allowed_domains.includes(req.domain) && !tenant.allowed_domains.includes('*')) violations.push('tenant_domain_denied');
+    if(req.autonomy_level > tenant.max_autonomy_level) violations.push('tenant_autonomy_ceiling_exceeded');
+    if(!tenant.allowed_risk_levels.includes(req.risk_level)) violations.push('tenant_risk_level_denied');
+    if(tenant.status === 'restricted') controls.push('restricted_tenant_manual_review');
+  }
+  if(['runtime:execute','tools:sandbox_execute','procurement:run'].includes(req.capability)) controls.push('policy_check_required','trace_ledger_required');
+  if(req.target_environment==='production') controls.push('production_approval_required','rollback_or_disable_plan_required');
+  controls = [...new Set(controls)].sort();
+  if(violations.length) return {decision:'deny', allowed:false, violations, controls};
+  if(req.target_environment==='production' || ['High','Critical'].includes(req.risk_level)) return {decision:'allow_with_controls', allowed:true, violations, controls};
+  return {decision:'allow', allowed:true, violations, controls};
+}
+async function loadJson(path){return fetch(path).then(r=>r.json())}
+Promise.all([
+  loadJson('data/roles.json'),
+  loadJson('data/tenants.json'),
+  loadJson('data/capabilities.json'),
+  loadJson('data/sample_access_requests.json')
+]).then(([rolesData, tenantsData, capsData, samples])=>{
+  document.getElementById('summary').innerHTML = `
+    <div class="card"><h3>${rolesData.roles.length}</h3><p>Roles</p></div>
+    <div class="card"><h3>${tenantsData.tenants.length}</h3><p>Tenants</p></div>
+    <div class="card"><h3>${capsData.capabilities.length}</h3><p>Capabilities</p></div>`;
+  document.getElementById('decisions').innerHTML = samples.requests.map(req=>{
+    const result = evaluate(req, rolesData.roles, tenantsData.tenants);
+    const cls = result.decision==='deny'?'deny':(result.decision==='allow'?'allow':'controls');
+    return `<div class="card"><h3>${req.actor_role} → <span class="mono">${req.capability}</span></h3><p class="decision ${cls}">${result.decision}</p><p>${req.purpose||''}</p><p><strong>Tenant:</strong> ${req.tenant_id} | <strong>Env:</strong> ${req.target_environment} | <strong>Risk:</strong> ${req.risk_level}</p><p><strong>Violations:</strong> ${result.violations.length?result.violations.map(v=>`<span class="pill">${v}</span>`).join(''):'None'}</p><p><strong>Controls:</strong> ${result.controls.slice(0,8).map(c=>`<span class="pill">${c}</span>`).join('')}</p></div>`
+  }).join('');
+  document.getElementById('roles').innerHTML = rolesData.roles.map(r=>`<div class="card"><h3>${r.display_name}</h3><p class="mono">${r.role_id}</p><p>${r.description}</p><p><strong>Risk ceiling:</strong> ${r.risk_ceiling}</p><p>${r.permissions.map(p=>`<span class="pill">${p}</span>`).join('')}</p></div>`).join('');
+  document.getElementById('tenants').innerHTML = tenantsData.tenants.map(t=>`<div class="card"><h3>${t.display_name}</h3><p class="mono">${t.tenant_id}</p><p><strong>Status:</strong> ${t.status} | <strong>Isolation:</strong> ${t.isolation_mode}</p><p><strong>Max autonomy:</strong> ${t.max_autonomy_level}</p><p>${t.required_controls.map(c=>`<span class="pill">${c}</span>`).join('')}</p></div>`).join('');
+  document.getElementById('capabilities').innerHTML = capsData.capabilities.map(c=>`<div class="card"><h3>${c.display_name}</h3><p class="mono">${c.capability_id}</p><p><strong>Side effect:</strong> ${c.side_effect}</p><p>${c.endpoint_patterns.map(e=>`<span class="pill">${e}</span>`).join('')}</p></div>`).join('');
+});
+</script>
+</body>
+</html>
+
+

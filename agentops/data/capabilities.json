@@ -1,0 +1,126 @@
+{
+  "version": "1.1.0",
+  "capabilities": [
+    {
+      "capability_id": "evaluation:run",
+      "display_name": "Run evaluation",
+      "endpoint_patterns": [
+        "POST /evaluate",
+        "POST /classify-risk"
+      ],
+      "minimum_role_hint": "developer",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "governance:run",
+      "display_name": "Run governance workflow",
+      "endpoint_patterns": [
+        "POST /governance/run"
+      ],
+      "minimum_role_hint": "business_owner",
+      "side_effect": "governance_decision"
+    },
+    {
+      "capability_id": "registry:read",
+      "display_name": "Read agent registry",
+      "endpoint_patterns": [
+        "GET /registry/agents",
+        "GET /registry/agents/{agent_id}"
+      ],
+      "minimum_role_hint": "auditor",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "registry:write",
+      "display_name": "Write agent registry",
+      "endpoint_patterns": [
+        "POST /registry/agents",
+        "POST /registry/agents/{agent_id}/versions"
+      ],
+      "minimum_role_hint": "platform_admin",
+      "side_effect": "configuration_change"
+    },
+    {
+      "capability_id": "evidence:read",
+      "display_name": "Read evidence",
+      "endpoint_patterns": [
+        "GET /evidence",
+        "GET /evidence/{evidence_id}"
+      ],
+      "minimum_role_hint": "auditor",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "evidence:write",
+      "display_name": "Write evidence",
+      "endpoint_patterns": [
+        "POST /evidence"
+      ],
+      "minimum_role_hint": "governance_reviewer",
+      "side_effect": "artifact_change"
+    },
+    {
+      "capability_id": "policy:check",
+      "display_name": "Run policy check",
+      "endpoint_patterns": [
+        "POST /policy/check"
+      ],
+      "minimum_role_hint": "developer",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "runtime:execute",
+      "display_name": "Execute model runtime",
+      "endpoint_patterns": [
+        "POST /runtime/execute"
+      ],
+      "minimum_role_hint": "agent_operator",
+      "side_effect": "model_execution"
+    },
+    {
+      "capability_id": "tools:sandbox_execute",
+      "display_name": "Execute sandbox tool",
+      "endpoint_patterns": [
+        "POST /tools/sandbox/execute"
+      ],
+      "minimum_role_hint": "agent_operator",
+      "side_effect": "simulated_tool_execution"
+    },
+    {
+      "capability_id": "observability:read",
+      "display_name": "Read observability",
+      "endpoint_patterns": [
+        "GET /observability/*"
+      ],
+      "minimum_role_hint": "auditor",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "procurement:run",
+      "display_name": "Run procurement accelerator",
+      "endpoint_patterns": [
+        "POST /accelerators/procurement/run"
+      ],
+      "minimum_role_hint": "agent_operator",
+      "side_effect": "controlled_business_case_record"
+    },
+    {
+      "capability_id": "security:read",
+      "display_name": "Read security metadata",
+      "endpoint_patterns": [
+        "GET /security/*"
+      ],
+      "minimum_role_hint": "auditor",
+      "side_effect": "none"
+    },
+    {
+      "capability_id": "security:check",
+      "display_name": "Check access",
+      "endpoint_patterns": [
+        "POST /security/access/check"
+      ],
+      "minimum_role_hint": "developer",
+      "side_effect": "none"
+    }
+  ]
+}

@@ -1,0 +1,260 @@
+{
+  "version": "1.6.0",
+  "contract_mode": "dry_run_only",
+  "adapters": [
+    {
+      "adapter_id": "adapter-procurement-system-dry-run",
+      "connector_id": "procurement_system_mock",
+      "display_name": "Procurement System Dry-Run Adapter",
+      "domain": "procurement",
+      "adapter_type": "business_system",
+      "implementation_status": "dry_run_adapter",
+      "live_execution_enabled": false,
+      "allowed_tenants": [
+        "tenant-procurement"
+      ],
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "required_identity_ids": [
+        "svc-procurement-agent-runtime"
+      ],
+      "required_secret_refs": [
+        "secretref-procurement-erp-readonly"
+      ],
+      "global_controls": [
+        "no_live_write",
+        "secret_reference_only",
+        "audit_event_required",
+        "dry_run_default"
+      ],
+      "operations": [
+        {
+          "operation_id": "lookup_purchase_order",
+          "display_name": "Lookup Purchase Order",
+          "description": "Return simulated purchase-order metadata for a PO number.",
+          "side_effect_class": "read_only",
+          "risk_level": "Medium",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "po_number"
+            ],
+            "properties": {
+              "po_number": {
+                "type": "string"
+              }
+            }
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "po_number",
+              "status",
+              "vendor_id"
+            ],
+            "properties": {
+              "po_number": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              },
+              "vendor_id": {
+                "type": "string"
+              }
+            }
+          },
+          "dry_run_behavior": "Return deterministic mock PO details. No procurement system is contacted.",
+          "rollback_contract": "not_required_read_only",
+          "required_controls": [
+            "tenant_scope_check",
+            "source_logging",
+            "trace_ledger_required"
+          ]
+        },
+        {
+          "operation_id": "compare_invoice_to_po",
+          "display_name": "Compare Invoice to PO",
+          "description": "Compare invoice amount and vendor fields against simulated PO context.",
+          "side_effect_class": "read_only",
+          "risk_level": "Medium",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "po_number",
+              "invoice_number",
+              "invoice_amount"
+            ],
+            "properties": {
+              "po_number": {
+                "type": "string"
+              },
+              "invoice_number": {
+                "type": "string"
+              },
+              "invoice_amount": {
+                "type": "number"
+              }
+            }
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "match_status",
+              "variance_amount"
+            ],
+            "properties": {
+              "match_status": {
+                "type": "string"
+              },
+              "variance_amount": {
+                "type": "number"
+              }
+            }
+          },
+          "dry_run_behavior": "Return deterministic variance analysis. No invoice record is changed.",
+          "rollback_contract": "not_required_read_only",
+          "required_controls": [
+            "invoice_source_validation",
+            "vendor_scope_check",
+            "trace_ledger_required"
+          ]
+        },
+        {
+          "operation_id": "create_exception_draft",
+          "display_name": "Create Procurement Exception Draft",
+          "description": "Create a simulated exception draft for human procurement review.",
+          "side_effect_class": "draft_only",
+          "risk_level": "High",
+          "requires_human_approval": true,
+          "allowed_environments": [
+            "sandbox",
+            "pilot"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "case_id",
+              "reason"
+            ],
+            "properties": {
+              "case_id": {
+                "type": "string"
+              },
+              "reason": {
+                "type": "string"
+              }
+            }
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "draft_id",
+              "status"
+            ],
+            "properties": {
+              "draft_id": {
+                "type": "string"
+              },
+              "status": {
+                "type": "string"
+              }
+            }
+          },
+          "dry_run_behavior": "Return a simulated draft id. No vendor or ERP communication is sent.",
+          "rollback_contract": "discard_draft_before_publish",
+          "required_controls": [
+            "human_approval_required",
+            "evidence_linkage_required",
+            "financial_threshold_check"
+          ]
+        }
+      ]
+    },
+    {
+      "adapter_id": "adapter-hr-policy-repository-dry-run",
+      "connector_id": "hr_policy_repository_mock",
+      "display_name": "HR Policy Repository Dry-Run Adapter",
+      "domain": "hr",
+      "adapter_type": "document_repository",
+      "implementation_status": "dry_run_adapter",
+      "live_execution_enabled": false,
+      "allowed_tenants": [
+        "tenant-hr"
+      ],
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "required_identity_ids": [
+        "svc-hr-policy-agent-runtime"
+      ],
+      "required_secret_refs": [
+        "secretref-hr-policy-readonly"
+      ],
+      "global_controls": [
+        "read_only",
+        "source_attribution_required",
+        "secret_reference_only",
+        "audit_event_required"
+      ],
+      "operations": [
+        {
+          "operation_id": "search_policy_documents",
+          "display_name": "Search HR Policy Documents",
+          "description": "Return simulated HR policy snippets with source identifiers.",
+          "side_effect_class": "read_only",
+          "risk_level": "Medium",
+          "requires_human_approval": false,
+          "allowed_environments": [
+            "sandbox"
+          ],
+          "input_schema": {
+            "type": "object",
+            "required": [
+              "query"
+            ],
+            "properties": {
+              "query": {
+                "type": "string"
+              }
+            }
+          },
+          "output_schema": {
+            "type": "object",
+            "required": [
+              "results",
+              "source_count"
+            ],
+            "properties": {
+              "results": {
+                "type": "array"
+              },
+              "source_count": {
+                "type": "integer"
+              }
+            }
+          },
+          "dry_run_behavior": "Return deterministic mock policy snippets. No HR repository is contacted.",
+          "rollback_contract": "not_required_read_only",
+          "required_controls": [
+            "source_attribution_required",
+            "employee_data_minimization",
+            "trace_ledger_required"
+          ]
+        }
+      ]
+    }
+  ]
+}

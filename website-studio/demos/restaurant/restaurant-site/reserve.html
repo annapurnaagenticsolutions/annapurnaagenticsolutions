@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Reservations - Feliciano</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  </head>
+  <body class="antialiased bg-brand-light">
+    <!-- Header -->
+    <header class="navbar fixed top-0 w-full z-50 bg-brand-primary text-brand-light shadow-md">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-20 items-center">
+          <a href="index.html" class="font-serif text-2xl font-bold tracking-wider uppercase text-white">
+            Feliciano<span class="text-brand-accent">.</span>
+          </a>
+          <nav class="hidden md:flex space-x-8 items-center font-medium">
+            <a href="index.html" class="hover:text-brand-accent transition">Home</a>
+            <a href="menu.html" class="hover:text-brand-accent transition">Menu</a>
+            <a href="about.html" class="hover:text-brand-accent transition">About</a>
+            <a href="gallery.html" class="hover:text-brand-accent transition">Gallery</a>
+            <a href="contact.html" class="hover:text-brand-accent transition">Contact</a>
+            <a href="reserve.html" class="text-brand-accent border-b-2 border-brand-accent pb-1">Reserve a Table</a>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="pt-32 pb-16 text-center border-b border-gray-200">
+      <div class="max-w-4xl mx-auto px-4" data-aos="fade-up">
+        <h4 class="font-serif italic text-brand-accent text-xl mb-2">Book a Table</h4>
+        <h1 class="text-5xl font-serif text-brand-primary mb-6">Reservations</h1>
+      </div>
+    </section>
+
+    <!-- Reservation Form Section -->
+    <section class="py-20">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="bg-white p-10 md:p-16 rounded-sm shadow-2xl" data-aos="fade-up">
+          <form>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Name</label>
+                <input type="text" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition" placeholder="Your Name" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                <input type="email" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition" placeholder="Your Email" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
+                <input type="tel" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition" placeholder="Your Phone Number" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Date</label>
+                <input type="date" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-gray-600" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Time</label>
+                <input type="time" class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-gray-600" required />
+              </div>
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Guests</label>
+                <select class="w-full border-b border-gray-300 py-2 focus:outline-none focus:border-brand-accent transition text-gray-600">
+                  <option>1 Person</option>
+                  <option selected>2 People</option>
+                  <option>3 People</option>
+                  <option>4 People</option>
+                  <option>5+ People</option>
+                </select>
+              </div>
+            </div>
+            <div class="text-center mt-12">
+              <button type="submit" class="bg-brand-accent hover:bg-brand-accent-hover text-white px-10 py-4 rounded-sm transition duration-300 w-full md:w-auto shadow-lg text-lg">Book Table</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-secondary text-gray-400 py-12">
+      <div class="max-w-7xl mx-auto px-4 text-center">
+        &copy; 2026 Feliciano Restaurant. All rights reserved.
+      </div>
+    </footer>
+    
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>AOS.init();</script>
+  </body>
+</html>

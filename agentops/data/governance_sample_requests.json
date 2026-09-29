@@ -1,0 +1,137 @@
+[
+  {
+    "use_case_id": "PROC-001",
+    "name": "Procurement Invoice and Vendor Query Agent",
+    "domain": "Procurement",
+    "description": "Assists procurement users with invoice, challan, purchase order, vendor, and exception queries. Does not approve payments without a human.",
+    "business_owner": "Procurement Operations Lead",
+    "technical_owner": "AI Platform Lead",
+    "target_environment": "pilot",
+    "autonomy_level": 2,
+    "submitted_artifacts": [
+      "use_case_canvas",
+      "data_inventory",
+      "evaluation_plan",
+      "governance_checklist"
+    ],
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": false,
+      "financial_impact": "medium",
+      "reversibility": "moderate",
+      "customer_or_employee_impact": "low"
+    },
+    "scores": {
+      "business_value": 86,
+      "task_suitability": 82,
+      "data_readiness": 74,
+      "governance_readiness": 76,
+      "evaluation_coverage": 73,
+      "safety_security": 78,
+      "human_in_loop": 82,
+      "operational_readiness": 72,
+      "open_architecture_fit": 88
+    }
+  },
+  {
+    "use_case_id": "HR-002",
+    "name": "HR Policy Guidance Agent",
+    "domain": "Human Resources",
+    "description": "Answers policy questions using approved HR documents. Escalates employment-sensitive cases to HR business partners.",
+    "business_owner": "HR Operations Lead",
+    "technical_owner": "Enterprise AI Architect",
+    "target_environment": "pilot",
+    "autonomy_level": 1,
+    "submitted_artifacts": [
+      "use_case_canvas",
+      "approved_policy_sources",
+      "escalation_matrix"
+    ],
+    "risk_factors": {
+      "data_sensitivity": "high",
+      "external_action": false,
+      "financial_impact": "low",
+      "reversibility": "moderate",
+      "customer_or_employee_impact": "medium"
+    },
+    "scores": {
+      "business_value": 78,
+      "task_suitability": 80,
+      "data_readiness": 68,
+      "governance_readiness": 72,
+      "evaluation_coverage": 64,
+      "safety_security": 74,
+      "human_in_loop": 86,
+      "operational_readiness": 62,
+      "open_architecture_fit": 82
+    }
+  },
+  {
+    "use_case_id": "CUST-003",
+    "name": "Autonomous Customer Refund Agent",
+    "domain": "Customer Support",
+    "description": "Processes refunds and sends customer communication without manual approval.",
+    "business_owner": "Support Operations Director",
+    "technical_owner": "Automation Platform Owner",
+    "target_environment": "production",
+    "autonomy_level": 5,
+    "submitted_artifacts": [
+      "use_case_canvas"
+    ],
+    "risk_factors": {
+      "data_sensitivity": "high",
+      "external_action": true,
+      "financial_impact": "high",
+      "reversibility": "hard",
+      "customer_or_employee_impact": "high"
+    },
+    "scores": {
+      "business_value": 72,
+      "task_suitability": 58,
+      "data_readiness": 44,
+      "governance_readiness": 38,
+      "evaluation_coverage": 30,
+      "safety_security": 36,
+      "human_in_loop": 18,
+      "operational_readiness": 42,
+      "open_architecture_fit": 70
+    }
+  },
+  {
+    "use_case_id": "DOC-004",
+    "name": "Documentation Intelligence Agent",
+    "domain": "Knowledge Management",
+    "description": "Summarizes approved enterprise documentation, extracts decisions, and flags stale or conflicting content.",
+    "business_owner": "Knowledge Operations Lead",
+    "technical_owner": "AI Engineering Manager",
+    "target_environment": "production",
+    "autonomy_level": 2,
+    "submitted_artifacts": [
+      "use_case_canvas",
+      "data_inventory",
+      "evaluation_plan",
+      "governance_checklist",
+      "monitoring_plan",
+      "human_approval_record",
+      "production_runbook"
+    ],
+    "risk_factors": {
+      "data_sensitivity": "medium",
+      "external_action": false,
+      "financial_impact": "none",
+      "reversibility": "easy",
+      "customer_or_employee_impact": "low"
+    },
+    "scores": {
+      "business_value": 84,
+      "task_suitability": 88,
+      "data_readiness": 86,
+      "governance_readiness": 85,
+      "evaluation_coverage": 88,
+      "safety_security": 86,
+      "human_in_loop": 82,
+      "operational_readiness": 83,
+      "open_architecture_fit": 90
+    }
+  }
+]

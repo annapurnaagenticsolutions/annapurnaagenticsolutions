@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AURA | Fine Jewellery DTC</title>
+    <!-- Tailwind CSS -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet" />
+  </head>
+  <body class="antialiased overflow-x-hidden bg-brand-light">
+
+    <!-- Top Announcement Bar -->
+    <div class="bg-brand-dark text-brand-light text-xs text-center py-2 font-medium tracking-widest uppercase">
+      Free worldwide shipping on orders over $150
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-brand-light/90 backdrop-blur-md sticky top-0 z-40 border-b border-brand-muted/30">
+      <div class="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+        <!-- Mobile Menu Toggle -->
+        <button class="md:hidden text-brand-dark text-xl"><i class="fas fa-bars"></i></button>
+
+        <!-- Desktop Links -->
+        <div class="hidden md:flex gap-8 text-sm uppercase tracking-widest font-medium">
+          <a href="shop.html" class="hover:text-brand-primary transition">Shop</a>
+          <a href="collections.html" class="hover:text-brand-primary transition">Collections</a>
+          <a href="about.html" class="hover:text-brand-primary transition">About</a>
+        </div>
+
+        <!-- Logo -->
+        <a href="#" class="text-3xl font-serif tracking-widest">AURA</a>
+
+        <!-- Icons -->
+        <div class="flex gap-6 text-lg">
+          <a href="#" class="hover:text-brand-primary transition"><i class="far fa-user"></i></a>
+          <button onclick="toggleCart()" class="hover:text-brand-primary transition relative group">
+            <i class="fas fa-shopping-bag"></i>
+            <span class="absolute -top-1.5 -right-2 bg-brand-primary text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm" id="cart-count">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Slide-Out Cart Sidebar -->
+    <div id="cart-sidebar" class="fixed inset-y-0 right-0 w-80 md:w-96 bg-brand-light border-l border-brand-muted/50 z-[60] flex flex-col shadow-2xl">
+      <div class="p-6 border-b border-brand-muted/50 flex justify-between items-center">
+        <h2 class="text-xl font-serif">Your Bag</h2>
+        <button onclick="toggleCart()" class="text-gray-400 hover:text-brand-dark text-xl transition"><i class="fas fa-times"></i></button>
+      </div>
+      
+      <div id="cart-items" class="flex-grow p-6 overflow-y-auto flex flex-col gap-6">
+        <!-- Empty State Default -->
+        <div id="empty-cart" class="flex flex-col items-center justify-center h-full text-center opacity-50">
+          <i class="fas fa-shopping-bag text-4xl mb-4 text-brand-primary/50"></i>
+          <p class="font-serif text-lg">Your bag is empty.</p>
+          <a href="#" onclick="toggleCart()" class="text-sm font-medium border-b border-brand-dark mt-2 pb-0.5">Continue Shopping</a>
+        </div>
+      </div>
+      
+      <div class="p-6 border-t border-brand-muted/50 bg-white">
+        <div class="flex justify-between font-serif text-lg mb-4">
+          <span>Subtotal</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+        <p class="text-xs text-gray-500 mb-4 text-center font-medium">Shipping & taxes calculated at checkout</p>
+        <button onclick="checkout()" class="w-full bg-brand-dark text-brand-light py-4 text-sm uppercase tracking-widest font-medium hover:bg-brand-primary transition shadow-md">Checkout</button>
+      </div>
+    </div>
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" onclick="toggleCart()" class="fixed inset-0 bg-brand-dark/20 z-[55] hidden backdrop-blur-sm transition-opacity"></div>
+
+    <!-- Hero Section -->
+    <section class="relative h-[80vh] flex items-center justify-center overflow-hidden">
+      <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?auto=format&fit=crop&w=1920&q=80" alt="Jewellery Lifestyle" class="w-full h-full object-cover object-top" />
+        <div class="absolute inset-0 bg-brand-secondary/30 mix-blend-multiply"></div>
+      </div>
+      
+      <div class="relative z-10 text-center px-4" data-aos="fade-up">
+        <p class="text-sm uppercase tracking-[0.3em] text-brand-dark font-medium mb-4">The Summer Collection</p>
+        <h1 class="text-5xl md:text-7xl font-serif text-brand-dark mb-8 max-w-2xl mx-auto leading-tight">Everyday Luxury, <span class="italic text-brand-primary">Redefined.</span></h1>
+        <a href="#shop" class="inline-block bg-brand-dark text-brand-light px-10 py-4 text-xs font-bold uppercase tracking-widest hover:bg-brand-primary transition shadow-lg">Shop Now</a>
+      </div>
+    </section>
+
+    <!-- Product Grid -->
+    <section id="shop" class="max-w-7xl mx-auto px-6 py-24">
+      <div class="flex justify-between items-end mb-12">
+        <h2 class="text-3xl font-serif">Trending Pieces</h2>
+        <a href="#" class="text-sm font-medium border-b border-brand-dark pb-0.5 hover:text-brand-primary hover:border-brand-primary transition">View All</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        
+        <!-- Product 1 -->
+        <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="100">
+          <div class="aspect-[4/5] overflow-hidden bg-brand-secondary/20 relative mb-4">
+            <img src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80" alt="Ring" class="product-img w-full h-full object-cover mix-blend-multiply" />
+            <button onclick="addToCart('Classic Solitaire Ring', 450, 'https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=800&q=80')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-brand-dark py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-primary hover:text-white shadow-sm">Quick Add</button>
+          </div>
+          <div class="text-center">
+            <h3 class="text-sm font-medium mb-1">Classic Solitaire Ring</h3>
+            <p class="text-brand-primary font-serif italic">$450</p>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+          <div class="aspect-[4/5] overflow-hidden bg-brand-secondary/20 relative mb-4">
+            <img src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80" alt="Necklace" class="product-img w-full h-full object-cover mix-blend-multiply" />
+            <!-- Badges -->
+            <span class="absolute top-2 left-2 bg-brand-dark text-brand-light text-[9px] uppercase tracking-wider px-2 py-1 z-10">Best Seller</span>
+            
+            <button onclick="addToCart('Pearl Drop Necklace', 280, 'https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=800&q=80')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-brand-dark py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-primary hover:text-white shadow-sm">Quick Add</button>
+          </div>
+          <div class="text-center">
+            <h3 class="text-sm font-medium mb-1">Pearl Drop Necklace</h3>
+            <p class="text-brand-primary font-serif italic">$280</p>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="300">
+          <div class="aspect-[4/5] overflow-hidden bg-brand-secondary/20 relative mb-4">
+            <img src="https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&w=800&q=80" alt="Earrings" class="product-img w-full h-full object-cover mix-blend-multiply" />
+            <button onclick="addToCart('Gold Hoops', 120, 'https://images.unsplash.com/photo-1635767798638-3e25273a8236?auto=format&fit=crop&w=800&q=80')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-brand-dark py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-primary hover:text-white shadow-sm">Quick Add</button>
+          </div>
+          <div class="text-center">
+            <h3 class="text-sm font-medium mb-1">Essential Gold Hoops</h3>
+            <p class="text-brand-primary font-serif italic">$120</p>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card group cursor-pointer" data-aos="fade-up" data-aos-delay="400">
+          <div class="aspect-[4/5] overflow-hidden bg-brand-secondary/20 relative mb-4">
+            <img src="https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=800&q=80" alt="Ring" class="product-img w-full h-full object-cover mix-blend-multiply" />
+            <button onclick="addToCart('Eternity Band', 650, 'https://images.unsplash.com/photo-1603561591411-07134e71a2a9?auto=format&fit=crop&w=800&q=80')" class="absolute bottom-4 left-4 right-4 bg-white/90 backdrop-blur text-brand-dark py-3 text-xs font-bold uppercase tracking-widest opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 hover:bg-brand-primary hover:text-white shadow-sm">Quick Add</button>
+          </div>
+          <div class="text-center">
+            <h3 class="text-sm font-medium mb-1">Diamond Eternity Band</h3>
+            <p class="text-brand-primary font-serif italic">$650</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-brand-dark text-brand-secondary py-16">
+      <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-12 text-sm">
+        <div>
+          <a href="#" class="text-3xl font-serif tracking-widest text-brand-light mb-6 block">AURA</a>
+          <p class="opacity-80 font-light leading-relaxed">Consciously crafted fine jewellery designed for everyday wear. Made with 100% recycled solid gold.</p>
+        </div>
+        <div>
+          <h4 class="font-bold text-brand-light uppercase tracking-widest mb-4">Shop</h4>
+          <ul class="space-y-3 opacity-80 font-light">
+            <li><a href="#" class="hover:text-brand-primary transition">All Jewellery</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Rings</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Necklaces</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Earrings</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-brand-light uppercase tracking-widest mb-4">Help</h4>
+          <ul class="space-y-3 opacity-80 font-light">
+            <li><a href="#" class="hover:text-brand-primary transition">FAQ</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Shipping & Returns</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Jewellery Care</a></li>
+            <li><a href="#" class="hover:text-brand-primary transition">Contact Us</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-bold text-brand-light uppercase tracking-widest mb-4">Newsletter</h4>
+          <p class="opacity-80 font-light mb-4">Sign up for 10% off your first order.</p>
+          <div class="flex border-b border-brand-secondary/50 pb-2">
+            <input type="email" placeholder="Email Address" class="bg-transparent border-none outline-none w-full text-brand-light placeholder-brand-secondary/50" />
+            <button class="text-brand-primary hover:text-brand-light transition uppercase tracking-widest font-bold text-xs">Submit</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+      AOS.init({ once: true, offset: 50 });
+
+      let cartItems = [];
+      let total = 0;
+
+      function toggleCart() {
+        const sidebar = document.getElementById('cart-sidebar');
+        const overlay = document.getElementById('cart-overlay');
+        
+        if (sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          overlay.classList.add('hidden');
+          document.body.style.overflow = 'auto';
+        } else {
+          sidebar.classList.add('open');
+          overlay.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+
+      function addToCart(title, price, img) {
+        cartItems.push({title, price, img});
+        total += price;
+        updateCartUI();
+        
+        // Show indicator on icon
+        const counter = document.getElementById('cart-count');
+        counter.innerText = cartItems.length;
+        counter.classList.add('scale-125');
+        setTimeout(() => counter.classList.remove('scale-125'), 200);
+        
+        toggleCart(); // Auto open cart on add
+      }
+
+      function updateCartUI() {
+        const cartContainer = document.getElementById('cart-items');
+        document.getElementById('cart-total').innerText = '$' + total.toFixed(2);
+        
+        if(cartItems.length > 0) {
+          document.getElementById('empty-cart').style.display = 'none';
+        }
+
+        // Just append the latest item for simplicity in this demo
+        const latest = cartItems[cartItems.length - 1];
+        const itemHTML = `
+          <div class="flex gap-4 bg-white p-3 shadow-sm border border-brand-muted/20">
+            <img src="${latest.img}" class="w-20 h-24 object-cover bg-brand-secondary/20" />
+            <div class="flex flex-col justify-center">
+              <h4 class="text-sm font-medium mb-1">${latest.title}</h4>
+              <p class="text-brand-primary font-serif italic mb-2">$${latest.price}</p>
+            </div>
+          </div>
+        `;
+        cartContainer.insertAdjacentHTML('beforeend', itemHTML);
+      }
+
+      function checkout() {
+        if(cartItems.length === 0) {
+          showLuxuryToast('Your Bag is Empty', 'Click "Quick Add" on any piece to add it to your bag before proceeding to checkout.');
+          return;
+        }
+        const orderId = Math.floor(1000 + Math.random() * 9000);
+        showLuxuryToast(`Order #AURA-${orderId} Confirmed!`, `Thank you for your order! Total charged: $${total.toFixed(2)}. Your secure insured shipment will be dispatched via FedEx Priority Armored Courier.`);
+        cartItems = [];
+        total = 0;
+        document.getElementById('cart-items').innerHTML = `
+          <div id="empty-cart" class="flex flex-col items-center justify-center h-full text-center opacity-50">
+            <i class="fas fa-shopping-bag text-4xl mb-4 text-brand-primary/50"></i>
+            <p class="font-serif text-lg">Your bag is empty.</p>
+          </div>
+        `;
+        document.getElementById('cart-total').innerText = '$0.00';
+        document.getElementById('cart-count').innerText = '0';
+        toggleCart();
+      }
+
+      function showLuxuryToast(title, message) {
+        let modal = document.getElementById('luxuryToastModal');
+        if (!modal) {
+          modal = document.createElement('div');
+          modal.id = 'luxuryToastModal';
+          modal.className = 'fixed inset-0 bg-brand-dark/80 backdrop-blur-md z-[120] flex items-center justify-center p-4';
+          document.body.appendChild(modal);
+        }
+        modal.innerHTML = `
+          <div class="bg-brand-light border-2 border-brand-dark p-8 max-w-md w-full text-center shadow-2xl relative animate-fade-in">
+            <button onclick="document.getElementById('luxuryToastModal').remove()" class="absolute top-4 right-4 text-gray-400 hover:text-brand-dark text-xl">&times;</button>
+            <div class="text-brand-primary text-3xl mb-3"><i class="fas fa-shield-alt"></i></div>
+            <h4 class="font-serif text-2xl text-brand-dark mb-3">${title}</h4>
+            <p class="text-xs text-gray-600 font-medium leading-relaxed mb-6">${message}</p>
+            <button onclick="document.getElementById('luxuryToastModal').remove()" class="w-full bg-brand-dark text-brand-light py-3.5 text-xs uppercase tracking-widest font-bold hover:bg-brand-primary transition">Continue Shopping</button>
+          </div>
+        `;
+      }
+    </script>
+  </body>
+</html>

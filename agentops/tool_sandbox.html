@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tool Sandbox Workbench — Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+  <style>
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+    .card pre { white-space: pre-wrap; word-break: break-word; }
+    .pill { display: inline-block; padding: .25rem .6rem; border-radius: 999px; background: #eef2ff; margin: .15rem; font-size: .82rem; }
+    .decision { font-size: 1.2rem; font-weight: 700; }
+  </style>
+</head>
+<body>
+  <main class="container shell">
+    <section class="hero">
+      <p class="eyebrow">v0.8 Control Plane</p>
+      <h1>Connector and Tool Sandbox Workbench</h1>
+      <p>
+        Explore how enterprise agents request tool access, how connector permissions and policy-as-code gates are evaluated,
+        and how sandbox-only execution produces a reviewable result with no live side effects.
+      </p>
+    </section>
+
+    <section class="grid-2">
+      <article class="card">
+        <h2>Sample Tool Request</h2>
+        <select id="requestSelect"></select>
+        <div id="requestView"></div>
+      </article>
+      <article class="card">
+        <h2>Sandbox Decision</h2>
+        <div id="decisionView"></div>
+      </article>
+    </section>
+
+    <section class="card">
+      <h2>Connector Registry</h2>
+      <div id="connectorView" class="grid-2"></div>
+    </section>
+  </main>
+
+<script>
+const riskOrder = {Low: 1, Medium: 2, High: 3, Critical: 4};
+
+function decisionFor(request, connectors) {
+  const connector = connectors.connectors.find(c => c.connector_id === request.connector_id);
+  if (!connector) return {decision: 'blocked', allowed: false, reason: 'Connector not found.', controls: [], evidence: []};
+  const tool = connector.tools.find(t => t.tool_id === request.tool_id);
+  if (!tool) return {decision: 'blocked', allowed: false, reason: 'Tool not found in connector.', controls: [], evidence: []};
+  if (!connector.allowed_environments.includes(request.target_environment) || !tool.allowed_environments.includes(request.target_environment)) {
+    return {decision: 'blocked', allowed: false, reason: 'Connector/tool not allowed in this environment.', controls: tool.required_controls || [], evidence: ['connector permission review']};
+  }
+  if (request.target_environment === 'production' && tool.side_effect_class !== 'read_only') {
+    return {decision: 'blocked', allowed: false, reason: 'Production side effects are blocked in v0.8 sandbox.', controls: tool.required_controls || [], evidence: ['production approval record']};
+  }
+  if ((tool.requires_human_approval || riskOrder[tool.risk_level] >= 3 || request.output_destination !== 'internal') && !request.has_human_approval && !request.dry_run) {
+    return {decision: 'blocked_pending_approval', allowed: false, reason: 'Human approval is required before simulated side-effect execution.', controls: tool.required_controls || [], evidence: ['human approval record']};
+  }
+  if (request.dry_run) return {decision: 'dry_run_allowed', allowed: true, reason: 'Dry run allowed. No side effects will occur.', controls: tool.required_controls || [], evidence: []};
+  return {decision: 'simulated_execution_allowed', allowed: true, reason: 'Simulated execution allowed. v0.8 still performs no live external action.', controls: tool.required_controls || [], evidence: []};
+}
+
+function simulatedResult(request, decision) {
+  if (!decision.allowed) return 'No sandbox output was generated because the request was blocked.';
+  if (request.tool_id === 'compare_po_invoice') return 'Would compare invoice ' + request.payload.invoice_id + ' against PO ' + request.payload.purchase_order_id + ' and produce discrepancy categories.';
+  if (request.tool_id === 'create_support_ticket') return 'Would create a simulated support ticket with short description: ' + request.payload.short_description;
+  if (request.tool_id === 'draft_email') return 'Would create an email draft for human review.';
+  return 'Would execute tool in sandbox simulation mode and record a tool-run ledger entry.';
+}
+
+async function load() {
+  const [connectors, requests] = await Promise.all([
+    fetch('data/sample_connectors.json').then(r => r.json()),
+    fetch('data/tool_sandbox_samples.json').then(r => r.json())
+  ]);
+  const select = document.getElementById('requestSelect');
+  requests.forEach((req, idx) => {
+    const option = document.createElement('option');
+    option.value = idx;
+    option.textContent = `${req.agent_id} → ${req.connector_id}.${req.tool_id}`;
+    select.appendChild(option);
+  });
+  function render() {
+    const req = requests[Number(select.value || 0)];
+    const d = decisionFor(req, connectors);
+    document.getElementById('requestView').innerHTML = `<pre>${JSON.stringify(req, null, 2)}</pre>`;
+    document.getElementById('decisionView').innerHTML = `
+      <p class="decision">${d.decision}</p>
+      <p><strong>Allowed:</strong> ${d.allowed}</p>
+      <p><strong>Side effects permitted:</strong> false</p>
+      <p>${d.reason}</p>
+      <h3>Required controls</h3>
+      <p>${d.controls.map(x => `<span class="pill">${x}</span>`).join('') || 'None'}</p>
+      <h3>Simulated result</h3>
+      <pre>${simulatedResult(req, d)}</pre>`;
+  }
+  select.addEventListener('change', render);
+  render();
+
+  document.getElementById('connectorView').innerHTML = connectors.connectors.map(c => `
+    <article class="card">
+      <h3>${c.display_name}</h3>
+      <p><strong>ID:</strong> ${c.connector_id}</p>
+      <p><strong>Type:</strong> ${c.connector_type}</p>
+      <p><strong>Environments:</strong> ${c.allowed_environments.join(', ')}</p>
+      <p>${c.tools.map(t => `<span class="pill">${t.tool_id} · ${t.risk_level}</span>`).join('')}</p>
+    </article>
+  `).join('');
+}
+load();
+</script>
+</body>
+</html>
+
+
+

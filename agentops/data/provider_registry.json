@@ -1,0 +1,109 @@
+{
+  "version": "0.6.0",
+  "providers": [
+    {
+      "provider_id": "mock-safe-local",
+      "display_name": "Mock Safe Local Provider",
+      "provider_type": "mock",
+      "deployment_mode": "local",
+      "data_residency": "local_only",
+      "cost_tier": "free",
+      "allowed_environments": [
+        "sandbox",
+        "pilot"
+      ],
+      "capabilities": [
+        "text_generation",
+        "policy_safe_testing",
+        "deterministic_demo"
+      ],
+      "models": [
+        {
+          "model_id": "mock-governed-small",
+          "display_name": "Mock Governed Small",
+          "context_window": 8000,
+          "supports_tools": false,
+          "recommended_for": [
+            "governance_demo",
+            "policy_testing"
+          ]
+        },
+        {
+          "model_id": "mock-governed-large",
+          "display_name": "Mock Governed Large",
+          "context_window": 32000,
+          "supports_tools": false,
+          "recommended_for": [
+            "architecture_demo",
+            "long_context_demo"
+          ]
+        }
+      ],
+      "restrictions": [
+        "No live LLM call",
+        "No external data transfer",
+        "Deterministic placeholder output"
+      ]
+    },
+    {
+      "provider_id": "openai-compatible-placeholder",
+      "display_name": "OpenAI-Compatible Placeholder",
+      "provider_type": "openai_compatible",
+      "deployment_mode": "cloud_or_gateway",
+      "data_residency": "depends_on_configuration",
+      "cost_tier": "variable",
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "capabilities": [
+        "text_generation",
+        "tool_calling_future",
+        "structured_output_future"
+      ],
+      "models": [
+        {
+          "model_id": "gpt-compatible-placeholder",
+          "display_name": "GPT-Compatible Placeholder",
+          "context_window": 128000,
+          "supports_tools": true,
+          "recommended_for": [
+            "future_connector"
+          ]
+        }
+      ],
+      "restrictions": [
+        "Disabled by default",
+        "Requires explicit connector configuration"
+      ]
+    },
+    {
+      "provider_id": "ollama-placeholder",
+      "display_name": "Ollama Placeholder",
+      "provider_type": "ollama",
+      "deployment_mode": "local",
+      "data_residency": "local_only",
+      "cost_tier": "free_local_compute",
+      "allowed_environments": [
+        "sandbox"
+      ],
+      "capabilities": [
+        "local_text_generation_future"
+      ],
+      "models": [
+        {
+          "model_id": "llama3-local-placeholder",
+          "display_name": "Llama Local Placeholder",
+          "context_window": 8000,
+          "supports_tools": false,
+          "recommended_for": [
+            "future_local_llm"
+          ]
+        }
+      ],
+      "restrictions": [
+        "Disabled by default",
+        "Requires local Ollama runtime"
+      ]
+    }
+  ]
+}

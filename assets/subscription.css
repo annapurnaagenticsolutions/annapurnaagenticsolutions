@@ -1,0 +1,21 @@
+.subscription-panel{--subscription-accent:#0e7490;border:1px solid color-mix(in srgb,var(--subscription-accent) 24%,#d9e3ee);border-radius:22px;background:linear-gradient(135deg,color-mix(in srgb,var(--subscription-accent) 7%,#fff),#fff);padding:clamp(24px,4vw,42px);box-shadow:0 16px 40px rgba(15,23,42,.06)}
+.subscription-panel h2{margin:6px 0 10px;color:#0f172a;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em}
+.subscription-panel p{max-width:680px;color:#526174;line-height:1.65}
+.subscription-form{display:grid;gap:14px;max-width:720px;margin-top:22px}
+.subscription-form label{display:grid;gap:7px;color:#233044;font-size:13px;font-weight:700}
+.subscription-form input[type=email],.subscription-form input[name=code]{min-height:46px;padding:10px 13px;border:1px solid #b7c9dc;border-radius:10px;background:#fff;color:#0f172a;font:inherit}
+.subscription-form input:focus-visible{outline:3px solid color-mix(in srgb,var(--subscription-accent) 24%,transparent);outline-offset:2px}
+.subscription-consent{display:flex!important;grid-template-columns:auto 1fr;align-items:flex-start;gap:10px;font-weight:500!important;line-height:1.5}
+.subscription-consent input{margin-top:4px;accent-color:var(--subscription-accent)}
+.subscription-consent a{color:var(--subscription-accent);text-underline-offset:2px}
+.subscription-form button{justify-self:start;border:0;border-radius:999px;background:var(--subscription-accent);color:#fff;padding:12px 20px;font:700 14px/1.2 system-ui,sans-serif;cursor:pointer}
+.subscription-form button:hover{filter:brightness(1.05);transform:translateY(-1px)}
+.subscription-form button:disabled{cursor:wait;opacity:.6;transform:none}
+.subscription-status{min-height:1.5em;color:#344054;font-size:13px;font-weight:650}
+.subscription-status[data-tone=error]{color:#b42318}.subscription-status[data-tone=success]{color:#067647}
+.subscription-verify{display:grid;gap:12px;padding-top:8px;border-top:1px solid #d9e3ee}
+.subscription-verify[hidden],.subscription-request[hidden]{display:none}
+.subscription-honeypot{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important}
+.play-subscription{padding:0 0 72px}
+.play-subscription .subscription-panel{--subscription-accent:#0f766e}
+@media(prefers-reduced-motion:reduce){.subscription-form button:hover{transform:none}}

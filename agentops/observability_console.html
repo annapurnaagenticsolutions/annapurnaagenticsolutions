@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AgentOps Observability Console</title>
+  <style>
+    :root { --bg:#0f172a; --panel:#111827; --card:#1f2937; --text:#e5e7eb; --muted:#9ca3af; --line:#374151; --ok:#22c55e; --warn:#f59e0b; --bad:#ef4444; --accent:#38bdf8; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:linear-gradient(135deg,#020617,#111827); color:var(--text); }
+    header { padding:44px 6vw 28px; border-bottom:1px solid var(--line); }
+    h1 { font-size:clamp(2rem,4vw,4rem); margin:0 0 12px; letter-spacing:-.04em; }
+    .subtitle { color:var(--muted); max-width:900px; font-size:1.08rem; line-height:1.6; }
+    main { padding:28px 6vw 60px; }
+    .grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:16px; margin-bottom:22px; }
+    .card { background:rgba(31,41,55,.86); border:1px solid var(--line); border-radius:18px; padding:18px; box-shadow:0 24px 70px rgba(0,0,0,.24); }
+    .metric { font-size:2rem; font-weight:800; margin:4px 0; }
+    .label { color:var(--muted); font-size:.9rem; }
+    .layout { display:grid; grid-template-columns:1.2fr .8fr; gap:18px; }
+    table { width:100%; border-collapse:collapse; overflow:hidden; border-radius:14px; }
+    th, td { padding:12px; border-bottom:1px solid var(--line); text-align:left; vertical-align:top; }
+    th { color:#cbd5e1; font-size:.82rem; text-transform:uppercase; letter-spacing:.06em; }
+    td { color:#e5e7eb; font-size:.92rem; }
+    .badge { display:inline-block; border-radius:999px; padding:4px 9px; font-size:.78rem; font-weight:700; }
+    .executed { background:rgba(34,197,94,.15); color:#86efac; border:1px solid rgba(34,197,94,.35); }
+    .blocked { background:rgba(239,68,68,.15); color:#fecaca; border:1px solid rgba(239,68,68,.35); }
+    .controls { color:#fde68a; }
+    .muted { color:var(--muted); }
+    .section-title { display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+    .pill { color:#bae6fd; border:1px solid rgba(56,189,248,.35); background:rgba(56,189,248,.08); border-radius:999px; padding:6px 10px; font-size:.8rem; }
+    @media (max-width: 980px) { .grid,.layout { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="pill">Open Enterprise AgentOps Mesh · v0.7</div>
+    <h1>Observability, Cost, and Trace Ledger</h1>
+    <p class="subtitle">A static console for explaining how the AgentOps control plane records runtime decisions, blocked actions, provider usage, token estimates, and governance controls. This is GitHub Pages-friendly and mirrors the backend trace-ledger API.</p>
+  </header>
+  <main class="container">
+    <section class="grid">
+      <div class="card"><div class="label">Total traces</div><div class="metric" id="totalTraces">0</div></div>
+      <div class="card"><div class="label">Executed</div><div class="metric" id="executed">0</div></div>
+      <div class="card"><div class="label">Blocked</div><div class="metric" id="blocked">0</div></div>
+      <div class="card"><div class="label">Estimated cost</div><div class="metric" id="cost">$0.00</div></div>
+    </section>
+
+    <section class="layout">
+      <div class="card">
+        <div class="section-title"><h2>Runtime Trace Ledger</h2><span class="pill">successful + blocked actions</span></div>
+        <table>
+          <thead><tr><th>Agent</th><th>Action</th><th>Decision</th><th>Policy</th><th>Provider</th><th>Controls</th></tr></thead>
+          <tbody id="traceRows"></tbody>
+        </table>
+      </div>
+      <div class="card">
+        <div class="section-title"><h2>Governance interpretation</h2><span class="pill">why it matters</span></div>
+        <p class="muted">The trace ledger is not only technical logging. It is the evidence base for AgentOps governance.</p>
+        <ul>
+          <li>Blocked actions reveal risky workflow design.</li>
+          <li>Policy decisions show recurring governance friction.</li>
+          <li>Provider usage supports cost and routing review.</li>
+          <li>Evidence IDs connect runtime behavior to approval artifacts.</li>
+          <li>Trace steps make agent execution explainable after the fact.</li>
+        </ul>
+        <h3>Next product direction</h3>
+        <p class="muted">v0.8 should add a connector and tool sandbox so runtime actions can be constrained before they touch enterprise systems.</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const traces = [
+      {
+        request_id: 'rt-sample-001', agent_id: 'procurement-agent-v0', action: 'summarize_vendor_invoice_discrepancy', execution_decision: 'executed', policy_decision: 'allow', provider_name: 'Mock Safe Local Provider', estimated_cost_usd: 0, required_controls: ['basic audit log']
+      },
+      {
+        request_id: 'rt-sample-002', agent_id: 'customer-support-agent-v0', action: 'send_external_customer_response', execution_decision: 'blocked', policy_decision: 'deny', provider_name: 'not selected', estimated_cost_usd: 0, required_controls: ['DLP review','security review','legal/compliance approval']
+      }
+    ];
+    const total = traces.length;
+    const executed = traces.filter(t => t.execution_decision === 'executed').length;
+    const blocked = traces.filter(t => t.execution_decision.includes('blocked')).length;
+    const cost = traces.reduce((sum,t)=>sum + (t.estimated_cost_usd || 0), 0);
+    document.getElementById('totalTraces').textContent = total;
+    document.getElementById('executed').textContent = executed;
+    document.getElementById('blocked').textContent = blocked;
+    document.getElementById('cost').textContent = `$${cost.toFixed(4)}`;
+    document.getElementById('traceRows').innerHTML = traces.map(t => `
+      <tr>
+        <td>${t.agent_id}</td>
+        <td>${t.action}</td>
+        <td><span class="badge ${t.execution_decision.includes('blocked') ? 'blocked' : 'executed'}">${t.execution_decision}</span></td>
+        <td>${t.policy_decision}</td>
+        <td>${t.provider_name || 'not selected'}</td>
+        <td class="controls">${(t.required_controls || []).join(', ')}</td>
+      </tr>`).join('');
+  </script>
+</body>
+</html>
+

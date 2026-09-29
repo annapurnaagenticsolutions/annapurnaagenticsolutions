@@ -1,0 +1,53 @@
+[
+  {
+    "agent_id": "procurement-agent-v0",
+    "actor_role": "procurement_analyst",
+    "action": "summarize_vendor_invoice_discrepancy",
+    "target_environment": "sandbox",
+    "autonomy_level": 1,
+    "risk_level": "Medium",
+    "data_sensitivity": "medium",
+    "requested_tools": [
+      "knowledge_base_read"
+    ],
+    "requested_data_sources": [
+      "invoice_archive",
+      "vendor_master_readonly"
+    ],
+    "output_destination": "internal",
+    "financial_impact": "low",
+    "has_human_approval": false,
+    "evidence_ids": [
+      "EVD-PROC-001"
+    ],
+    "purpose": "Assist procurement analyst with discrepancy explanation.",
+    "prompt": "Summarize why invoice INV-1007 does not match the purchase order.",
+    "preferred_provider": "mock-safe-local",
+    "preferred_model": "mock-governed-small",
+    "max_budget_usd": 0.05
+  },
+  {
+    "agent_id": "customer-support-agent-v0",
+    "actor_role": "support_agent",
+    "action": "send_external_customer_response",
+    "target_environment": "production",
+    "autonomy_level": 4,
+    "risk_level": "High",
+    "data_sensitivity": "high",
+    "requested_tools": [
+      "email_send"
+    ],
+    "requested_data_sources": [
+      "customer_records"
+    ],
+    "output_destination": "customer",
+    "financial_impact": "medium",
+    "has_human_approval": false,
+    "evidence_ids": [],
+    "purpose": "Send customer response autonomously.",
+    "prompt": "Email the customer with account-specific refund details.",
+    "preferred_provider": "mock-safe-local",
+    "preferred_model": "mock-governed-small",
+    "max_budget_usd": 0.1
+  }
+]

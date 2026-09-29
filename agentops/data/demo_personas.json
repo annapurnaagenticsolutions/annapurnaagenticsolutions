@@ -1,0 +1,65 @@
+{
+  "release": "v2.6",
+  "personas": [
+    {
+      "persona_id": "enterprise_ai_leader",
+      "title": "Enterprise AI Leader",
+      "primary_goal": "See business risk reduction and production-readiness logic quickly.",
+      "needs": [
+        "clear story",
+        "risk controls",
+        "ROI-adjacent language",
+        "no deep code path"
+      ],
+      "avoid": [
+        "API-heavy first page",
+        "too many internal folders",
+        "unclear live-execution boundary"
+      ]
+    },
+    {
+      "persona_id": "enterprise_architect",
+      "title": "Enterprise Architect",
+      "primary_goal": "Validate architecture boundary, integration model, and deployment posture.",
+      "needs": [
+        "capability map",
+        "API catalog",
+        "deployment profiles",
+        "security boundaries"
+      ],
+      "avoid": [
+        "marketing-only story",
+        "unbounded platform claims"
+      ]
+    },
+    {
+      "persona_id": "ai_governance_owner",
+      "title": "AI Governance Owner",
+      "primary_goal": "Understand policy, approval, audit, and evidence mechanics.",
+      "needs": [
+        "deterministic gates",
+        "decision history",
+        "risk scoring",
+        "human approval"
+      ],
+      "avoid": [
+        "black-box LLM enforcement",
+        "unclear accountability"
+      ]
+    },
+    {
+      "persona_id": "open_source_contributor",
+      "title": "Open-source Contributor",
+      "primary_goal": "Find contribution paths with low confusion.",
+      "needs": [
+        "good-first-issue areas",
+        "scenario contribution guide",
+        "test command",
+        "scope boundaries"
+      ],
+      "avoid": [
+        "giant doc list without routing"
+      ]
+    }
+  ]
+}

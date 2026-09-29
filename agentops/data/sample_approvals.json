@@ -1,0 +1,79 @@
+[
+  {
+    "approval_id": "apr-proc-001",
+    "tenant_id": "tenant-procurement",
+    "requester_id": "user-proc-analyst-01",
+    "requester_role": "procurement_analyst",
+    "agent_id": "procurement-agent-001",
+    "connector_id": "procurement_system_mock",
+    "tool_id": "draft_email",
+    "action": "draft_vendor_exception",
+    "target_environment": "pilot",
+    "risk_level": "High",
+    "autonomy_level": 3,
+    "side_effect_class": "draft_only",
+    "status": "approved",
+    "reason": "Invoice amount variance exceeds threshold; analyst requests a governed vendor exception draft.",
+    "requested_at": "2026-06-08T12:30:00Z",
+    "reviewed_at": "2026-06-08T12:45:00Z",
+    "reviewer_id": "user-proc-owner-01",
+    "reviewer_role": "business_owner",
+    "decision_rationale": "Approved for draft-only execution. No vendor-facing send is permitted without second review.",
+    "conditions": [
+      "draft_only",
+      "no_external_send",
+      "attach_variance_evidence"
+    ],
+    "evidence_ids": [
+      "ev-proc-001",
+      "ev-proc-002"
+    ],
+    "related_request_ids": [
+      "tool-proc-001"
+    ],
+    "required_controls": [
+      "human_approval_required",
+      "trace_ledger_required",
+      "no_external_send"
+    ],
+    "payload_summary": {
+      "invoice_id": "INV-2026-0188",
+      "po_id": "PO-2026-0091",
+      "variance_percent": 6.1
+    }
+  },
+  {
+    "approval_id": "apr-hr-001",
+    "tenant_id": "tenant-hr",
+    "requester_id": "user-hr-analyst-01",
+    "requester_role": "hr_analyst",
+    "agent_id": "hr-policy-agent-001",
+    "connector_id": "hr_policy_repository_mock",
+    "tool_id": "read_policy_document",
+    "action": "read_restricted_policy_context",
+    "target_environment": "sandbox",
+    "risk_level": "Medium",
+    "autonomy_level": 1,
+    "side_effect_class": "read_only",
+    "status": "pending",
+    "reason": "Reviewer must confirm HR policy source scope before sandbox execution.",
+    "requested_at": "2026-06-08T12:52:00Z",
+    "reviewed_at": "",
+    "reviewer_id": "",
+    "reviewer_role": "",
+    "decision_rationale": "",
+    "conditions": [],
+    "evidence_ids": [
+      "ev-hr-001"
+    ],
+    "related_request_ids": [
+      "tool-hr-001"
+    ],
+    "required_controls": [
+      "source_scope_review"
+    ],
+    "payload_summary": {
+      "policy_area": "leave_policy"
+    }
+  }
+]

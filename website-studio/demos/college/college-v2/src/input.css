@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-primary: #FF3366; /* Vibrant Pink/Red */
+  --color-brand-secondary: #00E5FF; /* Cyan */
+  --color-brand-dark: #0A0A0A; /* Almost Black */
+  --color-brand-light: #F4F4F0; /* Off-White/Paper */
+  --font-family-display: 'Syncopate', sans-serif;
+  --font-family-body: 'Space Mono', monospace;
+}
+
+body {
+  font-family: var(--font-family-body);
+  background-color: var(--color-brand-light);
+  color: var(--color-brand-dark);
+  cursor: none; /* Hide default cursor for custom cursor */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-display);
+  text-transform: uppercase;
+  line-height: 0.9;
+}
+
+/* Custom Cursor */
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-brand-primary);
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background-color 0.3s;
+}
+
+.custom-cursor.hover {
+  width: 60px;
+  height: 60px;
+  background-color: var(--color-brand-secondary);
+}
+
+/* Horizontal Scroll Container */
+.scroll-x-container {
+  display: flex;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+}
+.scroll-x-container::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+/* Marquee Text */
+.marquee-text {
+  white-space: nowrap;
+  animation: scrollLeft 20s linear infinite;
+}
+@keyframes scrollLeft {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.brutalist-border {
+  border: 2px solid var(--color-brand-dark);
+}

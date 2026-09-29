@@ -1,0 +1,82 @@
+{
+  "version": "2.1.0",
+  "name": "End-to-End Control Plane Demo Flow",
+  "scenario": "Procurement agent governed from intake to safety-reviewed simulated execution",
+  "steps": [
+    {
+      "step": 1,
+      "name": "Use case intake",
+      "capability": "governance_workflow",
+      "endpoint": "POST /governance/run",
+      "output": "risk level, lifecycle gate status, next actions"
+    },
+    {
+      "step": 2,
+      "name": "Agent registration and evidence linkage",
+      "capability": "registry_evidence",
+      "endpoint": "GET/POST /registry/agents and /evidence",
+      "output": "agent record, version record, evidence references"
+    },
+    {
+      "step": 3,
+      "name": "Policy-as-code action check",
+      "capability": "policy_guardrails",
+      "endpoint": "POST /policy/check",
+      "output": "allow, allow_with_controls, require_approval, or deny"
+    },
+    {
+      "step": 4,
+      "name": "RBAC and tenant boundary check",
+      "capability": "security_rbac",
+      "endpoint": "POST /security/access/check",
+      "output": "role, tenant, capability, environment, and autonomy decision"
+    },
+    {
+      "step": 5,
+      "name": "Approval workflow when needed",
+      "capability": "approvals",
+      "endpoint": "POST /approvals/request",
+      "output": "approval request, reviewer decision, evidence linkage"
+    },
+    {
+      "step": 6,
+      "name": "Provider route governance",
+      "capability": "provider_gateway",
+      "endpoint": "POST /provider-gateway/route",
+      "output": "provider/model route decision, cost estimate, required controls"
+    },
+    {
+      "step": 7,
+      "name": "Prompt/response safety review",
+      "capability": "model_safety",
+      "endpoint": "POST /model-safety/review",
+      "output": "safety decision, blockers, controls, audit summary"
+    },
+    {
+      "step": 8,
+      "name": "Dry-run connector execution",
+      "capability": "connector_contracts",
+      "endpoint": "POST /connectors/dry-run/execute",
+      "output": "dry-run run record and simulated result"
+    },
+    {
+      "step": 9,
+      "name": "Runtime execution simulation",
+      "capability": "runtime_enforcement",
+      "endpoint": "POST /runtime/execute",
+      "output": "executed, executed_with_controls, blocked_pending_approval, or blocked"
+    },
+    {
+      "step": 10,
+      "name": "Trace, audit, and report",
+      "capability": "audit_bus",
+      "endpoint": "GET /audit/summary and GET /control-plane/end-to-end-report",
+      "output": "unified control-plane report"
+    }
+  ],
+  "success_criteria": [
+    "Every material decision is deterministic and inspectable.",
+    "Every risky action has policy, security, approval, evidence, and audit context.",
+    "Live execution remains disabled until future production gates are explicitly implemented."
+  ]
+}

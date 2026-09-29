@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agent Registry Browser | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="hero compact">
+    <nav class="nav">
+      <a href="index.html">Home</a>
+      <a href="agentops_simulator.html">Simulator</a>
+      <a href="evaluation_lab.html">Evaluation Lab</a>
+      <a href="governance_workflow.html">Governance Workflow</a>
+    </nav>
+    <div class="hero-content">
+      <p class="eyebrow">v0.4 operational layer</p>
+      <h1>Agent Registry Browser</h1>
+      <p>Inspect registered agents, autonomy levels, risk levels, required controls, versions, and linked governance evidence.</p>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="panel">
+      <h2>Registered agents</h2>
+      <p class="muted">This static page uses sample JSON records. The backend API exposes the same model through registry and evidence endpoints.</p>
+      <div id="agentGrid" class="card-grid"></div>
+    </section>
+
+    <section class="panel">
+      <h2>Evidence vault</h2>
+      <div id="evidenceGrid" class="card-grid"></div>
+    </section>
+  </main>
+
+  <script>
+    const statusLabels = {
+      proposed: 'Proposed',
+      intake_review: 'Intake review',
+      pilot_candidate: 'Pilot candidate',
+      pilot: 'Pilot',
+      production_candidate: 'Production candidate',
+      production: 'Production',
+      suspended: 'Suspended',
+      retired: 'Retired'
+    };
+
+    function chip(text) {
+      return `<span class="chip">${text}</span>`;
+    }
+
+    function renderAgent(agent, evidence) {
+      const linked = evidence.filter(item => (agent.linked_evidence_ids || []).includes(item.evidence_id));
+      return `
+        <article class="card">
+          <p class="eyebrow">${agent.domain}</p>
+          <h3>${agent.name}</h3>
+          <p>${agent.description}</p>
+          <div class="meta-grid">
+            <div><strong>Status</strong><br>${statusLabels[agent.status] || agent.status}</div>
+            <div><strong>Autonomy</strong><br>Level ${agent.autonomy_level}</div>
+            <div><strong>Risk</strong><br>${agent.risk_level}</div>
+            <div><strong>Environment</strong><br>${agent.target_environment}</div>
+          </div>
+          <h4>Required controls</h4>
+          <p>${(agent.required_controls || []).map(chip).join(' ')}</p>
+          <h4>Evidence</h4>
+          <ul>${linked.map(item => `<li>${item.title} <span class="muted">(${item.review_status})</span></li>`).join('')}</ul>
+          <h4>Version history</h4>
+          <ul>${(agent.versions || []).map(v => `<li>${v.version}: ${v.change_summary} <strong>${v.evaluation_score || ''}</strong></li>`).join('') || '<li>No versions registered yet.</li>'}</ul>
+        </article>
+      `;
+    }
+
+    function renderEvidence(item) {
+      return `
+        <article class="card small-card">
+          <p class="eyebrow">${item.artifact_type}</p>
+          <h3>${item.title}</h3>
+          <p>${item.summary}</p>
+          <p><strong>Agent:</strong> ${item.agent_id}</p>
+          <p><strong>Status:</strong> ${item.review_status}</p>
+          <p><strong>Owner:</strong> ${item.owner}</p>
+        </article>
+      `;
+    }
+
+    Promise.all([
+      fetch('data/registry_agents.json').then(r => r.json()),
+      fetch('data/evidence_vault.json').then(r => r.json())
+    ]).then(([agents, evidence]) => {
+      document.getElementById('agentGrid').innerHTML = agents.map(agent => renderAgent(agent, evidence)).join('');
+      document.getElementById('evidenceGrid').innerHTML = evidence.map(renderEvidence).join('');
+    });
+  </script>
+</body>
+</html>
+
+

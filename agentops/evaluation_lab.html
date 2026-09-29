@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agent Evaluation Lab | Open Enterprise AgentOps Mesh</title>
+  <link rel="stylesheet" href="assets/styles.css" />
+</head>
+<body>
+  <header class="hero compact">
+    <nav class="nav">
+      <a href="index.html">Open Enterprise AgentOps Mesh</a>
+      <a href="agentops_simulator.html">Guided Simulator</a>
+      <a href="evaluation_lab.html">Evaluation Lab</a>
+    </nav>
+    <div class="hero-content">
+      <p class="eyebrow">v0.2 Technical Foundation</p>
+      <h1>Agent Evaluation Lab</h1>
+      <p>Evaluate whether a candidate enterprise agent is suitable for discovery, pilot, controlled production, or scale.</p>
+    </div>
+  </header>
+
+  <main class="container section">
+    <div class="panel">
+      <h2>Choose a candidate</h2>
+      <p>The v0.2 lab uses deterministic weighted scoring. Later releases can add LLM-as-judge, human review, scenario replay, and backend persistence.</p>
+      <select id="caseSelect" class="select"></select>
+      <button id="runBtn" class="button">Run Evaluation</button>
+    </div>
+    <div id="output" class="cards"></div>
+  </main>
+
+  <script>
+    const weights = { business_value:15, task_suitability:10, data_readiness:15, governance_readiness:15, evaluation_coverage:10, safety_security:10, human_in_loop:10, operational_readiness:10, open_architecture_fit:5 };
+    const cert = score => score < 40 ? ['Not Ready','Reject or redesign before prototype.'] : score < 60 ? ['Discovery Ready','Use only for workshop or constrained prototype.'] : score < 75 ? ['Pilot Ready','Pilot with strict human oversight.'] : score < 90 ? ['Controlled Production Ready','Production possible with governance and monitoring.'] : ['Enterprise Scale Ready','Scale with governance board approval.'];
+    function risk(s){ let r=s.autonomy_level*8; if(s.risk_factors.data_sensitivity==='medium')r+=10; if(s.risk_factors.data_sensitivity==='high')r+=20; if(s.risk_factors.external_action)r+=18; if(s.risk_factors.financial_impact==='medium')r+=12; if(s.risk_factors.financial_impact==='high')r+=22; if(s.risk_factors.reversibility==='moderate')r+=8; if(s.risk_factors.reversibility==='hard')r+=18; if(s.risk_factors.customer_or_employee_impact==='medium')r+=10; if(s.risk_factors.customer_or_employee_impact==='high')r+=20; return r>=75?'Critical':r>=55?'High':r>=30?'Medium':'Low'; }
+    fetch('data/evaluation_scenarios.json').then(r=>r.json()).then(data=>{
+      const sel=document.getElementById('caseSelect');
+      data.forEach((d,i)=>{ const o=document.createElement('option'); o.value=i; o.textContent=d.name; sel.appendChild(o); });
+      const run=()=>{ const s=data[Number(sel.value)]; let total=0; const dims=[]; Object.entries(weights).forEach(([k,w])=>{ const ws=s.scores[k]*w/100; total+=ws; dims.push(`<tr><td>${k.replaceAll('_',' ')}</td><td>${s.scores[k]}</td><td>${w}</td><td>${ws.toFixed(2)}</td></tr>`); }); total=Math.round(total*100)/100; const [level,decision]=cert(total); const blockers=[]; if(s.scores.data_readiness<60) blockers.push('Data readiness below pilot threshold.'); if(s.scores.governance_readiness<60) blockers.push('Governance readiness below pilot threshold.'); if(s.scores.safety_security<60) blockers.push('Safety/security below pilot threshold.'); document.getElementById('output').innerHTML = `<article class="card strong"><p class="eyebrow">Certification</p><h2>${total}/100</h2><h3>${level}</h3><p>${decision}</p></article><article class="card"><p class="eyebrow">Risk</p><h3>${risk(s)}</h3><p>Autonomy Level: ${s.autonomy_level}</p><p>${s.description}</p></article><article class="card wide"><p class="eyebrow">Dimension Scores</p><table><thead><tr><th>Dimension</th><th>Raw</th><th>Weight</th><th>Weighted</th></tr></thead><tbody>${dims.join('')}</tbody></table></article><article class="card"><p class="eyebrow">Blockers</p>${blockers.length?'<ul>'+blockers.map(b=>`<li>${b}</li>`).join('')+'</ul>':'<p>No hard blockers in deterministic v0.2 scoring.</p>'}</article>`; };
+      document.getElementById('runBtn').addEventListener('click',run); run();
+    });
+  </script>
+</body>
+</html>
+
+
