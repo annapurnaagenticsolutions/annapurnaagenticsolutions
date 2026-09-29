@@ -50,3 +50,10 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Puzzle controls retain the forest palette and a visible keyboard path. */
+.pattern-puzzle :is(button, input):focus-visible {
+  outline: 3px solid var(--color-forest-moss);
+  outline-offset: 4px;
+}
+.pattern-puzzle button:not(:disabled) { cursor: pointer; }

@@ -9,7 +9,7 @@ interface GeneratorParams {
   difficulty: number
 }
 
-function generateArithmeticPattern(rng: any, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
+function generateArithmeticPattern(rng: ReturnType<typeof createSeededRNG>, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
   const start = rng.nextInt(0, 20 - difficulty * 3)
   const step = rng.nextInt(1, 3 + difficulty)
   return {
@@ -18,7 +18,7 @@ function generateArithmeticPattern(rng: any, length: number, difficulty: number)
   }
 }
 
-function generateRotationPattern(rng: any, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
+function generateRotationPattern(rng: ReturnType<typeof createSeededRNG>, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
   const rotations = [0, 90, 180, 270]
   const patternLength = difficulty === 1 ? 2 : difficulty === 2 ? 3 : 2
   const pattern = rng.shuffle(rotations.slice(0, patternLength))
@@ -28,7 +28,7 @@ function generateRotationPattern(rng: any, length: number, difficulty: number): 
   }
 }
 
-function generateAlternatingPattern(rng: any, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
+function generateAlternatingPattern(rng: ReturnType<typeof createSeededRNG>, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
   const a = rng.nextInt(0, 10)
   const b = rng.nextInt(11, 20)
   const skip = difficulty === 1 ? 2 : difficulty === 2 ? 3 : 4
@@ -38,7 +38,7 @@ function generateAlternatingPattern(rng: any, length: number, difficulty: number
   }
 }
 
-function generateScalingPattern(rng: any, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
+function generateScalingPattern(rng: ReturnType<typeof createSeededRNG>, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
   const start = rng.nextInt(1, 4)
   const factor = rng.nextInt(2, 3 + difficulty)
   return {
@@ -47,7 +47,7 @@ function generateScalingPattern(rng: any, length: number, difficulty: number): {
   }
 }
 
-function generateCompoundPattern(rng: any, length: number, difficulty: number): { sequence: number[]; params: Record<string, number> } {
+function generateCompoundPattern(rng: ReturnType<typeof createSeededRNG>, length: number): { sequence: number[]; params: Record<string, number> } {
   // Alternates between two arithmetic sequences
   const start1 = rng.nextInt(0, 10)
   const step1 = rng.nextInt(1, 2)
@@ -60,10 +60,16 @@ function generateCompoundPattern(rng: any, length: number, difficulty: number): 
 }
 
 export function generatePatternPuzzle(seed: number, params: Partial<GeneratorParams> = {}): PatternState {
-  const { sequenceLength = 5, numHidden = 2, difficulty = 1 } = params
+  const { sequenceLength: requestedLength = 5, numHidden = 2, difficulty = 1 } = params
 
   const rng = createSeededRNG(seed)
   const rule = rng.pick(RULES) as PatternRule
+  // Keep enough visible examples to infer the rule without spending a reveal hint.
+  const minimumVisible = rule === 'compound' ? 4
+    : rule === 'rotation' ? (difficulty === 2 ? 4 : 3)
+    : rule === 'alternating' ? (difficulty === 1 ? 3 : difficulty === 2 ? 4 : 5)
+    : 3
+  const sequenceLength = Math.max(requestedLength, minimumVisible + numHidden)
 
   let sequence: number[] = []
   let ruleParams: Record<string, number> = {}
@@ -94,7 +100,7 @@ export function generatePatternPuzzle(seed: number, params: Partial<GeneratorPar
       break
     }
     case 'compound': {
-      const result = generateCompoundPattern(rng, sequenceLength, difficulty)
+      const result = generateCompoundPattern(rng, sequenceLength)
       sequence = result.sequence
       ruleParams = result.params
       break
@@ -106,7 +112,7 @@ export function generatePatternPuzzle(seed: number, params: Partial<GeneratorPar
   // before the player does anything, and would make win-checking trivially
   // true (comparing the answer to itself).
   const slots: PatternSlot[] = sequence.map((correctValue, i) => {
-    const isVisible = i < sequenceLength - numHidden
+    const isVisible = i < sequence.length - numHidden
     return {
       id: `slot-${i}`,
       correctValue,
@@ -129,7 +135,7 @@ export function validatePatternPuzzle(state: PatternState, providedAnswers: Reco
   const hiddenSlots = state.slots.filter((s) => !s.isVisible)
 
   // Check if all hidden slots have been filled
-  if (!hiddenSlots.every((slot) => providedAnswers.hasOwnProperty(slot.id))) {
+  if (!hiddenSlots.every((slot) => Object.prototype.hasOwnProperty.call(providedAnswers, slot.id))) {
     return false
   }
 

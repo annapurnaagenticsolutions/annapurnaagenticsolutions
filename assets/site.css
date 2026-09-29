@@ -843,6 +843,8 @@ body[data-v3-beat="focus"] .v3-stage .core{transform:translate(calc(-50% + var(-
   .v3-atlas .atlas-node{transform:none!important}.atlas-ai{left:4%;top:20%}.atlas-wonder{right:3%;top:18%}.atlas-idea{right:1%;top:55%}.atlas-axon{left:39%;bottom:5%}.atlas-web{left:3%;bottom:17%}.atlas-software{left:39%;top:4%}.atlas-pramana{right:1%;bottom:4%}
   .v3-atlas-inspector{position:relative!important;left:auto;bottom:auto;width:100%;background:transparent!important;backdrop-filter:none}
   .v3-page-next .wrap{align-items:flex-start;flex-direction:column}
+  .v3-lab .lab-pramana-note{grid-template-columns:1fr;gap:8px}.v3-lab .lab-pramana-note .text-link{white-space:normal}
+  .v3-lab .lab-pramana-note{grid-template-columns:1fr;gap:8px}.v3-lab .lab-pramana-note .text-link{white-space:normal}
   .v3-lab-stage,.v3-lab-stage .sim-card{min-height:760px}.v3-lab-stage .sim-card{padding:34px 24px!important}.v3-sim-workspace{grid-template-columns:1fr;gap:28px;margin-top:34px}
   .v3-runtime-flow{grid-template-columns:repeat(2,1fr)}.v3-axon-graph{grid-template-columns:repeat(2,1fr)!important}
 }
@@ -925,6 +927,8 @@ body[data-v3-beat="journey"] .v3-route-overlay{opacity:.96!important}
 }
 .v3-atlas{min-height:670px!important}
 .v3-lab-intro{padding-top:48px!important;padding-bottom:14px!important}
+.v3-lab .lab-pramana-note{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:center;max-width:720px;margin-top:24px;padding:14px 16px;border:1px solid rgba(14,116,144,.2);border-radius:16px;background:linear-gradient(135deg,rgba(240,250,252,.82),rgba(255,255,255,.88))}.v3-lab .lab-pramana-note .eyebrow{grid-column:1/-1;color:#0e7490}.v3-lab .lab-pramana-note p{margin:0;color:#536070;font-size:13px;line-height:1.55}.v3-lab .lab-pramana-note .text-link{white-space:nowrap;color:#0e7490;font-size:12px;font-weight:720}
+.v3-lab .lab-pramana-note{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:6px 18px;align-items:center;max-width:720px;margin-top:24px;padding:14px 16px;border:1px solid rgba(14,116,144,.2);border-radius:16px;background:linear-gradient(135deg,rgba(240,250,252,.82),rgba(255,255,255,.88))}.v3-lab .lab-pramana-note .eyebrow{grid-column:1/-1;color:#0e7490}.v3-lab .lab-pramana-note p{margin:0;color:#536070;font-size:13px;line-height:1.55}.v3-lab .lab-pramana-note .text-link{white-space:nowrap;color:#0e7490;font-size:12px;font-weight:720}
 .v3-lab-intro h1{max-width:900px!important;font-size:clamp(40px,3.7vw,52px)!important}
 .v3-lab-theatre-section{padding-top:8px!important;padding-bottom:56px!important}
 .v3-lab-theatre{
@@ -1429,6 +1433,8 @@ body[data-v3-beat="journey"] .v3-route-overlay .route-curve path{
 .v3-beat-focus h2,.v3-beat-journey h2,.v3-sim-heading h2,.v2-cta-inner h2{font-size:var(--type-major-h2)!important;line-height:1.095!important;letter-spacing:-.039em!important}
 .section-head h2,.living-story h2,.route-copy h2,.v35-atlas-narrative h2,.world-inspector h2{font-size:var(--type-support-h3)!important;line-height:1.14!important;letter-spacing:-.028em!important}
 .depth-word-strong{white-space:nowrap!important}
+.headline-line{display:block;white-space:nowrap}
+@media(max-width:760px){.headline-line{white-space:normal}}
 
 /* Glass is an optical material for focus/inspection/provenance, never page wallpaper. */
 .site-header{background:rgba(255,255,255,.78)!important;border-bottom-color:rgba(218,226,236,.72)!important;box-shadow:0 1px 0 rgba(255,255,255,.75),0 10px 30px rgba(15,23,42,.025)}

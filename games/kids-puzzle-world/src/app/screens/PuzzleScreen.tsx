@@ -13,7 +13,14 @@ import BalanceRenderer from '@/mechanics/balance/renderer'
 import GearRenderer from '@/mechanics/gear/renderer'
 import AssemblyRenderer from '@/mechanics/assembly/renderer'
 
-const regionMechanicMap: Record<string, any> = {
+interface MechanicConfig {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  definition: any
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  renderer: any
+}
+
+const regionMechanicMap: Record<string, MechanicConfig> = {
   'pattern-forest': { definition: patternPuzzleDefinition, renderer: PatternRenderer },
   'maze-mountain': { definition: pathMazePuzzleDefinition, renderer: PathMazeRenderer },
   'balance-bay': { definition: balancePuzzleDefinition, renderer: BalanceRenderer },
@@ -24,7 +31,7 @@ const regionMechanicMap: Record<string, any> = {
 export default function PuzzleScreen() {
   const navigate = useNavigate()
   const { regionId, levelId } = useParams()
-  const [runtime, setRuntime] = useState<PuzzleRuntime<any, any> | null>(null)
+  const [runtime, setRuntime] = useState<PuzzleRuntime<unknown, unknown> | null>(null)
   const [won, setWon] = useState(false)
   const { completePuzzle, startPuzzle } = useProgressionStore()
 

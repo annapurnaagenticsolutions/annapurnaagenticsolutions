@@ -143,7 +143,12 @@ export const pathMazePuzzleDefinition: PuzzleDefinition<PathMazeState, PathMazeA
   }),
 
   deserialize: (data) => {
-    const payload = data.payload as any
+    // payload has Sets converted to Arrays during serialization
+    const payload = data.payload as unknown as Omit<PathMazeState, 'player' | 'activeSwitches' | 'gemsCollected'> & {
+      player: { x: number; y: number; inventory: string[] }
+      activeSwitches: string[]
+      gemsCollected: string[]
+    }
     return {
       ...payload,
       player: { ...payload.player, inventory: new Set(payload.player.inventory) },

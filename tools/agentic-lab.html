@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Agentic Systems Lab — Turn opaque agent runs into inspectable, replayable evidence. Visual operations console with policy enforcement, evidence sealing, and real-time monitoring.">
+    <meta name="author" content="Annapurna Agentic Solutions">
+    <title>Agentic Systems Lab — AI Agent Governance & Observability | Annapurna Agentic Solutions</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #fafafa;
+        }
+        .header {
+            background: linear-gradient(135deg, #070908 0%, #1f2e28 100%);
+            color: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .header a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .hero {
+            background: linear-gradient(135deg, #070908 0%, #1f2e28 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+        }
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        .badges {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .badge {
+            background: rgba(56, 189, 248, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .section h2 {
+            color: #38bdf8;
+            margin-bottom: 1.5rem;
+            font-size: 2rem;
+        }
+        .section h3 {
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+        .workflow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        .workflow-card {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+        .workflow-card:hover {
+            border-color: #38bdf8;
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.1);
+            transform: translateY(-2px);
+        }
+        .workflow-card h4 {
+            color: #38bdf8;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .workflow-card .command {
+            font-family: 'Courier New', monospace;
+            background: #f5f5f5;
+            padding: 0.5rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+        .workflow-card .description {
+            color: #666;
+            font-size: 0.95rem;
+        }
+        .cta-box {
+            background: linear-gradient(135deg, #070908 0%, #1f2e28 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        .cta-box h3 {
+            color: white;
+            margin-bottom: 1rem;
+        }
+        .btn {
+            display: inline-block;
+            background: #38bdf8;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 600;
+            margin: 0.5rem;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(56, 189, 248, 0.4);
+            background: #7dd3fc;
+        }
+        .btn-secondary {
+            background: rgba(56, 189, 248, 0.2);
+            color: white;
+            border: 2px solid #38bdf8;
+        }
+        .architecture {
+            background: #f5f5f5;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.85rem;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .feature-item {
+            padding: 1rem;
+            background: #f5f7ff;
+            border-left: 4px solid #38bdf8;
+            border-radius: 4px;
+        }
+        .feature-item h4 {
+            color: #38bdf8;
+            margin-bottom: 0.5rem;
+        }
+        .demo-highlight {
+            background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        .demo-highlight h3 {
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        code {
+            background: #f5f5f5;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        ul {
+            margin-left: 2rem;
+            margin-top: 1rem;
+        }
+        ul li {
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <a href="/">← Back to Annapurna Agentic Solutions</a>
+    </div>
+
+    <div class="hero">
+        <h1>Agentic Systems Lab</h1>
+        <p>Turn opaque agent runs into inspectable, replayable evidence</p>
+        <div class="badges">
+            <span class="badge">🔒 Cryptographic Evidence Chains</span>
+            <span class="badge">⚡ Real-time Monitoring</span>
+            <span class="badge">🛡️ Policy Enforcement</span>
+            <span class="badge">🔍 102 Tests Passing</span>
+            <span class="badge">📦 Self-hosted Preview</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2>What is Agentic Systems Lab?</h2>
+            <p>A <strong>visual operations console</strong> and <strong>policy enforcement toolkit</strong> for AI agent governance. The Agentic Lab makes agent execution observable through cryptographically sealed evidence chains, pre-execution policy gates, and real-time run visualization.</p>
+            
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>🔐 Evidence Sealing</h4>
+                    <p>SHA-256 hash-chain append-only ledger with cryptographic tamper detection</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🚦 Policy Gates</h4>
+                    <p>Pre-execution blocking, approval requirements, and audit trails</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 Live Monitoring</h4>
+                    <p>Server-Sent Events stream for real-time agent execution visibility</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔑 Approval Workflow</h4>
+                    <p>Short-lived, cryptographically signed approval tokens for sensitive operations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Architecture</h2>
+            <p>Full-stack preview consisting of:</p>
+            <ul>
+                <li><strong>Visual Console</strong> — React + Vite frontend for replaying agent runs, reviewing evidence chains, exploring live feeds</li>
+                <li><strong>MCP Server Suite</strong> — Five Model Context Protocol servers for tool catalog, policy enforcement, evidence ingestion, approval issuance, verification</li>
+                <li><strong>SDKs</strong> — Node.js and Python emitters for instrumenting existing agents without framework coupling</li>
+                <li><strong>Evidence Chain</strong> — Append-only ledger with SHA-256 hash chain for tamper-proof audit trails</li>
+            </ul>
+
+            <div class="architecture">
+┌──────────────────────────────────────────────────────┐
+│  Visual Console (React + Vite)                       │
+│  • Scenario compiler & guided trace panel            │
+│  • Run history & live runtime feed                   │
+│  • Evidence chain visualization                      │
+└───────────────────┬──────────────────────────────────┘
+                    │ HTTP / SSE / WebMCP
+┌───────────────────▼──────────────────────────────────┐
+│  MCP Server Suite (Node.js)                          │
+│  ┌───────────┐ ┌───────────┐ ┌─────────────────┐   │
+│  │stdio      │ │policy     │ │ingest           │   │
+│  │server     │ │proxy      │ │server           │   │
+│  └───────────┘ └───────────┘ └─────────────────┘   │
+│  ┌───────────┐ ┌─────────────────────────────┐     │
+│  │approval   │ │evidence-bundle              │     │
+│  │authority  │ │• SHA-256 hash chain         │     │
+│  └───────────┘ │• Tamper detection           │     │
+│                 └─────────────────────────────┘     │
+└──────────────────────────────────────────────────────┘
+            </div>
+        </div>
+
+        <div class="demo-highlight">
+            <h3>🎯 Recommended Demo: Evidence Verification</h3>
+            <p><strong>5-minute walkthrough:</strong> Export an evidence bundle, verify the SHA-256 hash chain, manually tamper with a record, re-verify and observe cryptographic tamper detection. The most concrete and explainable workflow for demonstrating trustworthy agent governance.</p>
+        </div>
+
+        <div class="section">
+            <h2>Available Workflows</h2>
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <h4>1. Evidence Verification</h4>
+                    <div class="command">npm run evidence:verify -- bundle.json</div>
+                    <p class="description">Cryptographically verify that an evidence bundle's hash chain is intact. Reports sealed/unsealed/tampered status.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>2. Policy Proxy</h4>
+                    <div class="command">npm run mcp:policy-proxy -- &lt;mcp-cmd&gt;</div>
+                    <p class="description">Pre-execution gate that intercepts tool calls, applies policy (allow/deny/approval), and strips metadata before forwarding.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>3. Ingest Server</h4>
+                    <div class="command">npm run ingest:dev</div>
+                    <p class="description">HTTP API for agent evidence ingestion, live SSE feed, evidence export, and verification endpoints.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>4. Approval Authority</h4>
+                    <div class="command">npm run approvals:dev</div>
+                    <p class="description">Issues short-lived, cryptographically signed approval tokens for tools requiring human-in-the-loop control.</p>
+                </div>
+
+                <div class="workflow-card">
+                    <h4>5. Stdio MCP Server</h4>
+                    <div class="command">npm run mcp:stdio</div>
+                    <p class="description">Dependency-free Model Context Protocol server exposing trace normalization and run summarization.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Quick Start</h2>
+            <h3>Prerequisites</h3>
+            <ul>
+                <li><strong>Node.js</strong> 18+ (tested with Node 22)</li>
+                <li><strong>npm</strong> or yarn</li>
+            </ul>
+
+            <h3>Installation</h3>
+            <div class="architecture" style="background: #1a1a1a; color: #22c55e;">
+# Clone or download the repository
+cd agent_experiment
+
+# Install dependencies
+npm install
+
+# Run tests to verify setup (102 tests)
+npm test
+
+# Start visual console
+npm run dev
+# Open browser to http://localhost:5173
+
+# Start ingest server (in another terminal)
+npm run ingest:dev
+# API available at http://127.0.0.1:8787
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Use Cases</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h4>Compliance & Audit</h4>
+                    <p>Generate tamper-proof audit trails for regulatory compliance (GDPR, SOC 2, financial services)</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Security Review</h4>
+                    <p>Incident response with cryptographically verifiable evidence of what an agent executed</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Policy Enforcement</h4>
+                    <p>Block unauthorized tool execution before it happens, not after the damage is done</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Human-in-the-Loop</h4>
+                    <p>Require approval for sensitive operations: database writes, financial transactions, external API calls</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Multi-Agent Systems</h4>
+                    <p>Observe cross-agent handoffs, trace distributed workflows, join runs by trace ID</p>
+                </div>
+                <div class="feature-item">
+                    <h4>Developer Experience</h4>
+                    <p>Debug agent failures with replayable traces, not opaque logs</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>SDK Integration</h2>
+            <h3>Node.js / TypeScript</h3>
+            <div class="architecture" style="background: #1a1a1a; color: #7dd3fc;">
+import { observeTool } from './sdk/node/agentic-lab.mjs';
+
+const guardedTool = observeTool(myToolFunction, {
+  endpoint: 'http://127.0.0.1:8787',
+  tenantId: 'acme',
+  project: 'payments',
+  toolName: 'stripe_charge',
+});
+
+const result = await guardedTool({ amount: 5000 });
+            </div>
+
+            <h3>Python</h3>
+            <div class="architecture" style="background: #1a1a1a; color: #7dd3fc;">
+from sdk.python.agentic_lab import observe_tool
+
+@observe_tool(
+    endpoint='http://127.0.0.1:8787',
+    tenant_id='acme',
+    project='payments',
+    tool_name='stripe_charge'
+)
+def charge_card(amount: int, currency: str):
+    # Your tool logic
+    pass
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Test Coverage</h2>
+            <p><strong>102 tests passing</strong> across 34 test files:</p>
+            <ul>
+                <li><strong>Frontend tests:</strong> React components, Zustand stores, agent event contracts, trace import, live runtime feed</li>
+                <li><strong>MCP tests:</strong> Policy engine evaluation, evidence seal verification, approval token lifecycle, run ledger idempotency, OIDC JWT validation, request signatures, rate limiting, CORS, OpenAPI schema</li>
+            </ul>
+            <p>All tests use <strong>Vitest</strong> with <strong>jsdom</strong> for React testing and Node native patterns for MCP modules.</p>
+        </div>
+
+        <div class="cta-box">
+            <h3>Ready to explore?</h3>
+            <p style="margin-bottom: 1.5rem;">Self-hosted preview available for local deployment</p>
+            <a href="agentic-lab/" class="btn">Launch Visual Console</a>
+            <a href="https://github.com/annapurnaagenticsolutions/agentic-lab" class="btn btn-secondary">View on GitHub</a>
+        </div>
+
+        <div class="section">
+            <h2>Deployment Considerations</h2>
+            <p><strong>This is a preview.</strong> The ingest server uses:</p>
+            <ul>
+                <li>Append-only JSONL ledger (not a production database)</li>
+                <li>Loopback-bound by default (<code>127.0.0.1</code>)</li>
+                <li>In-memory idempotency cache (lost on restart)</li>
+                <li>No persistent key rotation or remote JWKS refresh</li>
+            </ul>
+
+            <h3>For Production:</h3>
+            <ul>
+                <li>Replace ledger with durable storage (PostgreSQL, DynamoDB)</li>
+                <li>Use identity-aware gateway (OAuth 2.0, OIDC) instead of HMAC-only auth</li>
+                <li>Store approval keys in secrets manager (Vault, AWS Secrets Manager)</li>
+                <li>Deploy behind HTTPS reverse proxy</li>
+                <li>Configure CORS allow-list for browser clients</li>
+                <li>Enable read-side audit (<code>AGENTIC_READ_AUDIT=enabled</code>)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Technical Details</h2>
+            <ul>
+                <li><strong>Frontend:</strong> React 18, Vite 6, TypeScript 5, Tailwind CSS, Zustand state management</li>
+                <li><strong>Backend:</strong> Node.js 18+, dependency-free MCP servers, JSONL append-only ledger</li>
+                <li><strong>Evidence:</strong> SHA-256 hash chain, cryptographic sealing, tamper detection</li>
+                <li><strong>Auth:</strong> HMAC-SHA256 signatures, OIDC JWT validation (RS256), approval tokens</li>
+                <li><strong>Protocol:</strong> Model Context Protocol (MCP), MetaMCP catalog, WebMCP browser boundary</li>
+                <li><strong>Testing:</strong> Vitest, jsdom, React Testing Library, 102 tests</li>
+                <li><strong>License:</strong> MIT (open source, commercial-friendly)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div style="background: #070908; color: white; padding: 2rem; text-align: center;">
+        <p>Built by <strong>Annapurna Agentic Solutions</strong></p>
+        <p style="margin-top: 0.5rem; opacity: 0.8;">Making the invisible visible — agents should be observable, auditable, and governable</p>
+    </div>
+</body>
+</html>

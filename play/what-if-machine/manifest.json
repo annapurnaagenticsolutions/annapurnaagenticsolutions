@@ -1,0 +1,26 @@
+{
+  "name": "What-If Machine v1.3",
+  "short_name": "What-If",
+  "description": "Stable showcase build of a mobile-first silly imagination engine with curated prompts, recurring absurd characters, share-card templates, and offline play.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#171423",
+  "theme_color": "#171423",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "version": "1.2.0"
+}

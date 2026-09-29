@@ -39,11 +39,11 @@
         "learning",
         "experience"
       ],
-      "summary": "Pramana’s DPDP governance focus leads the portfolio view, with AI, learning and interactive experiences alongside it.",
-      "reason": "DPDP governance is Annapurna’s flagship product focus; the default view starts with Pramana and keeps the wider portfolio discoverable.",
+      "summary": "Annapurna’s connected portfolio view brings governance, AI, learning and interactive experiences together, with Pramana as the DPDP entry point.",
+      "reason": "No stronger intent signal is active, so the site presents Annapurna World first and keeps Pramana’s DPDP governance path immediately available.",
       "primaryCta": {
-        "label": "Explore Pramana →",
-        "href": "pramana/"
+        "label": "Explore Annapurna →",
+        "href": "explore.html"
       },
       "secondaryCta": {
         "label": "Open Interactive Lab",

@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CareLink Play Store - Privacy-First App Distribution | Annapurna Agentic Solutions</title>
+    <meta name="description" content="A privacy-first, offline-capable app store for the CareLink ecosystem. Zero PII collection, cryptographic licensing, built on Cloudflare Workers.">
+    <meta name="keywords" content="privacy app store, android apps, zero pii, carelink, cryptographic licensing, cloudflare workers, india apps">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="CareLink Play Store - Privacy-First App Distribution">
+    <meta property="og:description" content="Zero PII collection. Offline-first. Cryptographic licensing. The future of privacy-respecting app distribution.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://annapurnaagenticsolutions.com/apps/playstore.html">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #ffffff;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+            opacity: 0.3;
+        }
+        
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .hero h1 {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+        
+        .hero .subtitle {
+            font-size: 24px;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+        
+        .privacy-badge {
+            display: inline-block;
+            background: rgba(16, 185, 129, 0.2);
+            border: 2px solid #10b981;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            margin-top: 20px;
+        }
+        
+        .privacy-badge .icon {
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        
+        /* Features Section */
+        .section {
+            padding: 80px 20px;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 60px;
+            color: #1f2937;
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+        
+        .feature-card {
+            background: #f9fafb;
+            padding: 40px;
+            border-radius: 16px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border-color: #667eea;
+        }
+        
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        
+        .feature-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+        
+        .feature-card p {
+            color: #6b7280;
+            line-height: 1.8;
+        }
+        
+        /* Architecture Section */
+        .architecture {
+            background: #f9fafb;
+        }
+        
+        .architecture-diagram {
+            background: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        
+        .architecture-diagram pre {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            overflow-x: auto;
+            color: #374151;
+            background: #f3f4f6;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        /* Tech Stack */
+        .tech-stack {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .tech-item {
+            background: white;
+            padding: 24px;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .tech-item h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #667eea;
+        }
+        
+        .tech-item ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .tech-item li {
+            padding: 8px 0;
+            color: #6b7280;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        
+        .tech-item li:last-child {
+            border-bottom: none;
+        }
+        
+        .tech-item li::before {
+            content: "✓ ";
+            color: #10b981;
+            font-weight: 700;
+        }
+        
+        /* Apps Section */
+        .apps-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        
+        .app-card {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .app-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        
+        .app-emoji {
+            font-size: 64px;
+            margin-bottom: 15px;
+        }
+        
+        .app-card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #1f2937;
+        }
+        
+        .app-card .tagline {
+            font-size: 14px;
+            color: #667eea;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .app-card p {
+            color: #6b7280;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .tier-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+        
+        .tier-free {
+            background: #d1fae5;
+            color: #065f46;
+        }
+        
+        .tier-paid {
+            background: #fef3c7;
+            color: #92400e;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+        
+        .cta-section h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        
+        .cta-section p {
+            font-size: 18px;
+            margin-bottom: 40px;
+            opacity: 0.95;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 16px 32px;
+            font-size: 18px;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s;
+            margin: 10px;
+        }
+        
+        .btn-primary {
+            background: white;
+            color: #667eea;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255,255,255,0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        
+        /* Stats Section */
+        .stats-section {
+            background: #1f2937;
+            color: white;
+            padding: 60px 20px;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            text-align: center;
+        }
+        
+        .stat-item {
+            padding: 20px;
+        }
+        
+        .stat-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            opacity: 0.8;
+        }
+        
+        /* Footer */
+        footer {
+            background: #111827;
+            color: #9ca3af;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        
+        footer a {
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            
+            .hero .subtitle {
+                font-size: 18px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <div class="hero">
+        <div class="hero-content container">
+            <h1>🎯 CareLink Play Store</h1>
+            <p class="subtitle">Privacy-First App Distribution for the CareLink Ecosystem</p>
+            <p style="font-size: 18px; max-width: 800px; margin: 0 auto 20px;">
+                A revolutionary app store built on Cloudflare Workers with zero PII collection, 
+                cryptographic licensing, and offline-first architecture.
+            </p>
+            <div class="privacy-badge">
+                <span class="icon">🔒</span>
+                ZERO PII COLLECTED
+            </div>
+        </div>
+    </div>
+
+    <!-- Core Features -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Why CareLink Play Store?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Privacy-First Design</h3>
+                    <p>No personal data collection. No device fingerprinting. No telemetry. By design, there's nothing to leak or breach.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Offline-First</h3>
+                    <p>License verification works in airplane mode. Apps function fully offline. Only license issuance requires internet.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🔑</div>
+                    <h3>Cryptographic Licensing</h3>
+                    <p>Ed25519 signatures + RSA-OAEP encryption. Device-bound keys in Android Keystore. No server-side decryption possible.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Edge-Deployed</h3>
+                    <p>Built on Cloudflare Workers. Globally distributed. Sub-100ms response times. Serverless scalability.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🌐</div>
+                    <h3>GDPR/CCPA Exempt</h3>
+                    <p>No personal data processing = no compliance obligations. Legally inert by design.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🇮🇳</div>
+                    <h3>India-Focused</h3>
+                    <p>Hindi voice support. Family-oriented apps. Designed for Indian users and use cases.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Architecture -->
+    <div class="section architecture">
+        <div class="container">
+            <h2 class="section-title">Technical Architecture</h2>
+            <div class="architecture-diagram">
+                <pre>
+┌─────────────────────────────────────────────────────────────┐
+│                    ANDROID CLIENT (AuthLib)                  │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ • RSA-2048 key pair in Android Keystore            │   │
+│  │ • Private key NEVER leaves device                   │   │
+│  │ • JWT verification (Ed25519) - 100% offline         │   │
+│  │ • Certificate pinning + anti-tamper checks          │   │
+│  └─────────────────────────────────────────────────────┘   │
+└──────────────────────┬──────────────────────────────────────┘
+                       │ HTTPS + Certificate Pinning
+                       ▼
+┌─────────────────────────────────────────────────────────────┐
+│               CLOUDFLARE WORKERS (Backend)                   │
+│  ┌─────────────────────────────────────────────────────┐   │
+│  │ POST /api/license/request  - Issue new license     │   │
+│  │ POST /api/license/renew    - Renew existing        │   │
+│  │ GET  /api/license/revocation - Revocation list     │   │
+│  │ GET  /api/catalog          - App catalog           │   │
+│  │ GET  /apks/:filename       - APK download (R2)     │   │
+│  └─────────────────────────────────────────────────────┘   │
+└──────┬────────────────────┬────────────────────────────────┘
+       │                    │
+       ▼                    ▼
+┌─────────────┐      ┌─────────────┐
+│ D1 Database │      │ R2 Storage  │
+│ (Serverless)│      │ (APK Files) │
+│             │      │             │
+│ • token_id  │      │ • .apk CDN  │
+│ • app_id    │      │ • 1-year    │
+│ • encrypted │      │   cache     │
+│   blob      │      └─────────────┘
+│ • status    │
+│             │
+│ NO PII!     │
+└─────────────┘
+                </pre>
+            </div>
+            
+            <h3 style="font-size: 28px; margin-bottom: 30px; text-align: center;">Technology Stack</h3>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <h4>Backend</h4>
+                    <ul>
+                        <li>Cloudflare Workers</li>
+                        <li>Hono Framework</li>
+                        <li>D1 (SQLite)</li>
+                        <li>R2 (Object Storage)</li>
+                        <li>KV (Caching)</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-item">
+                    <h4>Cryptography</h4>
+                    <ul>
+                        <li>Ed25519 (Signing)</li>
+                        <li>RSA-2048 (Encryption)</li>
+                        <li>JWT Tokens</li>
+                        <li>Certificate Pinning</li>
+                        <li>Hardware-backed Keys</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-item">
+                    <h4>Android Client</h4>
+                    <ul>
+                        <li>Kotlin + Compose</li>
+                        <li>Android Keystore</li>
+                        <li>Material 3</li>
+                        <li>MVVM Architecture</li>
+                        <li>Offline-First</li>
+                    </ul>
+                </div>
+                
+                <div class="tech-item">
+                    <h4>Security</h4>
+                    <ul>
+                        <li>Zero PII</li>
+                        <li>Rate Limiting</li>
+                        <li>Anti-Tamper</li>
+                        <li>Debugger Detection</li>
+                        <li>Root Detection</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Available Apps -->
+    <div class="section">
+        <div class="container">
+            <h2 class="section-title">Available Apps</h2>
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-emoji">❤️</div>
+                    <h3>CareLink</h3>
+                    <p class="tagline">Elder care, fully offline</p>
+                    <p>Medication reminders, SOS alerts, family check-ins and voice memos. Designed for elders.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-emoji">💊</div>
+                    <h3>DawaBox</h3>
+                    <p class="tagline">Household medicine cabinet</p>
+                    <p>Track medicines, expiry dates, doses, and family notes. Voice-first input. Never waste medicine.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                    <span class="tier-badge tier-paid">PAID</span>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-emoji">📚</div>
+                    <h3>School Assistant</h3>
+                    <p class="tagline">Mom's helper for school days</p>
+                    <p>Timetable, homework reminders, bag-packing checklist and exam countdowns. For parents.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                    <span class="tier-badge tier-paid">PAID</span>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-emoji">🏪</div>
+                    <h3>Kirana</h3>
+                    <p class="tagline">Voice-first bookkeeper</p>
+                    <p>Track sales, inventory, and customer credit. Designed for small Indian shops. Voice commands in Hindi.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                    <span class="tier-badge tier-paid">PAID</span>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-emoji">🎮</div>
+                    <h3>TouchLearn</h3>
+                    <p class="tagline">Kids educational games</p>
+                    <p>52 interactive activities for ages 2-10. Alphabet, math, science, puzzles, and role-play games.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                    <span class="tier-badge tier-paid">PAID</span>
+                </div>
+                
+                <div class="app-card">
+                    <div class="app-emoji">📻</div>
+                    <h3>AI Radio</h3>
+                    <p class="tagline">Voice-controlled radio</p>
+                    <p>Hindi voice commands. Simple interface for elderly users. Offline favorites.</p>
+                    <span class="tier-badge tier-free">FREE</span>
+                    <span class="tier-badge tier-paid">PAID</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-section">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">0</div>
+                    <div class="stat-label">PII Data Points Collected</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">100%</div>
+                    <div class="stat-label">Offline License Verification</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Apps in Catalog</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">&lt;100ms</div>
+                    <div class="stat-label">Global Edge Response Time</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+        <div class="container">
+            <h2>Ready to Deploy Privacy-First Apps?</h2>
+            <p>Join the privacy-respecting app distribution revolution</p>
+            <a href="https://github.com/annapurnaagenticsolutions/carelink-store-backend" class="btn btn-primary">View on GitHub</a>
+            <a href="../index.html" class="btn btn-secondary">Explore More Projects</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2026 Annapurna Agentic Solutions. All rights reserved.</p>
+            <p style="margin-top: 10px;">
+                <a href="../index.html">Home</a> | 
+                <a href="../tools.html">Tools</a> | 
+                <a href="../apps.html">Apps</a> | 
+                <a href="mailto:info@annapurnaagenticsolutions.com">Contact</a>
+            </p>
+            <p style="margin-top: 20px; font-size: 14px;">
+                Built with privacy, deployed with Cloudflare Workers
+            </p>
+        </div>
+    </footer>
+</body>
+</html>

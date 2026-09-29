@@ -1,0 +1,157 @@
+[
+  {
+    "id": "chotu_round",
+    "name": "Chotu Round",
+    "description": "Five easy puzzles for younger players or quick casual play.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "paheli_dukaan",
+      "emoji_puzzle",
+      "word_jumble_paan",
+      "science_magic"
+    ],
+    "difficulty": [
+      "easy"
+    ],
+    "mixingRule": "simple_variety",
+    "rewardCoins": 20
+  },
+  {
+    "id": "tez_dimaag_round",
+    "name": "Tez Dimaag Round",
+    "description": "Five sharper puzzles for users who want a challenge.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "paheli_dukaan",
+      "logic_laddoo",
+      "word_jumble_paan",
+      "science_magic"
+    ],
+    "difficulty": [
+      "medium",
+      "tricky"
+    ],
+    "mixingRule": "challenge_variety",
+    "rewardCoins": 35
+  },
+  {
+    "id": "family_round",
+    "name": "Family Round",
+    "description": "Pass-the-phone mode with mixed puzzles for group play.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "paheli_dukaan",
+      "emoji_puzzle",
+      "logic_laddoo",
+      "word_jumble_paan",
+      "science_magic",
+      "wrong_answer"
+    ],
+    "difficulty": [
+      "easy",
+      "medium"
+    ],
+    "mixingRule": "minimum_three_shops",
+    "rewardCoins": 30
+  },
+  {
+    "id": "bazaar_mix",
+    "name": "Bazaar Mix",
+    "description": "Ten mixed puzzles from across the bazaar.",
+    "puzzleCount": 10,
+    "allowedShops": [
+      "paheli_dukaan",
+      "emoji_puzzle",
+      "logic_laddoo",
+      "word_jumble_paan",
+      "mythology_clue",
+      "science_magic",
+      "wrong_answer"
+    ],
+    "difficulty": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "mixingRule": "balanced_mix",
+    "rewardCoins": 50
+  },
+  {
+    "id": "emoji_express",
+    "name": "Emoji Express",
+    "description": "Seven quick emoji puzzles.",
+    "puzzleCount": 7,
+    "allowedShops": [
+      "emoji_puzzle"
+    ],
+    "difficulty": [
+      "easy",
+      "medium"
+    ],
+    "mixingRule": "unseen_first",
+    "rewardCoins": 25
+  },
+  {
+    "id": "logic_laddoo_plate",
+    "name": "Logic Laddoo Plate",
+    "description": "Five reasoning puzzles served fresh.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "logic_laddoo"
+    ],
+    "difficulty": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "mixingRule": "unseen_first",
+    "rewardCoins": 25
+  },
+  {
+    "id": "wrong_answer_darbar",
+    "name": "Wrong Answer Darbar",
+    "description": "Five comedy prompts where nonsense is the goal.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "wrong_answer"
+    ],
+    "difficulty": [
+      "easy",
+      "medium"
+    ],
+    "mixingRule": "recent_repeat_avoidance",
+    "rewardCoins": 20
+  },
+  {
+    "id": "science_magic_show",
+    "name": "Science Magic Show",
+    "description": "Five science puzzles with everyday wonder.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "science_magic"
+    ],
+    "difficulty": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "mixingRule": "unseen_first",
+    "rewardCoins": 25
+  },
+  {
+    "id": "word_paan_challenge",
+    "name": "Word Paan Challenge",
+    "description": "Five word puzzles to chew slowly.",
+    "puzzleCount": 5,
+    "allowedShops": [
+      "word_jumble_paan"
+    ],
+    "difficulty": [
+      "easy",
+      "medium",
+      "tricky"
+    ],
+    "mixingRule": "unseen_first",
+    "rewardCoins": 25
+  }
+]

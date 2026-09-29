@@ -1,0 +1,62 @@
+[
+  {
+    "id": "chotu_solver",
+    "name": "Chotu Solver",
+    "condition": "Solve 5 puzzles",
+    "type": "progress"
+  },
+  {
+    "id": "paheli_intern",
+    "name": "Paheli Intern",
+    "condition": "Solve 15 puzzles",
+    "type": "progress"
+  },
+  {
+    "id": "bazaar_thinker",
+    "name": "Bazaar Thinker",
+    "condition": "Solve 30 puzzles",
+    "type": "progress"
+  },
+  {
+    "id": "logic_laddoo_taster",
+    "name": "Logic Laddoo Taster",
+    "condition": "Solve 10 Logic Laddoo puzzles",
+    "type": "shop"
+  },
+  {
+    "id": "emoji_detective",
+    "name": "Emoji Detective",
+    "condition": "Solve 10 Emoji Puzzle Stall puzzles",
+    "type": "shop"
+  },
+  {
+    "id": "word_paan_champion",
+    "name": "Word Paan Champion",
+    "condition": "Solve 10 Word-Jumble Paan puzzles",
+    "type": "shop"
+  },
+  {
+    "id": "science_jadugar_junior",
+    "name": "Science Jadugar Junior",
+    "condition": "Solve 10 Science Magic puzzles",
+    "type": "shop"
+  },
+  {
+    "id": "wrong_answer_maharaj",
+    "name": "Wrong Answer Maharaj",
+    "condition": "Complete 10 Wrong Answer Only prompts",
+    "type": "creative"
+  },
+  {
+    "id": "daily_bazaar_regular",
+    "name": "Daily Bazaar Regular",
+    "condition": "Complete 5 daily challenges",
+    "type": "streak"
+  },
+  {
+    "id": "bazaar_ustad",
+    "name": "Bazaar Ustad",
+    "condition": "Solve 100 puzzles",
+    "type": "mastery"
+  }
+]

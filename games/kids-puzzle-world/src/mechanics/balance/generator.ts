@@ -116,7 +116,7 @@ export function generateBalancePuzzle(seed: number, params: Partial<GeneratorPar
   // If the scramble happened to land on a balanced arrangement, nudge one
   // movable object so the player always has something to actually do.
   const movable = scrambledBodies.filter((b) => !b.isStatic && !b.isLocked)
-  if (Math.abs(calculateTorque(scrambledBodies, pivotX, pivotY)) < 1e-9 && movable.length > 0) {
+  if (Math.abs(calculateTorque(scrambledBodies, pivotX)) < 1e-9 && movable.length > 0) {
     const target = movable[0]
     const currentSlot = Math.round((target.x - pivotX) / slotUnit)
     const shifted = currentSlot >= maxSlot ? currentSlot - 1 : currentSlot + 1
@@ -128,7 +128,7 @@ export function generateBalancePuzzle(seed: number, params: Partial<GeneratorPar
     bodies: scrambledBodies,
     gravity: 9.8,
     isSettled: false,
-    torqueAroundPivot: calculateTorque(scrambledBodies, pivotX, pivotY),
+    torqueAroundPivot: calculateTorque(scrambledBodies, pivotX),
     // Notches make the answer exact, so this only absorbs float noise —
     // "close enough" is no longer good enough.
     targetTorqueTolerance: 0.01,
@@ -142,6 +142,6 @@ export function generateBalancePuzzle(seed: number, params: Partial<GeneratorPar
 }
 
 export function validateBalancePuzzle(state: BalanceState, pivotX: number, pivotY: number, maxTolerance: number = 1.0): boolean {
-  const torque = calculateTorque(state.bodies, pivotX, pivotY)
+  const torque = calculateTorque(state.bodies, pivotX)
   return Math.abs(torque) <= maxTolerance
 }

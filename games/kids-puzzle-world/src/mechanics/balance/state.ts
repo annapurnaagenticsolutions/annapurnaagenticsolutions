@@ -85,7 +85,7 @@ export function calculateCenterOfMass(bodies: Body[]): { x: number; y: number; t
 // positive number for every possible arrangement — no placement could ever
 // cancel out, so the puzzle could never register a win no matter how objects
 // were dragged.
-export function calculateTorque(bodies: Body[], pivotX: number, _pivotY: number): number {
+export function calculateTorque(bodies: Body[], pivotX: number): number {
   let torque = 0
 
   bodies.forEach((body) => {

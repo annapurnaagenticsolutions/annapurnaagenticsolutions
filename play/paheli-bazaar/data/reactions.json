@@ -1,0 +1,86 @@
+{
+  "paheli_dukaan": {
+    "correct": [
+      "Paheli Chacha smiles: ‘Arre wah, the clue bowed before you.’",
+      "Paheli Chacha says: ‘Simple words, sharp answer.’",
+      "Paheli Chacha nods: ‘The old bazaar approves.’"
+    ],
+    "wrong": [
+      "Paheli Chacha says: ‘Close, but the paheli is hiding behind the curtain.’",
+      "Paheli Chacha whispers: ‘Think slowly. The answer is not far.’",
+      "Paheli Chacha says: ‘This riddle is pretending to be easy.’"
+    ]
+  },
+  "emoji_puzzle": {
+    "correct": [
+      "Emoji Bua says: ‘Decoded! Full emoji power.’",
+      "Emoji Bua claps: ‘No words needed. You understood the symbols.’",
+      "Emoji Bua says: ‘Your emoji brain is online.’"
+    ],
+    "wrong": [
+      "Emoji Bua says: ‘Hmm. These emojis are still doing drama.’",
+      "Emoji Bua says: ‘Look again. The clue is smiling at you.’",
+      "Emoji Bua says: ‘Wrong, but stylish.’"
+    ]
+  },
+  "logic_laddoo": {
+    "correct": [
+      "Laddoo Halwai says: ‘Correct. This laddoo had logic inside.’",
+      "Laddoo Halwai nods: ‘Sweet answer, sharp thinking.’",
+      "Laddoo Halwai says: ‘Your brain just got extra ghee.’"
+    ],
+    "wrong": [
+      "Laddoo Halwai says: ‘Almost. But this laddoo has a hidden filling.’",
+      "Laddoo Halwai says: ‘Don’t bite fast. Taste the logic.’",
+      "Laddoo Halwai says: ‘The answer is round, but the thinking is straight.’"
+    ]
+  },
+  "word_jumble_paan": {
+    "correct": [
+      "Paanwala Professor says: ‘Word chewed perfectly.’",
+      "Paanwala Professor smiles: ‘Letters obeyed you today.’",
+      "Paanwala Professor says: ‘Excellent. The word unfolded.’"
+    ],
+    "wrong": [
+      "Paanwala Professor says: ‘The letters are still dancing.’",
+      "Paanwala Professor says: ‘Chew the word a little slower.’",
+      "Paanwala Professor says: ‘One letter is causing mischief.’"
+    ]
+  },
+  "mythology_clue": {
+    "correct": [
+      "Katha Panditji says: ‘Correct. You followed the story clue.’",
+      "Katha Panditji nods: ‘The memory of the tale helped you.’",
+      "Katha Panditji says: ‘Good. The symbol revealed the answer.’"
+    ],
+    "wrong": [
+      "Katha Panditji says: ‘A nearby story, but not this one.’",
+      "Katha Panditji says: ‘Think of the symbol again.’",
+      "Katha Panditji says: ‘The clue belongs to another character.’"
+    ]
+  },
+  "science_magic": {
+    "correct": [
+      "Science Jadugar says: ‘Correct. Magic explained.’",
+      "Science Jadugar says: ‘Your curiosity microscope is working.’",
+      "Science Jadugar smiles: ‘Science wins again.’"
+    ],
+    "wrong": [
+      "Science Jadugar says: ‘Not quite. Observe once more.’",
+      "Science Jadugar says: ‘The experiment needs another look.’",
+      "Science Jadugar says: ‘Close, but the science has one more step.’"
+    ]
+  },
+  "wrong_answer": {
+    "correct": [
+      "Ulta Baba says: ‘Excellent nonsense. Logic has left the bazaar.’",
+      "Ulta Baba says: ‘Approved. This answer has full masala.’",
+      "Ulta Baba says: ‘Wrong in the correct way.’"
+    ],
+    "wrong": [
+      "Ulta Baba says: ‘Too sensible. Add more masala.’",
+      "Ulta Baba says: ‘This answer accidentally became correct. Dangerous.’",
+      "Ulta Baba says: ‘Nonsense level too low. Try again.’"
+    ]
+  }
+}

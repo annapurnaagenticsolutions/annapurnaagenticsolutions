@@ -1,0 +1,114 @@
+[
+  {
+    "id": "crow-commissioner-cawdesh",
+    "name": "Crow Commissioner Cawdesh",
+    "trigger_terms": [
+      "crow",
+      "crows",
+      "traffic",
+      "signal"
+    ],
+    "role": "Over-serious traffic ruler",
+    "sidekick": "Pigeon PA Pintu",
+    "catchphrase": "Lane discipline begins in the sky.",
+    "running_gag": "approves every decision only after a peanut inspection"
+  },
+  {
+    "id": "professor-moonlal",
+    "name": "Professor Moonlal",
+    "trigger_terms": [
+      "moon",
+      "tuition",
+      "coaching",
+      "space"
+    ],
+    "role": "Night-school cosmic teacher",
+    "sidekick": "Comet Monitor Chintu",
+    "catchphrase": "Full moon means full syllabus.",
+    "running_gag": "keeps changing batch timings by lunar phase"
+  },
+  {
+    "id": "bagamma",
+    "name": "Bagamma the School Bag",
+    "trigger_terms": [
+      "bag",
+      "school bag",
+      "homework",
+      "tiffin"
+    ],
+    "role": "Tired but dignified school-bag complainant",
+    "sidekick": "Tiffin Captain Tinku",
+    "catchphrase": "I carry the future and three unfinished notebooks.",
+    "running_gag": "files weight complaints in triplicate"
+  },
+  {
+    "id": "onion-minister",
+    "name": "Onion Minister Netranath",
+    "trigger_terms": [
+      "vegetable",
+      "onion",
+      "sabzi",
+      "market"
+    ],
+    "role": "Emotional vegetable debater",
+    "sidekick": "Tomato Speaker Tamataram",
+    "catchphrase": "This is not crying; this is public consultation.",
+    "running_gag": "wins debates by making everyone emotional"
+  },
+  {
+    "id": "cloud-admin-108",
+    "name": "Cloud Admin 108",
+    "trigger_terms": [
+      "cloud",
+      "monsoon",
+      "rain",
+      "thunder"
+    ],
+    "role": "Strict admin of the monsoon group",
+    "sidekick": "Thunder Uncle",
+    "catchphrase": "No rain without confirmation.",
+    "running_gag": "mutes the group during the most important update"
+  },
+  {
+    "id": "inspector-pencil",
+    "name": "Inspector Pencil",
+    "trigger_terms": [
+      "pencil",
+      "exam",
+      "classroom",
+      "homework"
+    ],
+    "role": "Exam-hall investigation officer",
+    "sidekick": "Eraser Agent Golu",
+    "catchphrase": "I will write only after evidence.",
+    "running_gag": "keeps sharpening the investigation instead of solving it"
+  },
+  {
+    "id": "idli-founder-idlix",
+    "name": "Idli Founder Idlix",
+    "trigger_terms": [
+      "idli",
+      "startup",
+      "breakfast",
+      "dosa"
+    ],
+    "role": "Breakfast startup founder",
+    "sidekick": "Chutney CTO",
+    "catchphrase": "We are not food; we are a platform.",
+    "running_gag": "turns every snack problem into a pitch deck"
+  },
+  {
+    "id": "gravity-uncle",
+    "name": "Gravity Uncle",
+    "trigger_terms": [
+      "gravity",
+      "science",
+      "fall",
+      "space"
+    ],
+    "role": "Tired force requesting leave",
+    "sidekick": "Newton Notebook",
+    "catchphrase": "I hold everyone down; at least give me tea.",
+    "running_gag": "takes tea breaks exactly when things need stability"
+  }
+]

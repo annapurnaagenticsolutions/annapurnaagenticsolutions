@@ -52,7 +52,7 @@
   }
   function applyLocalMoment(){
     const m=localMoment();document.body.dataset.localMoment=m.key;
-    const el=$('#local-moment');if(el)el.textContent=`${m.label} · Annapurna ecosystem`;
+    const el=$('#local-moment');if(el)el.textContent=`${m.label} · Annapurna World`;
     return m;
   }
   function applyTemporalState(state){
@@ -646,7 +646,7 @@
   // v1.4 adaptive structure: real local signals -> inspectable rule decision -> DOM composition.
   const adaptiveFallback={
     intents:{
-      explore:{label:'Explore all',primaryWorld:'pramana',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['pramana','ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Balanced view across Annapurna’s work, with Pramana’s DPDP governance focus introduced alongside other products.',reason:'No stronger intent signal is active, so the site keeps a balanced company view with Pramana as the flagship entry point.',primaryCta:{label:'Explore Pramana →',href:'pramana/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
+      explore:{label:'Explore all',primaryWorld:'pramana',depth:'standard',structuralOrder:['living'],focusOrder:['ai','learning','experience'],worldOrder:['pramana','ai','wonder','idea','axon','web','software'],labOrder:['runtime','axon','design'],summary:'Annapurna’s connected portfolio view brings governance, AI, learning and interactive experiences together, with Pramana as the DPDP entry point.',reason:'No stronger intent signal is active, so the site presents Annapurna World first and keeps Pramana’s DPDP governance path immediately available.',primaryCta:{label:'Explore Annapurna →',href:'explore.html'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
       enterprise:{label:'Enterprise AI',primaryWorld:'ai',depth:'deep',structuralOrder:['living'],focusOrder:['ai','experience','learning'],worldOrder:['pramana','ai','axon','software','web','wonder','idea'],labOrder:['runtime','axon','design'],summary:'Governance, agent infrastructure and inspectable AI systems first.',reason:'This view prioritizes AI governance, AXON structure, evidence and enterprise interaction patterns.',primaryCta:{label:'Explore AI systems →',href:'explore.html#world=ai'},secondaryCta:{label:'Inspect evidence',href:'evidence.html'}},
       learning:{label:'Learning',primaryWorld:'wonder',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['wonder','web','idea','ai','software','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Learning worlds, visual exploration and progressive interaction first.',reason:'This view starts with WonderHub and learning-oriented experience design, then exposes the enabling systems underneath.',primaryCta:{label:'Explore learning worlds →',href:'wonderhub-by-AnnapurnaAgenticSolutions/'},secondaryCta:{label:'Open Interactive Lab',href:'lab.html'}},
       msme:{label:'MSME tools',primaryWorld:'idea',depth:'standard',structuralOrder:['living'],focusOrder:['learning','experience','ai'],worldOrder:['idea','software','web','ai','wonder','axon','pramana'],labOrder:['design','runtime','axon'],summary:'Practical India-first tools and delivery experience first.',reason:'This view prioritizes Idea Hub and practical product delivery before infrastructure detail.',primaryCta:{label:'Explore practical tools →',href:'idea-hub/'},secondaryCta:{label:'Explore products',href:'explore.html#world=idea'}},
@@ -1084,14 +1084,33 @@
     ribbon.querySelector('[data-context-resume]')?.addEventListener('click',()=>{memory.trailUpdatedAt=now;persist();if($('.v3-atlas')){setWorld(last,'resume');$('.v3-atlas-section')?.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion:reduce)').matches?'auto':'smooth',block:'start'})}else navigateToSection(semanticWorldHref(last))});
   }
   function updateHeaderOffset(){const h=$('.site-header')?.getBoundingClientRect().height||72;document.documentElement.style.setProperty('--header-h',`${Math.round(h)}px`)}
+  function ensurePortfolioNavigation(){
+    const addLink=(nav,href,label)=>{
+      if(!nav||[...nav.querySelectorAll('a[href]')].some(a=>a.getAttribute('href')?.replace(/\/$/,'').endsWith(href.replace(/\/$/,''))))return;
+      const link=document.createElement('a');link.href=`/${href}`;link.textContent=label;link.dataset.portfolioNav=label.toLowerCase();
+      const anchor=[...nav.querySelectorAll('a[href]')].find(a=>a.classList.contains('pramana-flagship'));
+      if(anchor)anchor.insertAdjacentElement('afterend',link);else nav.prepend(link);
+    };
+    addLink($('.nav-links'),'products.html','Products');addLink($('.nav-links'),'play/','Play');
+    addLink($('.mobile-nav'),'products.html','Products');addLink($('.mobile-nav'),'play/','Play');
+    addLink($('.footer-links'),'products.html','Products');addLink($('.footer-links'),'play/','Play');
+    $$('.nav-links,.mobile-nav,.footer-links').forEach(nav=>{const products=[...nav.querySelectorAll('a[href]')].find(a=>a.getAttribute('href')?.replace(/\/$/,'').endsWith('products.html'));const play=[...nav.querySelectorAll('a[href]')].find(a=>a.getAttribute('href')?.replace(/\/$/,'').endsWith('play'));if(products&&play)nav.insertBefore(products,play)});
+    if(document.body.classList.contains('v3-home')){
+      const title='Annapurna Agentic Solutions — Governance, AI, Learning & Digital Experiences';
+      const description='Explore Annapurna’s connected worlds: Pramana’s DPDP governance, AI systems, learning products, practical tools and interactive digital experiences.';
+      document.title=title;
+      document.querySelectorAll('meta[name="description"],meta[property="og:description"],meta[name="twitter:description"]').forEach(m=>m.setAttribute('content',description));
+      document.querySelectorAll('meta[property="og:title"],meta[name="twitter:title"]').forEach(m=>m.setAttribute('content',title));
+    }
+  }
   function markActiveNavigation(){
     const path=location.pathname.replace(/\/+$/,'').toLowerCase();
-    const active=path.endsWith('/products.html')?'products':path.endsWith('/explore.html')?'explore':path.endsWith('/lab.html')?'lab':path.endsWith('/evidence.html')?'evidence':(/\/about(?:\/index\.html)?$/.test(path)?'about':(/\/contact(?:\/index\.html)?$/.test(path)?'contact':''));
-    $$('.site-header a[href]').forEach(a=>{let ap;try{ap=new URL(a.getAttribute('href'),location.href).pathname.replace(/\/+$/,'').toLowerCase()}catch(_){return}const match=(active==='products'&&ap.endsWith('/products.html'))||(active==='explore'&&ap.endsWith('/explore.html'))||(active==='lab'&&ap.endsWith('/lab.html'))||(active==='evidence'&&ap.endsWith('/evidence.html'))||(active==='about'&&/\/about(?:\/index\.html)?$/.test(ap))||(active==='contact'&&/\/contact(?:\/index\.html)?$/.test(ap));if(match)a.setAttribute('aria-current','page')});
+    const active=path.endsWith('/products.html')?'products':path.endsWith('/play')?'play':path.endsWith('/explore.html')?'explore':path.endsWith('/lab.html')?'lab':path.endsWith('/evidence.html')?'evidence':(/\/about(?:\/index\.html)?$/.test(path)?'about':(/\/contact(?:\/index\.html)?$/.test(path)?'contact':''));
+    $$('.site-header a[href]').forEach(a=>{let ap;try{ap=new URL(a.getAttribute('href'),location.href).pathname.replace(/\/+$/,'').toLowerCase()}catch(_){return}const match=(active==='products'&&ap.endsWith('/products.html'))||(active==='play'&&ap.endsWith('/play'))||(active==='explore'&&ap.endsWith('/explore.html'))||(active==='lab'&&ap.endsWith('/lab.html'))||(active==='evidence'&&ap.endsWith('/evidence.html'))||(active==='about'&&/\/about(?:\/index\.html)?$/.test(ap))||(active==='contact'&&/\/contact(?:\/index\.html)?$/.test(ap));if(match)a.setAttribute('aria-current','page')});
   }
   function navigateWithContinuity(href){let u;try{u=new URL(href,location.href)}catch(_){location.href=href;return}try{sessionStorage.setItem('annapurnaNavContext',JSON.stringify({at:Date.now(),world:activeWorld,trail:memory.trail,from:location.pathname,to:u.pathname}))}catch(_){}location.href=u.href}
   function mountNavigationContinuity(){
-    try{history.scrollRestoration='manual'}catch(_){}updateHeaderOffset();markActiveNavigation();
+    try{history.scrollRestoration='manual'}catch(_){}ensurePortfolioNavigation();updateHeaderOffset();markActiveNavigation();
     // A history-restored document can retain classes from an earlier navigation.
     document.body.classList.remove('page-leaving');
     const header=$('.site-header');if(header&&'ResizeObserver'in window)new ResizeObserver(updateHeaderOffset).observe(header);else addEventListener('resize',updateHeaderOffset,{passive:true});

@@ -1,4 +1,4 @@
-import { createSeededRNG } from '@/shared/rng'
+import { createSeededRNG, SeededRNG } from '@/shared/rng'
 import { AssemblyState, Piece } from './state'
 
 interface GeneratorParams {
@@ -16,7 +16,7 @@ function createRectangleSilhouette(width: number, height: number): Array<{ x: nu
   return cells
 }
 
-function partitionSilhouette(silhouette: Array<{ x: number; y: number }>, numPieces: number, rng: any): Array<Array<{ x: number; y: number }>> {
+function partitionSilhouette(silhouette: Array<{ x: number; y: number }>, numPieces: number, rng: SeededRNG): Array<Array<{ x: number; y: number }>> {
   const pieces: Array<Array<{ x: number; y: number }>> = []
   const cellsPerPiece = Math.ceil(silhouette.length / numPieces)
 

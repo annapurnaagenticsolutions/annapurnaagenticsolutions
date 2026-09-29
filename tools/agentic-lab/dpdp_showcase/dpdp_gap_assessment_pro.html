@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PRAMANA (प्रमाण) · DPDP Act 2023 Statutory Gap Assessment Pro</title>
+  <meta name="description" content="Audit your Indian business compliance readiness under the Digital Personal Data Protection Act 2023. Real-time Up to ₹250 Crore penalty exposure meter & executive audit report." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:           #f8fafc;
+      --surface:      #ffffff;
+      --surface2:     #f1f5f9;
+      --surface3:     #e2e8f0;
+      --border:       #e2e8f0;
+      --border2:      #cbd5e1;
+      --text:         #0f172a;
+      --text-dim:     #334155;
+      --text-muted:   #64748b;
+      --gold:         #92400e;
+      --gold-mid:     #b45309;
+      --gold-dim:     #fef3c7;
+      --gold-border:  #fde68a;
+      --green:        #15803d;
+      --green-bright: #16a34a;
+      --green-dim:    #dcfce7;
+      --green-border: #86efac;
+      --red:          #dc2626;
+      --red-bright:   #b91c1c;
+      --red-dim:      #fee2e2;
+      --red-border:   #fca5a5;
+      --blue:         #0284c7;
+      --blue-dim:     #e0f2fe;
+      --mono:         'JetBrains Mono', monospace;
+      --sans:         'Inter', sans-serif;
+      --serif:        'Cinzel', serif;
+      --radius:       10px;
+      --radius-lg:    16px;
+      --radius-xl:    24px;
+      --shadow-sm:    0 1px 3px rgba(0,0,0,0.06);
+      --shadow:       0 4px 14px -2px rgba(0,0,0,0.08);
+      --shadow-lg:    0 10px 25px -3px rgba(0,0,0,0.1);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 14.5px;
+      line-height: 1.65;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 20px 60px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-badge {
+      font-family: var(--serif);
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--gold);
+      background: var(--gold-dim);
+      padding: 8px 14px;
+      border-radius: 8px;
+      border: 1px solid var(--gold-border);
+      letter-spacing: 0.08em;
+    }
+
+    .brand-title h1 {
+      font-size: 17px;
+      font-weight: 800;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-title p {
+      font-size: 12px;
+      color: var(--text-muted);
+      font-family: var(--mono);
+    }
+
+    .nav-btn {
+      color: var(--gold-mid);
+      text-decoration: none;
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      border: 1px solid var(--gold-border);
+      padding: 7px 16px;
+      border-radius: 8px;
+      background: var(--gold-dim);
+      transition: all 0.2s;
+    }
+
+    .nav-btn:hover {
+      background: #fde68a;
+      transform: translateY(-1px);
+    }
+
+    /* ── HERO BANNER ── */
+    .hero {
+      background: linear-gradient(135deg, #fffbeb 0%, #fff7ed 50%, #fef2f2 100%);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--radius-xl);
+      padding: 32px 28px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      font-weight: 700;
+      color: var(--gold-mid);
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      padding: 4px 14px;
+      border-radius: 99px;
+      margin-bottom: 12px;
+      font-family: var(--mono);
+    }
+
+    .hero h2 {
+      font-family: var(--serif);
+      font-size: clamp(24px, 3vw, 32px);
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 15px;
+      color: var(--text-dim);
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    /* ── SECTOR SELECTOR ── */
+    .sector-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .sec-card {
+      background: var(--surface);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 18px 14px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.2s;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .sec-card:hover {
+      border-color: var(--gold-mid);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .sec-card.active {
+      border-color: var(--gold-mid);
+      background: var(--gold-dim);
+      box-shadow: 0 0 16px var(--gold-dim);
+    }
+
+    .sec-card .icon { font-size: 28px; margin-bottom: 6px; }
+    .sec-card .title { font-weight: 800; font-size: 14px; color: var(--text); }
+    .sec-card .sub { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+
+    /* ── LIVE SCORE & PENALTY DIAL ── */
+    .score-dock {
+      background: var(--surface);
+      border: 1.5px solid var(--border2);
+      border-radius: var(--radius-xl);
+      padding: 24px 28px;
+      display: grid;
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 20px;
+      align-items: center;
+      box-shadow: var(--shadow);
+      font-family: var(--mono);
+    }
+
+    .score-box {
+      text-align: center;
+    }
+
+    .score-num {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--green);
+      line-height: 1;
+      margin: 4px 0;
+    }
+
+    .penalty-dial {
+      text-align: center;
+      padding: 0 16px;
+      border-left: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+    }
+
+    .penalty-val {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--red);
+      line-height: 1;
+      margin: 4px 0;
+    }
+
+    /* ── QUESTION LIST ── */
+    .question-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .q-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px 24px;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: all 0.2s;
+    }
+
+    .q-box:hover {
+      border-color: var(--border2);
+      box-shadow: var(--shadow);
+    }
+
+    .q-box-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .q-tag {
+      font-size: 11px;
+      font-family: var(--mono);
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 4px;
+    }
+
+    .q-tag.crit { background: var(--red-dim); color: var(--red); border: 1px solid var(--red-border); }
+    .q-tag.high { background: var(--gold-dim); color: var(--gold-mid); border: 1px solid var(--gold-border); }
+    .q-tag.med { background: var(--blue-dim); color: var(--blue); border: 1px solid var(--blue-border); }
+
+    .q-text {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+      margin-top: 4px;
+    }
+
+    .q-law-basis {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-family: var(--mono);
+      line-height: 1.5;
+    }
+
+    .ans-group {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+
+    .ans-btn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: 1.5px solid var(--border);
+      background: var(--surface2);
+      color: var(--text-dim);
+      font-family: var(--mono);
+      font-size: 12.5px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .ans-btn:hover { border-color: var(--gold-mid); color: var(--text); }
+    .ans-btn.yes { background: var(--green); color: #ffffff; border-color: var(--green); }
+    .ans-btn.no { background: var(--red); color: #ffffff; border-color: var(--red); }
+    .ans-btn.part { background: var(--gold-mid); color: #ffffff; border-color: var(--gold-mid); }
+
+    .btn-download-main {
+      padding: 14px 28px;
+      border-radius: var(--radius-lg);
+      border: none;
+      background: var(--gold-mid);
+      color: #ffffff;
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: all 0.2s;
+      width: 100%;
+      box-shadow: var(--shadow);
+    }
+
+    .btn-download-main:hover {
+      background: var(--gold);
+      transform: translateY(-1px);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 24px;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-family: var(--mono);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <div class="brand-left">
+        <div class="logo-badge">प्रमाण · PRAMANA</div>
+        <div class="brand-title">
+          <h1>DPDP ACT 2023 GAP ASSESSMENT PRO <span>🇮🇳</span></h1>
+          <p>Statutory Risk Exposure Calculator & 5-Sector Audit Suite</p>
+        </div>
+      </div>
+      <div>
+        <a href="dpdp_understanding_dpo_consultation.html" class="nav-btn">
+          ⚖️ DPO Legal Consultation ➔
+        </a>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-tag">Automated Compliance Assessment & Risk Modeling</div>
+      <h2>Statutory <span style="color: var(--gold-mid);">DPDP Compliance Readiness</span> Audit</h2>
+      <p>
+        Calculate your enterprise or clinic's statutory exposure under the Digital Personal Data Protection Act 2023. Toggle answers below to update your compliance score and real-time penalty exposure (up to ₹250 Crore).
+      </p>
+    </section>
+
+    <!-- SECTOR SELECTOR -->
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+      Step 1: Select Your Industry Sector
+    </div>
+    <div class="sector-grid">
+      <div class="sec-card active" onclick="setSector('healthcare')">
+        <div class="icon">🏥</div>
+        <div class="title">Healthcare & Clinics</div>
+        <div class="sub">Patient EHR & Lab Vitals</div>
+      </div>
+      <div class="sec-card" onclick="setSector('schools')">
+        <div class="icon">🏫</div>
+        <div class="title">Schools & EdTech</div>
+        <div class="sub">Minor Student Protection</div>
+      </div>
+      <div class="sec-card" onclick="setSector('fintech')">
+        <div class="icon">💳</div>
+        <div class="title">Fintech & NBFCs</div>
+        <div class="sub">Aadhaar / PAN KYC</div>
+      </div>
+      <div class="sec-card" onclick="setSector('hr')">
+        <div class="icon">👥</div>
+        <div class="title">HR & Recruitment</div>
+        <div class="sub">Employee PII & Resumes</div>
+      </div>
+      <div class="sec-card" onclick="setSector('retail')">
+        <div class="icon">🛒</div>
+        <div class="title">E-Commerce & Retail</div>
+        <div class="sub">WhatsApp Opt-Ins & GPS</div>
+      </div>
+    </div>
+
+    <!-- LIVE SCORE DOCK -->
+    <div class="score-dock">
+      <div class="score-box">
+        <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Statutory Readiness</div>
+        <div class="score-num" id="score-val">80%</div>
+        <div style="font-size: 11px; color: var(--text-dim);" id="score-status">Low Penalty Risk</div>
+      </div>
+
+      <div class="penalty-dial">
+        <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">Maximum Penalty Exposure</div>
+        <div class="penalty-val" id="penalty-val">Up to ₹50 Cr</div>
+        <div style="font-size: 11px; color: var(--red);">Section 33 Adjudication Range</div>
+      </div>
+
+      <div style="text-align: center;">
+        <div style="font-size: 11px; color: var(--text-muted); font-weight: 700; text-transform: uppercase;">DPBI Board Status</div>
+        <div style="font-size: 14px; font-weight: 800; color: var(--gold-mid); margin: 8px 0;" id="dpbi-status">ACTION REQUIRED</div>
+        <div style="font-size: 11px; color: var(--text-muted);">6h Mandatory Breach SLA Active</div>
+      </div>
+    </div>
+
+    <!-- QUESTIONNAIRE -->
+    <div style="font-size: 13px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); font-family: var(--mono);">
+      Step 2: Statutory Compliance Questionnaire & Legal Citations
+    </div>
+    <div class="question-list" id="q-list"></div>
+
+    <button class="btn-download-main" onclick="downloadExecutiveReport()">
+      📥 DOWNLOAD OFFICIAL EXECUTIVE COMPLIANCE REPORT (PDF/TEXT)
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+      <div>© 2026 Pramana (प्रमाण) · Annapurna Agentic Governance Suite. All Rights Reserved.</div>
+      <div>100% Client-Side Simulation · Zero Data Leaves Your Device</div>
+    </footer>
+  </div>
+
+  <script>
+    const QUESTIONS_DATA = {
+      healthcare: [
+        {
+          id: 'q1',
+          tag: 'CRITICAL · SECTION 5 & 6',
+          penalty: 250,
+          text: 'Do you obtain separate, itemized, multilingual consent before storing patient EHR diagnostic records?',
+          law: 'Section 5 mandates clear, unbundled notices in Schedule VIII languages. A general reception disclaimer is non-compliant.',
+        },
+        {
+          id: 'q2',
+          tag: 'CRITICAL · SECTION 8(5)',
+          penalty: 250,
+          text: 'Are patient prescriptions and lab reports shared on unencrypted doctor WhatsApp groups?',
+          law: 'Section 8(5) requires reasonable security safeguards. Unencrypted consumer messaging apps violate statutory security duties.',
+        },
+        {
+          id: 'q3',
+          tag: 'HIGH · SECTION 11(3)',
+          penalty: 50,
+          text: 'Do you have an automated mechanism to delete patient data upon citizen request within 72 hours?',
+          law: 'Section 11(3) grants citizens the Right to Erasure. Non-fulfillment within 72 hours triggers statutory grievance penalties.',
+        },
+        {
+          id: 'q4',
+          tag: 'HIGH · SECTION 8(2)',
+          penalty: 50,
+          text: 'Are medical diagnostic metadata transfers to external labs governed by a signed DPA contract?',
+          law: 'Section 8(2) dictates that Data Fiduciaries remain directly liable for defaults by third-party data processors.',
+        }
+      ],
+      schools: [
+        {
+          id: 'q1',
+          tag: 'CRITICAL · SECTION 9(1)',
+          penalty: 200,
+          text: 'Do you obtain verifiable parental/guardian consent before collecting student personal data?',
+          law: 'Section 9(1) imposes mandatory verifiable guardian consent before processing any data of individuals under 18 years.',
+        },
+        {
+          id: 'q2',
+          tag: 'CRITICAL · SECTION 9(3)',
+          penalty: 200,
+          text: 'Do you engage in tracking, behavioral profiling, or targeted advertising directed at students?',
+          law: 'Section 9(3) strictly prohibits any form of tracking or behavioral monitoring directed at children.',
+        },
+        {
+          id: 'q3',
+          tag: 'HIGH · SECTION 8(5)',
+          penalty: 250,
+          text: 'Is student biometric attendance data encrypted with role-based access control logging?',
+          law: 'Section 8(5) mandates robust encryption for biometric templates to prevent irreversible identity theft.',
+        }
+      ],
+      fintech: [
+        {
+          id: 'q1',
+          tag: 'CRITICAL · SECTION 8(5) & UIDAI',
+          penalty: 250,
+          text: 'Are 12-digit Aadhaar numbers and PANs masked or tokenized in backend SQL/NoSQL databases?',
+          law: 'Storing unmasked Aadhaar numbers violates UIDAI regulations and Section 8(5) of the DPDP Act 2023.',
+        },
+        {
+          id: 'q2',
+          tag: 'HIGH · SECTION 6(1)',
+          penalty: 50,
+          text: 'Do you share customer phone numbers with third-party telecallers without explicit purpose opt-in?',
+          law: 'Section 6 forbids bundled consent. Marketing calls require explicit, standalone unbundled opt-in.',
+        },
+        {
+          id: 'q3',
+          tag: 'HIGH · SECTION 8(2)',
+          penalty: 50,
+          text: 'Do you maintain an audit log certifying cloud data processors comply with DPDP obligations?',
+          law: 'Section 8(2) holds the Data Fiduciary strictly liable for cloud processor breaches and non-compliance.',
+        }
+      ],
+      hr: [
+        {
+          id: 'q1',
+          tag: 'HIGH · SECTION 6 & 8(7)',
+          penalty: 50,
+          text: 'Do you delete candidate resumes and KYC records after the hiring cycle is completed?',
+          law: 'Section 8(7) storage limitation requires erasure once the specific purpose of collection is fulfilled.',
+        },
+        {
+          id: 'q2',
+          tag: 'CRITICAL · SECTION 8(5)',
+          penalty: 250,
+          text: 'Are employee payroll, bank details, and PAN records protected by access logging?',
+          law: 'Section 8(5) requires access controls to prevent internal unauthorized employee data exposure.',
+        },
+        {
+          id: 'q3',
+          tag: 'HIGH · SECTION 11(2)',
+          penalty: 50,
+          text: 'Can employees request correction or deletion of outdated performance/tax records easily?',
+          law: 'Section 11(2) guarantees Data Principals the Right to Correction and completion of inaccurate records.',
+        }
+      ],
+      retail: [
+        {
+          id: 'q1',
+          tag: 'HIGH · SECTION 6(1)',
+          penalty: 50,
+          text: 'Do customers explicitly opt-in to WhatsApp marketing messages separately from checkout?',
+          law: 'Section 6 mandates unbundled consent. Pre-ticked consent boxes are legally invalid.',
+        },
+        {
+          id: 'q2',
+          tag: 'HIGH · SECTION 8(7)',
+          penalty: 50,
+          text: 'Are customer delivery addresses pruned once delivery is completed?',
+          law: 'Section 8(7) forbids retaining customer delivery GPS coordinates indefinitely.',
+        },
+        {
+          id: 'q3',
+          tag: 'HIGH · SECTION 6(4)',
+          penalty: 50,
+          text: 'Do you provide an easy one-click mechanism for customers to revoke marketing consent?',
+          law: 'Section 6(4) dictates that withdrawing consent must be as simple as granting it.',
+        }
+      ]
+    };
+
+    let currentSector = 'healthcare';
+    let answers = { q1: 'yes', q2: 'no', q3: 'yes', q4: 'yes' };
+
+    function setSector(sec) {
+      currentSector = sec;
+      document.querySelectorAll('.sec-card').forEach(c => c.classList.remove('active'));
+      event.currentTarget.classList.add('active');
+      render();
+    }
+
+    function render() {
+      const list = document.getElementById('q-list');
+      const qList = QUESTIONS_DATA[currentSector] || QUESTIONS_DATA.healthcare;
+
+      list.innerHTML = qList.map((q, idx) => {
+        const isCrit = q.tag.includes('CRITICAL');
+        const isHigh = q.tag.includes('HIGH');
+        const tagClass = isCrit ? 'crit' : isHigh ? 'high' : 'med';
+
+        return `
+          <div class="q-box">
+            <div class="q-box-top">
+              <span class="q-tag ${tagClass}">${q.tag}</span>
+              <span style="font-family: var(--mono); font-size: 11.5px; color: var(--red); font-weight: 800;">Max Fine: Up to ₹${q.penalty} Cr</span>
+            </div>
+            <div class="q-text">${idx + 1}. ${q.text}</div>
+            <div class="q-law-basis"><strong>📜 Legal Basis:</strong> ${q.law}</div>
+            <div class="ans-group">
+              <button class="ans-btn ${answers[q.id] === 'yes' ? 'yes' : ''}" onclick="setAns('${q.id}', 'yes')">✅ Yes (Compliant)</button>
+              <button class="ans-btn ${answers[q.id] === 'no' ? 'no' : ''}" onclick="setAns('${q.id}', 'no')">❌ No (Gap)</button>
+              <button class="ans-btn ${answers[q.id] === 'partial' ? 'part' : ''}" onclick="setAns('${q.id}', 'partial')">⚠️ Partially / Unsure</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      calc();
+    }
+
+    function setAns(id, val) {
+      answers[id] = val;
+      render();
+    }
+
+    function calc() {
+      const qList = QUESTIONS_DATA[currentSector] || QUESTIONS_DATA.healthcare;
+      let total = 0;
+      let maxPenaltyExposure = 0;
+
+      qList.forEach(q => {
+        if (answers[q.id] === 'yes') {
+          total += 100 / qList.length;
+        } else if (answers[q.id] === 'partial') {
+          total += 50 / qList.length;
+          maxPenaltyExposure = Math.max(maxPenaltyExposure, q.penalty / 2);
+        } else {
+          maxPenaltyExposure = Math.max(maxPenaltyExposure, q.penalty);
+        }
+      });
+
+      const score = Math.round(total);
+      document.getElementById('score-val').innerText = `${score}%`;
+      document.getElementById('penalty-val').innerText = `Up to ₹${maxPenaltyExposure} Cr`;
+
+      const st = document.getElementById('score-status');
+      const dpbi = document.getElementById('dpbi-status');
+
+      if (score >= 80) {
+        st.innerText = 'High Statutory Readiness';
+        st.style.color = '#15803d';
+        dpbi.innerText = 'AUDIT READY';
+        dpbi.style.color = '#15803d';
+      } else if (score >= 50) {
+        st.innerText = 'Moderate Exposure Gap';
+        st.style.color = '#b45309';
+        dpbi.innerText = 'REMEDIATION DUE';
+        dpbi.style.color = '#b45309';
+      } else {
+        st.innerText = 'Severe Non-Compliance';
+        st.style.color = '#dc2626';
+        dpbi.innerText = 'CRITICAL DEFICIT';
+        dpbi.style.color = '#dc2626';
+      }
+    }
+
+    function downloadExecutiveReport() {
+      const qList = QUESTIONS_DATA[currentSector] || QUESTIONS_DATA.healthcare;
+      const text = `=====================================================
+PRAMANA (प्रमाण) · DPDP ACT 2023 EXECUTIVE AUDIT REPORT
+=====================================================
+Sector: ${currentSector.toUpperCase()}
+Statutory Readiness Score: ${document.getElementById('score-val').innerText}
+Maximum Statutory Penalty Exposure: ${document.getElementById('penalty-val').innerText}
+DPBI Adjudication Status: ${document.getElementById('dpbi-status').innerText}
+Timestamp: ${new Date().toISOString()}
+
+QUESTION-BY-QUESTION STATUTORY FINDINGS:
+${qList.map((q, idx) => `
+[${idx + 1}] ${q.text}
+Status: ${(answers[q.id] || 'no').toUpperCase()} · Max Fine: Up to ₹${q.penalty} Cr
+Legal Citation: ${q.law}
+`).join('')}
+
+RECOMMENDED PRAMANA AGENTIC REMEDIATION:
+1. Deploy Scout-01 eBPF Ingress Probe to catch unmasked PII.
+2. Activate Herald-04 22-language Schedule VIII Consent Vault.
+3. Enforce Forge-07 dynamic masking and automated 72h Right-to-Erasure.
+4. Log Ed25519 cryptographic compliance certificates with Ledger-03.
+
+Generated by Pramana Autonomous AI Governance Suite.
+100% Client-Side Verified · No Data Left Your Device.
+=====================================================`;
+
+      const blob = new Blob([text], { type: 'text/plain' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `DPDP_Executive_Audit_${currentSector}_${Date.now()}.txt`;
+      a.click();
+    }
+
+    render();
+  </script>
+</body>
+</html>

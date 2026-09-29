@@ -51,6 +51,7 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
       return {
         ...state,
         slots: updatedSlots,
+        ruleVerified: false,
         solvedSlots: new Set([...state.solvedSlots, action.slotId]),
       }
     }
@@ -63,6 +64,7 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
       return {
         ...state,
         slots: clearedSlots,
+        ruleVerified: false,
         solvedSlots: newSolved,
       }
     }
@@ -94,12 +96,14 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
 
   isValidAction: (state, action) => {
     if (action.type === 'fillSlot' && action.slotId) {
-      return state.slots.some((s) => s.id === action.slotId && !s.isVisible)
+      return Number.isSafeInteger(action.value) &&
+        (state.rule !== 'rotation' || [0, 90, 180, 270].includes(action.value!)) &&
+        state.slots.some((s) => s.id === action.slotId && !s.isVisible)
     }
     if (action.type === 'clearSlot' && action.slotId) {
       return state.slots.some((s) => s.id === action.slotId && !s.isVisible)
     }
-    return true
+    return action.type === 'submit' || action.type === 'reset'
   },
 
   checkWin: (state) => {
@@ -109,19 +113,22 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
     // compared a slot's `value` field to itself via a second lookup that
     // resolved to the identical object, which is trivially always true —
     // the puzzle was "solved" the instant it was generated.)
-    return hiddenSlots.length > 0 && hiddenSlots.every((slot) => slot.value !== null && slot.value === slot.correctValue)
+    return state.ruleVerified && hiddenSlots.length > 0 && hiddenSlots.every((slot) => slot.value !== null && slot.value === slot.correctValue)
   },
 
   getHintState: (state, tier: HintTier): PatternHintState => {
     const hiddenSlots = state.slots.filter((s) => !s.isVisible)
     const visibleSlots = state.slots.filter((s) => s.isVisible)
     const unsolvedHidden = hiddenSlots.filter((s) => s.value !== s.correctValue)
+    const describeValue = (value: number | null) => state.rule === 'rotation'
+      ? ({ 0: 'up', 90: 'right', 180: 'down', 270: 'left' }[value ?? 0] ?? 'an arrow')
+      : String(value)
 
     if (tier >= 4) {
       // Reveal the actual next number — only for a slot not yet correct.
       const target = unsolvedHidden[0] ?? hiddenSlots[0]
       return {
-        hint: target ? `That box should be: ${target.correctValue}. Try it!` : `Everything checks out — press Check Pattern!`,
+        hint: target ? `That place should be ${describeValue(target.correctValue)}. Try it!` : `Everything checks out — press Check Pattern!`,
         highlightIds: target ? [target.id] : [],
       }
     }
@@ -137,7 +144,7 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
 
     if (tier >= 2) {
       // Guide observation
-      const visibleStr = visibleSlots.map((s) => s.value).join(', ')
+      const visibleStr = visibleSlots.map((s) => describeValue(s.value)).join(', ')
       return {
         hint: `The visible sequence is: ${visibleStr}. What comes next?`,
         highlightIds: hiddenSlots.map((s) => s.id),
@@ -145,7 +152,7 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
     }
 
     if (tier >= 1) {
-      return { hint: `Click empty boxes and enter numbers to complete the pattern.` }
+      return { hint: state.rule === 'rotation' ? 'Choose an empty place, then choose an arrow below.' : 'Choose an empty place and enter the number you think comes next.' }
     }
 
     return { hint: `Find the pattern in the sequence!` }
@@ -162,7 +169,7 @@ export const patternPuzzleDefinition: PuzzleDefinition<PatternState, PatternActi
   }),
 
   deserialize: (data) => {
-    const payload = data.payload as any
+    const payload = data.payload as Omit<PatternState, 'solvedSlots'> & { solvedSlots: string[] }
     return {
       ...payload,
       solvedSlots: new Set(payload.solvedSlots),
