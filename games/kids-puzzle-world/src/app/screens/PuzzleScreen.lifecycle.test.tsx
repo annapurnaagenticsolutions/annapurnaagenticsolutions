@@ -216,14 +216,12 @@ describe('PuzzleScreen Lifecycle (PLAY-10)', () => {
   })
 
   it('should reset won state when switching puzzles', async () => {
-    const navRef: { current: ReturnType<typeof useNavigate> | null } = { current: null }
-
     render(
       <MemoryRouter initialEntries={['/puzzle/pattern-forest/level-1']}>
         <Routes>
           <Route path="/puzzle/:regionId/:levelId" element={<PuzzleScreen />} />
         </Routes>
-        <NavigateCapture ref={navRef} />
+        <NavigateCapture />
       </MemoryRouter>,
     )
 
@@ -233,7 +231,7 @@ describe('PuzzleScreen Lifecycle (PLAY-10)', () => {
 
     // Switch to another puzzle
     await act(async () => {
-      navRef.current?.('/puzzle/pattern-forest/level-2')
+      navCapture.navigate?.('/puzzle/pattern-forest/level-2')
     })
 
     await waitFor(() => {
