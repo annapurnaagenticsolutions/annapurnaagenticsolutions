@@ -1,22 +1,22 @@
 {
   "schemaVersion": 1,
   "generationIntervalDays": 2,
-  "lastGeneratedAt": "2026-09-26T13:58:02Z",
+  "lastGeneratedAt": "2026-09-29T08:36:56Z",
   "authoritativeTimezone": "Asia/Kolkata",
   "sourcePolicy": "presentation-only shared temporal state; cannot alter product maturity, evidence, repository metrics, or semantic company history",
   "signals": {
-    "date": "2026-09-26",
-    "weekday": "Saturday",
+    "date": "2026-09-29",
+    "weekday": "Tuesday",
     "weather": {
       "enabled": false,
       "reason": "No deliberate brand home-base weather location has been configured."
     }
   },
   "presentation": {
-    "key": "saturday-software",
-    "label": "Experiment day",
-    "accentWorld": "software",
-    "fieldNote": "Inspect what is being tested and learned."
+    "key": "tuesday-ai",
+    "label": "Governance day",
+    "accentWorld": "ai",
+    "fieldNote": "Trace the rules behind the system."
   },
   "fallbackPolicy": "If regeneration fails, keep serving the last valid temporal-state.json. If no state exists, runtime uses a neutral local fallback."
 }
