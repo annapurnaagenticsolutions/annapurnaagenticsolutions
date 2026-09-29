@@ -1,5 +1,4 @@
 {
-  "version": "0.8.0",
   "connectors": [
     {
       "connector_id": "knowledge-base",
@@ -18,7 +17,7 @@
         "procurement_docs"
       ],
       "restrictions": [
-        "read-only in v0.8",
+        "read-only operations",
         "source attribution required for production use"
       ],
       "tools": [
@@ -57,7 +56,7 @@
         "approval_workflows"
       ],
       "restrictions": [
-        "no live PO or invoice updates in v0.8",
+        "purchase-order and invoice updates are simulated",
         "financial actions require approval"
       ],
       "tools": [
@@ -112,7 +111,7 @@
         "work_notes"
       ],
       "restrictions": [
-        "ticket creation simulated in v0.8"
+        "ticket creation is simulated"
       ],
       "tools": [
         {
@@ -148,7 +147,7 @@
         "customer_email"
       ],
       "restrictions": [
-        "external send is never live in v0.8",
+        "external sending is disabled in this demo",
         "production external send requires future exception workflow"
       ],
       "tools": [
@@ -171,7 +170,7 @@
         {
           "tool_id": "send_external_email",
           "display_name": "Send External Email",
-          "description": "Represents external email sending. Blocked or approval-gated in v0.8.",
+          "description": "Represents external email sending. Disabled in this demo; a live action would require explicit approval.",
           "risk_level": "Critical",
           "side_effect_class": "irreversible_action",
           "requires_human_approval": true,

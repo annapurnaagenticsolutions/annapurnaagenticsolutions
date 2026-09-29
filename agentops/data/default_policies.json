@@ -1,6 +1,5 @@
 {
   "policy_pack_id": "enterprise_agentops_default_guardrails",
-  "version": "0.5.0",
   "description": "Default deterministic guardrails for enterprise agent actions.",
   "policies": [
     {

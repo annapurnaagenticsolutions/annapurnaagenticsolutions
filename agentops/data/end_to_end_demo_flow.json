@@ -1,5 +1,4 @@
 {
-  "version": "2.1.0",
   "name": "End-to-End Control Plane Demo Flow",
   "scenario": "Procurement agent governed from intake to safety-reviewed simulated execution",
   "steps": [

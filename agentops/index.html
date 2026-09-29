@@ -3,25 +3,28 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="AgentOps Mesh public reference implementation: deterministic governance, evaluation, policy, audit, and launch evidence surfaces for enterprise AI agents." />
+  <meta name="description" content="Explore static AgentOps reference pages with sample governance, evaluation, policy, and audit workflows." />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://annapurnaagenticsolutions.com/agentops/" />
   <link rel="stylesheet" href="assets/styles.css" />
   <link rel="stylesheet" href="assets/brand-overrides.css" />
   <title>AgentOps Mesh | Annapurna Agentic Solutions</title>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <a class="skip-link" href="#main-content">Skip to content</a>
   <nav class="nav" aria-label="AgentOps navigation">
     <div class="container nav-inner">
       <a class="brand" href="../" aria-label="Annapurna home">Annapurna Agentic Solutions · AgentOps Mesh</a>
       <div>
-        <a href="../">Portal</a>
+        <a href="../">Annapurna home</a>
         <a href="#thesis">Thesis</a>
         <a href="#architecture">Architecture</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#demo">Demo</a>
-        <a href="launch_candidate_console.html">Launch Candidate</a>
+        <a href="launch_candidate_console.html">Reference</a>
         <a href="unified.html" style="color:var(--accent); font-weight:600;">⚡ AXON + Mesh</a>
       </div>
     </div>
@@ -30,14 +33,13 @@
   <main id="main-content">
   <header class="hero">
     <div class="container">
-      <span class="badge">v2.8 public launch candidate</span>
-      <h1>Open-source AgentOps control plane for enterprise AI agents.</h1>
-      <p class="lead">Govern, evaluate, route, approve, audit, and benchmark enterprise AI agents before production. Built as a deterministic control-plane reference implementation with live connectors and live providers disabled by design.</p>
+      <span class="badge"> public reference</span>
+      <h1>Explore governance concepts for AI agent workflows.</h1>
+      <p class="lead">This static reference presents sample evaluation, policy, approval, safety, and audit screens. It does not run a hosted control plane or connect to customer systems, live model providers, or enterprise connectors.</p>
       <div class="actions">
-        <a class="btn primary" href="unified.html">⚡ AXON + Mesh Unified Demo</a>
-        <a class="btn" href="interactive_demo_path.html">Start Interactive Demo</a>
-        <a class="btn" href="control_plane_console.html">Open Control Plane Console</a>
-        <a class="btn" href="launch_candidate_console.html">Review Launch Candidate</a>
+        <a class="btn primary" href="interactive_demo_path.html">Explore the guided demo</a>
+        <a class="btn" href="control_plane_console.html">View control-plane concepts</a>
+        <a class="btn" href="unified.html">AXON + AgentOps</a>
       </div>
     </div>
   </header>
@@ -55,23 +57,23 @@
         <div class="metric-label">Agentic systems need governance, evaluation, policy, auditability, and cost discipline before production.</div>
       </div>
       <div class="card">
-        <div class="kicker">Open-source stance</div>
+        <div class="kicker">Reference boundary</div>
         <div class="metric">Trust</div>
-        <div class="metric-label">The public project exposes the trust layer: schemas, deterministic services, launch evidence, and repeatable demos.</div>
+        <div class="metric-label">Examples use local sample data. No customer activity, service status, or launch evidence is represented.</div>
       </div>
     </div>
   </section>
 
   <section class="section" id="architecture">
     <div class="container">
-      <div class="kicker">Reference architecture</div>
-      <h2>A control plane for the agent lifecycle.</h2>
+      <div class="kicker">Conceptual workflow</div>
+      <h2>Questions to consider across an agent lifecycle.</h2>
       <div class="pipeline">
-        <div class="step"><div class="step-number">1</div><h3>Intake</h3><p>Capture business intent, owner, domain, outcome, data, and autonomy expectation.</p></div>
-        <div class="step"><div class="step-number">2</div><h3>Govern</h3><p>Classify suitability, risk, data readiness, controls, approvals, and production gates.</p></div>
-        <div class="step"><div class="step-number">3</div><h3>Enforce</h3><p>Apply policy-as-code to tools, data, environments, model routing, identity, and secrets.</p></div>
-        <div class="step"><div class="step-number">4</div><h3>Observe</h3><p>Record traces, audit events, decisions, blocked actions, evidence, and readiness reports.</p></div>
-        <div class="step"><div class="step-number">5</div><h3>Launch</h3><p>Use benchmark, release-evidence, deployment, public-site, and launch-candidate checks.</p></div>
+        <div class="step"><div class="step-number">1</div><h3>Intake</h3><p>Clarify the business need, owner, data, expected outcome, and level of autonomy.</p></div>
+        <div class="step"><div class="step-number">2</div><h3>Review</h3><p>Consider suitability, risk, data readiness, safeguards, and human review.</p></div>
+        <div class="step"><div class="step-number">3</div><h3>Define controls</h3><p>Plan policies for tools, data, environments, identity, and secrets.</p></div>
+        <div class="step"><div class="step-number">4</div><h3>Observe</h3><p>Decide what traces, decisions, and evidence a real system should record.</p></div>
+        <div class="step"><div class="step-number">5</div><h3>Reassess</h3><p>Use tested evidence and accountable review before any real-world deployment.</p></div>
       </div>
     </div>
   </section>
@@ -79,14 +81,14 @@
   <section class="section" id="capabilities">
     <div class="container">
       <div class="kicker">Core surfaces</div>
-      <h2>Explore the public launch candidate.</h2>
+      <h2>Explore the public reference.</h2>
       <div class="grid cols-3">
-        <a class="card" href="interactive_demo_path.html"><h3>Interactive Demo Path</h3><p>Follow the procurement-agent control-plane journey from intent to readiness report.</p></a>
-        <a class="card" href="control_plane_console.html"><h3>Control Plane Console</h3><p>Review the unified capability map, API surface, release status, and demo flow.</p></a>
-        <a class="card" href="api_catalog.html"><h3>API Catalog</h3><p>Inspect deterministic endpoint groups and OpenAPI-lite metadata.</p></a>
-        <a class="card" href="benchmark_console.html"><h3>Benchmark Console</h3><p>View reusable scenarios, benchmark suites, scoring posture, and sample runs.</p></a>
-        <a class="card" href="release_evidence_console.html"><h3>Release Evidence</h3><p>Review validation snapshot, public proof bundle, and demo recording readiness.</p></a>
-        <a class="card" href="launch_candidate_console.html"><h3>Launch Candidate</h3><p>Check GitHub Pages finalization, publication sequence, evidence, and social launch copy.</p></a>
+        <a class="card" href="interactive_demo_path.html"><h3>Guided Demo</h3><p>Explore a sample procurement workflow from intent through governance and review.</p></a>
+        <a class="card" href="control_plane_console.html"><h3>Control Plane Console</h3><p>Review the capability map, API surface, and guided reference flow.</p></a>
+        <a class="card" href="api_catalog.html"><h3>Interface Concepts</h3><p>Review the capability areas a control-plane implementation may include.</p></a>
+        <a class="card" href="benchmark_console.html"><h3>Scenario Reference</h3><p>Explore sample governance and safety scenarios. No benchmark service is connected.</p></a>
+        <a class="card" href="release_evidence_console.html"><h3>Demo scope</h3><p>See what the AgentOps reference demonstrates and which live connections are not enabled.</p></a>
+        <a class="card" href="launch_candidate_console.html"><h3>Public Demo Guide</h3><p>Understand what the reference experience demonstrates and where its boundaries are.</p></a>
       </div>
     </div>
   </section>
@@ -96,13 +98,13 @@
       <div class="card">
         <div class="kicker">Business accelerator</div>
         <h2>Procurement Agent Accelerator</h2>
-        <p>Demonstrates an end-to-end control-plane flow: PO, invoice, challan, vendor consistency, governance, policy, runtime, sandbox tool execution, traceability, and readiness reporting.</p>
+        <p>Explore a browser-only simulation using sample PO, invoice, and challan scenarios. It does not connect to an ERP or produce a real readiness decision.</p>
         <p><a href="procurement_accelerator.html">Open Procurement Demo →</a></p>
       </div>
       <div class="card">
         <div class="kicker">Safety boundary</div>
         <h2>Live execution remains off.</h2>
-        <p>The launch candidate does not call live providers, execute live connectors, store raw secrets, provision cloud infrastructure, or implement production IAM. It models the control plane before production.</p>
+        <p>The public reference does not call live providers, execute live connectors, store raw secrets, provision cloud infrastructure, or implement production IAM. It models the control plane before production.</p>
         <p><a href="model_safety_console.html">Open Model Safety Console →</a></p>
       </div>
     </div>
@@ -110,13 +112,13 @@
 
   <section class="section">
     <div class="container card">
-      <div class="kicker">Publication posture</div>
-      <h2>v2.8 is the closure point for public launch.</h2>
-      <p>Further feature development should pause until the repository is published, the demo is recorded, and external feedback is collected.</p>
+      <div class="kicker">Explore the reference</div>
+      <h2>See what the examples cover and where they stop.</h2>
+      <p>The public guide describes the sample workflows and the integrations that are not connected here.</p>
       <div class="actions">
-        <a class="btn primary" href="public_launch_console.html">Open Public Launch Console</a>
-        <a class="btn" href="community_intake_console.html">Open Community Intake</a>
-        <a class="btn" href="contributor_console.html">Open Contributor Console</a>
+        <a class="btn primary" href="launch_candidate_console.html">Read the demo guide</a>
+        <a class="btn" href="docs.html">Read the reference guide</a>
+        <a class="btn" href="../contact/">Discuss a contribution</a>
       </div>
     </div>
   </section>
@@ -124,7 +126,7 @@
   </main>
 
   <footer class="footer">
-    <div class="container">AgentOps Mesh v2.8 — public launch candidate and deterministic reference implementation.</div>
+    <div class="container">AgentOps · static public reference with sample workflows.</div>
   </footer>
 </body>
 </html>

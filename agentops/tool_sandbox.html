@@ -11,11 +11,14 @@
     .pill { display: inline-block; padding: .25rem .6rem; border-radius: 999px; background: #eef2ff; margin: .15rem; font-size: .82rem; }
     .decision { font-size: 1.2rem; font-weight: 700; }
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <main class="container shell">
     <section class="hero">
-      <p class="eyebrow">v0.8 Control Plane</p>
+      <p class="eyebrow"> Control Plane</p>
       <h1>Connector and Tool Sandbox Workbench</h1>
       <p>
         Explore how enterprise agents request tool access, how connector permissions and policy-as-code gates are evaluated,
@@ -53,13 +56,13 @@ function decisionFor(request, connectors) {
     return {decision: 'blocked', allowed: false, reason: 'Connector/tool not allowed in this environment.', controls: tool.required_controls || [], evidence: ['connector permission review']};
   }
   if (request.target_environment === 'production' && tool.side_effect_class !== 'read_only') {
-    return {decision: 'blocked', allowed: false, reason: 'Production side effects are blocked in v0.8 sandbox.', controls: tool.required_controls || [], evidence: ['production approval record']};
+    return {decision: 'blocked', allowed: false, reason: 'Production side effects are blocked in  sandbox.', controls: tool.required_controls || [], evidence: ['production approval record']};
   }
   if ((tool.requires_human_approval || riskOrder[tool.risk_level] >= 3 || request.output_destination !== 'internal') && !request.has_human_approval && !request.dry_run) {
     return {decision: 'blocked_pending_approval', allowed: false, reason: 'Human approval is required before simulated side-effect execution.', controls: tool.required_controls || [], evidence: ['human approval record']};
   }
   if (request.dry_run) return {decision: 'dry_run_allowed', allowed: true, reason: 'Dry run allowed. No side effects will occur.', controls: tool.required_controls || [], evidence: []};
-  return {decision: 'simulated_execution_allowed', allowed: true, reason: 'Simulated execution allowed. v0.8 still performs no live external action.', controls: tool.required_controls || [], evidence: []};
+  return {decision: 'simulated_execution_allowed', allowed: true, reason: 'Simulated execution allowed.  still performs no live external action.', controls: tool.required_controls || [], evidence: []};
 }
 
 function simulatedResult(request, decision) {

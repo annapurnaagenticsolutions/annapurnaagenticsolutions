@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Open Enterprise AgentOps Mesh v1.0</title>
+  <title>AgentOps Mesh — Public Demo Scope</title>
   <style>
     :root { --bg:#0f172a; --panel:#111827; --card:#1f2937; --text:#e5e7eb; --muted:#9ca3af; --accent:#38bdf8; --ok:#22c55e; --warn:#f59e0b; }
     body { margin:0; font-family:Inter,Segoe UI,Arial,sans-serif; background:linear-gradient(135deg,#0f172a,#111827); color:var(--text); }
@@ -21,17 +21,20 @@
     a { color:#7dd3fc; text-decoration:none; }
     footer { padding:30px 7vw 60px; color:var(--muted); }
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
 <header>
-  <span class="tag">v1.0 Public Stable MVP</span>
-  <h1>Open Enterprise AgentOps Mesh</h1>
-  <p>Open-source AgentOps control plane for governing, evaluating, operating, and auditing enterprise AI agents.</p>
+  <span class="tag">Public reference</span>
+  <h1>AgentOps Mesh demo scope</h1>
+  <p>Explore sample governance, evaluation, policy, and audit workflows for agent systems.</p>
 </header>
 <section class="grid">
-  <div class="card"><div class="score">11</div><p>Static public pages and simulators ready for GitHub Pages.</p></div>
-  <div class="card"><div class="score">14+</div><p>Backend API endpoint groups across evaluation, governance, registry, policy, runtime, observability, sandbox, and procurement.</p></div>
-  <div class="card"><div class="score">v1.0</div><p>Stable MVP boundary: deterministic, sandbox-first, provider-neutral, local-run friendly.</p></div>
+  <div class="card"><h2>Sample data</h2><p>The public pages use illustrative local data to make control-plane concepts easier to inspect.</p></div>
+  <div class="card"><h2>Reference workflows</h2><p>Explore evaluation, governance, registry, policy, runtime, observability, sandbox, and procurement examples.</p></div>
+  <div class="card"><h2>Live connections</h2><p>Providers, connectors, production identity, raw secrets, and enterprise write-back are not connected on this site.</p></div>
 </section>
 <section class="grid">
   <div class="card">
@@ -46,16 +49,16 @@
 → Readiness Report</div>
   </div>
   <div class="card">
-    <h2>Release quality</h2>
-    <p><span class="ok">Pass:</span> Public narrative, backend tests, smoke tests, static site, procurement demo, sandbox-first connector design.</p>
-    <p><span class="warn">Known limitations:</span> local JSON persistence, no RBAC, mock providers, sandbox connectors only.</p>
+    <h2>Using the demo</h2>
+    <p>Begin with the <a href="interactive_demo_path.html">guided demo</a>, then inspect <a href="governance_workflow.html">governance</a>, <a href="policy_workbench.html">policy</a>, and <a href="observability_console.html">observability</a>.</p>
+    <p>These pages explain a reference design; they do not certify an organization's production controls.</p>
   </div>
 </section>
 <section class="grid">
-  <div class="card"><h2>Demo path</h2><p><a href="index.html">Landing</a> → <a href="governance_workflow.html">Governance</a> → <a href="policy_workbench.html">Policy</a> → <a href="runtime_console.html">Runtime</a> → <a href="observability_console.html">Observability</a> → <a href="procurement_accelerator.html">Procurement</a></p></div>
-  <div class="card"><h2>Next release</h2><p>v1.1 should focus on RBAC, workspace/tenant model, actor identity, approval workflow, and Docker packaging.</p></div>
+  <div class="card"><h2>Demo path</h2><p><a href="interactive_demo_path.html">Guided demo</a> → <a href="governance_workflow.html">Governance</a> → <a href="policy_workbench.html">Policy</a> → <a href="runtime_console.html">Runtime</a> → <a href="observability_console.html">Observability</a> → <a href="procurement_accelerator.html">Procurement</a></p></div>
+  <div class="card"><h2>Explore the portfolio</h2><p>Visit the <a href="../products.html">Annapurna product portfolio</a> or <a href="../contact/">contact our team</a>.</p></div>
 </section>
-<footer>Self-Healing DevOps Intelligence Platform remains excluded from this track.</footer>
+<footer>AgentOps Mesh is presented here as a static public reference experience.</footer>
 </body>
 </html>
 

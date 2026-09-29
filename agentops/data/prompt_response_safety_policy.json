@@ -1,5 +1,4 @@
 {
-  "version": "1.9.0",
   "policy_mode": "deterministic_review_only",
   "live_provider_execution_enabled": false,
   "deny_by_default_rules": [

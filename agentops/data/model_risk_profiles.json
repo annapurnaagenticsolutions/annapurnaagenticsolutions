@@ -1,5 +1,4 @@
 {
-  "version": "1.9.0",
   "live_provider_execution_status": "disabled_safety_review_only",
   "global_controls": [
     "retain_safety_review_record",

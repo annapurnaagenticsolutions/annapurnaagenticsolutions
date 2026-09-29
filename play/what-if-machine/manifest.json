@@ -1,5 +1,5 @@
 {
-  "name": "What-If Machine v1.3",
+  "name": "What-If Machine",
   "short_name": "What-If",
   "description": "Stable showcase build of a mobile-first silly imagination engine with curated prompts, recurring absurd characters, share-card templates, and offline play.",
   "start_url": "./index.html",
@@ -21,6 +21,5 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],
-  "version": "1.2.0"
+  ]
 }

@@ -1,5 +1,4 @@
 {
-  "version": "2.1.0",
   "groups": [
     {
       "group": "Core",
@@ -80,18 +79,17 @@
       ]
     },
     {
-      "group": "v2.1 Control Plane Adoption",
+      "group": "Control Plane",
       "endpoints": [
         "GET /control-plane/capabilities",
         "GET /control-plane/demo-flow",
         "GET /control-plane/api-surface",
         "GET /control-plane/openapi-lite",
-        "GET /control-plane/contributor-readiness",
-        "GET /control-plane/release-status",
         "GET /control-plane/end-to-end-report"
       ]
     }
   ],
+  "scope_note": "Illustrative endpoint map only. This static reference does not expose or process these API routes.",
   "live_execution_boundaries": [
     "No live connector execution",
     "No live model provider calls",

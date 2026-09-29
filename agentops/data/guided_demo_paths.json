@@ -1,5 +1,4 @@
 {
-  "release": "v2.6",
   "title": "Interactive demo path library",
   "default_path_id": "procurement-governed-agent-demo",
   "paths": [

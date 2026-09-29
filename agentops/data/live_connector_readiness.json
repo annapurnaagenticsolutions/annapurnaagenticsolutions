@@ -1,5 +1,4 @@
 {
-  "version": "1.7.0",
   "live_execution_status": "disabled_governance_readiness_only",
   "global_controls": [
     "contract_validation_required",
@@ -13,7 +12,7 @@
     "tenant_authorization_required"
   ],
   "global_blockers": [
-    "live_execution_requested_in_v1_7",
+    "live_execution_requested",
     "raw_secret_requirement",
     "production_action_attempt",
     "missing_approval",
@@ -28,9 +27,9 @@
       "profile_id": "lcp-procurement-erp-v1",
       "adapter_id": "procurement_erp_dry_run_adapter",
       "connector_id": "procurement_erp",
-      "display_name": "Procurement ERP Live-Candidate Profile",
+      "display_name": "Procurement ERP Review Profile",
       "allowed_live_stages": [
-        "live_candidate"
+        "review_candidate"
       ],
       "minimum_evidence_count": 3,
       "required_evidence_types": [
@@ -54,7 +53,7 @@
         "immutable_audit"
       ],
       "required_controls": [
-        "po_write_back_disabled_until_v2",
+        "po_write_back_disabled_until_review",
         "dual_approval_for_financial_impact",
         "vendor_communication_blocked"
       ],
@@ -68,9 +67,9 @@
       "profile_id": "lcp-hr-policy-v1",
       "adapter_id": "hr_policy_dry_run_adapter",
       "connector_id": "hr_policy_repository",
-      "display_name": "HR Policy Repository Live-Candidate Profile",
+      "display_name": "HR Policy Repository Review Profile",
       "allowed_live_stages": [
-        "live_candidate"
+        "review_candidate"
       ],
       "minimum_evidence_count": 2,
       "required_evidence_types": [

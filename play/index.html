@@ -3,13 +3,14 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#0d1b2a" />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="color-scheme" content="light" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content="Annapurna Play — browser games and learning worlds built for curiosity, consequence and discovery." />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; img-src 'self' data:; font-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'" />
-    <link rel="canonical" href="https://play.annapurnaagenticsolutions.com/" />
+    <link rel="canonical" href="https://annapurnaagenticsolutions.com/play/" />
     <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230d1b2a'/%3E%3Cpath d='M32 12 48 44H16L32 12Z' fill='none' stroke='%23f1c76b' stroke-width='4'/%3E%3Ccircle cx='32' cy='34' r='4' fill='%2388d4c0'/%3E%3C/svg%3E" />
+    <link rel="stylesheet" href="../assets/site.css" />
     <link rel="stylesheet" href="style.css" />
     <link rel="stylesheet" href="../assets/subscription.css" />
     <title>Annapurna Play — Games &amp; learning worlds</title>
@@ -17,16 +18,11 @@
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
     <header class="site-header">
-      <div class="shell nav-row">
-        <a class="brand" href="../" aria-label="Annapurna Agentic Solutions home">
-          <span class="brand-mark" aria-hidden="true"><i></i></span>
-          <span>Annapurna <em>Play</em></span>
-        </a>
-        <nav aria-label="Primary navigation">
-          <a href="#worlds">Worlds</a>
-          <a href="#principles">How it works</a>
-          <a class="nav-link-main" href="../products.html">Company portfolio <span aria-hidden="true">↗</span></a>
-        </nav>
+      <div class="wrap nav">
+        <a class="brand" href="../" aria-label="Annapurna Agentic Solutions home"><span aria-hidden="true" class="brand-mark"></span><span>Annapurna Agentic Solutions</span></a>
+        <nav aria-label="Primary" class="nav-links"><a href="../pramana/" class="pramana-flagship">Pramana</a><a href="../products.html">Products</a><a href="../play/" aria-current="page">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav>
+        <div class="nav-actions"><a class="btn btn-soft" href="../contact/">Contact</a><button aria-label="Open menu" class="menu-toggle" aria-controls="mobile-navigation" aria-haspopup="true">☰</button></div>
+        <nav aria-label="Mobile" class="mobile-nav" id="mobile-navigation"><a href="../pramana/" class="pramana-flagship">Pramana</a><a href="../products.html">Products</a><a href="../play/" aria-current="page">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav>
       </div>
     </header>
 
@@ -77,7 +73,7 @@
               <a class="card-link" href="https://oneiric.play.annapurnaagenticsolutions.com/">Enter ONEIRIC <span aria-hidden="true">→</span></a>
             </article>
             <article class="world-card accent-teal">
-              <div class="card-top"><span class="card-kicker">Child-safe puzzle world</span><span class="status status-live">Free preview</span></div>
+              <div class="card-top"><span class="card-kicker">Guest-first puzzle world</span><span class="status status-live">Free preview</span></div>
               <h3>Kids Puzzle World</h3>
               <p>Five short puzzle worlds for pattern, route planning, balance, machines and spatial assembly.</p>
               <div class="card-meta"><span>Guest-first</span><span>5 puzzle families</span></div>
@@ -100,7 +96,7 @@
               <div class="card-top"><span class="card-kicker">Narrative learning world</span><span class="status status-progress">Public preview</span></div>
               <h3>Varsha Hollow</h3>
               <p>A chapter-driven journey through rain, repair and community — where sustained attention becomes discovery.</p>
-              <div class="card-meta"><span>Journal on device</span><span>25 authored chapters</span></div>
+              <div class="card-meta"><span>Journal on device</span><span>36 chapters · 5 arcs</span></div>
               <a class="card-link" href="https://varsha-hollow.play.annapurnaagenticsolutions.com/">Enter Varsha Hollow <span aria-hidden="true">→</span></a>
             </article>
           </div>
@@ -164,8 +160,9 @@
     </main>
 
     <footer class="site-footer">
-      <div class="shell footer-row"><span>© 2026 Annapurna Agentic Solutions</span><div><a href="../">Main site</a><a href="../pramana/">Pramana</a><a href="https://github.com/annapurnaagenticsolutions/annapurnaagenticsolutions/tree/main/games">Source &amp; release notes ↗</a></div></div>
+      <div class="shell footer-row"><span>© 2026 Annapurna Agentic Solutions</span><div><a href="../">Main site</a><a href="../products.html">Products</a><a href="../blog/">Blog</a></div></div>
     </footer>
     <script defer src="../assets/subscription.js"></script>
+    <script defer src="../assets/site.js"></script>
   </body>
 </html>

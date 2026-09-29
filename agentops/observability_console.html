@@ -30,12 +30,15 @@
     .pill { color:#bae6fd; border:1px solid rgba(56,189,248,.35); background:rgba(56,189,248,.08); border-radius:999px; padding:6px 10px; font-size:.8rem; }
     @media (max-width: 980px) { .grid,.layout { grid-template-columns:1fr; } }
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <header>
-    <div class="pill">Open Enterprise AgentOps Mesh · v0.7</div>
+    <div class="pill">Open Enterprise AgentOps Mesh · </div>
     <h1>Observability, Cost, and Trace Ledger</h1>
-    <p class="subtitle">A static console for explaining how the AgentOps control plane records runtime decisions, blocked actions, provider usage, token estimates, and governance controls. This is GitHub Pages-friendly and mirrors the backend trace-ledger API.</p>
+    <p class="subtitle">A static reference console for exploring how the AgentOps control plane records runtime decisions, blocked actions, provider usage, token estimates, and governance controls. The examples use sample data and are not connected to a live trace ledger.</p>
   </header>
   <main class="container">
     <section class="grid">
@@ -64,17 +67,17 @@
           <li>Trace steps make agent execution explainable after the fact.</li>
         </ul>
         <h3>Next product direction</h3>
-        <p class="muted">v0.8 should add a connector and tool sandbox so runtime actions can be constrained before they touch enterprise systems.</p>
+        <p class="muted"> should add a connector and tool sandbox so runtime actions can be constrained before they touch enterprise systems.</p>
       </div>
     </section>
   </main>
   <script>
     const traces = [
       {
-        request_id: 'rt-sample-001', agent_id: 'procurement-agent-v0', action: 'summarize_vendor_invoice_discrepancy', execution_decision: 'executed', policy_decision: 'allow', provider_name: 'Mock Safe Local Provider', estimated_cost_usd: 0, required_controls: ['basic audit log']
+        request_id: 'rt-sample-001', agent_id: 'procurement-agent', action: 'summarize_vendor_invoice_discrepancy', execution_decision: 'executed', policy_decision: 'allow', provider_name: 'Mock Safe Local Provider', estimated_cost_usd: 0, required_controls: ['basic audit log']
       },
       {
-        request_id: 'rt-sample-002', agent_id: 'customer-support-agent-v0', action: 'send_external_customer_response', execution_decision: 'blocked', policy_decision: 'deny', provider_name: 'not selected', estimated_cost_usd: 0, required_controls: ['DLP review','security review','legal/compliance approval']
+        request_id: 'rt-sample-002', agent_id: 'customer-support-agent', action: 'send_external_customer_response', execution_decision: 'blocked', policy_decision: 'deny', provider_name: 'not selected', estimated_cost_usd: 0, required_controls: ['DLP review','security review','legal/compliance approval']
       }
     ];
     const total = traces.length;

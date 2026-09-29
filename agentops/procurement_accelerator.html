@@ -15,11 +15,14 @@
     .row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.pill{display:inline-flex;align-items:center;gap:8px;padding:7px 10px;border-radius:999px;background:#0b1220;border:1px solid var(--line);color:#cbd5e1;font-size:13px}.good{color:var(--good)}.warn{color:var(--warn)}.bad{color:var(--bad)}
     pre{white-space:pre-wrap;background:#020617;border:1px solid var(--line);border-radius:16px;padding:16px;max-height:520px;overflow:auto;color:#dbeafe}.kpi{font-size:24px;font-weight:800;color:#fff;word-break:break-word}.muted{color:var(--muted)}
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
 <header>
   <div style="max-width:1180px;margin:0 auto">
-    <div class="pill">v0.9 Business Accelerator</div>
+    <div class="pill"> Business Accelerator</div>
     <h1>Procurement Agent Control-Plane Demo</h1>
     <p>Demonstrates how a procurement use case moves through document validation, governance, policy-as-code, runtime execution, tool sandboxing, traceability, and readiness reporting without live ERP side effects.</p>
   </div>
@@ -34,14 +37,14 @@
       <div class="step"><strong>4</strong><br>Policy check</div>
       <div class="step"><strong>5</strong><br>Runtime summary</div>
       <div class="step"><strong>6</strong><br>Tool sandbox</div>
-      <div class="step"><strong>7</strong><br>Readiness report</div>
+      <div class="step"><strong>7</strong><br>Review summary</div>
     </div>
   </section>
 
   <section class="grid" style="margin-top:18px">
     <div class="card">
       <h2>Run a sample scenario</h2>
-      <p>Select a procurement case to see the expected control-plane behavior. The browser demo simulates the response; the backend endpoint is <code>POST /accelerators/procurement/run</code>.</p>
+    <p>Select a procurement case to see an illustrative browser-local response. No backend endpoint is called.</p>
       <div class="row">
         <select id="scenario"></select>
         <button onclick="runScenario()">Run guided simulation</button>
@@ -49,7 +52,7 @@
     </div>
     <div class="card">
       <h2>Guardrail stance</h2>
-      <p>No live ERP write-back, no invoice posting, no payment approval, and no external vendor email. v0.9 is sandbox-first by design.</p>
+      <p>No live ERP write-back, no invoice posting, no payment approval, and no external vendor email.  is sandbox-first by design.</p>
       <div class="pill">Side effects permitted: <span class="bad">No</span></div>
     </div>
   </section>
@@ -76,7 +79,7 @@ function runScenario(){
     <div class="card"><div class="muted">Lifecycle outcome</div><div class="kpi">${s.outcome}</div><p>${s.summary}</p></div>
     <div class="card"><div class="muted">Policy decision</div><div class="kpi good">${s.policy}</div><p>Internal-only, sandbox-governed procurement workflow.</p></div>
     <div class="card"><div class="muted">Sandbox tools</div><div class="kpi">${s.tools.length}</div><p>${s.tools.join(', ')}</p></div>`;
-  document.getElementById('payload').textContent=JSON.stringify({endpoint:'POST /accelerators/procurement/run', scenario:s.case_id, expected_outcome:s.outcome, tools:s.tools, live_side_effects:false}, null, 2);
+  document.getElementById('payload').textContent=JSON.stringify({simulation:'browser-local sample', scenario:s.case_id, illustrative_outcome:s.outcome, tools:s.tools, live_side_effects:false}, null, 2);
 }
 runScenario();
 </script>

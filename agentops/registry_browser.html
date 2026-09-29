@@ -5,8 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Agent Registry Browser | Open Enterprise AgentOps Mesh</title>
   <link rel="stylesheet" href="assets/styles.css" />
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <header class="hero compact">
     <nav class="nav">
       <a href="index.html">Home</a>
@@ -15,7 +18,7 @@
       <a href="governance_workflow.html">Governance Workflow</a>
     </nav>
     <div class="hero-content">
-      <p class="eyebrow">v0.4 operational layer</p>
+      <p class="eyebrow"> operational layer</p>
       <h1>Agent Registry Browser</h1>
       <p>Inspect registered agents, autonomy levels, risk levels, required controls, versions, and linked governance evidence.</p>
     </div>
@@ -24,7 +27,7 @@
   <main class="container">
     <section class="panel">
       <h2>Registered agents</h2>
-      <p class="muted">This static page uses sample JSON records. The backend API exposes the same model through registry and evidence endpoints.</p>
+      <p class="muted">This static page uses local sample records. It is not connected to a backend or a live registry.</p>
       <div id="agentGrid" class="card-grid"></div>
     </section>
 

@@ -20,8 +20,11 @@
     .metric strong { display:block; font-size:1.35rem; margin-top:4px; }
     @media (max-width: 900px) { .workflow-shell, .gate-grid, .decision-strip { grid-template-columns:1fr; } }
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <header class="hero compact">
     <nav class="top-nav">
       <a href="index.html">Overview</a>
@@ -30,7 +33,7 @@
       <a href="agentops_simulator.html">Simulator</a>
     </nav>
     <div class="hero-content">
-      <p class="eyebrow">v0.3</p>
+      <p class="eyebrow"></p>
       <h1>Governance Workflow Engine</h1>
       <p>Move agent use cases through intake, suitability, risk, data, governance, evaluation, approval, pilot, and production readiness gates.</p>
     </div>
@@ -166,7 +169,7 @@
         </article>
       `).join('');
       const actions = result.gates.filter(g => g.status !== 'pass').map(g => `Remediate ${g.name} before broader rollout.`);
-      document.getElementById('nextActions').innerHTML = (actions.length ? actions : ['Candidate is ready for governance board production review.']).map(a => `<li>${a}</li>`).join('');
+      document.getElementById('nextActions').innerHTML = (actions.length ? actions : ['Sample case has no additional prompts in this illustrative rubric.']).map(a => `<li>${a}</li>`).join('');
     }
 
     fetch('data/governance_sample_requests.json')

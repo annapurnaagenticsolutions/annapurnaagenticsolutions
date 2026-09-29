@@ -1,5 +1,4 @@
 {
-  "version": "1.2.0",
   "storage_mode": "tenant_scoped_local_json",
   "tenant_count": 2,
   "dataset_count": 16,

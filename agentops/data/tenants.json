@@ -1,5 +1,4 @@
 {
-  "version": "1.1.0",
   "tenants": [
     {
       "tenant_id": "tenant-demo-enterprise",
@@ -33,7 +32,7 @@
         "trace_tenant_id",
         "least_privilege_role_mapping"
       ],
-      "notes": "Demo tenant used for v1.1 multi-tenant readiness checks. Production deployments should replace local JSON with tenant-scoped database storage."
+      "notes": "Sample tenant for demonstrating tenant-scoped data boundaries. Production deployments should replace local JSON with tenant-scoped database storage."
     },
     {
       "tenant_id": "tenant-regulated-finance",

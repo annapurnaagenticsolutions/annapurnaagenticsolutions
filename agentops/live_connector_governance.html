@@ -19,18 +19,21 @@
     th, td { border-bottom: 1px solid #334155; text-align:left; padding: 10px; vertical-align: top; }
     th { color: #93c5fd; }
   </style>
+  <link rel="stylesheet" href="../assets/company-shell.css">
+  <script defer src="../assets/company-shell.js"></script>
 </head>
 <body>
+<header class="aas-site-header"><div class="aas-header-inner"><a class="aas-brand" href="../" aria-label="Annapurna Agentic Solutions home"><img src="../assets/annapurna_dp.jpg" alt=""><span>Annapurna Agentic Solutions</span></a><nav class="aas-links" aria-label="Primary"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a></nav><div class="aas-actions"><a class="aas-contact" href="../contact/">Contact</a><button class="aas-menu" type="button" aria-label="Open menu" aria-controls="aas-mobile-navigation" aria-expanded="false">☰</button></div><nav class="aas-mobile" id="aas-mobile-navigation" aria-label="Mobile"><a href="../pramana/">Pramana</a><a href="../products.html">Products</a><a href="../play/">Play</a><a href="../explore.html">Explore</a><a href="../lab.html">Interactive Lab</a><a href="../blog/">Blog</a><a href="../evidence.html">Evidence</a><a href="../about/">About</a><a href="../contact/">Contact</a></nav></div></header>
   <header>
     <span class="badge">Live execution disabled</span>
     <h1>Live Connector Governance</h1>
-    <p>v1.7 evaluates whether a dry-run connector can become live-candidate-ready. It does not execute live enterprise actions.</p>
+    <p>This static page illustrates checks a team may consider before discussing an integration. Its local sample records do not evaluate a real connector or execute enterprise actions.</p>
   </header>
   <main class="container">
     <section class="grid">
       <div class="card"><h2>Control objective</h2><p>Verify IAM, secret boundary, audit, rollback, approval, and evidence before live integration is considered.</p></div>
-      <div class="card"><h2>Decision model</h2><p><span class="badge ok">live_candidate_ready</span> <span class="badge warn">not_ready</span> <span class="badge">blocked</span></p></div>
-      <div class="card"><h2>Safety boundary</h2><p>Live execution remains disabled. Production write actions remain prohibited in this release.</p></div>
+      <div class="card"><h2>Example outcomes</h2><p><span class="badge ok">review may continue</span> <span class="badge warn">more evidence</span> <span class="badge">stop</span></p></div>
+      <div class="card"><h2>Safety boundary</h2><p>Live execution remains disabled. Production write actions remain prohibited on this page.</p></div>
     </section>
 
     <section class="card" style="margin-top:18px">
@@ -39,7 +42,7 @@
     </section>
 
     <section class="card" style="margin-top:18px">
-      <h2>Readiness profiles</h2>
+      <h2>Illustrative review profiles</h2>
       <table>
         <thead><tr><th>Profile</th><th>Connector</th><th>Minimum evidence</th><th>Required security capabilities</th></tr></thead>
         <tbody id="profiles"></tbody>

@@ -1,5 +1,4 @@
 {
-  "release": "v2.6",
   "voice": "precise, enterprise, audit-aware, practical",
   "hero": {
     "headline": "Govern enterprise AI agents before they reach production.",
@@ -10,23 +9,23 @@
   "empty_states": [
     {
       "surface": "benchmark_runs",
-      "message": "No benchmark runs yet. Run a deterministic benchmark suite to create release evidence before adding live execution."
+      "message": "This static reference does not run or retain benchmark results."
     },
     {
       "surface": "community_feedback",
-      "message": "No public feedback has been triaged yet. Add a use-case submission or architecture critique to begin the community loop."
+      "message": "Feedback submissions are not connected here. Use the contact page to start a conversation."
     },
     {
       "surface": "approval_queue",
       "message": "No approval requests are pending. Create one when an agent action requires human review before sandbox execution."
     }
   ],
-  "boundary_banner": "Live providers, live connectors, raw secrets, and production IAM remain disabled in this release.",
+  "boundary_banner": "Live providers, live connectors, raw secrets, and production IAM are not connected to this reference experience.",
   "section_labels": {
     "why": "Why this exists",
     "how": "How the control plane works",
     "demo": "Guided demo path",
-    "proof": "Release evidence",
+    "proof": "Demo scope",
     "contribute": "How to contribute"
   }
 }

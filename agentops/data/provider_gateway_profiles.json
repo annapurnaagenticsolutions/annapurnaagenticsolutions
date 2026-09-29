@@ -1,5 +1,4 @@
 {
-  "version": "1.8.0",
   "live_provider_execution_status": "disabled_route_governance_only",
   "global_controls": [
     "route_decision_must_be_audited",

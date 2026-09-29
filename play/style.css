@@ -26,17 +26,8 @@ a:focus-visible { outline: 3px solid rgba(45,108,223,.35); outline-offset: 4px; 
 .skip-link { position: absolute; left: 20px; top: -60px; z-index: 5; padding: 10px 14px; border-radius: 9px; color: white; background: var(--navy); }
 .skip-link:focus { top: 15px; }
 
-.site-header { position: sticky; top: 0; z-index: 3; border-bottom: 1px solid rgba(220,228,237,.85); background: rgba(251,252,254,.88); backdrop-filter: blur(18px); }
-.nav-row, .footer-row { display: flex; align-items: center; justify-content: space-between; min-height: 70px; gap: 24px; }
-.brand { display: inline-flex; align-items: center; gap: 11px; font-size: 14px; font-weight: 800; letter-spacing: -.02em; text-decoration: none; }
-.brand em { color: var(--blue); font-style: normal; }
-.brand-mark { display: grid; place-items: center; width: 29px; height: 29px; border-radius: 9px; background: var(--navy); box-shadow: 0 6px 14px rgba(13,27,42,.16); }
-.brand-mark::before { content: ""; width: 14px; height: 14px; border: 2px solid #f0c76b; border-radius: 50%; }
-.brand-mark i { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #8bd3c0; }
-.nav-row nav, .footer-row div { display: flex; align-items: center; gap: 23px; }
-.nav-row nav a, .footer-row a { color: var(--muted); font-size: 12px; font-weight: 700; text-decoration: none; }
-.nav-row nav a:hover, .footer-row a:hover { color: var(--ink); }
-.nav-link-main { padding: 10px 13px; border: 1px solid var(--line); border-radius: 10px; background: var(--white); }
+.site-header { z-index: 50; }
+.footer-row { display: flex; align-items: center; justify-content: space-between; min-height: 70px; gap: 24px; }
 
 .hero { display: grid; grid-template-columns: minmax(0, .9fr) minmax(420px, 1.1fr); align-items: center; gap: 72px; min-height: 620px; padding-top: 54px; padding-bottom: 64px; }
 .hero-copy { max-width: 570px; }

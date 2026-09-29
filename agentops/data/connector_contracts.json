@@ -1,5 +1,4 @@
 {
-  "version": "1.6.0",
   "contract_mode": "dry_run_only",
   "adapters": [
     {
