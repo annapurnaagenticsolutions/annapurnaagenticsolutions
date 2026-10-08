@@ -5,9 +5,7 @@ WORKDIR /app
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
-    && rm -rf /var/lib/apt/lists/* \
-    && groupadd --gid 1000 probe \
-    && useradd --uid 1000 --gid 1000 --no-create-home --shell /usr/sbin/nologin probe
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --chown=1000:1000 probe.mjs /app/probe.mjs
 

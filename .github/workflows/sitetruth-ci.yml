@@ -134,7 +134,7 @@ jobs:
           WORKER_CI_LOAD_CONCURRENCY: '16'
   browser-acceptance:
     name: Six synthetic local browser acceptance scenarios
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     timeout-minutes: 20
     permissions:
       contents: read
@@ -156,6 +156,8 @@ jobs:
         run: npm ci
       - name: Install Chromium for Playwright
         run: npx playwright install --with-deps chromium
+      - name: Enable Chromium user namespace sandbox on runner
+        run: sudo sysctl -w kernel.apparmor_restrict_unprivileged_userns=0
       - name: Run six synthetic localhost browser scenarios
         run: npm run browser:suite
         env:
