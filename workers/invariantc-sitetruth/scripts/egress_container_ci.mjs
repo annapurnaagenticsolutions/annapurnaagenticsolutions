@@ -101,7 +101,13 @@ try {
     method: "POST",
     signal: AbortSignal.timeout(60_000),
   });
-  const body = await response.json();
+  const responseText = await response.text();
+  let body;
+  try {
+    body = JSON.parse(responseText);
+  } catch {
+    throw new Error(`Egress prototype returned non-JSON (${response.status}): ${responseText.slice(0, 1_000)}\n${server.logs()}`);
+  }
   if (!response.ok || body.status !== "pass" || body.scope !== "fixed-invalid-deny-cases-plus-example-com-tls-handshake-only") {
     throw new Error(`Egress prototype failed (${response.status}): ${JSON.stringify(body)}\n${server.logs()}`);
   }

@@ -7,6 +7,17 @@
 
 **Not ready to deploy as a commercial scanning SaaS.** The current product is an API-only evaluator with a synthetic preview. The staged Worker accepts caller-supplied JSON and does not browse URLs. Hosted scanning remains disabled. The phases below are ordered by dependency; a later phase cannot substitute for an earlier security or evidence gate.
 
+## Latest handoff verification — 2026-10-08
+
+This update supersedes older statements below that hosted CI evidence is wholly pending.
+
+- Cloudflare MCP now authenticates as the Annapurna account `4f962f03d4d4d52c1e15fe8aff33f971`. The staging Worker `invariantc-sitetruth-api-staging` and APAC D1 `invariantc-sitetruth-staging` are present in this account. No Worker deployment or D1 migration was issued during this verification.
+- The existing Pages project still targets production branch `main`; its preview setting explicitly excludes `codex/sitetruth-worker`. Cloudflare recorded PR #6 commits as skipped previews (`branch_config`), and the latest listed production deployment remains on `main` at commit `9cd8d91924020b556646e56eb7841148e96fed04`.
+- GitHub draft PR #6's latest SiteTruth CI run (#4) passed Rust tests, Node tests, RustSec checks, corpus/schema checks, the six synthetic browser scenarios, and the 120-second JSON API fuzz smoke. The Worker build stopped at native/WASM parity because its job had not built the native CLI first; the egress prototype returned a plain 404 at its loopback POST route's strict body check. Local fixes are prepared, but require a new hosted run.
+- The separate website quality-gate run failed its existing homepage contract (six public acts found where the contract expects three) and Lighthouse check. It is not evidence of a SiteTruth failure and was not changed here.
+- The shared GitHub repository integration also reported two failed Smaraze Worker preview builds in account `c4be80c7fd27d12456fa74f3cbec5ea2`. Smaraze is a separate project and outside this SiteTruth scope. No Smaraze resources or settings were changed; SiteTruth changes and Cloudflare operations remain scoped to repository path `workers/invariantc-sitetruth/**` and Annapurna account `4f962f03d4d4d52c1e15fe8aff33f971`. The observed Smaraze builds failed without a deployment URL.
+- The pending local CI fixes pass Rust native compilation and tests (24 passed), JavaScript syntax checks, the release-manifest check, and the egress configuration smoke. The local WASM crate compiled, but `wasm-pack` could not download its matching `wasm-bindgen` CLI because local DNS/network access failed, so local parity was not run. These checks do not establish Docker/Workerd/Container egress behavior; the GitHub CI rerun is still required.
+
 ## Phase 1 — Local evaluator and browser acceptance
 
 **Status: evaluator checks pass; browser acceptance, current Workerd/D1 acceptance, and fuzz execution are configured in CI but not yet evidenced.**

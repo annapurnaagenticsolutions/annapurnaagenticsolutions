@@ -24,7 +24,7 @@ export class DenyAllOutbound extends WorkerEntrypoint {
 export class EgressProbe extends DurableObject {
   async fetch(request) {
     const url = new URL(request.url);
-    if (url.pathname !== "/run" || request.method !== "POST" || request.body !== null) {
+    if (url.pathname !== "/run" || request.method !== "POST") {
       return new Response("Not found\n", { status: 404 });
     }
 
@@ -96,7 +96,7 @@ export default {
     if (url.pathname === "/_ci/health" && request.method === "GET") {
       return jsonResponse({ status: "ready", mode: "synthetic-egress-probe" });
     }
-    if (url.pathname !== "/_ci/egress" || request.method !== "POST" || request.body !== null) {
+    if (url.pathname !== "/_ci/egress" || request.method !== "POST") {
       return new Response("Not found\n", { status: 404 });
     }
 

@@ -826,8 +826,8 @@
     },
     {
       "path": "docs/COMMERCIAL_SAAS_RELEASE_PLAN.md",
-      "bytes": 18642,
-      "sha256": "43edb1c16694e097ee1413e344a5b68712a8e21b271bd5e4254ee07d127a9c15"
+      "bytes": 21004,
+      "sha256": "83502f0fca93fdc641eeb15885e1d3cfbcbf2f8259d04036d0c8a29c4e0b39f5"
     },
     {
       "path": "docs/COMMERCIAL_VALIDATION.md",
@@ -1046,8 +1046,8 @@
     },
     {
       "path": "scripts/egress_container_ci.mjs",
-      "bytes": 6757,
-      "sha256": "f5d47967c91de6299f12819cbf68e7cdec8e0d372aabeca81b13432538b7342c"
+      "bytes": 6969,
+      "sha256": "4cd3923295c7cd9877aa5162b91c9232a36a19533cae59071e230a3d0c573d37"
     },
     {
       "path": "scripts/egress_prototype_config_smoke.py",
@@ -1206,8 +1206,8 @@
     },
     {
       "path": "worker/egress-prototype/src/index.mjs",
-      "bytes": 3973,
-      "sha256": "00e5aeef44caa779d37f5d2c2b3add7e60f66b9af5b853266eb025e2d60ae365"
+      "bytes": 3923,
+      "sha256": "ad3c3eac4238692c5d7319e778008b53ac9044e14738c71e5d831a29c5b81f4a"
     },
     {
       "path": "worker/egress-prototype/src/pinned-tls.mjs",

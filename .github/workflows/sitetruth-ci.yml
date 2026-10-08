@@ -121,6 +121,7 @@ jobs:
       - name: Build Node WASM target and verify evaluator parity
         run: |
           npm run build:wasm-node
+          cargo build --release --locked --bin invariantc
           npm run parity
       - name: Validate staging-only Worker bindings
         run: npm run verify:worker-config
