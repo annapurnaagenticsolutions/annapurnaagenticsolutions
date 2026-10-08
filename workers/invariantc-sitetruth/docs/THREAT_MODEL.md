@@ -24,8 +24,8 @@
 - External collectors may lie, mis-parse, or observe stale/inconsistent states. Two outputs may agree but both be wrong.
 - Equality against a single internally derived source can be tautological. Source independence needs a future compiler warning and/or trust policy.
 - A scene object array is not visual recognition. Users must not conflate structured scene count with pixel/object count.
-- Floating-point arithmetic is not an exact financial primitive. Seeded tests cover unsafe integer boundaries and arithmetic overflow. The JSON API libFuzzer harness is added, but its Windows ASAN runtime did not start and hosted CI has not run; coverage-guided numeric/parser fuzzing remains open.
-- Deep JSON documents can be expensive even below the input size limit. Seeded mutation, nesting, large-equality and historical local HTTP-load checks exist. A 25,000-request current Workerd/D1 soak is configured in Linux CI but pending; even a passing local emulator run does not establish edge capacity. Coverage-guided fuzz results also remain a pre-commercial requirement.
+- Floating-point arithmetic is not an exact financial primitive. Seeded tests cover unsafe integer boundaries and arithmetic overflow. GitHub run #19 completed the bounded 120-second JSON API libFuzzer workflow; the Windows ASAN runtime still does not start, and finite fuzzing is not exhaustive.
+- Deep JSON documents can be expensive even below the input size limit. Seeded mutation, nesting, large-equality, historical local HTTP-load, and a passing 25,000-request synthetic Workerd/D1 CI soak exist. The CI soak is local-emulator evidence and does not establish edge capacity. Approve quotas only after reviewed deployed-runtime measurements.
 - CLI  escape sequences in user-authored identifiers are rejected by ASCII identifier validation; source paths may still appear in error strings if user supplies unusual paths.
 - Future collectors must not send private URLs or customer credentials to arbitrary third-party sites.
 - Customer content retention, deletion, tenant isolation, encryption and consent are unsolved; therefore **no hosted customer uploads in M1**.

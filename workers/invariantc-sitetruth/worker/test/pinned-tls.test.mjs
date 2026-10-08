@@ -209,6 +209,18 @@ test("pinned TLS probe fails closed on DNS errors, socket errors, early close, a
     assert.equal(deps.calls.socket.destroyed, true);
   });
 
+  await t.test("synchronous TLS API error retains only a safe error code", async () => {
+    const deps = dependencies({
+      connectError: Object.assign(new Error("sensitive runtime detail"), { code: "ERR_TLS_UNSUPPORTED" }),
+    });
+    await assert.rejects(probePinnedTlsHost(TLS_PROBE_HOSTNAME, deps), (error) => {
+      assert.equal(error.message, "pinned_tls_connection_failed");
+      assert.equal(error.code, "ERR_TLS_UNSUPPORTED");
+      assert.doesNotMatch(error.message, /sensitive runtime detail/);
+      return true;
+    });
+  });
+
   await t.test("early close", async () => {
     const deps = dependencies({ event: "close" });
     await assert.rejects(probePinnedTlsHost(TLS_PROBE_HOSTNAME, deps), /closed_early/);

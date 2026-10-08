@@ -2,7 +2,7 @@
 
 ## Status
 
-Design and source implementation v0.1; Rust-build verification **pending**. The packaging environment has no Cargo/Rust and cannot fetch them. This is not a release-certified build.
+Design and source implementation v0.1; native Rust build, tests, and 144-case corpus are verified locally and in hosted CI. This specification is not a release certification; see `LOCAL_VERIFIED_BASELINE.md` and `QUALITY_STATUS_M2_M4.md` for current evidence and limits.
 
 ## Problem
 

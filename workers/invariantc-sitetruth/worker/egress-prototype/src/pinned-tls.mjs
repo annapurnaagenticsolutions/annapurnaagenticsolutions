@@ -137,8 +137,11 @@ function connectAndVerify(hostname, address, {
         rejectUnauthorized: true,
         ALPNProtocols: ["http/1.1"],
       });
-    } catch {
-      finish(new Error("pinned_tls_connection_failed"));
+    } catch (cause) {
+      const error = new Error("pinned_tls_connection_failed");
+      const code = safeSocketErrorCode(cause);
+      if (code) error.code = code;
+      finish(error);
       return;
     }
 
