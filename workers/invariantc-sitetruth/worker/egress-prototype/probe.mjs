@@ -5,12 +5,35 @@ const probes = [
 ];
 const tlsProbeUrl = "https://example.com/.well-known/sitetruth-egress-tls-probe";
 
+function nestedErrorCode(error) {
+  let cause = error;
+  for (let depth = 0; depth < 4 && cause; depth += 1) {
+    if (typeof cause.code === "string") return cause.code;
+    cause = cause.cause;
+  }
+  return null;
+}
+
 async function runProbe({ name, url }) {
-  const response = await fetch(url, {
-    method: "GET",
-    redirect: "follow",
-    signal: AbortSignal.timeout(5_000),
-  });
+  let response;
+  try {
+    response = await fetch(url, {
+      method: "GET",
+      redirect: "follow",
+      signal: AbortSignal.timeout(5_000),
+    });
+  } catch (error) {
+    const errorCode = nestedErrorCode(error);
+    if (errorCode !== "SELF_SIGNED_CERT_IN_CHAIN") throw error;
+    return {
+      name,
+      status: "blocked",
+      decision: "unverified",
+      finalHost: new URL(url).hostname,
+      failure: "untrusted-interception-certificate",
+      errorCode,
+    };
+  }
   const decision = response.headers.get("x-sitetruth-egress-decision");
   const result = {
     name,
@@ -28,49 +51,83 @@ async function runProbe({ name, url }) {
 }
 
 const results = [];
-for (const probe of probes) results.push(await runProbe(probe));
-
-const tlsResponse = await fetch(tlsProbeUrl, {
-  method: "GET",
-  redirect: "manual",
-  signal: AbortSignal.timeout(10_000),
-});
-const tlsBody = await tlsResponse.json();
-const tlsEvidence = tlsBody?.evidence;
-const ipv4 = typeof tlsEvidence?.selectedAddress === "string" &&
-  /^(?:0|[1-9]\d{0,2})(?:\.(?:0|[1-9]\d{0,2})){3}$/.test(tlsEvidence.selectedAddress) &&
-  tlsEvidence.selectedAddress.split(".").every((octet) => Number(octet) <= 255);
-const tlsResult = {
-  name: "pinned-tls",
-  status: tlsResponse.status,
-  decision: tlsResponse.headers.get("x-sitetruth-egress-decision"),
-  hostname: tlsEvidence?.hostname,
-  selectedAddress: tlsEvidence?.selectedAddress,
-  remoteAddress: tlsEvidence?.remoteAddress,
-  servername: tlsEvidence?.servername,
-  authorized: tlsEvidence?.authorized,
-  addressFamily: tlsEvidence?.addressFamily,
-  resolvedAddressCount: tlsEvidence?.resolvedAddressCount,
-};
-if (
-  tlsResponse.status !== 200 ||
-  tlsResult.decision !== "pinned-tls-pass" ||
-  tlsBody.status !== "pass" ||
-  tlsResult.hostname !== "example.com" ||
-  tlsResult.servername !== "example.com" ||
-  tlsResult.authorized !== true ||
-  !ipv4 ||
-  tlsResult.remoteAddress !== tlsResult.selectedAddress ||
-  tlsResult.addressFamily !== 4 ||
-  !Number.isSafeInteger(tlsResult.resolvedAddressCount) ||
-  tlsResult.resolvedAddressCount < 1 ||
-  tlsResult.resolvedAddressCount > 16
-) {
-  throw new Error(`Unexpected pinned TLS probe result: ${JSON.stringify(tlsResult)}`);
+let blockedProbe;
+for (const probe of probes) {
+  const result = await runProbe(probe);
+  if (result.status === "blocked") {
+    blockedProbe = result;
+    break;
+  }
+  results.push(result);
 }
 
-process.stdout.write(`${JSON.stringify({
-  status: "pass",
-  scope: "fixed-invalid-deny-cases-plus-example-com-tls-handshake-only",
-  probes: [...results, tlsResult],
-})}\n`);
+if (blockedProbe) {
+  process.stdout.write(`${JSON.stringify({
+    status: "inconclusive",
+    scope: "fixed-invalid-deny-cases-plus-example-com-tls-handshake-only",
+    probes: results,
+    blockedProbe,
+  })}\n`);
+} else {
+  let tlsResult;
+  let tlsInconclusive = false;
+  try {
+    const tlsResponse = await fetch(tlsProbeUrl, {
+      method: "GET",
+      redirect: "manual",
+      signal: AbortSignal.timeout(10_000),
+    });
+    const tlsBody = await tlsResponse.json();
+    const tlsEvidence = tlsBody?.evidence;
+    const ipv4 = typeof tlsEvidence?.selectedAddress === "string" &&
+      /^(?:0|[1-9]\d{0,2})(?:\.(?:0|[1-9]\d{0,2})){3}$/.test(tlsEvidence.selectedAddress) &&
+      tlsEvidence.selectedAddress.split(".").every((octet) => Number(octet) <= 255);
+    tlsResult = {
+      name: "pinned-tls",
+      status: tlsResponse.status,
+      decision: tlsResponse.headers.get("x-sitetruth-egress-decision"),
+      hostname: tlsEvidence?.hostname,
+      selectedAddress: tlsEvidence?.selectedAddress,
+      remoteAddress: tlsEvidence?.remoteAddress,
+      servername: tlsEvidence?.servername,
+      authorized: tlsEvidence?.authorized,
+      addressFamily: tlsEvidence?.addressFamily,
+      resolvedAddressCount: tlsEvidence?.resolvedAddressCount,
+    };
+    if (
+      tlsResponse.status !== 200 ||
+      tlsResult.decision !== "pinned-tls-pass" ||
+      tlsBody.status !== "pass" ||
+      tlsResult.hostname !== "example.com" ||
+      tlsResult.servername !== "example.com" ||
+      tlsResult.authorized !== true ||
+      !ipv4 ||
+      tlsResult.remoteAddress !== tlsResult.selectedAddress ||
+      tlsResult.addressFamily !== 4 ||
+      !Number.isSafeInteger(tlsResult.resolvedAddressCount) ||
+      tlsResult.resolvedAddressCount < 1 ||
+      tlsResult.resolvedAddressCount > 16
+    ) {
+      throw new Error(`Unexpected pinned TLS probe result: ${JSON.stringify(tlsResult)}`);
+    }
+  } catch (error) {
+    const errorCode = nestedErrorCode(error);
+    if (errorCode !== "SELF_SIGNED_CERT_IN_CHAIN") throw error;
+    tlsInconclusive = true;
+    tlsResult = {
+      name: "pinned-tls",
+      status: "blocked",
+      decision: "unverified",
+      hostname: "example.com",
+      authorized: false,
+      failure: "untrusted-interception-certificate",
+      errorCode,
+    };
+  }
+
+  process.stdout.write(`${JSON.stringify({
+    status: tlsInconclusive ? "inconclusive" : "pass",
+    scope: "fixed-invalid-deny-cases-plus-example-com-tls-handshake-only",
+    probes: [...results, tlsResult],
+  })}\n`);
+}

@@ -49,7 +49,11 @@ export class EgressProbe extends DurableObject {
         ],
       });
 
-      const process = await container.exec(["node", "--use-system-ca", "/app/probe.mjs"], {
+      // Node needs the injected interception CA explicitly; certificate verification stays enabled.
+      const process = await container.exec([
+        "sh", "-lc",
+        "NODE_EXTRA_CA_CERTS=/etc/cloudflare/certs/cloudflare-containers-ca.crt exec node --use-system-ca /app/probe.mjs",
+      ], {
         cwd: "/app",
         signal: deadline.signal,
         user: "1000:1000",

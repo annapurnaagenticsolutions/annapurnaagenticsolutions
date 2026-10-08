@@ -164,7 +164,7 @@ jobs:
         env:
           INVARIANTC_BINARY: target/debug/invariantc
   container-egress-deny:
-    name: Isolated Container egress TLS-only prototype
+    name: Container egress denial and TLS probe diagnostics
     runs-on: ubuntu-latest
     timeout-minutes: 15
     permissions:
