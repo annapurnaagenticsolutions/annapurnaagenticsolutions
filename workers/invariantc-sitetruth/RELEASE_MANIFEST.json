@@ -821,13 +821,13 @@
     },
     {
       "path": "docs/CODEX_M2_M4_HANDOFF.md",
-      "bytes": 14681,
-      "sha256": "1064e367aae9e25571f074c180de1fb5e6f33a12fe9475320974d36462279878"
+      "bytes": 14916,
+      "sha256": "434c8e158d71c128097029d330d2eaa94bc58111d433c98ec3df37dfc08ebed6"
     },
     {
       "path": "docs/COMMERCIAL_SAAS_RELEASE_PLAN.md",
-      "bytes": 20018,
-      "sha256": "d7cfd271ce908c6bd2c369260f1b4dfcb8b4053c7afff9e099b7c456894391f9"
+      "bytes": 20640,
+      "sha256": "60bd86a0a965cdb61db204b1ad0ba10879e0acc021ed9df42e034ff39dbea9ce"
     },
     {
       "path": "docs/COMMERCIAL_VALIDATION.md",
@@ -836,8 +836,8 @@
     },
     {
       "path": "docs/EGRESS_DENY_PROTOTYPE.md",
-      "bytes": 7683,
-      "sha256": "702bd5651a0c34526f4d4d5e931a17153429bca0f6feaf389d861fec3658f5df"
+      "bytes": 8748,
+      "sha256": "8284ee687aab6a71514fc97be9aab4aedc8a331f9f7b1e06ba5c985453aefcc5"
     },
     {
       "path": "docs/HISTORICAL_M1_CODEX_HANDOFF.md",
@@ -1211,13 +1211,13 @@
     },
     {
       "path": "worker/egress-prototype/src/pinned-tls.mjs",
-      "bytes": 5344,
-      "sha256": "f49cd1707514413c46f859ac026e79e432c1e12b914e3e6da092cf930038f742"
+      "bytes": 6436,
+      "sha256": "1c571bb6511afbda10242f694d705bed7573a13d7ee34efb0c22c9565d25e4ff"
     },
     {
       "path": "worker/egress-prototype/src/policy.mjs",
       "bytes": 3616,
-      "sha256": "567e542c5b95e0f1f19dae242df3fb2b5c2f76412e071057d1935985d28c3c04"
+      "sha256": "8038877eec4b24924ecdab85fe2f9f8887efc1ed22922bca0091684397edcfdd"
     },
     {
       "path": "worker/migrations/0008_scan_job_dispatch_outbox.sql",
@@ -1281,8 +1281,8 @@
     },
     {
       "path": "worker/test/pinned-tls.test.mjs",
-      "bytes": 7040,
-      "sha256": "9bfdda8a46c35876ba286ddc518a6de59810fd39accafa4722cb305ba038631c"
+      "bytes": 8295,
+      "sha256": "339dc3c91fdb21115c0a727dfc727a73125700735e744110435ecbe517a70a4b"
     },
     {
       "path": "worker/test/scan-intake.test.mjs",

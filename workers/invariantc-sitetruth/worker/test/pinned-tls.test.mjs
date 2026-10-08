@@ -28,6 +28,7 @@ function dependencies({
   event = "secureConnect",
   resolveError,
   connectError,
+  socketEventError,
 } = {}) {
   const calls = { resolved: [], connected: [] };
   return {
@@ -41,7 +42,7 @@ function dependencies({
       calls.connected.push(options);
       if (connectError) throw connectError;
       const socket = new FakeTlsSocket(socketOptions);
-      if (event) queueMicrotask(() => socket.emit(event, new Error("synthetic socket event")));
+      if (event) queueMicrotask(() => socket.emit(event, socketEventError ?? new Error("synthetic socket event")));
       calls.socket = socket;
       return socket;
     },
@@ -57,18 +58,40 @@ test("pinned TLS probe resolves the fixed host and connects only to its selected
   assert.deepEqual({
     host: options.host,
     port: options.port,
+    lookup: typeof options.lookup,
     servername: options.servername,
     checkServerIdentity: typeof options.checkServerIdentity,
     rejectUnauthorized: options.rejectUnauthorized,
     ALPNProtocols: options.ALPNProtocols,
   }, {
-    host: ANSWER,
+    host: TLS_PROBE_HOSTNAME,
     port: 443,
+    lookup: "function",
     servername: TLS_PROBE_HOSTNAME,
     checkServerIdentity: "function",
     rejectUnauthorized: true,
     ALPNProtocols: ["http/1.1"],
   });
+  const lookupResult = await new Promise((resolve, reject) => {
+    options.lookup(TLS_PROBE_HOSTNAME, {}, (error, address, family) => {
+      if (error) reject(error);
+      else resolve({ address, family });
+    });
+  });
+  assert.deepEqual(lookupResult, { address: ANSWER, family: 4 });
+  const allLookupResult = await new Promise((resolve, reject) => {
+    options.lookup(TLS_PROBE_HOSTNAME, { all: true }, (error, addresses) => {
+      if (error) reject(error);
+      else resolve(addresses);
+    });
+  });
+  assert.deepEqual(allLookupResult, [{ address: ANSWER, family: 4 }]);
+  await assert.rejects(new Promise((resolve, reject) => {
+    options.lookup("attacker.example", {}, (error, address, family) => {
+      if (error) reject(error);
+      else resolve({ address, family });
+    });
+  }), /pinned_tls_lookup_hostname_mismatch/);
   const identityCheck = options.checkServerIdentity;
   assert.equal(typeof identityCheck, "function");
   assert.equal(identityCheck(TLS_PROBE_HOSTNAME, { subjectaltname: `DNS:${TLS_PROBE_HOSTNAME}` }), undefined);
@@ -173,8 +196,16 @@ test("pinned TLS probe fails closed on DNS errors, socket errors, early close, a
   });
 
   await t.test("socket error", async () => {
-    const deps = dependencies({ event: "error" });
-    await assert.rejects(probePinnedTlsHost(TLS_PROBE_HOSTNAME, deps), /connection_failed/);
+    const deps = dependencies({
+      event: "error",
+      socketEventError: Object.assign(new Error("sensitive socket message"), { code: "ECONNRESET" }),
+    });
+    await assert.rejects(probePinnedTlsHost(TLS_PROBE_HOSTNAME, deps), (error) => {
+      assert.match(error.message, /connection_failed/);
+      assert.equal(error.code, "ECONNRESET");
+      assert.doesNotMatch(error.message, /sensitive socket message/);
+      return true;
+    });
     assert.equal(deps.calls.socket.destroyed, true);
   });
 

@@ -32,10 +32,10 @@ function deniedResponse(reason = "default-deny", status = 403, failureCode = nul
 }
 
 function safeTlsFailureCode(error) {
-  const message = typeof error?.message === "string" ? error.message : "";
-  if (SAFE_TLS_FAILURE_MESSAGES.has(message)) return message;
   const code = error?.code;
-  return typeof code === "string" && /^[A-Z][A-Z0-9_]{0,63}$/.test(code) ? code : "unknown";
+  if (typeof code === "string" && /^[A-Z][A-Z0-9_]{0,63}$/.test(code)) return code;
+  const message = typeof error?.message === "string" ? error.message : "";
+  return SAFE_TLS_FAILURE_MESSAGES.has(message) ? message : "unknown";
 }
 
 /**

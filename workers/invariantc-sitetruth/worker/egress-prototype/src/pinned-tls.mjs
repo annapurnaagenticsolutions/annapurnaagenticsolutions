@@ -60,6 +60,37 @@ function normalizedIpv4RemoteAddress(address) {
   return mapped && isCanonicalIpv4(mapped[1]) ? mapped[1] : null;
 }
 
+function pinnedIpv4Lookup(hostname, address) {
+  return (requestedHost, options, callback) => {
+    if (requestedHost !== hostname) {
+      const done = typeof options === "function" ? options : callback;
+      queueMicrotask(() => done(new Error("pinned_tls_lookup_hostname_mismatch")));
+      return;
+    }
+
+    let lookupOptions = options;
+    let done = callback;
+    if (typeof lookupOptions === "function") {
+      done = lookupOptions;
+      lookupOptions = {};
+    }
+    if (typeof done !== "function") throw new Error("pinned_tls_lookup_callback_missing");
+
+    queueMicrotask(() => {
+      if (lookupOptions?.all === true) {
+        done(null, [{ address, family: 4 }]);
+      } else {
+        done(null, address, 4);
+      }
+    });
+  };
+}
+
+function safeSocketErrorCode(error) {
+  const code = error?.code;
+  return typeof code === "string" && /^[A-Z][A-Z0-9_]{0,63}$/.test(code) ? code : null;
+}
+
 function normalizeAnswers(addresses) {
   if (!Array.isArray(addresses) || addresses.length < 1 || addresses.length > MAX_DNS_ANSWERS) {
     throw new Error("pinned_tls_dns_answer_count_invalid");
@@ -95,8 +126,9 @@ function connectAndVerify(hostname, address, {
 
     try {
       socket = connectTls({
-        host: address,
+        host: hostname,
         port: 443,
+        lookup: pinnedIpv4Lookup(hostname, address),
         servername: hostname,
         checkServerIdentity: (serverName, certificate) => {
           if (serverName !== hostname) return new Error("pinned_tls_server_name_mismatch");
@@ -125,7 +157,12 @@ function connectAndVerify(hostname, address, {
         addressFamily: 4,
       });
     });
-    socket.once("error", () => finish(new Error("pinned_tls_connection_failed")));
+    socket.once("error", (cause) => {
+      const error = new Error("pinned_tls_connection_failed");
+      const code = safeSocketErrorCode(cause);
+      if (code) error.code = code;
+      finish(error);
+    });
     socket.once("close", () => {
       if (!settled) finish(new Error("pinned_tls_connection_closed_early"));
     });
