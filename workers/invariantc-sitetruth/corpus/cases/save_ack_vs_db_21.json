@@ -1,0 +1,42 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "path",
+          "pointer": "/persisted",
+          "source": "db"
+        },
+        "expected": {
+          "kind": "path",
+          "pointer": "/saved_banner",
+          "source": "ui"
+        },
+        "id": "saved_banner_matches_persistence",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "save_ack_vs_db_21",
+    "sources": [
+      {
+        "id": "ui",
+        "layer": "dom"
+      },
+      {
+        "id": "db",
+        "layer": "snapshot"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "db": {
+      "persisted": false
+    },
+    "ui": {
+      "saved_banner": true
+    }
+  }
+}

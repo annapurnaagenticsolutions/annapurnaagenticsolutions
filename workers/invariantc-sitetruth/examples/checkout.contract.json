@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "id": "checkout_total_consistency",
+  "sources": [
+    {"id": "cart", "layer": "api"},
+    {"id": "ui", "layer": "dom"}
+  ],
+  "assertions": [
+    {
+      "id": "total_in_minor_units",
+      "expected": {"kind": "product", "values": [
+        {"kind": "path", "source": "cart", "pointer": "/unit_price_minor"},
+        {"kind": "path", "source": "cart", "pointer": "/quantity"}
+      ]},
+      "actual": {"kind": "path", "source": "ui", "pointer": "/total_minor"},
+      "rule": {"kind": "equal"}
+    }
+  ]
+}

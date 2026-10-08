@@ -1,0 +1,53 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "path",
+          "pointer": "/total_minor",
+          "source": "ui"
+        },
+        "expected": {
+          "kind": "product",
+          "values": [
+            {
+              "kind": "path",
+              "pointer": "/unit_price_minor",
+              "source": "cart"
+            },
+            {
+              "kind": "path",
+              "pointer": "/qty",
+              "source": "cart"
+            }
+          ]
+        },
+        "id": "ui_total_matches_api_calculation",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "cart_total_minor_16",
+    "sources": [
+      {
+        "id": "cart",
+        "layer": "api"
+      },
+      {
+        "id": "ui",
+        "layer": "dom"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "cart": {
+      "qty": 2,
+      "unit_price_minor": 150
+    },
+    "ui": {
+      "total_minor": 375
+    }
+  }
+}

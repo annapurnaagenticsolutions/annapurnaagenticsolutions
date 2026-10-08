@@ -1,0 +1,1014 @@
+{
+  "cases": [
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_00.json",
+      "id": "apples_count_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_01.json",
+      "id": "apples_count_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_02.json",
+      "id": "apples_count_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_03.json",
+      "id": "apples_count_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_04.json",
+      "id": "apples_count_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "apples_count",
+      "file": "cases/apples_count_05.json",
+      "id": "apples_count_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_06.json",
+      "id": "apples_count_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_07.json",
+      "id": "apples_count_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_08.json",
+      "id": "apples_count_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_09.json",
+      "id": "apples_count_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_10.json",
+      "id": "apples_count_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "apples_count",
+      "file": "cases/apples_count_11.json",
+      "id": "apples_count_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_12.json",
+      "id": "apples_count_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_13.json",
+      "id": "apples_count_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_14.json",
+      "id": "apples_count_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_15.json",
+      "id": "apples_count_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_16.json",
+      "id": "apples_count_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "apples_count",
+      "file": "cases/apples_count_17.json",
+      "id": "apples_count_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_18.json",
+      "id": "apples_count_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "apples_count",
+      "file": "cases/apples_count_19.json",
+      "id": "apples_count_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_20.json",
+      "id": "apples_count_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_21.json",
+      "id": "apples_count_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "apples_count",
+      "file": "cases/apples_count_22.json",
+      "id": "apples_count_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "apples_count",
+      "file": "cases/apples_count_23.json",
+      "id": "apples_count_23",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_00.json",
+      "id": "cart_total_minor_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_01.json",
+      "id": "cart_total_minor_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_02.json",
+      "id": "cart_total_minor_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_03.json",
+      "id": "cart_total_minor_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_04.json",
+      "id": "cart_total_minor_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_05.json",
+      "id": "cart_total_minor_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_06.json",
+      "id": "cart_total_minor_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_07.json",
+      "id": "cart_total_minor_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_08.json",
+      "id": "cart_total_minor_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_09.json",
+      "id": "cart_total_minor_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_10.json",
+      "id": "cart_total_minor_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_11.json",
+      "id": "cart_total_minor_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_12.json",
+      "id": "cart_total_minor_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_13.json",
+      "id": "cart_total_minor_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_14.json",
+      "id": "cart_total_minor_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_15.json",
+      "id": "cart_total_minor_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_16.json",
+      "id": "cart_total_minor_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_17.json",
+      "id": "cart_total_minor_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_18.json",
+      "id": "cart_total_minor_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_19.json",
+      "id": "cart_total_minor_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_20.json",
+      "id": "cart_total_minor_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_21.json",
+      "id": "cart_total_minor_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_22.json",
+      "id": "cart_total_minor_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "cart_total_minor",
+      "file": "cases/cart_total_minor_23.json",
+      "id": "cart_total_minor_23",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_00.json",
+      "id": "save_ack_vs_db_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_01.json",
+      "id": "save_ack_vs_db_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_02.json",
+      "id": "save_ack_vs_db_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_03.json",
+      "id": "save_ack_vs_db_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_04.json",
+      "id": "save_ack_vs_db_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_05.json",
+      "id": "save_ack_vs_db_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_06.json",
+      "id": "save_ack_vs_db_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_07.json",
+      "id": "save_ack_vs_db_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_08.json",
+      "id": "save_ack_vs_db_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_09.json",
+      "id": "save_ack_vs_db_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_10.json",
+      "id": "save_ack_vs_db_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_11.json",
+      "id": "save_ack_vs_db_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_12.json",
+      "id": "save_ack_vs_db_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_13.json",
+      "id": "save_ack_vs_db_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_14.json",
+      "id": "save_ack_vs_db_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_15.json",
+      "id": "save_ack_vs_db_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_16.json",
+      "id": "save_ack_vs_db_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_17.json",
+      "id": "save_ack_vs_db_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_18.json",
+      "id": "save_ack_vs_db_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_19.json",
+      "id": "save_ack_vs_db_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_20.json",
+      "id": "save_ack_vs_db_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_21.json",
+      "id": "save_ack_vs_db_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_22.json",
+      "id": "save_ack_vs_db_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "save_ack_vs_db",
+      "file": "cases/save_ack_vs_db_23.json",
+      "id": "save_ack_vs_db_23",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_00.json",
+      "id": "inventory_display_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_01.json",
+      "id": "inventory_display_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_02.json",
+      "id": "inventory_display_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_03.json",
+      "id": "inventory_display_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_04.json",
+      "id": "inventory_display_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_05.json",
+      "id": "inventory_display_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_06.json",
+      "id": "inventory_display_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_07.json",
+      "id": "inventory_display_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_08.json",
+      "id": "inventory_display_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_09.json",
+      "id": "inventory_display_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_10.json",
+      "id": "inventory_display_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_11.json",
+      "id": "inventory_display_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_12.json",
+      "id": "inventory_display_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_13.json",
+      "id": "inventory_display_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_14.json",
+      "id": "inventory_display_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_15.json",
+      "id": "inventory_display_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_16.json",
+      "id": "inventory_display_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_17.json",
+      "id": "inventory_display_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_18.json",
+      "id": "inventory_display_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_19.json",
+      "id": "inventory_display_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_20.json",
+      "id": "inventory_display_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_21.json",
+      "id": "inventory_display_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_22.json",
+      "id": "inventory_display_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "inventory_display",
+      "file": "cases/inventory_display_23.json",
+      "id": "inventory_display_23",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_00.json",
+      "id": "retry_idempotence_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_01.json",
+      "id": "retry_idempotence_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_02.json",
+      "id": "retry_idempotence_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_03.json",
+      "id": "retry_idempotence_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_04.json",
+      "id": "retry_idempotence_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_05.json",
+      "id": "retry_idempotence_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_06.json",
+      "id": "retry_idempotence_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_07.json",
+      "id": "retry_idempotence_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_08.json",
+      "id": "retry_idempotence_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_09.json",
+      "id": "retry_idempotence_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_10.json",
+      "id": "retry_idempotence_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_11.json",
+      "id": "retry_idempotence_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_12.json",
+      "id": "retry_idempotence_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_13.json",
+      "id": "retry_idempotence_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_14.json",
+      "id": "retry_idempotence_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_15.json",
+      "id": "retry_idempotence_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_16.json",
+      "id": "retry_idempotence_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_17.json",
+      "id": "retry_idempotence_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_18.json",
+      "id": "retry_idempotence_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_19.json",
+      "id": "retry_idempotence_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_20.json",
+      "id": "retry_idempotence_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_21.json",
+      "id": "retry_idempotence_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_22.json",
+      "id": "retry_idempotence_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "retry_idempotence",
+      "file": "cases/retry_idempotence_23.json",
+      "id": "retry_idempotence_23",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_00.json",
+      "id": "quiz_score_00",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_01.json",
+      "id": "quiz_score_01",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_02.json",
+      "id": "quiz_score_02",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_03.json",
+      "id": "quiz_score_03",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_04.json",
+      "id": "quiz_score_04",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_05.json",
+      "id": "quiz_score_05",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_06.json",
+      "id": "quiz_score_06",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_07.json",
+      "id": "quiz_score_07",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_08.json",
+      "id": "quiz_score_08",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_09.json",
+      "id": "quiz_score_09",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_10.json",
+      "id": "quiz_score_10",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_11.json",
+      "id": "quiz_score_11",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_12.json",
+      "id": "quiz_score_12",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_13.json",
+      "id": "quiz_score_13",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_14.json",
+      "id": "quiz_score_14",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_15.json",
+      "id": "quiz_score_15",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_16.json",
+      "id": "quiz_score_16",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_17.json",
+      "id": "quiz_score_17",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_18.json",
+      "id": "quiz_score_18",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "pass",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_19.json",
+      "id": "quiz_score_19",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_20.json",
+      "id": "quiz_score_20",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_21.json",
+      "id": "quiz_score_21",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "fail",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_22.json",
+      "id": "quiz_score_22",
+      "synthetic": true
+    },
+    {
+      "expected_outcome": "unknown",
+      "family": "quiz_score",
+      "file": "cases/quiz_score_23.json",
+      "id": "quiz_score_23",
+      "synthetic": true
+    }
+  ],
+  "description": "Synthetic cross-layer defect scenarios; 6 families * 24 cases. Not real website evidence.",
+  "version": 1
+}

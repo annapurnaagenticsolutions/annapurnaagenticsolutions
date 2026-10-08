@@ -1,0 +1,4 @@
+{
+  "scene": {"objects": ["apple-1", "apple-2", "apple-3", "apple-4"]},
+  "ui": {"label_count": 5}
+}

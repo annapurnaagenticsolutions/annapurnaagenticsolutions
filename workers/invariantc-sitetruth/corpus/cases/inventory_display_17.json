@@ -1,0 +1,40 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "path",
+          "pointer": "/available",
+          "source": "ui"
+        },
+        "expected": {
+          "kind": "path",
+          "pointer": "/available",
+          "source": "api"
+        },
+        "id": "stock_matches",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "inventory_display_17",
+    "sources": [
+      {
+        "id": "api",
+        "layer": "api"
+      },
+      {
+        "id": "ui",
+        "layer": "dom"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "api": {
+      "available": 4
+    },
+    "ui": {}
+  }
+}
