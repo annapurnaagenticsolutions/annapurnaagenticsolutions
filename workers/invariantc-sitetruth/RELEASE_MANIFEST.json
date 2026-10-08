@@ -821,13 +821,13 @@
     },
     {
       "path": "docs/CODEX_M2_M4_HANDOFF.md",
-      "bytes": 13763,
-      "sha256": "162f2f317cc8f93989a4d9c8504c7b98b39505afeb633fca5aa0cdcab847bcbd"
+      "bytes": 13931,
+      "sha256": "68838caaf7f6c6282b74aa1c8cc28fc36e031bb8b7bbe8f488e302aca6759340"
     },
     {
       "path": "docs/COMMERCIAL_SAAS_RELEASE_PLAN.md",
-      "bytes": 21004,
-      "sha256": "83502f0fca93fdc641eeb15885e1d3cfbcbf2f8259d04036d0c8a29c4e0b39f5"
+      "bytes": 20110,
+      "sha256": "b9189c487267c12998c42cedf958b56a5d63e4f333db436437aca1e29542b4f8"
     },
     {
       "path": "docs/COMMERCIAL_VALIDATION.md",
@@ -836,8 +836,8 @@
     },
     {
       "path": "docs/EGRESS_DENY_PROTOTYPE.md",
-      "bytes": 7544,
-      "sha256": "4bc83ca7509f9233564ce32a4ab65a04c9ca6f4d08b5cf7ea53a0d6b2ff21c31"
+      "bytes": 7896,
+      "sha256": "46c08e19cd91b9c03ae4c96bb315660c2e81032e7a81be6183276ab307f4d55d"
     },
     {
       "path": "docs/HISTORICAL_M1_CODEX_HANDOFF.md",
@@ -1046,8 +1046,8 @@
     },
     {
       "path": "scripts/egress_container_ci.mjs",
-      "bytes": 9064,
-      "sha256": "f2d567c62988700b9dc17b2375466bcc10ef1273b4ad58b970a8a181eb0fafdf"
+      "bytes": 9829,
+      "sha256": "84927b4e2c317e6fab734f84c107c0cebc383169ff1a3870a3ba116d1b6b1031"
     },
     {
       "path": "scripts/egress_prototype_config_smoke.py",
@@ -1201,8 +1201,8 @@
     },
     {
       "path": "worker/egress-prototype/probe.mjs",
-      "bytes": 4292,
-      "sha256": "b69ca3829d7d1ccd8754ea41828e51af2ce9eb0c5be701a1a2c81c93cdf4d376"
+      "bytes": 5193,
+      "sha256": "7e355cfec1840f77e546213aef32a54849e3d4842f8532595f796107dfc89a91"
     },
     {
       "path": "worker/egress-prototype/src/index.mjs",

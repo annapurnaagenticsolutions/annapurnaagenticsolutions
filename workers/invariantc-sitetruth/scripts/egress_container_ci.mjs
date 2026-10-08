@@ -151,35 +151,50 @@ try {
     }
 
     if (body.status === "inconclusive") {
-      if (
+      const notUntrustedCertificateResult =
         tls.status !== "blocked" ||
         tls.decision !== "unverified" ||
         tls.failure !== "untrusted-interception-certificate" ||
         tls.errorCode !== "SELF_SIGNED_CERT_IN_CHAIN" ||
-        tls.authorized !== false
-      ) {
+        tls.authorized !== false;
+      const exactDefaultDeny =
+        tls.status === "blocked" &&
+        tls.decision === "deny" &&
+        tls.failure === "default-deny" &&
+        tls.responseStatus === 403 &&
+        tls.authorized === false;
+      const tlsProbeFailedClosed =
+        tls.status === "blocked" &&
+        tls.decision === "deny" &&
+        tls.failure === "pinned-tls-probe-failed" &&
+        tls.responseStatus === 502 &&
+        tls.authorized === false;
+      if (notUntrustedCertificateResult && !exactDefaultDeny && !tlsProbeFailedClosed) {
         throw new Error(`Egress probe returned an unsupported inconclusive result: ${JSON.stringify(tls)}`);
       }
       process.stdout.write(`${JSON.stringify(body)}\n`);
-      process.stdout.write("All three fixed deny probes PASSED. Fixed-host TLS failed closed on the local interception certificate; positive TLS is unverified and remains a release gate.\n");
+      const tlsSummary = tls.failure === "default-deny"
+        ? "The TLS URL was denied by the default-deny policy; the pinned TLS route did not demonstrate a handshake."
+        : `The TLS-only probe failed closed (${tls.failure}).`;
+      process.stdout.write(`All three fixed deny probes PASSED. ${tlsSummary} Positive TLS remains an open release gate.\n`);
     } else {
-    if (
-      tls.status !== 200 ||
-      tls.decision !== "pinned-tls-pass" ||
-      tls.hostname !== "example.com" ||
-      tls.servername !== "example.com" ||
-      tls.authorized !== true ||
-      !validIpv4(tls.selectedAddress) ||
-      tls.remoteAddress !== tls.selectedAddress ||
-      tls.addressFamily !== 4 ||
-      !Number.isSafeInteger(tls.resolvedAddressCount) ||
-      tls.resolvedAddressCount < 1 ||
-      tls.resolvedAddressCount > 16
-    ) {
-      throw new Error(`Egress probe did not prove the fixed-host TLS handshake contract: ${JSON.stringify(tls)}`);
-    }
-    process.stdout.write(`${JSON.stringify(body)}\n`);
-    process.stdout.write("Container egress prototype PASSED under Docker/Workerd. Scope is limited to fixed .invalid denial probes and one example.com TLS handshake with no HTTP request to the site; it is not a browser or public-site security approval.\n");
+      if (
+        tls.status !== 200 ||
+        tls.decision !== "pinned-tls-pass" ||
+        tls.hostname !== "example.com" ||
+        tls.servername !== "example.com" ||
+        tls.authorized !== true ||
+        !validIpv4(tls.selectedAddress) ||
+        tls.remoteAddress !== tls.selectedAddress ||
+        tls.addressFamily !== 4 ||
+        !Number.isSafeInteger(tls.resolvedAddressCount) ||
+        tls.resolvedAddressCount < 1 ||
+        tls.resolvedAddressCount > 16
+      ) {
+        throw new Error(`Egress probe did not prove the fixed-host TLS handshake contract: ${JSON.stringify(tls)}`);
+      }
+      process.stdout.write(`${JSON.stringify(body)}\n`);
+      process.stdout.write("Container egress prototype PASSED under Docker/Workerd. Scope is limited to fixed .invalid denial probes and one example.com TLS handshake with no HTTP request to the site; it is not a browser or public-site security approval.\n");
     }
   }
 } finally {

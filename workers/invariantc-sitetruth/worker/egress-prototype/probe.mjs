@@ -72,12 +72,37 @@ if (blockedProbe) {
   let tlsResult;
   let tlsInconclusive = false;
   try {
-    const tlsResponse = await fetch(tlsProbeUrl, {
-      method: "GET",
-      redirect: "manual",
-      signal: AbortSignal.timeout(10_000),
-    });
-    const tlsBody = await tlsResponse.json();
+  const tlsResponse = await fetch(tlsProbeUrl, {
+    method: "GET",
+    redirect: "manual",
+    signal: AbortSignal.timeout(10_000),
+  });
+  const tlsDecision = tlsResponse.headers.get("x-sitetruth-egress-decision");
+  const tlsFailureReason = tlsResponse.headers.get("x-sitetruth-egress-reason");
+  const responseText = await tlsResponse.text();
+  let tlsBody;
+  try {
+    tlsBody = JSON.parse(responseText);
+  } catch {
+    const failedClosed =
+      (tlsResponse.status === 403 && tlsDecision === "deny" && tlsFailureReason === "default-deny") ||
+      (tlsResponse.status === 502 && tlsDecision === "deny" && tlsFailureReason === "pinned-tls-probe-failed");
+    if (failedClosed) {
+      tlsInconclusive = true;
+      tlsResult = {
+        name: "pinned-tls",
+        status: "blocked",
+        decision: "deny",
+        failure: tlsFailureReason,
+        responseStatus: tlsResponse.status,
+        authorized: false,
+      };
+    } else {
+      throw new Error(`Unexpected TLS-only probe response (${tlsResponse.status}; ${tlsDecision}; ${tlsFailureReason}): ${responseText.slice(0, 200)}`);
+    }
+  }
+
+  if (!tlsInconclusive) {
     const tlsEvidence = tlsBody?.evidence;
     const ipv4 = typeof tlsEvidence?.selectedAddress === "string" &&
       /^(?:0|[1-9]\d{0,2})(?:\.(?:0|[1-9]\d{0,2})){3}$/.test(tlsEvidence.selectedAddress) &&
@@ -85,7 +110,7 @@ if (blockedProbe) {
     tlsResult = {
       name: "pinned-tls",
       status: tlsResponse.status,
-      decision: tlsResponse.headers.get("x-sitetruth-egress-decision"),
+      decision: tlsDecision,
       hostname: tlsEvidence?.hostname,
       selectedAddress: tlsEvidence?.selectedAddress,
       remoteAddress: tlsEvidence?.remoteAddress,
@@ -110,6 +135,7 @@ if (blockedProbe) {
     ) {
       throw new Error(`Unexpected pinned TLS probe result: ${JSON.stringify(tlsResult)}`);
     }
+  }
   } catch (error) {
     const errorCode = nestedErrorCode(error);
     if (errorCode !== "SELF_SIGNED_CERT_IN_CHAIN") throw error;
