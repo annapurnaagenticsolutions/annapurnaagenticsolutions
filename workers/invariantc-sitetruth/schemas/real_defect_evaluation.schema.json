@@ -1,0 +1,79 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:annapurna:invariantc:real-defect-evaluation:v2",
+  "title": "SiteTruth human-reviewed real-defect evaluation row",
+  "description": "One pseudonymized JSONL row. Validate each line against this schema. Never include URLs, page data, credentials, personal data, or direct identifiers. Dimension labels must come from a reviewer-approved non-identifying taxonomy.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "case_id",
+    "site_id",
+    "site_authorization_ref",
+    "category",
+    "source_layers",
+    "predicate",
+    "severity",
+    "human_label",
+    "prediction",
+    "real_case",
+    "label_source",
+    "reviewer_count",
+    "review_status",
+    "report_sha256"
+  ],
+  "properties": {
+    "case_id": { "$ref": "#/$defs/opaqueId" },
+    "site_id": { "$ref": "#/$defs/opaqueId" },
+    "site_authorization_ref": { "$ref": "#/$defs/opaqueId" },
+    "category": {
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9_.-]{0,63}$",
+      "description": "Reviewer-approved, non-identifying normalized defect category."
+    },
+    "source_layers": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 16,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "pattern": "^[a-z][a-z0-9_.-]{0,63}$"
+      },
+      "description": "Non-identifying source.layer labels from the assertion's dependencies. Multi-layer cases appear in each corresponding aggregate group."
+    },
+    "predicate": {
+      "type": "string",
+      "enum": ["equal", "near", "greater_or_equal", "less_or_equal"],
+      "description": "Rule kind used by the evaluator for this assertion."
+    },
+    "severity": { "type": "string", "enum": ["low", "medium", "high"] },
+    "human_label": { "type": "string", "enum": ["defect", "no_defect"] },
+    "prediction": { "type": "string", "enum": ["fail", "pass", "unknown"] },
+    "real_case": { "const": true },
+    "label_source": { "const": "human" },
+    "reviewer_count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Number of distinct human reviewers recorded for this label. The evaluation gate requires at least two per row; the scorer cannot verify reviewer identity or independence."
+    },
+    "review_status": { "type": "string", "enum": ["single_review", "consensus", "adjudicated"] },
+    "report_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "reviewer_count": { "const": 1 } }, "required": ["reviewer_count"] },
+      "then": { "properties": { "review_status": { "const": "single_review" } } }
+    },
+    {
+      "if": { "properties": { "reviewer_count": { "minimum": 2 } }, "required": ["reviewer_count"] },
+      "then": { "properties": { "review_status": { "enum": ["consensus", "adjudicated"] } } }
+    }
+  ],
+  "$defs": {
+    "opaqueId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_-]{1,128}$",
+      "description": "Pseudonymous reference resolvable only in the separately controlled authorization/review ledger."
+    }
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "count",
+          "value": {
+            "kind": "path",
+            "pointer": "/objects",
+            "source": "scene"
+          }
+        },
+        "expected": {
+          "kind": "path",
+          "pointer": "/label_count",
+          "source": "ui"
+        },
+        "id": "label_matches_objects",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "apples_count_12",
+    "sources": [
+      {
+        "id": "ui",
+        "layer": "dom"
+      },
+      {
+        "id": "scene",
+        "layer": "structured_scene"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "scene": {
+      "objects": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "ui": {
+      "label_count": 4
+    }
+  }
+}

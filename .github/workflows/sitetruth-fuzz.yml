@@ -1,0 +1,46 @@
+name: InvariantC coverage-guided fuzz smoke
+on:
+  push:
+    paths:
+      - 'workers/invariantc-sitetruth/**'
+      - '.github/workflows/sitetruth-*.yml'
+  pull_request:
+    paths:
+      - 'workers/invariantc-sitetruth/**'
+      - '.github/workflows/sitetruth-*.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+defaults:
+  run:
+    working-directory: workers/invariantc-sitetruth
+jobs:
+  json-api:
+    name: JSON API parser and evaluator
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      FUZZ_SECONDS: 120
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4 # stable @ 2026-07-16
+        with:
+          toolchain: nightly
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+        with:
+          workspaces: workers/invariantc-sitetruth -> target
+      - name: Install pinned cargo-fuzz
+        run: cargo install --locked --version 0.13.2 cargo-fuzz
+      - name: Build coverage-instrumented target
+        run: cargo fuzz build json_api
+      - name: Fuzz JSON compile and check boundaries
+        run: cargo fuzz run json_api -- -max_total_time=${FUZZ_SECONDS} -max_len=1048576
+      - name: Upload crashing inputs for review
+        if: failure()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: invariantc-json-api-fuzz-artifacts-${{ github.sha }}
+          path: workers/invariantc-sitetruth/fuzz/artifacts/
+          if-no-files-found: ignore

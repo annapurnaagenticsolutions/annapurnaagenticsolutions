@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "url": "http://127.0.0.1:4173/cart-bad.html",
+  "sources": [
+    {
+      "id": "cart",
+      "layer": "dom_state",
+      "extract": [
+        {
+          "pointer": "/unit_price_minor",
+          "kind": "number_text",
+          "selector": "#unit"
+        },
+        {
+          "pointer": "/qty",
+          "kind": "number_text",
+          "selector": "#qty"
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "layer": "dom",
+      "extract": [
+        {
+          "pointer": "/total_minor",
+          "kind": "number_text",
+          "selector": "#total"
+        }
+      ]
+    }
+  ]
+}

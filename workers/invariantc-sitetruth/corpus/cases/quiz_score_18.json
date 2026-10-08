@@ -1,0 +1,61 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "path",
+          "pointer": "/displayed_score",
+          "source": "ui"
+        },
+        "expected": {
+          "kind": "sum",
+          "values": [
+            {
+              "kind": "path",
+              "pointer": "/points/0",
+              "source": "answer_key"
+            },
+            {
+              "kind": "path",
+              "pointer": "/points/1",
+              "source": "answer_key"
+            },
+            {
+              "kind": "path",
+              "pointer": "/points/2",
+              "source": "answer_key"
+            }
+          ]
+        },
+        "id": "quiz_score_matches_calculated",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "quiz_score_18",
+    "sources": [
+      {
+        "id": "answer_key",
+        "layer": "fixture"
+      },
+      {
+        "id": "ui",
+        "layer": "dom"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "answer_key": {
+      "points": [
+        1,
+        2,
+        3
+      ]
+    },
+    "ui": {
+      "displayed_score": 6
+    }
+  }
+}

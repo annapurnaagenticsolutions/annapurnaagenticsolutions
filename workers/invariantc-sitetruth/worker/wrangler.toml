@@ -1,0 +1,40 @@
+name = "invariantc-sitetruth-api-staging"
+main = "src/index.mjs"
+compatibility_date = "2026-10-08"
+workers_dev = true
+
+# Evaluation API only. This Worker does not fetch customer URLs or persist submitted payloads.
+# Dedicated staging database in the operator-approved APAC region.
+# Tenant rows stay inactive until capacity-tested positive quotas are explicitly approved.
+
+[vars]
+DOMAIN_VERIFICATION_ENABLED = "false"
+ARTIFACT_RETENTION_ENABLED = "false"
+DOMAIN_METADATA_RETENTION_ENABLED = "false"
+SCAN_JOB_RETENTION_ENABLED = "false"
+SCAN_JOB_RECOVERY_ENABLED = "false"
+SCAN_INTAKE_ENABLED = "false"
+SCAN_OUTBOX_DISPATCH_ENABLED = "false"
+SCAN_EXECUTION_ENABLED = "false"
+SCAN_QUEUE_CONSUMER_READY = "false"
+SCAN_RUNNER_READY = "false"
+SCAN_MAINTENANCE_READY = "false"
+
+[assets]
+directory = "../site"
+binding = "ASSETS"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "invariantc-sitetruth-staging"
+database_id = "3fee9805-2514-446f-8e35-1283db61d21d"
+migrations_dir = "migrations"
+
+[[durable_objects.bindings]]
+name = "TENANT_QUOTA"
+class_name = "TenantQuota"
+
+[exports.TenantQuota]
+type = "durable-object"
+storage = "sqlite"

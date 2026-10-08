@@ -1,0 +1,49 @@
+{
+  "version": 1,
+  "id": "checkout_total_matches_lineitems",
+  "sources": [
+    {
+      "id": "cart",
+      "layer": "dom_state",
+      "fields": {
+        "/unit_price_minor": "number",
+        "/qty": "number"
+      }
+    },
+    {
+      "id": "ui",
+      "layer": "dom",
+      "fields": {
+        "/total_minor": "number"
+      }
+    }
+  ],
+  "assertions": [
+    {
+      "id": "total_minor_consistency",
+      "expected": {
+        "kind": "product",
+        "values": [
+          {
+            "kind": "path",
+            "source": "cart",
+            "pointer": "/unit_price_minor"
+          },
+          {
+            "kind": "path",
+            "source": "cart",
+            "pointer": "/qty"
+          }
+        ]
+      },
+      "actual": {
+        "kind": "path",
+        "source": "ui",
+        "pointer": "/total_minor"
+      },
+      "rule": {
+        "kind": "equal"
+      }
+    }
+  ]
+}

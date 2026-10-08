@@ -1,0 +1,18 @@
+{
+  "version": 1,
+  "id": "apple_label_matches_scene",
+  "description": "Counting exercise: displayed label must match trusted scene objects",
+  "sources": [
+    {"id": "scene", "layer": "structured_scene"},
+    {"id": "ui", "layer": "dom"}
+  ],
+  "assertions": [
+    {
+      "id": "object_count_consistency",
+      "expected": {"kind": "count", "value": {"kind": "path", "source": "scene", "pointer": "/objects"}},
+      "actual": {"kind": "path", "source": "ui", "pointer": "/label_count"},
+      "rule": {"kind": "equal"},
+      "severity": "error"
+    }
+  ]
+}

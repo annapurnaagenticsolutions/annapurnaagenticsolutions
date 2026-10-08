@@ -1,0 +1,48 @@
+{
+  "name": "@annapurna/invariantc-integration",
+  "private": true,
+  "version": "0.2.0",
+  "type": "module",
+  "scripts": {
+    "test:js": "node --test tests-js/*.test.mjs worker/test/*.test.mjs",
+    "test:wasm-worker": "node --test tests-wasm/worker.integration.test.mjs",
+    "measure:wasm-worker": "node --expose-gc scripts/measure_local_resources.mjs",
+    "worker:dev": "wrangler dev --local --config worker/wrangler.toml",
+    "worker:dry-run": "wrangler deploy --dry-run --outdir target/wrangler-dry-run --config worker/wrangler.toml",
+    "worker:migrate-local": "wrangler d1 migrations apply DB --local --config worker/wrangler.toml",
+    "worker:smoke-local": "node scripts/worker_local_smoke.mjs",
+    "worker:load-local": "node scripts/worker_local_load.mjs",
+    "worker:acceptance-ci": "node scripts/worker_ci_acceptance.mjs",
+    "worker:staging-smoke": "node scripts/staging_readonly_smoke.mjs",
+    "worker:egress-prototype-ci": "node scripts/egress_container_ci.mjs",
+    "verify:worker-config": "python scripts/worker_config_smoke.py",
+    "verify:egress-prototype-config": "python scripts/egress_prototype_config_smoke.py",
+    "verify:domain-verification-schema": "python scripts/domain_verification_schema_smoke.py",
+    "verify:scan-retention-schema": "python scripts/scan_retention_schema_smoke.py",
+    "verify:hosted-controls-schema": "python scripts/hosted_controls_smoke.py",
+    "verify:tenant-schema": "python scripts/tenant_schema_smoke.py",
+    "verify:evaluation-metrics": "python scripts/evaluation_metrics_smoke.py",
+    "pilot:summary": "python scripts/summarize_pilot.py",
+    "verify:pilot-summary": "python scripts/pilot_summary_smoke.py",
+    "issue:pilot-key": "node scripts/issue_pilot_key.mjs",
+    "demo:serve": "node scenarios/demo/server.mjs",
+    "collect": "node collector/cli.mjs",
+    "evidence:verify": "node evidence/verify.mjs",
+    "build:wasm": "wasm-pack build --release --target bundler --out-dir worker/pkg --out-name invariantc --features wasm && node scripts/patch-wasm.mjs",
+    "build:wasm-node": "wasm-pack build --release --target nodejs --out-dir wasm-node --out-name invariantc --features wasm",
+    "parity": "node scripts/wasm_parity.mjs",
+    "browser:suite": "node scripts/run_browser_suite.mjs"
+  },
+  "optionalDependencies": {
+    "playwright": "^1.56.0"
+  },
+  "devDependencies": {
+    "wrangler": "^4.148.0"
+  },
+  "overrides": {
+    "sharp": "0.35.5"
+  },
+  "dependencies": {
+    "tldts": "7.4.18"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "url": "http://127.0.0.1:4173/apples-good.html",
+  "sources": [
+    {
+      "id": "scene",
+      "layer": "structured_scene",
+      "extract": [
+        {
+          "pointer": "/objects",
+          "kind": "attribute_json",
+          "selector": "#scene",
+          "attribute": "data-objects"
+        }
+      ]
+    },
+    {
+      "id": "ui",
+      "layer": "dom",
+      "extract": [
+        {
+          "pointer": "/label_count",
+          "kind": "number_text",
+          "selector": "#label"
+        }
+      ]
+    }
+  ]
+}

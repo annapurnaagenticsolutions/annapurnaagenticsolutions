@@ -1,0 +1,103 @@
+# SiteTruth commercial SaaS release plan
+
+**Updated:** 2026-10-08
+**Target:** a reviewed, deployable Cloudflare-backed commercial site-scanning service. This plan does not authorize production deployment, paid browser usage, collection from customer sites, or commercial claims.
+
+## Release decision
+
+**Not ready to deploy as a commercial scanning SaaS.** The current product is an API-only evaluator with a synthetic preview. The staged Worker accepts caller-supplied JSON and does not browse URLs. Hosted scanning remains disabled. The phases below are ordered by dependency; a later phase cannot substitute for an earlier security or evidence gate.
+
+## Latest handoff verification — 2026-10-08
+
+This snapshot supersedes older release notes below where their deployment, CI, or D1 state differs.
+
+- The Cloudflare connector authenticates as Annapurna (`4f962f03d4d4d52c1e15fe8aff33f971`). The isolated staging Worker `invariantc-sitetruth-api-staging` remains at version `92c6912c-b071-443f-ad27-0fb3df1dd1a7`, 100%. No Worker deployment occurred. The APAC D1 `invariantc-sitetruth-staging` now records migrations `0001`–`0008`; `0004`–`0008` were applied through sequential D1 API batches, each including its migration-ledger insert atomically. The D1 batch rollback smoke passed. Read-only checks confirm zero tenants, challenges, verified origins, policies, jobs, artifacts, and outbox rows, and confirm the new audit/recovery/revocation/outbox triggers. `PRAGMA integrity_check` is denied by the D1 API authorizer (`SQLITE_AUTH`), so that check was unavailable. All hosted scan gates remain false; there is no Queue, R2, or Cron binding.
+- Hosted PR #6 run #19 passed the SiteTruth validation/security and 120-second fuzz workflows, including isolated Workerd/D1 auth/quota acceptance with a 25,000-request synthetic soak, six fixed localhost browser scenarios, RustSec, and production Node dependency audit. These are CI-local/synthetic checks, not remote D1 or edge evidence. The Container diagnostic executed; its three fixed HTTP/HTTPS/redirect denials returned expected 403s, while the pinned TLS-only probe returned 502 with `pinned_tls_connection_failed`. No positive pinned TLS handshake or customer-site browser egress has been demonstrated.
+- The credential-free `npm run worker:staging-smoke` again failed before HTTP because local DNS returned `ENOTFOUND`; current `/health` and preview assets are therefore not freshly verified. The historical health/assets/auth smoke remains historical evidence only.
+- A read-only Workers Builds lookup found no build configuration for SiteTruth staging. No SiteTruth-specific build token or GitHub connection is configured; an existing build token associated with another service was not reused. Cloudflare Pages remains outside this task's changes: no Pages settings, deployments, website files, `main`, or production Worker were changed.
+- Draft PR #6 remains open and unmerged at `cd5eadc8fa5e2291403e46a0655404f1216cb080`. The separate Annapurna website quality gate failed its homepage contract (six public acts versus three expected); its Lighthouse job passed. This does not change SiteTruth validation and will not be remediated in this Worker project.
+- Focused local policy/TLS tests passed (35 tests), including sanitized synchronous TLS error-code coverage; the egress config smoke, workflow-pin/budget checks, release-manifest checks, syntax checks, and mocked probe cases passed. These results do not establish an edge TLS handshake, browser safety, customer accuracy, or commercial readiness.
+
+## Phase 1 — Local evaluator and browser acceptance
+
+**Status: all SiteTruth validation/security and fuzz jobs passed in hosted CI run #19, including local Workerd/D1 acceptance and six synthetic browser cases; the Container pinned-TLS result was inconclusive and customer browser safety remains open.**
+
+- Preserve the 144-case synthetic corpus and native/WASM parity checks.
+- Keep the current JavaScript, Rust, WASM, schema, and Worker bundle checks in CI.
+- Run #19 passed all six Playwright scenarios against fixed synthetic localhost pages. The local runner still cannot navigate because this environment returned `connect EACCES 127.0.0.1:4173`; CI acceptance does not cover customer sites or hosted scanning.
+- The `fuzz/json_api` libFuzzer target completed its hosted 120-second smoke successfully in run #19. This is bounded coverage-guided smoke evidence, not exhaustive fuzz assurance.
+- CI passed the current migration chain through `0008` against isolated local D1, ephemeral synthetic-only tenant keys, current Workerd auth/revocation/expiry, tenant isolation and quota rejection, and a bounded 25,000-request synthetic load. The job strips Cloudflare credentials and has no deployment or remote-D1 command. This establishes the CI-local runtime only, not Cloudflare D1 semantics or edge capacity.
+- Both GitHub Actions workflows pin every remote action to a verified full commit SHA, annotate the resolved version, and disable persisted checkout credentials. RustSec and Node production dependency audits passed in run #19. The independent Annapurna website quality gate failed its existing page-content contract; this remains outside the SiteTruth Worker scope and no website files were changed.
+- The main CI workflow bounds every job with an explicit timeout and cancels superseded runs on the same ref to limit duplicate runner use. This is CI cost control only; service capacity and Cloudflare spend still need an operator-approved budget.
+- `npm run worker:staging-smoke` now provides a credential-free, read-only check of the staging health response, preview security headers, and unauthenticated evaluation rejection. It rejects non-staging URLs, bounds responses and request time, and checks that hosted domain/scan features remain disabled. The first current attempt failed before receiving an HTTP response because local DNS returned `ENOTFOUND`; no current live result is established. Even a pass would not verify the deployed version, D1 migration state, or edge behavior.
+
+## Phase 2 — Tenant identity, domain authorization, and quotas
+
+**Status: staging schema through `0008` is installed; runtime domain verification and scan controls remain disabled and unverified.**
+
+- Maintain tenant identity, key rotation/revocation, authentication, quotas, and cross-tenant isolation. Do not accept tenant IDs as proof of identity.
+- The Worker now uses pinned `tldts` PSL data with private suffixes included. Domain challenge routes remain disabled until real DNS and D1 behavior are verified.
+- Migrations `0001`–`0008` are recorded in the approved APAC staging D1. The D1 API accepted the audited cleanup, recovery, ownership-revocation cancellation, and encrypted outbox schema; a deliberately failing scratch batch rolled back without leaving its table. Aggregate checks still find zero tenants, challenges, origins, policies, jobs, artifacts, or outbox records. This verifies migration application and D1 API batch rollback only; it does not exercise application-level quota reservation, intake idempotency, expiry/revocation, or concurrency against a live tenant. The local tenant-scoped intake/status route remains disabled in staging. The execution-authorization core still needs a reviewed runner to claim jobs and recheck authority immediately before navigation. An internal D1-batch helper cancels queued/running scans before suspending a tenant; it is not exposed through an administrative route.
+- Require an operator-approved requests/minute, scans/day, concurrency, page, time, and report-size policy with a cost ceiling. Keep unset policies fail-closed.
+- Local bounded D1 cleanup now removes expired challenges and expired/revoked origins in audited order, preserves the existing 24-hour challenge issuance rate-limit history, and retains origins referenced by scan jobs. The domain and audit retention durations are mandatory operator inputs and are intentionally absent from staging config. The local cleanup path is not yet applied to or exercised against Cloudflare D1.
+
+## Phase 3 — Hosted scan execution and network isolation
+
+**Status: hosted run #19 verified the fixed deny probes; its TLS-only result remains inconclusive with sanitized code `pinned_tls_connection_failed`. The TLS handshake and browser egress remain unproven. Tenant-scoped scan intake/status and encrypted outbox code are behind false-by-default gates; no Queue consumer or browser runner is configured. URL scanning remains disabled and no runtime is approved.**
+
+- Prototype Cloudflare Containers first with `enableInternet = false`, HTTPS interception, and a default-deny outbound Worker. Cloudflare documents that this can route HTTP/S egress through trusted Worker code and block non-web ports, but ordinary Worker `fetch()` cannot pin an arbitrary public host to a checked IP (`resolveOverride` is same-zone limited). Prove checked-IP TCP/TLS with correct SNI/certificate validation before runtime approval. Browser Run remains an alternative only if its address-level egress guarantees are independently demonstrated. See [`BROWSER_RUNTIME_REVIEW.md`](BROWSER_RUNTIME_REVIEW.md).
+- The current isolated prototype is in [`EGRESS_DENY_PROTOTYPE.md`](EGRESS_DENY_PROTOTYPE.md). It has a dedicated Worker config, no route or shared data bindings, an internet-disabled Container, all-HTTP/all-HTTPS intercepts, a default-deny handler, fixed `.invalid` denial/redirect probes, and a fixed `example.com` TLS handshake-only path that rejects IANA special-purpose IPv4 answers and validates the certificate name. Hosted run #19 verified the three fixed denials, but the TLS-only probe returned 502 `pinned-tls-probe-failed` with sanitized code `pinned_tls_connection_failed`; CI accepted that bounded result as inconclusive, not as a successful handshake. Cloudflare documents hostname-based HTTPS interception and failure for HTTPS requests addressed to bare IPs with internet disabled; current source preserves the hostname and pins lookup to the checked address. The source now preserves a sanitized synchronous runtime error code to make a diagnostic rerun more informative. The probe is not Chromium and does not test public-site safety, general destination handling, or complete browser egress. Cloudflare's Durable Object scheduling policy is documented as public beta; deployed processes retain root Linux capabilities even when run under a non-root UID. This prototype does not clear the runtime approval gate.
+- Review actual account pricing and set cost ceilings before enabling any binding. Containers require Workers Paid and bill provisioned memory/disk time, active CPU time, egress, Workers, and Durable Objects; Browser Run has separate browser-hour and concurrency charges. Recheck current plan, region, usage allowances, and prices during release review.
+- The local intake API requires a tenant bearer key, verified origin, strict idempotency key, capture/contract pairing, same-origin HTTPS path, and operator policy. D1 job creation and AES-GCM encrypted outbox persistence are atomic; the queue message carries only IDs, and terminal job transitions audit and delete the encrypted payload. A bounded key ring supports rotation by key ID. Separate queue-consumer and browser-runner readiness gates now protect intake; the staging profile has no Queue producer or consumer binding, Cron Trigger, encryption secret, approved runner, or enabled gates. The route must remain disabled until those and the independently enforced egress/runtime gates pass. A queue consumer must use the existing atomic claim/navigation-authorization helper before any browser navigation. See `SCAN_INTAKE_OPERATIONS.md` for the route and key lifecycle contract.
+- Enforce browser egress outside Playwright request routing. The enforcement layer must resolve and validate every destination and connect only to the checked address, reject non-public/reserved/metadata destinations, and block direct browser egress, DNS, UDP/QUIC, unexpected ports, and cross-tenant/control-plane paths.
+- The local capture CLI refuses external targets until that reviewed egress policy is available. Its same-origin route is a defense-in-depth control for synthetic localhost scenarios only; it is not an approved hosted scanning boundary.
+- Test rebinding, redirect, popup, subresource, IPv4/IPv6, mapped-address, alternate numeric-address, metadata, and credential-leak cases in the chosen runtime. Do not enable a public scan route before these tests and independent security review pass.
+
+## Phase 4 — Artifact safety and operations
+
+**Status: retention/audit/recovery/outbox schema is installed in staging with no tenant data; application-level cleanup, policy values, R2 integration, and active schedules remain open.**
+
+- Connect a private R2 bucket only after operations/cost review; no R2 binding, Cron Trigger, or active deletion schedule exists. The D1 schema and migration ledger through `0008` are installed in staging.
+- Configure the Cron Trigger only after the R2/D1 integration passes. Run expiry, user deletion, retries, orphan discovery, partial failure, and D1/R2 disagreement tests in the approved staging environment.
+- Prove the seven-day redacted-report limit and deletion bound. Never store screenshots, full DOM, cookies, raw observations, passwords, or bearer tokens.
+- Bounded local cleanup now covers expired/revoked domain metadata and expired terminal scan jobs, including jobs that never had an artifact. Scan-job deletion preserves at least 24 hours of quota history, with matching query and D1 trigger checks. Artifact cleanup records scan-job deletion evidence before removing an expired job. Migration `0008` adds immutable encrypted outbox payload metadata, a maximum 24-hour ciphertext TTL, and terminal-state deletion audit. The opt-in bounded recovery/outbox dispatch handlers require operator-approved queue-age, runtime-grace, and audit-retention inputs; these values remain unset and all flags remain false. Domain/audit retention windows are also unset until an operator and privacy/legal reviewer approve them. Local SQLite tests do not establish D1 transaction, encryption-key operations, or deletion timing.
+- Establish alerting, audit access, incident response, backup/restore, support ownership, deletion requests, and rollback procedures.
+
+The local evidence package verifier now rejects unlisted files, symlinks, malformed artifact metadata, and oversized files; synthetic raw inputs are parsed and capped before the output directory is created. This protects the local evidence bundle boundary only. It does not provide artifact authenticity, customer deletion operations, backups, or production incident response.
+
+## Phase 5 — Real-world accuracy and owner pilot
+
+**Status: blocked on authorized sites, human reviewers, and consenting participants.**
+
+- Collect at least 100 human-labelled real defects from at least three authorized site applications; include human no-defect comparisons and multi-review labels for every scored row. Use the versioned JSON Schema and report precision/recall by source layer and predicate, UNKNOWN rate, and high-severity precision. Multi-layer aggregates overlap. The scorer cannot verify reviewer independence or authorization truth. Its synthetic smoke is prepared; no real human-labelled data has been collected.
+- Meet the proposed ≥90% high-severity deterministic precision target before exposing alerts; this target is not yet measured or an accepted external guarantee.
+- After browser and hosted-safety gates pass, run 5–10 free guided sessions with consenting site owners under the existing protocol. Capture only the approved aggregate ledger; no customer credentials or real account data.
+- Compare setup/support time and findings against equivalent baselines. Do not claim savings, ROI, demand, or accuracy from synthetic cases.
+
+## Phase 6 — Commercial product and release review
+
+**Status: deferred until validation.**
+
+- Only after the owner pilot, decide pricing and implement billing, subscription lifecycle, customer onboarding, account recovery, support, and public product claims.
+- Complete privacy, terms, data processing, jurisdiction, retention/deletion, and incident-process review for the actual product and data flows.
+- Review Cloudflare account plan, Browser service availability, expected spend, quotas, and abuse controls. Configure production resources separately from staging.
+- Re-run CI, staging acceptance, security review, and production configuration inspection. Rehearse rollback against the final production candidate after its version/resources are reviewed. Obtain explicit production deployment approval before any production change.
+
+## Current completed local work
+
+- Fresh native/Rust/WASM baselines are recorded in `LOCAL_VERIFIED_BASELINE.md`. Hosted run #19 passed validation/security, RustSec and npm audits, 25,000-request synthetic Workerd/D1 acceptance, six synthetic browser cases, and the bounded fuzz run. Its fixed egress-denial checks passed, while the pinned TLS diagnostic remained inconclusive. The pinned handshake and customer browser egress are not qualified. The credential-free public staging smoke failed before HTTP with `ENOTFOUND`, so the live route is not currently reverified. Cloudflare API reads confirm version `92c6912c-b071-443f-ad27-0fb3df1dd1a7`, D1 migrations `0001`–`0008`, false gates, and empty tenant/scan tables.
+- GitHub Actions supply-chain and job-budget policies passed locally; hosted jobs have now run on PR #6. Routine action-pin refreshes must be reviewed against upstream release records.
+- Pinned `tldts` PSL adapter is wired into the Worker domain challenge handler and tested against ICANN, private, multi-label, IDN, and registrable-host examples.
+- The scheduled retention handler is feature-gated. Staging keeps both hosted-control flags false and has no R2 binding or Cron Trigger.
+- The last successful npm production-dependency audit reported zero vulnerabilities after the Wrangler `sharp` override; run #19 also passed the current production dependency audit and both RustSec lockfile audits. A staging rollback rehearsal from v3 to v2 and back to v3 passed previously; repeat it against the reviewed release candidate before any production deployment.
+- CI now installs the locked dependencies before running Node tests, audits production dependencies, and Dependabot checks both the pinned PSL package and GitHub Actions references weekly.
+
+## External gates that cannot be completed from this checkout
+
+- A passing hosted rerun of the isolated Container egress diagnostic after hostname-preserving pinned lookup and, separately, an independently reviewed browser runtime/egress design. The latest hosted CI result did not demonstrate the pinned-TLS handshake.
+- Operator-approved capacity and cost budgets; an approved Queue/R2/Cron plan; live DNS proof and application-level D1 quota/idempotency/revocation tests. D1 migrations `0001`–`0008` are applied, but no tenant or scan data was provisioned.
+- Operator/privacy-approved domain and deletion-audit retention windows and queue-age/runtime-grace recovery thresholds. Exercise cleanup, recovery, outbox dispatch, and revocation cancellation against Cloudflare D1 after those policies are approved, then configure and verify scheduled execution. The migration and batch rollback checks do not constitute application-level D1 acceptance.
+- A SiteTruth-specific Workers Builds integration is still absent. Configure a dedicated SiteTruth build credential and GitHub connection for the isolated Worker root/branch/path filters; do not reuse another service's token. The connected worker must remain the staging script and must not deploy Pages or production.
+- Security-reviewed browser runtime plus independently tested network egress enforcement. Containers are the preferred prototype candidate, not an approved runtime; checked-address HTTPS remains unproven. Browser Run's hostname guardrails alone do not meet that gate. See [`BROWSER_RUNTIME_REVIEW.md`](BROWSER_RUNTIME_REVIEW.md).
+- Authorized real-site data, human labelers, site-scope authorization, participant consent, and pilot operators.
+- Legal, privacy, commercial, support, and explicit production-release review.

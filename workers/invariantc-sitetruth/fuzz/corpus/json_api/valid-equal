@@ -1,0 +1,3 @@
+{"version":1,"id":"fuzz-seed","sources":[{"id":"ui","layer":"dom"}],"assertions":[{"id":"value-equals-one","expected":{"kind":"literal","value":1},"actual":{"kind":"path","source":"ui","pointer":"/value"},"rule":{"kind":"equal"}}]}
+--- observations ---
+{"ui":{"value":1}}

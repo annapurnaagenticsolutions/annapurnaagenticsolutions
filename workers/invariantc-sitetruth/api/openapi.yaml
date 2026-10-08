@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: SiteTruth QA Evaluation API
+  version: 0.3.0
+  description: |
+    API-only guided-pilot candidate. `/v1/check` evaluates caller-supplied contracts and
+    observations in memory and never fetches URLs or persists its request payload or report.
+    A separately gated scan-intake implementation is disabled in the current staging profile;
+    if enabled after runtime, egress, D1, queue, retention, and maintenance review, it stores
+    canonical contract/capture input only as AES-GCM ciphertext with a maximum 24-hour TTL.
+    No public endpoint, self-serve account, pricing, or production availability is currently offered.
+paths:
+  /health:
+    get:
+      summary: Check Worker configuration
+      responses:
+        '200':
+          description: D1 and the per-tenant quota Durable Object are bound.
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [service, status, customer_payload_storage, browser_scanning, hosted_scan_intake]
+                properties:
+                  service: { type: string, const: invariantc-sitetruth-api }
+                  status: { type: string, const: ready }
+                  customer_payload_storage: { type: string, enum: [disabled, encrypted_short_ttl] }
+                  browser_scanning: { type: string, const: disabled }
+                  hosted_scan_intake: { type: string, enum: [disabled, enabled] }
+        '503':
+          description: A required service binding is not configured.
+  /v1/check:
+    post:
+      operationId: evaluateContract
+      summary: Evaluate a typed contract against supplied observations
+      description: |
+        The request is evaluated in memory and is not retained. FAIL and UNKNOWN are successful
+        evaluations and return HTTP 200. After authentication, request quotas are reserved before
+        content-type/declared-size rejection or body reads; each authenticated POST to this route
+        consumes one allowance, including malformed, oversized, or shape-invalid requests. Unsupported
+        methods are not charged. Caller must
+        not submit secrets, credentials, personal data, or unredacted customer content.
+      security:
+        - pilotBearer: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CheckRequest'
+      responses:
+        '200':
+          description: Evaluation completed with PASS, FAIL, or UNKNOWN.
+          headers:
+            X-RateLimit-Limit: { schema: { type: integer } }
+            X-RateLimit-Remaining: { schema: { type: integer } }
+            X-RateLimit-Day-Limit: { schema: { type: integer } }
+            X-RateLimit-Day-Remaining: { schema: { type: integer } }
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/EvaluationReport'
+        '400': { description: Malformed or oversized JSON body. }
+        '401': { description: Invalid, expired, or revoked bearer token. }
+        '405': { description: Method not allowed. }
+        '413': { description: Request body exceeds 256 KiB. }
+        '415': { description: Content-Type must be application/json. }
+        '422':
+          description: Contract or request shape is invalid.
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/CompileFailure'
+                  - $ref: '#/components/schemas/RequestError'
+        '429':
+          description: Per-tenant request, daily, or concurrency quota is reached.
+          headers:
+            Retry-After: { schema: { type: integer, minimum: 1 } }
+        '502': { description: Evaluator returned an invalid result or failed. }
+        '503': { description: Tenant authentication, policy, or quota coordination is unavailable. }
+  /v1/scans:
+    post:
+      operationId: createScan
+      summary: Queue a tenant-authorized scan
+      description: |
+        Disabled in the current staging configuration and returns 404 until every explicit
+        runtime, verified-domain, encrypted-payload, queue, recovery, retention, runner, and
+        scheduled-maintenance readiness gate is satisfied. The route accepts only a path on the
+        tenant's exact verified HTTPS origin; query strings, fragments, credentials, and browser
+        actions are rejected. It writes the contract/capture only as authenticated AES-GCM
+        ciphertext in D1, expires that payload within 24 hours, and emits a queue message containing
+        only version, scan ID, and tenant ID. It does not itself execute a browser scan.
+      security:
+        - pilotBearer: []
+      parameters:
+        - name: Idempotency-Key
+          in: header
+          required: true
+          schema: { type: string, minLength: 16, maxLength: 128, pattern: '^[A-Za-z0-9_.-]+$' }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScanCreateRequest'
+      responses:
+        '202':
+          description: New encrypted scan job committed; queue dispatch may be pending retry.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanJobAccepted' }
+        '200': { description: Idempotent replay of an existing tenant-owned job. }
+        '401': { description: Invalid, expired, or revoked bearer token. }
+        '404': { description: Intake is disabled or the verified origin is unavailable. }
+        '405': { description: Method not allowed. }
+        '409': { description: Idempotency key conflicts with a different scan definition. }
+        '413': { description: Request exceeds the body or canonical encrypted-payload limit. }
+        '415': { description: Content-Type must be application/json. }
+        '422': { description: Request, contract/capture pairing, or safe target is invalid. }
+        '429': { description: Tenant request or scan quota is reached. }
+        '503': { description: A required tenant, queue, encryption, policy, or maintenance dependency is unavailable. }
+  /v1/scans/{scan_id}:
+    get:
+      operationId: getScanStatus
+      summary: Read a tenant-owned scan status
+      description: The status is tenant-scoped and contains no contract, capture, observation, or report payload.
+      security:
+        - pilotBearer: []
+      parameters:
+        - name: scan_id
+          in: path
+          required: true
+          schema: { type: string, pattern: '^[A-Za-z0-9_-]{22}$' }
+      responses:
+        '200':
+          description: Tenant-owned job status.
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/ScanJobStatus' }
+        '401': { description: Invalid, expired, or revoked bearer token. }
+        '404': { description: Intake is disabled or no tenant-owned job exists. }
+        '405': { description: Method not allowed. }
+        '503': { description: Tenant, queue, encryption, or policy dependency is unavailable. }
+components:
+  securitySchemes:
+    pilotBearer:
+      type: http
+      scheme: bearer
+      bearerFormat: SiteTruth pilot key
+      description: Opaque key issued by the operator, expires within at most 365 days, and is revocable.
+  schemas:
+    CheckRequest:
+      type: object
+      additionalProperties: false
+      required: [contract, observations]
+      properties:
+        contract: { type: object, description: InvariantC typed contract JSON. }
+        observations: { type: object, description: Named observation sources. }
+    ScanCreateRequest:
+      type: object
+      additionalProperties: false
+      required: [origin_id, capture, contract, page_limit]
+      properties:
+        origin_id: { type: string, pattern: '^[A-Za-z0-9_-]{22}$' }
+        capture: { type: object, description: Version-1 bounded capture specification; browser actions and query strings are not accepted. }
+        contract: { type: object, description: InvariantC typed contract JSON. }
+        page_limit: { type: integer, minimum: 1, description: Must not exceed the tenant's operator-approved policy. }
+    ScanJobAccepted:
+      type: object
+      required: [scan_id, status, dispatch_status]
+      properties:
+        scan_id: { type: string, pattern: '^[A-Za-z0-9_-]{22}$' }
+        status: { type: string, enum: [queued, running, succeeded, failed, cancelled] }
+        dispatch_status: { type: string, enum: [dispatched, pending, expired, terminal_or_claimed, not_applicable] }
+    ScanJobStatus:
+      type: object
+      required: [scan_id, status, created_at_ms]
+      properties:
+        scan_id: { type: string, pattern: '^[A-Za-z0-9_-]{22}$' }
+        status: { type: string, enum: [queued, running, succeeded, failed, cancelled] }
+        created_at_ms: { type: integer }
+        started_at_ms: { type: integer }
+        finished_at_ms: { type: integer }
+        terminal_reason: { type: string, enum: [queue_timeout, run_budget_exceeded] }
+    EvaluationReport:
+      type: object
+      required: [ok, report]
+      properties:
+        ok: { type: boolean, const: true }
+        report:
+          type: object
+          required: [outcome, contract_sha256, observation_sha256, summary, results]
+          properties:
+            report_version: { type: integer }
+            contract_id: { type: string }
+            contract_sha256: { type: string, pattern: '^[0-9a-f]{64}$' }
+            observation_sha256: { type: string, pattern: '^[0-9a-f]{64}$' }
+            outcome: { type: string, enum: [pass, fail, unknown] }
+            summary:
+              type: object
+              required: [passed, failed, unknown]
+              properties:
+                passed: { type: integer, minimum: 0 }
+                failed: { type: integer, minimum: 0 }
+                unknown: { type: integer, minimum: 0 }
+            results: { type: array, maxItems: 512, items: { type: object } }
+            evidence_notice: { type: string }
+    CompileFailure:
+      type: object
+      required: [ok, issues]
+      properties:
+        ok: { type: boolean, const: false }
+        issues: { type: array, maxItems: 100, items: { type: object } }
+    RequestError:
+      type: object
+      required: [error]
+      properties:
+        error: { type: string }

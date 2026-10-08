@@ -1,0 +1,195 @@
+name: InvariantC validation and security CI
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  rustsec-audit:
+    name: RustSec dependency advisories
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      checks: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Audit application Rust lockfile
+        uses: rustsec/audit-check@69366f33c96575abad1ee0dba8212993eecbe998 # v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Audit fuzz-target Rust lockfile
+        uses: rustsec/audit-check@69366f33c96575abad1ee0dba8212993eecbe998 # v2.0.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          working-directory: fuzz
+  rust:
+    name: Rust compiler and 144-case corpus
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENAI_API_KEY: ""
+      ANTHROPIC_API_KEY: ""
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4 # stable @ 2026-07-16
+        with:
+          toolchain: stable
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      - name: Validate Rust formatting
+        run: cargo fmt --all -- --check
+      - name: Unit and corpus tests
+        run: cargo test --all-targets
+      - name: Compiler lint
+        run: cargo clippy --all-targets -- -D warnings
+      - name: Offline labelled corpus verification
+        run: cargo run --quiet -- corpus corpus/manifest.json --offline
+  node:
+    name: Node collectors, Worker, evidence
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Run Node integration tests
+        run: node --test tests-js/*.test.mjs worker/test/*.test.mjs
+      - name: Audit production dependencies
+        run: npm audit --omit=dev --audit-level=high
+      - name: JavaScript syntax checks
+        run: |
+          for f in collector/*.mjs evidence/*.mjs worker/src/*.mjs worker/egress-prototype/src/*.mjs worker/egress-prototype/*.mjs scripts/*.mjs scenarios/demo/server.mjs site/app.js; do
+            node --check "$f"
+          done
+  worker:
+    name: Compiled WASM Worker and Wrangler dry-run
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4 # stable @ 2026-07-16
+        with:
+          toolchain: stable
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@6323deb102c322ba6fcbdcafc7e3dddab59af2b6 # v2.9.2
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --version 0.15.0 --locked
+      - name: Build the Cloudflare WASM module
+        run: npm run build:wasm
+      - name: Test Worker handler against compiled WASM
+        run: npm run test:wasm-worker
+      - name: Build Node WASM target and verify evaluator parity
+        run: |
+          npm run build:wasm-node
+          npm run parity
+      - name: Validate staging-only Worker bindings
+        run: npm run verify:worker-config
+      - name: Bundle Worker without deploying
+        run: npm run worker:dry-run
+      - name: Run current Workerd and D1 acceptance with isolated synthetic data
+        run: npm run worker:acceptance-ci
+        env:
+          CI: "true"
+          WORKER_CI_LOAD_REQUESTS: '25000'
+          WORKER_CI_LOAD_CONCURRENCY: '16'
+  browser-acceptance:
+    name: Six synthetic local browser acceptance scenarios
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4 # stable @ 2026-07-16
+        with:
+          toolchain: stable
+      - name: Build the native evaluator
+        run: cargo build --locked --bin invariantc
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Run six synthetic localhost browser scenarios
+        run: npm run browser:suite
+        env:
+          INVARIANTC_BINARY: target/debug/invariantc
+  container-egress-deny:
+    name: Isolated Container egress TLS-only prototype
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: npm
+      - name: Install locked JavaScript dependencies
+        run: npm ci
+      - name: Check Docker Engine is available without Cloudflare credentials
+        run: docker info --format '{{.ServerVersion}}'
+      - name: Validate isolated prototype configuration
+        run: npm run verify:egress-prototype-config
+      - name: Run local Workerd deny and fixed-host TLS probes
+        run: npm run worker:egress-prototype-ci
+        env:
+          CI: "true"
+  fixtures:
+    name: Corpus labels and SQLite evidence schema
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Validate labels and seeded HTML
+        run: |
+          python scripts/validate_corpus.py
+          python scripts/verify_seeded_pages.py
+          python scripts/validate_workflow_pins.py
+          python scripts/validate_workflow_budget.py
+          python scripts/refresh_release_manifest.py --check
+      - name: Validate local schemas, metrics, and pilot safeguards
+        run: |
+          python scripts/scenariodb_smoke.py
+          python scripts/tenant_schema_smoke.py
+          python scripts/domain_verification_schema_smoke.py
+          python scripts/scan_retention_schema_smoke.py
+          python scripts/hosted_controls_smoke.py
+          python scripts/evaluation_metrics_smoke.py
+          python scripts/pilot_summary_smoke.py
+          python scripts/egress_prototype_config_smoke.py

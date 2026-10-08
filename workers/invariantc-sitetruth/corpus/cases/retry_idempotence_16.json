@@ -1,0 +1,52 @@
+{
+  "contract": {
+    "assertions": [
+      {
+        "actual": {
+          "kind": "count",
+          "value": {
+            "kind": "path",
+            "pointer": "/order_rows",
+            "source": "db"
+          }
+        },
+        "expected": {
+          "kind": "path",
+          "pointer": "/intended_commits",
+          "source": "workflow"
+        },
+        "id": "single_order_created",
+        "rule": {
+          "kind": "equal"
+        }
+      }
+    ],
+    "id": "retry_idempotence_16",
+    "sources": [
+      {
+        "id": "workflow",
+        "layer": "event"
+      },
+      {
+        "id": "db",
+        "layer": "snapshot"
+      }
+    ],
+    "version": 1
+  },
+  "observations": {
+    "db": {
+      "order_rows": [
+        {
+          "id": 1
+        },
+        {
+          "id": 1
+        }
+      ]
+    },
+    "workflow": {
+      "intended_commits": 1
+    }
+  }
+}

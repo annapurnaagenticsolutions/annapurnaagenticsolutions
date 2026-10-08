@@ -1,8 +1,11 @@
-﻿name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - 'workers/invariantc-sitetruth/**'
+      - '.github/workflows/sitetruth-*.yml'
   workflow_dispatch:
 
 permissions:

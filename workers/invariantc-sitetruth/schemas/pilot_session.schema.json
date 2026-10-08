@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:annapurna:invariantc:pilot-session:v1",
+  "title": "SiteTruth guided pilot session",
+  "description": "Privacy-minimal local pilot ledger row. All references must be opaque; do not include names, contact details, URLs, page content, screenshots, credentials, or free text.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "format_version", "session_ref", "participant_ref", "site_ref",
+    "site_authorization_ref", "consent_ref", "is_real_participant",
+    "consent_recorded", "scope_authorized", "session_date", "product_version",
+    "session_status", "tasks", "participant_usefulness", "reproducibility",
+    "would_use_again", "purchase_intent", "willingness_to_pay_band", "pricing_period"
+  ],
+  "properties": {
+    "format_version": { "const": 1 },
+    "session_ref": { "$ref": "#/$defs/opaqueRef" },
+    "participant_ref": { "$ref": "#/$defs/opaqueRef" },
+    "site_ref": { "$ref": "#/$defs/opaqueRef" },
+    "site_authorization_ref": { "$ref": "#/$defs/opaqueRef" },
+    "consent_ref": { "$ref": "#/$defs/opaqueRef" },
+    "is_real_participant": { "const": true, "description": "Operator assertion only; not independently verified by the summarizer." },
+    "consent_recorded": { "const": true, "description": "Operator assertion only; consent evidence is held separately." },
+    "scope_authorized": { "const": true, "description": "Operator assertion only; site authorization evidence is held separately." },
+    "session_date": { "type": "string", "format": "date" },
+    "product_version": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._+-]{0,63}$" },
+    "session_status": { "enum": ["completed", "abandoned", "blocked"] },
+    "tasks": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 12,
+      "items": { "$ref": "#/$defs/task" }
+    },
+    "participant_usefulness": { "oneOf": [{ "type": "integer", "minimum": 1, "maximum": 5 }, { "type": "null" }] },
+    "reproducibility": { "enum": ["yes", "partially", "no", "not_collected"] },
+    "would_use_again": { "enum": ["yes", "no", "unsure", "not_collected"] },
+    "purchase_intent": { "enum": ["yes", "no", "unsure", "not_collected"] },
+    "willingness_to_pay_band": { "enum": ["none", "below_alternative", "at_alternative", "above_alternative", "declined", "not_collected"] },
+    "pricing_period": { "enum": ["per_run", "monthly", "annual", "not_applicable", "not_collected"] }
+  },
+  "$defs": {
+    "opaqueRef": { "type": "string", "pattern": "^[A-Za-z0-9_-]{1,80}$" },
+    "minutes": { "type": "number", "minimum": 0, "maximum": 480 },
+    "count": { "type": "integer", "minimum": 0, "maximum": 100000 },
+    "task": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "task_ref", "category", "status", "comparison_mode", "baseline_method",
+        "baseline_minutes", "product_minutes", "support_minutes", "alerts_presented",
+        "useful_alerts", "false_alerts", "unknown_alerts", "other_alerts",
+        "critical_false_passes"
+      ],
+      "properties": {
+        "task_ref": { "$ref": "#/$defs/opaqueRef" },
+        "category": { "type": "string", "pattern": "^[a-z][a-z0-9_.-]{0,63}$" },
+        "status": { "enum": ["completed", "abandoned", "blocked"] },
+        "comparison_mode": { "enum": ["paired", "unpaired"] },
+        "baseline_method": { "enum": ["manual_playwright", "pact", "basic_checks", "llm_reviewer", "none"] },
+        "baseline_minutes": { "$ref": "#/$defs/minutes" },
+        "product_minutes": { "$ref": "#/$defs/minutes" },
+        "support_minutes": { "$ref": "#/$defs/minutes" },
+        "alerts_presented": { "$ref": "#/$defs/count" },
+        "useful_alerts": { "$ref": "#/$defs/count" },
+        "false_alerts": { "$ref": "#/$defs/count" },
+        "unknown_alerts": { "$ref": "#/$defs/count" },
+        "other_alerts": { "$ref": "#/$defs/count" },
+        "critical_false_passes": { "$ref": "#/$defs/count", "description": "Adjudicated expected-critical failures that the product incorrectly passed; this is a pilot signal, not the real-defect evaluation." }
+      }
+    }
+  }
+}

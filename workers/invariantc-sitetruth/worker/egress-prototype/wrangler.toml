@@ -1,0 +1,30 @@
+name = "invariantc-sitetruth-egress-prototype"
+main = "src/index.mjs"
+compatibility_date = "2026-10-08"
+compatibility_flags = ["enable_ctx_exports"]
+workers_dev = false
+
+# The egress proof is CI-only and is not connected to the scanner API.
+[vars]
+EGRESS_PROBE_MODE = "disabled"
+
+[[containers]]
+class_name = "EgressProbe"
+scheduling_policy = "durable_object"
+
+[containers.images.probe]
+dockerfile = "./Dockerfile"
+
+[[durable_objects.bindings]]
+name = "EGRESS_PROBE"
+class_name = "EgressProbe"
+
+[exports.EgressProbe]
+type = "durable-object"
+storage = "sqlite"
+
+[exports.DenyAllOutbound]
+type = "worker"
+
+[exports.DenyAllOutbound.cache]
+enabled = false
