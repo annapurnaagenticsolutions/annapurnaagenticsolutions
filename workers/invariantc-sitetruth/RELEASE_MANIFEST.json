@@ -821,13 +821,13 @@
     },
     {
       "path": "docs/CODEX_M2_M4_HANDOFF.md",
-      "bytes": 14916,
-      "sha256": "434c8e158d71c128097029d330d2eaa94bc58111d433c98ec3df37dfc08ebed6"
+      "bytes": 15030,
+      "sha256": "5ea11ead65d03419e373e4ef33b1bb42c5c87ac7b361764a5184314b53875411"
     },
     {
       "path": "docs/COMMERCIAL_SAAS_RELEASE_PLAN.md",
-      "bytes": 20640,
-      "sha256": "60bd86a0a965cdb61db204b1ad0ba10879e0acc021ed9df42e034ff39dbea9ce"
+      "bytes": 21245,
+      "sha256": "b2f2e0392d2164c52878271fbc2bd7323e62f9d92e03f7b12d25616fe1f7125d"
     },
     {
       "path": "docs/COMMERCIAL_VALIDATION.md",
@@ -836,8 +836,8 @@
     },
     {
       "path": "docs/EGRESS_DENY_PROTOTYPE.md",
-      "bytes": 8748,
-      "sha256": "8284ee687aab6a71514fc97be9aab4aedc8a331f9f7b1e06ba5c985453aefcc5"
+      "bytes": 9107,
+      "sha256": "38a609db2086531f2b65cb674d872b394cfd6c87dd1ee2abf3e66f89262f5116"
     },
     {
       "path": "docs/HISTORICAL_M1_CODEX_HANDOFF.md",
@@ -1051,8 +1051,8 @@
     },
     {
       "path": "scripts/egress_prototype_config_smoke.py",
-      "bytes": 4850,
-      "sha256": "4b7f0b117efd782921cd7af1463daac5eceb7f53d1320cc05b17f2b1aa1bd694"
+      "bytes": 5188,
+      "sha256": "a693384ca6bb8b96d1464913d6eb7e4414d8f05a461cfd1f4da8a890572cd468"
     },
     {
       "path": "scripts/evaluate_real_defects.py",

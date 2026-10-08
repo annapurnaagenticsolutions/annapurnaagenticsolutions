@@ -49,7 +49,16 @@ require("fetch(" not in policy and "return fetch(request)" not in source, "deny 
 require('"node:dns"' in tls_source and "resolve4" in tls_source, "fixed TLS probe must resolve its IPv4 destination")
 require('"node:tls"' in tls_source and "tls.connect" in tls_source, "fixed TLS probe must use a TLS socket")
 require('export const TLS_PROBE_HOSTNAME = "example.com"' in tls_source, "TLS probe hostname must stay fixed")
-require('host: address' in tls_source and 'servername: hostname' in tls_source, "TLS socket must pin the checked address while preserving hostname SNI")
+require(
+    "function pinnedIpv4Lookup(hostname, address)" in tls_source
+    and 'requestedHost !== hostname' in tls_source
+    and 'done(null, [{ address, family: 4 }])' in tls_source
+    and 'done(null, address, 4)' in tls_source
+    and 'host: hostname' in tls_source
+    and 'lookup: pinnedIpv4Lookup(hostname, address)' in tls_source
+    and 'servername: hostname' in tls_source,
+    "TLS socket must preserve hostname interception while pinning lookup to the checked IPv4 address",
+)
 require("rejectUnauthorized: true" in tls_source and "remoteAddress !== address" in tls_source, "TLS probe must verify certificate and connected peer")
 require('TLS_PROBE_PATH = "/.well-known/sitetruth-egress-tls-probe"' in tls_source, "TLS probe path must stay fixed")
 require("TLS_PROBE_PATH" in policy and "probePinnedTlsHost" in policy, "only the exact fixed TLS probe may invoke the socket probe")
