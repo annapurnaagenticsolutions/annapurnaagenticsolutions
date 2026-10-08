@@ -7,17 +7,35 @@ import {
 
 const REDIRECT_PROBE_HOST = "redirect-egress.invalid";
 const FINAL_PROBE_HOST = "final-egress.invalid";
+const SAFE_TLS_FAILURE_MESSAGES = new Set([
+  "pinned_tls_dns_answer_count_invalid",
+  "pinned_tls_dns_answer_invalid",
+  "pinned_tls_dns_answer_not_public",
+  "pinned_tls_handshake_timeout",
+  "pinned_tls_connection_failed",
+  "pinned_tls_peer_validation_failed",
+  "pinned_tls_connection_closed_early",
+]);
 
-function deniedResponse(reason = "default-deny", status = 403) {
+function deniedResponse(reason = "default-deny", status = 403, failureCode = null) {
+  const headers = {
+    "cache-control": "no-store",
+    "content-type": "text/plain; charset=utf-8",
+    "x-sitetruth-egress-decision": "deny",
+    "x-sitetruth-egress-reason": reason,
+  };
+  if (failureCode) headers["x-sitetruth-egress-failure-code"] = failureCode;
   return new Response("Outbound request denied by SiteTruth egress prototype.\n", {
     status,
-    headers: {
-      "cache-control": "no-store",
-      "content-type": "text/plain; charset=utf-8",
-      "x-sitetruth-egress-decision": "deny",
-      "x-sitetruth-egress-reason": reason,
-    },
+    headers,
   });
+}
+
+function safeTlsFailureCode(error) {
+  const message = typeof error?.message === "string" ? error.message : "";
+  if (SAFE_TLS_FAILURE_MESSAGES.has(message)) return message;
+  const code = error?.code;
+  return typeof code === "string" && /^[A-Z][A-Z0-9_]{0,63}$/.test(code) ? code : "unknown";
 }
 
 /**
@@ -83,8 +101,8 @@ export async function handleOutboundRequest(request, { probeTls = probePinnedTls
           "x-sitetruth-egress-decision": "pinned-tls-pass",
         },
       });
-    } catch {
-      return deniedResponse("pinned-tls-probe-failed", 502);
+    } catch (error) {
+      return deniedResponse("pinned-tls-probe-failed", 502, safeTlsFailureCode(error));
     }
   }
 

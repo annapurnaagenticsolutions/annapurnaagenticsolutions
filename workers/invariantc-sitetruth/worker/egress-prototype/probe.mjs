@@ -79,6 +79,10 @@ if (blockedProbe) {
   });
   const tlsDecision = tlsResponse.headers.get("x-sitetruth-egress-decision");
   const tlsFailureReason = tlsResponse.headers.get("x-sitetruth-egress-reason");
+  const tlsFailureCodeHeader = tlsResponse.headers.get("x-sitetruth-egress-failure-code");
+  const tlsFailureCode = typeof tlsFailureCodeHeader === "string" && /^[a-z0-9_]{1,64}$/i.test(tlsFailureCodeHeader)
+    ? tlsFailureCodeHeader
+    : null;
   const responseText = await tlsResponse.text();
   let tlsBody;
   try {
@@ -94,6 +98,7 @@ if (blockedProbe) {
         status: "blocked",
         decision: "deny",
         failure: tlsFailureReason,
+        failureCode: tlsFailureCode,
         responseStatus: tlsResponse.status,
         authorized: false,
       };

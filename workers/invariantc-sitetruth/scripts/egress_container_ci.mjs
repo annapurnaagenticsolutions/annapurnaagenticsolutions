@@ -163,19 +163,21 @@ try {
         tls.failure === "default-deny" &&
         tls.responseStatus === 403 &&
         tls.authorized === false;
+      const safeFailureCode = typeof tls.failureCode === "string" && /^[A-Za-z0-9_]{1,64}$/.test(tls.failureCode);
       const tlsProbeFailedClosed =
         tls.status === "blocked" &&
         tls.decision === "deny" &&
         tls.failure === "pinned-tls-probe-failed" &&
         tls.responseStatus === 502 &&
-        tls.authorized === false;
+        tls.authorized === false &&
+        safeFailureCode;
       if (notUntrustedCertificateResult && !exactDefaultDeny && !tlsProbeFailedClosed) {
         throw new Error(`Egress probe returned an unsupported inconclusive result: ${JSON.stringify(tls)}`);
       }
       process.stdout.write(`${JSON.stringify(body)}\n`);
       const tlsSummary = tls.failure === "default-deny"
         ? "The TLS URL was denied by the default-deny policy; the pinned TLS route did not demonstrate a handshake."
-        : `The TLS-only probe failed closed (${tls.failure}).`;
+        : `The TLS-only probe failed closed (${tls.failure}${tls.failureCode ? `: ${tls.failureCode}` : ""}).`;
       process.stdout.write(`All three fixed deny probes PASSED. ${tlsSummary} Positive TLS remains an open release gate.\n`);
     } else {
       if (

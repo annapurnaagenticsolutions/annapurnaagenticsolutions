@@ -73,9 +73,9 @@ test("egress policy rejects nearby paths, query strings, other authorities, and 
   }
 });
 
-test("egress policy returns a generic 502 when TLS evidence is invalid or the probe fails", async (t) => {
+test("egress policy returns generic 502 denials and only safe TLS failure codes", async (t) => {
   const url = `https://${TLS_PROBE_HOSTNAME}${TLS_PROBE_PATH}`;
-  for (const [name, probeTls] of [
+  for (const [name, probeTls, expectedFailureCode] of [
     ["invalid evidence", async () => ({ hostname: TLS_PROBE_HOSTNAME })],
     ["private address evidence", async () => ({
       hostname: TLS_PROBE_HOSTNAME,
@@ -86,13 +86,18 @@ test("egress policy returns a generic 502 when TLS evidence is invalid or the pr
       addressFamily: 4,
       resolvedAddressCount: 1,
     })],
-    ["thrown probe", async () => { throw new Error("sensitive internal detail"); }],
+    ["thrown probe without a safe code", async () => { throw new Error("sensitive internal detail"); }, "unknown"],
+    ["thrown probe with a safe code", async () => { throw Object.assign(new Error("sensitive internal detail"), { code: "ECONNRESET" }); }, "ECONNRESET"],
+    ["thrown probe with an unsafe code", async () => { throw Object.assign(new Error("sensitive internal detail"), { code: "secret path" }); }, "unknown"],
   ]) {
     await t.test(name, async () => {
       const response = await handleOutboundRequest(new Request(url), { probeTls });
       assert.equal(response.status, 502);
       assert.match(response.headers.get("x-sitetruth-egress-reason"), /^pinned-tls-(validation-failed|probe-failed)$/);
       assert.doesNotMatch(await response.text(), /sensitive internal detail/);
+      if (expectedFailureCode) {
+        assert.equal(response.headers.get("x-sitetruth-egress-failure-code"), expectedFailureCode);
+      }
     });
   }
 });
